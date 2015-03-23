@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "LCRefreshTableVC.h"
+#import "ProjectDefine.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [ProjectDefine shareProjectDefine];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     

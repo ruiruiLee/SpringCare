@@ -10,6 +10,7 @@
 #import "define.h"
 #import <AFNetworking.h>
 #import "SBJson.h"
+#import "ProjectDefine.h"
 
 @implementation LCNetWorkBase
 
@@ -30,6 +31,16 @@
     if (method != nil && method.length > 0) {
         path = [SERVER_ADDRESS stringByAppendingString:method];
     }
+    
+    /**
+     * 处理短时间内重复请求
+     **/
+    if ([ProjectDefine searchRequestTag:path]) {
+        return;
+    }else{
+        [ProjectDefine addRequestTag:path];
+    }
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -52,6 +63,8 @@
         }
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        [ProjectDefine removeRequestTag:path];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //服务器请求超时不提示
         
@@ -62,6 +75,8 @@
             [alertView show];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        [ProjectDefine removeRequestTag:path];
     }];
 }
 
@@ -69,6 +84,17 @@
 {
     NSLog(@"%@", url);
     NSString *soapLength = [NSString stringWithFormat:@"%ld", (unsigned long)[params length]];
+    
+    /**
+     * 处理短时间内重复请求
+     **/
+    NSString *path = [NSString stringWithFormat:@"%@%@", url, params];
+    if ([ProjectDefine searchRequestTag:path]) {
+        return;
+    }else{
+        [ProjectDefine addRequestTag:path];
+    }
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
     manager.securityPolicy.allowInvalidCertificates = YES;
@@ -79,38 +105,16 @@
     [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *response = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
+        
+        [ProjectDefine removeRequestTag:path];
         NSLog(@"%@", response);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *response = [[NSString alloc] initWithData:(NSData *)[operation responseObject] encoding:NSUTF8StringEncoding];
+        
+        [ProjectDefine removeRequestTag:path];
         NSLog(@"%@", response);
     }];
     [manager.operationQueue addOperation:operation];
-}
-
-+ (void)getWithUrl:(NSString*)url Completion:(Completion)completion
-{
-    NSLog(@"%@", url);
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
-    manager.securityPolicy.allowInvalidCertificates = YES;
-    NSError *error = nil;
-    NSMutableURLRequest *request = [manager.requestSerializer requestWithMethod:@"GET" URLString:url parameters:nil error:&error];
-    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *response = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", response);
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *response = [[NSString alloc] initWithData:(NSData *)[operation responseObject] encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", response);
-        
-    }];
-    [manager.operationQueue addOperation:operation];
-}
-
-+ (NSString *)dealWithNull:(NSString *)str
-{
-    NSString *result = [str stringByReplacingOccurrencesOfString:@"<null>" withString:@""];
-    return result;
 }
 
 @end
