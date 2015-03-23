@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CFAFA3AF1ABFEC8C0020E774 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3AE1ABFEC8C0020E774 /* main.m */; };
+		CFAFA3B21ABFEC8C0020E774 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3B11ABFEC8C0020E774 /* AppDelegate.m */; };
+		CFAFA3B51ABFEC8C0020E774 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3B41ABFEC8C0020E774 /* ViewController.m */; };
+		CFAFA3B81ABFEC8C0020E774 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFAFA3B61ABFEC8C0020E774 /* Main.storyboard */; };
+		CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */; };
+		CFAFA3BD1ABFEC8C0020E774 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFAFA3BB1ABFEC8C0020E774 /* LaunchScreen.xib */; };
+		CFAFA3C91ABFEC8C0020E774 /* SpringCareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CFAFA3C31ABFEC8C0020E774 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFAFA3A11ABFEC8C0020E774 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFAFA3A81ABFEC8C0020E774;
+			remoteInfo = SpringCare;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpringCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFAFA3AD1ABFEC8C0020E774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFAFA3AE1ABFEC8C0020E774 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CFAFA3B01ABFEC8C0020E774 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CFAFA3B11ABFEC8C0020E774 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CFAFA3B31ABFEC8C0020E774 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		CFAFA3B41ABFEC8C0020E774 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		CFAFA3B71ABFEC8C0020E774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CFAFA3BC1ABFEC8C0020E774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		CFAFA3C21ABFEC8C0020E774 /* SpringCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpringCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFAFA3C71ABFEC8C0020E774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpringCareTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CFAFA3A61ABFEC8C0020E774 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFAFA3BF1ABFEC8C0020E774 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CFAFA3A01ABFEC8C0020E774 = {
+			isa = PBXGroup;
+			children = (
+				CFAFA3AB1ABFEC8C0020E774 /* SpringCare */,
+				CFAFA3C51ABFEC8C0020E774 /* SpringCareTests */,
+				CFAFA3AA1ABFEC8C0020E774 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CFAFA3AA1ABFEC8C0020E774 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */,
+				CFAFA3C21ABFEC8C0020E774 /* SpringCareTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CFAFA3AB1ABFEC8C0020E774 /* SpringCare */ = {
+			isa = PBXGroup;
+			children = (
+				CFAFA3B01ABFEC8C0020E774 /* AppDelegate.h */,
+				CFAFA3B11ABFEC8C0020E774 /* AppDelegate.m */,
+				CFAFA3B31ABFEC8C0020E774 /* ViewController.h */,
+				CFAFA3B41ABFEC8C0020E774 /* ViewController.m */,
+				CFAFA3B61ABFEC8C0020E774 /* Main.storyboard */,
+				CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */,
+				CFAFA3BB1ABFEC8C0020E774 /* LaunchScreen.xib */,
+				CFAFA3AC1ABFEC8C0020E774 /* Supporting Files */,
+			);
+			path = SpringCare;
+			sourceTree = "<group>";
+		};
+		CFAFA3AC1ABFEC8C0020E774 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CFAFA3AD1ABFEC8C0020E774 /* Info.plist */,
+				CFAFA3AE1ABFEC8C0020E774 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CFAFA3C51ABFEC8C0020E774 /* SpringCareTests */ = {
+			isa = PBXGroup;
+			children = (
+				CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */,
+				CFAFA3C61ABFEC8C0020E774 /* Supporting Files */,
+			);
+			path = SpringCareTests;
+			sourceTree = "<group>";
+		};
+		CFAFA3C61ABFEC8C0020E774 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CFAFA3C71ABFEC8C0020E774 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CFAFA3A81ABFEC8C0020E774 /* SpringCare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFAFA3CC1ABFEC8C0020E774 /* Build configuration list for PBXNativeTarget "SpringCare" */;
+			buildPhases = (
+				CFAFA3A51ABFEC8C0020E774 /* Sources */,
+				CFAFA3A61ABFEC8C0020E774 /* Frameworks */,
+				CFAFA3A71ABFEC8C0020E774 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpringCare;
+			productName = SpringCare;
+			productReference = CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CFAFA3C11ABFEC8C0020E774 /* SpringCareTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFAFA3CF1ABFEC8C0020E774 /* Build configuration list for PBXNativeTarget "SpringCareTests" */;
+			buildPhases = (
+				CFAFA3BE1ABFEC8C0020E774 /* Sources */,
+				CFAFA3BF1ABFEC8C0020E774 /* Frameworks */,
+				CFAFA3C01ABFEC8C0020E774 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CFAFA3C41ABFEC8C0020E774 /* PBXTargetDependency */,
+			);
+			name = SpringCareTests;
+			productName = SpringCareTests;
+			productReference = CFAFA3C21ABFEC8C0020E774 /* SpringCareTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CFAFA3A11ABFEC8C0020E774 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = cmkj;
+				TargetAttributes = {
+					CFAFA3A81ABFEC8C0020E774 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					CFAFA3C11ABFEC8C0020E774 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = CFAFA3A81ABFEC8C0020E774;
+					};
+				};
+			};
+			buildConfigurationList = CFAFA3A41ABFEC8C0020E774 /* Build configuration list for PBXProject "SpringCare" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CFAFA3A01ABFEC8C0020E774;
+			productRefGroup = CFAFA3AA1ABFEC8C0020E774 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CFAFA3A81ABFEC8C0020E774 /* SpringCare */,
+				CFAFA3C11ABFEC8C0020E774 /* SpringCareTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CFAFA3A71ABFEC8C0020E774 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFAFA3B81ABFEC8C0020E774 /* Main.storyboard in Resources */,
+				CFAFA3BD1ABFEC8C0020E774 /* LaunchScreen.xib in Resources */,
+				CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFAFA3C01ABFEC8C0020E774 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CFAFA3A51ABFEC8C0020E774 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFAFA3B51ABFEC8C0020E774 /* ViewController.m in Sources */,
+				CFAFA3B21ABFEC8C0020E774 /* AppDelegate.m in Sources */,
+				CFAFA3AF1ABFEC8C0020E774 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFAFA3BE1ABFEC8C0020E774 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFAFA3C91ABFEC8C0020E774 /* SpringCareTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CFAFA3C41ABFEC8C0020E774 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFAFA3A81ABFEC8C0020E774 /* SpringCare */;
+			targetProxy = CFAFA3C31ABFEC8C0020E774 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CFAFA3B61ABFEC8C0020E774 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFAFA3B71ABFEC8C0020E774 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CFAFA3BB1ABFEC8C0020E774 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFAFA3BC1ABFEC8C0020E774 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CFAFA3CA1ABFEC8C0020E774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CFAFA3CB1ABFEC8C0020E774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CFAFA3CD1ABFEC8C0020E774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SpringCare/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CFAFA3CE1ABFEC8C0020E774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SpringCare/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CFAFA3D01ABFEC8C0020E774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SpringCareTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpringCare.app/SpringCare";
+			};
+			name = Debug;
+		};
+		CFAFA3D11ABFEC8C0020E774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SpringCareTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpringCare.app/SpringCare";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CFAFA3A41ABFEC8C0020E774 /* Build configuration list for PBXProject "SpringCare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFAFA3CA1ABFEC8C0020E774 /* Debug */,
+				CFAFA3CB1ABFEC8C0020E774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFAFA3CC1ABFEC8C0020E774 /* Build configuration list for PBXNativeTarget "SpringCare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFAFA3CD1ABFEC8C0020E774 /* Debug */,
+				CFAFA3CE1ABFEC8C0020E774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CFAFA3CF1ABFEC8C0020E774 /* Build configuration list for PBXNativeTarget "SpringCareTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFAFA3D01ABFEC8C0020E774 /* Debug */,
+				CFAFA3D11ABFEC8C0020E774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CFAFA3A11ABFEC8C0020E774 /* Project object */;
+}
