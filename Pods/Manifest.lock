@@ -1,4 +1,25 @@
 PODS:
+  - AFNetworking (2.5.1):
+    - AFNetworking/NSURLConnection (= 2.5.1)
+    - AFNetworking/NSURLSession (= 2.5.1)
+    - AFNetworking/Reachability (= 2.5.1)
+    - AFNetworking/Security (= 2.5.1)
+    - AFNetworking/Serialization (= 2.5.1)
+    - AFNetworking/UIKit (= 2.5.1)
+  - AFNetworking/NSURLConnection (2.5.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.1)
+  - AFNetworking/Security (2.5.1)
+  - AFNetworking/Serialization (2.5.1)
+  - AFNetworking/UIKit (2.5.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - AVOSCloud (3.0.0)
   - AVOSCloudSNS (3.0.0):
     - AVOSCloud
@@ -9,6 +30,7 @@ PODS:
     - FMDB/common
 
 DEPENDENCIES:
+  - AFNetworking (~> 2.0)
   - AVOSCloud (from `https://download.avoscloud.com/sdk/iOS/current/AVOSCloud.podspec`)
   - AVOSCloudSNS (from `https://download.avoscloud.com/sdk/iOS/current/AVOSCloudSNS.podspec`)
   - FMDB
@@ -20,6 +42,7 @@ EXTERNAL SOURCES:
     :podspec: https://download.avoscloud.com/sdk/iOS/current/AVOSCloudSNS.podspec
 
 SPEC CHECKSUMS:
+  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
   AVOSCloud: a0870f3a59a73631ff6cd3837582e9c680bf1a2a
   AVOSCloudSNS: dcf59954227002547f3c761b3f51f9b5a5ee7b5f
   FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677

@@ -17,6 +17,7 @@ pod 'FMDB'
 # pod 'FMDB/standalone/FTS'   # FMDB with latest SQLite amalgamation source and FTS
 # pod 'FMDB/SQLCipher'   # FMDB with SQLCipher
 
+pod"AFNetworking","~>2.0"
 
 end
 

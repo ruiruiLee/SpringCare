@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-SpringCare-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SpringCare-AVOSCloud.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06AA19CD2047CC5514332785</key>
+		<key>101268F6698C21971026DC2A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8CD9BF934E8042E5F3AC50E1</key>
+		<key>30CF427C91B26CF5CDF1AB41</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>99BADE4FD37966C1764DDF2B</key>
+		<key>D2A4D694DC06E72CE4C6E270</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EC54B712A980B400F0F0A76B</key>
+		<key>DE780FA7A2890C3E7A654909</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F37130713E9DD9F740D9BA21</key>
 		<dict>
 			<key>primary</key>
 			<true/>
