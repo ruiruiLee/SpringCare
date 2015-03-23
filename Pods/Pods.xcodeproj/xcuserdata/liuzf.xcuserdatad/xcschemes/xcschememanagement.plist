@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-SpringCare-AVOSCloud.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Pods-SpringCare-AVOSCloudSNS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Pods-SpringCare-FMDB.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Pods-SpringCare.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>06AA19CD2047CC5514332785</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8CD9BF934E8042E5F3AC50E1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>99BADE4FD37966C1764DDF2B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC54B712A980B400F0F0A76B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
