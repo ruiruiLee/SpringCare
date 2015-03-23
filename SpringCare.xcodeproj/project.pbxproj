@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		488F2F7001C8149BE83F6A69 /* libPods-SpringCare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805EC731598B7BB41C3BEADE /* libPods-SpringCare.a */; };
+		5EC3CB895631411D3825C780 /* libPods-SpringCare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */; };
 		8642C8BD1ABFF4D300251921 /* LCRefreshTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C8BC1ABFF4D300251921 /* LCRefreshTableVC.m */; };
 		8642C92C1ABFF53C00251921 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8642C8DD1ABFF53C00251921 /* blackArrow.png */; };
 		8642C92D1ABFF53C00251921 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8642C8DE1ABFF53C00251921 /* blackArrow@2x.png */; };
@@ -57,6 +57,10 @@
 		8642C9951AC017BF00251921 /* LCNetWorkBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9941AC017BF00251921 /* LCNetWorkBase.m */; };
 		8642C9981AC01A7500251921 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9971AC01A7500251921 /* NSString+MD5.m */; };
 		8642C99B1AC01AD600251921 /* ProjectDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C99A1AC01AD600251921 /* ProjectDefine.m */; };
+		CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5021AC01D3900D49415 /* EGORefreshTableHeaderView.m */; };
+		CFA5B50A1AC01D3900D49415 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5041AC01D3900D49415 /* LoadMoreTableFooterView.m */; };
+		CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */; };
+		CFA5B50C1AC01D3900D49415 /* PullTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5081AC01D3900D49415 /* PullTableView.m */; };
 		CFAFA3AF1ABFEC8C0020E774 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3AE1ABFEC8C0020E774 /* main.m */; };
 		CFAFA3B21ABFEC8C0020E774 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3B11ABFEC8C0020E774 /* AppDelegate.m */; };
 		CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */; };
@@ -74,7 +78,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		805EC731598B7BB41C3BEADE /* libPods-SpringCare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpringCare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8367BA91FD77FFAC9DB3F4F7 /* Pods-SpringCare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.release.xcconfig"; sourceTree = "<group>"; };
 		8642C8BB1ABFF4D300251921 /* LCRefreshTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCRefreshTableVC.h; sourceTree = "<group>"; };
 		8642C8BC1ABFF4D300251921 /* LCRefreshTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCRefreshTableVC.m; sourceTree = "<group>"; };
@@ -170,6 +173,15 @@
 		8642C9991AC01AD600251921 /* ProjectDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDefine.h; sourceTree = "<group>"; };
 		8642C99A1AC01AD600251921 /* ProjectDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDefine.m; sourceTree = "<group>"; };
 		883A92A4E690EB1035842EBD /* Pods-SpringCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.debug.xcconfig"; sourceTree = "<group>"; };
+		BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpringCare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFA5B5011AC01D3900D49415 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableHeaderView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/EGORefreshTableHeaderView.h; sourceTree = SOURCE_ROOT; };
+		CFA5B5021AC01D3900D49415 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EGORefreshTableHeaderView.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/EGORefreshTableHeaderView.m; sourceTree = SOURCE_ROOT; };
+		CFA5B5031AC01D3900D49415 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadMoreTableFooterView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/LoadMoreTableFooterView.h; sourceTree = SOURCE_ROOT; };
+		CFA5B5041AC01D3900D49415 /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadMoreTableFooterView.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/LoadMoreTableFooterView.m; sourceTree = SOURCE_ROOT; };
+		CFA5B5051AC01D3900D49415 /* MessageInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageInterceptor.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/MessageInterceptor.h; sourceTree = SOURCE_ROOT; };
+		CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageInterceptor.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/MessageInterceptor.m; sourceTree = SOURCE_ROOT; };
+		CFA5B5071AC01D3900D49415 /* PullTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullTableView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/PullTableView.h; sourceTree = SOURCE_ROOT; };
+		CFA5B5081AC01D3900D49415 /* PullTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullTableView.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/PullTableView.m; sourceTree = SOURCE_ROOT; };
 		CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpringCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFAFA3AD1ABFEC8C0020E774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFAFA3AE1ABFEC8C0020E774 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -186,7 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				488F2F7001C8149BE83F6A69 /* libPods-SpringCare.a in Frameworks */,
+				5EC3CB895631411D3825C780 /* libPods-SpringCare.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,14 +288,14 @@
 		8642C8D91ABFF53C00251921 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8642C9851AC010DE00251921 /* EGORefreshTableHeaderView.h */,
-				8642C9861AC010DE00251921 /* EGORefreshTableHeaderView.m */,
-				8642C9871AC010DE00251921 /* LoadMoreTableFooterView.h */,
-				8642C9881AC010DE00251921 /* LoadMoreTableFooterView.m */,
-				8642C9891AC010DE00251921 /* MessageInterceptor.h */,
-				8642C98A1AC010DE00251921 /* MessageInterceptor.m */,
-				8642C98B1AC010DE00251921 /* PullTableView.h */,
-				8642C98C1AC010DE00251921 /* PullTableView.m */,
+				CFA5B5011AC01D3900D49415 /* EGORefreshTableHeaderView.h */,
+				CFA5B5021AC01D3900D49415 /* EGORefreshTableHeaderView.m */,
+				CFA5B5031AC01D3900D49415 /* LoadMoreTableFooterView.h */,
+				CFA5B5041AC01D3900D49415 /* LoadMoreTableFooterView.m */,
+				CFA5B5051AC01D3900D49415 /* MessageInterceptor.h */,
+				CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */,
+				CFA5B5071AC01D3900D49415 /* PullTableView.h */,
+				CFA5B5081AC01D3900D49415 /* PullTableView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -506,7 +518,7 @@
 		F756FC4AA25ED03FD4567329 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				805EC731598B7BB41C3BEADE /* libPods-SpringCare.a */,
+				BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -672,17 +684,17 @@
 				8642C9391ABFF53C00251921 /* SBJsonStreamParserState.m in Sources */,
 				8642C9471ABFF53C00251921 /* SDWebImageManager.m in Sources */,
 				8642C9361ABFF53C00251921 /* SBJsonStreamParser.m in Sources */,
-				8642C9901AC010DE00251921 /* PullTableView.m in Sources */,
+				CFA5B50C1AC01D3900D49415 /* PullTableView.m in Sources */,
 				8642C9341ABFF53C00251921 /* NSObject+SBJson.m in Sources */,
 				8642C94A1ABFF53C00251921 /* UIImage+GIF.m in Sources */,
-				8642C98D1AC010DE00251921 /* EGORefreshTableHeaderView.m in Sources */,
+				CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */,
 				8642C93C1ABFF53C00251921 /* SBJsonStreamWriterState.m in Sources */,
 				8642C94B1ABFF53C00251921 /* UIImage+MultiFormat.m in Sources */,
 				8642C9651ABFF56500251921 /* LCBaseVC.m in Sources */,
 				8642C9461ABFF53C00251921 /* SDWebImageDownloaderOperation.m in Sources */,
-				8642C98E1AC010DE00251921 /* LoadMoreTableFooterView.m in Sources */,
+				CFA5B50A1AC01D3900D49415 /* LoadMoreTableFooterView.m in Sources */,
 				CFAFA3AF1ABFEC8C0020E774 /* main.m in Sources */,
-				8642C98F1AC010DE00251921 /* MessageInterceptor.m in Sources */,
+				CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */,
 				8642C93B1ABFF53C00251921 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				8642C9441ABFF53C00251921 /* SDWebImageDecoder.m in Sources */,
 				8642C94C1ABFF53C00251921 /* UIImage+WebP.m in Sources */,
