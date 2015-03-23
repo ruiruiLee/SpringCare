@@ -2,8 +2,7 @@
 # platform :ios, '6.0'
 
 target 'SpringCare' do
-platform :ios, '7.0'
-pod "AFNetworking", "~> 2.0"
+pod 'AFNetworking'
 end
 
 target 'SpringCareTests' do
