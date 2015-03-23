@@ -54,6 +54,9 @@
 		8642C98E1AC010DE00251921 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9881AC010DE00251921 /* LoadMoreTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8642C98F1AC010DE00251921 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C98A1AC010DE00251921 /* MessageInterceptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8642C9901AC010DE00251921 /* PullTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C98C1AC010DE00251921 /* PullTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8642C9951AC017BF00251921 /* LCNetWorkBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9941AC017BF00251921 /* LCNetWorkBase.m */; };
+		8642C9981AC01A7500251921 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9971AC01A7500251921 /* NSString+MD5.m */; };
+		8642C99B1AC01AD600251921 /* ProjectDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C99A1AC01AD600251921 /* ProjectDefine.m */; };
 		CFAFA3AF1ABFEC8C0020E774 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3AE1ABFEC8C0020E774 /* main.m */; };
 		CFAFA3B21ABFEC8C0020E774 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3B11ABFEC8C0020E774 /* AppDelegate.m */; };
 		CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */; };
@@ -160,6 +163,12 @@
 		8642C98A1AC010DE00251921 /* MessageInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageInterceptor.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/MessageInterceptor.m; sourceTree = SOURCE_ROOT; };
 		8642C98B1AC010DE00251921 /* PullTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullTableView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/PullTableView.h; sourceTree = SOURCE_ROOT; };
 		8642C98C1AC010DE00251921 /* PullTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullTableView.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/PullTableView.m; sourceTree = SOURCE_ROOT; };
+		8642C9931AC017BF00251921 /* LCNetWorkBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCNetWorkBase.h; sourceTree = "<group>"; };
+		8642C9941AC017BF00251921 /* LCNetWorkBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCNetWorkBase.m; sourceTree = "<group>"; };
+		8642C9961AC01A7500251921 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		8642C9971AC01A7500251921 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		8642C9991AC01AD600251921 /* ProjectDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDefine.h; sourceTree = "<group>"; };
+		8642C99A1AC01AD600251921 /* ProjectDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDefine.m; sourceTree = "<group>"; };
 		883A92A4E690EB1035842EBD /* Pods-SpringCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.debug.xcconfig"; sourceTree = "<group>"; };
 		CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpringCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFAFA3AD1ABFEC8C0020E774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -226,6 +235,12 @@
 		8642C8C11ABFF53100251921 /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
+				8642C9931AC017BF00251921 /* LCNetWorkBase.h */,
+				8642C9941AC017BF00251921 /* LCNetWorkBase.m */,
+				8642C9961AC01A7500251921 /* NSString+MD5.h */,
+				8642C9971AC01A7500251921 /* NSString+MD5.m */,
+				8642C9991AC01AD600251921 /* ProjectDefine.h */,
+				8642C99A1AC01AD600251921 /* ProjectDefine.m */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -642,6 +657,8 @@
 				8642C95E1ABFF55800251921 /* NurseListMainVC.m in Sources */,
 				8642C94E1ABFF53C00251921 /* UIImageView+WebCache.m in Sources */,
 				8642C9371ABFF53C00251921 /* SBJsonStreamParserAccumulator.m in Sources */,
+				8642C9951AC017BF00251921 /* LCNetWorkBase.m in Sources */,
+				8642C9981AC01A7500251921 /* NSString+MD5.m in Sources */,
 				8642C93A1ABFF53C00251921 /* SBJsonStreamWriter.m in Sources */,
 				8642C9531ABFF54C00251921 /* LCNavigationbar.m in Sources */,
 				8642C9411ABFF53C00251921 /* NSData+ImageContentType.m in Sources */,
@@ -676,6 +693,7 @@
 				8642C9401ABFF53C00251921 /* MKAnnotationView+WebCache.m in Sources */,
 				8642C9381ABFF53C00251921 /* SBJsonStreamParserAdapter.m in Sources */,
 				8642C93E1ABFF53C00251921 /* SBJsonUTF8Stream.m in Sources */,
+				8642C99B1AC01AD600251921 /* ProjectDefine.m in Sources */,
 				8642C9421ABFF53C00251921 /* SDImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
