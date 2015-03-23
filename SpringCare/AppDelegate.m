@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "LCRefreshTableVC.h"
 
 @interface AppDelegate ()
 

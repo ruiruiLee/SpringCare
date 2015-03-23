@@ -7,15 +7,16 @@
 //
 
 #import "LCBaseVC.h"
-#import "EGORefreshTableHeaderView.h"
+#import "PullTableView.h"
 
-@interface LCRefreshTableVC : LCBaseVC<EGORefreshTableHeaderDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface LCRefreshTableVC : LCBaseVC<UITableViewDataSource, PullTableViewDelegate>
 {
-    
+    BOOL _reloading;
 }
 
-@property (nonatomic, strong, readonly) EGORefreshTableHeaderView *TableHeader;
-@property (nonatomic, strong, readonly) EGORefreshTableHeaderView *TableFppter;
-@property (nonatomic, strong, readonly) UITableView *ListView;
+@property (nonatomic, strong) PullTableView *pullTableView;
+@property (nonatomic, strong) NSMutableArray *DataList;
+
+- (void) appendDataWithArray:(NSArray*)array;
 
 @end
