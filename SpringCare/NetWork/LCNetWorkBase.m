@@ -35,18 +35,18 @@
     /**
      * 处理短时间内重复请求
      **/
-    if ([ProjectDefine searchRequestTag:path]) {
-        return;
-    }else{
-        [ProjectDefine addRequestTag:path];
-    }
+//    if ([ProjectDefine searchRequestTag:path]) {
+//        return;
+//    }else{
+//        [ProjectDefine addRequestTag:path];
+//    }
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //https
-    manager.securityPolicy.allowInvalidCertificates = YES;
+//    manager.securityPolicy.allowInvalidCertificates = YES;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     
@@ -64,7 +64,7 @@
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
-        [ProjectDefine removeRequestTag:path];
+//        [ProjectDefine removeRequestTag:path];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //服务器请求超时不提示
         
@@ -76,7 +76,7 @@
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
-        [ProjectDefine removeRequestTag:path];
+//        [ProjectDefine removeRequestTag:path];
     }];
 }
 
@@ -88,12 +88,12 @@
     /**
      * 处理短时间内重复请求
      **/
-    NSString *path = [NSString stringWithFormat:@"%@%@", url, params];
-    if ([ProjectDefine searchRequestTag:path]) {
-        return;
-    }else{
-        [ProjectDefine addRequestTag:path];
-    }
+//    NSString *path = [NSString stringWithFormat:@"%@%@", url, params];
+//    if ([ProjectDefine searchRequestTag:path]) {
+//        return;
+//    }else{
+//        [ProjectDefine addRequestTag:path];
+//    }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
@@ -106,12 +106,12 @@
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *response = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
         
-        [ProjectDefine removeRequestTag:path];
+//        [ProjectDefine removeRequestTag:path];
         NSLog(@"%@", response);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *response = [[NSString alloc] initWithData:(NSData *)[operation responseObject] encoding:NSUTF8StringEncoding];
         
-        [ProjectDefine removeRequestTag:path];
+//        [ProjectDefine removeRequestTag:path];
         NSLog(@"%@", response);
     }];
     [manager.operationQueue addOperation:operation];
