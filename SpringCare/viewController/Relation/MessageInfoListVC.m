@@ -1,14 +1,14 @@
 //
-//  NurseListMainVC.m
-//  LovelyCare
+//  MessageInfoListVC.m
+//  SpringCare
 //
-//  Created by LiuZach on 15/3/17.
-//  Copyright (c) 2015年 LiuZach. All rights reserved.
+//  Created by LiuZach on 15/3/26.
+//  Copyright (c) 2015年 cmkj. All rights reserved.
 //
 
-#import "NurseListMainVC.h"
+#import "MessageInfoListVC.h"
 
-@implementation NurseListMainVC
+@implementation MessageInfoListVC
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,7 +23,7 @@
 {
     [super viewDidLoad];
     
-    self.ContentView.backgroundColor = [UIColor greenColor];
+    self.ContentView.backgroundColor = [UIColor grayColor];
 }
 
 @end

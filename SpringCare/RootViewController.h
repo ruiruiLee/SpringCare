@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "LCBaseVC.h"
+#import "HomePageVC.h"
+#import "NurseListMainVC.h"
+#import "MessageInfoListVC.h"
 
-@interface RootViewController : LCBaseVC <UIPageViewControllerDelegate>
+@interface RootViewController : UITabBarController <UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
+@property (strong, nonatomic) HomePageVC *homeVC;
+@property (strong, nonatomic) NurseListMainVC *nurseVC;
+@property (strong, nonatomic) MessageInfoListVC *messageListVC;
 
 @end
 

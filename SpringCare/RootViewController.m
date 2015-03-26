@@ -7,8 +7,6 @@
 //
 
 #import "RootViewController.h"
-//#import "ModelController.h"
-//#import "DataViewController.h"
 #import "SliderViewController.h"
 
 @interface RootViewController ()
@@ -17,34 +15,46 @@
 @end
 
 @implementation RootViewController
+@synthesize nurseVC;
+@synthesize homeVC;
+@synthesize messageListVC;
 
 //@synthesize modelController = _modelController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.ContentView.backgroundColor = [UIColor greenColor];
+    self.view.backgroundColor = [UIColor greenColor];
+    
+//    self.ContentView.backgroundColor = [UIColor greenColor];
     // Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
-//    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-//    self.pageViewController.delegate = self;
-//
-//    DataViewController *startingViewController = [self.modelController viewControllerAtIndex:0 storyboard:self.storyboard];
-//    NSArray *viewControllers = @[startingViewController];
-//    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-//
-//    self.pageViewController.dataSource = self.modelController;
-//
-//    [self addChildViewController:self.pageViewController];
-//    [self.view addSubview:self.pageViewController.view];
-//
-//    // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-//    CGRect pageViewRect = self.view.bounds;
-//    self.pageViewController.view.frame = pageViewRect;
-//
-//    [self.pageViewController didMoveToParentViewController:self];
-//
-//    // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
-//    self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
+    
+    homeVC = [[HomePageVC alloc] initWithNibName:nil bundle:nil];
+    homeVC.tabBarItem.title=@"首页";
+    homeVC.tabBarItem.image=[UIImage imageNamed:@"image-1"];
+    
+    nurseVC = [[NurseListMainVC alloc] initWithNibName:nil bundle:nil];
+    nurseVC.tabBarItem.title=@"护工";
+    nurseVC.tabBarItem.image=[UIImage imageNamed:@"image-1"];
+    
+    messageListVC = [[MessageInfoListVC alloc] initWithNibName:nil bundle:nil];
+    messageListVC.tabBarItem.title=@"陪护时光";
+    messageListVC.tabBarItem.image=[UIImage imageNamed:@"image-1"];
+    
+    self.viewControllers=@[homeVC, nurseVC, messageListVC];
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       [UIColor greenColor], UITextAttributeTextColor,
+                                                    nil] forState:UIControlStateNormal];
+    UIColor *titleHighlightedColor = [UIColor redColor];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       titleHighlightedColor, UITextAttributeTextColor,
+                                                    nil] forState:UIControlStateSelected];
+    
+    UIImageView *tabBarBgView = [[UIImageView alloc] initWithFrame:self.tabBar.bounds];
+    [tabBarBgView setImage:[UIImage imageNamed:@"navBg"]];
+    [tabBarBgView setContentMode:UIViewContentModeScaleToFill];
+    [self.tabBar insertSubview:tabBarBgView atIndex:0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,11 +81,6 @@
 
     self.pageViewController.doubleSided = NO;
     return UIPageViewControllerSpineLocationMin;
-}
-
-- (void) NavLeftButtonClickEvent:(UIButton *)sender
-{
-    [[SliderViewController sharedSliderController] leftItemClick];
 }
 
 @end
