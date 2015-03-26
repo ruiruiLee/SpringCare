@@ -65,6 +65,7 @@
 		8642C9CA1AC3CFB800251921 /* NurseListInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */; };
 		8642C9CD1AC3E99600251921 /* NurseDetailInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9CC1AC3E99600251921 /* NurseDetailInfoVC.m */; };
 		8642C9D01AC4037600251921 /* MessageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9CF1AC4037600251921 /* MessageInfoTableViewCell.m */; };
+		8642C9D71AC428DF00251921 /* MessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9D61AC428DF00251921 /* MessageListModel.m */; };
 		CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5021AC01D3900D49415 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50A1AC01D3900D49415 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5041AC01D3900D49415 /* LoadMoreTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -192,6 +193,8 @@
 		8642C9CC1AC3E99600251921 /* NurseDetailInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseDetailInfoVC.m; sourceTree = "<group>"; };
 		8642C9CE1AC4037600251921 /* MessageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInfoTableViewCell.h; sourceTree = "<group>"; };
 		8642C9CF1AC4037600251921 /* MessageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInfoTableViewCell.m; sourceTree = "<group>"; };
+		8642C9D51AC428DF00251921 /* MessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListModel.h; sourceTree = "<group>"; };
+		8642C9D61AC428DF00251921 /* MessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListModel.m; sourceTree = "<group>"; };
 		883A92A4E690EB1035842EBD /* Pods-SpringCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.debug.xcconfig"; sourceTree = "<group>"; };
 		BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpringCare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFA5B5011AC01D3900D49415 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableHeaderView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/EGORefreshTableHeaderView.h; sourceTree = SOURCE_ROOT; };
@@ -266,8 +269,8 @@
 		8642C8C01ABFF52100251921 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				8642C9D41AC428CF00251921 /* Relation */,
 				8642C9C61AC3CF4500251921 /* NurseInfo */,
-				8642C9C71AC3CF4500251921 /* Relation */,
 				8642C9A61AC04F3A00251921 /* UserModel.h */,
 				8642C9A71AC04F3A00251921 /* UserModel.m */,
 			);
@@ -503,9 +506,11 @@
 			path = NurseInfo;
 			sourceTree = "<group>";
 		};
-		8642C9C71AC3CF4500251921 /* Relation */ = {
+		8642C9D41AC428CF00251921 /* Relation */ = {
 			isa = PBXGroup;
 			children = (
+				8642C9D51AC428DF00251921 /* MessageListModel.h */,
+				8642C9D61AC428DF00251921 /* MessageListModel.m */,
 			);
 			path = Relation;
 			sourceTree = "<group>";
@@ -779,6 +784,7 @@
 				8642C8BD1ABFF4D300251921 /* LCRefreshTableVC.m in Sources */,
 				8642C9451ABFF53C00251921 /* SDWebImageDownloader.m in Sources */,
 				8642C9401ABFF53C00251921 /* MKAnnotationView+WebCache.m in Sources */,
+				8642C9D71AC428DF00251921 /* MessageListModel.m in Sources */,
 				8642C9381ABFF53C00251921 /* SBJsonStreamParserAdapter.m in Sources */,
 				8642C93E1ABFF53C00251921 /* SBJsonUTF8Stream.m in Sources */,
 				8642C9A51AC0283E00251921 /* ProjectDefine.m in Sources */,
