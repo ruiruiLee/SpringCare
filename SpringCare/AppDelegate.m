@@ -10,12 +10,15 @@
 #import "RootViewController.h"
 #import "LCRefreshTableVC.h"
 #import "ProjectDefine.h"
+#import "LCMenuViewController.h"
+#import "SliderViewController.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+@synthesize sliderViewController;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -25,8 +28,18 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    RootViewController *root = [[RootViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:root];
+//    LCMenuViewController *root = [[LCMenuViewController alloc] init];
+    
+    [SliderViewController sharedSliderController].LeftVC=[[LCMenuViewController alloc] init];
+    [SliderViewController sharedSliderController].RightVC=[[LCMenuViewController alloc] init];
+//    [SliderViewController sharedSliderController].RightSContentOffset=260;
+//    [SliderViewController sharedSliderController].RightSContentScale=0.6;
+//    [SliderViewController sharedSliderController].RightSOpenDuration=0.8;
+//    [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
+//    [SliderViewController sharedSliderController].RightSJudgeOffset=160;
+    
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:root];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     self.window.rootViewController = nav;
     
     [self.window makeKeyAndVisible];

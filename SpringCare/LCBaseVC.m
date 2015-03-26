@@ -28,6 +28,7 @@
     
     _NavigationBar = [[LCNavigationbar alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_NavigationBar];
+    _NavigationBar.delegate = self;
     _NavigationBar.translatesAutoresizingMaskIntoConstraints = NO;
     
     _ContentView = [[UIView alloc] initWithFrame:CGRectZero];

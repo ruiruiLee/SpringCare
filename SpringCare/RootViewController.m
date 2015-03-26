@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 //#import "ModelController.h"
 //#import "DataViewController.h"
+#import "SliderViewController.h"
 
 @interface RootViewController ()
 
@@ -21,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.ContentView.backgroundColor = [UIColor greenColor];
     // Do any additional setup after loading the view, typically from a nib.
     // Configure the page view controller and add it as a child view controller.
 //    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -69,6 +71,11 @@
 
     self.pageViewController.doubleSided = NO;
     return UIPageViewControllerSpineLocationMin;
+}
+
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+    [[SliderViewController sharedSliderController] leftItemClick];
 }
 
 @end

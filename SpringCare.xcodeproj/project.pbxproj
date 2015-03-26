@@ -54,6 +54,11 @@
 		8642C9A41AC0283E00251921 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9A01AC0283E00251921 /* NSString+MD5.m */; };
 		8642C9A51AC0283E00251921 /* ProjectDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9A21AC0283E00251921 /* ProjectDefine.m */; };
 		8642C9A81AC04F3A00251921 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9A71AC04F3A00251921 /* UserModel.m */; };
+		8642C9AB1AC25F9200251921 /* LCMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9AA1AC25F9200251921 /* LCMenuViewController.m */; };
+		8642C9B11AC2872400251921 /* SliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9B01AC2872400251921 /* SliderViewController.m */; };
+		8642C9B61AC2956000251921 /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9B51AC2956000251921 /* MenuTableViewCell.m */; };
+		8642C9BC1AC2A8D100251921 /* main_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8642C9BB1AC2A8D100251921 /* main_1@2x.png */; };
+		8642C9BE1AC2A8E600251921 /* btn_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 8642C9BD1AC2A8E600251921 /* btn_right.png */; };
 		CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5021AC01D3900D49415 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50A1AC01D3900D49415 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5041AC01D3900D49415 /* LoadMoreTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -163,6 +168,14 @@
 		8642C9A21AC0283E00251921 /* ProjectDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDefine.m; sourceTree = "<group>"; };
 		8642C9A61AC04F3A00251921 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		8642C9A71AC04F3A00251921 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		8642C9A91AC25F9200251921 /* LCMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCMenuViewController.h; sourceTree = "<group>"; };
+		8642C9AA1AC25F9200251921 /* LCMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCMenuViewController.m; sourceTree = "<group>"; };
+		8642C9AF1AC2872400251921 /* SliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderViewController.h; sourceTree = "<group>"; };
+		8642C9B01AC2872400251921 /* SliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderViewController.m; sourceTree = "<group>"; };
+		8642C9B41AC2956000251921 /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
+		8642C9B51AC2956000251921 /* MenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewCell.m; sourceTree = "<group>"; };
+		8642C9BB1AC2A8D100251921 /* main_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_1@2x.png"; sourceTree = "<group>"; };
+		8642C9BD1AC2A8E600251921 /* btn_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_right.png; sourceTree = "<group>"; };
 		883A92A4E690EB1035842EBD /* Pods-SpringCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.debug.xcconfig"; sourceTree = "<group>"; };
 		BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpringCare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFA5B5011AC01D3900D49415 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableHeaderView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/EGORefreshTableHeaderView.h; sourceTree = SOURCE_ROOT; };
@@ -217,6 +230,10 @@
 			children = (
 				8642C8BB1ABFF4D300251921 /* LCRefreshTableVC.h */,
 				8642C8BC1ABFF4D300251921 /* LCRefreshTableVC.m */,
+				8642C9A91AC25F9200251921 /* LCMenuViewController.h */,
+				8642C9AA1AC25F9200251921 /* LCMenuViewController.m */,
+				8642C9AF1AC2872400251921 /* SliderViewController.h */,
+				8642C9B01AC2872400251921 /* SliderViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -224,6 +241,8 @@
 		8642C8BF1ABFF51100251921 /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				8642C9BD1AC2A8E600251921 /* btn_right.png */,
+				8642C9BB1AC2A8D100251921 /* main_1@2x.png */,
 			);
 			path = PNG;
 			sourceTree = "<group>";
@@ -390,6 +409,7 @@
 		8642C9501ABFF54C00251921 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				8642C9B31AC2952B00251921 /* TableViewCell */,
 				8642C9511ABFF54C00251921 /* LCNavigationbar.h */,
 				8642C9521ABFF54C00251921 /* LCNavigationbar.m */,
 			);
@@ -437,6 +457,15 @@
 			children = (
 			);
 			path = UserCenter;
+			sourceTree = "<group>";
+		};
+		8642C9B31AC2952B00251921 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8642C9B41AC2956000251921 /* MenuTableViewCell.h */,
+				8642C9B51AC2956000251921 /* MenuTableViewCell.m */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		CFAFA3A01ABFEC8C0020E774 = {
@@ -600,7 +629,9 @@
 			files = (
 				8642C9301ABFF53C00251921 /* grayArrow.png in Resources */,
 				CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */,
+				8642C9BE1AC2A8E600251921 /* btn_right.png in Resources */,
 				8642C92C1ABFF53C00251921 /* blackArrow.png in Resources */,
+				8642C9BC1AC2A8D100251921 /* main_1@2x.png in Resources */,
 				8642C92F1ABFF53C00251921 /* blueArrow@2x.png in Resources */,
 				8642C92D1ABFF53C00251921 /* blackArrow@2x.png in Resources */,
 				8642C9321ABFF53C00251921 /* whiteArrow.png in Resources */,
@@ -668,11 +699,13 @@
 				8642C9531ABFF54C00251921 /* LCNavigationbar.m in Sources */,
 				8642C9411ABFF53C00251921 /* NSData+ImageContentType.m in Sources */,
 				8642C9351ABFF53C00251921 /* SBJsonParser.m in Sources */,
+				8642C9B11AC2872400251921 /* SliderViewController.m in Sources */,
 				8642C9491ABFF53C00251921 /* UIButton+WebCache.m in Sources */,
 				8642C95D1ABFF55800251921 /* HomePageVC.m in Sources */,
 				8642C9481ABFF53C00251921 /* SDWebImagePrefetcher.m in Sources */,
 				8642C9A81AC04F3A00251921 /* UserModel.m in Sources */,
 				8642C9641ABFF56500251921 /* RootViewController.m in Sources */,
+				8642C9B61AC2956000251921 /* MenuTableViewCell.m in Sources */,
 				8642C93D1ABFF53C00251921 /* SBJsonTokeniser.m in Sources */,
 				8642C94D1ABFF53C00251921 /* UIImageView+HighlightedWebCache.m in Sources */,
 				8642C9391ABFF53C00251921 /* SBJsonStreamParserState.m in Sources */,
@@ -680,6 +713,7 @@
 				8642C9361ABFF53C00251921 /* SBJsonStreamParser.m in Sources */,
 				CFA5B50C1AC01D3900D49415 /* PullTableView.m in Sources */,
 				8642C9341ABFF53C00251921 /* NSObject+SBJson.m in Sources */,
+				8642C9AB1AC25F9200251921 /* LCMenuViewController.m in Sources */,
 				8642C94A1ABFF53C00251921 /* UIImage+GIF.m in Sources */,
 				CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */,
 				8642C93C1ABFF53C00251921 /* SBJsonStreamWriterState.m in Sources */,
