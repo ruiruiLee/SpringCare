@@ -28,16 +28,9 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-//    LCMenuViewController *root = [[LCMenuViewController alloc] init];
     [SliderViewController sharedSliderController].LeftVC=[[LCMenuViewController alloc] init];
     [SliderViewController sharedSliderController].RightVC=[[LCMenuViewController alloc] init];
-//    [SliderViewController sharedSliderController].RightSContentOffset=260;
-//    [SliderViewController sharedSliderController].RightSContentScale=0.6;
-//    [SliderViewController sharedSliderController].RightSOpenDuration=0.8;
-//    [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
-//    [SliderViewController sharedSliderController].RightSJudgeOffset=160;
     
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:root];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     self.window.rootViewController = nav;
     

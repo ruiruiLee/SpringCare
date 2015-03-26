@@ -62,6 +62,9 @@
 		8642C9C11AC3A6E200251921 /* MessageInfoListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9C01AC3A6E200251921 /* MessageInfoListVC.m */; };
 		8642C9C31AC3B43600251921 /* image-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8642C9C21AC3B43600251921 /* image-1.png */; };
 		8642C9C51AC3B83900251921 /* navBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8642C9C41AC3B83900251921 /* navBg@2x.png */; };
+		8642C9CA1AC3CFB800251921 /* NurseListInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */; };
+		8642C9CD1AC3E99600251921 /* NurseDetailInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9CC1AC3E99600251921 /* NurseDetailInfoVC.m */; };
+		8642C9D01AC4037600251921 /* MessageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9CF1AC4037600251921 /* MessageInfoTableViewCell.m */; };
 		CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5021AC01D3900D49415 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50A1AC01D3900D49415 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5041AC01D3900D49415 /* LoadMoreTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -183,6 +186,12 @@
 		8642C9C01AC3A6E200251921 /* MessageInfoListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInfoListVC.m; sourceTree = "<group>"; };
 		8642C9C21AC3B43600251921 /* image-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-1.png"; sourceTree = "<group>"; };
 		8642C9C41AC3B83900251921 /* navBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBg@2x.png"; sourceTree = "<group>"; };
+		8642C9C81AC3CFB800251921 /* NurseListInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseListInfoModel.h; sourceTree = "<group>"; };
+		8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseListInfoModel.m; sourceTree = "<group>"; };
+		8642C9CB1AC3E99600251921 /* NurseDetailInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseDetailInfoVC.h; sourceTree = "<group>"; };
+		8642C9CC1AC3E99600251921 /* NurseDetailInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseDetailInfoVC.m; sourceTree = "<group>"; };
+		8642C9CE1AC4037600251921 /* MessageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInfoTableViewCell.h; sourceTree = "<group>"; };
+		8642C9CF1AC4037600251921 /* MessageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInfoTableViewCell.m; sourceTree = "<group>"; };
 		883A92A4E690EB1035842EBD /* Pods-SpringCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.debug.xcconfig"; sourceTree = "<group>"; };
 		BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpringCare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFA5B5011AC01D3900D49415 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableHeaderView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/EGORefreshTableHeaderView.h; sourceTree = SOURCE_ROOT; };
@@ -257,6 +266,8 @@
 		8642C8C01ABFF52100251921 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				8642C9C61AC3CF4500251921 /* NurseInfo */,
+				8642C9C71AC3CF4500251921 /* Relation */,
 				8642C9A61AC04F3A00251921 /* UserModel.h */,
 				8642C9A71AC04F3A00251921 /* UserModel.m */,
 			);
@@ -448,6 +459,8 @@
 			children = (
 				8642C9591ABFF55800251921 /* NurseListMainVC.h */,
 				8642C95A1ABFF55800251921 /* NurseListMainVC.m */,
+				8642C9CB1AC3E99600251921 /* NurseDetailInfoVC.h */,
+				8642C9CC1AC3E99600251921 /* NurseDetailInfoVC.m */,
 			);
 			path = NurseInfo;
 			sourceTree = "<group>";
@@ -475,8 +488,26 @@
 			children = (
 				8642C9B41AC2956000251921 /* MenuTableViewCell.h */,
 				8642C9B51AC2956000251921 /* MenuTableViewCell.m */,
+				8642C9CE1AC4037600251921 /* MessageInfoTableViewCell.h */,
+				8642C9CF1AC4037600251921 /* MessageInfoTableViewCell.m */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		8642C9C61AC3CF4500251921 /* NurseInfo */ = {
+			isa = PBXGroup;
+			children = (
+				8642C9C81AC3CFB800251921 /* NurseListInfoModel.h */,
+				8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */,
+			);
+			path = NurseInfo;
+			sourceTree = "<group>";
+		};
+		8642C9C71AC3CF4500251921 /* Relation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Relation;
 			sourceTree = "<group>";
 		};
 		CFAFA3A01ABFEC8C0020E774 = {
@@ -724,6 +755,8 @@
 				8642C9C11AC3A6E200251921 /* MessageInfoListVC.m in Sources */,
 				8642C9391ABFF53C00251921 /* SBJsonStreamParserState.m in Sources */,
 				8642C9471ABFF53C00251921 /* SDWebImageManager.m in Sources */,
+				8642C9D01AC4037600251921 /* MessageInfoTableViewCell.m in Sources */,
+				8642C9CD1AC3E99600251921 /* NurseDetailInfoVC.m in Sources */,
 				8642C9361ABFF53C00251921 /* SBJsonStreamParser.m in Sources */,
 				CFA5B50C1AC01D3900D49415 /* PullTableView.m in Sources */,
 				8642C9341ABFF53C00251921 /* NSObject+SBJson.m in Sources */,
@@ -741,6 +774,7 @@
 				8642C9441ABFF53C00251921 /* SDWebImageDecoder.m in Sources */,
 				8642C94C1ABFF53C00251921 /* UIImage+WebP.m in Sources */,
 				8642C9431ABFF53C00251921 /* SDWebImageCompat.m in Sources */,
+				8642C9CA1AC3CFB800251921 /* NurseListInfoModel.m in Sources */,
 				8642C93F1ABFF53C00251921 /* SBJsonWriter.m in Sources */,
 				8642C8BD1ABFF4D300251921 /* LCRefreshTableVC.m in Sources */,
 				8642C9451ABFF53C00251921 /* SDWebImageDownloader.m in Sources */,

@@ -47,6 +47,10 @@
     _NavigationBar.Title = @"对方很高";
 }
 
+- (void)didReceiveMemoryWarning{
+    [super didReceiveMemoryWarning];
+}
+
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
@@ -54,7 +58,8 @@
 #pragma LCNavigationbarDelegate
 - (void) NavLeftButtonClickEvent:(UIButton *)sender
 {
-    [self.navigationController pushViewController:self animated:YES];
+//    [self.navigationController pushViewController:self animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) NavRightButtonClickEvent:(UIButton *)sender

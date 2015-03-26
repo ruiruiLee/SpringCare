@@ -7,7 +7,16 @@
 //
 
 #import "LCBaseVC.h"
+#import "PullTableView.h"
 
-@interface MessageInfoListVC : LCBaseVC
+@interface MessageInfoListVC : LCBaseVC<UITableViewDataSource, PullTableViewDelegate, UITableViewDelegate>
+{
+    BOOL _reloading;
+}
+
+@property (nonatomic, strong) PullTableView *pullTableView;
+@property (nonatomic, strong) NSMutableArray *DataList;
+
+- (void) appendDataWithArray:(NSArray*)array;
 
 @end
