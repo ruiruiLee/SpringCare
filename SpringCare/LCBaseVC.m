@@ -47,6 +47,10 @@
     _NavigationBar.Title = @"对方很高";
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma LCNavigationbarDelegate
 - (void) NavLeftButtonClickEvent:(UIButton *)sender
 {

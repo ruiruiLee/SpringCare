@@ -64,6 +64,10 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)setDataList:(NSMutableArray *)list
 {
     DataList = list;

@@ -29,7 +29,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
 //    LCMenuViewController *root = [[LCMenuViewController alloc] init];
-    
     [SliderViewController sharedSliderController].LeftVC=[[LCMenuViewController alloc] init];
     [SliderViewController sharedSliderController].RightVC=[[LCMenuViewController alloc] init];
 //    [SliderViewController sharedSliderController].RightSContentOffset=260;

@@ -96,6 +96,10 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
     _tapGestureRec.enabled = NO;
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - Init
 
 - (void)initSubviews
