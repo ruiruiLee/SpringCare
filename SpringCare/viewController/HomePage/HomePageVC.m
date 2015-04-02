@@ -8,6 +8,7 @@
 
 #import "HomePageVC.h"
 #import "SliderViewController.h"
+#import "LoginVC.h"
 
 @implementation HomePageVC
 
@@ -25,6 +26,11 @@
     [super viewDidLoad];
     
     self.ContentView.backgroundColor = [UIColor redColor];
+    
+    LoginVC *login = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController presentViewController:login animated:YES completion:^{
+        
+    }];
 }
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender
