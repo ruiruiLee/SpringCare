@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    EnumValueTypeUnknown,
+    EnumValueTypeiPhone4S,
+    EnumValueTypeiPhone5,
+    EnumValueTypeiPhone6,
+    EnumValueTypeiPhone6P,
+} EnDeviceType;
+
 @interface NSStrUtil : NSObject
 
 //+ (NSString *) getStoryNameByUrl:(NSString*) url;
@@ -21,6 +29,8 @@
 + (BOOL)isMobileNumber:(NSString *)mobileNum;
 
 + (NSString *)trimString:(NSString *) str;
+
++ (EnDeviceType) GetCurrentDeviceType;
 
 @end
 

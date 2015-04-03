@@ -31,32 +31,34 @@
     
     homeVC = [[HomePageVC alloc] initWithNibName:nil bundle:nil];
     homeVC.tabBarItem.title=@"首页";
-    homeVC.tabBarItem.image=[UIImage imageNamed:@"image-1"];
+    homeVC.tabBarItem.image=[UIImage imageNamed:@"tab-home-selected"];
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:homeVC];
     
     nurseVC = [[NurseListMainVC alloc] initWithNibName:nil bundle:nil];
     nurseVC.tabBarItem.title=@"护工";
-    nurseVC.tabBarItem.image=[UIImage imageNamed:@"image-1"];
+    nurseVC.tabBarItem.image=[UIImage imageNamed:@"tab-nurse"];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:nurseVC];
     
     messageListVC = [[MessageInfoListVC alloc] initWithNibName:nil bundle:nil];
     messageListVC.tabBarItem.title=@"陪护时光";
-    messageListVC.tabBarItem.image=[UIImage imageNamed:@"image-1"];
+//    messageListVC.tabBarItem.image=[UIImage imageNamed:@"tab-lovetime"];
+    [messageListVC.tabBarItem setImage:[UIImage imageNamed:@"tab-lovetime"]];
+    [messageListVC.tabBarItem setSelectedImage:[UIImage imageNamed:@"tab-lovetime"]];
     UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:messageListVC];
     
     self.viewControllers=@[nav1, nav2, nav3];
     
+    UIColor *normalColor = Disabled_Color;
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       [UIColor greenColor], UITextAttributeTextColor,
+                                                       normalColor, UITextAttributeTextColor,
                                                     nil] forState:UIControlStateNormal];
-    UIColor *titleHighlightedColor = [UIColor redColor];
+    UIColor *titleHighlightedColor = Abled_Color;
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                        titleHighlightedColor, UITextAttributeTextColor,
                                                     nil] forState:UIControlStateSelected];
     
     UIImageView *tabBarBgView = [[UIImageView alloc] initWithFrame:self.tabBar.bounds];
-    [tabBarBgView setImage:[UIImage imageNamed:@"navBg"]];
-    [tabBarBgView setContentMode:UIViewContentModeScaleToFill];
+    tabBarBgView.backgroundColor = _COLOR(0xe5, 0xe4, 0xe5);
     [self.tabBar insertSubview:tabBarBgView atIndex:0];
 }
 

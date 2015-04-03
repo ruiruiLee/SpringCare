@@ -15,11 +15,11 @@
 {
     self = [super initWithFrame:frame];
     if(self){
-        self.backgroundColor = _COLOR(74, 165, 229);//_COLOR(56, 145, 226);
+        self.backgroundColor = Abled_Color;//_COLOR(56, 145, 226);
         
         _btnLeft = [[UIButton alloc] initWithFrame:CGRectZero];
         [self addSubview:_btnLeft];
-        _btnLeft.backgroundColor = [UIColor redColor];
+        _btnLeft.backgroundColor = [UIColor clearColor];
         [_btnLeft addTarget:self action:@selector(HandleLeftButtonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
         _btnLeft.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -32,7 +32,6 @@
         [self addSubview:_lbTitle];
         _lbTitle.backgroundColor = [UIColor clearColor];
         _lbTitle.font = _FONT_B(20);
-//        _lbTitle.font = _FONT(20);
         _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
         _lbTitle.textAlignment = NSTextAlignmentCenter;
         _lbTitle.textColor = [UIColor whiteColor];

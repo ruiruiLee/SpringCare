@@ -7,7 +7,25 @@
 //
 
 #import "LCBaseVC.h"
+#import "AdScrollView.h"
+#import "MainBaseVC.h"
 
-@interface HomePageVC : LCBaseVC
+
+@interface HomePageVC : MainBaseVC
+{
+    AdScrollView *_banner;
+    
+    UIButton *btnIntro;
+    UILabel *underLine;
+    UILabel *line;
+    UIButton *btnCommitment;
+    UILabel *underLineCommit;
+    UIButton *btnHospital;
+    UIButton *btnHome;
+    UIButton *btnRing;
+    UIImageView *imgRing;
+    UILabel *lbPhone;
+    UIImageView *imgIden;
+}
 
 @end

@@ -28,8 +28,8 @@
 #define Content_Width [UIScreen mainScreen].bounds.size.width - 80
 
 //
-#define Disabled_Color  [UIColor colorWithRed:(210)/255.0 green:(210)/255.0 blue:(210)/255.0 alpha:1]
-#define Abled_Color  [UIColor colorWithRed:(30)/255.0 green:(156)/255.0 blue:(91)/255.0 alpha:1]
+#define Disabled_Color  _COLOR(0x8f, 0x8f, 0x97)
+#define Abled_Color  [UIColor colorWithRed:(0x27)/255.0 green:(0xa6)/255.0 blue:(0x69)/255.0 alpha:1]
 
 
 #endif

@@ -53,7 +53,7 @@
      * 手机号码
      * 移动：134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188
      * 联通：130,131,132,152,155,156,185,186
-     * 电信：133,1349,153,180,189
+     * 电信：133,134,153,180,189
      */
     NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[0125-9])\\d{8}$";
     /**
@@ -136,6 +136,29 @@ UIColor* colorFromHexRGB(NSString *inColorString){
     return result;
 }
 
++ (EnDeviceType) GetCurrentDeviceType
+{
+    EnDeviceType type = EnumValueTypeUnknown;
+    
+    if([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+    {
+        type = EnumValueTypeiPhone5;
+    }
+    else if([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size)) : NO)
+    {
+        type = EnumValueTypeiPhone6;
+    }
+    else if([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(1125, 2001), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size)) : NO)
+    {
+        type = EnumValueTypeiPhone6P;
+    }
+    else if ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+    {
+        type = EnumValueTypeiPhone4S;
+    }
+    return type;
+}
+
 @end
 
 @implementation NSString (MyExtensions)
@@ -167,4 +190,5 @@ UIColor* colorFromHexRGB(NSString *inColorString){
             result[12], result[13], result[14], result[15]
             ];
 }
+
 @end
