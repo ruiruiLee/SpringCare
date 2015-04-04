@@ -26,6 +26,11 @@
     UIImageView *imgRing;
     UILabel *lbPhone;
     UIImageView *imgIden;
+    
 }
+
+@property(nonatomic,strong) NSArray *cityArr;
+@property(nonatomic,strong) NSArray *areaArr;
+@property(nonatomic,strong) NSArray *currentAreaArr;
 
 @end
