@@ -34,18 +34,18 @@
     [self.btnLeft setImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
     self.NavigationBar.alpha = 0.9f;
     
-    activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 62, 30)];
+    activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 74, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
     [activityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [activityBtn setTitle:@"附近" forState:UIControlStateNormal];
-    [activityBtn setImage:[UIImage imageNamed:@"expandableImage"] forState:UIControlStateNormal];
-    activityBtn.imageEdgeInsets = UIEdgeInsetsMake(11, 52, 11, 0);
+    [activityBtn setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
+    activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 58, 5, 0);
     [activityBtn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:activityBtn];
     activityBtn.translatesAutoresizingMaskIntoConstraints = NO;
     NSDictionary *views = NSDictionaryOfVariableBindings(self.btnRight, activityBtn);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[activityBtn(62)]-10-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[activityBtn(74)]-10-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[activityBtn(30)]->=10-|" options:0 metrics:nil views:views]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:activityBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.btnRight attribute:NSLayoutAttributeCenterY multiplier:1 constant:2]];
     

@@ -21,6 +21,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
         _model = [[NurseListInfoModel alloc] init];
+        _SearchConditionStr = @"";
     }
     return self;
 }
@@ -31,6 +32,16 @@
     
     self.lbTitle.text = @"护工";
     [self.btnLeft setImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
+    
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width
+                                                                           , 44)];
+    searchBar.placeholder = @"搜索";
+    searchBar.delegate = self;
+    [searchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    [searchBar sizeToFit];
+    searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.view addSubview:searchBar];
     
     pullTableView = [[PullTableView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:pullTableView];
@@ -45,12 +56,15 @@
     [pullTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     UIView *view = self.NavigationBar;
-    NSDictionary *views = NSDictionaryOfVariableBindings(pullTableView, self.ContentView, view);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(64)]-0-[pullTableView]-49-|" options:0 metrics:nil views:views]];
+    NSDictionary *views = NSDictionaryOfVariableBindings(pullTableView, self.ContentView, view, searchBar);
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(64)]-0-[searchBar(44)]-0-[pullTableView]-49-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[searchBar]-0-|" options:0 metrics:nil views:views]];
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     pullTableView.tableFooterView = footer;
+    
+//    pullTableView.tableHeaderView = searchBar;
     
     [_model loadNurseDataWithPage:0];
     self.DataList = [NurseListInfoModel nurseListModel];
@@ -182,6 +196,33 @@
     
     [pullTableView reloadData];
     
+}
+
+#pragma mark - UISearchDisplayController delegate methods
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    NSLog(@"%@", searchText);
+    NSString *searchStr = searchText;
+    if(searchStr == nil || [searchStr isKindOfClass:[NSNull class]])
+        searchStr = @"";
+    if([_SearchConditionStr isEqual:searchStr])
+        return;
+    
+    //    [pullTableView reloadData];
+    [self refreshTable];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)_searchBar
+{
+    NSString *searchStr = _searchBar.text;
+    if(searchStr == nil || [searchStr isKindOfClass:[NSNull class]])
+        searchStr = @"";
+    if([_SearchConditionStr isEqual:searchStr])
+        return;
+    
+//    [pullTableView reloadData];
+    [self refreshTable];
 }
 
 @end

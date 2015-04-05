@@ -10,7 +10,19 @@
 
 @interface LCMenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 {
+    UIImageView *_imgViewBg;
     UITableView *tableview;
+    
+    UIImageView *_photoBg;
+    UIImageView *_photoImgView;
+    UIButton *_btnUserName;
+    UIImageView *_imgUnflod;
+    
+    NSArray *unflodConstraints;
+    UIImageView *_headerView;
+    
+    UIImageView *_imgLogo;
+    UIButton *_btnHotLine;
 }
 
 @end

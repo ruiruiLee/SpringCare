@@ -15,17 +15,22 @@
 @synthesize lbContent;
 @synthesize imgIcon;
 @synthesize imgUnflod;
+@synthesize separatorLine;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        self.contentView.backgroundColor = [UIColor clearColor];
+        
         // Initialization code
         lbContent = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:lbContent];
         lbContent.translatesAutoresizingMaskIntoConstraints = NO;
         lbContent.backgroundColor = [UIColor clearColor];
-        lbContent.backgroundColor = [UIColor greenColor];
+        lbContent.textColor = [UIColor whiteColor];
+        lbContent.font = _FONT(17);
         
         imgIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:imgIcon];
@@ -34,13 +39,24 @@
         imgUnflod = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:imgUnflod];
         imgUnflod.translatesAutoresizingMaskIntoConstraints = NO;
+        imgUnflod.hidden = YES;
+        
+        separatorLine = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:separatorLine];
+        separatorLine.backgroundColor = _COLOR(180, 180, 180);
+        separatorLine.translatesAutoresizingMaskIntoConstraints = NO;
 
-        NSDictionary *views = NSDictionaryOfVariableBindings(lbContent, imgUnflod, imgIcon);
-        NSString *format = [NSString stringWithFormat:@"H:|-20-[imgIcon]-10-[lbContent]->=10-[imgUnflod]-%f-|", ScreenWidth + 10 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+        NSDictionary *views = NSDictionaryOfVariableBindings(lbContent, imgUnflod, imgIcon, separatorLine);
+        NSString *format = [NSString stringWithFormat:@"H:|-25-[imgIcon]-12-[lbContent]->=10-[imgUnflod]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
+//        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIcon(32)]->=0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:imgIcon attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:lbContent attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:imgIcon attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:imgUnflod attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:imgIcon attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[separatorLine(0.76)]-0-|" options:0 metrics:nil views:views]];
+        NSString *sepFormat = [NSString stringWithFormat:@"H:|-30-[separatorLine]-%f-|", ScreenWidth + 25 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:sepFormat options:0 metrics:nil views:views]];
     }
     return self;
 }
@@ -77,17 +93,5 @@
     lbContent.text = content;
 }
 
-
-// 自绘分割线
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGContextFillRect(context, rect);
-    
-    CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:0xE2/255.0f green:0xE2/255.0f blue:0xE2/255.0f alpha:1].CGColor);
-    CGContextStrokeRect(context, CGRectMake(0, rect.size.height - 1, rect.size.width, 1));
-}
 
 @end

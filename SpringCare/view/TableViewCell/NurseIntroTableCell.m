@@ -99,7 +99,7 @@
 
 - (void) SetContentData:(NurseListInfoModel*) model
 {
-    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.photoUrl] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.photoUrl] placeholderImage:Place_Holder_Image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
     

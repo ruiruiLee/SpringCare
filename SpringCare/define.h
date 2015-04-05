@@ -31,5 +31,11 @@
 #define Disabled_Color  _COLOR(0x8f, 0x8f, 0x97)
 #define Abled_Color  [UIColor colorWithRed:(0x27)/255.0 green:(0xa6)/255.0 blue:(0x69)/255.0 alpha:1]
 
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+#define Place_Holder_Image  nil//[UIImage imageNamed:@""]
+
+#define Photo_Place_Holder_Image  nil
+
 
 #endif

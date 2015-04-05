@@ -11,10 +11,14 @@
 #import "NurseListInfoModel.h"
 #import "NurseIntroTableCell.h"
 
-@interface NurseListMainVC : MainBaseVC<UITableViewDataSource, PullTableViewDelegate, UITableViewDelegate>
+@interface NurseListMainVC : MainBaseVC<UITableViewDataSource, PullTableViewDelegate, UITableViewDelegate, UISearchBarDelegate>
 {
     BOOL _reloading;
     NurseListInfoModel *_model;
+    
+    UISearchBar *searchBar;
+    
+    NSString *_SearchConditionStr;
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;

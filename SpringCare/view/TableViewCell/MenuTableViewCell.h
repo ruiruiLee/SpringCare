@@ -14,5 +14,6 @@
 @property (nonatomic, strong) UILabel *lbContent;
 @property (nonatomic, strong) UIImageView *imgIcon;
 @property (nonatomic, strong) UIImageView *imgUnflod;
+@property (nonatomic, strong) UILabel *separatorLine;
 
 @end
