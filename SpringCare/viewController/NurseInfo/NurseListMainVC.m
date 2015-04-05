@@ -8,10 +8,13 @@
 
 #import "NurseListMainVC.h"
 #import "NurseDetailInfoVC.h"
+#import "SliderViewController.h"
+#import "NurseIntroTableCell.h"
 
 @implementation NurseListMainVC
 @synthesize pullTableView;
 @synthesize DataList;
+@synthesize prototypeCell;
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,8 +29,11 @@
 {
     [super viewDidLoad];
     
+    self.lbTitle.text = @"护工";
+    [self.btnLeft setImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
+    
     pullTableView = [[PullTableView alloc] initWithFrame:CGRectZero];
-    [self.ContentView addSubview:pullTableView];
+    [self.view addSubview:pullTableView];
     pullTableView.rowHeight = UITableViewAutomaticDimension;//启用预估行高度
     pullTableView.estimatedRowHeight = 100.0f;
     pullTableView.dataSource = self;
@@ -38,9 +44,10 @@
     self.pullTableView.pullTextColor = [UIColor blackColor];
     [pullTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(pullTableView, self.ContentView);
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
+    UIView *view = self.NavigationBar;
+    NSDictionary *views = NSDictionaryOfVariableBindings(pullTableView, self.ContentView, view);
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(64)]-0-[pullTableView]-49-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     pullTableView.tableFooterView = footer;
@@ -83,6 +90,11 @@
     [pullTableView reloadData];
 }
 
+- (void) LeftButtonClicked:(id)sender
+{
+    [[SliderViewController sharedSliderController] leftItemClick];
+}
+
 #pragma UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -91,12 +103,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    NurseIntroTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[NurseIntroTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     
-    cell.textLabel.text = ((NurseListInfoModel*)[DataList objectAtIndex:indexPath.row]).name;
+//    cell.textLabel.text = ((NurseListInfoModel*)[DataList objectAtIndex:indexPath.row]).name;
+    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
+    [cell SetContentData:model];
     
     return cell;
 }
@@ -109,7 +123,19 @@
 #pragma UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    if(prototypeCell == nil){
+        prototypeCell = [[NurseIntroTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        prototypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    NurseListInfoModel *data = [DataList objectAtIndex:indexPath.row];
+    NurseIntroTableCell *cell = (NurseIntroTableCell *)self.prototypeCell;
+    [cell SetContentData:data];
+    
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    
+    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return 1  + size.height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

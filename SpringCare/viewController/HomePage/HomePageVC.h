@@ -9,9 +9,10 @@
 #import "LCBaseVC.h"
 #import "AdScrollView.h"
 #import "MainBaseVC.h"
+#import "CityListSelectVC.h"
 
 
-@interface HomePageVC : MainBaseVC
+@interface HomePageVC : MainBaseVC<CityListSelectVCDelegate>
 {
     AdScrollView *_banner;
     
@@ -27,6 +28,8 @@
     UILabel *lbPhone;
     UIImageView *imgIden;
     
+    
+    UIButton *activityBtn;
 }
 
 @property(nonatomic,strong) NSArray *cityArr;

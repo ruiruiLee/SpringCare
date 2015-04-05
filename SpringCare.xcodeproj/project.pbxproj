@@ -101,6 +101,10 @@
 		86C0954F1ACE637C00371BF3 /* expandableImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C0954E1ACE637C00371BF3 /* expandableImage@2x.png */; };
 		86C095521ACE6D0E00371BF3 /* CityListSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095511ACE6D0E00371BF3 /* CityListSelectVC.m */; };
 		86C095551ACFB93700371BF3 /* CityListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095541ACFB93700371BF3 /* CityListCell.m */; };
+		86C095581AD0D8F800371BF3 /* NurseIntroTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095571AD0D8F800371BF3 /* NurseIntroTableCell.m */; };
+		86C0955B1AD0DAF400371BF3 /* GradeInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0955A1AD0DAF400371BF3 /* GradeInfoView.m */; };
+		86C0955F1AD0E02700371BF3 /* b27_icon_star_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C0955D1AD0E02700371BF3 /* b27_icon_star_gray@2x.png */; };
+		86C095601AD0E02700371BF3 /* b27_icon_star_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C0955E1AD0E02700371BF3 /* b27_icon_star_yellow@2x.png */; };
 		CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5021AC01D3900D49415 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50A1AC01D3900D49415 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5041AC01D3900D49415 /* LoadMoreTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -287,6 +291,12 @@
 		86C095511ACE6D0E00371BF3 /* CityListSelectVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListSelectVC.m; sourceTree = "<group>"; };
 		86C095531ACFB93700371BF3 /* CityListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListCell.h; sourceTree = "<group>"; };
 		86C095541ACFB93700371BF3 /* CityListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListCell.m; sourceTree = "<group>"; };
+		86C095561AD0D8F800371BF3 /* NurseIntroTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseIntroTableCell.h; sourceTree = "<group>"; };
+		86C095571AD0D8F800371BF3 /* NurseIntroTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseIntroTableCell.m; sourceTree = "<group>"; };
+		86C095591AD0DAF400371BF3 /* GradeInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeInfoView.h; sourceTree = "<group>"; };
+		86C0955A1AD0DAF400371BF3 /* GradeInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeInfoView.m; sourceTree = "<group>"; };
+		86C0955D1AD0E02700371BF3 /* b27_icon_star_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b27_icon_star_gray@2x.png"; sourceTree = "<group>"; };
+		86C0955E1AD0E02700371BF3 /* b27_icon_star_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b27_icon_star_yellow@2x.png"; sourceTree = "<group>"; };
 		883A92A4E690EB1035842EBD /* Pods-SpringCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.debug.xcconfig"; sourceTree = "<group>"; };
 		BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpringCare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFA5B5011AC01D3900D49415 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableHeaderView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/EGORefreshTableHeaderView.h; sourceTree = SOURCE_ROOT; };
@@ -352,6 +362,7 @@
 		8642C8BF1ABFF51100251921 /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				86C0955C1AD0E01A00371BF3 /* NurseList */,
 				86C0953B1ACD5C6A00371BF3 /* image0.png */,
 				86C0953C1ACD5C6A00371BF3 /* image1.png */,
 				86C0953D1ACD5C6A00371BF3 /* image2.png */,
@@ -534,6 +545,8 @@
 				86C095341ACD5AB500371BF3 /* AdDataModel.m */,
 				86C095361ACD5AB500371BF3 /* AdScrollView.h */,
 				86C095371ACD5AB500371BF3 /* AdScrollView.m */,
+				86C095591AD0DAF400371BF3 /* GradeInfoView.h */,
+				86C0955A1AD0DAF400371BF3 /* GradeInfoView.m */,
 				8642C9B31AC2952B00251921 /* TableViewCell */,
 				8642C9511ABFF54C00251921 /* LCNavigationbar.h */,
 				8642C9521ABFF54C00251921 /* LCNavigationbar.m */,
@@ -635,6 +648,8 @@
 				8642C9CF1AC4037600251921 /* MessageInfoTableViewCell.m */,
 				86C095531ACFB93700371BF3 /* CityListCell.h */,
 				86C095541ACFB93700371BF3 /* CityListCell.m */,
+				86C095561AD0D8F800371BF3 /* NurseIntroTableCell.h */,
+				86C095571AD0D8F800371BF3 /* NurseIntroTableCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -782,6 +797,15 @@
 				86C095231ACD472F00371BF3 /* tab-nurse@2x.png */,
 			);
 			path = tabbar;
+			sourceTree = "<group>";
+		};
+		86C0955C1AD0E01A00371BF3 /* NurseList */ = {
+			isa = PBXGroup;
+			children = (
+				86C0955D1AD0E02700371BF3 /* b27_icon_star_gray@2x.png */,
+				86C0955E1AD0E02700371BF3 /* b27_icon_star_yellow@2x.png */,
+			);
+			path = NurseList;
 			sourceTree = "<group>";
 		};
 		CFAFA3A01ABFEC8C0020E774 = {
@@ -950,6 +974,7 @@
 				CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */,
 				86C095401ACD5C6A00371BF3 /* image1.png in Resources */,
 				8642C9BE1AC2A8E600251921 /* btn_right.png in Resources */,
+				86C095601AD0E02700371BF3 /* b27_icon_star_yellow@2x.png in Resources */,
 				8642C92C1ABFF53C00251921 /* blackArrow.png in Resources */,
 				86C0954F1ACE637C00371BF3 /* expandableImage@2x.png in Resources */,
 				86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */,
@@ -964,6 +989,7 @@
 				86C095241ACD472F00371BF3 /* call@2x.png in Resources */,
 				86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */,
 				8642C9C51AC3B83900251921 /* navBg@2x.png in Resources */,
+				86C0955F1AD0E02700371BF3 /* b27_icon_star_gray@2x.png in Resources */,
 				86C095421ACD5C6A00371BF3 /* image3.png in Resources */,
 				86C095271ACD472F00371BF3 /* nav-person@2x.png in Resources */,
 				86C095251ACD472F00371BF3 /* hospital@2x.png in Resources */,
@@ -1055,6 +1081,7 @@
 				8642C9471ABFF53C00251921 /* SDWebImageManager.m in Sources */,
 				8642C9D01AC4037600251921 /* MessageInfoTableViewCell.m in Sources */,
 				8642C9CD1AC3E99600251921 /* NurseDetailInfoVC.m in Sources */,
+				86C095581AD0D8F800371BF3 /* NurseIntroTableCell.m in Sources */,
 				8642C9361ABFF53C00251921 /* SBJsonStreamParser.m in Sources */,
 				CFA5B50C1AC01D3900D49415 /* PullTableView.m in Sources */,
 				8642C9341ABFF53C00251921 /* NSObject+SBJson.m in Sources */,
@@ -1074,6 +1101,7 @@
 				CFAFA3AF1ABFEC8C0020E774 /* main.m in Sources */,
 				CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */,
 				8642C93B1ABFF53C00251921 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				86C0955B1AD0DAF400371BF3 /* GradeInfoView.m in Sources */,
 				86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */,
 				8642C9441ABFF53C00251921 /* SDWebImageDecoder.m in Sources */,
 				8642C94C1ABFF53C00251921 /* UIImage+WebP.m in Sources */,

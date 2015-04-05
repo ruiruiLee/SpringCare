@@ -19,7 +19,7 @@
         
         _btnLeft = [[UIButton alloc] initWithFrame:CGRectZero];
         [self addSubview:_btnLeft];
-        _btnLeft.backgroundColor = [UIColor clearColor];
+        _btnLeft.backgroundColor = [UIColor redColor];
         [_btnLeft addTarget:self action:@selector(HandleLeftButtonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
         _btnLeft.translatesAutoresizingMaskIntoConstraints = NO;
         

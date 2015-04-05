@@ -18,6 +18,10 @@
 @property (nonatomic, assign) int comment;
 @property (nonatomic, strong) NSString *simpleIntro;
 @property (nonatomic, strong) NSString *detailIntro;
+@property (nonatomic, assign) BOOL isHavecert;
+@property (nonatomic, strong) NSString *photoUrl;
+@property (nonatomic, assign) NSInteger score;
+@property (nonatomic, assign) NSInteger price;
 
 /**
  * 通过页数来获取数据

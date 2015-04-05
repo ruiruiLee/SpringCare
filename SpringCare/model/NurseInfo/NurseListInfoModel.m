@@ -19,6 +19,8 @@ static NSMutableArray *nurseList = nil;
 @synthesize detailIntro;
 @synthesize mobile;
 @synthesize comment;
+@synthesize photoUrl;
+@synthesize isHavecert;
 
 + (NSMutableArray*)nurseListModel
 {
@@ -33,9 +35,9 @@ static NSMutableArray *nurseList = nil;
     self = [super init];
     if(self){
         self.nurseId = @"1001";
-        self.name = @"abcd";
+        self.name = @"张君宝";
         self.address = @"abcd";
-        self.simpleIntro = @"abcd";
+        self.simpleIntro = @"的法国海军风格和结核杆菌复古回家个回家复古回家复古回家复古回家复古回家复古回家";
         self.detailIntro = @"abcd";
         self.mobile = @"abcd";
         self.comment = 1;

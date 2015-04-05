@@ -14,7 +14,6 @@
 //#import "sys/utsname.h"
 #import "NSStrUtil.h"
 //#import "LoginVC.h"
-#import "CityListSelectVC.h"
 
 @implementation HomePageVC
 
@@ -35,7 +34,7 @@
     [self.btnLeft setImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
     self.NavigationBar.alpha = 0.9f;
     
-    UIButton *activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 62, 30)];
+    activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 62, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
     [activityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [activityBtn setTitle:@"附近" forState:UIControlStateNormal];
@@ -56,7 +55,9 @@
 - (void) btnPressed:(UIButton*) sender
 {
     CityListSelectVC *vc = [[CityListSelectVC alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController presentViewController:vc animated:YES completion:^{
+    vc.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:nav animated:YES completion:^{
         
     }];
 }
@@ -343,5 +344,13 @@
 //    NSString *platform = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
 //    return platform;
 //}
+
+#pragma CityListSelectVCDelegate
+
+- (void) NotifyCitySelectedWithData:(NSDictionary*) data
+{
+    NSString *city = @"成都";
+    [activityBtn setTitle:city forState:UIControlStateNormal];
+}
 
 @end

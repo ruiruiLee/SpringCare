@@ -11,6 +11,7 @@
 #import "CityListCell.h"
 
 @implementation CityListSelectVC
+@synthesize delegate;
 
 - (void) viewDidLoad
 {
@@ -33,6 +34,13 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview);
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+}
+
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 #pragma UITableViewDataSource
@@ -96,7 +104,14 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
+    {
+        [delegate NotifyCitySelectedWithData:nil];
+    }
     
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (void) BeginLocation
