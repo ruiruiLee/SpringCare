@@ -54,7 +54,7 @@
  *
  *  @return menu
  */
-- (instancetype)initWithOrigin:(CGPoint)origin andHeight:(CGFloat)height andWidth:(CGFloat)width;
+- (instancetype)initWithOrigin:(CGPoint)origin andHeight:(CGFloat)height;
 - (NSString *)titleForRowAtIndexPath:(DOPIndexPath *)indexPath;
 
 @end

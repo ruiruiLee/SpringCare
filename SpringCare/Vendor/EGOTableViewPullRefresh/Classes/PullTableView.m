@@ -146,6 +146,7 @@
     } else if(pullTableIsRefreshing && !isRefreshing) {
         [refreshView egoRefreshScrollViewDataSourceDidFinishedLoading:self];
         pullTableIsRefreshing = NO;
+        isRefreshing = NO;
     }
 }
 

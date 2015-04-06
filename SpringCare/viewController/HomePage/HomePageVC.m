@@ -65,7 +65,7 @@
 - (void) initWithSubviews
 {
     //广告
-    AdScrollView * scrollView = [[AdScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 213)];
+    AdScrollView * scrollView = [[AdScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 187 + 64)];
     AdDataModel * dataModel = [AdDataModel adDataModelWithImageNameAndAdTitleArray];
     //如果滚动视图的父视图由导航控制器控制,必须要设置该属性(ps,猜测这是为了正常显示,导航控制器内部设置了UIEdgeInsetsMake(64, 0, 0, 0))
     scrollView.imageNameArray = dataModel.imageNameArray;
@@ -80,17 +80,17 @@
     btnIntro = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnIntro];
     btnIntro.translatesAutoresizingMaskIntoConstraints = NO;
-    [btnIntro setTitleColor:dark forState:UIControlStateNormal];
+    [btnIntro setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
     [btnIntro setTitle:@"护理介绍" forState:UIControlStateNormal];
     btnIntro.titleLabel.font = _FONT(11);
     
     underLine = [[UILabel alloc] initWithFrame:CGRectZero];
-    underLine.backgroundColor = dark;
+    underLine.backgroundColor = _COLOR(0x66, 0x66, 0x6);
     [btnIntro addSubview:underLine];
     underLine.translatesAutoresizingMaskIntoConstraints = NO;
     
     line = [[UILabel alloc] initWithFrame:CGRectZero];
-    line.backgroundColor = dark;
+    line.backgroundColor = _COLOR(0x66, 0x66, 0x66);
     [self.ContentView addSubview:line];
     line.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -98,12 +98,12 @@
     [self.ContentView addSubview:btnCommitment];
     [btnCommitment setTitleColor:dark forState:UIControlStateNormal];
     btnCommitment.translatesAutoresizingMaskIntoConstraints = NO;
-    [btnCommitment setTitleColor:dark forState:UIControlStateNormal];
-    [btnCommitment setTitle:@"服务承若" forState:UIControlStateNormal];
+    [btnCommitment setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
+    [btnCommitment setTitle:@"服务承诺" forState:UIControlStateNormal];
     btnCommitment.titleLabel.font = _FONT(11);
     
     underLineCommit = [[UILabel alloc] initWithFrame:CGRectZero];
-    underLineCommit.backgroundColor = dark;
+    underLineCommit.backgroundColor = _COLOR(0x66, 0x66, 0x66);
     [btnCommitment addSubview:underLineCommit];
     underLineCommit.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -120,7 +120,7 @@
     btnRing = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnRing];
     btnRing.translatesAutoresizingMaskIntoConstraints = NO;
-    btnRing.backgroundColor = dark;
+    btnRing.backgroundColor = _COLOR(0x66, 0x66, 0x66);
     btnRing.layer.cornerRadius = 8;
     
     imgRing = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -135,11 +135,12 @@
     lbPhone.textAlignment = NSTextAlignmentCenter;
     lbPhone.textColor = [UIColor whiteColor];
     lbPhone.font = _FONT(20);
-    lbPhone.text = @"400 888 888";
+    lbPhone.text = @"400-626-8787";
     
     imgIden = [[UIImageView alloc] initWithFrame:CGRectZero];
     [btnRing addSubview:imgIden];
     imgIden.translatesAutoresizingMaskIntoConstraints = NO;
+    imgIden.image = [UIImage imageNamed:@"shut"];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(btnIntro, line, btnCommitment, btnHospital, btnHome, btnRing, imgRing, lbPhone, imgIden, underLine, underLineCommit);
     
@@ -246,40 +247,43 @@
 {
     CGFloat oh = _banner.frame.size.height;
     
-    btnIntro.titleLabel.font = _FONT(14);
-    btnCommitment.titleLabel.font = _FONT(14);
-    lbPhone.font = _FONT(22);
+    btnIntro.titleLabel.font = _FONT(13);
+    btnCommitment.titleLabel.font = _FONT(13);
+    lbPhone.font = _FONT(24);
+    btnRing.layer.cornerRadius = 10;
     
-    NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(24)]->=10-|", oh + 26];
+    NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(24)]->=10-|", oh + 26 - 7];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
     
-    NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(11)]->=10-|", oh + 33];
+    NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(11)]->=10-|", oh + 33 - 7];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:lineHformat options:0 metrics:nil views:views]];
     
-    NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(24)]->=10-|", oh + 26];
+    NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(24)]->=10-|", oh + 26 -7];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:commentHformat options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(24)]-59-[btnHospital(124)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(24)]-59-[btnHome(124)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(124)]-42-[btnHome(124)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(124)]-62-[btnRing(60)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnRing(260)]->=0-|" options:0 metrics:nil views:views]];
+    NSString *hospitalHFormat = [NSString stringWithFormat:@"V:|-%f-[btnHospital(135.5)]->=0-|", oh + 87];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:hospitalHFormat options:0 metrics:nil views:views]];
+    NSString *homeHFormat = [NSString stringWithFormat:@"V:|-%f-[btnHome(135.5)]->=0-|", oh + 87];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:homeHFormat options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(135.5)]-36-[btnHome(135.5)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(135.5)]-47-[btnRing]-89-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-59.5-[btnRing]-59.5-|" options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(76)]-0-[line(1.2)]-0-[btnCommitment(76)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(70)]-0-[line(1.2)]-0-[btnCommitment(70)]->=0-|" options:0 metrics:nil views:views]];
     
     [btnIntro addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[underLine]-9-|" options:0 metrics:nil views:views]];
-    [btnIntro addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLine(0.7)]-2-|" options:0 metrics:nil views:views]];
+    [btnIntro addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLine(0.8)]-2-|" options:0 metrics:nil views:views]];
     [btnCommitment addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-9-[underLineCommit]-9-|" options:0 metrics:nil views:views]];
-    [btnCommitment addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLineCommit(0.7)]-2-|" options:0 metrics:nil views:views]];
+    [btnCommitment addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLineCommit(0.8)]-2-|" options:0 metrics:nil views:views]];
     
     [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnHospital attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-83]];
     
     [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnRing attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[imgRing(35)]-5-[lbPhone]-5-[imgIden(25)]-20-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(32.5)]->=0-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(32.5)]->=0-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(32.5)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[imgRing(41)]-5-[lbPhone]-5-[imgIden(11)]-22-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(41)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(41)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(14)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:lbPhone attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgIden attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -352,5 +356,7 @@
     NSString *city = @"成都";
     [activityBtn setTitle:city forState:UIControlStateNormal];
 }
+
+
 
 @end

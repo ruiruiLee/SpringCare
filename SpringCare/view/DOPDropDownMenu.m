@@ -121,9 +121,9 @@
 }
 
 #pragma mark - init method
-- (instancetype)initWithOrigin:(CGPoint)origin andHeight:(CGFloat)height andWidth:(CGFloat)width {
+- (instancetype)initWithOrigin:(CGPoint)origin andHeight:(CGFloat)height{
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    self = [self initWithFrame:CGRectMake(origin.x, origin.y, width, height)];
+    self = [self initWithFrame:CGRectMake(origin.x, origin.y, screenSize.width, height)];
     if (self) {
         _origin = origin;
         _currentSelectedMenudIndex = -1;

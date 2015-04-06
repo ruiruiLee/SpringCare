@@ -16,7 +16,6 @@
     UIImageView *_photoBg;
     UIImageView *_photoImgView;
     UIButton *_btnUserName;
-    UIImageView *_imgUnflod;
     
     NSArray *unflodConstraints;
     UIImageView *_headerView;

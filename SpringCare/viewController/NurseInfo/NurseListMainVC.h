@@ -10,8 +10,9 @@
 #import "PullTableView.h"
 #import "NurseListInfoModel.h"
 #import "NurseIntroTableCell.h"
+#import "DOPDropDownMenu.h"
 
-@interface NurseListMainVC : MainBaseVC<UITableViewDataSource, PullTableViewDelegate, UITableViewDelegate, UISearchBarDelegate>
+@interface NurseListMainVC : MainBaseVC<UITableViewDataSource, PullTableViewDelegate, UITableViewDelegate, UISearchBarDelegate, DOPDropDownMenuDataSource, DOPDropDownMenuDelegate>
 {
     BOOL _reloading;
     NurseListInfoModel *_model;
@@ -24,6 +25,10 @@
 @property (nonatomic, strong) PullTableView *pullTableView;
 @property (nonatomic, strong) NSMutableArray *DataList;
 @property (nonatomic, strong) NurseIntroTableCell *prototypeCell;
+
+@property (nonatomic, copy) NSArray *citys;
+@property (nonatomic, copy) NSArray *ages;
+@property (nonatomic, copy) NSArray *genders;
 
 - (void) appendDataWithArray:(NSArray*)array;
 

@@ -127,14 +127,12 @@
 
 - (void) refreshTable
 {
-    NSLog(@"refreshTable");
     self.pullTableView.pullLastRefreshDate = [NSDate date];
     self.pullTableView.pullTableIsRefreshing = NO;
 }
 
 - (void) loadMoreDataToTable
 {
-    NSLog(@"loadMoreDataToTable");
     self.pullTableView.pullTableIsLoadingMore = NO;
 }
 

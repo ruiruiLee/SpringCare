@@ -68,6 +68,15 @@
     
     [_model loadNurseDataWithPage:0];
     self.DataList = [NurseListInfoModel nurseListModel];
+    
+    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
+    menu.dataSource = self;
+    menu.delegate = self;
+    [self.view addSubview:menu];
+    
+    self.citys = @[@"价格"];
+    self.ages = @[@"年龄"];
+    self.genders = @[@"好评"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -183,6 +192,19 @@
     NSLog(@"refreshTable");
     self.pullTableView.pullLastRefreshDate = [NSDate date];
     self.pullTableView.pullTableIsRefreshing = NO;
+    
+    NSArray *familys = [UIFont familyNames];
+    
+    for (int i = 0; i < [familys count]; i++)
+    {
+        NSString *family = [familys objectAtIndex:i];
+        NSLog(@"=====Fontfamily:%@", family);
+        NSArray *fonts = [UIFont fontNamesForFamilyName:family];
+        for(int j = 0; j < [fonts count]; j++)
+        {
+            NSLog(@"***FontName:%@", [fonts objectAtIndex:j]);
+        }
+    }
 }
 
 - (void) loadMoreDataToTable
@@ -210,7 +232,8 @@
         return;
     
     //    [pullTableView reloadData];
-    [self refreshTable];
+    self.pullTableView.pullTableIsRefreshing = YES;
+//    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)_searchBar
@@ -222,7 +245,74 @@
         return;
     
 //    [pullTableView reloadData];
-    [self refreshTable];
+    self.pullTableView.pullTableIsRefreshing = YES;
+//    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
 }
+
+- (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
+    return 3;
+}
+
+- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
+    return 1;
+}
+
+- (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
+    switch (indexPath.column) {
+        case 0: return self.citys[indexPath.row];
+            break;
+        case 1: return self.genders[indexPath.row];
+            break;
+        case 2: return self.ages[indexPath.row];
+
+            break;
+        default:
+            return nil;
+            break;
+    }
+}
+
+- (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
+    NSLog(@"column:%li row:%li", (long)indexPath.column, (long)indexPath.row);
+    NSLog(@"%@",[menu titleForRowAtIndexPath:indexPath]);
+    NSString *title = [menu titleForRowAtIndexPath:indexPath];
+    
+    static NSString *prediStr1 = @"SELF LIKE '*'",
+    *prediStr2 = @"SELF LIKE '*'",
+    *prediStr3 = @"SELF LIKE '*'";
+    switch (indexPath.column) {
+        case 0:{
+            if (indexPath.row == 0) {
+                prediStr1 = @"SELF LIKE '*'";
+            } else {
+                prediStr1 = [NSString stringWithFormat:@"SELF CONTAINS '%@'", title];
+            }
+        }
+            break;
+        case 1:{
+            if (indexPath.row == 0) {
+                prediStr2 = @"SELF LIKE '*'";
+            } else {
+                prediStr2 = [NSString stringWithFormat:@"SELF CONTAINS '%@'", title];
+            }
+        }
+            break;
+        case 2:{
+            if (indexPath.row == 0) {
+                prediStr3 = @"SELF LIKE '*'";
+            } else {
+                prediStr3 = [NSString stringWithFormat:@"SELF CONTAINS '%@'", title];
+            }
+        }
+            
+        default:
+            break;
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ AND %@ AND %@",prediStr1,prediStr2,prediStr3]];
+    
+//    self.results = [self.originalArray filteredArrayUsingPredicate:predicate];
+//    [self.tableView reloadData];
+}
+
 
 @end

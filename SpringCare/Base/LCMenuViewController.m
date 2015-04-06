@@ -35,7 +35,7 @@
     _imgViewBg.translatesAutoresizingMaskIntoConstraints = NO;
     
     _headerView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _headerView.frame = CGRectMake(0, 0, ScreenWidth, 160);
+    _headerView.frame = CGRectMake(0, 0, ScreenWidth, 240);
     
     _photoBg = [[UIImageView alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_photoBg];
@@ -51,23 +51,22 @@
     _btnUserName = [[UIButton alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_btnUserName];
     _btnUserName.translatesAutoresizingMaskIntoConstraints = NO;
-    _btnUserName.titleLabel.font = _FONT(17);
+    _btnUserName.titleLabel.font = _FONT(16);
+    [_btnUserName setTitle:@"1368888888888888888" forState:UIControlStateNormal];
     [_btnUserName setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _btnUserName.imageEdgeInsets = UIEdgeInsetsMake(6, 136, 8, 0);
+    _btnUserName.titleEdgeInsets = UIEdgeInsetsMake(7, 0, 7, 14);
+    [_btnUserName setImage:[UIImage imageNamed:@"usercentershut"] forState:UIControlStateNormal];
+    _btnUserName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
-    _imgUnflod = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [_headerView addSubview:_imgUnflod];
-    _imgUnflod.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    NSDictionary *headerViews = NSDictionaryOfVariableBindings(_photoBg, _photoImgView, _btnUserName, _imgUnflod);
-    NSString *format = [NSString stringWithFormat:@"H:|-15-[_photoBg(80)]-5-[_btnUserName]->=10-[_imgUnflod]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+    NSDictionary *headerViews = NSDictionaryOfVariableBindings(_photoBg, _photoImgView, _btnUserName);
+    NSString *format = [NSString stringWithFormat:@"H:|-20-[_photoBg(93)]->=5-[_btnUserName(148)]-%f-|", ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
     unflodConstraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:headerViews];
     [_headerView addConstraints:unflodConstraints];
-    [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_photoBg(80)]->=0-|" options:0 metrics:nil views:headerViews]];
+    [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnUserName(30)]->=0-|" options:0 metrics:nil views:headerViews]];
-    [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgUnflod(30)]->=0-|" options:0 metrics:nil views:headerViews]];
-    [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_photoBg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_headerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:10]];
-    [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_btnUserName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_headerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:10]];
-    [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_imgUnflod attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_headerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:10]];
+//    [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_photoBg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_headerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:10]];
+    [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_btnUserName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_photoBg attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[_photoImgView]-4-|" options:0 metrics:nil views:headerViews]];
     [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[_photoImgView]-4-|" options:0 metrics:nil views:headerViews]];
     
@@ -101,17 +100,17 @@
     [self.view addSubview:_btnHotLine];
     _btnHotLine.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnHotLine setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _btnHotLine.titleLabel.font = _FONT(16);
-    _btnHotLine.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 0);
+    _btnHotLine.titleLabel.font = _FONT(14);
+    _btnHotLine.imageEdgeInsets = UIEdgeInsetsMake(4, 0, 6, 0);
     [_btnHotLine setImage:[UIImage imageNamed:@"usercenterring"] forState:UIControlStateNormal];
-    [_btnHotLine setTitle:@"400 888 888" forState:UIControlStateNormal];
+    [_btnHotLine setTitle:@"400-626-8787" forState:UIControlStateNormal];
     
     
     NSDictionary *footViews = NSDictionaryOfVariableBindings(_imgLogo, _btnHotLine);
-    NSString *footFormat = [NSString stringWithFormat:@"H:|-10-[_imgLogo(94)]->=10-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+    NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(110)]-24-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(35)]-20-|" options:0 metrics:nil views:footViews]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(35)]-20-|" options:0 metrics:nil views:footViews]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(39)]-61.5-|" options:0 metrics:nil views:footViews]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
 }
 
 #pragma UITableViewDataSource
@@ -122,7 +121,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 70;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -155,7 +154,6 @@
         cell.lbContent.text = @"设置";
         cell.separatorLine.hidden = YES;
     }
-    cell.imgUnflod.image = [UIImage imageNamed:@"main_1"];
     return cell;
 }
 

@@ -29,8 +29,8 @@
         [self.contentView addSubview:lbContent];
         lbContent.translatesAutoresizingMaskIntoConstraints = NO;
         lbContent.backgroundColor = [UIColor clearColor];
-        lbContent.textColor = [UIColor whiteColor];
-        lbContent.font = _FONT(17);
+        lbContent.textColor = _COLOR(0xff, 0xff, 0xff);
+        lbContent.font = _FONT(16);
         
         imgIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:imgIcon];
@@ -39,23 +39,24 @@
         imgUnflod = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:imgUnflod];
         imgUnflod.translatesAutoresizingMaskIntoConstraints = NO;
-        imgUnflod.hidden = YES;
+        imgUnflod.image = [UIImage imageNamed:@"usercentershut"];
         
         separatorLine = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:separatorLine];
-        separatorLine.backgroundColor = _COLOR(180, 180, 180);
+        separatorLine.backgroundColor = _COLOR(0xd7, 0xd7, 0xd7);
         separatorLine.translatesAutoresizingMaskIntoConstraints = NO;
 
         NSDictionary *views = NSDictionaryOfVariableBindings(lbContent, imgUnflod, imgIcon, separatorLine);
-        NSString *format = [NSString stringWithFormat:@"H:|-25-[imgIcon]-12-[lbContent]->=10-[imgUnflod]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+        NSString *format = [NSString stringWithFormat:@"H:|-39-[imgIcon]-16-[lbContent]->=10-[imgUnflod(12)]-%f-|", ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
 //        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIcon(32)]->=0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:imgIcon attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:lbContent attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:imgIcon attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:imgUnflod attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:imgIcon attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgUnflod(16)]->=0-|" options:0 metrics:nil views:views]];
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[separatorLine(0.76)]-0-|" options:0 metrics:nil views:views]];
-        NSString *sepFormat = [NSString stringWithFormat:@"H:|-30-[separatorLine]-%f-|", ScreenWidth + 25 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+        NSString *sepFormat = [NSString stringWithFormat:@"H:|-39-[separatorLine]-%f-|", ScreenWidth + 25 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:sepFormat options:0 metrics:nil views:views]];
     }
     return self;

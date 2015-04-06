@@ -31,7 +31,7 @@
         _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
         [self addSubview:_lbTitle];
         _lbTitle.backgroundColor = [UIColor clearColor];
-        _lbTitle.font = _FONT_B(20);
+        _lbTitle.font = _FONT(21);
         _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
         _lbTitle.textAlignment = NSTextAlignmentCenter;
         _lbTitle.textColor = [UIColor whiteColor];

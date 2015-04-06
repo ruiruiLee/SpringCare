@@ -32,18 +32,19 @@
     homeVC = [[HomePageVC alloc] initWithNibName:nil bundle:nil];
     homeVC.tabBarItem.title=@"首页";
     homeVC.tabBarItem.image=[UIImage imageNamed:@"tab-home-selected"];
+    [homeVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:homeVC];
     
     nurseVC = [[NurseListMainVC alloc] initWithNibName:nil bundle:nil];
     nurseVC.tabBarItem.title=@"护工";
     nurseVC.tabBarItem.image=[UIImage imageNamed:@"tab-nurse"];
+    [nurseVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:nurseVC];
     
     messageListVC = [[MessageInfoListVC alloc] initWithNibName:nil bundle:nil];
     messageListVC.tabBarItem.title=@"陪护时光";
-//    messageListVC.tabBarItem.image=[UIImage imageNamed:@"tab-lovetime"];
     [messageListVC.tabBarItem setImage:[UIImage imageNamed:@"tab-lovetime"]];
-    [messageListVC.tabBarItem setSelectedImage:[UIImage imageNamed:@"tab-lovetime"]];
+    [messageListVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:messageListVC];
     
     self.viewControllers=@[nav1, nav2, nav3];
@@ -56,6 +57,13 @@
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                        titleHighlightedColor, UITextAttributeTextColor,
                                                     nil] forState:UIControlStateSelected];
+    [[UITabBar appearance] setTintColor:Abled_Color];//UITextAttributeFont
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       _FONT(12), UITextAttributeFont,
+                                                       nil] forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       _FONT(12), UITextAttributeFont,
+                                                       nil] forState:UIControlStateSelected];
     
     UIImageView *tabBarBgView = [[UIImageView alloc] initWithFrame:self.tabBar.bounds];
     tabBarBgView.backgroundColor = _COLOR(0xe5, 0xe4, 0xe5);
@@ -66,15 +74,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//- (ModelController *)modelController {
-//    // Return the model controller object, creating it if necessary.
-//    // In more complex implementations, the model controller may be passed to the view controller.
-//    if (!_modelController) {
-//        _modelController = [[ModelController alloc] init];
-//    }
-//    return _modelController;
-//}
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;

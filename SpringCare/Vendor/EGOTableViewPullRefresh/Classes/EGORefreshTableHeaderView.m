@@ -228,13 +228,14 @@
 
 
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView {	
-    
-	if (_state == EGOOPullLoading) {
+    //TODO:
+	if (_state == EGOOPullLoading /*&& !isRefreshing*/) {
 		CGFloat offset = MAX(scrollView.contentOffset.y * -1, 0);
 		offset = MIN(offset, PULL_AREA_HEIGTH);
         UIEdgeInsets currentInsets = scrollView.contentInset;
         currentInsets.top = offset;
         scrollView.contentInset = currentInsets;
+        NSLog(@"egoRefreshScrollViewDidScroll1:%f", currentInsets.top);
 		
 	} else if (scrollView.isDragging) {
 		if (_state == EGOOPullPulling && scrollView.contentOffset.y > -PULL_TRIGGER_HEIGHT && scrollView.contentOffset.y < 0.0f && !isLoading) {
@@ -248,6 +249,7 @@
             UIEdgeInsets currentInsets = scrollView.contentInset;
             currentInsets.top = 0;
             scrollView.contentInset = currentInsets;
+            NSLog(@"egoRefreshScrollViewDidScroll2:%f", currentInsets.top);
 		}
 		
 	}
@@ -263,6 +265,7 @@
     UIEdgeInsets currentInsets = scrollView.contentInset;
     currentInsets.top = PULL_AREA_HEIGTH;
     scrollView.contentInset = currentInsets;
+    NSLog(@"startAnimatingWithScrollView1:%f", currentInsets.top);
     [UIView commitAnimations];
     if(scrollView.contentOffset.y == 0){
         [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, -PULL_TRIGGER_HEIGHT) animated:YES];
@@ -290,6 +293,7 @@
     UIEdgeInsets currentInsets = scrollView.contentInset;
     currentInsets.top = 0;
     scrollView.contentInset = currentInsets;
+    NSLog(@"egoRefreshScrollViewDataSourceDidFinishedLoading:%f", currentInsets.top);
 	[UIView commitAnimations];
 	
 	[self setState:EGOOPullNormal];
