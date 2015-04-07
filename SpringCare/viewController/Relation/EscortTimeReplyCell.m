@@ -21,8 +21,8 @@
         [self.contentView addSubview:_lbReplyContent];
         _lbReplyContent.numberOfLines = 0;
         _lbReplyContent.backgroundColor = [UIColor clearColor];
-        _lbReplyContent.font = _FONT(13);
-        _lbReplyContent.textColor = _COLOR(190, 190, 190);
+        _lbReplyContent.font = _FONT(14);
+        _lbReplyContent.textColor = _COLOR(0x66, 0x66, 0x66);
         _lbReplyContent.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_lbReplyContent);

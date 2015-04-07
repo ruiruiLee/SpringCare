@@ -32,7 +32,7 @@ static void deallocCallback(void * ref){
     self=[super init];
     if(self){
         _strs=[[NSMutableArray alloc]init];
-        self.font=[UIFont systemFontOfSize:13];
+        self.font=[UIFont systemFontOfSize:14];
         self.textColor=[UIColor blackColor];
         self.keyWorkColor=[UIColor grayColor];
         self.iconSize=16.0f;

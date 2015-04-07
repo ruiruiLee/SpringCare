@@ -7,6 +7,7 @@
 //
 
 #import "EscortTimeVC.h"
+#import "UIImageView+WebCache.h"
 
 @interface EscortTimeVC ()
 
@@ -21,22 +22,63 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationController.navigationBarHidden = YES;
+    self.lbTitle.text = @"陪护时光";
+    [self.btnLeft setImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
+    self.NavigationBar.alpha = 0.9f;
+    self.btnRight.hidden = NO;
+    [self.btnRight setImage:[UIImage imageNamed:@"relationattentionselect"] forState:UIControlStateNormal];
+//    model = [[EscortTimeDataModel alloc] init];
     
-//    CGRect frame = [UIScreen mainScreen].bounds;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];
     
-    model = [[EscortTimeDataModel alloc] init];
+    UIImageView *headerbg = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [headerView addSubview:headerbg];
+    headerbg.image = [UIImage imageNamed:@"relationheaderbg"];
+    headerbg.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    _photoImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [headerView addSubview:_photoImgView];
+    _photoImgView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_photoImgView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+    
+    _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
+    [headerView addSubview:_lbName];
+    _lbName.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbName.font = _FONT(15);
+    _lbName.textAlignment = NSTextAlignmentRight;
+    _lbName.text = @"王莹莹";
+    _lbName.textColor = _COLOR(0xff, 0xff, 0xff);
+    
+    _btnInfo = [[UIButton alloc] initWithFrame:CGRectZero];
+    [headerView addSubview:_btnInfo];
+    _btnInfo.userInteractionEnabled = NO;
+    _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
+    _btnInfo.titleLabel.font = _FONT(14);
+    [_btnInfo setTitleColor:_COLOR(0xff, 0xff, 0xff) forState:UIControlStateNormal];
+    [_btnInfo setTitle:@"四川人  38岁 护龄12年" forState:UIControlStateNormal];
+    [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(headerbg, _photoImgView, _lbName, _btnInfo);
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[headerbg]-0-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[headerbg(182)]->=0-|" options:0 metrics:nil views:views]];
+    
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbName]-5-[_photoImgView(82)]-16.5-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_photoImgView(82)]-0-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnInfo]-5-[_photoImgView(82)]-16.5-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbName(18)]-2-[_btnInfo(21)]-28-|" options:0 metrics:nil views:views]];
     
     tableView = [[UITableView alloc] initWithFrame:CGRectZero];
     tableView.delegate = self;
     tableView.dataSource = self;
-    [self.view addSubview:tableView];
+    [self.view insertSubview:tableView belowSubview:self.NavigationBar];
     tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-49-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
     
     tableView.tableFooterView = [[UIView alloc] init];
+    tableView.tableHeaderView = headerView;
 }
 
 - (void)didReceiveMemoryWarning {

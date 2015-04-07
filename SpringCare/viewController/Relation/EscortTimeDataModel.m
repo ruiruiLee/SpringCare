@@ -22,13 +22,14 @@
     if(self)
     {
         parser = [[MatchParser alloc] init];
-        parser.font = _FONT(13);
+        parser.textColor = _COLOR(0x66, 0x66, 0x66);
+        parser.font = _FONT(14);
         
         replyId = @"1234";
         publishContent = @"豆腐，那是肯定就会感受到很多风格好汾河谷地法国和德国发挥地方";
         publishName = @"13628050827";
         
-        [self ParserDataWithContent:publishContent width:Content_Width - 10];
+        [self ParserDataWithContent:publishContent width:Content_Width - 20];
     }
     return self;
 }
@@ -91,6 +92,7 @@
     if (self)
     {
         _parser = [self createMatch];
+        _parser.textColor = _COLOR(0x22, 0x22, 0x22);
         
         isShut = NO;
         
@@ -99,6 +101,7 @@
         publishTime = @"11\"";
         
         publishTime = @"20140512";
+        voiceContentUrl = @"http";
         
         NSMutableArray *_images = [NSMutableArray array];
         

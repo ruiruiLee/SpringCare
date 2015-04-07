@@ -38,18 +38,25 @@
 - (void) initMainViewsWithBlock:(ReplayAction)block
 {
     //时间轴
-    _lbToday = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 40, 40)];
-    _lbToday.backgroundColor = [UIColor greenColor];
-    [self.contentView addSubview:_lbToday];
-    _lbToday.layer.cornerRadius = 20;
-    _lbToday.font = [UIFont boldSystemFontOfSize:20];
+    _lbToday = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 60, 60)];
+    _lbToday.font = _FONT(20);
     _lbToday.textAlignment = NSTextAlignmentCenter;
     _lbToday.textColor = [UIColor whiteColor];
+    _lbToday.backgroundColor = Abled_Color;
+    _lbToday.layer.cornerRadius = 30;
+    _lbToday.clipsToBounds = YES;
+    _lbToday.text = @"14/03";
+    
+    _lbTimeLine = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:_lbTimeLine];
+    _lbTimeLine.backgroundColor = Abled_Color;
+    _lbTimeLine.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView addSubview:_lbToday];
     
     //文字内容
     _lbContent = [[HBCoreLabel alloc] initWithFrame:CGRectZero];
     _lbContent.backgroundColor = [UIColor clearColor];
-    _lbContent.font = _FONT(13);
+    _lbContent.font = _FONT(14);
     _lbContent.textColor = _COLOR(73, 73, 73);
     _lbContent.numberOfLines = 0;
     [self.contentView addSubview:_lbContent];
@@ -61,14 +68,18 @@
     _btnFoldOrUnfold = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnFoldOrUnfold];
     _btnFoldOrUnfold.translatesAutoresizingMaskIntoConstraints = NO;
-    [_btnFoldOrUnfold setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    _btnFoldOrUnfold.titleLabel.font = _FONT(13);
+    [_btnFoldOrUnfold setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
+    _btnFoldOrUnfold.titleLabel.font = _FONT(14);
     [_btnFoldOrUnfold addTarget:self action:@selector(FoldOrUnfoldButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImage *image = [UIImage imageNamed:@"escorttimevolice"];
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width-5, 0, 2);
     
     //音频
     _btnVolice = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnVolice];
     _btnVolice.translatesAutoresizingMaskIntoConstraints = NO;
+    [_btnVolice setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
     
     //音频时间
     _lbVoliceLimit = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -92,16 +103,28 @@
     //创建回复视图
     [self initReplyViewWithBlock:block];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_lbContent, _btnFoldOrUnfold, _btnVolice, _lbVoliceLimit, _imageContent, _replyContent);
+    _line = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:_line];
+    _line.backgroundColor = _COLOR(0xd7, 0xd7, 0xd7);
+    _line.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-70-[_lbContent]-10-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-70-[_btnFoldOrUnfold]->=10-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-70-[_btnVolice(120)]->=10-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-70-[_imageContent]-10-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-70-[_replyContent]-10-|" options:0 metrics:nil views:views]];
+    NSDictionary *views = NSDictionaryOfVariableBindings(_lbContent, _btnFoldOrUnfold, _btnVolice, _lbVoliceLimit, _imageContent, _replyContent, _lbTimeLine, _line);
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_lbContent]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_btnFoldOrUnfold]->=20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_btnVolice(120)]-5-[_lbVoliceLimit]->=10-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_imageContent]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_replyContent]-20-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-48-[_lbTimeLine(4)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_lbTimeLine]-0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_line]-0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbVoliceLimit attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_btnVolice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
     //中间view间隔都是3个像素
-    hLayoutInfoArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_lbContent]-3-[_btnFoldOrUnfold]-3-[_btnVolice]-3-[_imageContent]-3-[_replyContent]-10-|" options:0 metrics:nil views:views];
+    hLayoutInfoArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbContent]-3-[_btnFoldOrUnfold]-3-[_btnVolice]-10-[_imageContent]-3-[_replyContent]-10-[_line(1)]-0-|" options:0 metrics:nil views:views];
     [self.contentView addConstraints:hLayoutInfoArray];
 }
 
@@ -120,9 +143,7 @@
     _btnReply = [[UIButton alloc] initWithFrame:CGRectZero];
     [_replyContent addSubview:_btnReply];
     _btnReply.translatesAutoresizingMaskIntoConstraints = NO;
-    [_btnReply setTitle:@"回复" forState:UIControlStateNormal];
-    [_btnReply setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    _btnReply.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_btnReply setImage:[UIImage imageNamed:@"escorttimereply"] forState:UIControlStateNormal];
     
     //回复列表背景
     _replyTableBg = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -142,7 +163,7 @@
     
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbPublishTime, _btnReply, _replyTableView, _replyTableBg);
-    [_replyContent addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbPublishTime(120)]->=10-[_btnReply(50)]-0-|" options:0 metrics:nil views:views]];
+    [_replyContent addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbPublishTime(120)]->=10-[_btnReply(50)]-4-|" options:0 metrics:nil views:views]];
     [_replyContent addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_replyTableBg]-0-|" options:0 metrics:nil views:views]];
     
     hReplyBgLayoutArry = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btnReply(25)]-3-[_replyTableBg]-0-|" options:0 metrics:nil views:views];
@@ -213,7 +234,7 @@
     
 //    NSMutableString *format = @"V:|-10-[_lbContent]-3-[_btnFoldOrUnfold]-3-[_btnVolice]-3-[_imageContent]-3-[_replyContent]-10-|";
     NSMutableString *format = [[NSMutableString alloc] init];
-    [format appendString:@"V:|-10-"];
+    [format appendString:@"V:|-20-"];
     if(textContent != nil && ![textContent isKindOfClass:[NSNull class]]){
         
         [format appendString:@"[_lbContent]"];
@@ -242,10 +263,15 @@
         
     }
     
-    if(voiceContentUrl != nil && [voiceContentUrl isKindOfClass:[NSNull class]])
+    if(voiceContentUrl != nil && ![voiceContentUrl isKindOfClass:[NSNull class]])
     {
         [format appendString:@"[_btnVolice]"];
-        [format appendString:@"-3-"];
+        [format appendString:@"-10-"];
+        _lbVoliceLimit.text = @"12\"";
+        _lbVoliceLimit.hidden = NO;
+    }else
+    {
+        _lbVoliceLimit.hidden = YES;
     }
     
     if(imgPicArray != nil && [imgPicArray count] > 0)
@@ -258,9 +284,9 @@
         [_imageContent AddImages:imgPicArray];
     }
     
-    [format appendString:@"[_replyContent]->=10-|"];
+    [format appendString:@"[_replyContent]-10-[_line(1)]-0-|"];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_lbContent, _btnFoldOrUnfold, _btnVolice, _lbVoliceLimit, _imageContent, _replyContent, _btnReply, _replyTableBg, _replyTableView);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_lbContent, _btnFoldOrUnfold, _btnVolice, _lbVoliceLimit, _imageContent, _replyContent, _btnReply, _replyTableBg, _replyTableView, _line);
     [self.contentView removeConstraints:hLayoutInfoArray];
     hLayoutInfoArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
     [self.contentView addConstraints:hLayoutInfoArray];

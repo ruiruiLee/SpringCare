@@ -41,7 +41,7 @@
     [nurseVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:nurseVC];
     
-    messageListVC = [[MessageInfoListVC alloc] initWithNibName:nil bundle:nil];
+    messageListVC = [[EscortTimeVC alloc] initWithNibName:nil bundle:nil];
     messageListVC.tabBarItem.title=@"陪护时光";
     [messageListVC.tabBarItem setImage:[UIImage imageNamed:@"tab-lovetime"]];
     [messageListVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];

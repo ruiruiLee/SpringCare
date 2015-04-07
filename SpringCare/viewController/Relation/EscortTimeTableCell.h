@@ -53,7 +53,9 @@ typedef void(^ReplayAction)(int index);
     
     UILabel *_lbTimeLine;
     UILabel *_lbToday;
-    UIView *_headDateView;
+//    UIView *_headDateView;
+    
+    UILabel *_line;
 }
 
 
