@@ -34,6 +34,7 @@
     [super viewDidLoad];
     
     self.NavigationBar.Title = @"快速登录";
+    [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     
     [self initSubViews];
 }
@@ -51,16 +52,16 @@
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectZero];
     [scrollview addSubview:title];
-    title.font = _FONT(16);
+    title.font = _FONT(18);
     title.textAlignment = NSTextAlignmentCenter;
-    title.textColor = _COLOR(120, 120, 120);
+    title.textColor = _COLOR(0x66, 0x66, 0x66);
     title.text = @"验证手机，马上体验";
     title.translatesAutoresizingMaskIntoConstraints = NO;
     title.backgroundColor = [UIColor whiteColor];
     
     _tfPhoneNum = [[UITextField alloc] initWithFrame:CGRectZero];
     [scrollview addSubview:_tfPhoneNum];
-    _tfPhoneNum.font = _FONT(16);
+    _tfPhoneNum.font = _FONT(18);
     _tfPhoneNum.placeholder = @"手机号";
     _tfPhoneNum.translatesAutoresizingMaskIntoConstraints = NO;
     _tfPhoneNum.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -79,13 +80,13 @@
     _btnVerifyCode.enabled = NO;
     _btnVerifyCode.layer.cornerRadius = 5;
     [_btnVerifyCode setTitle:@"获取验证码" forState:UIControlStateNormal];
-    _btnVerifyCode.titleLabel.font = _FONT_B(14);
+    _btnVerifyCode.titleLabel.font = _FONT(15);
     _btnVerifyCode.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnVerifyCode addTarget:self action:@selector(btnGainVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
     
     _tfVerifyCode = [[UITextField alloc] initWithFrame:CGRectZero];
     [scrollview addSubview:_tfVerifyCode];
-    _tfVerifyCode.font = _FONT(16);
+    _tfVerifyCode.font = _FONT(18);
     _tfVerifyCode.placeholder = @"验证码";
     _tfVerifyCode.translatesAutoresizingMaskIntoConstraints = NO;
     _tfVerifyCode.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -95,6 +96,7 @@
     _tfVerifyCode.layer.borderWidth = 1;
     _tfVerifyCode.layer.borderColor = _COLOR(225, 225, 225).CGColor;
     _tfVerifyCode.delegate = self;
+    _tfVerifyCode.keyboardType = UIKeyboardTypeNumberPad;
     
     _btnLogin = [[UIButton alloc] initWithFrame:CGRectZero];
     [scrollview addSubview:_btnLogin];
@@ -102,9 +104,8 @@
     _btnLogin.backgroundColor = [UIColor blueColor];
     _btnLogin.layer.cornerRadius = 5;
     [_btnLogin setTitle:@"登 录" forState:UIControlStateNormal];
-//    [_btnLogin setTitleColor:[UIColor blackColor] forState:UIControlStateDisabled];
     _btnLogin.backgroundColor = Disabled_Color;
-    _btnLogin.titleLabel.font = _FONT_B(17);
+    _btnLogin.titleLabel.font = _FONT(18);
     _btnLogin.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnLogin addTarget:self action:@selector(btnLoginUseVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -116,8 +117,11 @@
     NSString *agreement = @"点击-登录，即表示您同意《春风优护用户协议》";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:agreement];
     NSRange range = [agreement rangeOfString:@"《春风优护用户协议》"];
-    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf0, 0x77, 0x2a) range:range];
+    range = [agreement rangeOfString:@"点击-登录，即表示您同意"];
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0x99, 0x99, 0x99) range:range];
     [btnAgreement setAttributedTitle:string forState:UIControlStateNormal];
+//    [btnAgreement setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(line, title, _tfPhoneNum, _btnVerifyCode, _btnLogin, scrollview, _tfVerifyCode, btnAgreement);
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[scrollview]-0-|" options:0 metrics:nil views:views]];
@@ -127,29 +131,29 @@
     
     NSString *lineHFormat = [NSString stringWithFormat:@"H:|-0-[line(%f)]-0-|", screenWidth];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:lineHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-35-[line(0.8)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-52-[line(0.8)]->=10-|" options:0 metrics:nil views:views]];
     
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[title(160)]->=0-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[title(200)]->=0-|" options:0 metrics:nil views:views]];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[title(20)]->=0-|" options:0 metrics:nil views:views]];
     [scrollview addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:line attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [scrollview addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:line attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
-    NSString *phoneNUmHFormat = [NSString stringWithFormat:@"H:|-25-[_tfPhoneNum(%f)]-10-[_btnVerifyCode(%f)]-25-|", screenWidth - 150, 90.f];
+    NSString *phoneNUmHFormat = [NSString stringWithFormat:@"H:|-30-[_tfPhoneNum(%f)]-10-[_btnVerifyCode(%f)]-30-|", screenWidth - 160, 90.f];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:phoneNUmHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-30-[_tfPhoneNum(42)]->=10-|" options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-30-[_btnVerifyCode(42)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-35-[_tfPhoneNum(51)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-35-[_btnVerifyCode(51)]->=10-|" options:0 metrics:nil views:views]];
     
-    NSString *verifyCodeHFormat = [NSString stringWithFormat:@"H:|-25-[_tfVerifyCode(%f)]-25-|", screenWidth - 50];
+    NSString *verifyCodeHFormat = [NSString stringWithFormat:@"H:|-30-[_tfVerifyCode(%f)]-30-|", screenWidth - 60];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:verifyCodeHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_tfPhoneNum(42)]-20-[_tfVerifyCode(42)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_tfPhoneNum(51)]-20-[_tfVerifyCode(51)]->=10-|" options:0 metrics:nil views:views]];
     
-    NSString *btnLoginHFormat = [NSString stringWithFormat:@"H:|-25-[_btnLogin(%f)]-25-|", screenWidth - 50];
+    NSString *btnLoginHFormat = [NSString stringWithFormat:@"H:|-30-[_btnLogin(%f)]-30-|", screenWidth - 60];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:btnLoginHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_tfVerifyCode(42)]-20-[_btnLogin(42)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_tfVerifyCode(51)]-20-[_btnLogin(51)]->=10-|" options:0 metrics:nil views:views]];
     
-    NSString *attributeHFormat = [NSString stringWithFormat:@"H:|-25-[btnAgreement(%f)]-25-|", screenWidth - 50];
+    NSString *attributeHFormat = [NSString stringWithFormat:@"H:|-30-[btnAgreement(%f)]-30-|", screenWidth - 60];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:attributeHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_btnLogin(42)]-10-[btnAgreement(20)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_btnLogin(51)]-10-[btnAgreement(20)]->=10-|" options:0 metrics:nil views:views]];
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

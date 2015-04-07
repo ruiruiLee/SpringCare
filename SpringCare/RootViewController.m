@@ -36,7 +36,7 @@
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:homeVC];
     
     nurseVC = [[NurseListMainVC alloc] initWithNibName:nil bundle:nil];
-    nurseVC.tabBarItem.title=@"护工";
+    nurseVC.tabBarItem.title=@"陪护师";
     nurseVC.tabBarItem.image=[UIImage imageNamed:@"tab-nurse"];
     [nurseVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:nurseVC];

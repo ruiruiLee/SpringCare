@@ -41,6 +41,7 @@ static NSMutableArray *nurseList = nil;
         self.detailIntro = @"abcd";
         self.mobile = @"abcd";
         self.comment = 1;
+        self.price = 100;
     }
     return self;
 }
@@ -60,7 +61,7 @@ static NSMutableArray *nurseList = nil;
     model.simpleIntro = [dic objectForKey:@""];
     model.detailIntro = [dic objectForKey:@""];
     model.mobile = [dic objectForKey:@""];
-    model.comment = [[dic objectForKey:@""] integerValue];
+    model.comment = [[dic objectForKey:@""] intValue];
     
     return model;
 }

@@ -13,7 +13,7 @@
 #import <CoreText/CoreText.h>
 //#import "sys/utsname.h"
 #import "NSStrUtil.h"
-//#import "LoginVC.h"
+#import "LoginVC.h"
 
 @implementation HomePageVC
 
@@ -21,7 +21,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
-        
     }
     return self;
 }
@@ -45,11 +44,16 @@
     activityBtn.translatesAutoresizingMaskIntoConstraints = NO;
     NSDictionary *views = NSDictionaryOfVariableBindings(self.btnRight, activityBtn);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[activityBtn(74)]-10-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[activityBtn(74)]-23-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[activityBtn(30)]->=10-|" options:0 metrics:nil views:views]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:activityBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.btnRight attribute:NSLayoutAttributeCenterY multiplier:1 constant:2]];
     
     [self initWithSubviews];
+    
+//    LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+//    [self.navigationController presentViewController:vc animated:YES completion:^{
+//        
+//    }];
 }
 
 - (void) btnPressed:(UIButton*) sender
@@ -249,7 +253,7 @@
     
     btnIntro.titleLabel.font = _FONT(13);
     btnCommitment.titleLabel.font = _FONT(13);
-    lbPhone.font = _FONT(24);
+    lbPhone.font = _FONT(23);
     btnRing.layer.cornerRadius = 10;
     
     NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(24)]->=10-|", oh + 26 - 7];

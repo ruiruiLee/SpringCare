@@ -21,6 +21,8 @@
     UILabel *_lbPrice;//价格
     UIButton *_btnLocation;//位置
     GradeInfoView *_gradeView;
+    
+    UILabel *_line;
 }
 
 - (void) SetContentData:(NurseListInfoModel*) model;

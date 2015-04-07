@@ -41,6 +41,8 @@
     [searchBar sizeToFit];
     searchBar.translatesAutoresizingMaskIntoConstraints = NO;
     
+    searchBar.backgroundImage = [self imageWithColor:_COLOR(0xf3, 0xf5, 0xf7) size:CGSizeMake(ScreenWidth, 44)];
+    
     [self.view addSubview:searchBar];
     
     pullTableView = [[PullTableView alloc] initWithFrame:CGRectZero];
@@ -50,43 +52,47 @@
     pullTableView.dataSource = self;
     pullTableView.delegate = self;
     
-    self.pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];
-    self.pullTableView.pullBackgroundColor = [UIColor yellowColor];
-    self.pullTableView.pullTextColor = [UIColor blackColor];
-    [pullTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    UIView *view = self.NavigationBar;
-    NSDictionary *views = NSDictionaryOfVariableBindings(pullTableView, self.ContentView, view, searchBar);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(64)]-0-[searchBar(44)]-0-[pullTableView]-49-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[searchBar]-0-|" options:0 metrics:nil views:views]];
-    
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
-    pullTableView.tableFooterView = footer;
-    
-//    pullTableView.tableHeaderView = searchBar;
-    
-    [_model loadNurseDataWithPage:0];
-    self.DataList = [NurseListInfoModel nurseListModel];
+    self.citys = @[@"价格"];
+    self.ages = @[@"年龄"];
+    self.genders = @[@"好评"];
+    //数据先初始化
     
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
     menu.dataSource = self;
     menu.delegate = self;
     [self.view addSubview:menu];
+    menu.translatesAutoresizingMaskIntoConstraints = NO;
     
-    self.citys = @[@"价格"];
-    self.ages = @[@"年龄"];
-    self.genders = @[@"好评"];
+    self.pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];
+    self.pullTableView.pullBackgroundColor = _COLOR(0xf8, 0xf8, 0xf8);
+    self.pullTableView.backgroundColor = _COLOR(0xf8, 0xf8, 0xf8);
+    self.pullTableView.pullTextColor = [UIColor blackColor];
+    [pullTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.pullTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIView *view = self.NavigationBar;
+    NSDictionary *views = NSDictionaryOfVariableBindings(pullTableView, self.ContentView, view, searchBar, menu);
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(64)]-0-[searchBar(44)]-0-[menu(40)]-0-[pullTableView]-49-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[searchBar]-0-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[menu]-0-|" options:0 metrics:nil views:views]];
+    
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+    pullTableView.tableFooterView = footer;
+    
+    [_model loadNurseDataWithPage:0];
+    self.DataList = [NurseListInfoModel nurseListModel];
+    
+    if(!self.pullTableView.pullTableIsRefreshing) {
+        self.pullTableView.pullTableIsRefreshing = YES;
+        [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     
     [super viewWillAppear:animated];
-    if(!self.pullTableView.pullTableIsRefreshing) {
-        self.pullTableView.pullTableIsRefreshing = YES;
-        [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
-    }
 }
 
 - (void)viewDidUnload
@@ -192,19 +198,6 @@
     NSLog(@"refreshTable");
     self.pullTableView.pullLastRefreshDate = [NSDate date];
     self.pullTableView.pullTableIsRefreshing = NO;
-    
-    NSArray *familys = [UIFont familyNames];
-    
-    for (int i = 0; i < [familys count]; i++)
-    {
-        NSString *family = [familys objectAtIndex:i];
-        NSLog(@"=====Fontfamily:%@", family);
-        NSArray *fonts = [UIFont fontNamesForFamilyName:family];
-        for(int j = 0; j < [fonts count]; j++)
-        {
-            NSLog(@"***FontName:%@", [fonts objectAtIndex:j]);
-        }
-    }
 }
 
 - (void) loadMoreDataToTable
@@ -254,16 +247,18 @@
 }
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
-    return 1;
+    return 0;
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
     switch (indexPath.column) {
-        case 0: return self.citys[indexPath.row];
+        case 0:{
+            return self.citys[indexPath.row];
+        }
             break;
-        case 1: return self.genders[indexPath.row];
+        case 2: return self.genders[indexPath.row];
             break;
-        case 2: return self.ages[indexPath.row];
+        case 1: return self.ages[indexPath.row];
 
             break;
         default:
@@ -273,8 +268,6 @@
 }
 
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
-    NSLog(@"column:%li row:%li", (long)indexPath.column, (long)indexPath.row);
-    NSLog(@"%@",[menu titleForRowAtIndexPath:indexPath]);
     NSString *title = [menu titleForRowAtIndexPath:indexPath];
     
     static NSString *prediStr1 = @"SELF LIKE '*'",
@@ -314,5 +307,16 @@
 //    [self.tableView reloadData];
 }
 
+- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
+{
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 @end

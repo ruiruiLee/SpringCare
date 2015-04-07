@@ -30,7 +30,7 @@
         lbContent.translatesAutoresizingMaskIntoConstraints = NO;
         lbContent.backgroundColor = [UIColor clearColor];
         lbContent.textColor = _COLOR(0xff, 0xff, 0xff);
-        lbContent.font = _FONT(16);
+        lbContent.font = _FONT(18);
         
         imgIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:imgIcon];

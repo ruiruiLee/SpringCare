@@ -19,9 +19,9 @@
         
         _btnLeft = [[UIButton alloc] initWithFrame:CGRectZero];
         [self addSubview:_btnLeft];
-        _btnLeft.backgroundColor = [UIColor redColor];
         [_btnLeft addTarget:self action:@selector(HandleLeftButtonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
         _btnLeft.translatesAutoresizingMaskIntoConstraints = NO;
+        [_btnLeft setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         
         _btnRight = [[UIButton alloc] initWithFrame:CGRectZero];
         [self addSubview:_btnRight];
@@ -42,8 +42,8 @@
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[_lbTitle(200)]->=10-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_lbTitle(28)]-8-|" options:0 metrics:nil views:views]];
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_btnLeft(50)]->=0-[_lbTitle]->=0-|" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbTitle]->=0-[_btnRight(50)]-10-|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-23-[_btnLeft(28)]->=0-[_lbTitle]->=0-|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbTitle]->=0-[_btnRight(50)]-23-|" options:0 metrics:nil views:views]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_btnLeft attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbTitle attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_btnRight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbTitle attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }

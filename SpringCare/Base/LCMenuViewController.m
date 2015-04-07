@@ -12,6 +12,8 @@
 #import "SliderViewController.h"
 #import "UIImageView+WebCache.h"
 
+#import "UserAttentionVC.h"
+
 @implementation LCMenuViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -51,7 +53,7 @@
     _btnUserName = [[UIButton alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_btnUserName];
     _btnUserName.translatesAutoresizingMaskIntoConstraints = NO;
-    _btnUserName.titleLabel.font = _FONT(16);
+    _btnUserName.titleLabel.font = _FONT(18);
     [_btnUserName setTitle:@"1368888888888888888" forState:UIControlStateNormal];
     [_btnUserName setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _btnUserName.imageEdgeInsets = UIEdgeInsetsMake(6, 136, 8, 0);
@@ -100,7 +102,7 @@
     [self.view addSubview:_btnHotLine];
     _btnHotLine.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnHotLine setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _btnHotLine.titleLabel.font = _FONT(14);
+    _btnHotLine.titleLabel.font = _FONT(15);
     _btnHotLine.imageEdgeInsets = UIEdgeInsetsMake(4, 0, 6, 0);
     [_btnHotLine setImage:[UIImage imageNamed:@"usercenterring"] forState:UIControlStateNormal];
     [_btnHotLine setTitle:@"400-626-8787" forState:UIControlStateNormal];
@@ -162,6 +164,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    switch (indexPath.row) {
+        case 0:{
+            UserAttentionVC *vc = [[UserAttentionVC alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
