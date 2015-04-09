@@ -7,7 +7,13 @@
 //
 
 #import "LCBaseVC.h"
+#import "LCTabBar.h"
 
-@interface MyOrderListVC : LCBaseVC
+@interface MyOrderListVC : LCBaseVC<LCTabBarDelegate, UITableViewDataSource, UITableViewDelegate>
+{
+    LCTabBar *_tabBar;
+    
+    UITableView *_tableView;
+}
 
 @end

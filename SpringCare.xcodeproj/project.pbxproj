@@ -139,6 +139,11 @@
 		86B8E5991AD639A700A5139E /* placeoredercert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5981AD639A700A5139E /* placeoredercert@2x.png */; };
 		86B8E59C1AD65D1500A5139E /* UserSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E59B1AD65D1500A5139E /* UserSettingVC.m */; };
 		86B8E59F1AD65F5500A5139E /* UserSettingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E59E1AD65F5500A5139E /* UserSettingTableCell.m */; };
+		86B8E5A21AD66D0300A5139E /* LCTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5A11AD66D0300A5139E /* LCTabBar.m */; };
+		86B8E5A51AD687AF00A5139E /* MyOrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5A41AD687AF00A5139E /* MyOrderTableCell.m */; };
+		86B8E5A81AD690AB00A5139E /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5A71AD690AB00A5139E /* OrderListModel.m */; };
+		86B8E5AB1AD6991200A5139E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5A91AD6991200A5139E /* Default-568h@2x.png */; };
+		86B8E5AC1AD6991200A5139E /* LaunchImage-800-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5AA1AD6991200A5139E /* LaunchImage-800-667h@2x.png */; };
 		86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095161ACD173F00371BF3 /* EditUserInfoView.m */; };
 		86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */; };
 		86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */; };
@@ -405,6 +410,14 @@
 		86B8E59B1AD65D1500A5139E /* UserSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingVC.m; sourceTree = "<group>"; };
 		86B8E59D1AD65F5500A5139E /* UserSettingTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingTableCell.h; sourceTree = "<group>"; };
 		86B8E59E1AD65F5500A5139E /* UserSettingTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingTableCell.m; sourceTree = "<group>"; };
+		86B8E5A01AD66D0300A5139E /* LCTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCTabBar.h; sourceTree = "<group>"; };
+		86B8E5A11AD66D0300A5139E /* LCTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCTabBar.m; sourceTree = "<group>"; };
+		86B8E5A31AD687AF00A5139E /* MyOrderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderTableCell.h; sourceTree = "<group>"; };
+		86B8E5A41AD687AF00A5139E /* MyOrderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderTableCell.m; sourceTree = "<group>"; };
+		86B8E5A61AD690AB00A5139E /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
+		86B8E5A71AD690AB00A5139E /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
+		86B8E5A91AD6991200A5139E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		86B8E5AA1AD6991200A5139E /* LaunchImage-800-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-800-667h@2x.png"; sourceTree = "<group>"; };
 		86C095151ACD173F00371BF3 /* EditUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoView.h; sourceTree = "<group>"; };
 		86C095161ACD173F00371BF3 /* EditUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoView.m; sourceTree = "<group>"; };
 		86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-home-selected@2x.png"; sourceTree = "<group>"; };
@@ -554,6 +567,8 @@
 				8642C9C61AC3CF4500251921 /* NurseInfo */,
 				8642C9A61AC04F3A00251921 /* UserModel.h */,
 				8642C9A71AC04F3A00251921 /* UserModel.m */,
+				86B8E5A61AD690AB00A5139E /* OrderListModel.h */,
+				86B8E5A71AD690AB00A5139E /* OrderListModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -730,6 +745,8 @@
 				86B8E5891AD6159B00A5139E /* DateCountSelectView.m */,
 				86B8E58D1AD6188700A5139E /* BusinessTypeView.h */,
 				86B8E58E1AD6188700A5139E /* BusinessTypeView.m */,
+				86B8E5A01AD66D0300A5139E /* LCTabBar.h */,
+				86B8E5A11AD66D0300A5139E /* LCTabBar.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -845,6 +862,8 @@
 				86B8E5661AD4F14700A5139E /* AttentionSelectTableViewCell.m */,
 				86B8E59D1AD65F5500A5139E /* UserSettingTableCell.h */,
 				86B8E59E1AD65F5500A5139E /* UserSettingTableCell.m */,
+				86B8E5A31AD687AF00A5139E /* MyOrderTableCell.h */,
+				86B8E5A41AD687AF00A5139E /* MyOrderTableCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1111,6 +1130,8 @@
 		CFAFA3AB1ABFEC8C0020E774 /* SpringCare */ = {
 			isa = PBXGroup;
 			children = (
+				86B8E5A91AD6991200A5139E /* Default-568h@2x.png */,
+				86B8E5AA1AD6991200A5139E /* LaunchImage-800-667h@2x.png */,
 				8642C9541ABFF55800251921 /* viewController */,
 				8642C9501ABFF54C00251921 /* view */,
 				8642C8C21ABFF53C00251921 /* Vendor */,
@@ -1253,6 +1274,7 @@
 				86B8E5851AD5554D00A5139E /* paytypeselected@2x.png in Resources */,
 				8642C9301ABFF53C00251921 /* grayArrow.png in Resources */,
 				86C0953F1ACD5C6A00371BF3 /* image0.png in Resources */,
+				86B8E5AB1AD6991200A5139E /* Default-568h@2x.png in Resources */,
 				86D627E11AD14FD200DB4369 /* usercenterphotobg@2x.png in Resources */,
 				86B8E5621AD4E9A100A5139E /* EscortTimeSelect@2x.png in Resources */,
 				86C0952A1ACD472F00371BF3 /* tab-nurse@2x.png in Resources */,
@@ -1289,6 +1311,7 @@
 				862B973E1AD2409700A726D3 /* call@2x.png in Resources */,
 				863C8E401AD2A967009D7496 /* userattentionring@2x.png in Resources */,
 				869C9EE21AD3F9B00090182E /* escorttimevolice@2x.png in Resources */,
+				86B8E5AC1AD6991200A5139E /* LaunchImage-800-667h@2x.png in Resources */,
 				8642C92D1ABFF53C00251921 /* blackArrow@2x.png in Resources */,
 				86D627DF1AD14D5700DB4369 /* usercenterring@2x.png in Resources */,
 				86C095411ACD5C6A00371BF3 /* image2.png in Resources */,
@@ -1393,11 +1416,13 @@
 				8642C9351ABFF53C00251921 /* SBJsonParser.m in Sources */,
 				863C8E301AD296E8009D7496 /* UserAttentionVC.m in Sources */,
 				8642C9B11AC2872400251921 /* SliderViewController.m in Sources */,
+				86B8E5A51AD687AF00A5139E /* MyOrderTableCell.m in Sources */,
 				863C8E351AD29E81009D7496 /* UserAttentionTableCell.m in Sources */,
 				8642C9491ABFF53C00251921 /* UIButton+WebCache.m in Sources */,
 				8642C95D1ABFF55800251921 /* HomePageVC.m in Sources */,
 				86C095521ACE6D0E00371BF3 /* CityListSelectVC.m in Sources */,
 				86B8E5601AD4E8A200A5139E /* AttentionSelectView.m in Sources */,
+				86B8E5A81AD690AB00A5139E /* OrderListModel.m in Sources */,
 				86C0954A1ACE59B300371BF3 /* DOPDropDownMenu.m in Sources */,
 				865C85911ACCEDFF006ABCA4 /* EscortTimeDataModel.m in Sources */,
 				86C095551ACFB93700371BF3 /* CityListCell.m in Sources */,
@@ -1405,6 +1430,7 @@
 				8642C9481ABFF53C00251921 /* SDWebImagePrefetcher.m in Sources */,
 				863C8E381AD29E9F009D7496 /* UserApplyAttentionTableCell.m in Sources */,
 				8642C9A81AC04F3A00251921 /* UserModel.m in Sources */,
+				86B8E5A21AD66D0300A5139E /* LCTabBar.m in Sources */,
 				8642C9641ABFF56500251921 /* RootViewController.m in Sources */,
 				865C85961ACCEDFF006ABCA4 /* HBImageScroller.m in Sources */,
 				865C85951ACCEDFF006ABCA4 /* HBCoreLabel.m in Sources */,
@@ -1584,6 +1610,7 @@
 			baseConfigurationReference = 883A92A4E690EB1035842EBD /* Pods-SpringCare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1596,6 +1623,7 @@
 			baseConfigurationReference = 8367BA91FD77FFAC9DB3F4F7 /* Pods-SpringCare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
