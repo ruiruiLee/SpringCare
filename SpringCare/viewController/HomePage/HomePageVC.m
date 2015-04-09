@@ -51,10 +51,10 @@
     
     [self initWithSubviews];
     
-    PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController presentViewController:vc animated:YES completion:^{
-        
-    }];
+//    PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithNibName:nil bundle:nil];
+//    [self.navigationController presentViewController:vc animated:YES completion:^{
+//        
+//    }];
 }
 
 - (void) btnPressed:(UIButton*) sender

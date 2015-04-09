@@ -17,6 +17,7 @@
 #import "EditCellTypeData.h"
 #import "MyOrderListVC.h"
 #import "FeedBackVC.h"
+#import "UserSettingVC.h"
 
 @implementation LCMenuViewController
 
@@ -184,6 +185,11 @@
             break;
         case 2:{
             FeedBackVC *vc = [[FeedBackVC alloc]initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 3:{
+            UserSettingVC *vc = [[UserSettingVC alloc] initWithNibName:nil bundle:nil];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
