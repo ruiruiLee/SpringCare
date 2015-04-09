@@ -68,7 +68,7 @@
     _btnFoldOrUnfold = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnFoldOrUnfold];
     _btnFoldOrUnfold.translatesAutoresizingMaskIntoConstraints = NO;
-    [_btnFoldOrUnfold setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
+    [_btnFoldOrUnfold setTitleColor:_COLOR(0x10, 0x9d, 0x59) forState:UIControlStateNormal];
     _btnFoldOrUnfold.titleLabel.font = _FONT(14);
     [_btnFoldOrUnfold addTarget:self action:@selector(FoldOrUnfoldButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -105,7 +105,7 @@
     
     _line = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_line];
-    _line.backgroundColor = _COLOR(0xd7, 0xd7, 0xd7);
+    _line.backgroundColor = SeparatorLineColor;
     _line.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbContent, _btnFoldOrUnfold, _btnVolice, _lbVoliceLimit, _imageContent, _replyContent, _lbTimeLine, _line);

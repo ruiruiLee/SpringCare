@@ -38,5 +38,8 @@
 
 #define Photo_Place_Holder_Image  nil
 
+#define SeparatorLineColor  _COLOR(0xd7, 0xd7, 0xd7)
+#define TableBackGroundColor _COLOR(0xf8, 0xf8, 0xf8)
+#define TableSectionBackgroundColor _COLOR(0xf3, 0xf5, 0xf7)
 
 #endif

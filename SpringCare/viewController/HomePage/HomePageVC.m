@@ -14,6 +14,7 @@
 //#import "sys/utsname.h"
 #import "NSStrUtil.h"
 #import "LoginVC.h"
+#import "PlaceOrderVC.h"
 
 @implementation HomePageVC
 
@@ -50,10 +51,10 @@
     
     [self initWithSubviews];
     
-//    LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
-//    [self.navigationController presentViewController:vc animated:YES completion:^{
-//        
-//    }];
+    PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController presentViewController:vc animated:YES completion:^{
+        
+    }];
 }
 
 - (void) btnPressed:(UIButton*) sender

@@ -8,6 +8,7 @@
 
 #import "EscortTimeVC.h"
 #import "UIImageView+WebCache.h"
+#import "SliderViewController.h"
 
 @interface EscortTimeVC ()
 
@@ -79,6 +80,23 @@
     
     tableView.tableFooterView = [[UIView alloc] init];
     tableView.tableHeaderView = headerView;
+    
+    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, SCREEN_HEIGHT)];
+    [[UIApplication sharedApplication].keyWindow addSubview:_bgView];
+    _bgView.hidden = YES;
+    _bgView.alpha = 0.6;
+    UITapGestureRecognizer* singleRecognizer;
+    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
+    //点击的次数
+    singleRecognizer.numberOfTapsRequired = 1; // 单击
+    [_bgView addGestureRecognizer:singleRecognizer];
+    _selectView = [[AttentionSelectView alloc] initWithFrame:CGRectMake(ScreenWidth, 64, ScreenWidth/2, SCREEN_HEIGHT - 64)];
+    [[UIApplication sharedApplication].keyWindow addSubview:_selectView];
+    _selectView.delegate = self;
+//    _selectView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_selectView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_selectView)]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_selectView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_selectView)]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -151,6 +169,48 @@
 - (void) ReloadTebleView
 {
     [tableView reloadData];
+}
+
+- (void) LeftButtonClicked:(id)sender
+{
+    [[SliderViewController sharedSliderController] leftItemClick];
+}
+
+- (void) RightButtonClicked:(id)sender
+{
+    [UIView animateWithDuration:0.25f animations:^{
+        _selectView.frame = CGRectMake(ScreenWidth/2, 64, ScreenWidth/2, SCREEN_HEIGHT - 64);
+        _bgView.hidden = NO;
+        _bgView.backgroundColor = _COLOR(0x22, 0x22, 0x22);
+    }];
+}
+
+- (void) SelectWiewDismiss
+{
+    [UIView animateWithDuration:0.25f animations:^{
+        _selectView.frame = CGRectMake(ScreenWidth, 64, ScreenWidth/2, SCREEN_HEIGHT - 64);
+        _bgView.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        _bgView.hidden = YES;
+    }];
+}
+
+-(void)SingleTap:(UITapGestureRecognizer*)recognizer
+{
+    //处理单击操作
+    [self SelectWiewDismiss];
+}
+
+#pragma AttentionSelectViewDelegate
+- (void) ViewSelectWithId:(NSString *)uid
+{
+    [self SelectWiewDismiss];
+    [tableView reloadData];
+}
+
+- (void) ViewShutDown
+{
+    [self SelectWiewDismiss];
 }
 
 @end

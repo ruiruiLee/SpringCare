@@ -57,7 +57,7 @@
     
     _btnRight = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_btnRight];
-    [_btnRight addTarget:self action:@selector(HandleRightButtonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnRight addTarget:self action:@selector(RightButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     _btnRight.translatesAutoresizingMaskIntoConstraints = NO;
     _btnRight.hidden = YES;
     

@@ -18,6 +18,7 @@
     [super viewDidLoad];
     
     self.NavigationBar.Title = @"城市列表";
+    [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     
     [self InitSubviews];
 }

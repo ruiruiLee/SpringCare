@@ -85,7 +85,7 @@
     _line = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_line];
     _line.translatesAutoresizingMaskIntoConstraints = NO;
-    _line.backgroundColor = _COLOR(0xd7, 0xd7, 0xd7);
+    _line.backgroundColor = SeparatorLineColor;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbWorkIntro, _lbNurseIntro, _lbName, _lbCommitCount, _imgCert, _imgPhoto, _btnLocation, _gradeView, _line);
     

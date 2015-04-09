@@ -13,6 +13,10 @@
 #import "UIImageView+WebCache.h"
 
 #import "UserAttentionVC.h"
+#import "EditUserInfoVC.h"
+#import "EditCellTypeData.h"
+#import "MyOrderListVC.h"
+#import "FeedBackVC.h"
 
 @implementation LCMenuViewController
 
@@ -38,6 +42,7 @@
     
     _headerView = [[UIImageView alloc] initWithFrame:CGRectZero];
     _headerView.frame = CGRectMake(0, 0, ScreenWidth, 240);
+    _headerView.userInteractionEnabled = YES;
     
     _photoBg = [[UIImageView alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_photoBg];
@@ -60,6 +65,7 @@
     _btnUserName.titleEdgeInsets = UIEdgeInsetsMake(7, 0, 7, 14);
     [_btnUserName setImage:[UIImage imageNamed:@"usercentershut"] forState:UIControlStateNormal];
     _btnUserName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_btnUserName addTarget:self action:@selector(doEditUserInfo:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDictionary *headerViews = NSDictionaryOfVariableBindings(_photoBg, _photoImgView, _btnUserName);
     NSString *format = [NSString stringWithFormat:@"H:|-20-[_photoBg(93)]->=5-[_btnUserName(148)]-%f-|", ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
@@ -171,12 +177,56 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-            
+        case 1:{
+            MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 2:{
+            FeedBackVC *vc = [[FeedBackVC alloc]initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         default:
             break;
     }
 }
 
+#pragma ACTION
+- (void) doEditUserInfo:(UIButton*)sender
+{
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
+    data1.cellTitleName = @"电话（账户）";
+    data1.cellType = EnumTypeAccount;
+    [mArray addObject:data1];
+    
+    EditCellTypeData *data2 = [[EditCellTypeData alloc] init];
+    data2.cellTitleName = @"姓名";
+    data2.cellType = EnumTypeUserName;
+    [mArray addObject:data2];
+    
+    EditCellTypeData *data3 = [[EditCellTypeData alloc] init];
+    data3.cellTitleName = @"性别";
+    data3.cellType = EnumTypeSex;
+    [mArray addObject:data3];
+    
+    EditCellTypeData *data4 = [[EditCellTypeData alloc] init];
+    data4.cellTitleName = @"年龄";
+    data4.cellType = EnumTypeAge;
+    [mArray addObject:data4];
+    
+    EditCellTypeData *data5 = [[EditCellTypeData alloc] init];
+    data5.cellTitleName = @"地址";
+    data5.cellType = EnumTypeAddress;
+    [mArray addObject:data5];
+    
+    
+    EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
+    vc.NavigationBar.Title = @"编辑我的资料";
+    [vc setContentArray:mArray];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (void) viewDidLayoutSubviews
 {

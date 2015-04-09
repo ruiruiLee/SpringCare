@@ -52,7 +52,7 @@
         _line = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_line];
         _line.translatesAutoresizingMaskIntoConstraints = NO;
-        _line.backgroundColor = _COLOR(0xd7, 0xd7, 0xd7);
+        _line.backgroundColor = SeparatorLineColor;
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _lbRelation, _btnRing, _line, _Address);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-10-[_lbName]-10-[_btnRing]-20-|" options:0 metrics:nil views:views]];

@@ -46,7 +46,7 @@
     _tableview.dataSource = self;
     _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
-    _tableview.backgroundColor = _COLOR(0xf8, 0xf8, 0xf8);
+    _tableview.backgroundColor = TableBackGroundColor;
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview);
@@ -149,7 +149,7 @@
 - (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
-    view.backgroundColor = _COLOR(0xf3, 0xf5, 0xf7);
+    view.backgroundColor = TableSectionBackgroundColor;
     
     if (section == 0) {
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];

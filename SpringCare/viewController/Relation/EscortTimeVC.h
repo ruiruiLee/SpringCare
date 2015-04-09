@@ -10,8 +10,9 @@
 #import "EscortTimeDataModel.h"
 #import "EscortTimeTableCell.h"
 #import "MainBaseVC.h"
+#import "AttentionSelectView.h"
 
-@interface EscortTimeVC : MainBaseVC<UITableViewDataSource, UITableViewDelegate, EscortTimeTableCellDelegate>
+@interface EscortTimeVC : MainBaseVC<UITableViewDataSource, UITableViewDelegate, EscortTimeTableCellDelegate, AttentionSelectViewDelegate>
 {
     UITableView *tableView;
     EscortTimeDataModel *model;
@@ -20,6 +21,10 @@
     UIImageView  *_photoImgView;//头像
     UILabel *_lbName;//姓名
     UIButton *_btnInfo;//信息
+    AttentionSelectView *_selectView;
+    UIView *_bgView;
+    
+    NSString *_currentAttentionId;//用来处理当前的陪护时光是谁的
 }
 
 @end

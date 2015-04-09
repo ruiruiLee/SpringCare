@@ -64,8 +64,8 @@
     menu.translatesAutoresizingMaskIntoConstraints = NO;
     
     self.pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];
-    self.pullTableView.pullBackgroundColor = _COLOR(0xf8, 0xf8, 0xf8);
-    self.pullTableView.backgroundColor = _COLOR(0xf8, 0xf8, 0xf8);
+    self.pullTableView.pullBackgroundColor = TableBackGroundColor;
+    self.pullTableView.backgroundColor = TableBackGroundColor;
     self.pullTableView.pullTextColor = [UIColor blackColor];
     [pullTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
     self.pullTableView.separatorStyle = UITableViewCellSeparatorStyleNone;

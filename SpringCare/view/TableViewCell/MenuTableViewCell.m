@@ -43,7 +43,7 @@
         
         separatorLine = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:separatorLine];
-        separatorLine.backgroundColor = _COLOR(0xd7, 0xd7, 0xd7);
+        separatorLine.backgroundColor = SeparatorLineColor;
         separatorLine.translatesAutoresizingMaskIntoConstraints = NO;
 
         NSDictionary *views = NSDictionaryOfVariableBindings(lbContent, imgUnflod, imgIcon, separatorLine);
