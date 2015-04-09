@@ -8,12 +8,15 @@
 
 #import "LCBaseVC.h"
 #import "LCTabBar.h"
+#import "OrderListModel.h"
 
 @interface MyOrderListVC : LCBaseVC<LCTabBarDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     LCTabBar *_tabBar;
     
     UITableView *_tableView;
+    
+    NSArray *dataList;
 }
 
 @end

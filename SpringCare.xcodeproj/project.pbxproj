@@ -144,6 +144,10 @@
 		86B8E5A81AD690AB00A5139E /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5A71AD690AB00A5139E /* OrderListModel.m */; };
 		86B8E5AB1AD6991200A5139E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5A91AD6991200A5139E /* Default-568h@2x.png */; };
 		86B8E5AC1AD6991200A5139E /* LaunchImage-800-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5AA1AD6991200A5139E /* LaunchImage-800-667h@2x.png */; };
+		86B8E5AE1AD69F3100A5139E /* orderend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5AD1AD69F3100A5139E /* orderend@2x.png */; };
+		86B8E5B01AD69F4300A5139E /* daytime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5AF1AD69F4300A5139E /* daytime@2x.png */; };
+		86B8E5B21AD69FF100A5139E /* night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5B11AD69FF100A5139E /* night@2x.png */; };
+		86B8E5B51AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5B41AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m */; };
 		86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095161ACD173F00371BF3 /* EditUserInfoView.m */; };
 		86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */; };
 		86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */; };
@@ -418,6 +422,11 @@
 		86B8E5A71AD690AB00A5139E /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
 		86B8E5A91AD6991200A5139E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		86B8E5AA1AD6991200A5139E /* LaunchImage-800-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-800-667h@2x.png"; sourceTree = "<group>"; };
+		86B8E5AD1AD69F3100A5139E /* orderend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orderend@2x.png"; sourceTree = "<group>"; };
+		86B8E5AF1AD69F4300A5139E /* daytime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "daytime@2x.png"; sourceTree = "<group>"; };
+		86B8E5B11AD69FF100A5139E /* night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "night@2x.png"; sourceTree = "<group>"; };
+		86B8E5B31AD6A5ED00A5139E /* MyOrderOnDoingTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderOnDoingTableCell.h; sourceTree = "<group>"; };
+		86B8E5B41AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderOnDoingTableCell.m; sourceTree = "<group>"; };
 		86C095151ACD173F00371BF3 /* EditUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoView.h; sourceTree = "<group>"; };
 		86C095161ACD173F00371BF3 /* EditUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoView.m; sourceTree = "<group>"; };
 		86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-home-selected@2x.png"; sourceTree = "<group>"; };
@@ -864,6 +873,8 @@
 				86B8E59E1AD65F5500A5139E /* UserSettingTableCell.m */,
 				86B8E5A31AD687AF00A5139E /* MyOrderTableCell.h */,
 				86B8E5A41AD687AF00A5139E /* MyOrderTableCell.m */,
+				86B8E5B31AD6A5ED00A5139E /* MyOrderOnDoingTableCell.h */,
+				86B8E5B41AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1090,6 +1101,9 @@
 		86D627CF1AD1298D00DB4369 /* usercenter */ = {
 			isa = PBXGroup;
 			children = (
+				86B8E5B11AD69FF100A5139E /* night@2x.png */,
+				86B8E5AF1AD69F4300A5139E /* daytime@2x.png */,
+				86B8E5AD1AD69F3100A5139E /* orderend@2x.png */,
 				863C8E461AD37E29009D7496 /* usercenterapplystatus@2x.png */,
 				863C8E411AD2AE63009D7496 /* applyAttention@2x.png */,
 				863C8E3F1AD2A967009D7496 /* userattentionring@2x.png */,
@@ -1276,6 +1290,7 @@
 				86C0953F1ACD5C6A00371BF3 /* image0.png in Resources */,
 				86B8E5AB1AD6991200A5139E /* Default-568h@2x.png in Resources */,
 				86D627E11AD14FD200DB4369 /* usercenterphotobg@2x.png in Resources */,
+				86B8E5B21AD69FF100A5139E /* night@2x.png in Resources */,
 				86B8E5621AD4E9A100A5139E /* EscortTimeSelect@2x.png in Resources */,
 				86C0952A1ACD472F00371BF3 /* tab-nurse@2x.png in Resources */,
 				CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */,
@@ -1318,6 +1333,7 @@
 				8642C9321ABFF53C00251921 /* whiteArrow.png in Resources */,
 				8642C9311ABFF53C00251921 /* grayArrow@2x.png in Resources */,
 				8642C9331ABFF53C00251921 /* whiteArrow@2x.png in Resources */,
+				86B8E5B01AD69F4300A5139E /* daytime@2x.png in Resources */,
 				869C9EE01AD3D5F60090182E /* relationheaderbg@2x.png in Resources */,
 				86D627D91AD134C500DB4369 /* usercentermyattention@2x.png in Resources */,
 				86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */,
@@ -1334,6 +1350,7 @@
 				869C9EDE1AD3D3750090182E /* relationattentionselect@2x.png in Resources */,
 				86B8E5691AD5025F00A5139E /* relevancelogo@2X.png in Resources */,
 				862B97401AD2409700A726D3 /* jiating@2x.png in Resources */,
+				86B8E5AE1AD69F3100A5139E /* orderend@2x.png in Resources */,
 				86C0955F1AD0E02700371BF3 /* b27_icon_star_gray@2x.png in Resources */,
 				86C095421ACD5C6A00371BF3 /* image3.png in Resources */,
 				86B8E5911AD61D6000A5139E /* usercentershutgray@2x.png in Resources */,
@@ -1420,6 +1437,7 @@
 				863C8E351AD29E81009D7496 /* UserAttentionTableCell.m in Sources */,
 				8642C9491ABFF53C00251921 /* UIButton+WebCache.m in Sources */,
 				8642C95D1ABFF55800251921 /* HomePageVC.m in Sources */,
+				86B8E5B51AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m in Sources */,
 				86C095521ACE6D0E00371BF3 /* CityListSelectVC.m in Sources */,
 				86B8E5601AD4E8A200A5139E /* AttentionSelectView.m in Sources */,
 				86B8E5A81AD690AB00A5139E /* OrderListModel.m in Sources */,

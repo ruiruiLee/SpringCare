@@ -41,9 +41,10 @@
         [btn setTitleColor:_COLOR(0x10, 0x9d, 0x59) forState:UIControlStateSelected];
         [_btnArray addObject:btn];
         btn.tag = 100+i;
+        [btn addTarget:self action:@selector(DoBtnItemClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    _lbLine = [[UILabel alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 1, len, 1)];
+    _lbLine = [[UILabel alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 2, len, 2)];
     [self addSubview:_lbLine];
     _lbLine.backgroundColor = Abled_Color;
     
@@ -65,7 +66,7 @@
     {
         [delegate NotifyItemClickedWithIdx:sender.tag - 100];
     }
-    
+    sender.selected = YES;
     CGRect frame = _lbLine.frame;
     NSInteger idx = sender.tag - 100;
     __weak UILabel *weakLine = _lbLine;

@@ -14,6 +14,8 @@
 @property (nonatomic, strong) NSString *price;
 @property (nonatomic, strong) NSString *countPrice;
 @property (nonatomic, assign) int type; //0全天 1白天 2 晚上
+@property (nonatomic, strong) NSString *fromto;
+@property (nonatomic, strong) NSString *name;
 
 + (NSArray*) GetOrderList;
 

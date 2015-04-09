@@ -1,5 +1,5 @@
 //
-//  MyOrderTableCell.h
+//  MyOrderOnDoingTableCell.h
 //  SpringCare
 //
 //  Created by LiuZach on 15/4/9.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OrderListModel.h"
 
-@interface MyOrderTableCell : UITableViewCell
+@interface MyOrderOnDoingTableCell : UITableViewCell
 {
     UIImageView *_imgPhoto;//头像
     UILabel *_lbName;//名字
@@ -22,6 +22,9 @@
     UIImageView *_imgDayTime;
     UIImageView *_imgNight;
     UILabel *_lbDetailTime;
+    
+    UILabel *_topLine;
+    UILabel *_headerText;
 }
 
 - (void) SetContentData:(OrderListModel*) data;

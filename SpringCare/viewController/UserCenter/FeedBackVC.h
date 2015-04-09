@@ -8,6 +8,11 @@
 
 #import "LCBaseVC.h"
 
-@interface FeedBackVC : LCBaseVC
+@interface FeedBackVC : LCBaseVC<UITextViewDelegate>
+{
+    UITextView *_tvContent;
+    UILabel *_lbExplation;
+    UIButton *_btnSubmit;
+}
 
 @end
