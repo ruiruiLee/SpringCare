@@ -100,6 +100,9 @@
     else if (celldata.cellType == EnumTypeRelationName){
         _imgUnflod.hidden = YES;
     }
+    else if (celldata.cellType == EnumTypeHeight){
+        _imgUnflod.hidden = YES;
+    }
     _imgUnflod.hidden = YES;
 }
 

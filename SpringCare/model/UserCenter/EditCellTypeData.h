@@ -16,6 +16,7 @@ typedef enum : NSUInteger {
     EnumTypeAddress,
     EnumTypeMobile,
     EnumTypeRelationName,
+    EnumTypeHeight,//身高
 } EditCellType;
 
 @interface EditCellTypeData : NSObject
