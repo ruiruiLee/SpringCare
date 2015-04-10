@@ -11,10 +11,9 @@
 #import "AdDataModel.h"
 #import "define.h"
 #import <CoreText/CoreText.h>
-//#import "sys/utsname.h"
 #import "NSStrUtil.h"
 #import "LoginVC.h"
-#import "EvaluateOrderVC.h"
+#import "OrderDetailsVC.h"
 
 @implementation HomePageVC
 
@@ -51,10 +50,10 @@
     
     [self initWithSubviews];
     
-    EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController presentViewController:vc animated:YES completion:^{
-        
-    }];
+//    OrderDetailsVC *vc = [[OrderDetailsVC alloc] initWithNibName:nil bundle:nil];
+//    [self.navigationController presentViewController:vc animated:YES completion:^{
+//        
+//    }];
 }
 
 - (void) btnPressed:(UIButton*) sender

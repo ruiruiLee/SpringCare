@@ -151,6 +151,8 @@
 		86B8E5B81AD6ADFB00A5139E /* EvaluateOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5B71AD6ADFB00A5139E /* EvaluateOrderVC.m */; };
 		86B8E5BB1AD6B17600A5139E /* EvaluateOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5BA1AD6B17600A5139E /* EvaluateOrderCell.m */; };
 		86B8E5BE1AD7729900A5139E /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5BD1AD7729900A5139E /* PlaceholderTextView.m */; };
+		86B8E5C11AD774CB00A5139E /* PayForOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5C01AD774CB00A5139E /* PayForOrderVC.m */; };
+		86B8E5C41AD798A000A5139E /* OrderDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5C31AD798A000A5139E /* OrderDetailsVC.m */; };
 		86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095161ACD173F00371BF3 /* EditUserInfoView.m */; };
 		86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */; };
 		86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */; };
@@ -436,6 +438,10 @@
 		86B8E5BA1AD6B17600A5139E /* EvaluateOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateOrderCell.m; sourceTree = "<group>"; };
 		86B8E5BC1AD7729900A5139E /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
 		86B8E5BD1AD7729900A5139E /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
+		86B8E5BF1AD774CB00A5139E /* PayForOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayForOrderVC.h; sourceTree = "<group>"; };
+		86B8E5C01AD774CB00A5139E /* PayForOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayForOrderVC.m; sourceTree = "<group>"; };
+		86B8E5C21AD798A000A5139E /* OrderDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsVC.h; sourceTree = "<group>"; };
+		86B8E5C31AD798A000A5139E /* OrderDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsVC.m; sourceTree = "<group>"; };
 		86C095151ACD173F00371BF3 /* EditUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoView.h; sourceTree = "<group>"; };
 		86C095161ACD173F00371BF3 /* EditUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoView.m; sourceTree = "<group>"; };
 		86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-home-selected@2x.png"; sourceTree = "<group>"; };
@@ -1036,6 +1042,10 @@
 				86B8E5711AD522F600A5139E /* cell */,
 				86B8E56E1AD5056F00A5139E /* PlaceOrderVC.h */,
 				86B8E56F1AD5056F00A5139E /* PlaceOrderVC.m */,
+				86B8E5BF1AD774CB00A5139E /* PayForOrderVC.h */,
+				86B8E5C01AD774CB00A5139E /* PayForOrderVC.m */,
+				86B8E5C21AD798A000A5139E /* OrderDetailsVC.h */,
+				86B8E5C31AD798A000A5139E /* OrderDetailsVC.m */,
 			);
 			path = Overbooking;
 			sourceTree = "<group>";
@@ -1513,6 +1523,7 @@
 				8642C9431ABFF53C00251921 /* SDWebImageCompat.m in Sources */,
 				8642C9CA1AC3CFB800251921 /* NurseListInfoModel.m in Sources */,
 				8642C93F1ABFF53C00251921 /* SBJsonWriter.m in Sources */,
+				86B8E5C11AD774CB00A5139E /* PayForOrderVC.m in Sources */,
 				86B8E59C1AD65D1500A5139E /* UserSettingVC.m in Sources */,
 				86C0953A1ACD5AB500371BF3 /* AdScrollView.m in Sources */,
 				865C85901ACCEDFF006ABCA4 /* PageLoadFootView.m in Sources */,
@@ -1529,6 +1540,7 @@
 				8642C9A51AC0283E00251921 /* ProjectDefine.m in Sources */,
 				86C0954D1ACE627200371BF3 /* FSDropDownMenu.m in Sources */,
 				8642C9421ABFF53C00251921 /* SDImageCache.m in Sources */,
+				86B8E5C41AD798A000A5139E /* OrderDetailsVC.m in Sources */,
 				86B8E5BE1AD7729900A5139E /* PlaceholderTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
