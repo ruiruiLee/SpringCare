@@ -50,10 +50,10 @@
     
     [self initWithSubviews];
     
-//    OrderDetailsVC *vc = [[OrderDetailsVC alloc] initWithNibName:nil bundle:nil];
-//    [self.navigationController presentViewController:vc animated:YES completion:^{
-//        
-//    }];
+    OrderDetailsVC *vc = [[OrderDetailsVC alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController presentViewController:vc animated:YES completion:^{
+        
+    }];
 }
 
 - (void) btnPressed:(UIButton*) sender

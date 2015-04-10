@@ -142,8 +142,6 @@
 		86B8E5A21AD66D0300A5139E /* LCTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5A11AD66D0300A5139E /* LCTabBar.m */; };
 		86B8E5A51AD687AF00A5139E /* MyOrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5A41AD687AF00A5139E /* MyOrderTableCell.m */; };
 		86B8E5A81AD690AB00A5139E /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5A71AD690AB00A5139E /* OrderListModel.m */; };
-		86B8E5AB1AD6991200A5139E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5A91AD6991200A5139E /* Default-568h@2x.png */; };
-		86B8E5AC1AD6991200A5139E /* LaunchImage-800-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5AA1AD6991200A5139E /* LaunchImage-800-667h@2x.png */; };
 		86B8E5AE1AD69F3100A5139E /* orderend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5AD1AD69F3100A5139E /* orderend@2x.png */; };
 		86B8E5B01AD69F4300A5139E /* daytime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5AF1AD69F4300A5139E /* daytime@2x.png */; };
 		86B8E5B21AD69FF100A5139E /* night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5B11AD69FF100A5139E /* night@2x.png */; };
@@ -153,6 +151,14 @@
 		86B8E5BE1AD7729900A5139E /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5BD1AD7729900A5139E /* PlaceholderTextView.m */; };
 		86B8E5C11AD774CB00A5139E /* PayForOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5C01AD774CB00A5139E /* PayForOrderVC.m */; };
 		86B8E5C41AD798A000A5139E /* OrderDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5C31AD798A000A5139E /* OrderDetailsVC.m */; };
+		86B8E5C71AD7AD4100A5139E /* OrderStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5C61AD7AD4100A5139E /* OrderStepView.m */; };
+		86B8E5CA1AD7B0BA00A5139E /* stepnormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5C81AD7B0BA00A5139E /* stepnormal@2x.png */; };
+		86B8E5CB1AD7B0BA00A5139E /* stepselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5C91AD7B0BA00A5139E /* stepselected@2x.png */; };
+		86B8E5CE1AD7BC2F00A5139E /* stepselectlinenormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5CC1AD7BC2F00A5139E /* stepselectlinenormal@2x.png */; };
+		86B8E5CF1AD7BC2F00A5139E /* stepselectlineselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5CD1AD7BC2F00A5139E /* stepselectlineselect@2x.png */; };
+		86B8E5D11AD7D9A900A5139E /* orderdetailtel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5D01AD7D9A900A5139E /* orderdetailtel@2x.png */; };
+		86B8E5D41AD7DA9900A5139E /* femail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5D21AD7DA9900A5139E /* femail@2x.png */; };
+		86B8E5D51AD7DA9900A5139E /* mail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86B8E5D31AD7DA9900A5139E /* mail@2x.png */; };
 		86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095161ACD173F00371BF3 /* EditUserInfoView.m */; };
 		86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */; };
 		86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */; };
@@ -425,8 +431,6 @@
 		86B8E5A41AD687AF00A5139E /* MyOrderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderTableCell.m; sourceTree = "<group>"; };
 		86B8E5A61AD690AB00A5139E /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
 		86B8E5A71AD690AB00A5139E /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
-		86B8E5A91AD6991200A5139E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		86B8E5AA1AD6991200A5139E /* LaunchImage-800-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-800-667h@2x.png"; sourceTree = "<group>"; };
 		86B8E5AD1AD69F3100A5139E /* orderend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orderend@2x.png"; sourceTree = "<group>"; };
 		86B8E5AF1AD69F4300A5139E /* daytime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "daytime@2x.png"; sourceTree = "<group>"; };
 		86B8E5B11AD69FF100A5139E /* night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "night@2x.png"; sourceTree = "<group>"; };
@@ -442,6 +446,15 @@
 		86B8E5C01AD774CB00A5139E /* PayForOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayForOrderVC.m; sourceTree = "<group>"; };
 		86B8E5C21AD798A000A5139E /* OrderDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsVC.h; sourceTree = "<group>"; };
 		86B8E5C31AD798A000A5139E /* OrderDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsVC.m; sourceTree = "<group>"; };
+		86B8E5C51AD7AD4100A5139E /* OrderStepView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderStepView.h; sourceTree = "<group>"; };
+		86B8E5C61AD7AD4100A5139E /* OrderStepView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderStepView.m; sourceTree = "<group>"; };
+		86B8E5C81AD7B0BA00A5139E /* stepnormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepnormal@2x.png"; sourceTree = "<group>"; };
+		86B8E5C91AD7B0BA00A5139E /* stepselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepselected@2x.png"; sourceTree = "<group>"; };
+		86B8E5CC1AD7BC2F00A5139E /* stepselectlinenormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepselectlinenormal@2x.png"; sourceTree = "<group>"; };
+		86B8E5CD1AD7BC2F00A5139E /* stepselectlineselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepselectlineselect@2x.png"; sourceTree = "<group>"; };
+		86B8E5D01AD7D9A900A5139E /* orderdetailtel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orderdetailtel@2x.png"; sourceTree = "<group>"; };
+		86B8E5D21AD7DA9900A5139E /* femail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "femail@2x.png"; sourceTree = "<group>"; };
+		86B8E5D31AD7DA9900A5139E /* mail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mail@2x.png"; sourceTree = "<group>"; };
 		86C095151ACD173F00371BF3 /* EditUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoView.h; sourceTree = "<group>"; };
 		86C095161ACD173F00371BF3 /* EditUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoView.m; sourceTree = "<group>"; };
 		86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-home-selected@2x.png"; sourceTree = "<group>"; };
@@ -773,6 +786,8 @@
 				86B8E5A11AD66D0300A5139E /* LCTabBar.m */,
 				86B8E5BC1AD7729900A5139E /* PlaceholderTextView.h */,
 				86B8E5BD1AD7729900A5139E /* PlaceholderTextView.m */,
+				86B8E5C51AD7AD4100A5139E /* OrderStepView.h */,
+				86B8E5C61AD7AD4100A5139E /* OrderStepView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1066,6 +1081,13 @@
 		86B8E5751AD5272600A5139E /* Overbooking */ = {
 			isa = PBXGroup;
 			children = (
+				86B8E5D21AD7DA9900A5139E /* femail@2x.png */,
+				86B8E5D31AD7DA9900A5139E /* mail@2x.png */,
+				86B8E5D01AD7D9A900A5139E /* orderdetailtel@2x.png */,
+				86B8E5CC1AD7BC2F00A5139E /* stepselectlinenormal@2x.png */,
+				86B8E5CD1AD7BC2F00A5139E /* stepselectlineselect@2x.png */,
+				86B8E5C81AD7B0BA00A5139E /* stepnormal@2x.png */,
+				86B8E5C91AD7B0BA00A5139E /* stepselected@2x.png */,
 				86B8E5981AD639A700A5139E /* placeoredercert@2x.png */,
 				86B8E5941AD624D200A5139E /* placeorderaddress@2x.png */,
 				86B8E5951AD624D200A5139E /* placeorderdatestart@2x.png */,
@@ -1169,8 +1191,6 @@
 		CFAFA3AB1ABFEC8C0020E774 /* SpringCare */ = {
 			isa = PBXGroup;
 			children = (
-				86B8E5A91AD6991200A5139E /* Default-568h@2x.png */,
-				86B8E5AA1AD6991200A5139E /* LaunchImage-800-667h@2x.png */,
 				8642C9541ABFF55800251921 /* viewController */,
 				8642C9501ABFF54C00251921 /* view */,
 				8642C8C21ABFF53C00251921 /* Vendor */,
@@ -1313,13 +1333,13 @@
 				86B8E5851AD5554D00A5139E /* paytypeselected@2x.png in Resources */,
 				8642C9301ABFF53C00251921 /* grayArrow.png in Resources */,
 				86C0953F1ACD5C6A00371BF3 /* image0.png in Resources */,
-				86B8E5AB1AD6991200A5139E /* Default-568h@2x.png in Resources */,
 				86D627E11AD14FD200DB4369 /* usercenterphotobg@2x.png in Resources */,
 				86B8E5B21AD69FF100A5139E /* night@2x.png in Resources */,
 				86B8E5621AD4E9A100A5139E /* EscortTimeSelect@2x.png in Resources */,
 				86C0952A1ACD472F00371BF3 /* tab-nurse@2x.png in Resources */,
 				CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */,
 				86D627DB1AD134C500DB4369 /* usercentersetting@2x.png in Resources */,
+				86B8E5D11AD7D9A900A5139E /* orderdetailtel@2x.png in Resources */,
 				862B973F1AD2409700A726D3 /* hospital@2x.png in Resources */,
 				86D627DA1AD134C500DB4369 /* usercentermyorders@2x.png in Resources */,
 				863C8E4C1AD39A85009D7496 /* nurselistcert@2x.png in Resources */,
@@ -1329,15 +1349,19 @@
 				862B97481AD2706700A726D3 /* usercentershut@2x.png in Resources */,
 				86B8E5771AD5273F00A5139E /* placeappraisal@2x.png in Resources */,
 				8642C9BE1AC2A8E600251921 /* btn_right.png in Resources */,
+				86B8E5CE1AD7BC2F00A5139E /* stepselectlinenormal@2x.png in Resources */,
+				86B8E5D51AD7DA9900A5139E /* mail@2x.png in Resources */,
 				862B97371AD2408900A726D3 /* hospital@3x.png in Resources */,
 				86C095601AD0E02700371BF3 /* b27_icon_star_yellow@2x.png in Resources */,
 				862B97361AD2408900A726D3 /* call@3x.png in Resources */,
 				8642C92C1ABFF53C00251921 /* blackArrow.png in Resources */,
+				86B8E5D41AD7DA9900A5139E /* femail@2x.png in Resources */,
 				86B8E57F1AD5301B00A5139E /* wechatlogo@2x.png in Resources */,
 				86C0954F1ACE637C00371BF3 /* expandableImage@2x.png in Resources */,
 				86D627D31AD12DD100DB4369 /* Arrow@2x.png in Resources */,
 				862B97471AD2706700A726D3 /* usercenternew@2x.png in Resources */,
 				86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */,
+				86B8E5CF1AD7BC2F00A5139E /* stepselectlineselect@2x.png in Resources */,
 				863C8E3E1AD2A914009D7496 /* placeholderimage@2x.png in Resources */,
 				869C9EDB1AD3C2080090182E /* nav_shut@2x.png in Resources */,
 				863C8E471AD37E29009D7496 /* usercenterapplystatus@2x.png in Resources */,
@@ -1351,7 +1375,6 @@
 				862B973E1AD2409700A726D3 /* call@2x.png in Resources */,
 				863C8E401AD2A967009D7496 /* userattentionring@2x.png in Resources */,
 				869C9EE21AD3F9B00090182E /* escorttimevolice@2x.png in Resources */,
-				86B8E5AC1AD6991200A5139E /* LaunchImage-800-667h@2x.png in Resources */,
 				8642C92D1ABFF53C00251921 /* blackArrow@2x.png in Resources */,
 				86D627DF1AD14D5700DB4369 /* usercenterring@2x.png in Resources */,
 				86C095411ACD5C6A00371BF3 /* image2.png in Resources */,
@@ -1376,8 +1399,10 @@
 				86B8E5691AD5025F00A5139E /* relevancelogo@2X.png in Resources */,
 				862B97401AD2409700A726D3 /* jiating@2x.png in Resources */,
 				86B8E5AE1AD69F3100A5139E /* orderend@2x.png in Resources */,
+				86B8E5CA1AD7B0BA00A5139E /* stepnormal@2x.png in Resources */,
 				86C0955F1AD0E02700371BF3 /* b27_icon_star_gray@2x.png in Resources */,
 				86C095421ACD5C6A00371BF3 /* image3.png in Resources */,
+				86B8E5CB1AD7B0BA00A5139E /* stepselected@2x.png in Resources */,
 				86B8E5911AD61D6000A5139E /* usercentershutgray@2x.png in Resources */,
 				862B97411AD2409700A726D3 /* nav-person@2x.png in Resources */,
 				86D627D11AD1299500DB4369 /* usercenterbg@2x.png in Resources */,
@@ -1460,6 +1485,7 @@
 				8642C9B11AC2872400251921 /* SliderViewController.m in Sources */,
 				86B8E5A51AD687AF00A5139E /* MyOrderTableCell.m in Sources */,
 				86B8E5BB1AD6B17600A5139E /* EvaluateOrderCell.m in Sources */,
+				86B8E5C71AD7AD4100A5139E /* OrderStepView.m in Sources */,
 				863C8E351AD29E81009D7496 /* UserAttentionTableCell.m in Sources */,
 				8642C9491ABFF53C00251921 /* UIButton+WebCache.m in Sources */,
 				8642C95D1ABFF55800251921 /* HomePageVC.m in Sources */,
