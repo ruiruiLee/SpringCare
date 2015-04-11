@@ -12,8 +12,8 @@
 #import "define.h"
 #import <CoreText/CoreText.h>
 #import "NSStrUtil.h"
-#import "LoginVC.h"
-#import "PayForOrderVC.h"
+#import "PlaceOrderVC.h"
+#import "PlaceOrderForProductVC.h"
 #import "WebContentVC.h"
 
 @implementation HomePageVC
@@ -51,7 +51,7 @@
     
     [self initWithSubviews];
     
-    PayForOrderVC *vc = [[PayForOrderVC alloc] initWithNibName:nil bundle:nil];
+    PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithNibName:nil bundle:nil];
     [self.navigationController presentViewController:vc animated:YES completion:^{
         
     }];

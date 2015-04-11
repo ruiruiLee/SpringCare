@@ -42,4 +42,6 @@
 #define TableBackGroundColor _COLOR(0xf8, 0xf8, 0xf8)
 #define TableSectionBackgroundColor _COLOR(0xf3, 0xf5, 0xf7)
 
+#define TIME_LIMIT 5
+
 #endif

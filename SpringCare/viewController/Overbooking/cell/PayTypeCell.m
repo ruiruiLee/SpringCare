@@ -144,7 +144,7 @@
 {
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    PayTypeItemCell *cell = [_tableview dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell._btnSelect.selected = YES;
 }

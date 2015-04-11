@@ -10,6 +10,7 @@
 #import "UserAppraisalCell.h"
 #import "PayTypeForProductCell.h"
 #import "PlaceOrderEditForProductCell.h"
+#import "define.h"
 
 @interface PlaceOrderForProductVC ()
 
@@ -48,14 +49,20 @@
     [btnSubmit setTitle:@"提交订单" forState:UIControlStateNormal];
     btnSubmit.titleLabel.font = _FONT(18);
     btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;
+    [btnSubmit addTarget:self action:@selector(doBtnSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, btnSubmit);
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-40-[btnSubmit(44)]-40-|" options:0 metrics:nil views:views]];
-    
 }
+
+- (void) doBtnSubmit:(UIButton*)sender
+{
+
+}
+
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;

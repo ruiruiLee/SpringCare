@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DateCountSelectView.h"
 #import "BusinessTypeView.h"
+#import "ZHPickView.h"
 
 @interface PlaceOrderEditItemCell : UITableViewCell
 {
@@ -23,7 +24,7 @@
 
 @end
 
-@interface PlaceOrderEditCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate>
+@interface PlaceOrderEditCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate>
 {
     UITableView *_tableview;
     UILabel *line;
@@ -32,6 +33,8 @@
     DateCountSelectView *dateSelectView;//多少天
     UILabel *lbUnitPrice;//单价
     UILabel *lbAmountPrice;//总价
+    
+    ZHPickView *_pickview;
 }
 
 @end

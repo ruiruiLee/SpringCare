@@ -109,6 +109,16 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if(indexPath.row == 0){
+        NSMutableArray *mArray = [[NSMutableArray alloc] init];
+        [mArray addObject:[self getDateArray]];
+        [mArray addObject:[self getTimeArray]];
+        
+        _pickview = [[ZHPickView alloc] initPickviewWithArray:mArray isHaveNavControler:NO];
+        [_pickview show];
+        _pickview.delegate = self;
+    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -129,4 +139,31 @@
     
     return cell;
 }
+
+-(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultDate:(NSDate *)resultDate
+{
+    PlaceOrderEditItemCell *cell = (PlaceOrderEditItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell.lbTitle.text = [NSString stringWithFormat:@"服务开始时间：%@", [ZHPickView StringFromDate:resultDate]];
+}
+
+- (NSArray*) getTimeArray
+{
+    NSArray *array = @[@"08", @"09", @"10", @"20", @"21", @"22"];
+    return array;
+}
+
+- (NSArray*) getDateArray
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSDate *curdate = [NSDate date];
+    NSInteger current = [curdate timeIntervalSince1970];
+    for (int i = 0; i < TIME_LIMIT; i++) {
+        NSInteger timeInterval = current + i * 24 * 60 * 60 ;
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+        [array addObject:date];
+    }
+    
+    return array;
+}
+
 @end
