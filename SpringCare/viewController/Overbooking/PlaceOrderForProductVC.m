@@ -70,7 +70,7 @@
 {
     if (indexPath.section == 0)
     {
-        return 248.f;
+        return 200.f;
     }
     else{
         return 135.f;

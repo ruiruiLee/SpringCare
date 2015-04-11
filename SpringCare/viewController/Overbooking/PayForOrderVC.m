@@ -31,6 +31,26 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (UILabel*) createLabelWithFont:(UIFont*)font textcolor:(UIColor*)color backgroundcolor:(UIColor*)bgColor rootView:(UIView*)rootView
+{
+    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectZero];
+    [rootView addSubview:lb];
+    lb.translatesAutoresizingMaskIntoConstraints = NO;
+    lb.textColor = color;
+    lb.font = font;
+    lb.backgroundColor = bgColor;
+    return lb;
+}
+
+- (UIImageView*) creatImageViewWithimage:(NSString*)name placeholder:(NSString*)placeholder  rootView:(UIView*)rootView
+{
+    UIImageView *imagev = [[UIImageView alloc] initWithFrame:CGRectZero];
+    imagev.translatesAutoresizingMaskIntoConstraints = NO;
+    [rootView addSubview:imagev];
+    [imagev sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:placeholder]];
+    return imagev;
+}
+
 - (void) initSubviews
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 293)];
@@ -44,40 +64,15 @@
     _nurseInfoBg.backgroundColor = TableBackGroundColor;
     
     //sub
-    _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
-    [_nurseInfoBg addSubview:_imgPhoto];
-    [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
-    
-    _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
-    [_nurseInfoBg addSubview:_lbName];
-    _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
-    _lbName.font = _FONT(15);
-    _lbName.translatesAutoresizingMaskIntoConstraints = NO;
+    _imgPhoto = [self creatImageViewWithimage:nil placeholder:@"nurselistfemale" rootView:_nurseInfoBg];
+    _lbName = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
     _lbName.text = @"家庭陪护-王莹莹";
-    
-    _lbPrice = [[UILabel alloc] initWithFrame:CGRectZero];
-    [_nurseInfoBg addSubview:_lbPrice];
-    _lbPrice.textColor = _COLOR(0x66, 0x66, 0x66);
-    _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbPrice.font = _FONT(13);
+    _lbPrice = [self createLabelWithFont:_FONT(13) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
     _lbPrice.text = @"¥150/12 X 3天";
+    _imgDayTime = [self creatImageViewWithimage:nil placeholder:@"daytime" rootView:_nurseInfoBg];
+    _imgNight = [self creatImageViewWithimage:nil placeholder:@"night" rootView:_nurseInfoBg];
     
-    _imgDayTime = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [_nurseInfoBg addSubview:_imgDayTime];
-    _imgDayTime.translatesAutoresizingMaskIntoConstraints = NO;
-    _imgDayTime.image = [UIImage imageNamed:@"daytime"];
-    
-    _imgNight = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [_nurseInfoBg addSubview:_imgNight];
-    _imgNight.translatesAutoresizingMaskIntoConstraints = NO;
-    _imgNight.image = [UIImage imageNamed:@"night"];
-    
-    _lbDetailTime = [[UILabel alloc] initWithFrame:CGRectZero];
-    [_nurseInfoBg addSubview:_lbDetailTime];
-    _lbDetailTime.textColor = _COLOR(0x99, 0x99, 0x99);
-    _lbDetailTime.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbDetailTime.font = _FONT(12);
+    _lbDetailTime = [self createLabelWithFont:_FONT(12) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
     _lbDetailTime.text = @"2015.03.25-03.27(20:00-次日08:00)";
     
     _totalPriceBg = [[UIView alloc] initWithFrame:CGRectZero];
@@ -88,30 +83,13 @@
     _totalPriceBg.backgroundColor = TableBackGroundColor;
     
     //sub
-    _lbTotalPrice = [[UILabel alloc] initWithFrame:CGRectZero];
-    [_totalPriceBg addSubview:_lbTotalPrice];
-    _lbTotalPrice.textColor = _COLOR(0x99, 0x99, 0x99);
-    _lbTotalPrice.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbTotalPrice.font = _FONT(18);
+    _lbTotalPrice = [self createLabelWithFont:_FONT(18) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor] rootView:_totalPriceBg];
     _lbTotalPrice.text = @"确认总价：";
-    
-    _lbTotalPriceValue = [[UILabel alloc] initWithFrame:CGRectZero];
-    [_totalPriceBg addSubview:_lbTotalPriceValue];
-    _lbTotalPriceValue.textColor = _COLOR(0xf1, 0x13, 0x59);
-    _lbTotalPriceValue.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbTotalPriceValue.font = _FONT(28);
+    _lbTotalPriceValue = [self createLabelWithFont:_FONT(28) textcolor:_COLOR(0xf1, 0x13, 0x59) backgroundcolor:[UIColor clearColor] rootView:_totalPriceBg];
     _lbTotalPriceValue.text = @"¥450.00";
     
-    _payLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [headerView addSubview:_payLogo];
-    _payLogo.translatesAutoresizingMaskIntoConstraints = NO;
-    _payLogo.image = [UIImage imageNamed:@"paytype"];
-    
-    _lbPaytype = [[UILabel alloc] initWithFrame:CGRectZero];
-    [headerView addSubview:_lbPaytype];
-    _lbPaytype.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbPaytype.font = _FONT(15);
-    _lbPaytype.textColor = _COLOR(0x66, 0x66, 0x66);
+    _payLogo = [self creatImageViewWithimage:nil placeholder:@"paytype" rootView:headerView];
+    _lbPaytype = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:headerView];
     _lbPaytype.text = @"付款方式";
     
     _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -122,8 +100,6 @@
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
     _tableview.tableFooterView = [[UIView alloc] init];
-//    _tableview.layer.borderWidth = 0.78;
-//    _tableview.layer.borderColor = _COLOR(212, 212, 212).CGColor;
     
     UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnSubmit];
