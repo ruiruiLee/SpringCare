@@ -30,11 +30,7 @@
         _lbTitle.font = _FONT(14);
         _lbTitle.textColor = _COLOR(0x99, 0x99, 0x99);
         
-        _unfoldStaus = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_unfoldStaus];
-        _unfoldStaus.translatesAutoresizingMaskIntoConstraints = NO;
-        _unfoldStaus.image = [UIImage imageNamed:@"usercentershutgray"];
-        //        _btnSelect.selected = YES;
+        _unfoldStaus = [self createImageViewWithimageName:@"usercentershutgray"];
         
         _line = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_line];
@@ -50,6 +46,15 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_line]-0-|" options:0 metrics:nil views:views]];
     }
     return self;
+}
+
+- (UIImageView*) createImageViewWithimageName:(NSString*) name
+{
+    UIImageView *imagev = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:imagev];
+    imagev.translatesAutoresizingMaskIntoConstraints = NO;
+    imagev.image = [UIImage imageNamed:name];
+    return imagev;
 }
 
 @end
@@ -69,17 +74,10 @@
         logo.translatesAutoresizingMaskIntoConstraints = NO;
         logo.image = [UIImage imageNamed:@"placeordered"];
         
-        UILabel *lbPaytype = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:lbPaytype];
-        lbPaytype.translatesAutoresizingMaskIntoConstraints = NO;
-        lbPaytype.font = _FONT(15);
-        lbPaytype.textColor = _COLOR(0x99, 0x99, 0x99);
+        UILabel *lbPaytype = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
         lbPaytype.text = @"我要下单";
         
-        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:line1];
-        line1.translatesAutoresizingMaskIntoConstraints = NO;
-        line1.backgroundColor = SeparatorLineColor;
+        UILabel *line1 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
         businessTypeView = [[BusinessTypeView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:businessTypeView];
@@ -89,22 +87,14 @@
         [self.contentView addSubview:dateSelectView];
         dateSelectView.translatesAutoresizingMaskIntoConstraints = NO;
         
-        lbUnitPrice = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:lbUnitPrice];
-        lbUnitPrice.translatesAutoresizingMaskIntoConstraints = NO;
-        lbUnitPrice.textColor = _COLOR(0x99, 0x99, 0x99);
-        lbUnitPrice.font = _FONT(14);
+        lbUnitPrice = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
         NSString *UnitPrice = @"单价：¥300.00（24h） x 1天";
         NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
         NSRange range = [UnitPrice rangeOfString:@"¥300.00"];
         [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
         lbUnitPrice.attributedText = string;
         
-        lbAmountPrice = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:lbAmountPrice];
-        lbAmountPrice.translatesAutoresizingMaskIntoConstraints = NO;
-        lbAmountPrice.font = _FONT(14);
-        lbAmountPrice.textColor = _COLOR(0x99, 0x99, 0x99);
+        lbAmountPrice = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
         NSString *AmountPrice = @"总价：¥300.00";
         string = [[NSMutableAttributedString alloc]initWithString:AmountPrice];
         range = [UnitPrice rangeOfString:@"¥300.00"];
@@ -112,10 +102,7 @@
         [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
         lbAmountPrice.attributedText = string;
         
-        line = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:line];
-        line.translatesAutoresizingMaskIntoConstraints = NO;
-        line.backgroundColor = SeparatorLineColor;
+        line = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero];
         _tableview.translatesAutoresizingMaskIntoConstraints = NO;
@@ -143,6 +130,17 @@
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:dateSelectView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessTypeView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     return self;
+}
+
+- (UILabel*) createLabelWithFont:(UIFont*)font textcolor:(UIColor*)color backgroundcolor:(UIColor*)bgColor
+{
+    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:lb];
+    lb.translatesAutoresizingMaskIntoConstraints = NO;
+    lb.textColor = color;
+    lb.font = font;
+    lb.backgroundColor = bgColor;
+    return lb;
 }
 
 - (void)awakeFromNib {

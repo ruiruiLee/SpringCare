@@ -39,7 +39,6 @@
         [_btnSelect setImage:[UIImage imageNamed:@"paytypenoselect"] forState:UIControlStateNormal];
         [_btnSelect setImage:[UIImage imageNamed:@"paytypeselected"] forState:UIControlStateSelected];
         _btnSelect.userInteractionEnabled = NO;
-//        _btnSelect.selected = YES;
         
         _line = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_line];
@@ -74,17 +73,10 @@
         logo.translatesAutoresizingMaskIntoConstraints = NO;
         logo.image = [UIImage imageNamed:@"paytype"];
         
-        UILabel *lbPaytype = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:lbPaytype];
-        lbPaytype.translatesAutoresizingMaskIntoConstraints = NO;
-        lbPaytype.font = _FONT(15);
-        lbPaytype.textColor = _COLOR(0x99, 0x99, 0x99);
+        UILabel *lbPaytype = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
         lbPaytype.text = @"付款方式";
         
-        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:line1];
-        line1.translatesAutoresizingMaskIntoConstraints = NO;
-        line1.backgroundColor = SeparatorLineColor;
+        UILabel *line1 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero];
         _tableview.translatesAutoresizingMaskIntoConstraints = NO;
@@ -96,10 +88,7 @@
         _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableview.scrollEnabled = NO;
         
-        line = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:line];
-        line.translatesAutoresizingMaskIntoConstraints = NO;
-        line.backgroundColor = SeparatorLineColor;
+        line = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
         NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line, line1);
         
@@ -113,6 +102,17 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
     }
     return self;
+}
+
+- (UILabel*) createLabelWithFont:(UIFont*)font textcolor:(UIColor*)color backgroundcolor:(UIColor*)bgColor
+{
+    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:lb];
+    lb.translatesAutoresizingMaskIntoConstraints = NO;
+    lb.textColor = color;
+    lb.font = font;
+    lb.backgroundColor = bgColor;
+    return lb;
 }
 
 - (void)awakeFromNib {

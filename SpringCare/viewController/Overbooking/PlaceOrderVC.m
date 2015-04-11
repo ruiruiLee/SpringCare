@@ -46,7 +46,6 @@
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
     
     UIView *headerView = [self createTableViewHeader];
-//    [self.ContentView addSubview:headerView];
     _tableview.tableHeaderView = headerView;
     
     UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -61,8 +60,6 @@
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-40-[btnSubmit(44)]-40-|" options:0 metrics:nil views:views]];
-//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
-//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview, headerView)]];
     
 }
 

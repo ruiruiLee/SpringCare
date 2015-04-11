@@ -22,10 +22,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
         
-        _logoView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_logoView];
-        _logoView.translatesAutoresizingMaskIntoConstraints = NO;
-        _logoView.image = [UIImage imageNamed:@"placeappraisal"];
+        _logoView = [self createImageViewWithimageName:@"placeappraisal"];
         
         _lbAppraisalNum = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbAppraisalNum];
@@ -33,10 +30,7 @@
         _lbAppraisalNum.textColor = _COLOR(0x99, 0x99, 0x99);
         _lbAppraisalNum.font = _FONT(15);
         
-        _unfoldStaus = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_unfoldStaus];
-        _unfoldStaus.translatesAutoresizingMaskIntoConstraints = NO;
-        _unfoldStaus.image = [UIImage imageNamed:@"usercentershutgray"];
+        _unfoldStaus = [self createImageViewWithimageName:@"usercentershutgray"];
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_logoView, _lbAppraisalNum, _unfoldStaus);
         
@@ -47,6 +41,15 @@
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_unfoldStaus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     return self;
+}
+
+- (UIImageView*) createImageViewWithimageName:(NSString*) name
+{
+    UIImageView *imagev = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:imagev];
+    imagev.translatesAutoresizingMaskIntoConstraints = NO;
+    imagev.image = [UIImage imageNamed:name];
+    return imagev;
 }
 
 - (void)awakeFromNib {
