@@ -13,7 +13,8 @@
 #import <CoreText/CoreText.h>
 #import "NSStrUtil.h"
 #import "LoginVC.h"
-#import "OrderDetailsVC.h"
+#import "PlaceOrderForProductVC.h"
+#import "WebContentVC.h"
 
 @implementation HomePageVC
 
@@ -50,7 +51,7 @@
     
     [self initWithSubviews];
     
-    OrderDetailsVC *vc = [[OrderDetailsVC alloc] initWithNibName:nil bundle:nil];
+    PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithNibName:nil bundle:nil];
     [self.navigationController presentViewController:vc animated:YES completion:^{
         
     }];
@@ -87,6 +88,7 @@
     [btnIntro setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
     [btnIntro setTitle:@"护理介绍" forState:UIControlStateNormal];
     btnIntro.titleLabel.font = _FONT(11);
+    [btnIntro addTarget:self action:@selector(doBtnIntro:) forControlEvents:UIControlEventTouchUpInside];
     
     underLine = [[UILabel alloc] initWithFrame:CGRectZero];
     underLine.backgroundColor = _COLOR(0x66, 0x66, 0x6);
@@ -105,6 +107,7 @@
     [btnCommitment setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
     [btnCommitment setTitle:@"服务承诺" forState:UIControlStateNormal];
     btnCommitment.titleLabel.font = _FONT(11);
+    [btnCommitment addTarget:self action:@selector(doBtnCommitment:) forControlEvents:UIControlEventTouchUpInside];
     
     underLineCommit = [[UILabel alloc] initWithFrame:CGRectZero];
     underLineCommit.backgroundColor = _COLOR(0x66, 0x66, 0x66);
@@ -345,14 +348,6 @@
     [[SliderViewController sharedSliderController] leftItemClick];
 }
 
-//- (NSString*)deviceString
-//{
-//    struct utsname systemInfo;
-//    uname(&systemInfo);
-//    NSString *platform = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-//    return platform;
-//}
-
 #pragma CityListSelectVCDelegate
 
 - (void) NotifyCitySelectedWithData:(NSDictionary*) data
@@ -361,6 +356,18 @@
     [activityBtn setTitle:city forState:UIControlStateNormal];
 }
 
+- (void) doBtnIntro:(UIButton*)sender
+{
+    WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"护理介绍" url:@""];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
+- (void) doBtnCommitment:(UIButton*)sender
+{
+    WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"服务承诺" url:@""];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 @end

@@ -49,13 +49,21 @@
 //    [self.ContentView addSubview:headerView];
     _tableview.tableHeaderView = headerView;
     
-//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[headerView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(headerView)]];
+    UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
+    [self.ContentView addSubview:btnSubmit];
+    btnSubmit.layer.cornerRadius = 22;
+    btnSubmit.backgroundColor = Abled_Color;
+    [btnSubmit setTitle:@"提交订单" forState:UIControlStateNormal];
+    btnSubmit.titleLabel.font = _FONT(18);
+    btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview, headerView)]];
+    NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, btnSubmit);
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-40-[btnSubmit(44)]-40-|" options:0 metrics:nil views:views]];
+//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview, headerView)]];
     
-//    headerViewHeightConstraint.constant = 1000.0f;
-//    [headerView updateConstraintsIfNeeded];
 }
 
 - (void) doBtnDetailFoldOrUnfold:(UIButton*)sender

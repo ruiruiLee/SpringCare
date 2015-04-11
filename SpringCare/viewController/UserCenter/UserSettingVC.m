@@ -9,6 +9,7 @@
 #import "UserSettingVC.h"
 #import "UserSettingTableCell.h"
 #import "define.h"
+#import "WebContentVC.h"
 
 @interface UserSettingVC ()
 
@@ -67,6 +68,14 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if(indexPath.section == 2){
+        if(indexPath.row == 0)
+        {
+            WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"关于我们" url:@""];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

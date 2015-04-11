@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if(self)
     {
-        self.layer.cornerRadius = 12;
+        self.layer.cornerRadius = 5;
         self.clipsToBounds = YES;
         self.layer.borderWidth = 1;
         self.layer.borderColor = _COLOR(0x99, 0x99, 0x99).CGColor;

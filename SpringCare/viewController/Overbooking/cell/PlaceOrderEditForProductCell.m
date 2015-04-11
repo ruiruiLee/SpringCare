@@ -1,60 +1,16 @@
 //
-//  PlaceOrderEditCell.m
+//  PlaceOrderEditForProductCell.m
 //  SpringCare
 //
-//  Created by LiuZach on 15/4/8.
+//  Created by LiuZach on 15/4/11.
 //  Copyright (c) 2015年 cmkj. All rights reserved.
 //
 
-#import "PlaceOrderEditCell.h"
+#import "PlaceOrderEditForProductCell.h"
 #import "define.h"
+#import "PlaceOrderEditCell.h"
 
-@implementation PlaceOrderEditItemCell
-
-- (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if(self)
-    {
-        self.backgroundColor = [UIColor clearColor];
-        self.contentView.backgroundColor = [UIColor clearColor];
-        
-        _logoImageView = [[UIButton alloc] initWithFrame:CGRectZero];
-        _logoImageView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.contentView addSubview:_logoImageView];
-        _logoImageView.userInteractionEnabled = NO;
-        
-        _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_lbTitle];
-        _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
-        _lbTitle.font = _FONT(14);
-        _lbTitle.textColor = _COLOR(0x99, 0x99, 0x99);
-        
-        _unfoldStaus = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_unfoldStaus];
-        _unfoldStaus.translatesAutoresizingMaskIntoConstraints = NO;
-        _unfoldStaus.image = [UIImage imageNamed:@"usercentershutgray"];
-        //        _btnSelect.selected = YES;
-        
-        _line = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_line];
-        _line.backgroundColor = SeparatorLineColor;
-        _line.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        NSDictionary *views = NSDictionaryOfVariableBindings(_logoImageView, _lbTitle, _unfoldStaus, _line);
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_logoImageView(35)]-20-[_lbTitle]->=10-[_unfoldStaus]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbTitle(20)]->=0-[_line(1)]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_logoImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbTitle attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_unfoldStaus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_line]-0-|" options:0 metrics:nil views:views]];
-    }
-    return self;
-}
-
-@end
-
-@implementation PlaceOrderEditCell
+@implementation PlaceOrderEditForProductCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -64,24 +20,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
         
-        UIImageView *logo = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:logo];
-        logo.translatesAutoresizingMaskIntoConstraints = NO;
-        logo.image = [UIImage imageNamed:@"placeordered"];
-        
-        UILabel *lbPaytype = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:lbPaytype];
-        lbPaytype.translatesAutoresizingMaskIntoConstraints = NO;
-        lbPaytype.font = _FONT(15);
-        lbPaytype.textColor = _COLOR(0x99, 0x99, 0x99);
-        lbPaytype.text = @"我要下单";
-        
-        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:line1];
-        line1.translatesAutoresizingMaskIntoConstraints = NO;
-        line1.backgroundColor = SeparatorLineColor;
-        
-        businessTypeView = [[BusinessTypeView alloc] initWithFrame:CGRectZero];
+        businessTypeView = [[UnitsTypeView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:businessTypeView];
         businessTypeView.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -128,15 +67,12 @@
         _tableview.scrollEnabled = NO;
         
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessTypeView, dateSelectView, lbUnitPrice, lbAmountPrice, line);
+        NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, businessTypeView, dateSelectView, lbUnitPrice, lbAmountPrice, line);
         
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:logo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:lbPaytype attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[logo(24)]-5-[lbPaytype]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessTypeView(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbAmountPrice]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line1]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line1)]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_tableview]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
         
@@ -151,7 +87,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -190,8 +126,7 @@
         cell.lbTitle.font = _FONT(15);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderaddress"] forState:UIControlStateNormal];
     }
-
+    
     return cell;
 }
-
 @end
