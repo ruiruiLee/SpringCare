@@ -165,6 +165,9 @@
 		86B8E5E41AD8C15000A5139E /* PayTypeForProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5E31AD8C15000A5139E /* PayTypeForProductCell.m */; };
 		86B8E5E71AD8C48F00A5139E /* UnitsTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5E61AD8C48F00A5139E /* UnitsTypeView.m */; };
 		86B8E6091AD9027D00A5139E /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E6081AD9027D00A5139E /* ZHPickView.m */; };
+		86B8E60C1AD952A500A5139E /* HomeCareListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E60B1AD952A500A5139E /* HomeCareListVC.m */; };
+		86B8E60F1AD952E500A5139E /* NurseListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E60E1AD952E500A5139E /* NurseListVC.m */; };
+		86B8E6121AD95B2A00A5139E /* ProductInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */; };
 		86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095161ACD173F00371BF3 /* EditUserInfoView.m */; };
 		86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */; };
 		86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */; };
@@ -473,6 +476,12 @@
 		86B8E5E61AD8C48F00A5139E /* UnitsTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsTypeView.m; sourceTree = "<group>"; };
 		86B8E6071AD9027C00A5139E /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		86B8E6081AD9027D00A5139E /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
+		86B8E60A1AD952A500A5139E /* HomeCareListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCareListVC.h; sourceTree = "<group>"; };
+		86B8E60B1AD952A500A5139E /* HomeCareListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCareListVC.m; sourceTree = "<group>"; };
+		86B8E60D1AD952E500A5139E /* NurseListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseListVC.h; sourceTree = "<group>"; };
+		86B8E60E1AD952E500A5139E /* NurseListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseListVC.m; sourceTree = "<group>"; };
+		86B8E6101AD95B2A00A5139E /* ProductInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductInfoCell.h; sourceTree = "<group>"; };
+		86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductInfoCell.m; sourceTree = "<group>"; };
 		86C095151ACD173F00371BF3 /* EditUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoView.h; sourceTree = "<group>"; };
 		86C095161ACD173F00371BF3 /* EditUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoView.m; sourceTree = "<group>"; };
 		86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-home-selected@2x.png"; sourceTree = "<group>"; };
@@ -836,6 +845,10 @@
 				8642C9571ABFF55800251921 /* HomePageVC.m */,
 				86C095501ACE6D0E00371BF3 /* CityListSelectVC.h */,
 				86C095511ACE6D0E00371BF3 /* CityListSelectVC.m */,
+				86B8E60A1AD952A500A5139E /* HomeCareListVC.h */,
+				86B8E60B1AD952A500A5139E /* HomeCareListVC.m */,
+				86B8E60D1AD952E500A5139E /* NurseListVC.h */,
+				86B8E60E1AD952E500A5139E /* NurseListVC.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -935,6 +948,8 @@
 				86B8E5B41AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m */,
 				86B8E5B91AD6B17600A5139E /* EvaluateOrderCell.h */,
 				86B8E5BA1AD6B17600A5139E /* EvaluateOrderCell.m */,
+				86B8E6101AD95B2A00A5139E /* ProductInfoCell.h */,
+				86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1529,6 +1544,7 @@
 				86B8E5E11AD8C13900A5139E /* PlaceOrderEditForProductCell.m in Sources */,
 				86C095551ACFB93700371BF3 /* CityListCell.m in Sources */,
 				865C85991ACCEDFF006ABCA4 /* MatchParser.m in Sources */,
+				86B8E60F1AD952E500A5139E /* NurseListVC.m in Sources */,
 				8642C9481ABFF53C00251921 /* SDWebImagePrefetcher.m in Sources */,
 				863C8E381AD29E9F009D7496 /* UserApplyAttentionTableCell.m in Sources */,
 				8642C9A81AC04F3A00251921 /* UserModel.m in Sources */,
@@ -1543,8 +1559,10 @@
 				8642C9391ABFF53C00251921 /* SBJsonStreamParserState.m in Sources */,
 				86B8E5DE1AD7EEF800A5139E /* PlaceOrderForProductVC.m in Sources */,
 				869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */,
+				86B8E6121AD95B2A00A5139E /* ProductInfoCell.m in Sources */,
 				8642C9471ABFF53C00251921 /* SDWebImageManager.m in Sources */,
 				86B8E5E41AD8C15000A5139E /* PayTypeForProductCell.m in Sources */,
+				86B8E60C1AD952A500A5139E /* HomeCareListVC.m in Sources */,
 				8642C9D01AC4037600251921 /* MessageInfoTableViewCell.m in Sources */,
 				8642C9CD1AC3E99600251921 /* NurseDetailInfoVC.m in Sources */,
 				86B8E55D1AD4E3C100A5139E /* FeedBackVC.m in Sources */,

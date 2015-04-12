@@ -15,6 +15,8 @@
 #import "PlaceOrderVC.h"
 #import "PlaceOrderForProductVC.h"
 #import "WebContentVC.h"
+#import "NurseListVC.h"
+#import "HomeCareListVC.h"
 
 @implementation HomePageVC
 
@@ -31,7 +33,7 @@
     [super viewDidLoad];
     
     self.lbTitle.text = @"春风陪护";
-    [self.btnLeft setImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
+//    [self.btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
     self.NavigationBar.alpha = 0.9f;
     
     activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 74, 30)];
@@ -40,6 +42,7 @@
     [activityBtn setTitle:@"附近" forState:UIControlStateNormal];
     [activityBtn setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
     activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 58, 5, 0);
+    activityBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     [activityBtn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:activityBtn];
     activityBtn.translatesAutoresizingMaskIntoConstraints = NO;
@@ -51,10 +54,24 @@
     
     [self initWithSubviews];
     
-    PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController presentViewController:vc animated:YES completion:^{
-        
-    }];
+//    PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithNibName:nil bundle:nil];
+//    [self.navigationController presentViewController:vc animated:YES completion:^{
+//        
+//    }];
+}
+
+- (void) doBtnProductList:(UIButton*)sender
+{
+    HomeCareListVC *vc = [[HomeCareListVC alloc] initWithNibName:nil bundle:nil];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) doBtnInNurseList:(UIButton*)sender
+{
+    NurseListVC *vc = [[NurseListVC alloc] initWithNibName:nil bundle:nil];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) btnPressed:(UIButton*) sender
@@ -118,11 +135,13 @@
     [self.ContentView addSubview:btnHospital];
     btnHospital.translatesAutoresizingMaskIntoConstraints = NO;
     [btnHospital setBackgroundImage:[UIImage imageNamed:@"hospital"] forState:UIControlStateNormal];
+    [btnHospital addTarget:self action:@selector(doBtnInNurseList:) forControlEvents:UIControlEventTouchUpInside];
     
     btnHome = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnHome];
     btnHome.translatesAutoresizingMaskIntoConstraints = NO;
     [btnHome setBackgroundImage:[UIImage imageNamed:@"jiating"] forState:UIControlStateNormal];
+    [btnHome addTarget:self action:@selector(doBtnProductList:) forControlEvents:UIControlEventTouchUpInside];
     
     btnRing = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnRing];

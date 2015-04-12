@@ -1,18 +1,19 @@
 //
-//  NurseListMainVC.h
-//  LovelyCare
+//  NurseListVC.h
+//  SpringCare
 //
-//  Created by LiuZach on 15/3/17.
-//  Copyright (c) 2015年 LiuZach. All rights reserved.
+//  Created by LiuZach on 15/4/11.
+//  Copyright (c) 2015年 cmkj. All rights reserved.
 //
 
-#import "MainBaseVC.h"
+#import "LCBaseVC.h"
 #import "PullTableView.h"
 #import "NurseListInfoModel.h"
 #import "NurseIntroTableCell.h"
 #import "DOPDropDownMenu.h"
 
-@interface NurseListMainVC : MainBaseVC<UITableViewDataSource, PullTableViewDelegate, UITableViewDelegate, UISearchBarDelegate, DOPDropDownMenuDataSource, DOPDropDownMenuDelegate>
+@interface NurseListVC : LCBaseVC<UITableViewDataSource, PullTableViewDelegate, UITableViewDelegate, UISearchBarDelegate, DOPDropDownMenuDataSource, DOPDropDownMenuDelegate>
+
 {
     BOOL _reloading;
     NurseListInfoModel *_model;

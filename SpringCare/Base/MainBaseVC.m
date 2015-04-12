@@ -49,11 +49,12 @@
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_NavigationBar(64)]->=0-|" options:0 metrics:nil views:views]];
     }
     
-    _btnLeft = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 32, 32)];
+    _btnLeft = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 49, 46)];
     [self.view addSubview:_btnLeft];
     _btnLeft.backgroundColor = [UIColor clearColor];
     [_btnLeft addTarget:self action:@selector(LeftButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     _btnLeft.translatesAutoresizingMaskIntoConstraints = NO;
+    [_btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
     
     _btnRight = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_btnRight];
@@ -72,14 +73,16 @@
     NSDictionary *navviews = NSDictionaryOfVariableBindings(_btnLeft, _btnRight, _lbTitle, _NavigationBar);
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_lbTitle attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=60-[_lbTitle(200)]->=60-|" options:0 metrics:nil views:navviews]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=80-[_lbTitle(200)]->=80-|" options:0 metrics:nil views:navviews]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_lbTitle(28)]->=8-|" options:0 metrics:nil views:navviews]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_lbTitle attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_NavigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:-8]];
 
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-23-[_btnLeft(35)]->=0-[_lbTitle]->=0-|" options:0 metrics:nil views:navviews]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbTitle]->=0-[_btnRight(50)]-23-|" options:0 metrics:nil views:navviews]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnLeft(46)]->=0-|" options:0 metrics:nil views:navviews]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_btnLeft(46)]->=0-[_lbTitle]->=0-|" options:0 metrics:nil views:navviews]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbTitle]->=0-[_btnRight(50)]-10-|" options:0 metrics:nil views:navviews]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_btnLeft attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbTitle attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_btnRight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbTitle attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
 }
 
 - (void)didReceiveMemoryWarning{

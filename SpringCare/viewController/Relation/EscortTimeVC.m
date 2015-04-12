@@ -24,11 +24,10 @@
     // Do any additional setup after loading the view.
     
     self.lbTitle.text = @"陪护时光";
-    [self.btnLeft setImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
+//    [self.btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
     self.NavigationBar.alpha = 0.9f;
     self.btnRight.hidden = NO;
     [self.btnRight setImage:[UIImage imageNamed:@"relationattentionselect"] forState:UIControlStateNormal];
-//    model = [[EscortTimeDataModel alloc] init];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];
     
