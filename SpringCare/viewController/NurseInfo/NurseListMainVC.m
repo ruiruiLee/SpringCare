@@ -8,7 +8,6 @@
 
 #import "NurseListMainVC.h"
 #import "NurseDetailInfoVC.h"
-#import "SliderViewController.h"
 #import "NurseIntroTableCell.h"
 
 @implementation NurseListMainVC
@@ -117,11 +116,6 @@
 {
     [DataList addObjectsFromArray:array];
     [pullTableView reloadData];
-}
-
-- (void) LeftButtonClicked:(id)sender
-{
-    [[SliderViewController sharedSliderController] leftItemClick];
 }
 
 #pragma UITableViewDataSource

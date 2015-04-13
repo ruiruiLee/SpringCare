@@ -7,6 +7,7 @@
 //
 
 #import "MainBaseVC.h"
+#import "SliderViewController.h"
 
 @implementation MainBaseVC
 
@@ -107,7 +108,7 @@
 
 - (void) LeftButtonClicked:(id)sender
 {
-    
+    [[SliderViewController sharedSliderController] leftItemClick];
 }
 
 - (void) RightButtonClicked:(id)sender
