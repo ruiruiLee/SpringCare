@@ -56,7 +56,6 @@
     
 //    PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithNibName:nil bundle:nil];
 //    [self.navigationController presentViewController:vc animated:YES completion:^{
-//        
 //    }];
 }
 
