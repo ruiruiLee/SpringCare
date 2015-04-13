@@ -197,22 +197,6 @@
 #pragma mark - 点中回复按钮
 #pragma mark EscortTimeTableCellDelegate
 -(void)commentButtonClick:(id)target userReply:(NSString*)userReply{
-//    ClassGroupCell* curCell = (ClassGroupCell*)target;
-//    if ([curCell.classGroupCellModel.userID isEqualToString:[CommonMethod getUserID]]) {
-//        [self deleteReplayMessage:curCell.classGroupCellModel.messageID target:target];
-//    }
-//    else {
-//        self.clickRowID = curCell.classGroupCellModel.messageID;
-//        _feedbackView.feedbackTextField.text = @"";
-//        if (userReply) {
-//            replyUser=userReply;
-//            _feedbackView.feedbackTextField.placeholder=[NSString stringWithFormat:@"@%@:",userReply];
-//        }else{
-//            replyUser=nil;
-//            _feedbackView.feedbackTextField.placeholder=[NSString stringWithFormat:@"@%@:",curCell.classGroupCellModel.userNameStr];
-//        }
-//        [_feedbackView.feedbackTextField becomeFirstResponder];
-//    }
     if (_feedbackView==nil) {
         _feedbackView =[[feedbackView alloc ] initWithNibName:@"feedbackView" bundle:nil controlHidden:NO];
         _feedbackView.delegate=(id)self;
@@ -225,16 +209,12 @@
 #pragma mark - feedbackViewDelegate
 -(void)commitMessage:(NSString*)msg   //按确认按钮或者发送按钮实现消息发送
 {
-//    if (replyUser) {
-//        msg =[NSString stringWithFormat:@"@%@:%@",replyUser,msg];
-//    }
-  // [self uploadCommentRequest:msg];
+    NSLog(@"%@",msg);
 }
 
 -(void)changeParentViewFram:(int)newHeight
 {
-//    baseTable.frame=CGRectMake(baseTable.frame.origin.x,baseTable.frame.origin.y,baseTable.frame.size.width,newHeight);
-   // tableView.frame=CGRectMake(tableView.frame.origin.x,tableView.frame.origin.y,tableView.frame.size.width,newHeight);
+    //tableView.frame=CGRectMake(tableView.frame.origin.x,tableView.frame.origin.y,tableView.frame.size.width,newHeight);
    // [tableView setContentOffset:CGPointMake(0.0, newHeight) animated:YES];
 }
 
