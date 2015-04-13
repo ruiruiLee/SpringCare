@@ -39,7 +39,7 @@
     activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 74, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
     [activityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [activityBtn setTitle:@"成都市" forState:UIControlStateNormal];
+    [activityBtn setTitle:@"呼和浩特" forState:UIControlStateNormal];
     [activityBtn setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
     activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 58, 5, 0);
     activityBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
@@ -102,9 +102,9 @@
     btnIntro = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnIntro];
     btnIntro.translatesAutoresizingMaskIntoConstraints = NO;
-    [btnIntro setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
+    [btnIntro setTitleColor: [UIColor blackColor] forState:UIControlStateNormal];
     [btnIntro setTitle:@"护理介绍" forState:UIControlStateNormal];
-    btnIntro.titleLabel.font = _FONT(11);
+    btnIntro.titleLabel.font = _FONT_B(12);
     [btnIntro addTarget:self action:@selector(doBtnIntro:) forControlEvents:UIControlEventTouchUpInside];
     
     underLine = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -121,9 +121,9 @@
     [self.ContentView addSubview:btnCommitment];
     [btnCommitment setTitleColor:dark forState:UIControlStateNormal];
     btnCommitment.translatesAutoresizingMaskIntoConstraints = NO;
-    [btnCommitment setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
+    [btnCommitment setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnCommitment setTitle:@"服务承诺" forState:UIControlStateNormal];
-    btnCommitment.titleLabel.font = _FONT(11);
+    btnCommitment.titleLabel.font = _FONT_B(12);
     [btnCommitment addTarget:self action:@selector(doBtnCommitment:) forControlEvents:UIControlEventTouchUpInside];
     
     underLineCommit = [[UILabel alloc] initWithFrame:CGRectZero];
