@@ -11,13 +11,14 @@
 #import "EscortTimeTableCell.h"
 #import "MainBaseVC.h"
 #import "AttentionSelectView.h"
+#import "feedbackView.h"
 
 @interface EscortTimeVC : MainBaseVC<UITableViewDataSource, UITableViewDelegate, EscortTimeTableCellDelegate, AttentionSelectViewDelegate>
 {
     UITableView *tableView;
     EscortTimeDataModel *model;
     
-    
+    feedbackView  *_feedbackView;
     UIImageView  *_photoImgView;//头像
     UILabel *_lbName;//姓名
     UIButton *_btnInfo;//信息
