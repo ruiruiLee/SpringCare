@@ -7,7 +7,6 @@
 //
 
 #import "HomePageVC.h"
-#import "SliderViewController.h"
 #import "AdDataModel.h"
 #import "define.h"
 #import <CoreText/CoreText.h>
@@ -33,22 +32,22 @@
     [super viewDidLoad];
     
     self.lbTitle.text = @"春风陪护";
-//    [self.btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
     self.NavigationBar.alpha = 0.9f;
     
-    activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 74, 30)];
+    activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 94, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
     [activityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [activityBtn setTitle:@"呼和浩特" forState:UIControlStateNormal];
+    [activityBtn setTitle:@"成都" forState:UIControlStateNormal];
     [activityBtn setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
-    activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 58, 5, 0);
-    activityBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 78, 5, 0);
+    activityBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 16);
+    activityBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [activityBtn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:activityBtn];
     activityBtn.translatesAutoresizingMaskIntoConstraints = NO;
     NSDictionary *views = NSDictionaryOfVariableBindings(self.btnRight, activityBtn);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[activityBtn(74)]-23-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[activityBtn(94)]-13-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[activityBtn(30)]->=10-|" options:0 metrics:nil views:views]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:activityBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.btnRight attribute:NSLayoutAttributeCenterY multiplier:1 constant:2]];
     
@@ -359,11 +358,6 @@
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgIden attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
     [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:line attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-}
-
-- (void) LeftButtonClicked:(id)sender
-{
-    [[SliderViewController sharedSliderController] leftItemClick];
 }
 
 - (void)btnRingClicked{

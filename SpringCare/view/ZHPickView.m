@@ -8,6 +8,7 @@
 #define ZHToobarHeight 40
 #import "ZHPickView.h"
 #import "define.h"
+#import "Util.h"
 
 @interface ZHPickView ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
@@ -432,28 +433,12 @@
     cIndex = [_pickerView selectedRowInComponent:1];
     int hour = [_hourArray[cIndex] intValue];
     
-    NSDate *returndate = [ZHPickView convertDateFromString:[NSString stringWithFormat:@"%4ld-%2ld-%2ld %2d", year1, month1, day1, hour]];
+    NSDate *returndate = [Util convertDateFromString:[NSString stringWithFormat:@"%4ld-%2ld-%2ld %2d", year1, month1, day1, hour]];
     
     if ([self.delegate respondsToSelector:@selector(toobarDonBtnHaveClick:resultDate:)]) {
         [self.delegate toobarDonBtnHaveClick:self resultDate:returndate];
     }
     [self removeFromSuperview];
-}
-
-+ (NSDate*) convertDateFromString:(NSString*)uiDate
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-    [formatter setDateFormat:@"yyyy-MM-dd HH"];
-    NSDate *date=[formatter dateFromString:uiDate];
-    return date;
-}
-
-+ (NSString*) StringFromDate:(NSDate*)Date
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-    [formatter setDateFormat:@"yyyy-MM-dd HH"];
-    NSString *string = [formatter stringFromDate:Date];
-    return string;
 }
 
 /**

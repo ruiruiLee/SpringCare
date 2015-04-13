@@ -8,7 +8,6 @@
 
 #import "EscortTimeVC.h"
 #import "UIImageView+WebCache.h"
-#import "SliderViewController.h"
 
 @interface EscortTimeVC ()
 
@@ -168,11 +167,6 @@
 - (void) ReloadTebleView
 {
     [tableView reloadData];
-}
-
-- (void) LeftButtonClicked:(id)sender
-{
-    [[SliderViewController sharedSliderController] leftItemClick];
 }
 
 - (void) RightButtonClicked:(id)sender

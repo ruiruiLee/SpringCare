@@ -168,6 +168,7 @@
 		86B8E60C1AD952A500A5139E /* HomeCareListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E60B1AD952A500A5139E /* HomeCareListVC.m */; };
 		86B8E60F1AD952E500A5139E /* NurseListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E60E1AD952E500A5139E /* NurseListVC.m */; };
 		86B8E6121AD95B2A00A5139E /* ProductInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */; };
+		86B96AA51ADBA01B00441168 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B96AA41ADBA01B00441168 /* Util.m */; };
 		86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095161ACD173F00371BF3 /* EditUserInfoView.m */; };
 		86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */; };
 		86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */; };
@@ -483,6 +484,8 @@
 		86B8E60E1AD952E500A5139E /* NurseListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseListVC.m; sourceTree = "<group>"; };
 		86B8E6101AD95B2A00A5139E /* ProductInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductInfoCell.h; sourceTree = "<group>"; };
 		86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductInfoCell.m; sourceTree = "<group>"; };
+		86B96AA31ADBA01B00441168 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		86B96AA41ADBA01B00441168 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		86C095151ACD173F00371BF3 /* EditUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoView.h; sourceTree = "<group>"; };
 		86C095161ACD173F00371BF3 /* EditUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoView.m; sourceTree = "<group>"; };
 		86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-home-selected@2x.png"; sourceTree = "<group>"; };
@@ -597,6 +600,8 @@
 				8642C9B01AC2872400251921 /* SliderViewController.m */,
 				86C095431ACD5F5C00371BF3 /* MainBaseVC.h */,
 				86C095441ACD5F5C00371BF3 /* MainBaseVC.m */,
+				86B96AA31ADBA01B00441168 /* Util.h */,
+				86B96AA41ADBA01B00441168 /* Util.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1562,6 +1567,7 @@
 				8642C94D1ABFF53C00251921 /* UIImageView+HighlightedWebCache.m in Sources */,
 				8642C9391ABFF53C00251921 /* SBJsonStreamParserState.m in Sources */,
 				86B8E5DE1AD7EEF800A5139E /* PlaceOrderForProductVC.m in Sources */,
+				86B96AA51ADBA01B00441168 /* Util.m in Sources */,
 				869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */,
 				86B8E6121AD95B2A00A5139E /* ProductInfoCell.m in Sources */,
 				8642C9471ABFF53C00251921 /* SDWebImageManager.m in Sources */,

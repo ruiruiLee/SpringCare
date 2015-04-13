@@ -9,6 +9,7 @@
 #import "PlaceOrderEditForProductCell.h"
 #import "define.h"
 #import "PlaceOrderEditCell.h"
+#import "Util.h"
 
 @implementation PlaceOrderEditForProductCell
 
@@ -143,7 +144,7 @@
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultDate:(NSDate *)resultDate
 {
     PlaceOrderEditItemCell *cell = (PlaceOrderEditItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.lbTitle.text = [NSString stringWithFormat:@"服务开始时间：%@", [ZHPickView StringFromDate:resultDate]];
+    cell.lbTitle.text = [NSString stringWithFormat:@"服务开始时间：%@", [Util StringFromDate:resultDate]];
 }
 
 - (NSArray*) getTimeArray

@@ -8,7 +8,6 @@
 
 #import "NurseListMainVC.h"
 #import "NurseDetailInfoVC.h"
-#import "SliderViewController.h"
 #import "NurseIntroTableCell.h"
 
 @implementation NurseListMainVC
@@ -50,6 +49,7 @@
     pullTableView.estimatedRowHeight = 100.0f;
     pullTableView.dataSource = self;
     pullTableView.delegate = self;
+    pullTableView.pullDelegate = self;
     
     self.prices = @[@"价格"];
     self.ages = @[@"年龄"];
@@ -116,11 +116,6 @@
 {
     [DataList addObjectsFromArray:array];
     [pullTableView reloadData];
-}
-
-- (void) LeftButtonClicked:(id)sender
-{
-    [[SliderViewController sharedSliderController] leftItemClick];
 }
 
 #pragma UITableViewDataSource
