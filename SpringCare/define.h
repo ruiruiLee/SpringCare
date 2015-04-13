@@ -17,6 +17,14 @@
 
 
 #define _COLOR(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+
+
+#define _COLORa(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
+//#FF2A66
+#define RGBwithHex(hex) RGB(((float)((hex & 0xFF0000) >> 16)),((float)((hex & 0xFF00) >> 8)),((float)(hex & 0xFF)))
+
+
 //#define _FONT(s) [UIFont fontWithName:@"STHeitiSC-Medium" size:(s)]//[UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT(s) [UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT_B(s) [UIFont boldSystemFontOfSize:(s)]
@@ -40,7 +48,7 @@
 
 #define SeparatorLineColor  _COLOR(0xd7, 0xd7, 0xd7)
 #define TableBackGroundColor _COLOR(0xf8, 0xf8, 0xf8)
-#define TableSectionBackgroundColor _COLOR(0xf3, 0xf5, 0xf7)
+#define TableSectionBackgroundColor _COLORa(0xf3, 0xf5, 0xf7,0.9)
 
 #define TIME_LIMIT 5
 

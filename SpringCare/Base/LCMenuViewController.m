@@ -141,10 +141,14 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MenuTableViewCell *cell = (MenuTableViewCell*)[tableview dequeueReusableCellWithIdentifier:@"cell"];
+    
     if(cell == nil){
         cell = [[MenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.contentView.backgroundColor = [UIColor clearColor];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+//    cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     cell.separatorLine.hidden = NO;
     if(indexPath.row == 0){
         cell.imgIcon.image = [UIImage imageNamed:@"usercentermyattention"];
@@ -165,6 +169,7 @@
     }
     return cell;
 }
+
 
 #pragma UITableViewDelegate
 

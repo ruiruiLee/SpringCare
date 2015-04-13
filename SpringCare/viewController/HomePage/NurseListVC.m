@@ -35,7 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.NavigationBar.lbTitle.text = @"护工列表";
+    self.NavigationBar.lbTitle.text = @"陪护师";
     
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width
                                                               , 44)];
