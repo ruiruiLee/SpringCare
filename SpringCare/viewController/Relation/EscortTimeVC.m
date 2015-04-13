@@ -194,6 +194,30 @@
     [self SelectWiewDismiss];
 }
 
+#pragma mark - 点中回复按钮
+#pragma mark EscortTimeTableCellDelegate
+-(void)commentButtonClick:(id)target userReply:(NSString*)userReply{
+    if (_feedbackView==nil) {
+        _feedbackView =[[feedbackView alloc ] initWithNibName:@"feedbackView" bundle:nil controlHidden:NO];
+        _feedbackView.delegate=(id)self;
+        [self.view addSubview:_feedbackView.view];
+
+    }
+       [_feedbackView.feedbackTextField becomeFirstResponder];
+}
+
+#pragma mark - feedbackViewDelegate
+-(void)commitMessage:(NSString*)msg   //按确认按钮或者发送按钮实现消息发送
+{
+    NSLog(@"%@",msg);
+}
+
+-(void)changeParentViewFram:(int)newHeight
+{
+    //tableView.frame=CGRectMake(tableView.frame.origin.x,tableView.frame.origin.y,tableView.frame.size.width,newHeight);
+   // [tableView setContentOffset:CGPointMake(0.0, newHeight) animated:YES];
+}
+
 #pragma AttentionSelectViewDelegate
 - (void) ViewSelectWithId:(NSString *)uid
 {

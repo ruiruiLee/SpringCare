@@ -17,7 +17,7 @@
 typedef void(^ReplayAction)(int index);
 
 @protocol EscortTimeTableCellDelegate <NSObject>
-
+-(void)commentButtonClick:(id)target userReply:(NSString*)userReply; // 评论陪护时光
 - (void) ReloadTebleView;
 
 @end

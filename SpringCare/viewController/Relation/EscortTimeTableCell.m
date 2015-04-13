@@ -145,7 +145,8 @@
     [_replyContent addSubview:_btnReply];
     _btnReply.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnReply setImage:[UIImage imageNamed:@"escorttimereply"] forState:UIControlStateNormal];
-    
+    [_btnReply addTarget:self action:@selector(btnReplyPressed) forControlEvents:UIControlEventTouchUpInside];
+
     //回复列表背景
     _replyTableBg = [[UIImageView alloc] initWithFrame:CGRectZero];
     _replyTableBg.image=[[UIImage imageNamed:@"escorttimereply_bg"] stretchableImageWithLeftCapWidth:40 topCapHeight:40];
@@ -179,6 +180,12 @@
     [_replyTableBg addConstraints:hReplyTableLayoutArray];
 }
 
+- (void)btnReplyPressed {
+    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:userReply:)]) {
+        [cellDelegate commentButtonClick:self userReply:nil];
+    }
+
+}
 - (void)awakeFromNib {
     // Initialization code
     

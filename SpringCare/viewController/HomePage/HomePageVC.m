@@ -96,6 +96,10 @@ static NSString *hospital_product_id = nil;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:activityBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.btnRight attribute:NSLayoutAttributeCenterY multiplier:1 constant:2]];
 
     [self initWithSubviews];
+    
+//    PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithNibName:nil bundle:nil];
+//    [self.navigationController presentViewController:vc animated:YES completion:^{
+//    }];
 }
 
 - (void) doBtnProductList:(UIButton*)sender
