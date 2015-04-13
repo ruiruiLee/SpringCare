@@ -50,6 +50,7 @@
     pullTableView.estimatedRowHeight = 100.0f;
     pullTableView.dataSource = self;
     pullTableView.delegate = self;
+    pullTableView.pullDelegate = self;
     
     self.prices = @[@"价格"];
     self.ages = @[@"年龄"];

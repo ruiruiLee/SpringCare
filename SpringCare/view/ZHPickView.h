@@ -71,11 +71,6 @@
  */
 -(void)setToolbarTintColor:(UIColor *)color;
 
-
-+ (NSDate*) convertDateFromString:(NSString*)uiDate;
-
-+ (NSString*) StringFromDate:(NSDate*)Date;
-
 @end
 
 
