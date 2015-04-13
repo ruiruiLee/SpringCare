@@ -76,7 +76,7 @@ static NSString *hospital_product_id = nil;
     [self loadData];
     
     self.lbTitle.text = @"春风陪护";
-    self.NavigationBar.alpha = 0.9f;
+    self.NavigationBar.alpha = 0.8f;
     
     activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 94, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
@@ -136,7 +136,7 @@ static NSString *hospital_product_id = nil;
     
     scrollView.PageControlShowStyle = UIPageControlShowStyleCenter;
     scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-    scrollView.pageControl.currentPageIndicatorTintColor = [UIColor purpleColor];
+    scrollView.pageControl.currentPageIndicatorTintColor = Abled_Color;
     [self.view insertSubview:scrollView belowSubview:self.NavigationBar];
     _banner = scrollView;
     
