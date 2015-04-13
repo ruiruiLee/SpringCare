@@ -117,12 +117,13 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_imageContent]-20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_replyContent]-20-|" options:0 metrics:nil views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-48-[_lbTimeLine(4)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-49-[_lbTimeLine(2)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_lbTimeLine]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_line]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbVoliceLimit attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_btnVolice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbTimeLine attribute:NSLayoutAttributeCenterx relatedBy:NSLayoutRelationEqual toItem:_btnVolice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
     //中间view间隔都是3个像素
     hLayoutInfoArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbContent]-3-[_btnFoldOrUnfold]-3-[_btnVolice]-10-[_imageContent]-3-[_replyContent]-10-[_line(1)]-0-|" options:0 metrics:nil views:views];

@@ -102,8 +102,8 @@
     }
     else{
         self.ReplyView.hidden=YES;
-        self.feedbackTextField.frame=CGRectMake(_feedbackTextField.frame.origin.x+10, _feedbackTextField.frame.origin.y, _feedbackTextField.frame.size.width+extendedLen, _feedbackTextField.frame.size.height);
-        self.commitButton.frame=CGRectMake(_commitButton.frame.origin.x+extendedLen+10, _commitButton.frame.origin.y, _commitButton.frame.size.width, _commitButton.frame.size.height);
+//        self.feedbackTextField.frame=CGRectMake(_feedbackTextField.frame.origin.x+10, _feedbackTextField.frame.origin.y, _feedbackTextField.frame.size.width+extendedLen, _feedbackTextField.frame.size.height);
+//        self.commitButton.frame=CGRectMake(_commitButton.frame.origin.x+extendedLen+10, _commitButton.frame.origin.y, _commitButton.frame.size.width, _commitButton.frame.size.height);
 
     }
         [self.view endEditing:YES];
@@ -141,7 +141,7 @@
          if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]) {
              [_delegate changeParentViewFram:pheight];
            }
-         self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,_faceBoardView.frame.size.height+contentHeight);
+         self.view.frame = CGRectMake(0,pheight,self.view.frame.size.width,_faceBoardView.frame.size.height+contentHeight);
              } completion:^(BOOL finished) {
                // self.myTableView.userInteractionEnabled = NO;
             }];

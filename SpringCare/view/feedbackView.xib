@@ -22,15 +22,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <view contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1gv-8C-iCs">
+                <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="1gv-8C-iCs">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="我要回复" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HbN-qg-fOI">
-                            <rect key="frame" x="6" y="10" width="245" height="36"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="send"/>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aT-bg-Dsw">
+                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aT-bg-Dsw">
                             <rect key="frame" x="251" y="5" width="37" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="37" id="C6p-KX-wcv"/>
@@ -70,31 +65,32 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="NiW-bH-E9Z"/>
                                 <constraint firstAttribute="width" id="XIw-yR-cXa"/>
                             </constraints>
                         </view>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="我要回复" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HbN-qg-fOI">
+                            <rect key="frame" x="8" y="7" width="245" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="JFP-xI-4zb" firstAttribute="leading" secondItem="9aT-bg-Dsw" secondAttribute="trailing" id="0Ig-FR-WY6"/>
-                        <constraint firstAttribute="bottom" secondItem="HbN-qg-fOI" secondAttribute="bottom" constant="4" id="35J-BL-6dp"/>
-                        <constraint firstItem="9aT-bg-Dsw" firstAttribute="leading" secondItem="HbN-qg-fOI" secondAttribute="trailing" id="Ykj-Rk-v2Q"/>
-                        <constraint firstAttribute="centerY" secondItem="9aT-bg-Dsw" secondAttribute="centerY" id="frn-nj-8Nj"/>
-                        <constraint firstItem="HbN-qg-fOI" firstAttribute="leading" secondItem="1gv-8C-iCs" secondAttribute="leading" constant="10" id="ijn-lk-1hg"/>
-                        <constraint firstAttribute="trailing" secondItem="JFP-xI-4zb" secondAttribute="trailing" constant="7" id="isH-cn-40E"/>
-                        <constraint firstItem="HbN-qg-fOI" firstAttribute="top" secondItem="1gv-8C-iCs" secondAttribute="top" constant="4" id="qmC-4Q-zhB"/>
+                        <constraint firstItem="HbN-qg-fOI" firstAttribute="leading" secondItem="1gv-8C-iCs" secondAttribute="leading" constant="8" id="8BO-u2-bed"/>
+                        <constraint firstAttribute="centerY" secondItem="HbN-qg-fOI" secondAttribute="centerY" id="PgI-ky-Lil"/>
+                        <constraint firstItem="9aT-bg-Dsw" firstAttribute="leading" secondItem="HbN-qg-fOI" secondAttribute="trailing" id="UJB-0I-q9o"/>
+                        <constraint firstAttribute="height" constant="50" id="bD3-0w-7ZT"/>
+                        <constraint firstAttribute="trailing" secondItem="JFP-xI-4zb" secondAttribute="trailing" id="ffI-bR-d5x"/>
+                        <constraint firstItem="JFP-xI-4zb" firstAttribute="leading" secondItem="9aT-bg-Dsw" secondAttribute="trailing" id="q4F-NB-8hx"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.82391980229999995" green="0.82391980229999995" blue="0.82391980229999995" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="1gv-8C-iCs" secondAttribute="bottom" constant="6" id="CBI-ig-4yB"/>
-                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="1gv-8C-iCs" secondAttribute="trailing" id="GuT-xs-wpt"/>
-                <constraint firstItem="1gv-8C-iCs" firstAttribute="leading" secondItem="daN-1V-h6h" secondAttribute="leading" id="MXf-Im-gMI"/>
-                <constraint firstItem="1gv-8C-iCs" firstAttribute="top" secondItem="daN-1V-h6h" secondAttribute="top" id="QCh-Dx-pNr"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1gv-8C-iCs" secondAttribute="trailing" id="Sva-6Z-HRQ"/>
-                <constraint firstAttribute="trailing" secondItem="1gv-8C-iCs" secondAttribute="trailing" id="uUp-bA-dXD"/>
-                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="1gv-8C-iCs" secondAttribute="trailing" id="vRm-rq-Mxv"/>
+                <constraint firstItem="1gv-8C-iCs" firstAttribute="leading" secondItem="daN-1V-h6h" secondAttribute="leading" id="7b7-lx-l8v"/>
+                <constraint firstAttribute="trailing" secondItem="1gv-8C-iCs" secondAttribute="trailing" id="G4h-Ur-ofD"/>
+                <constraint firstItem="1gv-8C-iCs" firstAttribute="top" secondItem="daN-1V-h6h" secondAttribute="top" id="gYK-Yg-wA0"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

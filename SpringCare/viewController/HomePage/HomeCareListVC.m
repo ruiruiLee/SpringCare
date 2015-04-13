@@ -8,6 +8,7 @@
 
 #import "HomeCareListVC.h"
 #import "define.h"
+#import "LCNetWorkBase.h"
 
 @interface HomeCareListVC ()
 
@@ -32,6 +33,17 @@
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+}
+
+- (void) loadData
+{
+    [LCNetWorkBase requestWithMethod:@"api/product/family" Params:nil Completion:^(int code, id content) {
+        if(code){
+            if([content isKindOfClass:[NSDictionary class]]){
+                
+            }
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
