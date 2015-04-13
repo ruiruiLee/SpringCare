@@ -165,19 +165,20 @@
     _replyTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _replyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _replyTableView.backgroundColor = [UIColor clearColor];
+    _replyTableView.scrollEnabled = NO;
     
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbPublishTime, _btnReply, _replyTableView, _replyTableBg);
     [_replyContent addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbPublishTime(120)]->=10-[_btnReply(50)]-4-|" options:0 metrics:nil views:views]];
     [_replyContent addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_replyTableBg]-0-|" options:0 metrics:nil views:views]];
     
-    hReplyBgLayoutArry = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btnReply(25)]-3-[_replyTableBg]-0-|" options:0 metrics:nil views:views];
+    hReplyBgLayoutArry = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btnReply(25)]-4-[_replyTableBg]-0-|" options:0 metrics:nil views:views];
     [_replyContent addConstraints:hReplyBgLayoutArry];
     [_replyContent addConstraint:[NSLayoutConstraint constraintWithItem:_lbPublishTime attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_btnReply attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     [_replyContent addConstraint:[NSLayoutConstraint constraintWithItem:_lbPublishTime attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_btnReply attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     
     [_replyTableBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_replyTableView]-0-|" options:0 metrics:nil views:views]];
-    hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_replyTableView]-5-|" options:0 metrics:nil views:views];
+    hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-13-[_replyTableView]-5-|" options:0 metrics:nil views:views];
     [_replyTableBg addConstraints:hReplyTableLayoutArray];
 }
 
@@ -322,7 +323,7 @@
             height += model.height;
             height += 4;
         }
-        NSString *tableviewformat = [NSString stringWithFormat:@"V:|-5-[_replyTableView(%f)]-5-|", height];
+        NSString *tableviewformat = [NSString stringWithFormat:@"V:|-13-[_replyTableView(%f)]-5-|", height];
         hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:tableviewformat options:0 metrics:nil views:views];
         [_replyTableBg addConstraints:hReplyTableLayoutArray];
     }
