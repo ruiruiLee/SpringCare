@@ -39,7 +39,7 @@
     activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 74, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
     [activityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [activityBtn setTitle:@"附近" forState:UIControlStateNormal];
+    [activityBtn setTitle:@"成都市" forState:UIControlStateNormal];
     [activityBtn setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
     activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 58, 5, 0);
     activityBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
@@ -148,7 +148,7 @@
     btnRing.translatesAutoresizingMaskIntoConstraints = NO;
     btnRing.backgroundColor = _COLOR(0x66, 0x66, 0x66);
     btnRing.layer.cornerRadius = 8;
-    
+    [btnRing addTarget:self action:@selector(btnRingClicked) forControlEvents:UIControlEventTouchUpInside];
     imgRing = [[UIImageView alloc] initWithFrame:CGRectZero];
     [btnRing addSubview:imgRing];
     imgRing.translatesAutoresizingMaskIntoConstraints = NO;
@@ -365,6 +365,22 @@
 - (void) LeftButtonClicked:(id)sender
 {
     [[SliderViewController sharedSliderController] leftItemClick];
+}
+
+- (void)btnRingClicked{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您确定要拨打电话吗?" message:lbPhone.text delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alertView setTag:12];
+    [alertView show];
+}
+
+#pragma alertdelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if ([alertView tag] == 12) {
+     if (buttonIndex==0) {
+        NSURL *phoneURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",lbPhone.text]];
+        [[UIApplication sharedApplication] openURL:phoneURL];
+        }
+    }
 }
 
 #pragma CityListSelectVCDelegate
