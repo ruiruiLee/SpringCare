@@ -206,6 +206,7 @@
 		CFAFA3B21ABFEC8C0020E774 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3B11ABFEC8C0020E774 /* AppDelegate.m */; };
 		CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */; };
 		CFAFA3C91ABFEC8C0020E774 /* SpringCareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */; };
+		CFBC50241ADB7056004FB8F3 /* escorttimereply_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CFBC50231ADB7056004FB8F3 /* escorttimereply_bg@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -543,6 +544,7 @@
 		CFAFA3C21ABFEC8C0020E774 /* SpringCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpringCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFAFA3C71ABFEC8C0020E774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpringCareTests.m; sourceTree = "<group>"; };
+		CFBC50231ADB7056004FB8F3 /* escorttimereply_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "escorttimereply_bg@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1070,6 +1072,7 @@
 		869C9EDC1AD3D3380090182E /* relation */ = {
 			isa = PBXGroup;
 			children = (
+				CFBC50231ADB7056004FB8F3 /* escorttimereply_bg@2x.png */,
 				86B8E5681AD5025F00A5139E /* relevancelogo@2X.png */,
 				86B8E5631AD4E9C700A5139E /* EscortTimeSelectCurrentSelect@2x.png */,
 				86B8E5611AD4E9A100A5139E /* EscortTimeSelect@2x.png */,
@@ -1448,6 +1451,7 @@
 				86C0955F1AD0E02700371BF3 /* b27_icon_star_gray@2x.png in Resources */,
 				86C095421ACD5C6A00371BF3 /* image3.png in Resources */,
 				86B8E5CB1AD7B0BA00A5139E /* stepselected@2x.png in Resources */,
+				CFBC50241ADB7056004FB8F3 /* escorttimereply_bg@2x.png in Resources */,
 				86B8E5911AD61D6000A5139E /* usercentershutgray@2x.png in Resources */,
 				862B97411AD2409700A726D3 /* nav-person@2x.png in Resources */,
 				86D627D11AD1299500DB4369 /* usercenterbg@2x.png in Resources */,
