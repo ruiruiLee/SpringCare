@@ -73,18 +73,19 @@
     [_btnFoldOrUnfold addTarget:self action:@selector(FoldOrUnfoldButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImage *image = [UIImage imageNamed:@"escorttimevolice"];
-    UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width-5, 0, 2);
+   // UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width-5, 0, 2);
     
     //音频
     _btnVolice = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnVolice];
     _btnVolice.translatesAutoresizingMaskIntoConstraints = NO;
-    [_btnVolice setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
+//    [_btnVolice setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
+    [_btnVolice setBackgroundImage:[image stretchableImageWithLeftCapWidth:40 topCapHeight:5] forState:UIControlStateNormal];
     
     //音频时间
     _lbVoliceLimit = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbVoliceLimit];
-    _lbVoliceLimit.font = _FONT(14);
+    _lbVoliceLimit.font = _FONT(13);
     _lbVoliceLimit.numberOfLines = 1;
     _lbVoliceLimit.textColor = _COLOR(130, 130, 130);
     _lbVoliceLimit.backgroundColor = [UIColor clearColor];
@@ -147,9 +148,11 @@
     
     //回复列表背景
     _replyTableBg = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _replyTableBg.image=[[UIImage imageNamed:@"escorttimereply_bg"] stretchableImageWithLeftCapWidth:40 topCapHeight:40];
+    _replyTableBg.userInteractionEnabled=YES;
     [_replyContent addSubview:_replyTableBg];
     _replyTableBg.translatesAutoresizingMaskIntoConstraints = NO;
-    _replyTableBg.backgroundColor = _COLOR(233, 233, 233);
+    //_replyTableBg.backgroundColor = _COLOR(233, 233, 233);
     
     //回复列表
     _replyTableView = [[UITableView alloc] initWithFrame:CGRectZero];

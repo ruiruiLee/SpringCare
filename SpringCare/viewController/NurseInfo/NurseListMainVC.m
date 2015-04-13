@@ -29,7 +29,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    self.lbTitle.text = @"护工";
+    self.lbTitle.text = @"陪护师";
 //    [self.btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
     
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width
@@ -136,7 +136,8 @@
     if(!cell){
         cell = [[NurseIntroTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
 //    cell.textLabel.text = ((NurseListInfoModel*)[DataList objectAtIndex:indexPath.row]).name;
     NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
     [cell SetContentData:model];
@@ -158,6 +159,7 @@
     }
     NurseListInfoModel *data = [DataList objectAtIndex:indexPath.row];
     NurseIntroTableCell *cell = (NurseIntroTableCell *)self.prototypeCell;
+
     [cell SetContentData:data];
     
     [cell setNeedsLayout];

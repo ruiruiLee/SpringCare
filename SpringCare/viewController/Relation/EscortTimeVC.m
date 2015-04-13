@@ -25,7 +25,7 @@
     
     self.lbTitle.text = @"陪护时光";
 //    [self.btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
-    self.NavigationBar.alpha = 0.9f;
+    self.NavigationBar.alpha = 0.7f;
     self.btnRight.hidden = NO;
     [self.btnRight setImage:[UIImage imageNamed:@"relationattentionselect"] forState:UIControlStateNormal];
     
@@ -44,7 +44,7 @@
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbName.font = _FONT(15);
+    _lbName.font = _FONT_B(17);
     _lbName.textAlignment = NSTextAlignmentRight;
     _lbName.text = @"王莹莹";
     _lbName.textColor = _COLOR(0xff, 0xff, 0xff);
@@ -53,7 +53,7 @@
     [headerView addSubview:_btnInfo];
     _btnInfo.userInteractionEnabled = NO;
     _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
-    _btnInfo.titleLabel.font = _FONT(14);
+    _btnInfo.titleLabel.font = _FONT_B(15);
     [_btnInfo setTitleColor:_COLOR(0xff, 0xff, 0xff) forState:UIControlStateNormal];
     [_btnInfo setTitle:@"四川人  38岁 护龄12年" forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
