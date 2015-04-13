@@ -10,7 +10,7 @@
 
 @protocol CityListSelectVCDelegate <NSObject>
 
-- (void) NotifyCitySelectedWithData:(NSDictionary*) data;
+- (void) NotifyCitySelectedWithData:(NSString*) data;
 
 @end
 

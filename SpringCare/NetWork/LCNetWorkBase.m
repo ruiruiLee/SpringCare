@@ -49,9 +49,7 @@
 //    manager.securityPolicy.allowInvalidCertificates = YES;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
-    
-    [manager POST:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [manager GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         SBJsonParser *_parser = [[SBJsonParser alloc] init];
         NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];//[(NSData *)responseObject objectFromJSONData];
         
@@ -63,20 +61,15 @@
         }
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-//        [ProjectDefine removeRequestTag:path];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //服务器请求超时不提示
-        
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, error);
         if (error.code != -1001) {
             completion(0, error);
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"服务器错误！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:error.localizedDescription delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertView show];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-//        [ProjectDefine removeRequestTag:path];
     }];
 }
 

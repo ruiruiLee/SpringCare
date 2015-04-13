@@ -18,4 +18,6 @@
 
 - (id) initWithTitle:(NSString*)title url:(NSString*)url;
 
+- (void) loadInfoFromUrl:(NSString*) url;
+
 @end

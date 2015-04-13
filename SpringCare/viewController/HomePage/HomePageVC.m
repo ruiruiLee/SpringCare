@@ -16,8 +16,19 @@
 #import "WebContentVC.h"
 #import "NurseListVC.h"
 #import "HomeCareListVC.h"
+#import "LCNetWorkBase.h"
+
+#import "NewsDataModel.h"
+#import "CityDataModel.h"
+
+static NSString *hospital_product_id = nil;
 
 @implementation HomePageVC
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,9 +38,42 @@
     return self;
 }
 
+- (void) loadData
+{
+    [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
+        if(code == 1){
+            NSLog(@"%@", content);
+            if([content isKindOfClass:[NSDictionary class]]){
+                hospital_product_id = [content objectForKey:@"hospital_product_id"];
+                [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
+                scrollView.imageNameArray = [NewsDataModel getImageUrlArray];
+                [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
+                NSArray *wordList = [content objectForKey:@"wordList"];
+                for (int i = 0; i < [wordList count]; i++) {
+                    NSDictionary *dic = [wordList objectAtIndex:i];
+                    if([[dic objectForKey:@"news_title"] isEqualToString:@"护理介绍"])
+                        introduceUrl = [dic objectForKey:@"url"];
+                    else if ([[dic objectForKey:@"news_title"] isEqualToString:@"护理承诺"])
+                        promiseUrl = [dic objectForKey:@"url"];
+                }
+            }
+        }
+    }];
+}
+
+- (void) NotifyCurrentCityGained:(NSNotification*) notify
+{
+    NSString *city = [notify.userInfo objectForKey:@"city"];
+    [activityBtn setTitle:city forState:UIControlStateNormal];
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCurrentCityGained:) name:NOTIFY_LOCATION_GAINED object:nil];
+    
+    [self loadData];
     
     self.lbTitle.text = @"春风陪护";
     self.NavigationBar.alpha = 0.9f;
@@ -37,8 +81,8 @@
     activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 94, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
     [activityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [activityBtn setTitle:@"成都" forState:UIControlStateNormal];
     [activityBtn setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
+    [activityBtn setTitle:@"正在定位.." forState:UIControlStateNormal];
     activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 78, 5, 0);
     activityBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 16);
     activityBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -50,13 +94,8 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[activityBtn(94)]-13-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[activityBtn(30)]->=10-|" options:0 metrics:nil views:views]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:activityBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.btnRight attribute:NSLayoutAttributeCenterY multiplier:1 constant:2]];
-    
+
     [self initWithSubviews];
-    
-//    PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithNibName:nil bundle:nil];
-//    [self.navigationController presentViewController:vc animated:YES completion:^{
-//        
-//    }];
 }
 
 - (void) doBtnProductList:(UIButton*)sender
@@ -86,10 +125,11 @@
 - (void) initWithSubviews
 {
     //广告
-    AdScrollView * scrollView = [[AdScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 187 + 64)];
-    AdDataModel * dataModel = [AdDataModel adDataModelWithImageNameAndAdTitleArray];
+    scrollView = [[AdScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 187 + 64)];
+//    AdDataModel * dataModel = [AdDataModel adDataModelWithImageNameAndAdTitleArray];
     //如果滚动视图的父视图由导航控制器控制,必须要设置该属性(ps,猜测这是为了正常显示,导航控制器内部设置了UIEdgeInsetsMake(64, 0, 0, 0))
-    scrollView.imageNameArray = dataModel.imageNameArray;
+//    scrollView.imageNameArray = dataModel.imageNameArray;
+    
     scrollView.PageControlShowStyle = UIPageControlShowStyleCenter;
     scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
     scrollView.pageControl.currentPageIndicatorTintColor = [UIColor purpleColor];
@@ -379,9 +419,9 @@
 
 #pragma CityListSelectVCDelegate
 
-- (void) NotifyCitySelectedWithData:(NSDictionary*) data
+- (void) NotifyCitySelectedWithData:(NSString*) data
 {
-    NSString *city = @"成都";
+    NSString *city = data;
     [activityBtn setTitle:city forState:UIControlStateNormal];
 }
 
@@ -389,6 +429,7 @@
 {
     WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"护理介绍" url:@""];
     vc.hidesBottomBarWhenPushed = YES;
+    [vc loadInfoFromUrl:introduceUrl];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -396,6 +437,7 @@
 {
     WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"服务承诺" url:@""];
     vc.hidesBottomBarWhenPushed = YES;
+    [vc loadInfoFromUrl:promiseUrl];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

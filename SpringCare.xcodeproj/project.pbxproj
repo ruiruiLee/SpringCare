@@ -103,6 +103,10 @@
 		865C859A1ACCEDFF006ABCA4 /* NSImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85811ACCEDFF006ABCA4 /* NSImageUtil.m */; };
 		865C859B1ACCEDFF006ABCA4 /* NSStrUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85831ACCEDFF006ABCA4 /* NSStrUtil.m */; };
 		865C859C1ACCEDFF006ABCA4 /* ObjImageDataInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85851ACCEDFF006ABCA4 /* ObjImageDataInfo.m */; };
+		868B23881ADBAB89003AAD2A /* NewsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23871ADBAB89003AAD2A /* NewsDataModel.m */; };
+		868B238B1ADBAF97003AAD2A /* CityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B238A1ADBAF97003AAD2A /* CityDataModel.m */; };
+		868B23901ADBBC65003AAD2A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 868B238F1ADBBC65003AAD2A /* CoreLocation.framework */; };
+		868B23931ADBDD21003AAD2A /* LocationManagerObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23921ADBDD21003AAD2A /* LocationManagerObserver.m */; };
 		869C9EDB1AD3C2080090182E /* nav_shut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDA1AD3C2080090182E /* nav_shut@2x.png */; };
 		869C9EDE1AD3D3750090182E /* relationattentionselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */; };
 		869C9EE01AD3D5F60090182E /* relationheaderbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */; };
@@ -384,6 +388,13 @@
 		865C85831ACCEDFF006ABCA4 /* NSStrUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStrUtil.m; sourceTree = "<group>"; };
 		865C85841ACCEDFF006ABCA4 /* ObjImageDataInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjImageDataInfo.h; sourceTree = "<group>"; };
 		865C85851ACCEDFF006ABCA4 /* ObjImageDataInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjImageDataInfo.m; sourceTree = "<group>"; };
+		868B23861ADBAB89003AAD2A /* NewsDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDataModel.h; sourceTree = "<group>"; };
+		868B23871ADBAB89003AAD2A /* NewsDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDataModel.m; sourceTree = "<group>"; };
+		868B23891ADBAF97003AAD2A /* CityDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDataModel.h; sourceTree = "<group>"; };
+		868B238A1ADBAF97003AAD2A /* CityDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDataModel.m; sourceTree = "<group>"; };
+		868B238F1ADBBC65003AAD2A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		868B23911ADBDD21003AAD2A /* LocationManagerObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagerObserver.h; sourceTree = "<group>"; };
+		868B23921ADBDD21003AAD2A /* LocationManagerObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerObserver.m; sourceTree = "<group>"; };
 		869C9EDA1AD3C2080090182E /* nav_shut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_shut@2x.png"; sourceTree = "<group>"; };
 		869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationattentionselect@2x.png"; sourceTree = "<group>"; };
 		869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationheaderbg@2x.png"; sourceTree = "<group>"; };
@@ -555,6 +566,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				868B23901ADBBC65003AAD2A /* CoreLocation.framework in Frameworks */,
 				5EC3CB895631411D3825C780 /* libPods-SpringCare.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,6 +645,7 @@
 		8642C8C01ABFF52100251921 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				868B23851ADBAB0D003AAD2A /* HomePage */,
 				863C8E391AD2A308009D7496 /* UserCenter */,
 				8642C9D41AC428CF00251921 /* Relation */,
 				8642C9C61AC3CF4500251921 /* NurseInfo */,
@@ -856,6 +869,8 @@
 				86B8E60B1AD952A500A5139E /* HomeCareListVC.m */,
 				86B8E60D1AD952E500A5139E /* NurseListVC.h */,
 				86B8E60E1AD952E500A5139E /* NurseListVC.m */,
+				868B23911ADBDD21003AAD2A /* LocationManagerObserver.h */,
+				868B23921ADBDD21003AAD2A /* LocationManagerObserver.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -1072,6 +1087,17 @@
 			children = (
 			);
 			path = json;
+			sourceTree = "<group>";
+		};
+		868B23851ADBAB0D003AAD2A /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				868B23861ADBAB89003AAD2A /* NewsDataModel.h */,
+				868B23871ADBAB89003AAD2A /* NewsDataModel.m */,
+				868B23891ADBAF97003AAD2A /* CityDataModel.h */,
+				868B238A1ADBAF97003AAD2A /* CityDataModel.m */,
+			);
+			path = HomePage;
 			sourceTree = "<group>";
 		};
 		869C9EDC1AD3D3380090182E /* relation */ = {
@@ -1295,6 +1321,7 @@
 		F756FC4AA25ED03FD4567329 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				868B238F1ADBBC65003AAD2A /* CoreLocation.framework */,
 				BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */,
 			);
 			name = Frameworks;
@@ -1597,6 +1624,7 @@
 				8642C9461ABFF53C00251921 /* SDWebImageDownloaderOperation.m in Sources */,
 				86B8E58A1AD6159B00A5139E /* DateCountSelectView.m in Sources */,
 				86B8E59F1AD65F5500A5139E /* UserSettingTableCell.m in Sources */,
+				868B23931ADBDD21003AAD2A /* LocationManagerObserver.m in Sources */,
 				865C859C1ACCEDFF006ABCA4 /* ObjImageDataInfo.m in Sources */,
 				CFA5B50A1AC01D3900D49415 /* LoadMoreTableFooterView.m in Sources */,
 				CFAFA3AF1ABFEC8C0020E774 /* main.m in Sources */,
@@ -1606,11 +1634,13 @@
 				CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */,
 				8642C93B1ABFF53C00251921 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				86B8E5701AD5056F00A5139E /* PlaceOrderVC.m in Sources */,
+				868B238B1ADBAF97003AAD2A /* CityDataModel.m in Sources */,
 				86C0955B1AD0DAF400371BF3 /* GradeInfoView.m in Sources */,
 				86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */,
 				8642C9441ABFF53C00251921 /* SDWebImageDecoder.m in Sources */,
 				8642C94C1ABFF53C00251921 /* UIImage+WebP.m in Sources */,
 				8642C9431ABFF53C00251921 /* SDWebImageCompat.m in Sources */,
+				868B23881ADBAB89003AAD2A /* NewsDataModel.m in Sources */,
 				8642C9CA1AC3CFB800251921 /* NurseListInfoModel.m in Sources */,
 				8642C93F1ABFF53C00251921 /* SBJsonWriter.m in Sources */,
 				86B8E5C11AD774CB00A5139E /* PayForOrderVC.m in Sources */,

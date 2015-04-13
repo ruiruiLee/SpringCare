@@ -66,6 +66,8 @@
     
     [self.window makeKeyAndVisible];
     
+    _observer = [[LocationManagerObserver alloc] init];
+    
     return YES;
 }
 

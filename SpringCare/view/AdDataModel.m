@@ -8,10 +8,6 @@
 
 #import "AdDataModel.h"
 
-//#define PLISTFILENAME @"AdDataPlist.plist"
-//
-//#define PATH  [[NSBundle mainBundle]pathForResource:PLISTFILENAME ofType:nil]
-
 @implementation AdDataModel
 
 - (instancetype)initWithImageName
@@ -25,21 +21,13 @@
     return self;
 }
 
-- (instancetype)initWithImageNameAndAdTitleArray
-{
-    _adTitleArray = [[NSArray alloc] init];
-    
-    return [self initWithImageName];
-}
+
 
 + (id)adDataModelWithImageName
 {
     return [[self alloc]initWithImageName];
 }
 
-+ (id)adDataModelWithImageNameAndAdTitleArray
-{
-    return [[self alloc]initWithImageNameAndAdTitleArray];
-}
+
 @end
 

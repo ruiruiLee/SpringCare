@@ -30,6 +30,11 @@
     
     
     UIButton *activityBtn;
+    
+    NSString *introduceUrl;
+    NSString *promiseUrl;
+    
+    AdScrollView * scrollView;
 }
 
 @property(nonatomic,strong) NSArray *cityArr;

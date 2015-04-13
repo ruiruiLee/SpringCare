@@ -9,13 +9,27 @@
 #import "CityListSelectVC.h"
 #import "define.h"
 #import "CityListCell.h"
+#import "LocationManagerObserver.h"
+#import "CityDataModel.h"
 
 @implementation CityListSelectVC
 @synthesize delegate;
 
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) NotifyCurrentCityGained:(NSNotification*) notify
+{
+    [_tableview reloadData];
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCurrentCityGained:) name:NOTIFY_LOCATION_GAINED object:nil];
     
     self.NavigationBar.Title = @"城市列表";
     [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
@@ -56,7 +70,7 @@
     if(section == 0)
         return 1;
     else
-        return 10;
+        return [[CityDataModel getCityData] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -75,7 +89,19 @@
     if(!cell){
         cell = [[CityListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    cell.lbTitle.text = @"成都市";
+    if(indexPath.section == 0){
+        if(currentCity == nil)
+        {
+            cell.lbTitle.text = @"正在定位..";
+        }else
+        {
+            cell.lbTitle.text = currentCity;
+        }
+    }
+    else{
+        CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
+        cell.lbTitle.text = model.city_name;
+    }
     return cell;
 }
 
@@ -105,9 +131,15 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *city = @"";
+    if(indexPath.section == 1){
+        CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
+        city = model.city_name;
+    }else
+        city = @"成都";
     if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
     {
-        [delegate NotifyCitySelectedWithData:nil];
+        [delegate NotifyCitySelectedWithData:city];
     }
     
     [self.navigationController dismissViewControllerAnimated:YES completion:^{

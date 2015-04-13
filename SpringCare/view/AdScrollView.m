@@ -7,6 +7,8 @@
 //
 
 #import "AdScrollView.h"
+#import "UIImageView+WebCache.h"
+#import "define.h"
 
 #define UISCREENWIDTH  self.bounds.size.width//广告的宽度
 #define UISCREENHEIGHT  self.bounds.size.height//广告的高度
@@ -57,7 +59,7 @@ static NSUInteger currentImage = 1;//记录中间图片的下标,开始总是为
         self.contentSize = CGSizeMake(UISCREENWIDTH * 3, UISCREENHEIGHT);
         self.delegate = self;
         
-        self.backgroundColor = [UIColor redColor];
+        self.backgroundColor = _COLOR(240, 240, 240);
         
         _leftImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, UISCREENWIDTH, UISCREENHEIGHT)];
         [self addSubview:_leftImageView];
@@ -65,9 +67,6 @@ static NSUInteger currentImage = 1;//记录中间图片的下标,开始总是为
         [self addSubview:_centerImageView];
         _rightImageView = [[UIImageView alloc]initWithFrame:CGRectMake(UISCREENWIDTH*2, 0, UISCREENWIDTH, UISCREENHEIGHT)];
         [self addSubview:_rightImageView];
-        
-        _moveTime = [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(animalMoveImage) userInfo:nil repeats:YES];
-        _isTimeUp = NO;
         
     }
     return self;
@@ -82,22 +81,23 @@ static NSUInteger currentImage = 1;//记录中间图片的下标,开始总是为
         _isTimeUp = YES;
         return;
     }
+    _pageControl.numberOfPages = [imageNameArray count];
     _moveTime = [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(animalMoveImage) userInfo:nil repeats:YES];
     _isTimeUp = NO;
     if([imageNameArray count] == 1){
-        _leftImageView.image = [UIImage imageNamed:_imageNameArray[0]];
-        _centerImageView.image = [UIImage imageNamed:_imageNameArray[0]];
-        _rightImageView.image = [UIImage imageNamed:_imageNameArray[0]];
+        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] placeholderImage:nil];
+        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] placeholderImage:nil];
+        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] placeholderImage:nil];
     }
     if([imageNameArray count] == 2){
-        _leftImageView.image = [UIImage imageNamed:_imageNameArray[1]];
-        _centerImageView.image = [UIImage imageNamed:_imageNameArray[0]];
-        _rightImageView.image = [UIImage imageNamed:_imageNameArray[1]];
+        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] placeholderImage:nil];
+        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] placeholderImage:nil];
+        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] placeholderImage:nil];
     }
     if([imageNameArray count] >= 3){
-        _leftImageView.image = [UIImage imageNamed:_imageNameArray[0]];
-        _centerImageView.image = [UIImage imageNamed:_imageNameArray[1]];
-        _rightImageView.image = [UIImage imageNamed:_imageNameArray[2]];
+        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] placeholderImage:nil];
+        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] placeholderImage:nil];
+        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[2]] placeholderImage:nil];
     }
 }
 
@@ -212,43 +212,33 @@ static NSUInteger currentImage = 1;//记录中间图片的下标,开始总是为
         return;
     }
     
-//    _leftImageView.image = [UIImage imageNamed:_imageNameArray[(currentImage-1)%_imageNameArray.count]];
-    
-//    _leftAdLabel.text = _adTitleArray[(currentImage-1)%_imageNameArray.count];
-    
-//    _centerImageView.image = [UIImage imageNamed:_imageNameArray[currentImage%_imageNameArray.count]];
-    
-//    _centerAdLabel.text = _adTitleArray[currentImage%_imageNameArray.count];
-    
-//    _rightImageView.image = [UIImage imageNamed:_imageNameArray[(currentImage+1)%_imageNameArray.count]];
-    
-//    _rightAdLabel.text = _adTitleArray[(currentImage+1)%_imageNameArray.count];
-    
     if([_imageNameArray count] == 0)
         return;
     if([_imageNameArray count] == 1){
-        _leftImageView.image = [UIImage imageNamed:_imageNameArray[(currentImage)%_imageNameArray.count]];
-        _centerImageView.image = [UIImage imageNamed:_imageNameArray[(currentImage)%_imageNameArray.count]];
-        _rightImageView.image = [UIImage imageNamed:_imageNameArray[(currentImage)%_imageNameArray.count]];
+        
+        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage)%_imageNameArray.count]] placeholderImage:nil];
+        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage)%_imageNameArray.count]] placeholderImage:nil];
+        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage)%_imageNameArray.count]] placeholderImage:nil];
     }
     if([_imageNameArray count] == 2){
-        _leftImageView.image = [UIImage imageNamed:_imageNameArray[1]];
-        _centerImageView.image = [UIImage imageNamed:_imageNameArray[currentImage%_imageNameArray.count]];
-        _rightImageView.image = [UIImage imageNamed:_imageNameArray[1]];
+        
+        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] placeholderImage:nil];
+        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[currentImage%_imageNameArray.count]] placeholderImage:nil];
+        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] placeholderImage:nil];
         
         if(currentImage == 0){
-            _leftImageView.image = [UIImage imageNamed:_imageNameArray[1]];
-            _rightImageView.image = [UIImage imageNamed:_imageNameArray[1]];
+            [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] placeholderImage:nil];
+            [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] placeholderImage:nil];
         }
         else{
-            _leftImageView.image = [UIImage imageNamed:_imageNameArray[0]];
-            _rightImageView.image = [UIImage imageNamed:_imageNameArray[0]];
+            [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] placeholderImage:nil];
+            [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] placeholderImage:nil];
         }
     }
     if([_imageNameArray count] >= 3){
-        _leftImageView.image = [UIImage imageNamed:_imageNameArray[(currentImage-1)%_imageNameArray.count]];
-        _centerImageView.image = [UIImage imageNamed:_imageNameArray[currentImage%_imageNameArray.count]];
-        _rightImageView.image = [UIImage imageNamed:_imageNameArray[(currentImage+1)%_imageNameArray.count]];
+        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage-1)%_imageNameArray.count]] placeholderImage:nil];
+        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage)%_imageNameArray.count]] placeholderImage:nil];
+        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage+1)%_imageNameArray.count]] placeholderImage:nil];
     }
     
     self.contentOffset = CGPointMake(UISCREENWIDTH, 0);

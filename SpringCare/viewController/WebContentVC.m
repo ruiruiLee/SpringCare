@@ -43,8 +43,10 @@
 {
     [super viewDidAppear:animated];
     
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath]];
-    [_webview loadRequest:request];
+    if(urlPath != nil){
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath]];
+        [_webview loadRequest:request];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,6 +54,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void) loadInfoFromUrl:(NSString*) url
+{
+    urlPath = url;
+    if(urlPath != nil){
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath]];
+        [_webview loadRequest:request];
+    }
+}
 
 @end
