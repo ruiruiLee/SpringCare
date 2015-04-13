@@ -395,6 +395,7 @@
 		CFBC51931ADBD9F5004FB8F3 /* chat_keyboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CFBC51901ADBD9F5004FB8F3 /* chat_keyboard@2x.png */; };
 		CFBC51941ADBD9F5004FB8F3 /* chat_smailbtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CFBC51911ADBD9F5004FB8F3 /* chat_smailbtn@2x.png */; };
 		CFBC51951ADBD9F5004FB8F3 /* nav_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CFBC51921ADBD9F5004FB8F3 /* nav_btn@2x.png */; };
+		CFBC51971ADBF23D004FB8F3 /* chat_replybtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CFBC51961ADBF23D004FB8F3 /* chat_replybtn@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -927,6 +928,7 @@
 		CFBC51901ADBD9F5004FB8F3 /* chat_keyboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_keyboard@2x.png"; sourceTree = "<group>"; };
 		CFBC51911ADBD9F5004FB8F3 /* chat_smailbtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_smailbtn@2x.png"; sourceTree = "<group>"; };
 		CFBC51921ADBD9F5004FB8F3 /* nav_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_btn@2x.png"; sourceTree = "<group>"; };
+		CFBC51961ADBF23D004FB8F3 /* chat_replybtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_replybtn@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -989,6 +991,7 @@
 		8642C8BF1ABFF51100251921 /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				CFBC51961ADBF23D004FB8F3 /* chat_replybtn@2x.png */,
 				CFBC51901ADBD9F5004FB8F3 /* chat_keyboard@2x.png */,
 				CFBC51911ADBD9F5004FB8F3 /* chat_smailbtn@2x.png */,
 				CFBC51921ADBD9F5004FB8F3 /* nav_btn@2x.png */,
@@ -2119,6 +2122,7 @@
 				CFBC51341ADBAA05004FB8F3 /* fx_043.png in Resources */,
 				CFBC51191ADBAA05004FB8F3 /* fx_028@2x.png in Resources */,
 				CFBC51491ADBAA05004FB8F3 /* fx_053@2x.png in Resources */,
+				CFBC51971ADBF23D004FB8F3 /* chat_replybtn@2x.png in Resources */,
 				CFBC51661ADBAA05004FB8F3 /* fx_069.png in Resources */,
 				CFBC51011ADBAA05004FB8F3 /* fx_015@2x.png in Resources */,
 				CFBC513B1ADBAA05004FB8F3 /* fx_046@2x.png in Resources */,
