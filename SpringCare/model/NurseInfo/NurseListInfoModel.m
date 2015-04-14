@@ -122,8 +122,10 @@ static NSMutableDictionary *pramaNurseDic = nil;
                     }
                     for (int i = 0; i <[results count]; i++) {
                         NSDictionary *dic = [results objectAtIndex:i];
-                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:dic];
-                        [nurseList addObject:model];
+                        if([[dic allKeys] count] > 0){
+                            NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:dic];
+                            [nurseList addObject:model];
+                        }
                     }
                 }
                 if(block){
@@ -157,8 +159,10 @@ static NSMutableDictionary *pramaNurseDic = nil;
                 if([results isKindOfClass:[NSArray class]]){
                     for (int i = 0; i <[results count]; i++) {
                         NSDictionary *dic = [results objectAtIndex:i];
-                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:dic];
-                        [nurseList addObject:model];
+                        if([[dic allKeys] count] > 0){
+                            NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:dic];
+                            [nurseList addObject:model];
+                        }
                     }
                 }
                 if(block){

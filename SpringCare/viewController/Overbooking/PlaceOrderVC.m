@@ -12,14 +12,28 @@
 #import "PayTypeCell.h"
 #import "PlaceOrderEditCell.h"
 #import "UIImageView+WebCache.h"
+#import "NurseListInfoModel.h"
 
 #define LIMIT_LINES 4
 
 @interface PlaceOrderVC ()
+{
+    NurseListInfoModel *_nurseModel;
+}
 
 @end
 
 @implementation PlaceOrderVC
+
+- (id) initWithModel:(NurseListInfoModel*) model
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if(self)
+    {
+        _nurseModel = model;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,14 +107,14 @@
     _photoImage = [[UIImageView alloc] initWithFrame:CGRectZero];
     _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
     [headerView addSubview:_photoImage];
-    [_photoImage sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+    [_photoImage sd_setImageWithURL:[NSURL URLWithString:_nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
     _lbName.textColor = _COLOR(0x22, 0x22, 0x22);
     _lbName.font = _FONT(18);
-    _lbName.text = @"王莹莹";
+    _lbName.text = _nurseModel.name;//@"王莹莹";
     
     _btnCert = [[UIButton alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_btnCert];
@@ -112,7 +126,7 @@
     _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
     _btnInfo.titleLabel.font = _FONT(12);
     [_btnInfo setTitleColor:_COLOR(0x6b, 0x4e, 0x3e) forState:UIControlStateNormal];
-    [_btnInfo setTitle:@"四川人  38岁 护龄12年" forState:UIControlStateNormal];
+    [_btnInfo setTitle: [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge] forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
     _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 21);
     
@@ -123,7 +137,7 @@
     _detailInfo.font = _FONT(13);
     _detailInfo.numberOfLines = LIMIT_LINES;
     _detailInfo.preferredMaxLayoutWidth = ScreenWidth - 44;
-    _detailInfo.text = @"大公司的分公司大公司的分公司大公司的分公司大公司的分公司大公司的分公司大公司的分公司大公司的分公司大公司的分公司大公司的喜欢韩国风过后的风格和地方干活喜欢韩国风过后的风格和地方干活喜欢韩国风过后的风格和地方干活喜欢韩国风过后的风格和地方干活喜欢韩国风过后的风格和地方干活喜欢韩国风过后的风格和地方干活喜欢韩国风过后的风格和地方干活喜欢韩国风过后的风格和地方干活";
+    _detailInfo.text = _nurseModel.detailIntro;
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_detailInfo.text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:2];//调整行间距
@@ -145,8 +159,8 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _btnUnfold, _btnInfo, _btnCert,
                                                          _detailInfo);
     
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_photoImage(82)]-20-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_photoImage]-20-[_btnInfo]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_photoImage(82)]-10-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_photoImage]-10-[_btnInfo]->=10-[_btnCert(43)]-16-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_detailInfo]-29-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_btnUnfold]->=20-|" options:0 metrics:nil views:views]];
     
@@ -212,7 +226,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        cell._lbAppraisalNum.text = @"用户评价（36）";
+        cell._lbAppraisalNum.text = [NSString stringWithFormat:@"用户评价（%ld）", _nurseModel.commentsNumber];
         return cell;
     }
     else if (indexPath.section == 2){
@@ -229,6 +243,7 @@
             cell = [[PlaceOrderEditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        [cell setNurseListInfo:_nurseModel];
         return cell;
     }
 }

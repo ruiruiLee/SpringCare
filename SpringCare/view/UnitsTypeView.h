@@ -14,6 +14,13 @@ typedef enum : NSUInteger {
     EnumTypeMounth,
 } UnitsType;
 
+@class UnitsTypeView;
+@protocol UnitsTypeViewDelegate <NSObject>
+
+- (void) NotifyUnitsTypeChanged:(UnitsTypeView*) view;
+
+@end
+
 @interface UnitsTypeView : UIView
 {
     UIButton *_btnDay;
@@ -22,4 +29,6 @@ typedef enum : NSUInteger {
 }
 
 @property (nonatomic, assign) UnitsType uniteType;
+@property (nonatomic, assign) id<UnitsTypeViewDelegate>  delegate;
+
 @end

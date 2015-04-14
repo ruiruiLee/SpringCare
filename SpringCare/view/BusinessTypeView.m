@@ -11,6 +11,7 @@
 
 @implementation BusinessTypeView
 @synthesize businesstype;
+@synthesize delegate;
 
 - (id) initWithFrame:(CGRect)frame
 {
@@ -54,20 +55,32 @@
 
 - (void) doBtnSelectType24h:(UIButton*)sender
 {
+    if(_btn24h.selected)
+        return;
     _btn24h.selected = YES;
     _btn12h.selected = NO;
     _btn24h.backgroundColor = Abled_Color;
     _btn12h.backgroundColor = [UIColor clearColor];
     businesstype = EnumType24Hours;
+    
+    if(delegate && [delegate respondsToSelector:@selector(NotifyBusinessTypeChanged:)]){
+        [delegate NotifyBusinessTypeChanged:self];
+    }
 }
 
 - (void) doBtnSelectType12h:(UIButton*)sender
 {
+    if(_btn12h.selected)
+        return;
     _btn24h.selected = NO;
     _btn12h.selected = YES;
     _btn24h.backgroundColor = [UIColor clearColor];
     _btn12h.backgroundColor = Abled_Color;
     businesstype = EnumType12Hours;
+    
+    if(delegate && [delegate respondsToSelector:@selector(NotifyBusinessTypeChanged:)]){
+        [delegate NotifyBusinessTypeChanged:self];
+    }
 }
 
 @end

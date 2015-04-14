@@ -71,6 +71,8 @@
  */
 -(void)setToolbarTintColor:(UIColor *)color;
 
+- (void) setPickviewWithArray:(NSArray*) array;
+
 @end
 
 

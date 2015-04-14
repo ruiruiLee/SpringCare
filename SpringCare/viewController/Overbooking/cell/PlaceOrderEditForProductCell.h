@@ -11,7 +11,7 @@
 #import "UnitsTypeView.h"
 #import "ZHPickView.h"
 
-@interface PlaceOrderEditForProductCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate>
+@interface PlaceOrderEditForProductCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, UnitsTypeViewDelegate, DateCountSelectViewDelegate>
 {
     UITableView *_tableview;
     UILabel *line;
@@ -23,5 +23,7 @@
     
     ZHPickView *_pickview;
 }
+
+- (void) setNurseListInfo:(NurseListInfoModel*) model;
 
 @end

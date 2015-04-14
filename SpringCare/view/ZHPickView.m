@@ -94,6 +94,20 @@
     return self;
 }
 
+- (void) setPickviewWithArray:(NSArray*) array
+{
+    timeLimited = TIME_LIMIT;
+    
+    self.plistArray=array;
+    _dayArray = [[NSMutableArray alloc] initWithArray:array[0]];
+    //        _hourArray = [[NSMutableArray alloc] initWithArray:array[1]];
+    [self newHourDateArray:0];
+    [self setArrayClass:array];
+    [self setUpPickView];
+    
+    [_pickerView reloadComponent:1];
+}
+
 -(instancetype)initDatePickWithDate:(NSDate *)defaulDate datePickerMode:(UIDatePickerMode)datePickerMode isHaveNavControler:(BOOL)isHaveNavControler{
     
     self=[super init];

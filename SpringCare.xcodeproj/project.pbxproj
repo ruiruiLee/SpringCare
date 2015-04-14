@@ -87,7 +87,6 @@
 		8642C9C31AC3B43600251921 /* image-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8642C9C21AC3B43600251921 /* image-1.png */; };
 		8642C9C51AC3B83900251921 /* navBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8642C9C41AC3B83900251921 /* navBg@2x.png */; };
 		8642C9CA1AC3CFB800251921 /* NurseListInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */; };
-		8642C9CD1AC3E99600251921 /* NurseDetailInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9CC1AC3E99600251921 /* NurseDetailInfoVC.m */; };
 		8642C9D01AC4037600251921 /* MessageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9CF1AC4037600251921 /* MessageInfoTableViewCell.m */; };
 		8642C9D71AC428DF00251921 /* MessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9D61AC428DF00251921 /* MessageListModel.m */; };
 		865C85901ACCEDFF006ABCA4 /* PageLoadFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C856B1ACCEDFF006ABCA4 /* PageLoadFootView.m */; };
@@ -541,8 +540,6 @@
 		8642C9C41AC3B83900251921 /* navBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBg@2x.png"; sourceTree = "<group>"; };
 		8642C9C81AC3CFB800251921 /* NurseListInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseListInfoModel.h; sourceTree = "<group>"; };
 		8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseListInfoModel.m; sourceTree = "<group>"; };
-		8642C9CB1AC3E99600251921 /* NurseDetailInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseDetailInfoVC.h; sourceTree = "<group>"; };
-		8642C9CC1AC3E99600251921 /* NurseDetailInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseDetailInfoVC.m; sourceTree = "<group>"; };
 		8642C9CE1AC4037600251921 /* MessageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInfoTableViewCell.h; sourceTree = "<group>"; };
 		8642C9CF1AC4037600251921 /* MessageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInfoTableViewCell.m; sourceTree = "<group>"; };
 		8642C9D51AC428DF00251921 /* MessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListModel.h; sourceTree = "<group>"; };
@@ -1262,8 +1259,6 @@
 			children = (
 				8642C9591ABFF55800251921 /* NurseListMainVC.h */,
 				8642C95A1ABFF55800251921 /* NurseListMainVC.m */,
-				8642C9CB1AC3E99600251921 /* NurseDetailInfoVC.h */,
-				8642C9CC1AC3E99600251921 /* NurseDetailInfoVC.m */,
 			);
 			path = NurseInfo;
 			sourceTree = "<group>";
@@ -2355,7 +2350,6 @@
 				86B8E5E41AD8C15000A5139E /* PayTypeForProductCell.m in Sources */,
 				86B8E60C1AD952A500A5139E /* HomeCareListVC.m in Sources */,
 				8642C9D01AC4037600251921 /* MessageInfoTableViewCell.m in Sources */,
-				8642C9CD1AC3E99600251921 /* NurseDetailInfoVC.m in Sources */,
 				86B8E55D1AD4E3C100A5139E /* FeedBackVC.m in Sources */,
 				86C095581AD0D8F800371BF3 /* NurseIntroTableCell.m in Sources */,
 				8642C9361ABFF53C00251921 /* SBJsonStreamParser.m in Sources */,

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class DateCountSelectView;
+@protocol DateCountSelectViewDelegate <NSObject>
+
+- (void) NotifyDateCountChanged:(DateCountSelectView*) view;
+
+@end
+
 @interface DateCountSelectView : UIView
 {
     UIImageView *_imgBg;
@@ -17,5 +24,8 @@
 }
 
 @property (nonatomic, assign) NSInteger countNum;
+@property (nonatomic, assign) id<DateCountSelectViewDelegate> delegate;
+
+- (NSInteger) getDays;
 
 @end

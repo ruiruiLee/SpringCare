@@ -11,6 +11,7 @@
 
 @implementation UnitsTypeView
 @synthesize uniteType;
+@synthesize delegate;
 
 - (id) initWithFrame:(CGRect)frame
 {
@@ -67,6 +68,8 @@
 
 - (void) doBtnSelectTypeDay:(UIButton*)sender
 {
+    if(sender.selected == YES)
+        return;
     _btnDay.selected = YES;
     _btnWeek.selected = NO;
     _btnMounth.selected = NO;
@@ -74,10 +77,16 @@
     _btnWeek.backgroundColor = [UIColor clearColor];
     _btnMounth.backgroundColor = [UIColor clearColor];
     uniteType = EnumTypeDay;
+    
+    if(delegate && [delegate respondsToSelector:@selector(NotifyUnitsTypeChanged:)]){
+        [delegate NotifyUnitsTypeChanged:self];
+    }
 }
 
 - (void) doBtnSelectTypeWeek:(UIButton*)sender
 {
+    if(sender.selected == YES)
+        return;
     _btnDay.selected = NO;
     _btnWeek.selected = YES;
     _btnMounth.selected = NO;
@@ -85,10 +94,16 @@
     _btnWeek.backgroundColor = Abled_Color;
     _btnMounth.backgroundColor = [UIColor clearColor];
     uniteType = EnumTypeWeek;
+    
+    if(delegate && [delegate respondsToSelector:@selector(NotifyUnitsTypeChanged:)]){
+        [delegate NotifyUnitsTypeChanged:self];
+    }
 }
 
 - (void) doBtnSelectTypeMounth:(UIButton*)sender
 {
+    if(sender.selected == YES)
+        return;
     _btnDay.selected = NO;
     _btnWeek.selected = NO;
     _btnMounth.selected = YES;
@@ -96,6 +111,10 @@
     _btnWeek.backgroundColor = [UIColor clearColor];
     _btnMounth.backgroundColor = Abled_Color;
     uniteType = EnumTypeMounth;
+    
+    if(delegate && [delegate respondsToSelector:@selector(NotifyUnitsTypeChanged:)]){
+        [delegate NotifyUnitsTypeChanged:self];
+    }
 }
 
 @end

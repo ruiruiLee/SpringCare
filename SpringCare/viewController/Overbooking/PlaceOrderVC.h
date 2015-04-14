@@ -8,6 +8,8 @@
 
 #import "LCBaseVC.h"
 
+@class NurseListInfoModel;
+
 @interface PlaceOrderVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *_tableview;
@@ -21,5 +23,7 @@
     
     NSArray *headerViewHeightConstraint;
 }
+
+- (id) initWithModel:(NurseListInfoModel*) model;
 
 @end

@@ -13,6 +13,13 @@ typedef enum : NSUInteger {
     EnumType12Hours,
 } BusinessType;
 
+@class BusinessTypeView;
+@protocol BusinessTypeViewDelegate <NSObject>
+
+- (void) NotifyBusinessTypeChanged:(BusinessTypeView*) typeView;
+
+@end
+
 @interface BusinessTypeView : UIView
 {
     UIButton *_btn24h;
@@ -20,5 +27,6 @@ typedef enum : NSUInteger {
 }
 
 @property (nonatomic, assign) BusinessType businesstype;
+@property (nonatomic, assign) id<BusinessTypeViewDelegate> delegate;
 
 @end

@@ -13,6 +13,7 @@
 
 @implementation PlaceOrderEditForProductCell
 
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -24,10 +25,12 @@
         businessTypeView = [[UnitsTypeView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:businessTypeView];
         businessTypeView.translatesAutoresizingMaskIntoConstraints = NO;
+        businessTypeView.delegate = self;
         
         dateSelectView = [[DateCountSelectView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:dateSelectView];
         dateSelectView.translatesAutoresizingMaskIntoConstraints = NO;
+        dateSelectView.delegate = self;
         
         lbUnitPrice = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:lbUnitPrice];
@@ -166,5 +169,21 @@
     
     return array;
 }
+
+- (void) NotifyUnitsTypeChanged:(UnitsTypeView*) view
+{
+    
+}
+
+- (void) NotifyDateCountChanged:(DateCountSelectView*) view
+{
+    
+}
+
+- (void) setNurseListInfo:(NurseListInfoModel*) model
+{
+    
+}
+
 
 @end

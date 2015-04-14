@@ -7,7 +7,7 @@
 //
 
 #import "NurseListVC.h"
-#import "NurseDetailInfoVC.h"
+#import "PlaceOrderVC.h"
 #import "SliderViewController.h"
 #import "NurseIntroTableCell.h"
 #import "ProductInfoCell.h"
@@ -67,6 +67,7 @@
     pullTableView.estimatedRowHeight = 100.0f;
     pullTableView.dataSource = self;
     pullTableView.delegate = self;
+    self.pullTableView.pullDelegate = self;
     
     self.prices = @[@"价格"];
     self.ages = @[@"年龄"];
@@ -189,7 +190,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-    NurseDetailInfoVC *vc = [[NurseDetailInfoVC alloc] initWithModel:model];
+    PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

@@ -10,6 +10,7 @@
 #import "DateCountSelectView.h"
 #import "BusinessTypeView.h"
 #import "ZHPickView.h"
+#import "NurseListInfoModel.h"
 
 @interface PlaceOrderEditItemCell : UITableViewCell
 {
@@ -24,7 +25,7 @@
 
 @end
 
-@interface PlaceOrderEditCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate>
+@interface PlaceOrderEditCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, BusinessTypeViewDelegate, DateCountSelectViewDelegate>
 {
     UITableView *_tableview;
     UILabel *line;
@@ -35,6 +36,10 @@
     UILabel *lbAmountPrice;//总价
     
     ZHPickView *_pickview;
+    
+    NurseListInfoModel *_nurseData;
 }
+
+- (void) setNurseListInfo:(NurseListInfoModel*) model;
 
 @end

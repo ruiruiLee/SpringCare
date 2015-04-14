@@ -142,10 +142,14 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    PayTypeItemCell *cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    cell1._btnSelect.selected = NO;
+    cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+    cell1._btnSelect.selected = NO;
+    cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+    cell1._btnSelect.selected = NO;
     
     PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell._btnSelect.selected = YES;
 }
 

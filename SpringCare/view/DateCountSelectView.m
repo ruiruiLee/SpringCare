@@ -11,6 +11,7 @@
 
 @implementation DateCountSelectView
 @synthesize countNum;
+@synthesize delegate;
 
 - (id) initWithFrame:(CGRect)frame
 {
@@ -62,6 +63,9 @@
 {
     countNum ++;
     _lbCount.text = [NSString stringWithFormat:@"%ld", countNum];
+    if(delegate && [delegate respondsToSelector:@selector(NotifyDateCountChanged:)]){
+        [delegate NotifyDateCountChanged:self];
+    }
 }
 
 - (void) doBtnDelDays:(UIButton*)sender
@@ -70,6 +74,14 @@
     if(countNum < 1)
         countNum = 1;
     _lbCount.text = [NSString stringWithFormat:@"%ld", countNum];
+    if(delegate && [delegate respondsToSelector:@selector(NotifyDateCountChanged:)]){
+        [delegate NotifyDateCountChanged:self];
+    }
+}
+
+- (NSInteger) getDays
+{
+    return countNum;
 }
 
 @end

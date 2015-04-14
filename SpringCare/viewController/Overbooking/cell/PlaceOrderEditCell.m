@@ -83,25 +83,27 @@
         businessTypeView = [[BusinessTypeView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:businessTypeView];
         businessTypeView.translatesAutoresizingMaskIntoConstraints = NO;
+        businessTypeView.delegate = self;
         
         dateSelectView = [[DateCountSelectView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:dateSelectView];
         dateSelectView.translatesAutoresizingMaskIntoConstraints = NO;
+        dateSelectView.delegate = self;
         
         lbUnitPrice = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
-        NSString *UnitPrice = @"单价：¥300.00（24h） x 1天";
-        NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
-        NSRange range = [UnitPrice rangeOfString:@"¥300.00"];
-        [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
-        lbUnitPrice.attributedText = string;
+//        NSString *UnitPrice = @"单价：¥300.00（24h） x 1天";
+//        NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
+//        NSRange range = [UnitPrice rangeOfString:@"¥300.00"];
+//        [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+//        lbUnitPrice.attributedText = string;
         
         lbAmountPrice = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
-        NSString *AmountPrice = @"总价：¥300.00";
-        string = [[NSMutableAttributedString alloc]initWithString:AmountPrice];
-        range = [UnitPrice rangeOfString:@"¥300.00"];
-        [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
-        [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
-        lbAmountPrice.attributedText = string;
+//        NSString *AmountPrice = @"总价：¥300.00";
+//        string = [[NSMutableAttributedString alloc]initWithString:AmountPrice];
+//        range = [UnitPrice rangeOfString:@"¥300.00"];
+//        [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+//        [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
+//        lbAmountPrice.attributedText = string;
         
         line = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
@@ -204,8 +206,13 @@
 
 - (NSArray*) getTimeArray
 {
-    NSArray *array = @[@"08", @"09", @"10", @"20", @"21", @"22"];
-    return array;
+    if(businessTypeView.businesstype == EnumType12Hours){
+        NSArray *array = @[@"08", @"09", @"10", @"20", @"21", @"22"];
+        return array;
+    }else{
+        NSArray *array = @[@"08", @"09", @"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19", @"20", @"21", @"22"];
+        return array;
+    }
 }
 
 - (NSArray*) getDateArray
@@ -226,6 +233,46 @@
 {
     PlaceOrderEditItemCell *cell = (PlaceOrderEditItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     cell.lbTitle.text = [NSString stringWithFormat:@"服务开始时间：%@", [Util StringFromDate:resultDate]];
+}
+
+- (void) setNurseListInfo:(NurseListInfoModel*) model
+{
+    _nurseData = model;
+    NSInteger days = [dateSelectView getDays];
+    NSInteger hour = (businessTypeView.businesstype == EnumType12Hours) ?12 : 24;
+    NSInteger uPrice = model.price;
+    if(businessTypeView.businesstype == EnumType12Hours)
+        uPrice = uPrice/2;
+    NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", uPrice];
+    NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@（%ldh） x %ld天", rangeStr, hour, days];//@"单价：¥300.00（24h） x 1天";
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
+    NSRange range = [UnitPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", uPrice]];
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    lbUnitPrice.attributedText = string;
+    
+    rangeStr = [NSString stringWithFormat:@"¥%ld", uPrice * days];
+    NSString *AmountPrice = [NSString stringWithFormat:@"总价：%@", rangeStr];
+    string = [[NSMutableAttributedString alloc]initWithString:AmountPrice];
+    range = [AmountPrice rangeOfString:rangeStr];
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
+    lbAmountPrice.attributedText = string;
+}
+
+- (void) NotifyDateCountChanged:(DateCountSelectView*) view
+{
+    [self setNurseListInfo:_nurseData];
+}
+
+- (void) NotifyBusinessTypeChanged:(BusinessTypeView*) typeView
+{
+    [self setNurseListInfo:_nurseData];
+    
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    [mArray addObject:[self getDateArray]];
+    [mArray addObject:[self getTimeArray]];
+    
+    [_pickview setPickviewWithArray:mArray];
 }
 
 @end
