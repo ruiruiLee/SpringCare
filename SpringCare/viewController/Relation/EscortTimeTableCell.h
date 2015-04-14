@@ -12,7 +12,7 @@
 #import "define.h"
 #import "HBCoreLabel.h"
 #import "EscortTimeReplyCell.h"
-
+#import "RecoderAndPlayer.h"
 
 typedef void(^ReplayAction)(int index);
 
@@ -49,7 +49,7 @@ typedef void(^ReplayAction)(int index);
     NSArray *hReplyBgLayoutArry;
     
     EscortTimeDataModel *_model;
-    
+    RecoderAndPlayer  *_recoderAndPlayer;
     
     UILabel *_lbTimeLine;
     UILabel *_lbToday;

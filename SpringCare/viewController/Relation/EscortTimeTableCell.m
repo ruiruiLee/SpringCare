@@ -81,7 +81,7 @@
     _btnVolice.translatesAutoresizingMaskIntoConstraints = NO;
 //    [_btnVolice setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
     [_btnVolice setBackgroundImage:[image stretchableImageWithLeftCapWidth:40 topCapHeight:5] forState:UIControlStateNormal];
-    
+    [_btnVolice addTarget:self action:@selector(VoicePlayClicked:) forControlEvents:UIControlEventTouchUpInside];
     //音频时间
     _lbVoliceLimit = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbVoliceLimit];
@@ -333,6 +333,12 @@
     }
 }
 
+- (void) VoicePlayClicked:(UIButton*)sender{
+    _recoderAndPlayer = [RecoderAndPlayer sharedRecoderAndPlayer];
+    _recoderAndPlayer.delegate=(id)self;
+    [_recoderAndPlayer startPlaying:@"音频文件名.amr"];
+
+}
 - (void) FoldOrUnfoldButtonClicked:(UIButton*)sender
 {
     _model.isShut = !_model.isShut;
