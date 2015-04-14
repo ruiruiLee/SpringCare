@@ -9,6 +9,7 @@
 #import "HomeCareListVC.h"
 #import "define.h"
 #import "LCNetWorkBase.h"
+#import "FamilyProductModel.h"
 
 @interface HomeCareListVC ()
 
@@ -33,14 +34,18 @@
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+    
+    [self loadData];
 }
 
 - (void) loadData
 {
     [LCNetWorkBase requestWithMethod:@"api/product/family" Params:nil Completion:^(int code, id content) {
         if(code){
-            if([content isKindOfClass:[NSDictionary class]]){
-                
+            if([content isKindOfClass:[NSArray class]]){
+                [FamilyProductModel setFamilyProduct:content];
+                _dataArray = [FamilyProductModel getProductArray];
+                [_tableview reloadData];
             }
         }
     }];
@@ -58,7 +63,7 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [_dataArray count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,9 +72,9 @@
         producttypeCell = [[ProductInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         producttypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-//    NurseListInfoModel *data = [DataList objectAtIndex:indexPath.row];
     ProductInfoCell *cell = (ProductInfoCell *)self.producttypeCell;
-    [cell SetContentWithDic:nil];
+    FamilyProductModel *model = [_dataArray objectAtIndex:indexPath.row];
+    [cell SetContentWithDic:model];
     
     [cell setNeedsLayout];
     [cell layoutIfNeeded];
@@ -85,6 +90,9 @@
         cell = [[ProductInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    FamilyProductModel *model = [_dataArray objectAtIndex:indexPath.row];
+    [cell SetContentWithDic:model];
     
     return cell;
 }

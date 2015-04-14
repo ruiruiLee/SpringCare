@@ -21,6 +21,10 @@
     UISearchBar *searchBar;
     
     NSString *_SearchConditionStr;
+    
+    NSString *_productId;
+    
+    NSInteger pages;
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;
@@ -32,5 +36,7 @@
 @property (nonatomic, copy) NSArray *goodes;
 
 - (void) appendDataWithArray:(NSArray*)array;
+
+- (id) initWithProductId:(NSString*)pid;
 
 @end

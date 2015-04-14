@@ -35,11 +35,6 @@
     /**
      * 处理短时间内重复请求
      **/
-//    if ([ProjectDefine searchRequestTag:path]) {
-//        return;
-//    }else{
-//        [ProjectDefine addRequestTag:path];
-//    }
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -51,14 +46,49 @@
     
     [manager GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         SBJsonParser *_parser = [[SBJsonParser alloc] init];
-        NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];//[(NSData *)responseObject objectFromJSONData];
+        NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];
         
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, result);
         completion(1, result);
-        if([[result objectForKey:@"resultCode"] integerValue] == 1){
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[result objectForKey:@"resultMsg"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, error);
+        if (error.code != -1001) {
+            completion(0, error);
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:error.localizedDescription delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertView show];
         }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
++ (void)postWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion
+{
+    NSString *path = SERVER_ADDRESS;
+    if (method != nil && method.length > 0) {
+        path = [SERVER_ADDRESS stringByAppendingString:method];
+    }
+    
+    /**
+     * 处理短时间内重复请求
+     **/
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //https
+    //    manager.securityPolicy.allowInvalidCertificates = YES;
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    [manager POST:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        SBJsonParser *_parser = [[SBJsonParser alloc] init];
+        NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];
+        
+        NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, result);
+        completion(1, result);
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

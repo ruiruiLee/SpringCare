@@ -10,12 +10,17 @@
 #import "define.h"
 
 @implementation LocationManagerObserver
+@synthesize lat;
+@synthesize lon;
 
 - (id) init
 {
     self = [super init];
-    if(self)
+    if(self){
+        lat = 30.222;
+        lon = 100.444;
         [self startUpdateLocation];
+    }
     return self;
 }
 
@@ -31,20 +36,24 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        if([placemarks count] > 0){
-            CLPlacemark *placemark = [placemarks objectAtIndex:0];
-            NSString *city = placemark.locality;
-            if (!city) {
-                //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
-                city = placemark.administrativeArea;
+    lat = newLocation.coordinate.latitude;
+    lon = newLocation.coordinate.longitude;
+    if (currentCity == nil) {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            if([placemarks count] > 0){
+                CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                NSString *city = placemark.locality;
+                if (!city) {
+                    //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
+                    city = placemark.administrativeArea;
+                }
+                //            [activityBtn setTitle:city forState:UIControlStateNormal];
+                currentCity = city;
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOCATION_GAINED object:nil userInfo:@{@"city": currentCity}];
             }
-//            [activityBtn setTitle:city forState:UIControlStateNormal];
-            currentCity = city;
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOCATION_GAINED object:nil userInfo:@{@"city": currentCity}];
-        }
-    }];
+        }];
+    }
     [manager stopUpdatingLocation];
 }
 

@@ -78,7 +78,6 @@
     _btnLocation.userInteractionEnabled = NO;
     [_btnLocation setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
     _btnLocation.titleLabel.font = _FONT(13);
-    [_btnLocation setTitle:@"约500米" forState:UIControlStateNormal];
     _btnLocation.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 4, 0);
     [_btnLocation setImage:[UIImage imageNamed:@"nurselistlocation"] forState:UIControlStateNormal];
     
@@ -108,23 +107,23 @@
 
 - (void) SetContentData:(NurseListInfoModel*) model
 {
-    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.photoUrl] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
     
     _lbName.text = model.name;
-    [_gradeView setScore:model.score];
-    _lbCommitCount.text = [NSString stringWithFormat:@"（%d）", model.comment];
-    _lbNurseIntro.text = @"四川人";
+    [_gradeView setScore:model.commentsRate];
+    _lbCommitCount.text = [NSString stringWithFormat:@"（%ld）", model.commentsNumber];
+    _lbNurseIntro.text = [NSString stringWithFormat:@"%@  %ld岁  护龄%@年", model.birthPlace, model.age, model.careAge];
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:model.simpleIntro];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:model.intro];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:3];//调整行间距
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [model.simpleIntro length])];
-//    _lbWorkIntro.attributedText = attributedString;
-    _lbWorkIntro.text = model.simpleIntro;
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [model.intro length])];
+    _lbWorkIntro.attributedText = attributedString;
     
-    _lbPrice.text = [NSString stringWithFormat:@"¥ %ld/天", (long)model.price];//model.price;
+    _lbPrice.text = [NSString stringWithFormat:@"¥ %ld/天", (long)model.priceDistcount];//model.price;打折价格
+    [_btnLocation setTitle:[NSString stringWithFormat:@"约%ld米", model.distance] forState:UIControlStateNormal];
 }
 
 @end

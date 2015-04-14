@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FamilyProductModel.h"
 
 @interface ProductInfoCell : UITableViewCell
 {
@@ -18,6 +19,6 @@
 
 @property (nonatomic, strong) UIView *_bgView;
 
-- (void) SetContentWithDic:(NSDictionary*)dic;
+- (void) SetContentWithDic:(FamilyProductModel*)model;
 
 @end

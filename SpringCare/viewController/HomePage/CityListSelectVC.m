@@ -10,7 +10,7 @@
 #import "define.h"
 #import "CityListCell.h"
 #import "LocationManagerObserver.h"
-#import "CityDataModel.h"
+#import "AppDelegate.h"
 
 @implementation CityListSelectVC
 @synthesize delegate;
@@ -135,6 +135,7 @@
     if(indexPath.section == 1){
         CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
         city = model.city_name;
+        ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
     }else
         city = @"成都";
     if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])

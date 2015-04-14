@@ -12,6 +12,7 @@
 @interface HomeCareListVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *_tableview;
+    NSArray *_dataArray;
 }
 
 @property (nonatomic, strong) ProductInfoCell *producttypeCell;

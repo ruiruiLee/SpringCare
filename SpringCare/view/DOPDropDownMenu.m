@@ -241,6 +241,12 @@
     CGPoint touchPoint = [paramSender locationInView:self];
     //calculate index
     NSInteger tapIndex = touchPoint.x / (self.frame.size.width / _numOfMenu);
+    
+    if (self.delegate || [self.delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
+        [self.delegate menu:self didSelectRowAtIndexPath:[DOPIndexPath indexPathWithCol:tapIndex row:0]];
+    } else {
+        //TODO: delegate is nil
+    }
  
     for (int i = 0; i < _numOfMenu; i++) {
         if (i != tapIndex) {
@@ -395,12 +401,12 @@
 
 #pragma mark - tableview delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.delegate || [self.delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
-        [self confiMenuWithSelectRow:indexPath.row];
-        [self.delegate menu:self didSelectRowAtIndexPath:[DOPIndexPath indexPathWithCol:self.currentSelectedMenudIndex row:indexPath.row]];
-    } else {
-        //TODO: delegate is nil
-    }
+//    if (self.delegate || [self.delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
+//        [self confiMenuWithSelectRow:indexPath.row];
+//        [self.delegate menu:self didSelectRowAtIndexPath:[DOPIndexPath indexPathWithCol:self.currentSelectedMenudIndex row:indexPath.row]];
+//    } else {
+//        //TODO: delegate is nil
+//    }
 }
 
 - (void)confiMenuWithSelectRow:(NSInteger)row {
