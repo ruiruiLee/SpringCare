@@ -25,8 +25,7 @@
                                                                pathForResource:@"faceMap_ch"
                                                                ofType:@"plist"]];
         
-//        self.view.frame = ControlHidden?CGRectMake(0, _winSize.height,_winSize.width,_controlView.frame.size.height+_keyBoardSize.height): CGRectMake(0, _winSize.height-_controlView.frame.size.height-navHeight,_winSize.width,_controlView.frame.size.height+_keyBoardSize.height);
-        self.view.frame =CGRectMake(0, _winSize.height, _winSize.width, _keyBoardSize.height+contentHeight);
+       self.view.frame =CGRectMake(0, _winSize.height, _winSize.width, _keyBoardSize.height+contentHeight);
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
@@ -52,11 +51,7 @@
         _plistDic =[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle]
                                                                pathForResource:@"faceMap_ch"
                                                                ofType:@"plist"]];
-        
-//        self.view.frame = ControlHidden?CGRectMake(0, _winSize.height,_winSize.width,_controlView.frame.size.height+_keyBoardSize.height): CGRectMake(0, _winSize.height-_controlView.frame.size.height-navHeight,_winSize.width,_controlView.frame.size.height+_keyBoardSize.height);
-    
        self.view.frame =CGRectMake(0, _winSize.height, _winSize.width, _keyBoardSize.height+contentHeight);
-
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification
@@ -166,6 +161,7 @@
 
     NSDictionary *info = [notification userInfo];
    _keyBoardSize =[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+
     [UIView animateWithDuration:0.2 animations:^{
         //父view变化
        // int pheight =_winSize.height-navHeight- _controlView.frame.size.height-keyboardSize.height;
@@ -174,7 +170,7 @@
         if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]) {
             [_delegate changeParentViewFram:pheight];
         }
-       self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,self.view.frame.size.height);
+       self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
         } completion:^(BOOL finished) {
         
     }];
