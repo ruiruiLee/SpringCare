@@ -13,6 +13,15 @@
 
 @implementation PlaceOrderEditForProductCell
 
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) NotifyPickViewHidden:(NSNotification*)notify
+{
+    [_pickview remove];
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -21,6 +30,8 @@
     {
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyPickViewHidden:) name:NOTIFY_PICKVIEW_HIDDEN object:nil];
         
         businessTypeView = [[UnitsTypeView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:businessTypeView];
@@ -115,13 +126,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if(indexPath.row == 0){
-        NSMutableArray *mArray = [[NSMutableArray alloc] init];
-        [mArray addObject:[self getDateArray]];
-        [mArray addObject:[self getTimeArray]];
-        
-        _pickview = [[ZHPickView alloc] initPickviewWithArray:mArray isHaveNavControler:NO];
-        [_pickview show];
-        _pickview.delegate = self;
+        if(!_pickview){
+            NSMutableArray *mArray = [[NSMutableArray alloc] init];
+            [mArray addObject:[self getDateArray]];
+            [mArray addObject:[self getTimeArray]];
+            _pickview = [[ZHPickView alloc] initPickviewWithArray:mArray isHaveNavControler:NO];
+            [_pickview show];
+            _pickview.delegate = self;
+        }else{
+            [_pickview show];
+        }
     }
 }
 
@@ -152,7 +166,7 @@
 
 - (NSArray*) getTimeArray
 {
-    NSArray *array = @[@"08", @"09", @"10", @"20", @"21", @"22"];
+    NSArray *array = @[@"08", @"09", @"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19", @"20", @"21", @"22"];
     return array;
 }
 
@@ -172,17 +186,49 @@
 
 - (void) NotifyUnitsTypeChanged:(UnitsTypeView*) view
 {
-    
+    [self setNurseListInfo:_nurseData];
 }
 
 - (void) NotifyDateCountChanged:(DateCountSelectView*) view
 {
-    
+    [self setNurseListInfo:_nurseData];
 }
 
-- (void) setNurseListInfo:(NurseListInfoModel*) model
+- (void) setNurseListInfo:(FamilyProductModel*) model
 {
+    _nurseData = model;
+    NSInteger count = [dateSelectView getDays];
+    NSInteger uPrice = model.price;
+    NSString *text = @"";
+    if(businessTypeView.uniteType == EnumTypeDay)
+    {
+        text = @"天";
+    }
+    else if (businessTypeView.uniteType == EnumTypeWeek){
+        uPrice = uPrice * 7;
+        text = @"周";
+    }
+    else
+    {
+        uPrice = uPrice * 30;
+        text = @"月";
+    }
     
+    
+    NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", uPrice];
+    NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@ x %ld%@", rangeStr, count, text];//@"单价：¥300.00（24h） x 1天";
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
+    NSRange range = [UnitPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", uPrice]];
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    lbUnitPrice.attributedText = string;
+    
+    rangeStr = [NSString stringWithFormat:@"¥%ld", uPrice * count];
+    NSString *AmountPrice = [NSString stringWithFormat:@"总价：%@", rangeStr];
+    string = [[NSMutableAttributedString alloc]initWithString:AmountPrice];
+    range = [AmountPrice rangeOfString:rangeStr];
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
+    lbAmountPrice.attributedText = string;
 }
 
 

@@ -75,8 +75,14 @@
 {
     //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    PayTypeItemCell *cell = [_tableview dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    PayTypeItemCell *cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    cell1._btnSelect.selected = NO;
+    cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+    cell1._btnSelect.selected = NO;
+    cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+    cell1._btnSelect.selected = NO;
+    
+    PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:indexPath];
     cell._btnSelect.selected = YES;
 }
 
@@ -87,7 +93,7 @@
     cell._line.hidden = NO;
     if(indexPath.row == 0)
     {
-        cell._logoImage.image = nil;
+        cell._logoImage.image = [UIImage imageNamed:@"normalpaylogo"];
         cell._payName.text = @"服务后支付";
     }
     else if (indexPath.row == 1){

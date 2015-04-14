@@ -44,6 +44,12 @@
     [self initSubviews];
 }
 
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_PICKVIEW_HIDDEN object:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

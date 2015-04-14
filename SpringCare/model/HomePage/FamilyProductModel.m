@@ -16,6 +16,8 @@ static NSMutableArray *familyProductArray = nil;
 @synthesize isDirectOrder;
 @synthesize productDesc;
 @synthesize productName;
+@synthesize price;
+@synthesize priceDiscount;
 
 + (NSArray*) getProductArray
 {
@@ -40,6 +42,8 @@ static NSMutableArray *familyProductArray = nil;
         model.isDirectOrder = [[dic objectForKey:@"isDirectOrder"] boolValue];
         model.productName = [dic objectForKey:@"productName"];
         model.productDesc = [dic objectForKey:@"productDesc"];
+        model.price = [[dic objectForKey:@"price"] integerValue];
+        model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
         
         [familyProductArray addObject:model];
     }

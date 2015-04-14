@@ -62,11 +62,23 @@
 
 @implementation PlaceOrderEditCell
 
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) NotifyPickViewHidden:(NSNotification*)notify
+{
+    [_pickview remove];
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyPickViewHidden:) name:NOTIFY_PICKVIEW_HIDDEN object:nil];
+        
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
         
@@ -91,19 +103,8 @@
         dateSelectView.delegate = self;
         
         lbUnitPrice = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
-//        NSString *UnitPrice = @"单价：¥300.00（24h） x 1天";
-//        NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
-//        NSRange range = [UnitPrice rangeOfString:@"¥300.00"];
-//        [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
-//        lbUnitPrice.attributedText = string;
         
         lbAmountPrice = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
-//        NSString *AmountPrice = @"总价：¥300.00";
-//        string = [[NSMutableAttributedString alloc]initWithString:AmountPrice];
-//        range = [UnitPrice rangeOfString:@"¥300.00"];
-//        [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
-//        [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
-//        lbAmountPrice.attributedText = string;
         
         line = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
@@ -175,13 +176,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.row == 0){
-        NSMutableArray *mArray = [[NSMutableArray alloc] init];
-        [mArray addObject:[self getDateArray]];
-        [mArray addObject:[self getTimeArray]];
-        
-        _pickview = [[ZHPickView alloc] initPickviewWithArray:mArray isHaveNavControler:NO];
-        [_pickview show];
-        _pickview.delegate = self;
+        if(!_pickview){
+            NSMutableArray *mArray = [[NSMutableArray alloc] init];
+            [mArray addObject:[self getDateArray]];
+            [mArray addObject:[self getTimeArray]];
+            _pickview = [[ZHPickView alloc] initPickviewWithArray:mArray isHaveNavControler:NO];
+            [_pickview show];
+            _pickview.delegate = self;
+        }else{
+            [_pickview show];
+        }
     }
 }
 

@@ -10,7 +10,7 @@
 #import "DateCountSelectView.h"
 #import "UnitsTypeView.h"
 #import "ZHPickView.h"
-#import "NurseListInfoModel.h"
+#import "FamilyProductModel.h"
 
 @interface PlaceOrderEditForProductCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, UnitsTypeViewDelegate, DateCountSelectViewDelegate>
 {
@@ -23,8 +23,10 @@
     UILabel *lbAmountPrice;//总价
     
     ZHPickView *_pickview;
+    
+    FamilyProductModel *_nurseData;
 }
 
-- (void) setNurseListInfo:(NurseListInfoModel*) model;
+- (void) setNurseListInfo:(FamilyProductModel*) model;
 
 @end

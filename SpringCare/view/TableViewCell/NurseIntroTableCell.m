@@ -122,7 +122,7 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [model.intro length])];
     _lbWorkIntro.attributedText = attributedString;
     
-    _lbPrice.text = [NSString stringWithFormat:@"¥ %ld/天", (long)model.priceDistcount];//model.price;打折价格
+    _lbPrice.text = [NSString stringWithFormat:@"¥ %ld/天", (long)model.priceDiscount];//model.price;打折价格
     [_btnLocation setTitle:[NSString stringWithFormat:@"约%ld米", model.distance] forState:UIControlStateNormal];
 }
 

@@ -10,6 +10,8 @@
 #import "define.h"
 #import "LCNetWorkBase.h"
 #import "FamilyProductModel.h"
+#import "PlaceOrderForProductVC.h"
+#import "NurseListVC.h"
 
 @interface HomeCareListVC ()
 
@@ -100,6 +102,16 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    FamilyProductModel *model = [_dataArray objectAtIndex:indexPath.row];
+    
+    if(model.isDirectOrder){
+        PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithModel:model];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
+        NurseListVC *vc = [[NurseListVC alloc] initWithProductId:model.pId];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

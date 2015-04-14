@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSString *productDesc;
 @property (nonatomic, strong) NSString *productName;
 @property (nonatomic, assign) BOOL isDirectOrder;
+@property (nonatomic, assign) NSInteger price;//价格
+@property (nonatomic, assign) NSInteger priceDiscount;//价格打折
 
 + (NSArray*) getProductArray;
 

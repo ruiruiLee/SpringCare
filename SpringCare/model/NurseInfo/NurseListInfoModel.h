@@ -27,7 +27,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString *intro;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) NSInteger price;
-@property (nonatomic, assign) NSInteger priceDistcount;
+@property (nonatomic, assign) NSInteger priceDiscount;
 @property (nonatomic, strong) NSString *sex;
 @property (nonatomic, assign) NSInteger commentsRate;
 @property (nonatomic, assign) NSInteger commentsNumber;

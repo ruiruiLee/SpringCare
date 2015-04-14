@@ -13,10 +13,28 @@
 #import "define.h"
 
 @interface PlaceOrderForProductVC ()
+{
+    NurseListInfoModel *_nurseModel;
+}
 
 @end
 
 @implementation PlaceOrderForProductVC
+
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_PICKVIEW_HIDDEN object:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (id) initWithModel:(NurseListInfoModel*) model
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if(self){
+        _nurseModel = model;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -100,6 +118,7 @@
             cell = [[PlaceOrderEditForProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        [cell setNurseListInfo:_nurseModel];
         return cell;
     }
 }

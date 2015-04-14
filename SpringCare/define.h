@@ -10,9 +10,10 @@
 #define LovelyCare_define_h
 
 #define NOTIFY_LOCATION_GAINED  @"NOTIFY_LOCATION_GAINED"
+#define NOTIFY_PICKVIEW_HIDDEN @"NOTIFY_PICKVIEW_HIDDEN"
 
 
-#define SERVER_ADDRESS @"http://springcare.avosapps.com/"
+#define SERVER_ADDRESS @"http://spring.avosapps.com/"
 //#define SERVER_ADDRESS @"http://baidu.com"
 
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width

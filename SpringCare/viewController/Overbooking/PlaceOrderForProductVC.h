@@ -7,10 +7,13 @@
 //
 
 #import "LCBaseVC.h"
+@class NurseListInfoModel;
 
 @interface PlaceOrderForProductVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *_tableview;
 }
+
+- (id) initWithModel:(NurseListInfoModel*) model;
 
 @end
