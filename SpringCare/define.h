@@ -26,8 +26,14 @@
 //#FF2A66
 #define RGBwithHex(hex) _COLOR(((float)((hex & 0xFF0000) >> 16)),((float)((hex & 0xFF00) >> 8)),((float)(hex & 0xFF)))
 
-
 #define ThemeImage(imageName)  [UIImage imageNamed:imageName]
+
+//语音存放地址
+
+#define chat_VoiceCache_path [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"ChatVoiceCache"]
+
+#define chat_VoiceCache_file(_fileName) [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"ChatVoiceCache"] stringByAppendingPathComponent:_fileName]
+
 //#define _FONT(s) [UIFont fontWithName:@"STHeitiSC-Medium" size:(s)]//[UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT(s) [UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT_B(s) [UIFont boldSystemFontOfSize:(s)]
