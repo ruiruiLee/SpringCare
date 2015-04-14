@@ -23,6 +23,8 @@
     NSString *_SearchConditionStr;
     
     NSString *_productId;
+    
+    NSInteger pages;
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;

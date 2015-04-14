@@ -22,6 +22,8 @@
     if(self){
         _SearchConditionStr = @"";
         _model = [[NurseListInfoModel alloc] init];
+        
+        pages = 0;
     }
     return self;
 }
@@ -83,7 +85,7 @@
     AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     self.DataList = [NurseListInfoModel nurseListModel];
     if([self.DataList count] == 0){
-        [_model loadNurseDataWithPage:0 type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:delegate.defaultProductId block:^(int code) {
+        [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:delegate.defaultProductId block:^(int code) {
             self.DataList = [NurseListInfoModel nurseListModel];
             [pullTableView reloadData];
             [self refreshTable];
@@ -186,12 +188,21 @@
 
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
-    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
+    pages = 0;
+    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code) {
+        self.DataList = [NurseListInfoModel nurseListModel];
+        [self refreshTable];
+    }];
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
 {
-    [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:3.0f];
+    pages ++;
+    
+    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code) {
+        self.DataList = [NurseListInfoModel nurseListModel];
+        [self loadMoreDataToTable];
+    }];
 }
 
 #pragma mark - Refresh and load more methods
@@ -240,9 +251,20 @@
     if([_SearchConditionStr isEqual:searchStr])
         return;
     
-//    [pullTableView reloadData];
-    self.pullTableView.pullTableIsRefreshing = YES;
-//    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
+    _SearchConditionStr = searchStr;
+    
+
+    pages = 0;
+    [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code) {
+        self.DataList = [NurseListInfoModel nurseListModel];
+        [pullTableView reloadData];
+        [self refreshTable];
+    }];
+    
+    if(!self.pullTableView.pullTableIsRefreshing) {
+        self.pullTableView.pullTableIsRefreshing = YES;
+    }
+    
 }
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
@@ -271,43 +293,35 @@
 }
 
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
-    NSString *title = [menu titleForRowAtIndexPath:indexPath];
     
-    static NSString *prediStr1 = @"SELF LIKE '*'",
-    *prediStr2 = @"SELF LIKE '*'",
-    *prediStr3 = @"SELF LIKE '*'";
+    NSString *sortFiled = nil;
     switch (indexPath.column) {
         case 0:{
-            if (indexPath.row == 0) {
-                prediStr1 = @"SELF LIKE '*'";
-            } else {
-                prediStr1 = [NSString stringWithFormat:@"SELF CONTAINS '%@'", title];
-            }
+            sortFiled = @"price";
         }
             break;
         case 1:{
-            if (indexPath.row == 0) {
-                prediStr2 = @"SELF LIKE '*'";
-            } else {
-                prediStr2 = [NSString stringWithFormat:@"SELF CONTAINS '%@'", title];
-            }
+            sortFiled = @"age";
         }
             break;
         case 2:{
-            if (indexPath.row == 0) {
-                prediStr3 = @"SELF LIKE '*'";
-            } else {
-                prediStr3 = [NSString stringWithFormat:@"SELF CONTAINS '%@'", title];
-            }
+            sortFiled = @"rate";
         }
             
         default:
             break;
     }
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ AND %@ AND %@",prediStr1,prediStr2,prediStr3]];
     
-//    self.results = [self.originalArray filteredArrayUsingPredicate:predicate];
-//    [self.tableView reloadData];
+    pages = 0;
+    [_model loadNurseDataWithPage:(int)pages prama:@{@"sortFiled": sortFiled} block:^(int code) {
+        self.DataList = [NurseListInfoModel nurseListModel];
+        [pullTableView reloadData];
+        [self refreshTable];
+    }];
+    
+    if(!self.pullTableView.pullTableIsRefreshing) {
+        self.pullTableView.pullTableIsRefreshing = YES;
+    }
 }
 
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size

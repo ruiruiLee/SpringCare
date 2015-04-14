@@ -89,8 +89,10 @@ static NSMutableDictionary *pramaNurseDic = nil;
     double lon = delegate._observer.lon;
     double lat = delegate._observer.lat;
     NSString *cityId = delegate.currentCityModel.city_id;
-    NSInteger limit = 20;
+    NSInteger limit = 1;
     NSInteger offset = pages * limit;
+    if(offset >= [nurseList count])
+        offset = [nurseList count];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     [dic setObject:[NSNumber numberWithDouble:lon] forKey:@"longitude"];
@@ -131,5 +133,70 @@ static NSMutableDictionary *pramaNurseDic = nil;
         }
     }];
 }
+
+- (void) loadNurseDataWithPage:(int) pages prama:(NSDictionary*)prama block:(block) block
+{
+    if(pages == 0){
+        [nurseList removeAllObjects];
+    }
+    
+    NSInteger limit = 1;
+    NSInteger offset = pages * limit;
+    if(offset >= [nurseList count])
+        offset = [nurseList count];
+    [pramaNurseDic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    
+    NSArray *array = [prama allKeys];
+    for (int  i = 0; i < [array count]; i++) {
+        [pramaNurseDic setObject:[prama objectForKey:[array objectAtIndex:i]] forKey:[array objectAtIndex:i]];
+    }
+    [LCNetWorkBase postWithMethod:@"api/care/list" Params:pramaNurseDic Completion:^(int code, id content) {
+        if(code){
+            if([content isKindOfClass:[NSDictionary class]]){
+                NSArray *results = [content objectForKey:@"results"];
+                if([results isKindOfClass:[NSArray class]]){
+                    for (int i = 0; i <[results count]; i++) {
+                        NSDictionary *dic = [results objectAtIndex:i];
+                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:dic];
+                        [nurseList addObject:model];
+                    }
+                }
+                if(block){
+                    block(code);
+                }
+            }
+        }
+    }];
+}
+
+//- (void) loadNurseDataWithPage:(int) pages block:(block) block
+//{
+//    if(pages == 0){
+//        [nurseList removeAllObjects];
+//    }
+//    
+//    NSInteger limit = 1;
+//    NSInteger offset = pages * limit;
+//    if(offset >= [nurseList count])
+//        offset = [nurseList count];
+//    [pramaNurseDic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+//    [LCNetWorkBase postWithMethod:@"api/care/list" Params:pramaNurseDic Completion:^(int code, id content) {
+//        if(code){
+//            if([content isKindOfClass:[NSDictionary class]]){
+//                NSArray *results = [content objectForKey:@"results"];
+//                if([results isKindOfClass:[NSArray class]]){
+//                    for (int i = 0; i <[results count]; i++) {
+//                        NSDictionary *dic = [results objectAtIndex:i];
+//                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:dic];
+//                        [nurseList addObject:model];
+//                    }
+//                }
+//                if(block){
+//                    block(code);
+//                }
+//            }
+//        }
+//    }];
+//}
 
 @end

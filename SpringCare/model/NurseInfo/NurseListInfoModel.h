@@ -45,6 +45,7 @@ typedef enum : NSUInteger {
 
 - (void) loadNurseDataWithPage:(int) pages type:(EnumNursePriceType) type key:(NSString*)key ordr:(NSString*) order sortFiled:(NSString*)sortFiled productId:(NSString*) productId block:(block) block;
 
-- (void) loadNurseDataWithPage:(int) pages block:(block) block;
+- (void) loadNurseDataWithPage:(int) pages prama:(NSDictionary*)prama block:(block) block;
+
 
 @end

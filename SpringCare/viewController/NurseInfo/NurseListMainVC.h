@@ -20,6 +20,8 @@
     UISearchBar *searchBar;
     
     NSString *_SearchConditionStr;
+    
+    NSInteger pages;
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;
