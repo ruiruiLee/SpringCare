@@ -11,6 +11,7 @@
 #import "SliderViewController.h"
 #import "NurseIntroTableCell.h"
 #import "ProductInfoCell.h"
+#import "AppDelegate.h"
 
 @interface NurseListVC ()
 
@@ -20,6 +21,17 @@
 @synthesize pullTableView;
 @synthesize DataList;
 @synthesize prototypeCell;
+
+- (id) initWithProductId:(NSString*)pid
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if(self){
+        _productId = pid;
+        _model = [[NurseListInfoModel alloc] init];
+        _SearchConditionStr = @"";
+    }
+    return self;
+}
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -84,12 +96,23 @@
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     pullTableView.tableFooterView = footer;
     
-    [_model loadNurseDataWithPage:0];
-    self.DataList = [NurseListInfoModel nurseListModel];
-    
-    if(!self.pullTableView.pullTableIsRefreshing) {
-        self.pullTableView.pullTableIsRefreshing = YES;
-        [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    NSString *cityId = delegate.currentCityModel.city_id;
+    NSString *productId = [[NurseListInfoModel PramaNurseDic] objectForKey:@"productId"];
+    if(!([cityId isEqualToString:[[NurseListInfoModel PramaNurseDic] objectForKey:@"cityId"]] && [_productId isEqualToString:productId])){
+        [_model loadNurseDataWithPage:0 type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:_productId block:^(int code) {
+            self.DataList = [NurseListInfoModel nurseListModel];
+            [pullTableView reloadData];
+            [self refreshTable];
+        }];
+        
+        if(!self.pullTableView.pullTableIsRefreshing) {
+            self.pullTableView.pullTableIsRefreshing = YES;
+        }
+        
+    }
+    else{
+        self.DataList = [NurseListInfoModel nurseListModel];
     }
 }
 

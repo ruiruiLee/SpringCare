@@ -13,4 +13,7 @@ static NSString *currentCity = nil;
 
 @interface LocationManagerObserver : NSObject<CLLocationManagerDelegate>
 
+@property (nonatomic, assign) double lat;
+@property (nonatomic, assign) double lon;
+
 @end

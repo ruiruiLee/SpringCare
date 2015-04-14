@@ -55,4 +55,6 @@
 
 #define TIME_LIMIT 5
 
+typedef void(^block)(int code);
+
 #endif

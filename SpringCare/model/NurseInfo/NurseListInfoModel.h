@@ -7,28 +7,44 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "define.h"
+
+typedef enum : NSUInteger {
+    EnumTypeUnKonwn,
+    EnumTypeHospital,
+    EnumTypeProduct,
+} EnumNursePriceType;
 
 @interface NurseListInfoModel : NSObject
 
-@property (nonatomic, strong) NSString *nurseId;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *mobile;
-@property (nonatomic, strong) NSString *address;
-@property (nonatomic, assign) int comment;
-@property (nonatomic, strong) NSString *simpleIntro;
+@property (nonatomic, assign) NSInteger distance;
+@property (nonatomic, assign) NSInteger age;
+@property (nonatomic, strong) NSString *birthPlace;
+@property (nonatomic, strong) NSString *careAge;
 @property (nonatomic, strong) NSString *detailIntro;
-@property (nonatomic, assign) BOOL isHavecert;
-@property (nonatomic, strong) NSString *photoUrl;
-@property (nonatomic, assign) NSInteger score;
+@property (nonatomic, strong) NSString *headerImage;
+@property (nonatomic, strong) NSString *nid;
+@property (nonatomic, strong) NSString *intro;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) NSInteger price;
+@property (nonatomic, assign) NSInteger priceDistcount;
+@property (nonatomic, strong) NSString *sex;
+@property (nonatomic, assign) NSInteger commentsRate;
+@property (nonatomic, assign) NSInteger commentsNumber;
+
+//
+
++ (NSMutableArray*) nurseListModel;
+
++ (NSDictionary*) PramaNurseDic;
 
 /**
  * 通过页数来获取数据
  *
  */
-- (void) loadNurseDataWithPage:(int) pages;
 
-+ (NSMutableArray*) nurseListModel;
+- (void) loadNurseDataWithPage:(int) pages type:(EnumNursePriceType) type key:(NSString*)key ordr:(NSString*) order sortFiled:(NSString*)sortFiled productId:(NSString*) productId block:(block) block;
+
+- (void) loadNurseDataWithPage:(int) pages block:(block) block;
 
 @end

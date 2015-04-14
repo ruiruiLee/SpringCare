@@ -9,6 +9,7 @@
 #import "NurseListMainVC.h"
 #import "NurseDetailInfoVC.h"
 #import "NurseIntroTableCell.h"
+#import "AppDelegate.h"
 
 @implementation NurseListMainVC
 @synthesize pullTableView;
@@ -19,8 +20,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
-        _model = [[NurseListInfoModel alloc] init];
         _SearchConditionStr = @"";
+        _model = [[NurseListInfoModel alloc] init];
     }
     return self;
 }
@@ -79,12 +80,18 @@
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     pullTableView.tableFooterView = footer;
     
-    [_model loadNurseDataWithPage:0];
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     self.DataList = [NurseListInfoModel nurseListModel];
-    
-    if(!self.pullTableView.pullTableIsRefreshing) {
-        self.pullTableView.pullTableIsRefreshing = YES;
-        [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
+    if([self.DataList count] == 0){
+        [_model loadNurseDataWithPage:0 type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:delegate.defaultProductId block:^(int code) {
+            self.DataList = [NurseListInfoModel nurseListModel];
+            [pullTableView reloadData];
+            [self refreshTable];
+        }];
+        
+        if(!self.pullTableView.pullTableIsRefreshing) {
+            self.pullTableView.pullTableIsRefreshing = YES;
+        }
     }
 }
 

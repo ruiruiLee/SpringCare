@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LocationManagerObserver.h"
+#import "CityDataModel.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
@@ -16,6 +17,11 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UIViewController *sliderViewController;
+@property (strong, nonatomic) LocationManagerObserver *_observer;
+@property (strong, nonatomic) CityDataModel *currentCityModel;
+
+@property (strong, nonatomic) NSString *hospital_product_id;
+@property (strong, nonatomic) NSString *defaultProductId;
 
 
 @end

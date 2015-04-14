@@ -20,8 +20,7 @@
 
 #import "NewsDataModel.h"
 #import "CityDataModel.h"
-
-static NSString *hospital_product_id = nil;
+#import "AppDelegate.h"
 
 @implementation HomePageVC
 
@@ -44,7 +43,9 @@ static NSString *hospital_product_id = nil;
         if(code == 1){
             NSLog(@"%@", content);
             if([content isKindOfClass:[NSDictionary class]]){
-                hospital_product_id = [content objectForKey:@"hospital_product_id"];
+                AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                delegate.hospital_product_id = [content objectForKey:@"hospitalProductId"];
+                delegate.defaultProductId = [content objectForKey:@"defaultProductId"];
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
                 scrollView.imageNameArray = [NewsDataModel getImageUrlArray];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
@@ -111,7 +112,8 @@ static NSString *hospital_product_id = nil;
 
 - (void) doBtnInNurseList:(UIButton*)sender
 {
-    NurseListVC *vc = [[NurseListVC alloc] initWithNibName:nil bundle:nil];
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    NurseListVC *vc = [[NurseListVC alloc] initWithProductId:delegate.hospital_product_id];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
