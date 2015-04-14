@@ -107,6 +107,7 @@
 		868B238B1ADBAF97003AAD2A /* CityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B238A1ADBAF97003AAD2A /* CityDataModel.m */; };
 		868B23901ADBBC65003AAD2A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 868B238F1ADBBC65003AAD2A /* CoreLocation.framework */; };
 		868B23931ADBDD21003AAD2A /* LocationManagerObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23921ADBDD21003AAD2A /* LocationManagerObserver.m */; };
+		868B23961ADBFC0A003AAD2A /* FamilyProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23951ADBFC0A003AAD2A /* FamilyProductModel.m */; };
 		869C9EDB1AD3C2080090182E /* nav_shut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDA1AD3C2080090182E /* nav_shut@2x.png */; };
 		869C9EDE1AD3D3750090182E /* relationattentionselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */; };
 		869C9EE01AD3D5F60090182E /* relationheaderbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */; };
@@ -579,6 +580,8 @@
 		868B238F1ADBBC65003AAD2A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		868B23911ADBDD21003AAD2A /* LocationManagerObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagerObserver.h; sourceTree = "<group>"; };
 		868B23921ADBDD21003AAD2A /* LocationManagerObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerObserver.m; sourceTree = "<group>"; };
+		868B23941ADBFC0A003AAD2A /* FamilyProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamilyProductModel.h; sourceTree = "<group>"; };
+		868B23951ADBFC0A003AAD2A /* FamilyProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamilyProductModel.m; sourceTree = "<group>"; };
 		869C9EDA1AD3C2080090182E /* nav_shut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_shut@2x.png"; sourceTree = "<group>"; };
 		869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationattentionselect@2x.png"; sourceTree = "<group>"; };
 		869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationheaderbg@2x.png"; sourceTree = "<group>"; };
@@ -1475,6 +1478,8 @@
 				868B23871ADBAB89003AAD2A /* NewsDataModel.m */,
 				868B23891ADBAF97003AAD2A /* CityDataModel.h */,
 				868B238A1ADBAF97003AAD2A /* CityDataModel.m */,
+				868B23941ADBFC0A003AAD2A /* FamilyProductModel.h */,
+				868B23951ADBFC0A003AAD2A /* FamilyProductModel.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -2339,6 +2344,7 @@
 				8642C9B61AC2956000251921 /* MenuTableViewCell.m in Sources */,
 				86B0994D1ACC07430005BC98 /* LoginVC.m in Sources */,
 				8642C93D1ABFF53C00251921 /* SBJsonTokeniser.m in Sources */,
+				868B23961ADBFC0A003AAD2A /* FamilyProductModel.m in Sources */,
 				8642C94D1ABFF53C00251921 /* UIImageView+HighlightedWebCache.m in Sources */,
 				8642C9391ABFF53C00251921 /* SBJsonStreamParserState.m in Sources */,
 				86B8E5DE1AD7EEF800A5139E /* PlaceOrderForProductVC.m in Sources */,

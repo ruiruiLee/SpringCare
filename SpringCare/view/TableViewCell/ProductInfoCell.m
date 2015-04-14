@@ -50,7 +50,6 @@
     _lbTitle.backgroundColor = [UIColor blackColor];
     _lbTitle.alpha = 0.3f;
     _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbTitle.text = @"家庭老人陪护 乐享幸福晚年生活";
     
     _lbExplain = [[UILabel alloc] initWithFrame:CGRectZero];
     [_bgView addSubview:_lbExplain];
@@ -59,7 +58,6 @@
     _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 52;
     _lbExplain.font = _FONT(14);
     _lbExplain.textColor = _COLOR(0x99, 0x99, 0x99);
-    _lbExplain.text = @"护理老人，为护理老人提供专业的照顾，专注老年人生活照料，护理服务";
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_bgView, _photoImgV, _lbTitle, _lbExplain);
     
@@ -70,12 +68,17 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-17-[_bgView]-17-|" options:0 metrics:nil views:views]];
     
     [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbExplain]-0-|" options:0 metrics:nil views:views]];
-    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_photoImgV]-0-|" options:0 metrics:nil views:views]];
-    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_photoImgV]-3-[_lbExplain]-3-|" options:0 metrics:nil views:views]];
+    NSString *format = [NSString stringWithFormat:@"H:|-0-[_photoImgV(%f)]-0-|", ScreenWidth - 52];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
+    NSString *vformat = [NSString stringWithFormat:@"V:|-0-[_photoImgV(%f)]-3-[_lbExplain]-3-|", (ScreenWidth - 52) * 0.63];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vformat options:0 metrics:nil views:views]];
     [_photoImgV addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbTitle]-0-|" options:0 metrics:nil views:views]];
     [_photoImgV addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbTitle(36)]-0-|" options:0 metrics:nil views:views]];
     
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_bgView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1 constant:-52]];
+//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_bgView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1 constant:-52]];
+//    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImgV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_bgView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+//    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImgV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_photoImgV attribute:NSLayoutAttributeWidth multiplier:0.8 constant:0]];
+//    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImgV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_photoImgV attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 }
 
 - (void)awakeFromNib {
@@ -88,9 +91,12 @@
     // Configure the view for the selected state
 }
 
-- (void) SetContentWithDic:(NSDictionary*)dic
+- (void) SetContentWithDic:(FamilyProductModel*)model
 {
-    
+//    [_photoImgV sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:nil];
+    _photoImgV.image = [UIImage imageNamed:@"hospital"];
+    _lbTitle.text = model.productName;
+    _lbExplain.text = model.productDesc;
 }
 
 @end

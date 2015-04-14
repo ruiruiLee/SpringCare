@@ -51,14 +51,14 @@
     
     [manager GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         SBJsonParser *_parser = [[SBJsonParser alloc] init];
-        NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];//[(NSData *)responseObject objectFromJSONData];
+        NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];
         
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, result);
         completion(1, result);
-        if([[result objectForKey:@"resultCode"] integerValue] == 1){
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[result objectForKey:@"resultMsg"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
+//        if([[result objectForKey:@"resultCode"] integerValue] == 1){
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[result objectForKey:@"resultMsg"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//            [alertView show];
+//        }
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
