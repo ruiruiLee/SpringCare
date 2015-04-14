@@ -10,6 +10,7 @@
 #import "DateCountSelectView.h"
 #import "UnitsTypeView.h"
 #import "ZHPickView.h"
+#import "NurseListInfoModel.h"
 
 @interface PlaceOrderEditForProductCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, UnitsTypeViewDelegate, DateCountSelectViewDelegate>
 {
