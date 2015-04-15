@@ -19,6 +19,8 @@
 #import "FeedBackVC.h"
 #import "UserSettingVC.h"
 
+#import "UserModel.h"
+
 @implementation LCMenuViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,9 +32,32 @@
     return self;
 }
 
+- (void) dealloc
+{
+    UserModel *model = [UserModel sharedUserInfo];
+    [model removeObserver:self forKeyPath:@"price"];
+}
+
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    UserModel *model = [UserModel sharedUserInfo];
+    if([keyPath isEqualToString:@"username"])
+    {
+        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
+    }
+    if ([keyPath isEqualToString:@"headerFile"]){
+        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
+    }
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    
+    UserModel *model = [UserModel sharedUserInfo];
+    [model addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [model addObserver:self forKeyPath:@"headerFile" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     self.navigationController.navigationBarHidden=YES;
     
@@ -53,14 +78,11 @@
     _photoImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [_photoBg addSubview:_photoImgView];
     _photoImgView.translatesAutoresizingMaskIntoConstraints = NO;
-//    _photoImgView.backgroundColor = [UIColor redColor];
-//    _photoImgView.image = [UIImage imageNamed:@"usercenterbg"];
     
     _btnUserName = [[UIButton alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_btnUserName];
     _btnUserName.translatesAutoresizingMaskIntoConstraints = NO;
     _btnUserName.titleLabel.font = _FONT(18);
-    [_btnUserName setTitle:@"13880417776" forState:UIControlStateNormal];
     [_btnUserName setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _btnUserName.imageEdgeInsets = UIEdgeInsetsMake(6, 136, 8, 0);
     _btnUserName.titleEdgeInsets = UIEdgeInsetsMake(7, 0, 7, 14);
@@ -74,10 +96,9 @@
     [_headerView addConstraints:unflodConstraints];
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnUserName(30)]->=0-|" options:0 metrics:nil views:headerViews]];
-//    [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_photoBg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_headerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:10]];
     [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_btnUserName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_photoBg attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[_photoImgView]-4-|" options:0 metrics:nil views:headerViews]];
-    [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[_photoImgView]-4-|" options:0 metrics:nil views:headerViews]];
+    [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_photoImgView]-11-|" options:0 metrics:nil views:headerViews]];
+    [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-11-[_photoImgView]-11-|" options:0 metrics:nil views:headerViews]];
     
     tableview = [[UITableView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:tableview];
@@ -147,8 +168,6 @@
         cell.contentView.backgroundColor = [UIColor clearColor];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-//    cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     cell.separatorLine.hidden = NO;
     if(indexPath.row == 0){
         cell.imgIcon.image = [UIImage imageNamed:@"usercentermyattention"];

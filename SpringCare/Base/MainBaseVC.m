@@ -8,8 +8,17 @@
 
 #import "MainBaseVC.h"
 #import "SliderViewController.h"
+#import "LoginVC.h"
+#import "UserModel.h"
+#import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
 
 @implementation MainBaseVC
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -20,9 +29,16 @@
     return self;
 }
 
+- (void) NotifyLoginSuccess:(NSNotification*) notify
+{
+//    [_btnLeft sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav-person"]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyLoginSuccess:) name:NOTIFY_LOGIN_SUCCESS object:nil];
     
     self.navigationController.navigationBarHidden=YES;
     self.view.backgroundColor = [UIColor whiteColor];
@@ -55,7 +71,11 @@
     _btnLeft.backgroundColor = [UIColor clearColor];
     [_btnLeft addTarget:self action:@selector(LeftButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     _btnLeft.translatesAutoresizingMaskIntoConstraints = NO;
-    [_btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
+    if(![UserModel sharedUserInfo].isLogin){
+        [_btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
+    }else{
+        [_btnLeft sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav-person"]];
+    }
     
     _btnRight = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_btnRight];
@@ -108,7 +128,15 @@
 
 - (void) LeftButtonClicked:(id)sender
 {
-    [[SliderViewController sharedSliderController] leftItemClick];
+    if(![UserModel sharedUserInfo].isLogin){
+        LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self.navigationController presentViewController:nav animated:YES completion:^{
+            
+        }];
+    }
+    else
+        [[SliderViewController sharedSliderController] leftItemClick];
 }
 
 - (void) RightButtonClicked:(id)sender

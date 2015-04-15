@@ -12,6 +12,8 @@
 #import "NurseIntroTableCell.h"
 #import "ProductInfoCell.h"
 #import "AppDelegate.h"
+#import "LoginVC.h"
+#import "UserModel.h"
 
 @interface NurseListVC ()
 
@@ -189,12 +191,19 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-    PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    if(![UserModel sharedUserInfo].isLogin){
+        LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self.navigationController presentViewController:nav animated:YES completion:^{
+            
+        }];
+    }else{
     
-    [model addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
+        PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - PullTableViewDelegate

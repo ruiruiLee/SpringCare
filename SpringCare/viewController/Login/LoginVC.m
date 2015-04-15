@@ -9,6 +9,7 @@
 #import "LoginVC.h"
 #import "define.h"
 #import "NSStrUtil.h"
+#import "UserModel.h"
 
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
@@ -27,6 +28,17 @@
 - (void)dealloc
 {
     [_timerOutTimer invalidate];
+}
+
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+    //    [self.navigationController pushViewController:self animated:YES];
+    [_tfPhoneNum resignFirstResponder];
+    [_tfVerifyCode resignFirstResponder];
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (void) viewDidLoad
@@ -232,7 +244,7 @@
         [alert show];
     }
     else{
-        [AVUser requestLoginSmsCode:phone withBlock:^(BOOL succeeded, NSError *error) {
+        [AVOSCloud requestSmsCodeWithPhoneNumber:phone callback:^(BOOL succeeded, NSError *error) {
             [self TimerOutTimer];
             if(succeeded){
                 
@@ -256,17 +268,26 @@
     NSString *verifyCode = _tfVerifyCode.text;
     NSString *phone = _tfPhoneNum.text;
     
-//    [AVUser verifyMobilePhone:verifyCode withBlock:^(BOOL succeeded, NSError *error) {
-//        if(succeeded){
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"登录成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//            [alert show];
-//        }else{
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"验证失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//            [alert show];
-//        }
-//    }];
-    NSError *error;
-    AVUser *user = [AVUser logInWithMobilePhoneNumber:phone smsCode:verifyCode error:&error];
+    __weak LoginVC *weakSelf = self;
+    [AVUser signUpOrLoginWithMobilePhoneNumberInBackground:phone smsCode:verifyCode block:^(AVUser *user, NSError *error) {
+        if(error == nil){
+            UserModel *model = [UserModel sharedUserInfo];
+            model.isLogin = YES;
+            model.sessionToken = user.sessionToken;
+            model.username = user.username;
+            model.mobilePhoneNumber = user.mobilePhoneNumber;
+            model.isNew = user.isNew;
+            model.email = user.email;
+            model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
+            model.userId = [user objectForKey:@"objectId"];
+            
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOGIN_SUCCESS object:nil];
+            
+            [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }
+    }];
 }
 
 #pragma timer
@@ -280,7 +301,7 @@
 - (void)TimerObserver
 {
     _count --;
-    [_btnVerifyCode setTitle:[NSString stringWithFormat:@"%d秒", _count] forState:UIControlStateNormal];
+    [_btnVerifyCode setTitle:[NSString stringWithFormat:@"%ld秒", _count] forState:UIControlStateNormal];
     if(_count == 0){
         [_timerOutTimer invalidate];
         [_btnVerifyCode setTitle:@"重取验证码" forState:UIControlStateNormal];

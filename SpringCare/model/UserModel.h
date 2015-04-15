@@ -10,4 +10,16 @@
 
 @interface UserModel : NSObject
 
+@property (nonatomic, assign) BOOL isLogin;
+
+@property (nonatomic, strong) NSString *mobilePhoneNumber;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *sessionToken;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, assign) BOOL isNew;
+@property (nonatomic, strong) NSString *headerFile;
+@property (nonatomic, strong) NSString *userId;
+
++(UserModel *)sharedUserInfo;
+
 @end

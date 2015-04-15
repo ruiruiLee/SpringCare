@@ -10,6 +10,8 @@
 #import "PlaceOrderVC.h"
 #import "NurseIntroTableCell.h"
 #import "AppDelegate.h"
+#import "UserModel.h"
+#import "LoginVC.h"
 
 @implementation NurseListMainVC
 @synthesize pullTableView;
@@ -176,12 +178,22 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-    PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-    
-    [model addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    if(![UserModel sharedUserInfo].isLogin){
+        LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//        [self.navigationController pushViewController:nav animated:YES];
+        [self.navigationController presentViewController:nav animated:YES completion:^{
+            
+        }];
+    }
+    else{
+        NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
+        PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+//        [model addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    }
 }
 
 #pragma mark - PullTableViewDelegate
