@@ -70,7 +70,7 @@
     [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbExplain]-0-|" options:0 metrics:nil views:views]];
     NSString *format = [NSString stringWithFormat:@"H:|-0-[_photoImgV(%f)]-0-|", ScreenWidth - 52];
     [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
-    NSString *vformat = [NSString stringWithFormat:@"V:|-0-[_photoImgV(%f)]-3-[_lbExplain]-3-|", (ScreenWidth - 52) * 0.63];
+    NSString *vformat = [NSString stringWithFormat:@"V:|-0-[_photoImgV(%f)]-3-[_lbExplain(>=30)]-3-|", (ScreenWidth - 52) * 0.63];
     [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vformat options:0 metrics:nil views:views]];
     [_photoImgV addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbTitle]-0-|" options:0 metrics:nil views:views]];
     [_photoImgV addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbTitle(36)]-0-|" options:0 metrics:nil views:views]];

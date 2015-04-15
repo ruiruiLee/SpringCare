@@ -108,6 +108,7 @@
 		868B23931ADBDD21003AAD2A /* LocationManagerObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23921ADBDD21003AAD2A /* LocationManagerObserver.m */; };
 		868B23961ADBFC0A003AAD2A /* FamilyProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23951ADBFC0A003AAD2A /* FamilyProductModel.m */; };
 		868B23981ADD4416003AAD2A /* normalpaylogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868B23971ADD4416003AAD2A /* normalpaylogo@2x.png */; };
+		868B239B1ADE5379003AAD2A /* LCPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B239A1ADE5379003AAD2A /* LCPickView.m */; };
 		869C9EDB1AD3C2080090182E /* nav_shut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDA1AD3C2080090182E /* nav_shut@2x.png */; };
 		869C9EDE1AD3D3750090182E /* relationattentionselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */; };
 		869C9EE01AD3D5F60090182E /* relationheaderbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */; };
@@ -594,6 +595,8 @@
 		868B23941ADBFC0A003AAD2A /* FamilyProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamilyProductModel.h; sourceTree = "<group>"; };
 		868B23951ADBFC0A003AAD2A /* FamilyProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamilyProductModel.m; sourceTree = "<group>"; };
 		868B23971ADD4416003AAD2A /* normalpaylogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "normalpaylogo@2x.png"; sourceTree = "<group>"; };
+		868B23991ADE5379003AAD2A /* LCPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCPickView.h; sourceTree = "<group>"; };
+		868B239A1ADE5379003AAD2A /* LCPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCPickView.m; sourceTree = "<group>"; };
 		869C9EDA1AD3C2080090182E /* nav_shut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_shut@2x.png"; sourceTree = "<group>"; };
 		869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationattentionselect@2x.png"; sourceTree = "<group>"; };
 		869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationheaderbg@2x.png"; sourceTree = "<group>"; };
@@ -1266,6 +1269,8 @@
 				86B8E5C61AD7AD4100A5139E /* OrderStepView.m */,
 				86B8E5E51AD8C48F00A5139E /* UnitsTypeView.h */,
 				86B8E5E61AD8C48F00A5139E /* UnitsTypeView.m */,
+				868B23991ADE5379003AAD2A /* LCPickView.h */,
+				868B239A1ADE5379003AAD2A /* LCPickView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2437,6 +2442,7 @@
 				8642C9491ABFF53C00251921 /* UIButton+WebCache.m in Sources */,
 				8642C95D1ABFF55800251921 /* HomePageVC.m in Sources */,
 				86B8E5B51AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m in Sources */,
+				868B239B1ADE5379003AAD2A /* LCPickView.m in Sources */,
 				86C095521ACE6D0E00371BF3 /* CityListSelectVC.m in Sources */,
 				86B8E5601AD4E8A200A5139E /* AttentionSelectView.m in Sources */,
 				86B8E5A81AD690AB00A5139E /* OrderListModel.m in Sources */,

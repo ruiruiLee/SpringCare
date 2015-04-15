@@ -15,6 +15,21 @@ static NSMutableArray *nurseList = nil;
 static EnumNursePriceType modelType = EnumTypeUnKonwn;
 static NSMutableDictionary *pramaNurseDic = nil;
 
+@implementation DefaultLoverModel
+@synthesize loverId;
+@synthesize addr;
+
++ (DefaultLoverModel*) modelFromDictionary:(NSDictionary*) dic
+{
+    DefaultLoverModel *model = [[DefaultLoverModel alloc]init];
+    model.loverId = [dic objectForKey:@"id"];
+    model.addr = [dic objectForKey:@"addr"];
+    
+    return model;
+}
+
+@end
+
 @implementation NurseListInfoModel
 @synthesize name;
 @synthesize detailIntro;
@@ -30,6 +45,10 @@ static NSMutableDictionary *pramaNurseDic = nil;
 @synthesize careAge;
 @synthesize commentsNumber;
 @synthesize commentsRate;
+@synthesize addr;
+
+//详细部分
+@synthesize isLoadDetail;
 
 + (NSDictionary*) PramaNurseDic
 {
@@ -48,6 +67,7 @@ static NSMutableDictionary *pramaNurseDic = nil;
 {
     self = [super init];
     if(self){
+        isLoadDetail = NO;
     }
     return self;
 }
@@ -77,6 +97,17 @@ static NSMutableDictionary *pramaNurseDic = nil;
     model.commentsRate = [[dic objectForKey:@"commentsRate"] integerValue];
     
     return model;
+}
+
+- (NurseListInfoModel*) modelWithNurseId:(NSString*) string
+{
+    for (int i = 0; i< [nurseList count]; i++) {
+        NurseListInfoModel *model = [nurseList objectAtIndex:i];
+        if([model.nid isEqualToString:string]){
+            return model;
+        }
+    }
+    return nil;
 }
 
 - (void) loadNurseDataWithPage:(int) pages type:(EnumNursePriceType) type key:(NSString*)key ordr:(NSString*) order sortFiled:(NSString*)sortFiled productId:(NSString*) productId block:(block) block
@@ -173,34 +204,33 @@ static NSMutableDictionary *pramaNurseDic = nil;
     }];
 }
 
-//- (void) loadNurseDataWithPage:(int) pages block:(block) block
-//{
-//    if(pages == 0){
-//        [nurseList removeAllObjects];
-//    }
-//    
-//    NSInteger limit = 1;
-//    NSInteger offset = pages * limit;
-//    if(offset >= [nurseList count])
-//        offset = [nurseList count];
-//    [pramaNurseDic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
-//    [LCNetWorkBase postWithMethod:@"api/care/list" Params:pramaNurseDic Completion:^(int code, id content) {
-//        if(code){
-//            if([content isKindOfClass:[NSDictionary class]]){
-//                NSArray *results = [content objectForKey:@"results"];
-//                if([results isKindOfClass:[NSArray class]]){
-//                    for (int i = 0; i <[results count]; i++) {
-//                        NSDictionary *dic = [results objectAtIndex:i];
-//                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:dic];
-//                        [nurseList addObject:model];
-//                    }
-//                }
-//                if(block){
-//                    block(code);
-//                }
-//            }
-//        }
-//    }];
-//}
+- (void) loadetailData:(block) block;
+{
+    NurseListInfoModel *model = [self modelWithNurseId:self.nid];
+    if(model == nil)
+    {
+        block(0);
+    }
+    else{
+        NSDictionary *prama = @{@"":@"", @"":@"", @"":@""};
+        [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
+            if(code){
+                NSDictionary *dic = [content objectForKey:@"cate"];
+                model.addr = [dic objectForKey:@"addr"];
+                model.isLoadDetail = YES;
+                
+                NSArray *array = [dic objectForKey:@"defaultLover"];
+//                model.defaultLoverArray = [];
+                NSMutableArray *marray = [[NSMutableArray alloc] init];
+                for (int i= 0; i< [array count]; i++) {
+                    NSDictionary *dic = [array objectAtIndex:i];
+                    DefaultLoverModel *lmmodel = [DefaultLoverModel modelFromDictionary:dic];
+                    [marray addObject:lmmodel];
+                }
+                model.defaultLoverArray = marray;
+            }
+        }];
+    }
+}
 
 @end

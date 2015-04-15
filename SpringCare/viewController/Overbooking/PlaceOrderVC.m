@@ -31,6 +31,12 @@
     if(self)
     {
         _nurseModel = model;
+        
+        [_nurseModel loadetailData:^(int code) {
+            if(code){
+                
+            }
+        }];
     }
     return self;
 }

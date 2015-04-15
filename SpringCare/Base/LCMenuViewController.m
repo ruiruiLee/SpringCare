@@ -254,7 +254,7 @@
     
     EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
     vc.NavigationBar.Title = @"编辑我的资料";
-    [vc setContentArray:mArray];
+    [vc setContentArray:mArray andmodel:[UserModel sharedUserInfo]];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

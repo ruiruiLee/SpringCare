@@ -18,7 +18,12 @@
     UIImageView *_imgExplaction;
     UILabel *_lbExplaction;
     UILabel *_line;
+    
+    UserRequestAcctionModel *requestModel;
 }
+
+@property (nonatomic, strong) UIButton *_btnAccept;
+@property (nonatomic, strong) UserRequestAcctionModel *requestModel;
 
 - (void) SetContentData:(UserRequestAcctionModel*) data;
 

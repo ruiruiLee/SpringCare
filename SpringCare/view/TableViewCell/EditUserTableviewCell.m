@@ -106,4 +106,39 @@
     _imgUnflod.hidden = YES;
 }
 
+- (void) initCellWithData:(EditCellTypeData*) celldata info:(NSDictionary*) info
+{
+    [_tfEdit setEnabled:YES];
+    _imgUnflod.hidden = NO;
+    cellType = celldata.cellType;
+    
+    if(celldata.cellType == EnumTypeAccount){
+        [_tfEdit setEnabled:NO];
+        _imgUnflod.hidden = YES;
+    }
+    else if (celldata.cellType == EnumTypeUserName){
+        _imgUnflod.hidden = YES;
+    }
+    else if (celldata.cellType == EnumTypeSex){
+        [_tfEdit setEnabled:NO];
+        _imgUnflod.hidden = YES;
+    }
+    else if (celldata.cellType == EnumTypeAge){
+        [_tfEdit setEnabled:NO];
+    }
+    else if (celldata.cellType == EnumTypeAddress){
+        _imgUnflod.hidden = YES;
+    }
+    else if (celldata.cellType == EnumTypeMobile){
+        _imgUnflod.hidden = YES;
+    }
+    else if (celldata.cellType == EnumTypeRelationName){
+        _imgUnflod.hidden = YES;
+    }
+    else if (celldata.cellType == EnumTypeHeight){
+        _imgUnflod.hidden = YES;
+    }
+    _imgUnflod.hidden = YES;
+}
+
 @end

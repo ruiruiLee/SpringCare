@@ -15,6 +15,15 @@ typedef enum : NSUInteger {
     EnumTypeProduct,
 } EnumNursePriceType;
 
+@interface DefaultLoverModel : NSObject
+
+@property (nonatomic, strong) NSString *loverId;
+@property (nonatomic, strong) NSString *addr;
+
+- (DefaultLoverModel*) modelFromDictionary:(NSDictionary*) dic;
+
+@end
+
 @interface NurseListInfoModel : NSObject
 
 @property (nonatomic, assign) NSInteger distance;
@@ -32,6 +41,10 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) NSInteger commentsRate;
 @property (nonatomic, assign) NSInteger commentsNumber;
 
+//详细资料
+@property (nonatomic, assign) BOOL isLoadDetail;
+@property (nonatomic, strong) NSString *addr;
+@property (nonatomic, strong) NSArray *defaultLoverArray;
 //
 
 + (NSMutableArray*) nurseListModel;
@@ -46,6 +59,8 @@ typedef enum : NSUInteger {
 - (void) loadNurseDataWithPage:(int) pages type:(EnumNursePriceType) type key:(NSString*)key ordr:(NSString*) order sortFiled:(NSString*)sortFiled productId:(NSString*) productId block:(block) block;
 
 - (void) loadNurseDataWithPage:(int) pages prama:(NSDictionary*)prama block:(block) block;
+
+- (void) loadetailData:(block) block;
 
 
 @end

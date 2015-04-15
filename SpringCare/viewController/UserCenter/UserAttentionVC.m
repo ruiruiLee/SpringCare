@@ -11,6 +11,8 @@
 #import "UserAttentionTableCell.h"
 #import "UserApplyAttentionTableCell.h"
 #import "UserRequestAcctionModel.h"
+#import "LCNetWorkBase.h"
+#import "UserModel.h"
 
 @interface UserAttentionVC ()
 {
@@ -139,12 +141,61 @@
         UserApplyAttentionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if(!cell){
             cell = [[UserApplyAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            [cell._btnAccept addTarget:self action:@selector(btnAccept:) forControlEvents:UIControlEventTouchUpInside];
         }
-    //    cell.lbTitle.text = @"成都市";
+    
         UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
+        cell._btnAccept.tag = indexPath.row;
         [cell SetContentData:model];
         return cell;
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        if(indexPath.section == 0){
+            UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
+            [model deleteAcctionRequest:^(int code) {
+                
+            }];
+            _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+        }else{
+            UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
+            [model deleteAttention:^(int code) {
+                
+            }];
+            _attentionData = [UserAttentionModel GetMyAttentionArray];
+        }
+        // Delete the row from the data source.
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    }
+}
+
+//编辑删除按钮的文字
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
+//这个方法用来告诉表格 某一行是否可以移动
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete; //每行左边会出现红的删除按钮
 }
 
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
@@ -176,6 +227,7 @@
         [view addSubview:_btnApply];
         _btnApply.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnApply setImage:[UIImage imageNamed:@"applyAttention"] forState:UIControlStateNormal];
+        [_btnApply addTarget:self action:@selector(doApplyAttention:) forControlEvents:UIControlEventTouchUpInside];
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_searchBar, _btnApply);
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_searchBar]-10-[_btnApply(94)]-22.5-|" options:0 metrics:nil views:views]];
@@ -195,5 +247,33 @@
     
 }
 
+- (void) doApplyAttention:(UIButton*) sender
+{
+    NSString *phone = _searchBar.text;
+    BOOL isMobile = [NSStrUtil isMobileNumber:phone];
+    if(!isMobile){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"电话号码有误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    NSDictionary *dic = @{@"phone" : phone, @"requesterId" :[UserModel sharedUserInfo].userId};
+    [LCNetWorkBase postWithMethod:@"api/request/apply" Params:dic Completion:^(int code, id content) {
+        if(code){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"申请发送成功!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }];
+}
+
+- (void) btnAccept:(UIButton*) sender
+{
+    UserRequestAcctionModel *model = [_applyData objectAtIndex:sender.tag];
+    [model acceptAcceptRequest:^(int code) {
+        if(code){
+            model.isAccept = 1;
+            [_tableview reloadData];
+        }
+    }];
+}
 
 @end

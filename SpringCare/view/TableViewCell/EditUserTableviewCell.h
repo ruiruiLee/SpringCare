@@ -22,4 +22,6 @@
 
 - (void) SetcontentData:(EditCellTypeData*) celldata info:(NSDictionary*) info;
 
+- (void) initCellWithData:(EditCellTypeData*) celldata info:(NSDictionary*) info;
+
 @end

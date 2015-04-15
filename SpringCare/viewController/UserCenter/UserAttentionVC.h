@@ -14,8 +14,8 @@
     
     UISearchBar *_searchBar;
     
-    NSArray *_attentionData;
-    NSArray *_applyData;
+    NSMutableArray *_attentionData;
+    NSMutableArray *_applyData;
 }
 
 

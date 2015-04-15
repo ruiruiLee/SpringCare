@@ -7,6 +7,8 @@
 //
 
 #import "UserRequestAcctionModel.h"
+#import "LCNetWorkBase.h"
+#import "UserModel.h"
 
 static NSMutableArray *requestAcctionArray = nil;
 
@@ -17,7 +19,7 @@ static NSMutableArray *requestAcctionArray = nil;
 @synthesize photoUrl;
 @synthesize phone;
 
-+ (NSArray*) GetRequestAcctionArray
++ (NSMutableArray*) GetRequestAcctionArray
 {
     if(requestAcctionArray == nil)
     {
@@ -58,6 +60,30 @@ static NSMutableArray *requestAcctionArray = nil;
         UserRequestAcctionModel *model = [UserRequestAcctionModel modelFromDictionary:dic];
         [requestAcctionArray addObject:model];
     }
+}
+
+- (void) deleteAcctionRequest:(block) block
+{
+    NSDictionary *dic = @{@"requestId":userid};
+    [LCNetWorkBase postWithMethod:@"api/request/delete" Params:dic Completion:^(int code, id content) {
+        if(code){
+            [requestAcctionArray removeObject:self];
+            if(block)
+                block(1);
+        }
+    }];
+}
+
+- (void) acceptAcceptRequest:(block) block
+{
+    NSDictionary *dic = @{@"requestId":userid};
+    [LCNetWorkBase postWithMethod:@"api/request/accept" Params:dic Completion:^(int code, id content) {
+        if(code){
+            [requestAcctionArray removeObject:self];
+            if(block)
+                block(1);
+        }
+    }];
 }
 
 @end

@@ -19,8 +19,13 @@
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, assign) BOOL isCare;//是否关注对象
 
-+ (NSArray*) GetMyAttentionArray;
++ (NSMutableArray*) GetMyAttentionArray;
 
 - (void) loadLoverList:(block) block;
+
+/**
+ 删除
+ */
+- (void) deleteAttention:(block) block;
 
 @end

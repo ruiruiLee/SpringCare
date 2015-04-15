@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "define.h"
 
 @interface UserRequestAcctionModel : NSObject
 
@@ -16,8 +17,18 @@
 @property (nonatomic, assign) BOOL isAccept;
 @property (nonatomic, strong) NSString *phone;
 
-+ (NSArray*) GetRequestAcctionArray;
++ (NSMutableArray*) GetRequestAcctionArray;
 
 + (void) SetRequestAcctionArrayWithArray:(NSArray*) array;
+
+/**
+ 删除
+ */
+- (void) deleteAcctionRequest:(block) block;
+
+/**
+ * 同意
+ */
+- (void) acceptAcceptRequest:(block) block;
 
 @end

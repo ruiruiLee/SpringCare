@@ -11,6 +11,8 @@
 #import "UIImageView+WebCache.h"
 
 @implementation UserApplyAttentionTableCell
+@synthesize _btnAccept;
+@synthesize requestModel;
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -102,15 +104,19 @@
 
 - (void) SetContentData:(UserRequestAcctionModel*) data
 {
-    [_photoImage sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"placeholderimage"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    requestModel = data;
+    [_photoImage sd_setImageWithURL:[NSURL URLWithString:data.photoUrl] placeholderImage:[UIImage imageNamed:@"placeholderimage"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
     
+    if(!data.isAccept){
+        [_btnAccept setTitle:@"接受" forState:UIControlStateNormal];
+        _btnAccept.userInteractionEnabled = YES;
+    }else{
+        [_btnAccept setTitle:@"已接受" forState:UIControlStateNormal];
+        _btnAccept.userInteractionEnabled = NO;
+    }
     _lbUserName.text = data.username;
-    //    if(data.ringNum != nil)
-    //    {
-    //
-    //    }
 }
 
 @end

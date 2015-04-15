@@ -7,13 +7,21 @@
 //
 
 #import "LCBaseVC.h"
+#import "LCPickView.h"
 
-@interface EditUserInfoVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
+@interface EditUserInfoVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, LCPickViewDelegate>
 {
     UITableView *_tableview;
     NSArray *_data;
+    
+    id  userData;
+    
+    LCPickView *_sexPick;
+    LCPickView *_agePick;
+    
+    NSIndexPath *indexpathStore;
 }
 
-- (void) setContentArray:(NSArray*)dataArray;
+- (void) setContentArray:(NSArray*)dataArray andmodel:(id) model;
 
 @end

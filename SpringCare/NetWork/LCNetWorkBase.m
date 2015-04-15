@@ -88,6 +88,11 @@
         NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];
         
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, result);
+        if([result isKindOfClass:[NSDictionary class]] && [result objectForKey:@"code"] != nil){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[result objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alertView show];
+            return ;
+        }
         completion(1, result);
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
