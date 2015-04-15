@@ -14,7 +14,7 @@
 
 @interface PlaceOrderForProductVC ()
 {
-    NurseListInfoModel *_nurseModel;
+    FamilyProductModel *_nurseModel;
 }
 
 @end
@@ -27,7 +27,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (id) initWithModel:(NurseListInfoModel*) model
+- (id) initWithModel:(FamilyProductModel*) model
 {
     self = [super initWithNibName:nil bundle:nil];
     if(self){

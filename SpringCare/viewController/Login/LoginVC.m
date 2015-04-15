@@ -30,6 +30,17 @@
     [_timerOutTimer invalidate];
 }
 
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+    //    [self.navigationController pushViewController:self animated:YES];
+    [_tfPhoneNum resignFirstResponder];
+    [_tfVerifyCode resignFirstResponder];
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];

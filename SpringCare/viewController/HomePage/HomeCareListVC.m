@@ -13,6 +13,9 @@
 #import "PlaceOrderForProductVC.h"
 #import "NurseListVC.h"
 
+#import "UserModel.h"
+#import "LoginVC.h"
+
 @interface HomeCareListVC ()
 
 @end
@@ -105,8 +108,16 @@
     FamilyProductModel *model = [_dataArray objectAtIndex:indexPath.row];
     
     if(model.isDirectOrder){
-        PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithModel:model];
-        [self.navigationController pushViewController:vc animated:YES];
+        if(![UserModel sharedUserInfo].isLogin){
+            LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.navigationController presentViewController:nav animated:YES completion:^{
+                
+            }];
+        }else{
+            PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithModel:model];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     else{
         NurseListVC *vc = [[NurseListVC alloc] initWithProductId:model.pId];
