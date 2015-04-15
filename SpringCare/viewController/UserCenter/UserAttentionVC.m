@@ -13,6 +13,9 @@
 #import "UserRequestAcctionModel.h"
 
 @interface UserAttentionVC ()
+{
+    UserAttentionModel *attentionModel;
+}
 
 @property (nonatomic, strong) UserAttentionTableCell *attentionTableCell;
 @property (nonatomic, strong) UserApplyAttentionTableCell *requestTableCell;
@@ -26,9 +29,19 @@
     // Do any additional setup after loading the view.
     
     self.NavigationBar.Title = @"我的关注";
+    attentionModel = [[UserAttentionModel alloc] init];
     
     _attentionData = [UserAttentionModel GetMyAttentionArray];
     _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+    if([_attentionData count] == 0){
+        [attentionModel loadLoverList:^(int code) {
+            if(code == 1){
+                _attentionData = [UserAttentionModel GetMyAttentionArray];
+                _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+                [_tableview reloadData];
+            }
+        }];
+    }
     
     [self initSubViews];
 }

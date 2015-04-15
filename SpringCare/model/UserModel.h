@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, assign) BOOL isNew;
 @property (nonatomic, strong) NSString *headerFile;
+@property (nonatomic, strong) NSString *userId;
 
 +(UserModel *)sharedUserInfo;
 

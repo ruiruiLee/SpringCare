@@ -34,22 +34,31 @@
 
 - (void) dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    UserModel *model = [UserModel sharedUserInfo];
+    [model removeObserver:self forKeyPath:@"price"];
 }
 
-- (void) NotifyLoginSuccess:(NSNotification*) notify
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-//    [_btnLeft sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav-person"]];
     UserModel *model = [UserModel sharedUserInfo];
-    [_btnUserName setTitle:model.username forState:UIControlStateNormal];
-    [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
+    if([keyPath isEqualToString:@"username"])
+    {
+        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
+    }
+    if ([keyPath isEqualToString:@"headerFile"]){
+        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
+    }
 }
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyLoginSuccess:) name:NOTIFY_LOGIN_SUCCESS object:nil];
+    UserModel *model = [UserModel sharedUserInfo];
+    [model addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [model addObserver:self forKeyPath:@"headerFile" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    
     self.navigationController.navigationBarHidden=YES;
     
     _imgViewBg = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -159,8 +168,6 @@
         cell.contentView.backgroundColor = [UIColor clearColor];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-//    cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     cell.separatorLine.hidden = NO;
     if(indexPath.row == 0){
         cell.imgIcon.image = [UIImage imageNamed:@"usercentermyattention"];

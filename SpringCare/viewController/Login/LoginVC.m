@@ -268,8 +268,9 @@
             model.isNew = user.isNew;
             model.email = user.email;
             model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
+            model.userId = [user objectForKey:@"objectId"];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOGIN_SUCCESS object:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOGIN_SUCCESS object:nil];
             
             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
                 

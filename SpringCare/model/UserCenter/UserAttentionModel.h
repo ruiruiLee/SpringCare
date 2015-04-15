@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "define.h"
 
 @interface UserAttentionModel : NSObject
 
@@ -16,7 +17,10 @@
 @property (nonatomic, strong) NSString *relation;
 @property (nonatomic, strong) NSString *ringNum;
 @property (nonatomic, strong) NSString *address;
+@property (nonatomic, assign) BOOL isCare;//是否关注对象
 
 + (NSArray*) GetMyAttentionArray;
+
+- (void) loadLoverList:(block) block;
 
 @end
