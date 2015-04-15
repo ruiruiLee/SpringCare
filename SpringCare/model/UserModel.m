@@ -9,6 +9,13 @@
 #import "UserModel.h"
 
 @implementation UserModel
+@synthesize isLogin;
+@synthesize isNew;
+@synthesize username;
+@synthesize sessionToken;
+@synthesize email;
+@synthesize mobilePhoneNumber;
+@synthesize headerFile;
 
 +(UserModel *)sharedUserInfo
 {
@@ -24,7 +31,7 @@
 {
     self = [super init];
     if(self){
-        
+        isLogin = NO;
     }
     return self;
 }
