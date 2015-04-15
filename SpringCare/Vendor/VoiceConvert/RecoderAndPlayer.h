@@ -33,12 +33,11 @@ AVAudioPlayerDelegate>
 {
 	NSTimer *timer;
     BOOL isPlay;
+    NSString *recordName;
 }
 
 @property (retain,nonatomic) AVAudioRecorder *recorder;
 @property (retain,nonatomic) AVAudioPlayer *player;
-
-@property (retain,nonatomic) NSString *recordName;
 @property (retain,nonatomic) NSString *recordWavPath;
 @property (retain,nonatomic) NSString *recordAmrPath;
 @property (assign,nonatomic) id <RecoderAndPlayerDelegate> delegate;

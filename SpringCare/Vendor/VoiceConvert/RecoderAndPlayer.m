@@ -40,17 +40,11 @@
 
 //格式化录制文件名称
 
-- (NSString *) setRecordName
+- (NSString*) generatFilename
 {
-    if (self.recordName==nil) {
-        NSDateFormatter *dateformat=[[NSDateFormatter  alloc]init];
-        [dateformat setDateFormat:@"yyyyMMddHHmmss"];
-        return [dateformat stringFromDate:[NSDate date]];
-
-    }
-    else {
-        return self.recordName;
-    }
+    NSDateFormatter *dateformat=[[NSDateFormatter  alloc]init];
+    [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+    return [dateformat stringFromDate:[NSDate date]];
 }
 
 - (NSString*)getPathByFileName:(NSString *)_fileName ofType:(NSString *)_type
@@ -71,7 +65,8 @@
 	[settings setValue: [NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
 	[settings setValue: [NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
     
-    self.recordWavPath = [self getPathByFileName:self.recordName ofType:@"wav"];
+    recordName=[self generatFilename];
+    self.recordWavPath = [self getPathByFileName:recordName ofType:@"wav"];
 	self.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL URLWithString:self.recordWavPath] settings:settings error:&error];
 	if (!self.recorder)
 	{
@@ -250,14 +245,14 @@
 {
     if (self.aSeconds>=2) {
        // adata = [self encodeToAMR:adata voiceName:recordAmrName];
-        self.recordAmrPath = [self getPathByFileName:self.recordName ofType:@"amr"];
+        self.recordAmrPath = [self getPathByFileName:recordName ofType:@"amr"];
         //音频转码
         [VoiceConverter wavToAmr:self.recordWavPath amrSavePath:self.recordAmrPath];
         NSData *adata = [NSData dataWithContentsOfFile:self.recordAmrPath];
           //删除临时wav文件
         //[self removeTempfile:self.recordWavPath];
         if ([delegate respondsToSelector:@selector(recordAndSendAudioFile:duration:fileName:)]) {
-            [delegate recordAndSendAudioFile:adata duration:(int)self.aSeconds fileName:self.recordName];
+            [delegate recordAndSendAudioFile:adata duration:(int)self.aSeconds fileName:recordName];
         }
     }
   
