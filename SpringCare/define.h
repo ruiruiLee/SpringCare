@@ -31,6 +31,7 @@
 #define ThemeImage(imageName)  [UIImage imageNamed:imageName]
 
 //语音存放地址
+#define SpeechMaxTime 60.0f
 
 #define chat_VoiceCache_path [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"VoiceCache"]
 
