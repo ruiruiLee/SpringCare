@@ -60,7 +60,7 @@
     [_headerView addSubview:_btnUserName];
     _btnUserName.translatesAutoresizingMaskIntoConstraints = NO;
     _btnUserName.titleLabel.font = _FONT(18);
-    [_btnUserName setTitle:@"1368888888888888888" forState:UIControlStateNormal];
+    [_btnUserName setTitle:@"13880417776" forState:UIControlStateNormal];
     [_btnUserName setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _btnUserName.imageEdgeInsets = UIEdgeInsetsMake(6, 136, 8, 0);
     _btnUserName.titleEdgeInsets = UIEdgeInsetsMake(7, 0, 7, 14);
