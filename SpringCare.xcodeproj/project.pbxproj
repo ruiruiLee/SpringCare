@@ -112,6 +112,7 @@
 		868B239E1ADF5B8A003AAD2A /* MyEvaluateListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B239D1ADF5B8A003AAD2A /* MyEvaluateListVC.m */; };
 		868B23A11ADF5BC7003AAD2A /* EvaluateListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23A01ADF5BC7003AAD2A /* EvaluateListCell.m */; };
 		868B23A41ADF9537003AAD2A /* WorkAddressSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23A31ADF9537003AAD2A /* WorkAddressSelectVC.m */; };
+		868B23A71ADF9769003AAD2A /* WorkAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23A61ADF9769003AAD2A /* WorkAddressCell.m */; };
 		869C9EDB1AD3C2080090182E /* nav_shut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDA1AD3C2080090182E /* nav_shut@2x.png */; };
 		869C9EDE1AD3D3750090182E /* relationattentionselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */; };
 		869C9EE01AD3D5F60090182E /* relationheaderbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */; };
@@ -178,7 +179,6 @@
 		86B8E60F1AD952E500A5139E /* NurseListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E60E1AD952E500A5139E /* NurseListVC.m */; };
 		86B8E6121AD95B2A00A5139E /* ProductInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */; };
 		86B96AA51ADBA01B00441168 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B96AA41ADBA01B00441168 /* Util.m */; };
-		86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095161ACD173F00371BF3 /* EditUserInfoView.m */; };
 		86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */; };
 		86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */; };
 		86C0952A1ACD472F00371BF3 /* tab-nurse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095231ACD472F00371BF3 /* tab-nurse@2x.png */; };
@@ -606,6 +606,8 @@
 		868B23A01ADF5BC7003AAD2A /* EvaluateListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateListCell.m; sourceTree = "<group>"; };
 		868B23A21ADF9537003AAD2A /* WorkAddressSelectVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkAddressSelectVC.h; sourceTree = "<group>"; };
 		868B23A31ADF9537003AAD2A /* WorkAddressSelectVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkAddressSelectVC.m; sourceTree = "<group>"; };
+		868B23A51ADF9769003AAD2A /* WorkAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkAddressCell.h; sourceTree = "<group>"; };
+		868B23A61ADF9769003AAD2A /* WorkAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkAddressCell.m; sourceTree = "<group>"; };
 		869C9EDA1AD3C2080090182E /* nav_shut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_shut@2x.png"; sourceTree = "<group>"; };
 		869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationattentionselect@2x.png"; sourceTree = "<group>"; };
 		869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationheaderbg@2x.png"; sourceTree = "<group>"; };
@@ -708,8 +710,6 @@
 		86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductInfoCell.m; sourceTree = "<group>"; };
 		86B96AA31ADBA01B00441168 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		86B96AA41ADBA01B00441168 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
-		86C095151ACD173F00371BF3 /* EditUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoView.h; sourceTree = "<group>"; };
-		86C095161ACD173F00371BF3 /* EditUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoView.m; sourceTree = "<group>"; };
 		86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-home-selected@2x.png"; sourceTree = "<group>"; };
 		86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-lovetime@2x.png"; sourceTree = "<group>"; };
 		86C095231ACD472F00371BF3 /* tab-nurse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-nurse@2x.png"; sourceTree = "<group>"; };
@@ -1364,8 +1364,6 @@
 			children = (
 				8642C9A91AC25F9200251921 /* LCMenuViewController.h */,
 				8642C9AA1AC25F9200251921 /* LCMenuViewController.m */,
-				86C095151ACD173F00371BF3 /* EditUserInfoView.h */,
-				86C095161ACD173F00371BF3 /* EditUserInfoView.m */,
 				863C8E2E1AD296E7009D7496 /* UserAttentionVC.h */,
 				863C8E2F1AD296E8009D7496 /* UserAttentionVC.m */,
 				869C9EE51AD404F10090182E /* EditUserInfoVC.h */,
@@ -1600,6 +1598,8 @@
 				86B8E5E31AD8C15000A5139E /* PayTypeForProductCell.m */,
 				868B239F1ADF5BC7003AAD2A /* EvaluateListCell.h */,
 				868B23A01ADF5BC7003AAD2A /* EvaluateListCell.m */,
+				868B23A51ADF9769003AAD2A /* WorkAddressCell.h */,
+				868B23A61ADF9769003AAD2A /* WorkAddressCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2490,6 +2490,7 @@
 				86B96AA51ADBA01B00441168 /* Util.m in Sources */,
 				869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */,
 				86B8E6121AD95B2A00A5139E /* ProductInfoCell.m in Sources */,
+				868B23A71ADF9769003AAD2A /* WorkAddressCell.m in Sources */,
 				8642C9471ABFF53C00251921 /* SDWebImageManager.m in Sources */,
 				86B8E5E41AD8C15000A5139E /* PayTypeForProductCell.m in Sources */,
 				CFBC52031ADCC980004FB8F3 /* VoiceConverter.mm in Sources */,
@@ -2530,7 +2531,6 @@
 				86B8E5701AD5056F00A5139E /* PlaceOrderVC.m in Sources */,
 				868B238B1ADBAF97003AAD2A /* CityDataModel.m in Sources */,
 				86C0955B1AD0DAF400371BF3 /* GradeInfoView.m in Sources */,
-				86C095171ACD173F00371BF3 /* EditUserInfoView.m in Sources */,
 				8642C9441ABFF53C00251921 /* SDWebImageDecoder.m in Sources */,
 				8642C94C1ABFF53C00251921 /* UIImage+WebP.m in Sources */,
 				8642C9431ABFF53C00251921 /* SDWebImageCompat.m in Sources */,

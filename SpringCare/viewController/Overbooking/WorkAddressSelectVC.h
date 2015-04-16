@@ -8,6 +8,9 @@
 
 #import "LCBaseVC.h"
 
-@interface WorkAddressSelectVC : LCBaseVC
+@interface WorkAddressSelectVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
+{
+    UITableView *_tableview;
+}
 
 @end
