@@ -64,7 +64,6 @@
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                        _FONT(12), UITextAttributeFont,
                                                        nil] forState:UIControlStateSelected];
-    
     UIImageView *tabBarBgView = [[UIImageView alloc] initWithFrame:self.tabBar.bounds];
     tabBarBgView.backgroundColor = _COLOR(0xe5, 0xe4, 0xe5);
     [self.tabBar insertSubview:tabBarBgView atIndex:0];

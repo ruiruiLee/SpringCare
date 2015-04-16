@@ -12,6 +12,7 @@
 #import "WebContentVC.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "SliderViewController.h"
+#import "HomePageVC.h"
 @interface UserSettingVC ()
 
 @end
@@ -57,7 +58,21 @@
 - (void) btnCancel:(id)sender
 {
     [AVUser logOut];  //清除缓存用户对象
-    [[SliderViewController sharedSliderController] closeSideBar];
+    if(![self.navigationController.topViewController isKindOfClass:[HomePageVC class]]){
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        UITabBarController *tabbar = self.tabBarController;
+        [self performSelector:@selector(popViewController:) withObject:tabbar afterDelay:0.15];
+        
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void) popViewController:(id) sender
+{
+    UITabBarController *root = (UITabBarController*) sender;
+    root.selectedIndex = 0;
 }
 
 - (void)didReceiveMemoryWarning {

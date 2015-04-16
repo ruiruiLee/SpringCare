@@ -33,6 +33,11 @@
 
 - (void) NotifyLoginSuccess:(NSNotification*) notify
 {
+    UITabBarController *tabbar = self.tabBarController;
+    if(tabbar.selectedViewController != self.navigationController)
+        return;
+    
+    
     int type = [[notify.userInfo objectForKey:@"type"] intValue];
     switch (type) {
         case 1:
