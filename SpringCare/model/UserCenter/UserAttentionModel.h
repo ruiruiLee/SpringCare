@@ -21,7 +21,7 @@
 
 + (NSMutableArray*) GetMyAttentionArray;
 
-- (void) loadLoverList:(block) block;
++ (void) loadLoverList:(block) block;
 
 /**
  删除

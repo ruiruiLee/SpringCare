@@ -25,6 +25,12 @@
 
 @end
 
+@protocol PlaceOrderEditCellDelegate <NSObject>
+
+- (void) NotifyToSelectAddr;
+
+@end
+
 @interface PlaceOrderEditCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, BusinessTypeViewDelegate, DateCountSelectViewDelegate>
 {
     UITableView *_tableview;
@@ -39,6 +45,8 @@
     
     NurseListInfoModel *_nurseData;
 }
+
+@property (nonatomic, assign) id<PlaceOrderEditCellDelegate> delegate;
 
 - (void) setNurseListInfo:(NurseListInfoModel*) model;
 

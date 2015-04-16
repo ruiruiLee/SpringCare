@@ -10,10 +10,10 @@
 #import "define.h"
 #import "UserAppraisalCell.h"
 #import "PayTypeCell.h"
-#import "PlaceOrderEditCell.h"
 #import "UIImageView+WebCache.h"
 #import "NurseListInfoModel.h"
 #import "MyEvaluateListVC.h"
+#import "WorkAddressSelectVC.h"
 
 #define LIMIT_LINES 4
 
@@ -287,6 +287,7 @@
         if(!cell){
             cell = [[PlaceOrderEditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
         }
         [cell setNurseListInfo:_nurseModel];
         return cell;
@@ -297,7 +298,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == 0){
-        if(_nurseModel.commentsNumber == 0){
+        if(_nurseModel.commentsNumber > 0){
             MyEvaluateListVC *vc = [[MyEvaluateListVC alloc] initWithNibName:nil bundle:nil];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -326,6 +327,12 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = TableBackGroundColor;
     return view;
+}
+
+- (void) NotifyToSelectAddr
+{
+    WorkAddressSelectVC *vc = [[WorkAddressSelectVC alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

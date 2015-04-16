@@ -11,6 +11,7 @@
 #import "PayTypeForProductCell.h"
 #import "PlaceOrderEditForProductCell.h"
 #import "define.h"
+#import "WorkAddressSelectVC.h"
 
 @interface PlaceOrderForProductVC ()
 {
@@ -117,6 +118,7 @@
         if(!cell){
             cell = [[PlaceOrderEditForProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
         }
         [cell setNurseListInfo:_nurseModel];
         return cell;
@@ -175,6 +177,12 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = TableBackGroundColor;
     return view;
+}
+
+- (void) NotifyToSelectAddr
+{
+    WorkAddressSelectVC *vc = [[WorkAddressSelectVC alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

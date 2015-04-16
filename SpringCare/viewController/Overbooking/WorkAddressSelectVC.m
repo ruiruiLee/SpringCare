@@ -7,8 +7,17 @@
 //
 
 #import "WorkAddressSelectVC.h"
+#import "define.h"
+#import "WorkAddressCell.h"
+#import "LCNetWorkBase.h"
+#import "EditCellTypeData.h"
+#import "EditUserInfoVC.h"
+#import "UserAttentionModel.h"
 
 @interface WorkAddressSelectVC ()
+{
+    
+}
 
 @end
 
@@ -17,6 +26,78 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.NavigationBar.Title = @"陪护地址";
+    self.NavigationBar.btnRight.hidden = NO;
+    [self.NavigationBar.btnRight setImage:[UIImage imageNamed:@"adduser"] forState:UIControlStateNormal];
+    
+    [self initSubviews];
+    
+    _dataList = [UserAttentionModel GetMyAttentionArray];
+    if([_dataList count] == 0){
+        [UserAttentionModel loadLoverList:^(int code) {
+            if(code == 1){
+                _dataList = [UserAttentionModel GetMyAttentionArray];
+                [_tableview reloadData];
+            }
+        }];
+    }
+}
+
+- (void) NavRightButtonClickEvent:(UIButton *)sender
+{
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
+    data1.cellTitleName = @"地址（必填）";
+    data1.cellType = EnumTypeAddress;
+    [mArray addObject:data1];
+    
+    EditCellTypeData *data2 = [[EditCellTypeData alloc] init];
+    data2.cellTitleName = @"关系昵称";
+    data2.cellType = EnumTypeRelationName;
+    [mArray addObject:data2];
+    
+    EditCellTypeData *data3 = [[EditCellTypeData alloc] init];
+    data3.cellTitleName = @"姓名";
+    data3.cellType = EnumTypeUserName;
+    [mArray addObject:data3];
+    
+    EditCellTypeData *data4 = [[EditCellTypeData alloc] init];
+    data4.cellTitleName = @"性别";
+    data4.cellType = EnumTypeSex;
+    [mArray addObject:data4];
+    
+    EditCellTypeData *data5 = [[EditCellTypeData alloc] init];
+    data5.cellTitleName = @"年龄";
+    data5.cellType = EnumTypeAge;
+    [mArray addObject:data5];
+    
+    EditCellTypeData *data6 = [[EditCellTypeData alloc] init];
+    data6.cellTitleName = @"电话";
+    data6.cellType = EnumTypeMobile;
+    [mArray addObject:data6];
+    
+    EditCellTypeData *data7 = [[EditCellTypeData alloc] init];
+    data7.cellTitleName = @"身高";
+    data7.cellType = EnumTypeHeight;
+    [mArray addObject:data7];
+    
+    
+    EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
+    [vc setContentArray:mArray andmodel:nil];//新增时为空
+    vc.delegate = self;
+    vc.NavTitle = @"编辑资料";
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) NotifyReloadData
+{
+    [UserAttentionModel loadLoverList:^(int code) {
+        if(code == 1){
+            _dataList = [UserAttentionModel GetMyAttentionArray];
+            [_tableview reloadData];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,6 +105,49 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) initSubviews
+{
+    _tableview = [[UITableView alloc] initWithFrame:CGRectZero];
+    _tableview.delegate = self;
+    _tableview.dataSource = self;
+    _tableview.backgroundColor = TableBackGroundColor;
+    [self.ContentView addSubview:_tableview];
+    _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableview.tableFooterView = [[UIView alloc] init];
+    [_tableview registerClass:[WorkAddressCell class] forCellReuseIdentifier:@"cell"];
+    _tableview.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(_tableview);
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:0 views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:0 views:views]];
+}
 
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [_dataList count];
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 102.f;
+}
+
+- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WorkAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    UserAttentionModel * model = [_dataList objectAtIndex:indexPath.row];
+    [cell setContentWithModel:model];
+    return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 
 @end

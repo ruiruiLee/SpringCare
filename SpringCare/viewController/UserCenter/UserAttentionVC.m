@@ -16,7 +16,7 @@
 
 @interface UserAttentionVC ()
 {
-    UserAttentionModel *attentionModel;
+    
 }
 
 @property (nonatomic, strong) UserAttentionTableCell *attentionTableCell;
@@ -31,12 +31,11 @@
     // Do any additional setup after loading the view.
     
     self.NavigationBar.Title = @"我的关注";
-    attentionModel = [[UserAttentionModel alloc] init];
     
     _attentionData = [UserAttentionModel GetMyAttentionArray];
     _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
     if([_attentionData count] == 0){
-        [attentionModel loadLoverList:^(int code) {
+        [UserAttentionModel loadLoverList:^(int code) {
             if(code == 1){
                 _attentionData = [UserAttentionModel GetMyAttentionArray];
                 _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
@@ -162,18 +161,17 @@
         if(indexPath.section == 0){
             UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
             [model deleteAcctionRequest:^(int code) {
-                
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }];
             _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
         }else{
             UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
             [model deleteAttention:^(int code) {
-                
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }];
             _attentionData = [UserAttentionModel GetMyAttentionArray];
         }
         // Delete the row from the data source.
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {

@@ -9,6 +9,12 @@
 #import "LCBaseVC.h"
 #import "LCPickView.h"
 
+@protocol EditUserInfoVCDelegate <NSObject>
+
+- (void) NotifyReloadData;
+
+@end
+
 @interface EditUserInfoVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, LCPickViewDelegate>
 {
     UITableView *_tableview;
@@ -21,6 +27,8 @@
     
     NSIndexPath *indexpathStore;
 }
+
+@property (nonatomic, assign) id<EditUserInfoVCDelegate> delegate;
 
 - (void) setContentArray:(NSArray*)dataArray andmodel:(id) model;
 
