@@ -196,14 +196,14 @@
 
 - (void) LeftButtonClicked:(id)sender
 {
-//    if(![UserModel sharedUserInfo].isLogin){
-//        LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
-//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-//        [self.navigationController presentViewController:nav animated:YES completion:^{
-//            
-//        }];
-//    }
-//    else
+    if(![UserModel sharedUserInfo].isLogin){
+        LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self.navigationController presentViewController:nav animated:YES completion:^{
+            
+        }];
+    }
+    else
         [[SliderViewController sharedSliderController] leftItemClick];
 }
 
