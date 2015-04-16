@@ -35,6 +35,7 @@
 @property (nonatomic, copy) NSArray *ages;
 @property (nonatomic, copy) NSArray *goodes;
 
+
 - (void) appendDataWithArray:(NSArray*)array;
 
 - (id) initWithProductId:(NSString*)pid;

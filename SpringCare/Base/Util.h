@@ -30,4 +30,6 @@
 
 + (NSString*) StringFromDate:(NSDate*)Date;
 
++ (int) getAgeWithBirthday:(NSString*) birthday;
+
 @end

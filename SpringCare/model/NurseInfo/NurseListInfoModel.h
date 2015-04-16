@@ -60,7 +60,7 @@ typedef enum : NSUInteger {
 
 - (void) loadNurseDataWithPage:(int) pages prama:(NSDictionary*)prama block:(block) block;
 
-- (void) loadetailData:(block) block;
+- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block;
 
 
 @end

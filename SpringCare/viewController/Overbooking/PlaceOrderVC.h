@@ -24,6 +24,6 @@
     NSArray *headerViewHeightConstraint;
 }
 
-- (id) initWithModel:(NurseListInfoModel*) model;
+- (id) initWithModel:(NurseListInfoModel*) model andproductId:(NSString*)productId;
 
 @end
