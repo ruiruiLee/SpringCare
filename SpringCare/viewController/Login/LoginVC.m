@@ -47,8 +47,8 @@
     
     self.NavigationBar.Title = @"快速登录";
     [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
-    
     [self initSubViews];
+    [_tfPhoneNum becomeFirstResponder];
 }
 
 - (void) initSubViews
@@ -180,55 +180,40 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if(textField == _tfPhoneNum){
-        if(string == nil || [string length] == 0){
+    
+    if (textField == _tfPhoneNum) {
+        NSInteger strLength = textField.text.length - range.length + string.length;
+        if (strLength > 11){
+            return NO;
+        }
+        NSString *text = nil;
+        NSString *textfront = nil;
+        NSString *textend=nil;
+        //如果string为空，表示删除
+        if (string.length > 0) {
+            textfront = [textField.text substringToIndex:range.location];
+            textend=[textField.text substringFromIndex:range.location];
+            text = [NSString stringWithFormat:@"%@%@%@",textfront,string,textend];
+            
+        }else{
+            text = [textField.text substringToIndex:range.location];
+        }
+        if ([NSStrUtil isMobileNumber:text]) {
+            _btnVerifyCode.enabled = YES;
+            _btnVerifyCode.backgroundColor = Abled_Color;
+            _btnLogin.enabled = YES;
+            _btnLogin.backgroundColor = Abled_Color;
+
+        }else{
             _btnVerifyCode.enabled = NO;
             _btnVerifyCode.backgroundColor = Disabled_Color;
             _btnLogin.enabled = NO;
             _btnLogin.backgroundColor = Disabled_Color;
-            [_btnVerifyCode setTitle:@"获取验证码" forState:UIControlStateNormal];
-            return YES;
-        }
-        else{
-            if(range.location >= 11){
-                return NO;
-            }
-            else{
-                NSString *verifyCode = _tfVerifyCode.text;
-                if(range.location == 10){
-                    _btnVerifyCode.enabled = YES;
-                    _btnVerifyCode.backgroundColor = Abled_Color;
-                    
-                    if([verifyCode length] == 6 && _timerOutTimer != nil && _count != 0){
-                        _btnLogin.enabled = YES;
-                        _btnLogin.backgroundColor = Abled_Color;
-                    }
-                }
-                return YES;
-            }
-        }
-    }else{
-        if(string == nil || [string length] == 0){
-            _btnLogin.enabled = NO;
-            _btnLogin.backgroundColor = Disabled_Color;
-            return YES;
-        }
-        else{
-            if(range.location >= 6){
-                return NO;
-            }
-            else{
-                NSString *phone = _tfPhoneNum.text;
-                BOOL isphone = [NSStrUtil isMobileNumber:phone];
-                if(range.location == 5 && [string length] == 1 && isphone && _timerOutTimer != nil && _count != 0){
-                    _btnLogin.enabled = YES;
-                    _btnLogin.backgroundColor = Abled_Color;
-                }
-                return YES;
-            }
+
         }
     }
     return YES;
+    
 }
 
 #pragma action
@@ -237,27 +222,17 @@
 {
     [_tfPhoneNum resignFirstResponder];
     [_tfVerifyCode resignFirstResponder];
+    _btnVerifyCode.enabled = NO;
+    _btnVerifyCode.backgroundColor = Disabled_Color;
     NSString *phone = _tfPhoneNum.text;
-    BOOL isMobile = [NSStrUtil isMobileNumber:phone];
-    if(!isMobile){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"电话号码有误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-    }
-    else{
-        [AVOSCloud requestSmsCodeWithPhoneNumber:phone callback:^(BOOL succeeded, NSError *error) {
+    [AVOSCloud requestSmsCodeWithPhoneNumber:phone callback:^(BOOL succeeded, NSError *error) {
+        [self TimerOutTimer];
+        if(succeeded){
             [self TimerOutTimer];
-            if(succeeded){
-                
-                [self TimerOutTimer];
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"验证码已发送" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alert show];
-            }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"电话号码有误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        }];
-    }
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"验证码已发送" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }];
 }
 
 - (void) btnLoginUseVerifyCode:(id)sender
@@ -305,7 +280,6 @@
     if(_count == 0){
         [_timerOutTimer invalidate];
         [_btnVerifyCode setTitle:@"重取验证码" forState:UIControlStateNormal];
-        
         _btnLogin.enabled = NO;
         _btnLogin.backgroundColor = Disabled_Color;
         _tfVerifyCode.text = @"";

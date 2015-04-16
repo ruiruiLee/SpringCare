@@ -12,7 +12,6 @@
 #import <CoreAudio/CoreAudioTypes.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-#define SpeechMaxTime 60.0f
 
 @protocol RecoderAndPlayerDelegate <NSObject>
 
