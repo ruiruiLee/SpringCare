@@ -61,6 +61,7 @@
 @end
 
 @implementation PlaceOrderEditCell
+@synthesize delegate;
 
 - (void) dealloc
 {
@@ -185,6 +186,10 @@
             _pickview.delegate = self;
         }else{
             [_pickview show];
+        }
+    }else{
+        if(delegate && [delegate respondsToSelector:@selector(NotifyToSelectAddr)]){
+            [delegate NotifyToSelectAddr];
         }
     }
 }

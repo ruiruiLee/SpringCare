@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserAttentionModel.h"
 
 @interface WorkAddressCell : UITableViewCell
 {
@@ -18,6 +19,6 @@
     UILabel *_line;
 }
 
-- (void) setContentWithModel:(id) model;
+- (void) setContentWithModel:(UserAttentionModel*) model;
 
 @end

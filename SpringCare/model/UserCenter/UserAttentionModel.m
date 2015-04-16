@@ -39,7 +39,7 @@ static NSMutableArray *myAttentionArray = nil;
     return self;
 }
 
-- (UserAttentionModel*) modelFromDIctionary:(NSDictionary*)dic
++ (UserAttentionModel*) modelFromDIctionary:(NSDictionary*)dic
 {
     UserAttentionModel *model = [[UserAttentionModel alloc] init];
     model.userid = [dic objectForKey:@"id"];
@@ -53,7 +53,7 @@ static NSMutableArray *myAttentionArray = nil;
     return model;
 }
 
-- (void) loadLoverList:(block) block
++ (void) loadLoverList:(block) block
 {
     if(!myAttentionArray){
         myAttentionArray = [[NSMutableArray alloc] init];

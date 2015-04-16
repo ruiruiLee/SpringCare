@@ -9,6 +9,7 @@
 #import "LCBaseVC.h"
 #import <AVOSCloud/AVOSCloud.h>
 @implementation LCBaseVC
+@synthesize NavTitle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +31,8 @@
     [self.view addSubview:_NavigationBar];
     _NavigationBar.delegate = self;
     _NavigationBar.translatesAutoresizingMaskIntoConstraints = NO;
+    if(NavTitle != nil)
+        _NavigationBar.Title = NavTitle;
     
     _ContentView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_ContentView];
@@ -76,6 +79,14 @@
 - (void) NavRightButtonClickEvent:(UIButton *)sender
 {
     
+}
+
+- (void) setNavTitle:(NSString *)title
+{
+    NavTitle = title;
+    if(self.NavigationBar != nil){
+        self.NavigationBar.Title = title;
+    }
 }
 
 @end

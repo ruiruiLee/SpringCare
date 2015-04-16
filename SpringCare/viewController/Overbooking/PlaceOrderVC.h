@@ -7,10 +7,11 @@
 //
 
 #import "LCBaseVC.h"
+#import "PlaceOrderEditCell.h"
 
 @class NurseListInfoModel;
 
-@interface PlaceOrderVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
+@interface PlaceOrderVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, PlaceOrderEditCellDelegate>
 {
     UITableView *_tableview;
     

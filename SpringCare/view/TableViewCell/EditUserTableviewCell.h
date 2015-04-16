@@ -19,6 +19,7 @@
 
 @property (nonatomic ,strong) UITextField *tfEdit;
 @property (nonatomic , assign) EditCellType cellType;
+@property (nonatomic, strong) UILabel *lbUnit;
 
 - (void) SetcontentData:(EditCellTypeData*) celldata info:(NSDictionary*) info;
 

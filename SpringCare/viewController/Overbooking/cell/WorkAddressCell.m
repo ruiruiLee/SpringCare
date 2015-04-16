@@ -8,6 +8,7 @@
 
 #import "WorkAddressCell.h"
 #import "define.h"
+#import "UIImageView+WebCache.h"
 
 @implementation WorkAddressCell
 
@@ -30,15 +31,21 @@
     _btnRelationAndSex = [[UIButton alloc] initWithFrame:CGRectZero];
     [bgView addSubview:_btnRelationAndSex];
     _btnRelationAndSex.translatesAutoresizingMaskIntoConstraints = NO;
-    _btnRelationAndSex.titleLabel.font = _FONT(18);
+    _btnRelationAndSex.titleLabel.font = _FONT(16);
     [_btnRelationAndSex setTitleColor:_COLOR(0x22, 0x22, 0x22) forState:UIControlStateNormal];
     _btnRelationAndSex.userInteractionEnabled = NO;
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
-    _lbName.textColor = _COLOR(0x99, 0x99, 0x99);
-    _lbName.font = _FONT(13);
+    _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
+    _lbName.font = _FONT(18);
     [bgView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    _lbAddress = [[UILabel alloc] initWithFrame:CGRectZero];
+    _lbAddress.textColor = _COLOR(0x99, 0x99, 0x99);
+    _lbAddress.font = _FONT(13);
+    [bgView addSubview:_lbAddress];
+    _lbAddress.translatesAutoresizingMaskIntoConstraints = NO;
     
     _btnSelect = [[UIButton alloc] initWithFrame:CGRectZero];
     [bgView addSubview:_btnSelect];
@@ -70,9 +77,10 @@
     // Configure the view for the selected state
 }
 
-- (void) setContentWithModel:(id) model
+- (void) setContentWithModel:(UserAttentionModel*) model
 {
-    
+    [_photoImage sd_setImageWithURL:[NSURL URLWithString:model.photoUrl] placeholderImage:[UIImage imageNamed:@"placeholderimage"]];
+    _lbAddress.text = model.address;
 }
 
 @end

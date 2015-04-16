@@ -11,18 +11,18 @@
 #import "EditCellTypeData.h"
 #import "UserModel.h"
 #import "LCNetWorkBase.h"
+#import "UserAttentionModel.h"
 
 @interface EditUserInfoVC ()
 
 @end
 
 @implementation EditUserInfoVC
+@synthesize delegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.NavigationBar.Title = @"编辑我的资料";
     
     [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     [self.NavigationBar.btnRight setTitle:@"完成" forState:UIControlStateNormal];
@@ -74,12 +74,12 @@
                 else if(typedata.cellType == EnumTypeAccount){
                     [mDic setObject:cell.tfEdit.text forKey:@"phone"];
                 }
-//                else if(typedata.cellType == EnumTypeRelationName){
-//                    //            cell.tfEdit.text = model.;
-//                }
-//                else if(typedata.cellType == EnumTypeHeight){
-//                    //            cell.tfEdit.text = userData.username;
-//                }
+                else if(typedata.cellType == EnumTypeRelationName){
+                    [mDic setObject:cell.tfEdit.text forKey:@"nickName"];
+                }
+                else if(typedata.cellType == EnumTypeHeight){
+                    [mDic setObject:[NSString stringWithFormat:@"%.2f", [cell.tfEdit.text intValue]/100.0] forKey:@"height"];
+                }
             }
         }
         
@@ -87,6 +87,64 @@
             if(code){
                 [[UserModel sharedUserInfo] getDetailUserInfo];
                 [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+    }else{
+        NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
+        if([userData isKindOfClass:[UserAttentionModel class]]){
+            UserAttentionModel *model = (UserAttentionModel*)userData;
+            [mDic setObject:model.userid forKey:@"id"];
+            
+        }
+        [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
+        
+        for (int i = 0; i < [_data count]; i++) {
+            EditCellTypeData *typedata = [_data objectAtIndex:i];
+            EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            if(cell.tfEdit.text != nil){
+                NSLog(@"%@", cell.tfEdit.text);
+                if(typedata.cellType == EnumTypeUserName){
+                    [mDic setObject:cell.tfEdit.text forKey:@"name"];
+                }
+                else if(typedata.cellType == EnumTypeSex){
+                    UserSex sex = [cell.tfEdit.text isEqualToString:@"女"] ? EnumFemale: EnumMale;
+                    [mDic setObject:[NSNumber numberWithBool:sex] forKey:@"sex"];
+                }
+                else if(typedata.cellType == EnumTypeAge){
+                    NSString *age = cell.tfEdit.text;
+                    NSDate *date = [NSDate date];
+                    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
+                    NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+                    NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
+                    int year = (int)[comps year];
+                    [mDic setObject:[NSString stringWithFormat:@"%d-01-01 00:00:00", year - [age intValue]] forKey:@"birthDay"];
+                }
+                else if(typedata.cellType == EnumTypeAddress){
+                    [mDic setObject:cell.tfEdit.text forKey:@"addr"];
+                }
+                else if(typedata.cellType == EnumTypeAccount){
+                    [mDic setObject:cell.tfEdit.text forKey:@"phone"];
+                }
+                else if(typedata.cellType == EnumTypeRelationName){
+                    [mDic setObject:cell.tfEdit.text forKey:@"nickName"];
+                }
+                else if(typedata.cellType == EnumTypeHeight){
+                    [mDic setObject:[NSString stringWithFormat:@"%.2f", [cell.tfEdit.text intValue]/100.0] forKey:@"height"];
+                }
+            }
+        }
+        
+        [LCNetWorkBase postWithMethod:@"api/lover/save" Params:mDic Completion:^(int code, id content) {
+            if(code){
+                [UserAttentionModel loadLoverList:^(int code) {
+                    if(code == 1){
+                        if(delegate && [delegate respondsToSelector:@selector(NotifyReloadData)]){
+                            [delegate NotifyReloadData];
+                        }
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                }];
             }
         }];
     }
@@ -128,6 +186,7 @@
 {
     EditUserTableviewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.lbUnit.hidden = YES;
     
     EditCellTypeData *typedata = [_data objectAtIndex:indexPath.row];
     [cell SetcontentData:typedata info:nil];
@@ -152,11 +211,15 @@
             cell.tfEdit.text = model.mobilePhoneNumber;
         }
         else if(typedata.cellType == EnumTypeRelationName){
-//            cell.tfEdit.text = model.;
+            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
         }
         else if(typedata.cellType == EnumTypeHeight){
-//            cell.tfEdit.text = userData.username;
+            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
+            cell.lbUnit.hidden = NO;
+            cell.lbUnit.text = @"cm";
         }
+    }else if ([userData isKindOfClass:[UserAttentionModel class]]){
+        
     }
     return cell;
 }

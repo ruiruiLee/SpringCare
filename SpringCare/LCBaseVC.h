@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UIView *ContentView;
 @property (nonatomic, strong) LCNavigationbar *NavigationBar;
+@property (nonatomic, strong) NSString *NavTitle;
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender;
 

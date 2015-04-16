@@ -7,9 +7,10 @@
 //
 
 #import "LCBaseVC.h"
+#import "PlaceOrderEditForProductCell.h"
 @class FamilyProductModel;
 
-@interface PlaceOrderForProductVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
+@interface PlaceOrderForProductVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, PlaceOrderEditForProductCellDelegate>
 {
     UITableView *_tableview;
 }

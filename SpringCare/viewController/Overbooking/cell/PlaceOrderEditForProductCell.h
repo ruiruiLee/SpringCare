@@ -12,6 +12,12 @@
 #import "ZHPickView.h"
 #import "FamilyProductModel.h"
 
+@protocol PlaceOrderEditForProductCellDelegate <NSObject>
+
+- (void) NotifyToSelectAddr;
+
+@end
+
 @interface PlaceOrderEditForProductCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, UnitsTypeViewDelegate, DateCountSelectViewDelegate>
 {
     UITableView *_tableview;
@@ -26,6 +32,8 @@
     
     FamilyProductModel *_nurseData;
 }
+
+@property (nonatomic, assign) id<PlaceOrderEditForProductCellDelegate> delegate;
 
 - (void) setNurseListInfo:(FamilyProductModel*) model;
 

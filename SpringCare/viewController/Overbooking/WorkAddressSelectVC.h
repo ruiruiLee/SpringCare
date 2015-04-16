@@ -7,10 +7,13 @@
 //
 
 #import "LCBaseVC.h"
+#import "EditUserInfoVC.h"
 
-@interface WorkAddressSelectVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
+@interface WorkAddressSelectVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, EditUserInfoVCDelegate>
 {
     UITableView *_tableview;
+    
+    NSArray *_dataList;
 }
 
 @end
