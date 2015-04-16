@@ -12,6 +12,8 @@
 #import "UserModel.h"
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
+#import <AVOSCloud/AVOSCloud.h>
+
 
 @implementation MainBaseVC
 
@@ -172,6 +174,18 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_btnLeft attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbTitle attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_btnRight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbTitle attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:_lbTitle.text];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:_lbTitle.text];
 }
 
 - (void)didReceiveMemoryWarning{

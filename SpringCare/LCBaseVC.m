@@ -7,7 +7,7 @@
 //
 
 #import "LCBaseVC.h"
-
+#import <AVOSCloud/AVOSCloud.h>
 @implementation LCBaseVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,8 +43,19 @@
     }else{
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_NavigationBar(64)]-0-[_ContentView]-0-|" options:0 metrics:nil views:views]];
     }
-    
-    _NavigationBar.Title = @"对方很高";
+    //  _NavigationBar.Title = @"对方很高";
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:_NavigationBar.Title];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:_NavigationBar.Title ];
 }
 
 - (void)didReceiveMemoryWarning{

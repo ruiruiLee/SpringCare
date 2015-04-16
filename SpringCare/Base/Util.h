@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface Util : NSObject
 
 /**
@@ -31,5 +31,5 @@
 + (NSString*) StringFromDate:(NSDate*)Date;
 
 + (int) getAgeWithBirthday:(NSString*) birthday;
-
++(UIImage *)fitSmallImage:(UIImage *)image scaledToSize:(CGSize)tosize;
 @end
