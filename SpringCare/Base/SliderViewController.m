@@ -167,7 +167,8 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
     [UIView animateWithDuration:_LeftSOpenDuration
                      animations:^{
                          _mainContentView.transform = conT;
-                     }
+                         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_USERIN_DISPLAY object:nil];
+                          }
                      completion:^(BOOL finished) {
                          _tapGestureRec.enabled = YES;
                      }];

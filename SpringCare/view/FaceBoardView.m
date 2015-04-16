@@ -83,7 +83,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    int arrayCount = _emojiArray.count;
+    unsigned long arrayCount = _emojiArray.count;
     for (int i = 0; i < arrayCount ; i ++) {
         @autoreleasepool {
             NSString *imageStr = _emojiArray[i];

@@ -172,7 +172,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if(![UserModel sharedUserInfo].isLogin){
+    if(![[UserModel sharedUserInfo] isLogin]){
         LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
 //        [self.navigationController pushViewController:nav animated:YES];
