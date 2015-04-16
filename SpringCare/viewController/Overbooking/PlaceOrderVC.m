@@ -156,7 +156,7 @@
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
     _lbName.textColor = _COLOR(0x22, 0x22, 0x22);
     _lbName.font = _FONT(18);
-    _lbName.text = _nurseModel.name;//@"王莹莹";
+    _lbName.text = _nurseModel.name;
     
     _btnCert = [[UIButton alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_btnCert];
@@ -171,6 +171,7 @@
     [_btnInfo setTitle: [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge] forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
     _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 21);
+    _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 21, 0, 0);
     
     _detailInfo = [[UILabel alloc] initWithFrame:CGRectZero];
     _detailInfo.translatesAutoresizingMaskIntoConstraints = NO;

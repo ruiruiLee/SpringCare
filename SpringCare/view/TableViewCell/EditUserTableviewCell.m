@@ -58,7 +58,7 @@
     lbUnit.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbTite, _tfEdit, _imgUnflod, _lbLine, lbUnit);
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(100)]-30-[_tfEdit]-30-[lbUnit(30)]-10-[_imgUnflod(12)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite]-30-[_tfEdit]-30-[lbUnit(30)]-10-[_imgUnflod(12)]-20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_lbTite]-19-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[lbUnit]-19-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_tfEdit]-5-|" options:0 metrics:nil views:views]];
