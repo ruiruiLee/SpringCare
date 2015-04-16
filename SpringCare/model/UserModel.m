@@ -8,9 +8,8 @@
 
 #import "UserModel.h"
 #import "LCNetWorkBase.h"
-
+ #import <AVOSCloud/AVOSCloud.h>
 @implementation UserModel
-@synthesize isLogin;
 @synthesize isNew;
 @synthesize username;
 @synthesize sessionToken;
@@ -41,12 +40,17 @@
 - (id)init
 {
     self = [super init];
-    if(self){
-        isLogin = NO;
-    }
     return self;
 }
 
+-(BOOL)isLogin{
+   
+    if ( [AVUser currentUser]==nil) {
+        return false;
+    }
+    else
+        return true;
+}
 - (void) setUserId:(NSString *)_userId
 {
     userId = _userId;

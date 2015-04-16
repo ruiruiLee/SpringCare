@@ -10,7 +10,8 @@
 #import "UserSettingTableCell.h"
 #import "define.h"
 #import "WebContentVC.h"
-
+#import <AVOSCloud/AVOSCloud.h>
+#import "SliderViewController.h"
 @interface UserSettingVC ()
 
 @end
@@ -32,12 +33,31 @@
     _tableview.delegate = self;
     [self.ContentView addSubview:_tableview];
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
-    _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableview.backgroundColor = TableBackGroundColor;
     
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 80)];
+    _tableview.tableFooterView = footView;
+    UIButton *btnCancel = [[UIButton alloc] initWithFrame:CGRectZero];
+    btnCancel.translatesAutoresizingMaskIntoConstraints = NO;
+    btnCancel.backgroundColor = Abled_Color;
+    btnCancel.layer.cornerRadius = 5;
+    [btnCancel setTitleColor:_COLOR(0xff, 0xff, 0xff) forState:UIControlStateNormal];
+    [btnCancel setTitle:@"退 出" forState:UIControlStateNormal];
+    [footView addSubview:btnCancel];
+    btnCancel.titleLabel.font = _FONT(18);
+    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-28-[btnCancel]-28-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
+    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[btnCancel]-3-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
+    [btnCancel addTarget:self action:@selector(btnCancel:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+}
+
+- (void) btnCancel:(id)sender
+{
+    [AVUser logOut];  //清除缓存用户对象
+    [[SliderViewController sharedSliderController] closeSideBar];
 }
 
 - (void)didReceiveMemoryWarning {

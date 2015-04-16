@@ -247,7 +247,6 @@
     [AVUser signUpOrLoginWithMobilePhoneNumberInBackground:phone smsCode:verifyCode block:^(AVUser *user, NSError *error) {
         if(error == nil){
             UserModel *model = [UserModel sharedUserInfo];
-            model.isLogin = YES;
             model.sessionToken = user.sessionToken;
             model.username = user.username;
             model.mobilePhoneNumber = user.mobilePhoneNumber;
@@ -256,11 +255,13 @@
             model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
             model.userId = [user objectForKey:@"objectId"];
             
-//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOGIN_SUCCESS object:nil];
-            
             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
                 
             }];
+        }
+        else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入正确的验证码！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
         }
     }];
 }

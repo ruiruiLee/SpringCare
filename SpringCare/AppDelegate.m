@@ -52,15 +52,7 @@
     
     [ProjectDefine shareProjectDefine];
     
-//    NSDictionary *prama = [NSDictionary dictionaryWithObjectsAndKeys:@"13541359454", @"phone",@"123qwer" , @"password" , nil];
-//    
-//    [AVUser loginWithAuthData:prama block:^(AVUser *user, NSError *error) {
-//        NSLog(user.username)
-//    }];
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-//    [AVUser logOut];
     
     [SliderViewController sharedSliderController].LeftVC=[[LCMenuViewController alloc] init];
     [SliderViewController sharedSliderController].RightVC=[[LCMenuViewController alloc] init];

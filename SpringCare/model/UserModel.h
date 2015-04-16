@@ -11,7 +11,6 @@
 
 @interface UserModel : NSObject
 
-@property (nonatomic, assign) BOOL isLogin;
 
 @property (nonatomic, strong) NSString *mobilePhoneNumber;
 @property (nonatomic, strong) NSString *email;
@@ -32,6 +31,7 @@
 
 +(UserModel *)sharedUserInfo;
 
+-(BOOL)isLogin;
 - (void) getDetailUserInfo;
 
 @end

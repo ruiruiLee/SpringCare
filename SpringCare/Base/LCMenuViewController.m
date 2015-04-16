@@ -21,6 +21,7 @@
 
 #import "UserModel.h"
 #import "SliderViewController.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @implementation LCMenuViewController
 
@@ -35,37 +36,43 @@
 
 - (void) dealloc
 {
-    UserModel *model = [UserModel sharedUserInfo];
-    [model removeObserver:self forKeyPath:@"username"];
-    [model removeObserver:self forKeyPath:@"chineseName"];
-    [model removeObserver:self forKeyPath:@"headerFile"];
+//    UserModel *model = [UserModel sharedUserInfo];
+//    [model removeObserver:self forKeyPath:@"username"];
+//    [model removeObserver:self forKeyPath:@"chineseName"];
+//    [model removeObserver:self forKeyPath:@"headerFile"];
 }
 
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    UserModel *model = [UserModel sharedUserInfo];
-    if([keyPath isEqualToString:@"username"])
-    {
-        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
-    }
-    if([keyPath isEqualToString:@"chineseName"])
-    {
-        [_btnUserName setTitle:model.chineseName forState:UIControlStateNormal];
-    }
-    if ([keyPath isEqualToString:@"headerFile"]){
-        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
-    }
-}
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    UserModel *model = [UserModel sharedUserInfo];
+//    if([keyPath isEqualToString:@"username"])
+//    {
+//        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
+//    }
+//    if([keyPath isEqualToString:@"chineseName"])
+//    {
+//        [_btnUserName setTitle:model.chineseName forState:UIControlStateNormal];
+//    }
+//    if ([keyPath isEqualToString:@"headerFile"]){
+//        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
+//    }
+//}
+
+//
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//}
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     
-    UserModel *model = [UserModel sharedUserInfo];
-    [model addObserver:self forKeyPath:@"chineseName" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [model addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [model addObserver:self forKeyPath:@"headerFile" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+  //  UserModel *model = [UserModel sharedUserInfo];
+//    [model addObserver:self forKeyPath:@"chineseName" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+//    [model addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+//    [model addObserver:self forKeyPath:@"headerFile" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     self.navigationController.navigationBarHidden=YES;
     
@@ -97,7 +104,7 @@
     [_btnUserName setImage:[UIImage imageNamed:@"usercentershut"] forState:UIControlStateNormal];
     _btnUserName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_btnUserName addTarget:self action:@selector(doEditUserInfo:) forControlEvents:UIControlEventTouchUpInside];
-    
+ 
     NSDictionary *headerViews = NSDictionaryOfVariableBindings(_photoBg, _photoImgView, _btnUserName);
     NSString *format = [NSString stringWithFormat:@"H:|-20-[_photoBg(93)]->=5-[_btnUserName(148)]-%f-|", ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
     unflodConstraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:headerViews];
@@ -149,8 +156,22 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(39)]-61.5-|" options:0 metrics:nil views:footViews]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyUserInfo:) name:NOTIFY_USERIN_DISPLAY object:nil];
 }
 
+- (void) NotifyUserInfo:(NSNotification*) notify
+{
+    AVUser *currentUser = [AVUser currentUser];
+    if ([currentUser objectForKey:@"chinese_name"]==nil) {
+        [_btnUserName setTitle:currentUser.username forState:UIControlStateNormal];
+    }
+    else{
+        [_btnUserName setTitle:[currentUser objectForKey:@"chinese_name"] forState:UIControlStateNormal];
+    }
+    // 头像判断
+    
+}
 #pragma UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -228,9 +249,12 @@
 }
 
 #pragma ACTION
+
+
+
 - (void) doEditUserInfo:(UIButton*)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"5"}];
+  [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"5"}];
     
     [[SliderViewController sharedSliderController] closeSideBar];
 }
