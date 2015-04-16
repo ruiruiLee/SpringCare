@@ -20,6 +20,7 @@
 #import "UserSettingVC.h"
 
 #import "UserModel.h"
+#import "SliderViewController.h"
 
 @implementation LCMenuViewController
 
@@ -201,68 +202,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-       [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+   [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:{
-            UserAttentionVC *vc = [[UserAttentionVC alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:vc animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"1"}];
         }
             break;
         case 1:{
-            MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:vc animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"2"}];
         }
             break;
         case 2:{
-            FeedBackVC *vc = [[FeedBackVC alloc]initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:vc animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"3"}];
         }
             break;
         case 3:{
-            UserSettingVC *vc = [[UserSettingVC alloc] initWithNibName:nil bundle:nil];
-            [self.navigationController pushViewController:vc animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"4"}];
         }
             break;
         default:
             break;
     }
+
+    [[SliderViewController sharedSliderController] closeSideBar];
 }
 
 #pragma ACTION
 - (void) doEditUserInfo:(UIButton*)sender
 {
-    NSMutableArray *mArray = [[NSMutableArray alloc] init];
-    EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
-    data1.cellTitleName = @"电话（账户）";
-    data1.cellType = EnumTypeAccount;
-    [mArray addObject:data1];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"5"}];
     
-    EditCellTypeData *data2 = [[EditCellTypeData alloc] init];
-    data2.cellTitleName = @"姓名";
-    data2.cellType = EnumTypeUserName;
-    [mArray addObject:data2];
-    
-    EditCellTypeData *data3 = [[EditCellTypeData alloc] init];
-    data3.cellTitleName = @"性别";
-    data3.cellType = EnumTypeSex;
-    [mArray addObject:data3];
-    
-    EditCellTypeData *data4 = [[EditCellTypeData alloc] init];
-    data4.cellTitleName = @"年龄";
-    data4.cellType = EnumTypeAge;
-    [mArray addObject:data4];
-    
-    EditCellTypeData *data5 = [[EditCellTypeData alloc] init];
-    data5.cellTitleName = @"地址";
-    data5.cellType = EnumTypeAddress;
-    [mArray addObject:data5];
-    
-    
-    EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
-    vc.NavigationBar.Title = @"编辑我的资料";
-    [vc setContentArray:mArray andmodel:[UserModel sharedUserInfo]];
-    [self.navigationController pushViewController:vc animated:YES];
+    [[SliderViewController sharedSliderController] closeSideBar];
 }
 
 - (void) viewDidLayoutSubviews

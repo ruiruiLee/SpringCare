@@ -33,14 +33,82 @@
 
 - (void) NotifyLoginSuccess:(NSNotification*) notify
 {
-//    [_btnLeft sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav-person"]];
+    int type = [[notify.userInfo objectForKey:@"type"] intValue];
+    switch (type) {
+        case 1:
+        {
+            UserAttentionVC *vc = [[UserAttentionVC alloc] initWithNibName:nil bundle:nil];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 2:
+        {
+            MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 3:
+        {
+            FeedBackVC *vc = [[FeedBackVC alloc] initWithNibName:nil bundle:nil];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 4:
+        {
+            UserSettingVC *vc = [[UserSettingVC alloc] initWithNibName:nil bundle:nil];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 5:
+        {
+            NSMutableArray *mArray = [[NSMutableArray alloc] init];
+            EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
+            data1.cellTitleName = @"电话（账户）";
+            data1.cellType = EnumTypeAccount;
+            [mArray addObject:data1];
+            
+            EditCellTypeData *data2 = [[EditCellTypeData alloc] init];
+            data2.cellTitleName = @"姓名";
+            data2.cellType = EnumTypeUserName;
+            [mArray addObject:data2];
+            
+            EditCellTypeData *data3 = [[EditCellTypeData alloc] init];
+            data3.cellTitleName = @"性别";
+            data3.cellType = EnumTypeSex;
+            [mArray addObject:data3];
+            
+            EditCellTypeData *data4 = [[EditCellTypeData alloc] init];
+            data4.cellTitleName = @"年龄";
+            data4.cellType = EnumTypeAge;
+            [mArray addObject:data4];
+            
+            EditCellTypeData *data5 = [[EditCellTypeData alloc] init];
+            data5.cellTitleName = @"地址";
+            data5.cellType = EnumTypeAddress;
+            [mArray addObject:data5];
+            
+            
+            EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
+            vc.NavigationBar.Title = @"编辑我的资料";
+            [vc setContentArray:mArray andmodel:[UserModel sharedUserInfo]];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyLoginSuccess:) name:NOTIFY_LOGIN_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyLoginSuccess:) name:NOTIFY_MENU_CHANGED object:nil];
     
     self.navigationController.navigationBarHidden=YES;
     self.view.backgroundColor = [UIColor whiteColor];

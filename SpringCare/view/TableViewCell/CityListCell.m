@@ -13,11 +13,13 @@
 @synthesize lbTitle;
 @synthesize imgSelectFlag;
 
+
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self)
     {
+        
         lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:lbTitle];
         lbTitle.font = _FONT(15);
@@ -27,6 +29,7 @@
         imgSelectFlag = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:imgSelectFlag];
         imgSelectFlag.translatesAutoresizingMaskIntoConstraints = NO;
+        
         
         NSDictionary *views = NSDictionaryOfVariableBindings(lbTitle, imgSelectFlag);
         

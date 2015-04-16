@@ -7,6 +7,8 @@
 //
 
 #import "CityDataModel.h"
+#import "LocationManagerObserver.h"
+#import "AppDelegate.h"
 
 static NSMutableArray *cityDataArray = nil;
 
@@ -47,6 +49,28 @@ static NSMutableArray *cityDataArray = nil;
             [cityDataArray addObject:model];
         }
     }
+    
+    if(currentCity != nil){
+        CityDataModel *model = [CityDataModel modelWithName:currentCity];
+        if(model){
+            AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+            delegate.currentCityModel = model;
+        }
+    }
+}
+
++ (CityDataModel*) modelWithName:(NSString*) name
+{
+    if(cityDataArray != nil){
+        for (int i = 0; i < [cityDataArray count]; i++) {
+            CityDataModel *model = [cityDataArray objectAtIndex:i];
+            if([name isEqualToString:model.city_name]){
+                return model;
+            }
+        }
+    }
+    
+    return nil;
 }
 
 @end
