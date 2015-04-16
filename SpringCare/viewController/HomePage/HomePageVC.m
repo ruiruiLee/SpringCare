@@ -24,6 +24,8 @@
 
 - (void) dealloc
 {
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [delegate removeObserver:self forKeyPath:@"currentCityModel"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -60,17 +62,21 @@
     }];
 }
 
-- (void) NotifyCurrentCityGained:(NSNotification*) notify
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSString *city = [notify.userInfo objectForKey:@"city"];
-    [activityBtn setTitle:city forState:UIControlStateNormal];
+    if([keyPath isEqualToString:@"currentCityModel"])
+    {
+        AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        [activityBtn setTitle:delegate.currentCityModel.city_name forState:UIControlStateNormal];
+    }
 }
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCurrentCityGained:) name:NOTIFY_LOCATION_GAINED object:nil];
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [delegate addObserver:self forKeyPath:@"currentCityModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     [self loadData];
     

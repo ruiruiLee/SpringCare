@@ -20,4 +20,6 @@
 
 + (void) SetCityDataWithArray:(NSArray*) list;
 
++ (CityDataModel*) modelWithName:(NSString*) name;
+
 @end

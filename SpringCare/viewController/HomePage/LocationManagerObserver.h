@@ -16,4 +16,6 @@ static NSString *currentCity = nil;
 @property (nonatomic, assign) double lat;
 @property (nonatomic, assign) double lon;
 
+- (void) startUpdateLocation;
+
 @end

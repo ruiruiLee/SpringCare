@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "LocationManagerObserver.h"
 #import "define.h"
+#import "AppDelegate.h"
 
 @implementation LocationManagerObserver
 @synthesize lat;
@@ -24,7 +25,7 @@
     return self;
 }
 
-- (void) startUpdateLocation{
+- (void) startUpdateLocation {
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];//创建位置管理器
     locationManager.delegate=self;
     locationManager.desiredAccuracy=kCLLocationAccuracyBest;
@@ -38,7 +39,8 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     lat = newLocation.coordinate.latitude;
     lon = newLocation.coordinate.longitude;
-    if (currentCity == nil) {
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if (delegate.currentCityModel == nil) {
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
         [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             if([placemarks count] > 0){
@@ -48,9 +50,11 @@
                     //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
                     city = placemark.administrativeArea;
                 }
-                //            [activityBtn setTitle:city forState:UIControlStateNormal];
                 currentCity = city;
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOCATION_GAINED object:nil userInfo:@{@"city": currentCity}];
+                CityDataModel *model = [CityDataModel modelWithName:city];
+                if(model != nil){
+                    delegate.currentCityModel = model;
+                }
             }
         }];
     }

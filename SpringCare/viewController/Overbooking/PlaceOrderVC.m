@@ -130,6 +130,13 @@
             _detailInfo.attributedText = attributedString;
             
             UIView *headerView = _tableview.tableHeaderView;
+            
+            [headerView setNeedsLayout];
+            [headerView layoutIfNeeded];
+            
+            CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            headerView.frame = CGRectMake(0, 0, ScreenWidth, size.height + 1);
+            
             _tableview.tableHeaderView = headerView;
         }
     }
@@ -290,8 +297,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == 0){
-        MyEvaluateListVC *vc = [[MyEvaluateListVC alloc] initWithNibName:nil bundle:nil];
-        [self.navigationController pushViewController:vc animated:YES];
+        if(_nurseModel.commentsNumber == 0){
+            MyEvaluateListVC *vc = [[MyEvaluateListVC alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 
