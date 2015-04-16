@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "define.h"
 #import "LCNavigationbar.h"
+#import "UserAttentionVC.h"
+#import "MyOrderListVC.h"
+#import "FeedBackVC.h"
+#import "UserSettingVC.h"
+#import "EditCellTypeData.h"
+#import "EditUserInfoVC.h"
 
 @interface MainBaseVC : UIViewController<LCNavigationbarDelegate>
 
