@@ -24,7 +24,7 @@
 //详情
 @property (nonatomic, strong) NSString *registerId;//注册用户扩展表id
 @property (nonatomic, strong) NSString *addr;
-@property (nonatomic, assign) UserSex sex;
+@property (nonatomic, strong) NSString *sex;
 @property (nonatomic, strong) NSString *birthDay;
 @property (nonatomic, strong) NSString *career;
 @property (nonatomic, strong) NSString *intro;

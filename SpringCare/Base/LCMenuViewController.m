@@ -35,7 +35,9 @@
 - (void) dealloc
 {
     UserModel *model = [UserModel sharedUserInfo];
-    [model removeObserver:self forKeyPath:@"price"];
+    [model removeObserver:self forKeyPath:@"username"];
+    [model removeObserver:self forKeyPath:@"chineseName"];
+    [model removeObserver:self forKeyPath:@"headerFile"];
 }
 
 
@@ -45,6 +47,10 @@
     if([keyPath isEqualToString:@"username"])
     {
         [_btnUserName setTitle:model.username forState:UIControlStateNormal];
+    }
+    if([keyPath isEqualToString:@"chineseName"])
+    {
+        [_btnUserName setTitle:model.chineseName forState:UIControlStateNormal];
     }
     if ([keyPath isEqualToString:@"headerFile"]){
         [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
@@ -56,6 +62,7 @@
     [super viewDidLoad];
     
     UserModel *model = [UserModel sharedUserInfo];
+    [model addObserver:self forKeyPath:@"chineseName" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [model addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [model addObserver:self forKeyPath:@"headerFile" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     

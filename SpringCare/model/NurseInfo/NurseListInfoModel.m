@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "LCNetWorkBase.h"
 #import "CityDataModel.h"
+#import "UserModel.h"
 
 static NSMutableArray *nurseList = nil;
 static EnumNursePriceType modelType = EnumTypeUnKonwn;
@@ -204,20 +205,20 @@ static NSMutableDictionary *pramaNurseDic = nil;
     }];
 }
 
-- (void) loadetailData:(block) block;
+- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block
 {
-    NurseListInfoModel *model = [self modelWithNurseId:self.nid];
-    if(model == nil)
-    {
-        block(0);
-    }
-    else{
-        NSDictionary *prama = @{@"":@"", @"":@"", @"":@""};
+//    NurseListInfoModel *model = [self modelWithNurseId:self.nid];
+//    if(model == nil)
+//    {
+//        block(0);
+//    }
+//    else{
+        NSDictionary *prama = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"careId":self.nid, @"productId":productId};
         [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
             if(code){
-                NSDictionary *dic = [content objectForKey:@"cate"];
-                model.addr = [dic objectForKey:@"addr"];
-                model.isLoadDetail = YES;
+                NSDictionary *dic = [content objectForKey:@"care"];
+                self.addr = [dic objectForKey:@"addr"];
+                self.isLoadDetail = YES;
                 
                 NSArray *array = [dic objectForKey:@"defaultLover"];
 //                model.defaultLoverArray = [];
@@ -227,10 +228,11 @@ static NSMutableDictionary *pramaNurseDic = nil;
                     DefaultLoverModel *lmmodel = [DefaultLoverModel modelFromDictionary:dic];
                     [marray addObject:lmmodel];
                 }
-                model.defaultLoverArray = marray;
+                self.defaultLoverArray = marray;
+                self.detailIntro = [dic objectForKey:@"detailIntro"];
             }
         }];
-    }
+//    }
 }
 
 @end

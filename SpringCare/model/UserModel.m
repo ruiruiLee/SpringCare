@@ -59,12 +59,13 @@
     [LCNetWorkBase postWithMethod:@"api/register/detail" Params:dic Completion:^(int code, id content) {
         if(code){
             self.registerId = [content objectForKey:@"registerId"];
-            self.sex = ([[content objectForKey:@"sex"] intValue] == 0) ? EnumFemale : EnumMale;
+            self.sex = [content objectForKey:@"sex"];
             self.addr = [content objectForKey:@"addr"];
             self.birthDay = [content objectForKey:@"birthDay"];
             self.career = [content objectForKey:@"career"];
             self.intro = [content objectForKey:@"intro"];
             self.chineseName = [content objectForKey:@"chineseName"];
+            self.mobilePhoneNumber = [content objectForKey:@"phone"];
         }
     }];
 }

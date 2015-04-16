@@ -47,4 +47,17 @@
     return string;
 }
 
++ (int) getAgeWithBirthday:(NSString*) birthday
+{
+    int birth = [[birthday substringToIndex:4] intValue];
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
+    NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
+    int year = (int)[comps year];
+    
+    return (year - birth);
+}
+
 @end

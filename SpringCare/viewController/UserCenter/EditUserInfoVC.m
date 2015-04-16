@@ -46,16 +46,17 @@
         [mDic setObject:[UserModel sharedUserInfo].registerId forKey:@"registerId"];
         [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"baseUserId"];
         
-        for (int i = 1; i < [_data count]; i++) {
+        for (int i = 0; i < [_data count]; i++) {
             EditCellTypeData *typedata = [_data objectAtIndex:i];
-            EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview dequeueReusableCellWithIdentifier:@"cell" forIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];//[_tableview dequeueReusableCellWithIdentifier:@"cell" forIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             if(cell.tfEdit.text != nil){
+                NSLog(@"%@", cell.tfEdit.text);
                 if(typedata.cellType == EnumTypeUserName){
                     [mDic setObject:cell.tfEdit.text forKey:@"chineseName"];
                 }
                 else if(typedata.cellType == EnumTypeSex){
                     UserSex sex = [cell.tfEdit.text isEqualToString:@"女"] ? EnumFemale: EnumMale;
-                    [mDic setObject:[NSNumber numberWithBool:sex] forKey:@"chineseName"];
+                    [mDic setObject:[NSNumber numberWithBool:sex] forKey:@"sex"];
                 }
                 else if(typedata.cellType == EnumTypeAge){
                     NSString *age = cell.tfEdit.text;
@@ -70,7 +71,7 @@
                 else if(typedata.cellType == EnumTypeAddress){
                     [mDic setObject:cell.tfEdit.text forKey:@"addr"];
                 }
-                else if(typedata.cellType == EnumTypeMobile){
+                else if(typedata.cellType == EnumTypeAccount){
                     [mDic setObject:cell.tfEdit.text forKey:@"phone"];
                 }
 //                else if(typedata.cellType == EnumTypeRelationName){
@@ -82,7 +83,7 @@
             }
         }
         
-        [LCNetWorkBase postWithMethod:@"api/register/geo" Params:mDic Completion:^(int code, id content) {
+        [LCNetWorkBase postWithMethod:@"api/register/save" Params:mDic Completion:^(int code, id content) {
             if(code){
                 [[UserModel sharedUserInfo] getDetailUserInfo];
                 [self.navigationController popViewControllerAnimated:YES];
@@ -139,10 +140,10 @@
             cell.tfEdit.text = model.chineseName;
         }
         else if(typedata.cellType == EnumTypeSex){
-            cell.tfEdit.text = (model.sex == 0)? @"女": @"男";
+            cell.tfEdit.text = model.sex;
         }
         else if(typedata.cellType == EnumTypeAge){
-            cell.tfEdit.text = model.birthDay;
+            cell.tfEdit.text = [NSString stringWithFormat:@"%d", [Util getAgeWithBirthday:model.birthDay]];
         }
         else if(typedata.cellType == EnumTypeAddress){
             cell.tfEdit.text = model.addr;
@@ -169,7 +170,7 @@
 {
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     
-    EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:indexPath];;//[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:indexPath];//[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     [_sexPick remove];
     [_agePick remove];

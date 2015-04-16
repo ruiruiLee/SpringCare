@@ -13,6 +13,7 @@
 #import "PlaceOrderEditCell.h"
 #import "UIImageView+WebCache.h"
 #import "NurseListInfoModel.h"
+#import "MyEvaluateListVC.h"
 
 #define LIMIT_LINES 4
 
@@ -25,14 +26,19 @@
 
 @implementation PlaceOrderVC
 
-- (id) initWithModel:(NurseListInfoModel*) model
+- (void) dealloc
+{
+    [_nurseModel removeObserver:self forKeyPath:@"detailIntro"];
+}
+
+- (id) initWithModel:(NurseListInfoModel*) model andproductId:(NSString*)productId
 {
     self = [super initWithNibName:nil bundle:nil];
     if(self)
     {
         _nurseModel = model;
         
-        [_nurseModel loadetailData:^(int code) {
+        [_nurseModel loadetailDataWithproductId:productId block:^(int code) {
             if(code){
                 
             }
@@ -112,6 +118,23 @@
     _tableview.tableHeaderView = headerView;
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"detailIntro"])
+    {
+        if(_nurseModel.detailIntro != nil){
+            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_nurseModel.detailIntro];
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            [paragraphStyle setLineSpacing:2];//调整行间距
+            [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [_nurseModel.detailIntro length])];
+            _detailInfo.attributedText = attributedString;
+            
+            UIView *headerView = _tableview.tableHeaderView;
+            _tableview.tableHeaderView = headerView;
+        }
+    }
+}
+
 - (UIView*) createTableViewHeader
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 293)];
@@ -149,12 +172,15 @@
     _detailInfo.font = _FONT(13);
     _detailInfo.numberOfLines = LIMIT_LINES;
     _detailInfo.preferredMaxLayoutWidth = ScreenWidth - 44;
-    _detailInfo.text = _nurseModel.detailIntro;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_detailInfo.text];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:2];//调整行间距
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [_detailInfo.text length])];
-    _detailInfo.attributedText = attributedString;
+    [_nurseModel addObserver:self forKeyPath:@"detailIntro" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    if(_nurseModel.detailIntro != nil){
+        _detailInfo.text = _nurseModel.detailIntro;
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_detailInfo.text];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:2];//调整行间距
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [_detailInfo.text length])];
+        _detailInfo.attributedText = attributedString;
+    }
     
     CGRect frame = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:4];
     CGRect frame1 = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:5];
@@ -263,6 +289,10 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section == 0){
+        MyEvaluateListVC *vc = [[MyEvaluateListVC alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
