@@ -40,6 +40,9 @@
 
 #define chat_VoiceCache_file(_fileName) [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"VoiceCache"] stringByAppendingPathComponent:_fileName]
 
+//首页海报图片压缩比例大小
+#define imgCoverSize CGSizeMake(750, 508)
+
 //#define _FONT(s) [UIFont fontWithName:@"STHeitiSC-Medium" size:(s)]//[UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT(s) [UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT_B(s) [UIFont boldSystemFontOfSize:(s)]

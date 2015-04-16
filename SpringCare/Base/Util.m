@@ -60,4 +60,29 @@
     return (year - birth);
 }
 
+//图像等比例压缩 .充满空隙
+
++(UIImage *)fitSmallImage:(UIImage *)image scaledToSize:(CGSize)tosize
+{
+    if (!image)
+    {
+        return nil;
+    }
+    if (image.size.width<tosize.width && image.size.height<tosize.height)
+    {
+        return image;
+    }
+    CGFloat wscale = image.size.width/tosize.width;
+    CGFloat hscale = image.size.height/tosize.height;
+    CGFloat scale = (wscale>hscale)?wscale:hscale;
+    CGSize newSize = CGSizeMake(image.size.width/scale, image.size.height/scale);
+    UIGraphicsBeginImageContext(newSize);
+    CGRect rect = CGRectMake(0, 0, newSize.width, newSize.height);
+    [image drawInRect:rect];
+    UIImage *newimg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newimg;
+}
+
+
 @end
