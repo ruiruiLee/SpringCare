@@ -114,7 +114,9 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbWorkIntro]-8-[_btnLocation(21)]-15-|" options:0 metrics:nil views:views]];
     
     [_lbOldPrice addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lineation]-0-|" options:0 metrics:nil views:views]];
-    [_lbOldPrice addConstraint:[NSLayoutConstraint constraintWithItem:_lineation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbOldPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [_lbOldPrice addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lineation(1)]->=0-|" options:0 metrics:nil views:views]];
+    [_lbOldPrice addConstraint:[NSLayoutConstraint constraintWithItem:_lineation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbOldPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:1]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbOldPrice attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(82)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
 }
 
@@ -138,7 +140,11 @@
     _lbPrice.text = [NSString stringWithFormat:@"¥ %ld/天", (long)model.priceDiscount];//model.price;打折价格
     [_btnLocation setTitle:[NSString stringWithFormat:@"约%ld米", model.distance] forState:UIControlStateNormal];
     
-    _lbOldPrice.text = [NSString stringWithFormat:@"原价:$%ld/天", model.price];
+    _lbOldPrice.text = [NSString stringWithFormat:@"原价:¥%ld/天", model.price];
+    if(model.price == model.priceDiscount)
+        _lbOldPrice.hidden = YES;
+    else
+        _lbOldPrice.hidden = NO;
 }
 
 @end
