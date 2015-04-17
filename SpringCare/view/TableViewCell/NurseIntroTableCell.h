@@ -19,6 +19,8 @@
     UILabel *_lbNurseIntro;//籍贯等
     UILabel *_lbWorkIntro;//介绍
     UILabel *_lbPrice;//价格
+    UILabel *_lbOldPrice;//
+    UILabel *_lineation;
     UIButton *_btnLocation;//位置
     GradeInfoView *_gradeView;
     

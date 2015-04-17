@@ -66,6 +66,17 @@
     _lbWorkIntro.numberOfLines = 0;
     _lbWorkIntro.preferredMaxLayoutWidth = ScreenWidth - 117;
     
+    _lbOldPrice = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:_lbOldPrice];
+    _lbOldPrice.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbOldPrice.font = _FONT(14);
+    _lbOldPrice.textColor = _COLOR(0x99, 0x99, 0x99);
+    
+    _lineation = [[UILabel alloc] initWithFrame:CGRectZero];
+    [_lbOldPrice addSubview:_lineation];
+    _lineation.translatesAutoresizingMaskIntoConstraints = NO;
+    _lineation.backgroundColor = _COLOR(0x99, 0x99, 0x99);
+    
     _lbPrice = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbPrice];
     _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
@@ -86,7 +97,7 @@
     _line.translatesAutoresizingMaskIntoConstraints = NO;
     _line.backgroundColor = SeparatorLineColor;
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbWorkIntro, _lbNurseIntro, _lbName, _lbCommitCount, _imgCert, _imgPhoto, _btnLocation, _gradeView, _line);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbWorkIntro, _lbNurseIntro, _lbName, _lbCommitCount, _imgCert, _imgPhoto, _btnLocation, _gradeView, _line, _lbOldPrice, _lineation);
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_imgPhoto(82)]->=10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbName]-5-[_gradeView(70)]-5-[_lbCommitCount]->=0-|" options:0 metrics:nil views:views]];
@@ -99,9 +110,11 @@
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(82)]-10-[_lbWorkIntro]-10-|" options:0 metrics:nil views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(82)]-10-[_lbPrice]->=10-[_btnLocation]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(82)]-10-[_lbPrice]-8-[_lbOldPrice]->=10-[_btnLocation]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbWorkIntro]-8-[_btnLocation(21)]-15-|" options:0 metrics:nil views:views]];
     
+    [_lbOldPrice addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lineation]-0-|" options:0 metrics:nil views:views]];
+    [_lbOldPrice addConstraint:[NSLayoutConstraint constraintWithItem:_lineation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbOldPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(82)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
 }
 
@@ -124,6 +137,8 @@
     
     _lbPrice.text = [NSString stringWithFormat:@"¥ %ld/天", (long)model.priceDiscount];//model.price;打折价格
     [_btnLocation setTitle:[NSString stringWithFormat:@"约%ld米", model.distance] forState:UIControlStateNormal];
+    
+    _lbOldPrice.text = [NSString stringWithFormat:@"原价:$%ld/天", model.price];
 }
 
 @end
