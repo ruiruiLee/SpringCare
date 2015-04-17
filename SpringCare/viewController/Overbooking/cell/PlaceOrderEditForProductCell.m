@@ -159,7 +159,7 @@
     }
     else{
         cell.lbTitle.text = @"陪护地址";
-        cell.lbTitle.font = _FONT(15);
+        cell.lbTitle.font = _FONT(18);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderaddress"] forState:UIControlStateNormal];
     }
     

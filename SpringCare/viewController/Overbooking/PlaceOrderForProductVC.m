@@ -252,6 +252,7 @@
     PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     editcell.lbTitle.text = model.address;
+    editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
     
     _loverModel = model;
 }
