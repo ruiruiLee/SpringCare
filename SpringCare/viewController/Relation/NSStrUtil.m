@@ -73,6 +73,14 @@
     return sizeToFit.height+5;
 }
 
++ (float)widthForString:(NSString *)value fontSize:(float)fontSize
+{
+    CGSize sizeToFit = [value sizeWithFont:[UIFont systemFontOfSize:fontSize]
+                         constrainedToSize:CGSizeMake(CGFLOAT_MAX, 20)
+                             lineBreakMode:NSLineBreakByCharWrapping];
+    return sizeToFit.width;
+}
+
 +(NSString *)convertTimetoBroadFormat:(NSString*) inputDate{
     
     if (!inputDate||inputDate.length==0) {

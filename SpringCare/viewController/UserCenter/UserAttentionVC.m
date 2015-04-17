@@ -242,7 +242,7 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [_tableview deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void) doApplyAttention:(UIButton*) sender

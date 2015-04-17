@@ -94,10 +94,15 @@
     NSString *relation = model.relation;
     if(relation == nil || [relation length] == 0)
         relation = @"关系";
+    float width = [NSStrUtil widthForString:relation fontSize:15];
+    _btnRelationAndSex.titleEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 16);
+    _btnRelationAndSex.imageEdgeInsets = UIEdgeInsetsMake(0, width + 2, 0, 0);
     [_btnRelationAndSex setTitle:relation forState:UIControlStateNormal];
     UserSex sex = [Util GetSexByName:model.sex];
     if(sex == EnumUnknown){
         [_btnRelationAndSex setImage:nil forState:UIControlStateNormal];
+        _btnRelationAndSex.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        _btnRelationAndSex.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     }
     else if (sex == EnumMale){
         [_btnRelationAndSex setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];

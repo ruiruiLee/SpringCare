@@ -28,8 +28,8 @@
         [self.contentView addSubview:_btnRelation];
         _btnRelation.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnRelation setTitleColor:_COLOR(0x22, 0x22, 0x22) forState:UIControlStateNormal];
-//        _btnRelation.imageEdgeInsets = UIEdgeInsetsMake(0, 100, 0, 0);
-//        _btnRelation.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+//        _btnRelation.contentEdgeInsets = UIEdgeInsetsMake(0, 200, 0, 0);
+////        _btnRelation.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 24);
         _btnRelation.titleLabel.font = _FONT(18);
         _btnRelation.userInteractionEnabled = NO;
         
@@ -90,10 +90,15 @@
     NSString *relation = data.relation;
     if(relation == nil || [relation length] == 0)
         relation = @"关系";
+    float width = [NSStrUtil widthForString:relation fontSize:18];
+    _btnRelation.titleEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 18);
+    _btnRelation.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, 0);
     [_btnRelation setTitle:relation forState:UIControlStateNormal];
     UserSex sex = [Util GetSexByName:data.sex];
     if(sex == EnumUnknown){
         [_btnRelation setImage:nil forState:UIControlStateNormal];
+        _btnRelation.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        _btnRelation.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     }
     else if (sex == EnumMale){
         [_btnRelation setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];

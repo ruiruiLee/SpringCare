@@ -225,10 +225,13 @@
     _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
     _btnInfo.titleLabel.font = _FONT(12);
     [_btnInfo setTitleColor:_COLOR(0x6b, 0x4e, 0x3e) forState:UIControlStateNormal];
-    [_btnInfo setTitle: [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge] forState:UIControlStateNormal];
+    NSString *title = [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge];
+    [_btnInfo setTitle:title  forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
-//    _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, _btnInfo.frame.size.width - 21);
-    _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 21, 0, 0);
+    float width = [NSStrUtil widthForString:title fontSize:12];
+    _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, width);
+    _btnInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
     _detailInfo = [[UILabel alloc] initWithFrame:CGRectZero];
     _detailInfo.translatesAutoresizingMaskIntoConstraints = NO;

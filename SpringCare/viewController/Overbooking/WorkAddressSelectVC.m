@@ -47,7 +47,7 @@
 {
     NSMutableArray *mArray = [[NSMutableArray alloc] init];
     EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
-    data1.cellTitleName = @"地址（必填）";
+    data1.cellTitleName = @"地址";
     data1.cellType = EnumTypeAddress;
     [mArray addObject:data1];
     
