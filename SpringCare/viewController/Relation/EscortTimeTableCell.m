@@ -7,7 +7,7 @@
 //
 
 #import "EscortTimeTableCell.h"
-
+#import "NSStrUtil.h"
 @implementation EscortTimeTableCell
 @synthesize cellDelegate;
 
@@ -39,13 +39,14 @@
 {
     //时间轴
     _lbToday = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 60, 60)];
-    _lbToday.font = _FONT(20);
+    _lbToday.font = _FONT_B(20);
     _lbToday.textAlignment = NSTextAlignmentCenter;
     _lbToday.textColor = [UIColor whiteColor];
     _lbToday.backgroundColor = Abled_Color;
     _lbToday.layer.cornerRadius = 30;
     _lbToday.clipsToBounds = YES;
-    _lbToday.text = @"14/03";
+    _lbToday.text = [NSStrUtil convertTimetoBroadFormat:@"2015-04-17"];
+   // _lbToday.text = @"14/03";
     
     _lbTimeLine = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbTimeLine];
@@ -54,15 +55,16 @@
     [self.contentView addSubview:_lbToday];
     
     //文字内容
-    _lbContent = [[HBCoreLabel alloc] initWithFrame:CGRectZero];
+    _lbContent = [[UILabel alloc] initWithFrame:CGRectZero];
     _lbContent.backgroundColor = [UIColor clearColor];
-    _lbContent.font = _FONT(14);
+    _lbContent.font = _FONT(15);
     _lbContent.textColor = _COLOR(73, 73, 73);
     _lbContent.numberOfLines = 0;
     [self.contentView addSubview:_lbContent];
     _lbContent.translatesAutoresizingMaskIntoConstraints = NO;
     [_lbContent setLineBreakMode:NSLineBreakByClipping];
     _lbContent.preferredMaxLayoutWidth = Content_Width;
+   // _lbContent.backgroundColor = [UIColor redColor];
     
     //展开或关闭
     _btnFoldOrUnfold = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -150,7 +152,7 @@
 
     //回复列表背景
     _replyTableBg = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _replyTableBg.image=[[UIImage imageNamed:@"escorttimereply_bg"] stretchableImageWithLeftCapWidth:40 topCapHeight:40];
+    _replyTableBg.image=[[UIImage imageNamed:@"escorttimereply_bg"] stretchableImageWithLeftCapWidth:40 topCapHeight:20];
     _replyTableBg.userInteractionEnabled=YES;
     [_replyContent addSubview:_replyTableBg];
     _replyTableBg.translatesAutoresizingMaskIntoConstraints = NO;
@@ -212,10 +214,12 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    return 80.f;
-    NSArray *dataArray =  _model.replyData;
+   NSArray *dataArray =  _model.replyData;
     EscortTimeReplyDataModel *data = [dataArray objectAtIndex:indexPath.row];
     //    return [EscortTimeTableCell GetCellHeightWithData:data];
-    return data.height + 4;
+   // return data.height + 4;
+     data.height =[self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+    return data.height;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -252,12 +256,15 @@
         [format appendString:@"[_lbContent]"];
         [format appendString:@"-2-"];
         _lbContent.text = textContent;
-        [_lbContent setMatch:data.parser];
-        
+        //[_lbContent setMatch:data.parser];
+        CGFloat labcontentHeight=[NSStrUtil heightForString:_lbContent.text
+                                                      fontSize:_lbContent.font.pointSize
+                                                      andWidth:_lbContent.frame.size.width];
+
         _btnFoldOrUnfold.hidden = NO;
-        if (data.numberOfLinesTotal > data.numberOfLineLimit) {
+        if (labcontentHeight > numberOfLineLimit) {
             if(!data.isShut){
-                _lbContent.numberOfLines = data.numberOfLineLimit;
+                _lbContent.numberOfLines = numberOfLineLimit;
                 [format appendString:@"[_btnFoldOrUnfold]"];
                 [format appendString:@"-3-"];
                 [_btnFoldOrUnfold setTitle:@"全文" forState:UIControlStateNormal];

@@ -65,6 +65,42 @@
     return [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
++ (float)heightForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width
+{
+    CGSize sizeToFit = [value sizeWithFont:[UIFont systemFontOfSize:fontSize]
+                         constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
+                             lineBreakMode:NSLineBreakByCharWrapping];
+    return sizeToFit.height+5;
+}
+
++(NSString *)convertTimetoBroadFormat:(NSString*) inputDate{
+    
+    if (!inputDate||inputDate.length==0) {
+        return @"";
+    }
+    inputDate = [inputDate substringToIndex:10];
+    //实例化一个NSDateFormatter对象
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate* compareDate = [dateFormatter dateFromString:inputDate];
+    NSTimeInterval  timeInterval = [compareDate timeIntervalSinceNow];
+    timeInterval = -timeInterval;
+    NSInteger temp = timeInterval/60/60; // 小时
+    NSString *result=@"";
+    if(temp<24){
+        result = NSLocalizedString(@"今天", @"");
+    }
+    else if(temp/24 <2){
+        result = NSLocalizedString(@"昨天", @"");
+    }
+    else{
+        //[dateFormatter setDateFormat:NSLocalizedString(@"MD",nil)];
+        [dateFormatter setDateFormat:@"dd/MM"];
+        result = [dateFormatter stringFromDate:compareDate];
+    }
+    return  result;
+}
+
 UIColor* colorFromHexRGB(NSString *inColorString){
     
     if ([NSStrUtil isEmptyOrNull:inColorString]) {

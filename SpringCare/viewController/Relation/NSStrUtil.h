@@ -30,6 +30,10 @@ typedef enum : NSUInteger {
 
 + (NSString *)trimString:(NSString *) str;
 
++ (float) heightForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width;
+
++(NSString *) convertTimetoBroadFormat:(NSString*)inputDate;
+
 + (EnDeviceType) GetCurrentDeviceType;
 
 @end

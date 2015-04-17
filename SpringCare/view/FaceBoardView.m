@@ -242,8 +242,10 @@ SingleEmojiViewDelegate>
     [_bottomView setBackgroundColor: _COLOR(236, 236, 236)];   //RGBwithHex(0xeeeff4)
     UIButton * btnSend = [UIButton buttonWithType:UIButtonTypeCustom];
     btnSend.frame = CGRectMake(_bottomView.frame.size.width-53,_bottomView.frame.origin.y-2,50,bottomHeight);
-     btnSend.titleLabel.font = [UIFont boldSystemFontOfSize:13.0f];
-   [btnSend setBackgroundImage:ThemeImage(@"nav_btn") forState:UIControlStateNormal];
+     btnSend.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+   //[btnSend setBackgroundImage:ThemeImage(@"nav_btn") forState:UIControlStateNormal];
+    btnSend.backgroundColor = Abled_Color;
+    btnSend.layer.cornerRadius = 3;
      [btnSend setTitle:@"发送" forState:UIControlStateNormal];
     [btnSend addTarget:self action:@selector(sendButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_bottomView];
