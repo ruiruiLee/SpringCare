@@ -214,11 +214,10 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    return 80.f;
-   NSArray *dataArray =  _model.replyData;
+    NSArray *dataArray =  _model.replyData;
     EscortTimeReplyDataModel *data = [dataArray objectAtIndex:indexPath.row];
-    //    return [EscortTimeTableCell GetCellHeightWithData:data];
-   // return data.height + 4;
-     data.height =[self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+    
+    data.height =[self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
     return data.height;
 }
 
@@ -241,6 +240,12 @@
 {
     _model = data;
     
+    for (int i = 0; i < [_model.replyData count]; i++) {
+        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
+        EscortTimeReplyDataModel *data = [_model.replyData objectAtIndex:indexpath.row];
+        data.height =[self tableView:_replyTableView cellForRowAtIndexPath:indexpath].frame.size.height;
+    }
+    
     NSString *textContent = data.textContent;//文字内容
     NSString *voiceContentUrl = data.voiceContentUrl;//音频内容地址
 //    NSString *voiceLen = data.voiceLen;//音频时长
@@ -248,7 +253,6 @@
     NSArray *replyData = data.replyData;//回复数据
     NSArray *imgPicArray = data.imgPicArray;//图片数据列表
     
-//    NSMutableString *format = @"V:|-10-[_lbContent]-3-[_btnFoldOrUnfold]-3-[_btnVolice]-3-[_imageContent]-3-[_replyContent]-10-|";
     NSMutableString *format = [[NSMutableString alloc] init];
     [format appendString:@"V:|-20-"];
     if(textContent != nil && ![textContent isKindOfClass:[NSNull class]]){
@@ -256,7 +260,6 @@
         [format appendString:@"[_lbContent]"];
         [format appendString:@"-2-"];
         _lbContent.text = textContent;
-        //[_lbContent setMatch:data.parser];
         CGFloat labcontentHeight=[NSStrUtil heightForString:_lbContent.text
                                                       fontSize:_lbContent.font.pointSize
                                                       andWidth:_lbContent.frame.size.width];
@@ -328,15 +331,16 @@
         for (int i = 0; i < [replyData count]; i++) {
             EscortTimeReplyDataModel *model = [replyData objectAtIndex:i];
             height += model.height;
-            height += 4;
         }
         NSString *tableviewformat = [NSString stringWithFormat:@"V:|-13-[_replyTableView(%f)]-5-|", height];
         hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:tableviewformat options:0 metrics:nil views:views];
         [_replyTableBg addConstraints:hReplyTableLayoutArray];
+        _replyTableBg.hidden = NO;
     }
     else{
         hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_replyTableView]-0-|" options:0 metrics:nil views:views];
         [_replyTableBg addConstraints:hReplyTableLayoutArray];
+        _replyTableBg.hidden = YES;
     }
 }
 
