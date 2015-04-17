@@ -20,6 +20,7 @@
 @property (nonatomic, assign) BOOL isCare;//是否关注对象
 @property (nonatomic, strong) NSString *sex;
 @property (nonatomic, strong) NSString *height;
+@property (nonatomic, strong) NSString *age;
 
 + (NSMutableArray*) GetMyAttentionArray;
 

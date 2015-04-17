@@ -21,6 +21,7 @@ static NSMutableArray *myAttentionArray = nil;
 @synthesize relation;
 @synthesize address;
 @synthesize isCare;
+@synthesize age;
 
 + (NSMutableArray*) GetMyAttentionArray
 {
@@ -44,13 +45,24 @@ static NSMutableArray *myAttentionArray = nil;
     UserAttentionModel *model = [[UserAttentionModel alloc] init];
     model.userid = [dic objectForKey:@"id"];
     model.username = [dic objectForKey:@"name"];
+    if(model.username == nil)
+        model.username = @"";
     model.ringNum = [dic objectForKey:@"phone"];
     model.photoUrl = [dic objectForKey:@"headerImage"];
     model.relation = [dic objectForKey:@"nickname"];
+    if(model.relation == nil)
+        model.relation = @"";
     model.address = [dic objectForKey:@"addr"];
+    if(model.address == nil)
+        model.address = @"";
     model.isCare = [[dic objectForKey:@"isCare"] boolValue];
     model.sex = [dic objectForKey:@"sex"];
     model.height = [dic objectForKey:@"height"];
+    if(model.height == nil)
+        model.height = @"";
+    model.age = [dic objectForKey:@"age"];
+    if(model.age == nil)
+        model.age = @"";
     
     return model;
 }

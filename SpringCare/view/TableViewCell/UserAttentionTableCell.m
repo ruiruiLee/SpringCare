@@ -89,7 +89,7 @@
     
     NSString *relation = data.relation;
     if(relation == nil || [relation length] == 0)
-        relation = @"关系";
+        relation = @"昵称";
     float width = [NSStrUtil widthForString:relation fontSize:18];
     _btnRelation.titleEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 18);
     _btnRelation.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, 0);
@@ -107,7 +107,7 @@
         [_btnRelation setImage:[UIImage imageNamed:@"femail"] forState:UIControlStateNormal];
     }
     
-    _lbName.text = [NSString stringWithFormat:@"%@  身高:%@米", data.username, data.height];
+    _lbName.text = [NSString stringWithFormat:@"%@  年龄:%@  身高:%@米", data.username, data.age, data.height];
     _Address.text = data.address;
     if(data.address == nil){
         _Address.text = @"地址:";

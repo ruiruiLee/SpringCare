@@ -89,11 +89,11 @@
     if(model.address == nil){
         _lbAddress.text = @"地址";
     }
-    _lbName.text = [NSString stringWithFormat:@"%@  身高:%@米", model.username, model.height];
+    _lbName.text = [NSString stringWithFormat:@"%@  年龄:%@  身高:%@米", model.username, model.age, model.height];
     
     NSString *relation = model.relation;
     if(relation == nil || [relation length] == 0)
-        relation = @"关系";
+        relation = @"昵称";
     float width = [NSStrUtil widthForString:relation fontSize:15];
     _btnRelationAndSex.titleEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 16);
     _btnRelationAndSex.imageEdgeInsets = UIEdgeInsetsMake(0, width + 2, 0, 0);
