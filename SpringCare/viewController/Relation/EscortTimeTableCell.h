@@ -10,7 +10,6 @@
 #import "EscortTimeDataModel.h"
 #import "ImageLayoutView.h"
 #import "define.h"
-#import "HBCoreLabel.h"
 #import "EscortTimeReplyCell.h"
 #import "RecoderAndPlayer.h"
 
@@ -27,7 +26,7 @@ typedef void(^ReplayAction)(int index);
 {
     ImageLayoutView *_imageContent;
     UIView *_replyContent;
-    HBCoreLabel *_lbContent;
+    UILabel *_lbContent;
     UIButton *_btnVolice;
     UILabel *_lbVoliceLimit;
     UIButton *_btnVideo;
@@ -53,9 +52,9 @@ typedef void(^ReplayAction)(int index);
     
     UILabel *_lbTimeLine;
     UILabel *_lbToday;
-//    UIView *_headDateView;
     
     UILabel *_line;
+    NSString *previousTime;
 }
 
 

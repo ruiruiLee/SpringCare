@@ -94,11 +94,9 @@
 		865C85921ACCEDFF006ABCA4 /* EscortTimeReplyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85711ACCEDFF006ABCA4 /* EscortTimeReplyCell.m */; };
 		865C85931ACCEDFF006ABCA4 /* EscortTimeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85731ACCEDFF006ABCA4 /* EscortTimeTableCell.m */; };
 		865C85941ACCEDFF006ABCA4 /* EscortTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85751ACCEDFF006ABCA4 /* EscortTimeVC.m */; };
-		865C85951ACCEDFF006ABCA4 /* HBCoreLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85771ACCEDFF006ABCA4 /* HBCoreLabel.m */; };
 		865C85961ACCEDFF006ABCA4 /* HBImageScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85791ACCEDFF006ABCA4 /* HBImageScroller.m */; };
 		865C85971ACCEDFF006ABCA4 /* HBImageViewList.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C857B1ACCEDFF006ABCA4 /* HBImageViewList.m */; };
 		865C85981ACCEDFF006ABCA4 /* ImageLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C857D1ACCEDFF006ABCA4 /* ImageLayoutView.m */; };
-		865C85991ACCEDFF006ABCA4 /* MatchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C857F1ACCEDFF006ABCA4 /* MatchParser.m */; };
 		865C859A1ACCEDFF006ABCA4 /* NSImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85811ACCEDFF006ABCA4 /* NSImageUtil.m */; };
 		865C859B1ACCEDFF006ABCA4 /* NSStrUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85831ACCEDFF006ABCA4 /* NSStrUtil.m */; };
 		865C859C1ACCEDFF006ABCA4 /* ObjImageDataInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85851ACCEDFF006ABCA4 /* ObjImageDataInfo.m */; };
@@ -217,6 +215,7 @@
 		CFAFA3B21ABFEC8C0020E774 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3B11ABFEC8C0020E774 /* AppDelegate.m */; };
 		CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */; };
 		CFAFA3C91ABFEC8C0020E774 /* SpringCareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */; };
+		CFB42D131AE0AF6F00FDF891 /* TextAndEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB42D121AE0AF6F00FDF891 /* TextAndEmojiView.m */; };
 		CFBC50241ADB7056004FB8F3 /* escorttimereply_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CFBC50231ADB7056004FB8F3 /* escorttimereply_bg@2x.png */; };
 		CFBC50281ADBA9EF004FB8F3 /* feedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC50261ADBA9EE004FB8F3 /* feedbackView.m */; };
 		CFBC50291ADBA9EF004FB8F3 /* feedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFBC50271ADBA9EE004FB8F3 /* feedbackView.xib */; };
@@ -573,16 +572,12 @@
 		865C85731ACCEDFF006ABCA4 /* EscortTimeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EscortTimeTableCell.m; sourceTree = "<group>"; };
 		865C85741ACCEDFF006ABCA4 /* EscortTimeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EscortTimeVC.h; sourceTree = "<group>"; };
 		865C85751ACCEDFF006ABCA4 /* EscortTimeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EscortTimeVC.m; sourceTree = "<group>"; };
-		865C85761ACCEDFF006ABCA4 /* HBCoreLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCoreLabel.h; sourceTree = "<group>"; };
-		865C85771ACCEDFF006ABCA4 /* HBCoreLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCoreLabel.m; sourceTree = "<group>"; };
 		865C85781ACCEDFF006ABCA4 /* HBImageScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBImageScroller.h; sourceTree = "<group>"; };
 		865C85791ACCEDFF006ABCA4 /* HBImageScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBImageScroller.m; sourceTree = "<group>"; };
 		865C857A1ACCEDFF006ABCA4 /* HBImageViewList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBImageViewList.h; sourceTree = "<group>"; };
 		865C857B1ACCEDFF006ABCA4 /* HBImageViewList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBImageViewList.m; sourceTree = "<group>"; };
 		865C857C1ACCEDFF006ABCA4 /* ImageLayoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLayoutView.h; sourceTree = "<group>"; };
 		865C857D1ACCEDFF006ABCA4 /* ImageLayoutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLayoutView.m; sourceTree = "<group>"; };
-		865C857E1ACCEDFF006ABCA4 /* MatchParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchParser.h; sourceTree = "<group>"; };
-		865C857F1ACCEDFF006ABCA4 /* MatchParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchParser.m; sourceTree = "<group>"; };
 		865C85801ACCEDFF006ABCA4 /* NSImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageUtil.h; sourceTree = "<group>"; };
 		865C85811ACCEDFF006ABCA4 /* NSImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImageUtil.m; sourceTree = "<group>"; };
 		865C85821ACCEDFF006ABCA4 /* NSStrUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStrUtil.h; sourceTree = "<group>"; };
@@ -771,6 +766,8 @@
 		CFAFA3C21ABFEC8C0020E774 /* SpringCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpringCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFAFA3C71ABFEC8C0020E774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpringCareTests.m; sourceTree = "<group>"; };
+		CFB42D111AE0AF6F00FDF891 /* TextAndEmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAndEmojiView.h; sourceTree = "<group>"; };
+		CFB42D121AE0AF6F00FDF891 /* TextAndEmojiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextAndEmojiView.m; sourceTree = "<group>"; };
 		CFBC50231ADB7056004FB8F3 /* escorttimereply_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "escorttimereply_bg@2x.png"; sourceTree = "<group>"; };
 		CFBC50251ADBA9EE004FB8F3 /* feedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = feedbackView.h; sourceTree = "<group>"; };
 		CFBC50261ADBA9EE004FB8F3 /* feedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = feedbackView.m; sourceTree = "<group>"; };
@@ -1247,6 +1244,8 @@
 		8642C9501ABFF54C00251921 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				CFB42D111AE0AF6F00FDF891 /* TextAndEmojiView.h */,
+				CFB42D121AE0AF6F00FDF891 /* TextAndEmojiView.m */,
 				CFBC518D1ADBAAAC004FB8F3 /* FaceBoardView.m */,
 				CFBC518E1ADBAAAC004FB8F3 /* FaceBoardView.h */,
 				CFBC50251ADBA9EE004FB8F3 /* feedbackView.h */,
@@ -1341,16 +1340,12 @@
 				865C85731ACCEDFF006ABCA4 /* EscortTimeTableCell.m */,
 				865C85741ACCEDFF006ABCA4 /* EscortTimeVC.h */,
 				865C85751ACCEDFF006ABCA4 /* EscortTimeVC.m */,
-				865C85761ACCEDFF006ABCA4 /* HBCoreLabel.h */,
-				865C85771ACCEDFF006ABCA4 /* HBCoreLabel.m */,
 				865C85781ACCEDFF006ABCA4 /* HBImageScroller.h */,
 				865C85791ACCEDFF006ABCA4 /* HBImageScroller.m */,
 				865C857A1ACCEDFF006ABCA4 /* HBImageViewList.h */,
 				865C857B1ACCEDFF006ABCA4 /* HBImageViewList.m */,
 				865C857C1ACCEDFF006ABCA4 /* ImageLayoutView.h */,
 				865C857D1ACCEDFF006ABCA4 /* ImageLayoutView.m */,
-				865C857E1ACCEDFF006ABCA4 /* MatchParser.h */,
-				865C857F1ACCEDFF006ABCA4 /* MatchParser.m */,
 				865C85801ACCEDFF006ABCA4 /* NSImageUtil.h */,
 				865C85811ACCEDFF006ABCA4 /* NSImageUtil.m */,
 				865C85821ACCEDFF006ABCA4 /* NSStrUtil.h */,
@@ -2471,7 +2466,6 @@
 				CFBC50281ADBA9EF004FB8F3 /* feedbackView.m in Sources */,
 				86B8E5E11AD8C13900A5139E /* PlaceOrderEditForProductCell.m in Sources */,
 				86C095551ACFB93700371BF3 /* CityListCell.m in Sources */,
-				865C85991ACCEDFF006ABCA4 /* MatchParser.m in Sources */,
 				86B8E60F1AD952E500A5139E /* NurseListVC.m in Sources */,
 				8642C9481ABFF53C00251921 /* SDWebImagePrefetcher.m in Sources */,
 				863C8E381AD29E9F009D7496 /* UserApplyAttentionTableCell.m in Sources */,
@@ -2481,7 +2475,6 @@
 				868B23A41ADF9537003AAD2A /* WorkAddressSelectVC.m in Sources */,
 				8642C9641ABFF56500251921 /* RootViewController.m in Sources */,
 				865C85961ACCEDFF006ABCA4 /* HBImageScroller.m in Sources */,
-				865C85951ACCEDFF006ABCA4 /* HBCoreLabel.m in Sources */,
 				8642C9B61AC2956000251921 /* MenuTableViewCell.m in Sources */,
 				86B0994D1ACC07430005BC98 /* LoginVC.m in Sources */,
 				8642C93D1ABFF53C00251921 /* SBJsonTokeniser.m in Sources */,
@@ -2493,6 +2486,7 @@
 				86B8E5DE1AD7EEF800A5139E /* PlaceOrderForProductVC.m in Sources */,
 				86B96AA51ADBA01B00441168 /* Util.m in Sources */,
 				869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */,
+				CFB42D131AE0AF6F00FDF891 /* TextAndEmojiView.m in Sources */,
 				86B8E6121AD95B2A00A5139E /* ProductInfoCell.m in Sources */,
 				868B23A71ADF9769003AAD2A /* WorkAddressCell.m in Sources */,
 				8642C9471ABFF53C00251921 /* SDWebImageManager.m in Sources */,
@@ -2629,7 +2623,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2664,7 +2658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

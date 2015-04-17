@@ -137,7 +137,7 @@
         city = model.city_name;
         ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
     }else
-        city = @"成都";
+        city = @"成都市";
     if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
     {
         [delegate NotifyCitySelectedWithData:city];

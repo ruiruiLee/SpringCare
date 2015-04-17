@@ -17,13 +17,16 @@
     if(self){
         self.backgroundColor = [UIColor clearColor];
         
-        _lbReplyContent = [[HBCoreLabel alloc] initWithFrame:CGRectZero];
+        _lbReplyContent = [[TextAndEmojiView alloc]init];
         [self.contentView addSubview:_lbReplyContent];
-        _lbReplyContent.numberOfLines = 0;
-        _lbReplyContent.backgroundColor = [UIColor clearColor];
-        _lbReplyContent.font = _FONT(14);
-        _lbReplyContent.textColor = _COLOR(0x66, 0x66, 0x66);
+    
+        _lbReplyContent.fontsize = 14.0f;
+        _lbReplyContent.fontcolor = _COLOR(0x66, 0x66, 0x66);
         _lbReplyContent.translatesAutoresizingMaskIntoConstraints = NO;
+        _lbReplyContent.maxWidth=240;
+       
+       
+
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_lbReplyContent);
         [self.contentView addConstraints:[NSLayoutConstraint
@@ -46,8 +49,7 @@
 
 - (void) setContentWithData:(EscortTimeReplyDataModel*)data
 {
-//    _lbReplyContent.text = data.publishContent;
-    [_lbReplyContent setMatch:data.parser];
+    _lbReplyContent.textString = data.publishContent;
 }
 
 @end
