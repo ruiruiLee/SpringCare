@@ -10,9 +10,16 @@
 #import "define.h"
 #import "AppDelegate.h"
 
+static NSString *currentCity = nil;
+
 @implementation LocationManagerObserver
 @synthesize lat;
 @synthesize lon;
+
++ (NSString*) getCurrentCityName
+{
+    return currentCity;
+}
 
 - (id) init
 {
@@ -35,8 +42,8 @@
     CLAuthorizationStatus status =[CLLocationManager authorizationStatus];
     if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
         AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        CityDataModel *model = [[CityDataModel alloc] init ];
-        model.city_name=@"成都市";
+        currentCity = @"成都市";
+        CityDataModel *model = [CityDataModel modelWithName:currentCity];
         delegate.currentCityModel = model;
     }else{
     //启动位置更新

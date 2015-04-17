@@ -50,6 +50,7 @@ static NSMutableArray *cityDataArray = nil;
         }
     }
     
+    NSString *currentCity = [LocationManagerObserver getCurrentCityName];
     if(currentCity != nil){
         CityDataModel *model = [CityDataModel modelWithName:currentCity];
         if(model){
