@@ -10,6 +10,9 @@
 #import "define.h"
 
 @interface UserModel : NSObject
+{
+    BOOL isLogin;
+}
 
 
 @property (nonatomic, strong) NSString *mobilePhoneNumber;

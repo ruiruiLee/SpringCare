@@ -109,6 +109,9 @@
         {
             WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"关于我们" url:@""];
             [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"用户陪护协议" url:@""];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }

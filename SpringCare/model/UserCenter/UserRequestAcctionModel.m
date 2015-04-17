@@ -8,7 +8,6 @@
 
 #import "UserRequestAcctionModel.h"
 #import "LCNetWorkBase.h"
-#import "UserModel.h"
 
 static NSMutableArray *requestAcctionArray = nil;
 

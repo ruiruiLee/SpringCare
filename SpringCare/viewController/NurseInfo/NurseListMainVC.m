@@ -85,17 +85,14 @@
     pullTableView.tableFooterView = footer;
     
     AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    self.DataList = [NurseListInfoModel nurseListModel];
-    if([self.DataList count] == 0){
-        [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:delegate.defaultProductId block:^(int code) {
-            self.DataList = [NurseListInfoModel nurseListModel];
-            [pullTableView reloadData];
-            [self refreshTable];
-        }];
-        
-        if(!self.pullTableView.pullTableIsRefreshing) {
-            self.pullTableView.pullTableIsRefreshing = YES;
-        }
+    [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:delegate.defaultProductId block:^(int code) {
+        self.DataList = [NurseListInfoModel nurseListModel];
+        [pullTableView reloadData];
+        [self refreshTable];
+    }];
+    
+    if(!self.pullTableView.pullTableIsRefreshing) {
+        self.pullTableView.pullTableIsRefreshing = YES;
     }
 }
 

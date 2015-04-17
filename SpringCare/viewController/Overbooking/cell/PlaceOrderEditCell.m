@@ -62,6 +62,9 @@
 
 @implementation PlaceOrderEditCell
 @synthesize delegate;
+@synthesize _tableview = _tableview;
+@synthesize businessTypeView;
+@synthesize dateSelectView;
 
 - (void) dealloc
 {
@@ -241,7 +244,7 @@
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultDate:(NSDate *)resultDate
 {
     PlaceOrderEditItemCell *cell = (PlaceOrderEditItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.lbTitle.text = [NSString stringWithFormat:@"服务开始时间：%@", [Util StringFromDate:resultDate]];
+    cell.lbTitle.text = [NSString stringWithFormat:@"%@", [Util StringFromDate:resultDate]];
 }
 
 - (void) setNurseListInfo:(NurseListInfoModel*) model
@@ -249,7 +252,7 @@
     _nurseData = model;
     NSInteger days = [dateSelectView getDays];
     NSInteger hour = (businessTypeView.businesstype == EnumType12Hours) ?12 : 24;
-    NSInteger uPrice = model.price;
+    NSInteger uPrice = model.priceDiscount;
     if(businessTypeView.businesstype == EnumType12Hours)
         uPrice = uPrice/2;
     NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", uPrice];

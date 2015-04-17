@@ -19,6 +19,8 @@
     UILabel *_line;
 }
 
+@property (nonatomic, strong) UIButton *_btnSelect;
+
 - (void) setContentWithModel:(UserAttentionModel*) model;
 
 @end

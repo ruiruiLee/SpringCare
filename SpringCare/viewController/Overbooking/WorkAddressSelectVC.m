@@ -12,7 +12,6 @@
 #import "LCNetWorkBase.h"
 #import "EditCellTypeData.h"
 #import "EditUserInfoVC.h"
-#import "UserAttentionModel.h"
 
 @interface WorkAddressSelectVC ()
 {
@@ -22,6 +21,7 @@
 @end
 
 @implementation WorkAddressSelectVC
+@synthesize delegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -142,12 +142,57 @@
     WorkAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     UserAttentionModel * model = [_dataList objectAtIndex:indexPath.row];
     [cell setContentWithModel:model];
+    [cell._btnSelect addTarget:self action:@selector(btnSelected:) forControlEvents:UIControlEventTouchUpInside];
+    cell._btnSelect.tag = 100+indexPath.row;
+    
+    if(selectIndexpath != nil){
+        if(indexPath.row == selectIndexpath.row && indexPath.section == selectIndexpath.section){
+            cell._btnSelect.selected = YES;
+        }
+    }
     return cell;
+}
+
+- (void) btnSelected:(UIButton*)sender
+{
+    sender.selected = !sender.selected;
+    if(sender.selected == YES){
+        
+        if(delegate && [delegate respondsToSelector:@selector(NotifyAddressSelected:model:)]){
+            if([_dataList count] > sender.tag - 100 && sender.tag - 100 >= 0)
+                [delegate NotifyAddressSelected:self model:[_dataList objectAtIndex:sender.tag - 100]];
+        }
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+//    if(sender.selected == YES)
+//    {
+//        if(selectIndexpath != nil){
+//            WorkAddressCell *cell = (WorkAddressCell*)[_tableview cellForRowAtIndexPath:selectIndexpath];
+//            cell._btnSelect.selected = NO;
+//        }
+//        selectIndexpath = [NSIndexPath indexPathForRow:sender.tag - 100 inSection:0];
+//    }else
+//        selectIndexpath = nil;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+- (void) setSelectItemWithLoverId:(NSString*) loverId
+{
+    for (int i = 0; i < [_dataList count]; i++) {
+        UserAttentionModel *model = [_dataList objectAtIndex:i];
+        if([loverId isEqualToString:model.userid]){
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            selectIndexpath = indexPath;
+            WorkAddressCell *cell = (WorkAddressCell*)[_tableview cellForRowAtIndexPath:indexPath];
+            cell._btnSelect.selected = YES;
+        }
+    }
 }
 
 @end

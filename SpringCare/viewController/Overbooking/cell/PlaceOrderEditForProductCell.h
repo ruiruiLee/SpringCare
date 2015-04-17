@@ -34,6 +34,9 @@
 }
 
 @property (nonatomic, assign) id<PlaceOrderEditForProductCellDelegate> delegate;
+@property (nonatomic, strong) UITableView *_tableview;
+@property (nonatomic, strong) UnitsTypeView *businessTypeView;
+@property (nonatomic, strong) DateCountSelectView *dateSelectView;
 
 - (void) setNurseListInfo:(FamilyProductModel*) model;
 

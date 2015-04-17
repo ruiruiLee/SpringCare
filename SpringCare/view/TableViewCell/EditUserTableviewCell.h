@@ -20,9 +20,8 @@
 @property (nonatomic ,strong) UITextField *tfEdit;
 @property (nonatomic , assign) EditCellType cellType;
 @property (nonatomic, strong) UILabel *lbUnit;
+@property (nonatomic, strong) NSArray *layoutArray;
 
 - (void) SetcontentData:(EditCellTypeData*) celldata info:(NSDictionary*) info;
-
-- (void) initCellWithData:(EditCellTypeData*) celldata info:(NSDictionary*) info;
 
 @end

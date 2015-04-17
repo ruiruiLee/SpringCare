@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSString *ringNum;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, assign) BOOL isCare;//是否关注对象
+@property (nonatomic, strong) NSString *sex;
+@property (nonatomic, strong) NSString *height;
 
 + (NSMutableArray*) GetMyAttentionArray;
 
