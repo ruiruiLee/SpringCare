@@ -40,20 +40,37 @@
 - (id)init
 {
     self = [super init];
+    if(self){
+        isLogin = NO;
+    }
     return self;
 }
 
 -(BOOL)isLogin{
-   
+   if(isLogin)
+       return true;
+    
     if ( [AVUser currentUser]==nil) {
         return false;
     }
-    else
+    else{
+        AVUser *user = [AVUser currentUser];
+        UserModel *model = [UserModel sharedUserInfo];
+        model.sessionToken = user.sessionToken;
+        model.username = user.username;
+        model.mobilePhoneNumber = user.mobilePhoneNumber;
+        model.isNew = user.isNew;
+        model.email = user.email;
+        model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
+        model.userId = [user objectForKey:@"objectId"];
+        
         return true;
+    }
 }
 - (void) setUserId:(NSString *)_userId
 {
     userId = _userId;
+    isLogin = YES;
     [self getDetailUserInfo];
 }
 

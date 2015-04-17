@@ -14,12 +14,15 @@
 #import "NurseListInfoModel.h"
 #import "MyEvaluateListVC.h"
 #import "WorkAddressSelectVC.h"
+#import "LCNetWorkBase.h"
 
 #define LIMIT_LINES 4
 
-@interface PlaceOrderVC ()
+@interface PlaceOrderVC () <WorkAddressSelectVCDelegate>
 {
     NurseListInfoModel *_nurseModel;
+    
+    UserAttentionModel *_loverModel;
 }
 
 @end
@@ -76,6 +79,7 @@
     _tableview.backgroundColor = TableBackGroundColor;
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
+    [_tableview registerClass:[PlaceOrderEditCell class] forCellReuseIdentifier:@"cell1"];
     
     UIView *headerView = [self createTableViewHeader];
     _tableview.tableHeaderView = headerView;
@@ -87,12 +91,65 @@
     [btnSubmit setTitle:@"提交订单" forState:UIControlStateNormal];
     btnSubmit.titleLabel.font = _FONT(18);
     btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;
+    [btnSubmit addTarget:self action:@selector(btnSubmitOrder:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, btnSubmit);
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-40-[btnSubmit(44)]-40-|" options:0 metrics:nil views:views]];
     
+}
+
+- (void) btnSubmitOrder:(UIButton*)sender
+{
+    
+    PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    if(editcell.lbTitle.text == nil || [editcell.lbTitle.text length] < 10){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择订单开始时间！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    if(_loverModel == nil){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护对象地址！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    NSMutableDictionary *Params = [[NSMutableDictionary alloc] init];
+    [Params setObject:_nurseModel.nid forKey:@"careId"];
+    [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
+    [Params setObject:_loverModel.userid forKey:@"loverId"];
+    [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId forKey:@"productId"];
+    [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel.city_id forKey:@"cityId"];
+    
+    BusinessType type = cell.businessTypeView.businesstype;
+    NSString *dateType = @"1";
+    if(type == EnumType24Hours)
+        dateType = @"2";
+    [Params setObject:dateType forKey:@"dateType"];//
+    
+    NSString *beginDate = [NSString stringWithFormat:@"%@:00:00", editcell.lbTitle.text];
+    
+    [Params setObject:beginDate forKey:@"beginDate"];//
+    [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
+    [Params setObject:[NSNumber numberWithInteger:_nurseModel.price] forKey:@"orgUnitPrice"];//
+    [Params setObject:[NSNumber numberWithInteger:_nurseModel.priceDiscount] forKey:@"unitPrice"];//
+    [Params setObject:[NSNumber numberWithInteger:_nurseModel.priceDiscount * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
+    
+    [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
+        if(code){
+            if([content isKindOfClass:[NSDictionary class]]){
+                NSString *code = [content objectForKey:@"code"];
+                if(code == nil)
+                {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
+        }
+    }];
 }
 
 - (void) doBtnDetailFoldOrUnfold:(UIButton*)sender
@@ -170,7 +227,7 @@
     [_btnInfo setTitleColor:_COLOR(0x6b, 0x4e, 0x3e) forState:UIControlStateNormal];
     [_btnInfo setTitle: [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge] forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
-    _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 21);
+//    _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, _btnInfo.frame.size.width - 21);
     _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 21, 0, 0);
     
     _detailInfo = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -281,15 +338,15 @@
             cell = [[PayTypeCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell2"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        
+        [cell setPaytype:EnumTypeAfter];
+        
         return cell;
     }
     else{
-        PlaceOrderEditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
-        if(!cell){
-            cell = [[PlaceOrderEditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegate = self;
-        }
+        PlaceOrderEditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1" forIndexPath:indexPath];
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setNurseListInfo:_nurseModel];
         return cell;
     }
@@ -333,7 +390,22 @@
 - (void) NotifyToSelectAddr
 {
     WorkAddressSelectVC *vc = [[WorkAddressSelectVC alloc] initWithNibName:nil bundle:nil];
+    vc.delegate = self;
+    if(_loverModel != nil){
+        vc.view.backgroundColor = [UIColor clearColor];
+        [vc setSelectItemWithLoverId:_loverModel.userid];
+    }
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) NotifyAddressSelected:(WorkAddressSelectVC *)selectVC model:(UserAttentionModel *)model
+{
+    //获取服务地址
+    PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    editcell.lbTitle.text = model.address;
+    
+    _loverModel = model;
 }
 
 @end

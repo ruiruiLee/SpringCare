@@ -24,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
+//    [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     [self.NavigationBar.btnRight setTitle:@"完成" forState:UIControlStateNormal];
     self.NavigationBar.btnRight.hidden = NO;
     self.NavigationBar.btnRight.layer.cornerRadius = 8;
@@ -107,8 +107,10 @@
                     [mDic setObject:cell.tfEdit.text forKey:@"name"];
                 }
                 else if(typedata.cellType == EnumTypeSex){
-                    UserSex sex = [cell.tfEdit.text isEqualToString:@"女"] ? EnumFemale: EnumMale;
-                    [mDic setObject:[NSNumber numberWithBool:sex] forKey:@"sex"];
+                    if(cell.tfEdit.text != nil && ![cell.tfEdit.text isKindOfClass:[NSNull class]] && [cell.tfEdit.text length] > 0){
+                        UserSex sex = [cell.tfEdit.text isEqualToString:@"女"] ? EnumFemale: EnumMale;
+                        [mDic setObject:[NSNumber numberWithBool:sex] forKey:@"sex"];
+                    }
                 }
                 else if(typedata.cellType == EnumTypeAge){
                     NSString *age = cell.tfEdit.text;
@@ -273,7 +275,7 @@
 
 -(void)toobarDonBtnHaveClick:(LCPickView *)pickView resultString:(NSString *)resultString
 {
-    EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:indexpathStore];//[_tableview dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexpathStore];
+    EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:indexpathStore];
     
     if(pickView == _sexPick){
         cell.tfEdit.text = resultString;

@@ -45,10 +45,12 @@ static NSMutableArray *myAttentionArray = nil;
     model.userid = [dic objectForKey:@"id"];
     model.username = [dic objectForKey:@"name"];
     model.ringNum = [dic objectForKey:@"phone"];
-    model.photoUrl = [dic objectForKey:@"header_image"];
+    model.photoUrl = [dic objectForKey:@"headerImage"];
     model.relation = [dic objectForKey:@"nickname"];
-    model.address = [dic objectForKey:@""];
+    model.address = [dic objectForKey:@"addr"];
     model.isCare = [[dic objectForKey:@"isCare"] boolValue];
+    model.sex = [dic objectForKey:@"sex"];
+    model.height = [dic objectForKey:@"height"];
     
     return model;
 }

@@ -12,7 +12,7 @@
 @interface UserAttentionTableCell : UITableViewCell
 {
     UIImageView *_photoImage;
-    UILabel *_lbRelation;
+    UIButton *_btnRelation;
     UILabel *_lbName;
     UIButton *_btnRing;
     UILabel *_Address;

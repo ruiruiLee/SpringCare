@@ -12,10 +12,14 @@
 #import "PlaceOrderEditForProductCell.h"
 #import "define.h"
 #import "WorkAddressSelectVC.h"
+#import "UserAttentionModel.h"
+#import "PlaceOrderEditCell.h"
 
-@interface PlaceOrderForProductVC ()
+@interface PlaceOrderForProductVC () <WorkAddressSelectVCDelegate>
 {
     FamilyProductModel *_nurseModel;
+    
+    UserAttentionModel *_loverModel;
 }
 
 @end
@@ -33,6 +37,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if(self){
         _nurseModel = model;
+        ((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId = model.pId;
     }
     return self;
 }
@@ -60,6 +65,7 @@
     _tableview.backgroundColor = TableBackGroundColor;
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
+    [_tableview registerClass:[PayTypeForProductCell class] forCellReuseIdentifier:@"cell2"];
     
     UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnSubmit];
@@ -68,7 +74,7 @@
     [btnSubmit setTitle:@"提交订单" forState:UIControlStateNormal];
     btnSubmit.titleLabel.font = _FONT(18);
     btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;
-    [btnSubmit addTarget:self action:@selector(doBtnSubmit:) forControlEvents:UIControlEventTouchUpInside];
+    [btnSubmit addTarget:self action:@selector(btnSubmitOrder:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, btnSubmit);
     
@@ -77,9 +83,59 @@
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-40-[btnSubmit(44)]-40-|" options:0 metrics:nil views:views]];
 }
 
-- (void) doBtnSubmit:(UIButton*)sender
+- (void) btnSubmitOrder:(UIButton*)sender
 {
-
+    
+    PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    if(editcell.lbTitle.text == nil || [editcell.lbTitle.text length] < 10){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择订单开始时间！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    if(_loverModel == nil){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护对象地址！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
+    NSMutableDictionary *Params = [[NSMutableDictionary alloc] init];
+    [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
+    [Params setObject:_loverModel.userid forKey:@"loverId"];
+    [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId forKey:@"productId"];
+    [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel.city_id forKey:@"cityId"];
+    
+    UnitsType type = cell.businessTypeView.uniteType;
+    NSInteger orgUnitPrice = _nurseModel.price;
+    NSInteger unitPrice = _nurseModel.priceDiscount;
+    NSString *dateType = @"2";
+    if(type == EnumTypeWeek){
+        dateType = @"3";
+        orgUnitPrice = orgUnitPrice * 7;
+        unitPrice = unitPrice * 7;
+    }
+    else if (type == EnumTypeMounth){
+        dateType = @"4";
+        orgUnitPrice = orgUnitPrice * 30;
+        unitPrice = unitPrice * 30;
+    }
+    [Params setObject:dateType forKey:@"dateType"];//
+    
+    NSString *beginDate = [NSString stringWithFormat:@"%@:00:00", editcell.lbTitle.text];
+    
+    [Params setObject:beginDate forKey:@"beginDate"];//
+    [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
+    [Params setObject:[NSNumber numberWithInteger:orgUnitPrice] forKey:@"orgUnitPrice"];//
+    [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
+    [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
+    
+    [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
+        if(code){
+            
+        }
+    }];
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -106,11 +162,11 @@
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1){
-        PayTypeForProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2"];
-        if(!cell){
-            cell = [[PayTypeForProductCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell2"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
+        PayTypeForProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        [cell setPaytype:EnumTypeAfter];
+        
         return cell;
     }
     else{
@@ -182,7 +238,22 @@
 - (void) NotifyToSelectAddr
 {
     WorkAddressSelectVC *vc = [[WorkAddressSelectVC alloc] initWithNibName:nil bundle:nil];
+    vc.delegate = self;
+    if(_loverModel != nil){
+        vc.view.backgroundColor = [UIColor clearColor];
+        [vc setSelectItemWithLoverId:_loverModel.userid];
+    }
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) NotifyAddressSelected:(WorkAddressSelectVC *)selectVC model:(UserAttentionModel *)model
+{
+    //获取服务地址
+    PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    editcell.lbTitle.text = model.address;
+    
+    _loverModel = model;
 }
 
 @end

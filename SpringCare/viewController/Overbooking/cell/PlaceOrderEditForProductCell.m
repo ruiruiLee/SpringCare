@@ -13,6 +13,9 @@
 
 @implementation PlaceOrderEditForProductCell
 @synthesize delegate;
+@synthesize _tableview;
+@synthesize businessTypeView;
+@synthesize dateSelectView;
 
 - (void) dealloc
 {
@@ -166,7 +169,7 @@
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultDate:(NSDate *)resultDate
 {
     PlaceOrderEditItemCell *cell = (PlaceOrderEditItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.lbTitle.text = [NSString stringWithFormat:@"服务开始时间：%@", [Util StringFromDate:resultDate]];
+    cell.lbTitle.text = [NSString stringWithFormat:@"%@", [Util StringFromDate:resultDate]];
 }
 
 - (NSArray*) getTimeArray
@@ -203,7 +206,7 @@
 {
     _nurseData = model;
     NSInteger count = [dateSelectView getDays];
-    NSInteger uPrice = model.price;
+    NSInteger uPrice = model.priceDiscount;
     NSString *text = @"";
     if(businessTypeView.uniteType == EnumTypeDay)
     {

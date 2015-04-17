@@ -47,6 +47,9 @@
 }
 
 @property (nonatomic, assign) id<PlaceOrderEditCellDelegate> delegate;
+@property (nonatomic, strong) UITableView *_tableview;
+@property (nonatomic, strong) BusinessTypeView *businessTypeView;
+@property (nonatomic, strong) DateCountSelectView *dateSelectView;
 
 - (void) setNurseListInfo:(NurseListInfoModel*) model;
 

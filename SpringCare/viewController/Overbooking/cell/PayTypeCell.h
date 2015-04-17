@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    EnumTypeAfter,
+    EnumTypeAlipay,
+    EnumTypeWechat,
+} PayType;
+
 @interface PayTypeItemCell : UITableViewCell
 {
     UIImageView *_logoImage ;
@@ -28,5 +34,7 @@
     UITableView *_tableview;
     UILabel *line;
 }
+
+@property (nonatomic, assign) PayType paytype;
 
 @end

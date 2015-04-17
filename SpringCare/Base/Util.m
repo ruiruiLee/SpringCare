@@ -84,5 +84,16 @@
     return newimg;
 }
 
++ (UserSex) GetSexByName:(NSString*) string
+{
+    if(string == nil)
+        return EnumUnknown;
+    if([string isEqualToString:@"男"])
+        return EnumMale;
+    else if ([string isEqualToString:@"女"])
+        return EnumFemale;
+    else
+        return EnumUnknown;
+}
 
 @end

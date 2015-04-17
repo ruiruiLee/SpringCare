@@ -11,6 +11,7 @@
 #import "PayTypeCell.h"
 
 @implementation PayTypeForProductCell
+@synthesize paytype;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -107,6 +108,36 @@
     }
     
     return cell;
+}
+
+- (void) setPaytype:(PayType)_paytype
+{
+    [self resetCell];
+    
+    paytype = _paytype;
+    
+    if(_paytype == EnumTypeAfter){
+        PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        cell._btnSelect.selected = YES;
+    }
+    else if(_paytype == EnumTypeAlipay){
+        PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        cell._btnSelect.selected = YES;
+    }
+    else if(_paytype == EnumTypeWechat){
+        PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        cell._btnSelect.selected = YES;
+    }
+}
+
+- (void) resetCell
+{
+    PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell._btnSelect.selected = NO;
+    cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    cell._btnSelect.selected = NO;
+    cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    cell._btnSelect.selected = NO;
 }
 
 @end

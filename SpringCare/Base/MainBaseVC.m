@@ -146,11 +146,11 @@
     _btnLeft.backgroundColor = [UIColor clearColor];
     [_btnLeft addTarget:self action:@selector(LeftButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     _btnLeft.translatesAutoresizingMaskIntoConstraints = NO;
-    if(![UserModel sharedUserInfo].isLogin){
+//    if(![UserModel sharedUserInfo].isLogin){
         [_btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
-    }else{
-        [_btnLeft sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav-person"]];
-    }
+//    }else{
+//        [_btnLeft sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav-person"]];
+//    }
     
     _btnRight = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_btnRight];

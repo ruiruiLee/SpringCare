@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "define.h"
+
+typedef enum : NSUInteger {
+    EnumMale = 1,
+    EnumFemale = 0,
+    EnumUnknown = 2,
+} UserSex;
+
 @interface Util : NSObject
 
 /**
@@ -32,4 +40,7 @@
 
 + (int) getAgeWithBirthday:(NSString*) birthday;
 +(UIImage *)fitSmallImage:(UIImage *)image scaledToSize:(CGSize)tosize;
+
++ (UserSex) GetSexByName:(NSString*) string;
+
 @end

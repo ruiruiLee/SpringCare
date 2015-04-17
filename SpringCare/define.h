@@ -11,6 +11,9 @@
 
 #import "Util.h"
 #import "NSStrUtil.h"
+#import "UserModel.h"
+#import "AppDelegate.h"
+#import "LCNetWorkBase.h"
 
 #define NOTIFY_LOCATION_GAINED  @"NOTIFY_LOCATION_GAINED"
 #define NOTIFY_PICKVIEW_HIDDEN @"NOTIFY_PICKVIEW_HIDDEN"
@@ -72,10 +75,5 @@
 #define TIME_LIMIT 5
 
 typedef void(^block)(int code);
-
-typedef enum : NSUInteger {
-    EnumMale = 1,
-    EnumFemale = 0,
-} UserSex;
 
 #endif
