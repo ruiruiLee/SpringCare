@@ -16,10 +16,13 @@
 @end
 
 @implementation MyOrderListVC
+@synthesize pullTableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    pages = 0;
     
     dataList = [OrderListModel GetOrderList];
     
@@ -37,24 +40,30 @@
 {
     _tabBar = [[LCTabBar alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 40)];
     [self.ContentView addSubview:_tabBar];
-//    _tabBar.translatesAutoresizingMaskIntoConstraints = NO;
     NSArray *titleArray = @[@"全部订单", @"待评价"];
     [_tabBar SetItemTitleArray:titleArray];
     _tabBar.delegate = self;
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.ContentView addSubview:_tableView];
-    _tableView.backgroundColor = TableBackGroundColor;
-    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    pullTableView = [[PullTableView alloc] initWithFrame:CGRectZero];
+    pullTableView.delegate = self;
+    pullTableView.dataSource = self;
+    [self.ContentView addSubview:pullTableView];
+    pullTableView.backgroundColor = TableBackGroundColor;
+    pullTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    pullTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    pullTableView.pullDelegate = self;
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_tabBar, _tableView);
+    self.pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];
+    self.pullTableView.pullBackgroundColor = TableBackGroundColor;
+    self.pullTableView.backgroundColor = TableBackGroundColor;
+    self.pullTableView.pullTextColor = [UIColor blackColor];
+    [pullTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.pullTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tabBar]-0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_tabBar(40)]-0-[_tableView]-0-|" options:0 metrics:nil views:views]];
+    NSDictionary *views = NSDictionaryOfVariableBindings(_tabBar, pullTableView);
+    
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_tabBar(40)]-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -116,6 +125,44 @@
 {
     return 15.f;
 }
+
+#pragma mark - PullTableViewDelegate
+
+- (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
+{
+    pages = 0;
+//    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code) {
+//        self.DataList = [NurseListInfoModel nurseListModel];
+//        [self refreshTable];
+//    }];
+}
+
+- (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
+{
+    pages ++;
+
+//    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code) {
+//        self.DataList = [NurseListInfoModel nurseListModel];
+//        [self loadMoreDataToTable];
+//    }];
+}
+
+#pragma mark - Refresh and load more methods
+
+- (void) refreshTable
+{
+    NSLog(@"refreshTable");
+    self.pullTableView.pullLastRefreshDate = [NSDate date];
+    self.pullTableView.pullTableIsRefreshing = NO;
+}
+
+- (void) loadMoreDataToTable
+{
+    NSLog(@"loadMoreDataToTable");
+    self.pullTableView.pullTableIsLoadingMore = NO;
+}
+
+#pragma LCTabBarDelegate
 
 - (void) NotifyItemClickedWithIdx:(NSInteger) idx
 {

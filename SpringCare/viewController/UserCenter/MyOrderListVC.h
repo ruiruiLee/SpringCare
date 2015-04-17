@@ -9,14 +9,17 @@
 #import "LCBaseVC.h"
 #import "LCTabBar.h"
 #import "OrderListModel.h"
+#import "PullTableView.h"
 
-@interface MyOrderListVC : LCBaseVC<LCTabBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface MyOrderListVC : LCBaseVC<LCTabBarDelegate, UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
 {
     LCTabBar *_tabBar;
     
-    UITableView *_tableView;
-    
     NSArray *dataList;
+    
+    NSInteger pages;
 }
+
+@property (nonatomic, strong) PullTableView *pullTableView;
 
 @end

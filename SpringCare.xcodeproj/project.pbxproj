@@ -112,6 +112,7 @@
 		868B23A41ADF9537003AAD2A /* WorkAddressSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23A31ADF9537003AAD2A /* WorkAddressSelectVC.m */; };
 		868B23A71ADF9769003AAD2A /* WorkAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23A61ADF9769003AAD2A /* WorkAddressCell.m */; };
 		868B23A91ADFAB9A003AAD2A /* adduser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868B23A81ADFAB9A003AAD2A /* adduser@2x.png */; };
+		868B23AC1AE1287E003AAD2A /* MyOrderdataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23AB1AE1287E003AAD2A /* MyOrderdataModel.m */; };
 		869C9EDB1AD3C2080090182E /* nav_shut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDA1AD3C2080090182E /* nav_shut@2x.png */; };
 		869C9EDE1AD3D3750090182E /* relationattentionselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */; };
 		869C9EE01AD3D5F60090182E /* relationheaderbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */; };
@@ -605,6 +606,8 @@
 		868B23A51ADF9769003AAD2A /* WorkAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkAddressCell.h; sourceTree = "<group>"; };
 		868B23A61ADF9769003AAD2A /* WorkAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkAddressCell.m; sourceTree = "<group>"; };
 		868B23A81ADFAB9A003AAD2A /* adduser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adduser@2x.png"; sourceTree = "<group>"; };
+		868B23AA1AE1287E003AAD2A /* MyOrderdataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderdataModel.h; sourceTree = "<group>"; };
+		868B23AB1AE1287E003AAD2A /* MyOrderdataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderdataModel.m; sourceTree = "<group>"; };
 		869C9EDA1AD3C2080090182E /* nav_shut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_shut@2x.png"; sourceTree = "<group>"; };
 		869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationattentionselect@2x.png"; sourceTree = "<group>"; };
 		869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationheaderbg@2x.png"; sourceTree = "<group>"; };
@@ -1025,6 +1028,8 @@
 				863C8E441AD37C90009D7496 /* UserRequestAcctionModel.m */,
 				86B8E5521AD4CC0F00A5139E /* EditCellTypeData.h */,
 				86B8E5531AD4CC0F00A5139E /* EditCellTypeData.m */,
+				868B23AA1AE1287E003AAD2A /* MyOrderdataModel.h */,
+				868B23AB1AE1287E003AAD2A /* MyOrderdataModel.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -2441,6 +2446,7 @@
 				8642C9A31AC0283E00251921 /* LCNetWorkBase.m in Sources */,
 				8642C9A41AC0283E00251921 /* NSString+MD5.m in Sources */,
 				865C85941ACCEDFF006ABCA4 /* EscortTimeVC.m in Sources */,
+				868B23AC1AE1287E003AAD2A /* MyOrderdataModel.m in Sources */,
 				8642C93A1ABFF53C00251921 /* SBJsonStreamWriter.m in Sources */,
 				86B8E58F1AD6188700A5139E /* BusinessTypeView.m in Sources */,
 				86B8E6091AD9027D00A5139E /* ZHPickView.m in Sources */,

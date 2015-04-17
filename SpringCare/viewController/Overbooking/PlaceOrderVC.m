@@ -131,7 +131,7 @@
         dateType = @"2";
     [Params setObject:dateType forKey:@"dateType"];//
     
-    NSString *beginDate = [NSString stringWithFormat:@"%@:00:00", editcell.lbTitle.text];
+    NSString *beginDate = [NSString stringWithFormat:@"%@:00", editcell.lbTitle.text];
     
     [Params setObject:beginDate forKey:@"beginDate"];//
     [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//

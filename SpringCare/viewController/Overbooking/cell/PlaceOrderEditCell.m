@@ -244,7 +244,8 @@
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultDate:(NSDate *)resultDate
 {
     PlaceOrderEditItemCell *cell = (PlaceOrderEditItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.lbTitle.text = [NSString stringWithFormat:@"%@", [Util StringFromDate:resultDate]];
+    cell.lbTitle.text = [NSString stringWithFormat:@"%@:00", [Util StringFromDate:resultDate]];
+    cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
 }
 
 - (void) setNurseListInfo:(NurseListInfoModel*) model
