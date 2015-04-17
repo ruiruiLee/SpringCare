@@ -32,8 +32,16 @@
     locationManager.distanceFilter=100.0f;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
         [locationManager requestWhenInUseAuthorization];  //调用了这句,就会弹出允许框了.
+    CLAuthorizationStatus status =[CLLocationManager authorizationStatus];
+    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
+        AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        CityDataModel *model = [[CityDataModel alloc] init ];
+        model.city_name=@"成都市";
+        delegate.currentCityModel = model;
+    }else{
     //启动位置更新
     [locationManager startUpdatingLocation];
+    }
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {

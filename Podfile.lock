@@ -31,20 +31,14 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - AVOSCloud (from `https://download.avoscloud.com/sdk/iOS/current/AVOSCloud.podspec`)
-  - AVOSCloudSNS (from `https://download.avoscloud.com/sdk/iOS/current/AVOSCloudSNS.podspec`)
+  - AVOSCloud
+  - AVOSCloudSNS
   - FMDB
-
-EXTERNAL SOURCES:
-  AVOSCloud:
-    :podspec: https://download.avoscloud.com/sdk/iOS/current/AVOSCloud.podspec
-  AVOSCloudSNS:
-    :podspec: https://download.avoscloud.com/sdk/iOS/current/AVOSCloudSNS.podspec
 
 SPEC CHECKSUMS:
   AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  AVOSCloud: a0870f3a59a73631ff6cd3837582e9c680bf1a2a
-  AVOSCloudSNS: dcf59954227002547f3c761b3f51f9b5a5ee7b5f
+  AVOSCloud: 5f13496669a24bc5e2cd8d6dec546b54214cbee3
+  AVOSCloudSNS: cc7b1f897673cf3f4b03a1bf36527b40e3668bf0
   FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
 
 COCOAPODS: 0.35.0
