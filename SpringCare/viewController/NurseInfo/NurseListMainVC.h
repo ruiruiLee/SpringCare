@@ -32,6 +32,7 @@
 @property (nonatomic, copy) NSArray *ages;
 @property (nonatomic, copy) NSArray *goodes;
 
+
 - (void) appendDataWithArray:(NSArray*)array;
 
 @end

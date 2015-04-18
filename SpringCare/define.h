@@ -37,6 +37,8 @@
 
 #define ThemeImage(imageName)  [UIImage imageNamed:imageName]
 
+#define LcationInstance [LocationManagerObserver sharedInstance]
+
 //语音存放地址
 #define SpeechMaxTime 60.0f
 
