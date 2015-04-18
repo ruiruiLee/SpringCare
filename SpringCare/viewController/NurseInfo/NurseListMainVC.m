@@ -56,10 +56,10 @@
     pullTableView.delegate = self;
     pullTableView.pullDelegate = self;
     
-    self.prices = @[@"价格"];
-    self.ages = @[@"年龄"];
-    self.goodes = @[@"好评"];
-    //数据先初始化
+    self.prices = @[@"价格区间",@"200元-300元",@"300元-500元",@"500元以上"];
+    self.ages = @[@"年龄区间",@"20岁-30岁",@"30岁-40岁",@"40岁以上"];
+    self.goodes = @[@"距离最近",@"好评优先",@"评论最多",@"护龄最长"];
+        //数据先初始化
     
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
     menu.dataSource = self;
@@ -182,8 +182,6 @@
         PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model andproductId:[[NurseListInfoModel PramaNurseDic] objectForKey:@"productId"]];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-        
-//        [model addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
 }
 
@@ -275,23 +273,29 @@
 }
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
-    return 0;
+    switch (column) {
+        case 0:
+            return self.prices.count;
+        case 1:
+            return self.ages.count;
+        case 2:
+            return self.goodes.count;
+        default:
+            return 0;
+    }
+
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
     switch (indexPath.column) {
-        case 0:{
+        case 0:
             return self.prices[indexPath.row];
-        }
-            break;
-        case 2: return self.goodes[indexPath.row];
-            break;
-        case 1: return self.ages[indexPath.row];
-
-            break;
+        case 1:
+            return self.ages[indexPath.row];
+        case 2:
+            return self.goodes[indexPath.row];
         default:
             return nil;
-            break;
     }
 }
 
@@ -315,16 +319,16 @@
             break;
     }
     
-    pages = 0;
-    [_model loadNurseDataWithPage:(int)pages prama:@{@"sortFiled": sortFiled} block:^(int code) {
-        self.DataList = [NurseListInfoModel nurseListModel];
+//    pages = 0;
+//    [_model loadNurseDataWithPage:(int)pages prama:@{@"sortFiled": sortFiled} block:^(int code) {
+//        self.DataList = [NurseListInfoModel nurseListModel];
         [pullTableView reloadData];
-        [self refreshTable];
-    }];
+//        [self refreshTable];
+//   }];
     
-    if(!self.pullTableView.pullTableIsRefreshing) {
-        self.pullTableView.pullTableIsRefreshing = YES;
-    }
+//    if(!self.pullTableView.pullTableIsRefreshing) {
+//        self.pullTableView.pullTableIsRefreshing = YES;
+//    }
 }
 
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
