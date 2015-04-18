@@ -31,6 +31,7 @@
 
 + (SliderViewController*)sharedSliderController;
 
+- (void)showContentControllerWithPush:(UIViewController *)controller;
 - (void)showContentControllerWithModel:(NSString*)className;
 - (void)leftItemClick;
 - (void)rightItemClick;
