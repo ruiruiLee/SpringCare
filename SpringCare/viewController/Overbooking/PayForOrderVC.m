@@ -17,6 +17,16 @@
 
 @implementation PayForOrderVC
 
+- (id) initWithModel:(MyOrderdataModel *) model
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if(self){
+        _OrderModel = model;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -64,16 +74,61 @@
     _nurseInfoBg.backgroundColor = TableBackGroundColor;
     
     //sub
+    NSArray *nurse = _OrderModel.nurseInfo;
+    NSString *path = nil;
+    if([nurse count] > 0){
+        path = ((NurseListInfoModel *)[nurse objectAtIndex:0]).headerImage;
+    }
     _imgPhoto = [self creatImageViewWithimage:nil placeholder:@"nurselistfemale" rootView:_nurseInfoBg];
+    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
     _lbName = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
-    _lbName.text = @"家庭陪护-王莹莹";
+
+    NSMutableString *name = [[NSMutableString alloc] init];
+    [name appendString:_OrderModel.product.name];
+    for (int i = 0; i < [_OrderModel.nurseInfo count]; i++) {
+        NurseListInfoModel *model = [_OrderModel.nurseInfo objectAtIndex:i];
+        [name appendString:@"-"];
+        [name appendString:model.name];
+    }
+    _lbName.text = name;
+    
     _lbPrice = [self createLabelWithFont:_FONT(13) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
-    _lbPrice.text = @"¥150/12 X 3天";
+    NSMutableString *priceStr = [[NSMutableString alloc] init];
+    [priceStr appendString:[NSString stringWithFormat:@"¥%ld", _OrderModel.unitPrice]];
+    if(_OrderModel.dateType == EnumTypeHalfDay){
+        [priceStr appendString:[NSString stringWithFormat:@"/12h X %ld天", _OrderModel.orderCount]];
+    }
+    else if (_OrderModel.dateType == EnumTypeOneDay){
+        [priceStr appendString:[NSString stringWithFormat:@"/天 X %ld天", _OrderModel.orderCount]];
+    }
+    else if (_OrderModel.dateType == EnumTypeOneWeek){
+        [priceStr appendString:[NSString stringWithFormat:@"/周 X %ld周", _OrderModel.orderCount]];
+    }
+    else if (_OrderModel.dateType == EnumTypeOneMounth){
+        [priceStr appendString:[NSString stringWithFormat:@"/月 X %ld月", _OrderModel.orderCount]];
+    }
+    _lbPrice.text = priceStr;
+    
+    
     _imgDayTime = [self creatImageViewWithimage:nil placeholder:@"daytime" rootView:_nurseInfoBg];
     _imgNight = [self creatImageViewWithimage:nil placeholder:@"night" rootView:_nurseInfoBg];
     
+    _imgDayTime.image = [UIImage imageNamed:@"daytime"];
+    _imgNight.image = [UIImage imageNamed:@"night"];
+    if(_OrderModel.dateType == EnumTypeHalfDay){
+        ServiceTimeType timeType = [Util GetServiceTimeType:_OrderModel.beginDate];
+        if(timeType == EnumServiceTimeNight){
+            _imgDayTime.image = nil;
+        }
+        else if (timeType == EnumServiceTimeDay){
+            _imgNight.image = nil;
+        }
+    }
+    
     _lbDetailTime = [self createLabelWithFont:_FONT(12) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
-    _lbDetailTime.text = @"2015.03.25-03.27(20:00-次日08:00)";
+    _lbDetailTime.text = [Util GetOrderServiceTime:_OrderModel.beginDate enddate:_OrderModel.endDate datetype:_OrderModel.dateType];//data.fromto;
     
     _totalPriceBg = [[UIView alloc] initWithFrame:CGRectZero];
     _totalPriceBg.translatesAutoresizingMaskIntoConstraints = NO;
@@ -86,7 +141,7 @@
     _lbTotalPrice = [self createLabelWithFont:_FONT(18) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor] rootView:_totalPriceBg];
     _lbTotalPrice.text = @"确认总价：";
     _lbTotalPriceValue = [self createLabelWithFont:_FONT(28) textcolor:_COLOR(0xf1, 0x13, 0x59) backgroundcolor:[UIColor clearColor] rootView:_totalPriceBg];
-    _lbTotalPriceValue.text = @"¥450.00";
+    _lbTotalPriceValue.text = [NSString stringWithFormat:@"¥%ld", _OrderModel.totalPrice];
     
     _payLogo = [self creatImageViewWithimage:nil placeholder:@"paytype" rootView:headerView];
     _lbPaytype = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:headerView];

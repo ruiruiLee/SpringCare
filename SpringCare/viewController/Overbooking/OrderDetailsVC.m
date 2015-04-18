@@ -8,8 +8,12 @@
 
 #import "OrderDetailsVC.h"
 #import "UIImageView+WebCache.h"
+#import "define.h"
+#import "PayForOrderVC.h"
+#import "EvaluateOrderVC.h"
 
 @implementation OrderPriceCell
+@synthesize delegate;
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -20,30 +24,104 @@
         _lbPrice.textColor = _COLOR(0x99, 0x99, 0x99);
         _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:_lbPrice];
-        _lbPrice.text = @"单价：¥380.00（24h）X 3天";
         
         _lbTotalPrice = [[UILabel alloc] initWithFrame:CGRectZero];
         _lbTotalPrice.font = _FONT(15);
         _lbTotalPrice.textColor = _COLOR(0x99, 0x99, 0x99);
         _lbTotalPrice.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:_lbTotalPrice];
-        _lbTotalPrice.text = @"总价：¥1140.00";
         
-        _lbStatus = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lbStatus.font = _FONT(18);
-        _lbStatus.textColor = _COLOR(0x99, 0x99, 0x99);
-        _lbStatus.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.contentView addSubview:_lbStatus];
-        _lbStatus.text = @"已付款";
+        _btnStatus = [[UIButton alloc] initWithFrame:CGRectZero];
+        _btnStatus.titleLabel.font = _FONT(16);
+        [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
+        _btnStatus.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addSubview:_btnStatus];
+        [_btnStatus addTarget:self action:@selector(doBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        _btnStatus.layer.cornerRadius = 5;
+//        _btnStatus.text = @"已付款";
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbTotalPrice, _lbStatus);
+        _imgLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_imgLogo];
+        _imgLogo.translatesAutoresizingMaskIntoConstraints = NO;
+        _imgLogo.image = [UIImage imageNamed:@"orderend"];
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbPrice]->=20-[_lbStatus]-43-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbTotalPrice]->=20-[_lbStatus]-43-|" options:0 metrics:nil views:views]];
+        NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbTotalPrice, _btnStatus, _imgLogo);
+        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbPrice]->=20-[_btnStatus(80)]-23-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbTotalPrice]->=20-[_btnStatus]-23-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbPrice(20)]-5-[_lbTotalPrice(20)]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbStatus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnStatus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgLogo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=20-[_imgLogo]-20-|" options:0 metrics:nil views:views]];
     }
     return self;
+}
+
+- (void) setContentData:(MyOrderdataModel *) model
+{
+    NSMutableString *priceStr = [[NSMutableString alloc] init];
+    [priceStr appendString:[NSString stringWithFormat:@"单价:¥%ld", model.unitPrice]];
+    if(model.dateType == EnumTypeHalfDay){
+        [priceStr appendString:[NSString stringWithFormat:@"/12h X %ld天", model.orderCount]];
+    }
+    else if (model.dateType == EnumTypeOneDay){
+        [priceStr appendString:[NSString stringWithFormat:@"/天 X %ld天", model.orderCount]];
+    }
+    else if (model.dateType == EnumTypeOneWeek){
+        [priceStr appendString:[NSString stringWithFormat:@"/周 X %ld周", model.orderCount]];
+    }
+    else if (model.dateType == EnumTypeOneMounth){
+        [priceStr appendString:[NSString stringWithFormat:@"/月 X %ld月", model.orderCount]];
+    }
+    
+    _lbPrice.text = priceStr;
+    _lbTotalPrice.text = [NSString stringWithFormat:@"总价:¥%ld", model.totalPrice];
+    
+    _btnStatus.userInteractionEnabled = YES;
+    [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
+    _btnStatus.backgroundColor = [UIColor clearColor];
+    _btnStatus.tag = 4;
+    if(model.orderStatus == EnumOrderStatusTypeCancel){
+        _imgLogo.hidden = YES;
+        [_btnStatus setTitle:@"订单取消" forState:UIControlStateNormal];
+        _btnStatus.userInteractionEnabled = NO;
+    }
+    else{
+        if(model.orderStatus == EnumOrderStatusTypeFinish && model.commentStatus == EnumTypeNoComment && model.payStatus == EnumTypePayed)
+        {
+            [_btnStatus setTitle:@"已完成" forState:UIControlStateNormal];
+            _btnStatus.userInteractionEnabled = NO;
+        }
+        else if(model.orderStatus == EnumOrderStatusTypeFinish && model.commentStatus == EnumTypeNoComment && model.payStatus == EnumTypePayed){
+            _imgLogo.hidden = YES;
+            _btnStatus.tag = 2;
+            [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
+            [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            _btnStatus.backgroundColor = Abled_Color;
+        }else if (model.orderStatus == EnumOrderStatusTypeNew){
+            _imgLogo.hidden = YES;
+            _btnStatus.tag = 3;
+            [_btnStatus setTitle:@"取消订单" forState:UIControlStateNormal];
+            [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            _btnStatus.backgroundColor = Abled_Color;
+        }
+        else{
+            _imgLogo.hidden = YES;
+            _btnStatus.tag = 1;
+            [_btnStatus setTitle:@"去付款" forState:UIControlStateNormal];
+            [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            _btnStatus.backgroundColor = Abled_Color;
+        }
+    }
+}
+
+- (void) doBtnClicked:(UIButton*)sender
+{
+
+        if(delegate && [delegate respondsToSelector:@selector(NotifyButtonClickedWithFlag:)])
+            [delegate NotifyButtonClickedWithFlag:sender.tag-1];
+
 }
 
 @end
@@ -57,20 +135,17 @@
         _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
         _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:_imgPhoto];
-        [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
         
         _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbName];
         _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
         _lbName.font = _FONT(18);
         _lbName.translatesAutoresizingMaskIntoConstraints = NO;
-        _lbName.text = @"王莹莹";
         
         _btnInfo = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnInfo];
         _btnInfo.titleLabel.font = _FONT(14);
         [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
-        [_btnInfo setTitle:@"四川人" forState:UIControlStateNormal];
         [_btnInfo setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -80,7 +155,6 @@
         _lbIntro.numberOfLines = 0;
         _lbIntro.font = _FONT(13);
         _lbIntro.textColor = _COLOR(0x99, 0x99, 0x99);
-        _lbIntro.text = @"我公司的分公司的风格上的分公司的风格分公司的风格分公司的风格我公司的分公司的风格上的分公司的风格分公司的风格分公司的风格";
         _lbIntro.preferredMaxLayoutWidth = ScreenWidth - 132;
         
         _line = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -93,14 +167,12 @@
         _lbType.translatesAutoresizingMaskIntoConstraints = NO;
         _lbType.font = _FONT(15);
         _lbType.textColor = _COLOR(0x99, 0x99, 0x99);
-        _lbType.text = @"类型：医院陪护";
         
         _lbDetailTime = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbDetailTime];
         _lbDetailTime.translatesAutoresizingMaskIntoConstraints = NO;
         _lbDetailTime.font = _FONT(15);
         _lbDetailTime.textColor = _COLOR(0x99, 0x99, 0x99);
-        _lbDetailTime.text = @"时间：3天（2015.03.19-2015.03.21）";
         
         _lbPrice = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbPrice];
@@ -116,11 +188,78 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbType]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_lbName]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_btnInfo]->=20-|" options:0 metrics:nil views:views]];
+        constraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_imgPhoto(82)]-16-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_lbIntro]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_imgPhoto(82)]-16-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[_lbName(20)]-3-[_btnInfo(20)]-1-[_lbIntro]->=0-[_line(1)]->=0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:constraintArray];
+        nurseConstraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[_lbName(20)]-3-[_btnInfo(20)]-1-[_lbIntro]->=0-[_line(1)]->=0-|" options:0 metrics:nil views:views];
+        [self.contentView addConstraints:nurseConstraintArray];
     }
     return self;
+}
+
+- (void) setContentData:(MyOrderdataModel *) model
+{
+    
+    _lbType.text = [NSString stringWithFormat:@"类型：%@", model.product.name];
+//    _lbDetailTime.text = [NSString stringWithFormat:@""];//@"时间：3天（2015.03.19-2015.03.21）";
+    NSMutableString *detailTime = [[NSMutableString alloc] init];
+    [detailTime appendString:@"时间："];
+    [detailTime appendString:[NSString stringWithFormat:@"%ld", model.orderCount]];
+    if(model.dateType == EnumTypeHalfDay){
+        [detailTime appendString:[NSString stringWithFormat:@"天"]];
+    }
+    else if (model.dateType == EnumTypeOneDay){
+        [detailTime appendString:[NSString stringWithFormat:@"天"]];
+    }
+    else if (model.dateType == EnumTypeOneWeek){
+        [detailTime appendString:[NSString stringWithFormat:@"周"]];
+    }
+    else if (model.dateType == EnumTypeOneMounth){
+        [detailTime appendString:[NSString stringWithFormat:@"月"]];
+    }
+    
+    [detailTime appendString:[NSString stringWithFormat:@"(%@时-%@时)", [Util StringFromDate:model.beginDate], [Util StringFromDate:model.endDate]]];
+    _lbDetailTime.text = detailTime;
+    
+    NSMutableString *priceStr = [[NSMutableString alloc] init];
+    [priceStr appendString:[NSString stringWithFormat:@"单价:%ld元", model.unitPrice]];
+    if(model.dateType == EnumTypeHalfDay){
+        [priceStr appendString:[NSString stringWithFormat:@"/12小时"]];
+    }
+    else if (model.dateType == EnumTypeOneDay){
+        [priceStr appendString:[NSString stringWithFormat:@"/24小时"]];
+    }
+    else if (model.dateType == EnumTypeOneWeek){
+        [priceStr appendString:[NSString stringWithFormat:@"/周"]];
+    }
+    else if (model.dateType == EnumTypeOneMounth){
+        [priceStr appendString:[NSString stringWithFormat:@"/月"]];
+    }
+    _lbPrice.text = priceStr;
+    
+    NSArray *nurseArray = model.nurseInfo;
+    NSDictionary *views = NSDictionaryOfVariableBindings(_lbType, _lbPrice, _lbName, _lbIntro, _lbDetailTime, _line, _btnInfo, _imgPhoto);
+    [self.contentView removeConstraints:constraintArray];
+    [self.contentView removeConstraints:nurseConstraintArray];
+    if([nurseArray count] > 0){
+        NurseListInfoModel *nurseModel = [nurseArray objectAtIndex:0];
+        _lbIntro.text = nurseModel.intro;
+        _lbName.text = nurseModel.name;
+        [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+        NSString *info = [NSString stringWithFormat:@"%@  %ld岁  护龄%@年", nurseModel.birthPlace, nurseModel.age, nurseModel.careAge];
+        [_btnInfo setTitle:info forState:UIControlStateNormal];
+        
+        constraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_imgPhoto(82)]-16-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views];
+        nurseConstraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[_lbName(20)]-3-[_btnInfo(20)]-1-[_lbIntro]->=0-[_line(1)]->=0-|" options:0 metrics:nil views:views];
+        _btnInfo.hidden = NO;
+    }else{
+        constraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_imgPhoto(0)]-0-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views];
+        nurseConstraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_line(1)]->=0-|" options:0 metrics:nil views:views];
+        _btnInfo.hidden = YES;
+    }
+    
+    [self.contentView addConstraints:constraintArray];
+    [self.contentView addConstraints:nurseConstraintArray];
 }
 
 @end
@@ -134,14 +273,12 @@
         _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgPhoto];
         _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
-        [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"placeholderimage"]];
         
         _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbName];
         _lbName.translatesAutoresizingMaskIntoConstraints = NO;
         _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
         _lbName.font = _FONT(15);
-        _lbName.text = @"张发财";
         _lbName.textAlignment = NSTextAlignmentCenter;
         
         _LbRelation = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -149,20 +286,17 @@
         _LbRelation.translatesAutoresizingMaskIntoConstraints = NO;
         _LbRelation.textColor = _COLOR(0x22, 0x22, 0x22);
         _LbRelation.font = _FONT(18);
-        _LbRelation.text = @"父亲";
         
         _lbAge = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbAge];
         _lbAge.translatesAutoresizingMaskIntoConstraints = NO;
         _lbAge.textColor = _COLOR(0x66, 0x66, 0x66);
         _lbAge.font = _FONT(15);
-        _lbAge.text = @"72岁";
         
         _btnMobile = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnMobile];
         _btnMobile.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnMobile setImage:[UIImage imageNamed:@"orderdetailtel"] forState:UIControlStateNormal];
-        [_btnMobile setTitle:@"13980092751" forState:UIControlStateNormal];
         [_btnMobile setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         _btnMobile.titleLabel.font = _FONT(15);
         
@@ -170,14 +304,12 @@
         [self.contentView addSubview:_btnAddress];
         _btnAddress.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnAddress setImage:[UIImage imageNamed:@"orderdetailaddr"] forState:UIControlStateNormal];
-        [_btnAddress setTitle:@"四川省成都市三槐树街" forState:UIControlStateNormal];
         [_btnAddress setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         _btnAddress.titleLabel.font = _FONT(15);
         
         _imgSex = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgSex];
         _imgSex.translatesAutoresizingMaskIntoConstraints = NO;
-        _imgSex.image = [UIImage imageNamed:@"mail"];
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _LbRelation, _lbAge, _btnMobile, _btnAddress, _imgSex);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_LbRelation]-10-[_imgSex]-10-[_lbAge]->=20-|" options:0 metrics:nil views:views]];
@@ -196,6 +328,36 @@
     return self;
 }
 
+- (void) setContentData:(MyOrderdataModel *) model
+{
+    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.lover.photoUrl] placeholderImage:[UIImage imageNamed:@"placeholderimage"]];
+    _lbName.text = model.lover.username;
+    if(model.lover.username == nil || [model.lover.username length] == 0)
+        _lbName.text = @"姓名";
+    _LbRelation.text = model.lover.relation;
+    if(model.lover.relation == nil || [model.lover.relation length] == 0)
+        _LbRelation.text = @"关系";
+    _lbAge.text = [NSString stringWithFormat:@"%@岁", model.lover.age];
+    if(model.lover.age == nil || [model.lover.age length] == 0)
+        _lbAge.text = @"年龄";
+    [_btnMobile setTitle:model.lover.ringNum forState:UIControlStateNormal];
+    if(model.lover.ringNum == nil || [model.lover.ringNum length] == 0)
+        [_btnMobile setTitle:@"电话" forState:UIControlStateNormal];
+    [_btnAddress setTitle:model.lover.address forState:UIControlStateNormal];
+    
+    UserSex sex = [Util GetSexByName:model.lover.sex];
+    if(sex == EnumMale){
+        _imgSex.image = [UIImage imageNamed:@"mail"];
+    }
+    else if (sex == EnumFemale){
+        _imgSex.image = [UIImage imageNamed:@"femail"];
+    }
+    else
+        {
+            _imgSex.image = nil;
+        }
+}
+
 @end
 
 
@@ -205,12 +367,31 @@
 
 @implementation OrderDetailsVC
 
+- (id) initWithOrderModel:(MyOrderdataModel *) model
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if(self){
+        _orderModel = model;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.NavigationBar.Title = @"订单详情";
     
     [self initSubviews];
+    
+    if(!_orderModel.isLoadDetail){
+        [_orderModel LoadDetailOrderInfo:^(int code) {
+            if(code){
+                [_tableview reloadData];
+                [self initDataForView];
+            }
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -250,8 +431,17 @@
 {
     if(indexPath.section == 0)
         return 85.f;
-    else if (indexPath.section == 1)
-        return 223.f;
+    else if (indexPath.section == 1){
+//        return 223.f;
+        if(!ordercell)
+        ordercell = [[OrderInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+        [ordercell setContentData:_orderModel];
+        [ordercell setNeedsLayout];
+        [ordercell layoutIfNeeded];
+        
+        CGSize size = [ordercell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return 1  + size.height;
+    }
     else
         return 120.f;
 }
@@ -260,13 +450,20 @@
 {
     if(indexPath.section == 0){
         OrderPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell0" forIndexPath:indexPath];
+        [cell setContentData:_orderModel];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
         return cell;
     }
     else if (indexPath.section == 1){
         OrderInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1" forIndexPath:indexPath];
+        [cell setContentData:_orderModel];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
         BeCareInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2" forIndexPath:indexPath];
+        [cell setContentData:_orderModel];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
@@ -294,6 +491,13 @@
         
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_stepView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_stepView)]];
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_stepView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_stepView)]];
+        if(_orderModel.orderStatus == EnumOrderStatusTypeCancel){
+            [_stepView SetStepViewType:StepViewType2Step];
+            [_stepView SetCurrentStepWithIdx:3];//此处为3
+        }else{
+            [_stepView SetStepViewType:StepViewType4Step];
+            [_stepView SetCurrentStepWithIdx:[self GetStepWithModel:_orderModel]];
+        }
     }
     else if (section == 1){
         lbOrderNum = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -301,14 +505,14 @@
         [view addSubview:lbOrderNum];
         lbOrderNum.textColor = _COLOR(0x66, 0x66, 0x66);
         lbOrderNum.font = _FONT(14);
-        lbOrderNum.text = @"订 单 号 ：BXV3496800035464";
+        lbOrderNum.text = [NSString stringWithFormat:@"订 单 号 ：%@", _orderModel.serialNumber];
         
         lbOrderTime = [[UILabel alloc] initWithFrame:CGRectZero];
         lbOrderTime.translatesAutoresizingMaskIntoConstraints = NO;
         [view addSubview:lbOrderTime];
         lbOrderTime.textColor = _COLOR(0x66, 0x66, 0x66);
         lbOrderTime.font = _FONT(14);
-        lbOrderTime.text = @"下单时间：2015-03-19 12:46";
+        lbOrderTime.text = [NSString stringWithFormat:@"下单时间：%@", [Util getStringFromDate:_orderModel.createdDate]];//@"下单时间：2015-03-19 12:46";
         
         NSDictionary*views = NSDictionaryOfVariableBindings(lbOrderNum, lbOrderTime);
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[lbOrderNum]-20-|" options:0 metrics:nil views:views]];
@@ -337,6 +541,66 @@
         return 54.f;
     else
         return 29.f;
+}
+
+- (void) initDataForView
+{
+    lbOrderNum.text = [NSString stringWithFormat:@"订 单 号 ：%@", _orderModel.serialNumber];
+    lbOrderTime.text = [NSString stringWithFormat:@"下单时间：%@", [Util getStringFromDate:_orderModel.createdDate]];//@"下单时间：2015-03-19 12:46";
+    if(_orderModel.orderStatus == EnumOrderStatusTypeCancel){
+        [_stepView SetStepViewType:StepViewType2Step];
+        [_stepView SetCurrentStepWithIdx:3];//此处为3
+    }else{
+        [_stepView SetStepViewType:StepViewType4Step];
+        [_stepView SetCurrentStepWithIdx:[self GetStepWithModel:_orderModel]];
+    }
+}
+
+- (int) GetStepWithModel:(MyOrderdataModel *) model
+{
+    if(model.orderStatus == EnumOrderStatusTypeNew)
+        return 1;
+    else if (model.orderStatus == EnumOrderStatusTypeConfirm)
+        return 2;
+    else if (model.orderStatus == EnumOrderStatusTypeServing)
+        return 3;
+    else if (model.orderStatus == EnumOrderStatusTypeFinish && model.commentStatus == EnumTypeNoComment)
+        return 4;
+    else if (model.orderStatus == EnumOrderStatusTypeFinish && model.commentStatus == EnumTypeCommented)
+        return 5;
+    else
+        return 0;
+}
+
+- (void) NotifyButtonClickedWithFlag:(int) flag
+{
+//    0 去付款， 1 去评论
+    if(flag == 0){
+        PayForOrderVC *vc = [[PayForOrderVC alloc] initWithModel:_orderModel];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if(flag == 1){
+        EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithNibName:nil bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (flag == 2){
+            [LCNetWorkBase postWithMethod:@"api/order/cancel" Params:@{@"orderId" : _orderModel.oId, @"registerId" : [UserModel sharedUserInfo].userId} Completion:^(int code, id content) {
+                if(code){
+                    if([content isKindOfClass:[NSDictionary class]]){
+                        NSString *code = [content objectForKey:@"code"];
+                        if(code == nil)
+                        {
+                            _orderModel.orderStatus = EnumOrderStatusTypeCancel;
+                            if(_orderModel.orderStatus == EnumOrderStatusTypeCancel){
+                                [_stepView SetStepViewType:StepViewType2Step];
+                                [_stepView SetCurrentStepWithIdx:3];//此处为3
+                            }else{
+                                [_stepView SetStepViewType:StepViewType4Step];
+                                [_stepView SetCurrentStepWithIdx:[self GetStepWithModel:_orderModel]];
+                            }
+                        }
+                    }
+                }
+            }];
+    }
 }
 
 @end

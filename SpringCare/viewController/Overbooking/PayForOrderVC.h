@@ -7,6 +7,7 @@
 //
 
 #import "LCBaseVC.h"
+#import "MyOrderdataModel.h"
 
 @interface PayForOrderVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
 {
@@ -26,6 +27,10 @@
     
     UIImageView *_payLogo;
     UILabel *_lbPaytype;
+    
+    MyOrderdataModel *_OrderModel;
 }
+
+- (id) initWithModel:(MyOrderdataModel *) model;
 
 @end

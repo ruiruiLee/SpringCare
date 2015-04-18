@@ -8,13 +8,26 @@
 
 #import "LCBaseVC.h"
 #import "OrderStepView.h"
+#import "MyOrderdataModel.h"
+
+
+@protocol OrderPriceCellDelegate <NSObject>
+
+- (void) NotifyButtonClickedWithFlag:(int) flag;//0 去付款， 1 去评论
+
+@end
 
 @interface OrderPriceCell : UITableViewCell
 {
     UILabel *_lbPrice;
     UILabel *_lbTotalPrice;
-    UILabel *_lbStatus;
+    UIButton *_btnStatus;
+    UIImageView *_imgLogo;
 }
+
+@property (nonatomic , assign) id<OrderPriceCellDelegate> delegate;
+
+- (void) setContentData:(MyOrderdataModel *) model;
 
 @end
 
@@ -29,7 +42,12 @@
     
     UILabel *_lbType;
     UILabel *_line;
+    
+    NSArray *constraintArray;
+    NSArray *nurseConstraintArray;
 }
+
+- (void) setContentData:(MyOrderdataModel *) model;
 
 @end
 
@@ -44,14 +62,22 @@
     UIImageView *_imgSex;
 }
 
+- (void) setContentData:(MyOrderdataModel *) model;
+
 @end
 
-@interface OrderDetailsVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
+@interface OrderDetailsVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, OrderPriceCellDelegate>
 {
     UITableView *_tableview;
     OrderStepView *_stepView;
     UILabel *lbOrderNum;//订单号
     UILabel *lbOrderTime;//下单时间
+    
+    MyOrderdataModel *_orderModel;
+    
+    OrderInfoCell *ordercell;
 }
+
+- (id) initWithOrderModel:(MyOrderdataModel *) model;
 
 @end

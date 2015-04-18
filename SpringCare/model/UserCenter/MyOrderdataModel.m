@@ -23,7 +23,29 @@ static NSMutableArray *noAssessmentOrderList = nil;
 
 @end
 
+@implementation RegistrUserInfoModel
+
++ (RegistrUserInfoModel *) modelWithDictionary:(NSDictionary *) dic
+{
+    RegistrUserInfoModel *model = [[RegistrUserInfoModel alloc] init];
+    model.uId = [dic objectForKey:@"id"];
+    model.phone = [dic objectForKey:@"phone"];
+    model.chineseName = [dic objectForKey:@"chineseName"];
+    return model;
+}
+
+@end
+
 @implementation MyOrderdataModel
+
+- (id) init
+{
+    self = [super init];
+    if(self){
+        self.isLoadDetail = NO;
+    }
+    return self;
+}
 
 + (NSArray *) GetMyOrderList
 {
@@ -93,7 +115,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
     return model;
 }
 
-+ (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType block:(block) block
++ (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType isOnlyIndexSplit:(BOOL) isOnlyIndexSplit block:(block) block
 {
     if(pages == 0){
         if(orderType == EnumOrderAll){
@@ -125,6 +147,8 @@ static NSMutableArray *noAssessmentOrderList = nil;
     }
     [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    if(isOnlyIndexSplit)
+        [params setObject:@"true" forKey:@"offset"];
     
     [LCNetWorkBase postWithMethod:@"api/order/register/list" Params:params Completion:^(int code, id content) {
         if(code){
@@ -190,6 +214,23 @@ static NSMutableArray *noAssessmentOrderList = nil;
         {
             if(block){
                 block (0);
+            }
+        }
+    }];
+}
+
+- (void) LoadDetailOrderInfo:(block) block
+{
+    [LCNetWorkBase postWithMethod:@"api/order/detail" Params:@{@"id" : self.oId} Completion:^(int code, id content) {
+        if(code){
+            self.isLoadDetail = YES;
+            self.serialNumber = [content objectForKey:@"serialNumber"];
+            self.lover = [UserAttentionModel modelFromDIctionary:[content objectForKey:@"lover"]];
+            self.registerUser = [RegistrUserInfoModel modelWithDictionary:[content objectForKey:@"register"]];
+            self.createdDate = [Util convertDateFromDateString:[content objectForKey:@"createdDate"]];
+            
+            if(block){
+                block(1);
             }
         }
     }];

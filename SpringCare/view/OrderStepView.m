@@ -26,6 +26,10 @@
     UIImageView *_line1;
     UIImageView *_line2;
     UIImageView *_line3;
+    
+    NSMutableArray *stepArray;
+    NSMutableArray *titleArray;
+    NSMutableArray *lineArray;
 }
 
 @end
@@ -37,6 +41,9 @@
     self = [super initWithFrame:frame];
     if(self)
     {
+        stepArray = [[NSMutableArray alloc] init];
+        titleArray = [[NSMutableArray alloc] init];
+        lineArray = [[NSMutableArray alloc] init];
         [self initSubviews];
     }
     return self;
@@ -60,10 +67,26 @@
     _line2 = [self createLine];
     _line3 = [self createLine];
     
+    [stepArray addObject:_imgStep1];
+    [stepArray addObject:_imgStep2];
+    [stepArray addObject:_imgStep3];
+    [stepArray addObject:_imgStep4];
+    
+    [titleArray addObject:_lbStep1];
+    [titleArray addObject:_lbStep2];
+    [titleArray addObject:_lbStep3];
+    [titleArray addObject:_lbStep4];
+    
+    [lineArray addObject:_line1];
+    [lineArray addObject:_line2];
+    [lineArray addObject:_line3];
+    
     NSDictionary *views = NSDictionaryOfVariableBindings(_imgStep1, _imgStep2, _imgStep3, _imgStep4, _lbStep1, _lbStep2, _lbStep3, _lbStep4, _line1, _line2, _line3);
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_imgStep1]-0-[_line1]-0-[_imgStep2]-0-[_line2]-0-[_imgStep3]-0-[_line3]-0-[_imgStep4]-29-|" options:0 metrics:nil views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbStep1]->=0-[_lbStep2]->=0-[_lbStep3]->=0-[_lbStep4]->=0-|" options:0 metrics:nil views:views]];
+    ImageCArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_imgStep1]-0-[_line1]-0-[_imgStep2]-0-[_line2]-0-[_imgStep3]-0-[_line3]-0-[_imgStep4]-29-|" options:0 metrics:nil views:views];
+    [self addConstraints:ImageCArray];
+    lbCArrary = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbStep1]->=0-[_lbStep2]->=0-[_lbStep3]->=0-[_lbStep4]->=0-|" options:0 metrics:nil views:views];
+    [self addConstraints:lbCArrary];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_imgStep2 attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgStep1 attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_imgStep3 attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgStep1 attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -109,7 +132,8 @@
     [self addSubview:lb];
     lb.font = _FONT(14);
     lb.textAlignment = NSTextAlignmentCenter;
-    lb.textColor = _COLOR(0x27, 0xa6, 0x69);
+//    lb.textColor = _COLOR(0x27, 0xa6, 0x69);
+    lb.textColor = _COLOR(0x99, 0x99, 0x99);
     lb.translatesAutoresizingMaskIntoConstraints = NO;
     lb.text = str;
     return lb;
@@ -126,7 +150,56 @@
 
 - (void) SetCurrentStepWithIdx:(NSInteger) idx
 {
+    UIColor *selectcolor= _COLOR(0x27, 0xa6, 0x69);
     
+    if(idx > 5)
+        idx = 5;
+    for (int i = 0; i < idx -1; i++) {
+        UIButton *btn = [stepArray objectAtIndex:i];
+        UILabel *lb = [titleArray objectAtIndex:i];
+        btn.selected = YES;
+        lb.textColor = selectcolor;
+        if(i > 0)
+        {
+            UIImageView *line = [lineArray objectAtIndex:i-1];
+            line.image = [UIImage imageNamed:@"stepselectlineselect"];
+        }
+    }
+}
+
+- (void) SetStepViewType:(StepViewType) type
+{
+    [self removeConstraints:ImageCArray];
+    [self removeConstraints:lbCArrary];
+    NSDictionary *views = NSDictionaryOfVariableBindings(_imgStep1, _imgStep2, _imgStep3, _imgStep4, _lbStep1, _lbStep2, _lbStep3, _lbStep4, _line1, _line2, _line3);
+    
+    if(type == StepViewType2Step){
+        ImageCArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_imgStep1]-0-[_line1]-0-[_imgStep2]-29-|" options:0 metrics:nil views:views];
+        lbCArrary = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbStep1]->=0-[_lbStep2]->=0-|" options:0 metrics:nil views:views];
+        _lbStep2.text = @"已取消";
+        
+        _imgStep3.hidden = YES;
+        _lbStep3.hidden = YES;
+        _imgStep4.hidden = YES;
+        _lbStep4.hidden = YES;
+        _line2.hidden = YES;
+        _line3.hidden = YES;
+    }
+    else{
+        ImageCArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_imgStep1]-0-[_line1]-0-[_imgStep2]-0-[_line2]-0-[_imgStep3]-0-[_line3]-0-[_imgStep4]-29-|" options:0 metrics:nil views:views];
+        lbCArrary = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbStep1]->=0-[_lbStep2]->=0-[_lbStep3]->=0-[_lbStep4]->=0-|" options:0 metrics:nil views:views];
+        _lbStep2.text = @"服务中";
+        
+        _imgStep3.hidden = NO;
+        _lbStep3.hidden = NO;
+        _imgStep4.hidden = NO;
+        _lbStep4.hidden = NO;
+        _line2.hidden = NO;
+        _line3.hidden = NO;
+    }
+    
+    [self addConstraints:lbCArrary];
+    [self addConstraints:ImageCArray];
 }
 
 @end

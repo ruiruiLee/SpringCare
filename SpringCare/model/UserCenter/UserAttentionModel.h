@@ -26,6 +26,8 @@
 
 + (void) loadLoverList:(block) block;
 
++ (UserAttentionModel*) modelFromDIctionary:(NSDictionary*)dic;
+
 /**
  删除
  */
