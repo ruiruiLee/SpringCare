@@ -75,6 +75,7 @@
 #define TableSectionBackgroundColor _COLOR(234, 237, 241) //_COLORa(0xf3, 0xf5, 0xf7,0.9)
 
 #define TIME_LIMIT 5
+#define LIMIT_COUNT 20
 
 typedef void(^block)(int code);
 

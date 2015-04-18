@@ -51,6 +51,8 @@ typedef enum : NSUInteger {
 
 + (NSDictionary*) PramaNurseDic;
 
++ (NurseListInfoModel*)objectFromDictionary:(NSDictionary*) dic;
+
 /**
  * 通过页数来获取数据
  *

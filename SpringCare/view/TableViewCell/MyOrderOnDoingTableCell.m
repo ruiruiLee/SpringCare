@@ -135,13 +135,71 @@
     // Configure the view for the selected state
 }
 
-- (void) SetContentData:(OrderListModel*) data
+- (void) SetContentData:(MyOrderdataModel *) data
 {
     [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
-    _lbPrice.text = data.price;
-    _lbCountPrice.text = data.countPrice;
-    _lbDetailTime.text = data.fromto;
-    _lbName.text = data.name;
+//    _lbPrice.text = [NSString stringWithFormat:@"¥%ld", data.unitPrice];
+    NSMutableString *priceStr = [[NSMutableString alloc] init];
+    [priceStr appendString:[NSString stringWithFormat:@"¥%ld", data.unitPrice]];
+    if(data.dateType == EnumTypeHalfDay){
+        [priceStr appendString:[NSString stringWithFormat:@"/12h X %ld天", data.orderCount]];
+    }
+    else if (data.dateType == EnumTypeOneDay){
+        [priceStr appendString:[NSString stringWithFormat:@"/天 X %ld天", data.orderCount]];
+    }
+    else if (data.dateType == EnumTypeOneWeek){
+        [priceStr appendString:[NSString stringWithFormat:@"/周 X %ld周", data.orderCount]];
+    }
+    else if (data.dateType == EnumTypeOneMounth){
+        [priceStr appendString:[NSString stringWithFormat:@"/月 X %ld月", data.orderCount]];
+    }
+    
+    _lbPrice.text = priceStr;
+    
+    _lbCountPrice.text = [NSString stringWithFormat:@"¥%ld", data.totalPrice];
+    _lbDetailTime.text = [Util GetOrderServiceTime:data.beginDate enddate:data.endDate datetype:data.dateType];//data.fromto;
+
+    NSMutableString *name = [[NSMutableString alloc] init];
+    [name appendString:data.product.name];
+    for (int i = 0; i < [data.nurseInfo count]; i++) {
+        NurseListInfoModel *model = [data.nurseInfo objectAtIndex:i];
+        [name appendString:@"-"];
+        [name appendString:model.name];
+    }
+    _lbName.text = name;
+    
+
+    _imgDayTime.image = [UIImage imageNamed:@"daytime"];
+    _imgNight.image = [UIImage imageNamed:@"night"];
+    if(data.dateType == EnumTypeHalfDay){
+        ServiceTimeType timeType = [Util GetServiceTimeType:data.beginDate];
+        if(timeType == EnumServiceTimeNight){
+            _imgDayTime.image = nil;
+        }
+        else if (timeType == EnumServiceTimeDay){
+            _imgNight.image = nil;
+        }
+    }
+    
+    _btnPay.hidden = NO;
+    _btnStatus.hidden = NO;
+    _imgLogo.hidden = NO;
+    if(data.orderStatus == EnumOrderStatusTypeCancel){
+        _imgLogo.hidden = YES;
+        _btnPay.hidden = YES;
+        [_btnStatus setTitle:@"订单取消" forState:UIControlStateNormal];
+    }
+    else{
+        if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeNoComment && data.payStatus == EnumTypePayed){
+            _imgLogo.hidden = YES;
+            _btnPay.hidden = YES;
+            [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
+        }else{
+            _imgLogo.hidden = YES;
+            _btnStatus.hidden = YES;
+            [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
+        }
+    }
 }
 
 @end
