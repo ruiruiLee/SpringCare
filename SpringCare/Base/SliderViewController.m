@@ -94,6 +94,10 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
     _tapGestureRec.delegate=self;
     [self.view addGestureRecognizer:_tapGestureRec];
     _tapGestureRec.enabled = NO;
+    
+    //手势
+    _panGestureRec = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveViewWithGesture:)];
+    [_mainContentView addGestureRecognizer:_panGestureRec];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
@@ -128,6 +132,15 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
 
 #pragma mark - Actions
 
+
+- (void)showContentControllerWithPush:(UIViewController *)controller
+{
+    [self closeSideBar];
+    controller.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:controller animated:YES];
+    
+    
+}
 - (void)showContentControllerWithModel:(NSString *)className
 {
     [self closeSideBar];
@@ -144,7 +157,7 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
 #endif
         [_controllersDict setObject:controller forKey:className];
     }
-    
+  
     if (_mainContentView.subviews.count > 0)
     {
         UIView *view = [_mainContentView.subviews firstObject];
@@ -159,6 +172,7 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
 
 - (void)leftItemClick
 {
+     if(_mainContentView.frame.origin.x==0.0f){
     CGAffineTransform conT = [self transformWithDirection:RMoveDirectionRight];
 
     [self.view sendSubviewToBack:_rightSideView];
@@ -171,6 +185,11 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
                      completion:^(BOOL finished) {
                          _tapGestureRec.enabled = YES;
                      }];
+     }
+     else{
+         [self closeSideBar];
+     }
+
 }
 
 - (void)rightItemClick
@@ -203,6 +222,9 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
 
 - (void)moveViewWithGesture:(UIPanGestureRecognizer *)panGes
 {
+    if (_mainContentView.frame.origin.x==0){
+        return;
+    }
     static CGFloat currentTranslateX;
     if (panGes.state == UIGestureRecognizerStateBegan)
     {
@@ -227,28 +249,29 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
             {
                 sca = _LeftSContentScale;
             }
-        }
-        else    //transX < 0
-        {
-            [self.view sendSubviewToBack:_leftSideView];
-            [self configureViewShadowWithDirection:RMoveDirectionLeft];
+            CGAffineTransform transS = CGAffineTransformMakeScale(1.0, sca);
+            CGAffineTransform transT = CGAffineTransformMakeTranslation(transX, 0);
             
-            if (_mainContentView.frame.origin.x > -_RightSContentOffset)
-            {
-                sca = 1 - (-_mainContentView.frame.origin.x/_RightSContentOffset) * (1-_RightSContentScale);
-            }
-            else
-            {
-                sca = _RightSContentScale;
-            }
+            CGAffineTransform conT = CGAffineTransformConcat(transT, transS);
+            
+            _mainContentView.transform = conT;
+
         }
-        CGAffineTransform transS = CGAffineTransformMakeScale(1.0, sca);
-        CGAffineTransform transT = CGAffineTransformMakeTranslation(transX, 0);
-        
-        CGAffineTransform conT = CGAffineTransformConcat(transT, transS);
-        
-        _mainContentView.transform = conT;
-    }
+//        else    //transX < 0
+//        {
+//            [self.view sendSubviewToBack:_leftSideView];
+//            [self configureViewShadowWithDirection:RMoveDirectionLeft];
+//            
+//            if (_mainContentView.frame.origin.x > -_RightSContentOffset)
+//            {
+//                sca = 1 - (-_mainContentView.frame.origin.x/_RightSContentOffset) * (1-_RightSContentScale);
+//            }
+//            else
+//            {
+//                sca = _RightSContentScale;
+//            }
+//        }
+         }
     else if (panGes.state == UIGestureRecognizerStateEnded)
     {
         CGFloat panX = [panGes translationInView:_mainContentView].x;
@@ -263,16 +286,16 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
             _tapGestureRec.enabled = YES;
             return;
         }
-        if (finalX < -_RightSJudgeOffset)
-        {
-            CGAffineTransform conT = [self transformWithDirection:RMoveDirectionLeft];
-            [UIView beginAnimations:nil context:nil];
-            _mainContentView.transform = conT;
-            [UIView commitAnimations];
-            
-            _tapGestureRec.enabled = YES;
-            return;
-        }
+//        if (finalX < -_RightSJudgeOffset)
+//        {
+//            CGAffineTransform conT = [self transformWithDirection:RMoveDirectionLeft];
+//            [UIView beginAnimations:nil context:nil];
+//            _mainContentView.transform = conT;
+//            [UIView commitAnimations];
+//            
+//            _tapGestureRec.enabled = YES;
+//            return;
+//        }
         else
         {
             CGAffineTransform oriT = CGAffineTransformIdentity;

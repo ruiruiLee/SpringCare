@@ -58,7 +58,7 @@
     
     self.prices = @[@"价格区间",@"200元-300元",@"300元-500元",@"500元以上"];
     self.ages = @[@"年龄区间",@"20岁-30岁",@"30岁-40岁",@"40岁以上"];
-    self.goodes = @[@"距离最近",@"好评优先",@"评论最多",@"护龄最长"];
+    self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
         //数据先初始化
     
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
