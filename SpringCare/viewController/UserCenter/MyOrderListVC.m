@@ -12,6 +12,7 @@
 #import "MyOrderOnDoingTableCell.h"
 #import "MyOrderdataModel.h"
 #import "OrderDetailsVC.h"
+#import "PayForOrderVC.h"
 
 @interface MyOrderListVC ()
 
@@ -33,19 +34,21 @@
     [self initSubView];
     
     dataList = [MyOrderdataModel GetMyOrderList];
-    if([dataList count] == 2){
-        pages = [self GetPagesWithDataArray:[dataList objectAtIndex:1]];
-    }
+//    if([dataList count] == 2){
+//        pages = [self GetPagesWithDataArray:[dataList objectAtIndex:1]];
+//    }
     
-    if(pages == 0){
+//    if(pages == 0){
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll block:^(int code) {
             if(code){
                 dataList = [MyOrderdataModel GetMyOrderList];
                 [pullTableView reloadData];
                 [self refreshTable];
+            }else{
+                [self refreshTable];
             }
         }];
-    }
+//    }
 }
 
 - (NSInteger) GetPagesWithDataArray:(NSArray *) array
@@ -176,23 +179,48 @@
 
 #pragma mark - PullTableViewDelegate
 
-- (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
+- (void)pullTableViewDidTriggerRefresh:(PullTableView *)_pullTableView
 {
     pages = 0;
-//    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code) {
-//        self.DataList = [NurseListInfoModel nurseListModel];
-//        [self refreshTable];
-//    }];
+    if(EnumOrderPrepareForAssessment == orderType){
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment block:^(int code) {
+            if(code){
+                dataList = [MyOrderdataModel GetNoAssessmentOrderList];
+                [pullTableView reloadData];
+                [self refreshTable];
+            }else{
+                [self refreshTable];
+            }
+        }];
+    }else{
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll block:^(int code) {
+            if(code){
+                dataList = [MyOrderdataModel GetMyOrderList];
+                [pullTableView reloadData];
+                [self refreshTable];
+            }else{
+                [self refreshTable];
+            }
+        }];
+    }
 }
 
-- (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
+- (void)pullTableViewDidTriggerLoadMore:(PullTableView *)_pullTableView
 {
     pages ++;
-
-//    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code) {
-//        self.DataList = [NurseListInfoModel nurseListModel];
-//        [self loadMoreDataToTable];
-//    }];
+    if(EnumOrderPrepareForAssessment == orderType){
+        [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.1f];
+    }else{
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll block:^(int code) {
+            if(code){
+                dataList = [MyOrderdataModel GetMyOrderList];
+                [pullTableView reloadData];
+                [self refreshTable];
+            }else{
+                [self refreshTable];
+            }
+        }];
+    }
 }
 
 #pragma mark - Refresh and load more methods
@@ -216,6 +244,7 @@
 {
     if(idx == 0){
         //全部订单
+        orderType = EnumOrderAll;
         dataList = [MyOrderdataModel GetMyOrderList];
         if([dataList count] == 2){
             pages = [self GetPagesWithDataArray:[dataList objectAtIndex:1]];
@@ -223,6 +252,7 @@
     }
     else{
         //待评价
+        orderType = EnumOrderPrepareForAssessment;
         dataList = [MyOrderdataModel GetNoAssessmentOrderList];
         pages = [self GetPagesWithDataArray:dataList];
     }
