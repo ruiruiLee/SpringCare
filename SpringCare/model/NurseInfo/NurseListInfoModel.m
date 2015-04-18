@@ -121,7 +121,7 @@ static NSMutableDictionary *pramaNurseDic = nil;
     double lon = delegate._observer.lon;
     double lat = delegate._observer.lat;
     NSString *cityId = delegate.currentCityModel.city_id;
-    NSInteger limit = 1;
+    NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;
     if(offset >= [nurseList count])
         offset = [nurseList count];
@@ -174,7 +174,7 @@ static NSMutableDictionary *pramaNurseDic = nil;
         [nurseList removeAllObjects];
     }
     
-    NSInteger limit = 1;
+    NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;
     if(offset >= [nurseList count])
         offset = [nurseList count];

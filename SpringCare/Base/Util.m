@@ -18,7 +18,7 @@
 + (NSString*) getStringFromDate:(NSDate*) date
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *string = [formatter stringFromDate:date];
     return string;
 }
@@ -94,6 +94,89 @@
         return EnumFemale;
     else
         return EnumUnknown;
+}
+
+//半天服务时，获取是晚上服务还是白天服务
++ (ServiceTimeType) GetServiceTimeType:(NSDate *) begin
+{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *components = [calendar components:unitFlags fromDate:begin];
+    
+    NSInteger beginHour = [components hour];
+    
+    if(beginHour >= 18)
+        return EnumServiceTimeNight;
+    else
+        return EnumServiceTimeDay;
+}
+
++ (NSString *) GetOrderServiceTime:(NSDate *) begin enddate:(NSDate *) end datetype:(DateType) datetype
+{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *components = [calendar components:unitFlags fromDate:begin];
+    
+    NSInteger beginday = [components day]; // 15
+    NSInteger beginmonth = [components month]; // 9
+    NSInteger beginyear = [components year]; // 5764
+    NSInteger beginHour = [components hour];
+    NSInteger beginMinute = [components minute];
+    
+    components = [calendar components:unitFlags fromDate:end];
+    NSInteger endday = [components day]; // 15
+    NSInteger endmonth = [components month]; // 9
+    NSInteger endyear = [components year]; // 5764
+    NSInteger endHour = [components hour];
+    NSInteger endMinute = [components minute];
+    
+    NSMutableString *result = [[NSMutableString alloc] init];
+    [result appendString:[NSString stringWithFormat:@"%ld", beginyear]];
+    [result appendString:[NSString stringWithFormat:@".%02ld", beginmonth]];
+    [result appendString:[NSString stringWithFormat:@".%02ld", beginday]];
+    [result appendString:[NSString stringWithFormat:@"－"]];
+    if(endyear != beginyear){
+        [result appendString:[NSString stringWithFormat:@"%ld.", endyear]];
+    }
+    [result appendString:[NSString stringWithFormat:@"%02ld", endmonth]];
+    [result appendString:[NSString stringWithFormat:@".%02ld", endday]];
+    
+    if(datetype == EnumTypeHalfDay){
+        [result appendString:[NSString stringWithFormat:@"("]];
+        [result appendString:[NSString stringWithFormat:@"%02ld", beginHour]];
+        [result appendString:[NSString stringWithFormat:@".%02ld", beginMinute]];
+        [result appendString:[NSString stringWithFormat:@"－"]];
+        ServiceTimeType timeType = [Util GetServiceTimeType:begin];
+        if(timeType == EnumServiceTimeNight)
+            [result appendString:[NSString stringWithFormat:@"次日"]];
+        [result appendString:[NSString stringWithFormat:@"%02ld", endHour]];
+        [result appendString:[NSString stringWithFormat:@".%02ld", endMinute]];
+        [result appendString:[NSString stringWithFormat:@")"]];
+    }
+    
+    return result;
+}
+
++ (NSDate*) convertDateFromDateString:(NSString*)uiDate
+{
+    NSString *sub = [uiDate stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    NSString *sub1 = [sub stringByReplacingOccurrencesOfString:@"Z" withString:@""];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.zzz"];
+    NSDate *date=[formatter dateFromString:sub1];
+    return date;
+}
+
++ (NSString*) ChangeToUTCTime:(NSString*) time
+{
+    NSDate *date = [Util getDateFromString:time];
+    
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: date];
+    
+    NSDate *localeDate = [date  dateByAddingTimeInterval: -interval];
+    
+    return [Util getStringFromDate:localeDate];
 }
 
 @end

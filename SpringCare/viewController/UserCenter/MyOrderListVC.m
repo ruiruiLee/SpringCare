@@ -10,6 +10,8 @@
 #import "define.h"
 #import "MyOrderTableCell.h"
 #import "MyOrderOnDoingTableCell.h"
+#import "MyOrderdataModel.h"
+#import "OrderDetailsVC.h"
 
 @interface MyOrderListVC ()
 
@@ -24,11 +26,34 @@
     
     pages = 0;
     
-    dataList = [OrderListModel GetOrderList];
+    orderType = EnumOrderAll;
     
     self.NavigationBar.Title = @"我的订单";
     
     [self initSubView];
+    
+    dataList = [MyOrderdataModel GetMyOrderList];
+    if([dataList count] == 2){
+        pages = [self GetPagesWithDataArray:[dataList objectAtIndex:1]];
+    }
+    
+    if(pages == 0){
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll block:^(int code) {
+            if(code){
+                dataList = [MyOrderdataModel GetMyOrderList];
+                [pullTableView reloadData];
+                [self refreshTable];
+            }
+        }];
+    }
+}
+
+- (NSInteger) GetPagesWithDataArray:(NSArray *) array
+{
+    NSInteger count  = [array count] / LIMIT_COUNT;
+    if([array count] % LIMIT_COUNT > 0)
+        count ++;
+    return count;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,42 +93,61 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    if(EnumOrderAll == orderType)
+        return [dataList count];
+    else
+        return 1;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(section == 0)
-        return 1;
+    if(EnumOrderAll == orderType){
+        if(section == 0)
+            return [[dataList objectAtIndex:0] count];
+        else
+            return [[dataList objectAtIndex:1] count];
+    }
     else
         return [dataList count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0)
-        return 134.f;
-    else
-        return 109.f;
+    if(EnumOrderAll == orderType){
+        if(indexPath.section == 0)
+            return 134.f;
+    }
+    
+    return 109.f;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0){
-        MyOrderOnDoingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell0"];
-        if(!cell){
-            cell = [[MyOrderOnDoingTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell0"];
+    if(EnumOrderAll == orderType){
+        if(indexPath.section == 0){
+            MyOrderOnDoingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell0"];
+            if(!cell){
+                cell = [[MyOrderOnDoingTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell0"];
+            }
+            MyOrderdataModel *model = [[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            [cell SetContentData:model];
+            return cell;
         }
-        OrderListModel *model = [dataList objectAtIndex:indexPath.row];
-        [cell SetContentData:model];
-        return cell;
-    }
-    else{
+        else{
+            MyOrderTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+            if(!cell){
+                cell = [[MyOrderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            }
+            MyOrderdataModel *model = [[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            [cell SetContentData:model];
+            return cell;
+        }
+    }else{
         MyOrderTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if(!cell){
             cell = [[MyOrderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         }
-        OrderListModel *model = [dataList objectAtIndex:indexPath.row];
+        MyOrderdataModel *model = [dataList objectAtIndex:indexPath.row];
         [cell SetContentData:model];
         return cell;
     }
@@ -112,6 +156,10 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    OrderDetailsVC *vc = [[OrderDetailsVC alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 - (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -168,10 +216,18 @@
 {
     if(idx == 0){
         //全部订单
+        dataList = [MyOrderdataModel GetMyOrderList];
+        if([dataList count] == 2){
+            pages = [self GetPagesWithDataArray:[dataList objectAtIndex:1]];
+        }
     }
     else{
         //待评价
+        dataList = [MyOrderdataModel GetNoAssessmentOrderList];
+        pages = [self GetPagesWithDataArray:dataList];
     }
+    
+    [pullTableView reloadData];
 }
 
 @end

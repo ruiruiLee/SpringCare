@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OrderListModel.h"
+#import "MyOrderdataModel.h"
 
 @interface MyOrderOnDoingTableCell : UITableViewCell
 {
@@ -27,6 +27,6 @@
     UILabel *_headerText;
 }
 
-- (void) SetContentData:(OrderListModel*) data;
+- (void) SetContentData:(MyOrderdataModel*) data;
 
 @end

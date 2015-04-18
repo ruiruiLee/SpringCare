@@ -16,6 +16,44 @@ typedef enum : NSUInteger {
     EnumUnknown = 2,
 } UserSex;
 
+typedef enum : NSUInteger {
+    EnumDateTypeUnknown,
+    EnumTypeHalfDay,
+    EnumTypeOneDay,
+    EnumTypeOneWeek,
+    EnumTypeOneMounth,
+} DateType;
+
+typedef enum : NSUInteger {
+    EnumOrderStatusTypeNew,
+    EnumOrderStatusTypeConfirm,
+    EnumOrderStatusTypeServing,
+    EnumOrderStatusTypeFinish,
+    EnumOrderStatusTypeCancel,
+    EnumOrderStatusTypeUnknown,
+} OrderStatus;
+
+typedef enum : NSUInteger {
+    EnumTypeCommented,
+    EnumTypeNoComment,
+} CommentStatus;
+
+typedef enum : NSUInteger {
+    EnumTypePayed,
+    EnumTypeNopay,
+} PayStatus;
+
+typedef enum : NSUInteger {
+    EnumOrderAll,
+    EnumOrderPrepareForAssessment,
+} OrderListType;
+
+typedef enum : NSUInteger {
+    EnumServiceTimeNight,
+    EnumServiceTimeDay,
+    EnumServiceTimeOneDay,
+} ServiceTimeType;
+
 @interface Util : NSObject
 
 /**
@@ -39,8 +77,17 @@ typedef enum : NSUInteger {
 + (NSString*) StringFromDate:(NSDate*)Date;
 
 + (int) getAgeWithBirthday:(NSString*) birthday;
-+(UIImage *)fitSmallImage:(UIImage *)image scaledToSize:(CGSize)tosize;
+
++ (UIImage *)fitSmallImage:(UIImage *)image scaledToSize:(CGSize)tosize;
 
 + (UserSex) GetSexByName:(NSString*) string;
+
++ (NSString *) GetOrderServiceTime:(NSDate *) begin enddate:(NSDate *) end datetype:(DateType) datetype;
+
++ (ServiceTimeType) GetServiceTimeType:(NSDate *) begin;
+
++ (NSDate*) convertDateFromDateString:(NSString*)uiDate;
+
++ (NSString*) ChangeToUTCTime:(NSString*) time;
 
 @end

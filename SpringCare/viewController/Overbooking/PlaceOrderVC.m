@@ -131,13 +131,22 @@
         dateType = @"2";
     [Params setObject:dateType forKey:@"dateType"];//
     
-    NSString *beginDate = [NSString stringWithFormat:@"%@:00", editcell.lbTitle.text];
+//    NSString *beginDate = [NSString stringWithFormat:@"%@:00", editcell.lbTitle.text];
+    [Util ChangeToUTCTime:[NSString stringWithFormat:@"%@", editcell.lbTitle.text]];
     
-    [Params setObject:beginDate forKey:@"beginDate"];//
+    [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@", editcell.lbTitle.text]] forKey:@"beginDate"];//
     [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
+    
+    NSInteger unitPrice = _nurseModel.priceDiscount;
+    NSInteger orgUnitPrice = _nurseModel.price;
+    if(type == EnumType12Hours){
+        unitPrice = unitPrice/2;
+        orgUnitPrice = orgUnitPrice/2;
+    }
+    
     [Params setObject:[NSNumber numberWithInteger:_nurseModel.price] forKey:@"orgUnitPrice"];//
-    [Params setObject:[NSNumber numberWithInteger:_nurseModel.priceDiscount] forKey:@"unitPrice"];//
-    [Params setObject:[NSNumber numberWithInteger:_nurseModel.priceDiscount * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
+    [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
+    [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
     
     [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
         if(code){

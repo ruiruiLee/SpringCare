@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OrderListModel.h"
+#import "MyOrderdataModel.h"
 
 @interface MyOrderTableCell : UITableViewCell
 {
@@ -24,6 +24,6 @@
     UILabel *_lbDetailTime;
 }
 
-- (void) SetContentData:(OrderListModel*) data;
+- (void) SetContentData:(MyOrderdataModel*) data;
 
 @end

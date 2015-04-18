@@ -8,8 +8,8 @@
 
 #import "LCBaseVC.h"
 #import "LCTabBar.h"
-#import "OrderListModel.h"
 #import "PullTableView.h"
+#import "define.h"
 
 @interface MyOrderListVC : LCBaseVC<LCTabBarDelegate, UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
 {
@@ -18,6 +18,8 @@
     NSArray *dataList;
     
     NSInteger pages;
+    
+    OrderListType orderType;
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;

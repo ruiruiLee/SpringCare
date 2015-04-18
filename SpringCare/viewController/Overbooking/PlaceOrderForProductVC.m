@@ -123,9 +123,7 @@
     }
     [Params setObject:dateType forKey:@"dateType"];//
     
-    NSString *beginDate = [NSString stringWithFormat:@"%@:00", editcell.lbTitle.text];
-    
-    [Params setObject:beginDate forKey:@"beginDate"];//
+    [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@", editcell.lbTitle.text]] forKey:@"beginDate"];//
     [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
     [Params setObject:[NSNumber numberWithInteger:orgUnitPrice] forKey:@"orgUnitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
@@ -133,7 +131,13 @@
     
     [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
         if(code){
-            
+            if([content isKindOfClass:[NSDictionary class]]){
+                NSString *code = [content objectForKey:@"code"];
+                if(code == nil)
+                {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
         }
     }];
 }
