@@ -291,7 +291,7 @@
 
 - (void) NotifyToCommentWithModel:(MyOrderdataModel *) order cell:(MyOrderTableCell *) cell
 {
-    EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithNibName:nil bundle:nil];
+    EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:order];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -303,7 +303,7 @@
 
 - (void) NotifyToCommentWithModel:(MyOrderdataModel *) order onDoingcell:(MyOrderOnDoingTableCell *) cell
 {
-    EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithNibName:nil bundle:nil];
+    EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:order];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

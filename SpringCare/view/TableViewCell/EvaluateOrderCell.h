@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PlaceholderTextView.h"
+#import "MyOrderdataModel.h"
 
 @interface EvaluateOrderCell : UITableViewCell<UITextViewDelegate>
 {
@@ -23,6 +24,11 @@
     
     UIButton *_btnSubmit;
     UILabel *_line;
+    
+    MyOrderdataModel *_OrderModel;
+    int _nurseIdx;
 }
+
+- (void) SetContentWithModel:(MyOrderdataModel *) model nuridx:(int) nuridx;
 
 @end

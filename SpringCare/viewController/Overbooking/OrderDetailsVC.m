@@ -394,6 +394,12 @@
     }
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_tableview reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -579,7 +585,7 @@
         PayForOrderVC *vc = [[PayForOrderVC alloc] initWithModel:_orderModel];
         [self.navigationController pushViewController:vc animated:YES];
     }else if(flag == 1){
-        EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithNibName:nil bundle:nil];
+        EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:_orderModel];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (flag == 2){
             [LCNetWorkBase postWithMethod:@"api/order/cancel" Params:@{@"orderId" : _orderModel.oId, @"registerId" : [UserModel sharedUserInfo].userId} Completion:^(int code, id content) {

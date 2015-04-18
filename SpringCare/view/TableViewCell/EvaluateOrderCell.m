@@ -41,21 +41,18 @@
     _photoImage = [[UIImageView alloc] initWithFrame:CGRectZero];
     _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
     [_headerView addSubview:_photoImage];
-    [_photoImage sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
     _lbName.textColor = _COLOR(0x22, 0x22, 0x22);
     _lbName.font = _FONT(18);
-    _lbName.text = @"王莹莹";
     
     _btnInfo = [[UIButton alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_btnInfo];
     _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
     _btnInfo.titleLabel.font = _FONT(12);
     [_btnInfo setTitleColor:_COLOR(0x6b, 0x4e, 0x3e) forState:UIControlStateNormal];
-    [_btnInfo setTitle:@"四川人  38岁 护龄12年" forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
     _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 21);
     
@@ -105,6 +102,7 @@
     _btnSubmit.backgroundColor = Abled_Color;
     _btnSubmit.layer.cornerRadius = 5;
     _btnSubmit.titleLabel.font = _FONT(13);
+    [_btnSubmit addTarget:self action:@selector(doBtnSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
     _line = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_line];
@@ -152,6 +150,60 @@
     _btnBest.selected = NO;
     _btnBest.backgroundColor = color;
     _btnBest.layer.borderColor = borderColor.CGColor;
+}
+
+- (void) SetContentWithModel:(MyOrderdataModel *) model nuridx:(int) nuridx
+{
+    _OrderModel = model;
+    _nurseIdx = nuridx;
+    
+    NurseListInfoModel *nurseModel = [_OrderModel.nurseInfo objectAtIndex:nuridx];
+    
+    [_photoImage sd_setImageWithURL:[NSURL URLWithString:nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+    _lbName.text = nurseModel.name;
+    NSString *title = [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", nurseModel.birthPlace, nurseModel.age, nurseModel.careAge];
+    [_btnInfo setTitle:title forState:UIControlStateNormal];
+    float width = [NSStrUtil widthForString:title fontSize:12];
+    _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, width);
+}
+
+- (void) doBtnSubmit:(UIButton*) sender
+{
+    NSString *content = _tvContent.text;
+    NSInteger score = 5;
+    if(content == nil || [content length] == 0){
+        if(_btnBest.selected){
+            content = @"我对这次的服务非常满意";
+        }else if (_btnBetter.selected){
+            content = @"我对这次的服务基本满意";
+            score = 4;
+        }
+        else if (_btnGood.selected){
+            content = @"这次的服务有带提高";
+            score = 3;
+        }
+    }
+    
+    NurseListInfoModel *nurseModel = [_OrderModel.nurseInfo objectAtIndex:_nurseIdx];
+    
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    [parmas setObject:content forKey:@"content"];
+    [parmas setObject:[NSNumber numberWithInteger:score] forKey:@"score"];
+    [parmas setObject:_OrderModel.oId forKey:@"orderId"];
+    [parmas setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
+    [parmas setObject:nurseModel.nid forKey:@"careId"];
+    
+    [LCNetWorkBase postWithMethod:@"api/order/comment" Params:parmas Completion:^(int code, id content) {
+        if(code){
+            NSString *code = [content objectForKey:@"code"];
+            if(code == nil)
+            {
+                _OrderModel.commentStatus = EnumTypeCommented;
+
+            }
+        }
+    }];
 }
 
 @end

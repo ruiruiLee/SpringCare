@@ -7,10 +7,14 @@
 //
 
 #import "LCBaseVC.h"
+#import "MyOrderdataModel.h"
 
 @interface EvaluateOrderVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *_tableview;
+    MyOrderdataModel *_orderModel;
 }
+
+- (id) initWithModel:(MyOrderdataModel *)model;
 
 @end

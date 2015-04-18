@@ -15,6 +15,16 @@
 
 @implementation EvaluateOrderVC
 
+- (id) initWithModel:(MyOrderdataModel *)model
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if(self){
+        _orderModel = model;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -50,7 +60,7 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return [_orderModel.nurseInfo count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,6 +72,9 @@
 {
     EvaluateOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    NurseListInfoModel *model = [_orderModel.nurseInfo objectAtIndex:indexPath.row];
+//    [cell SetContentWithModel:model orderId:_orderModel.oId];
+    [cell SetContentWithModel:_orderModel nuridx:(int)indexPath.row];
     return cell;
 }
 
