@@ -82,20 +82,38 @@ static NSMutableDictionary *pramaNurseDic = nil;
 + (NurseListInfoModel*)objectFromDictionary:(NSDictionary*) dic
 {
     NurseListInfoModel *model = [[NurseListInfoModel alloc] init];
-    model.Distance = [[dic objectForKey:@"Distance"] integerValue];
+    if([dic objectForKey:@"Distance"] == nil || [[dic objectForKey:@"Distance"] isKindOfClass:[NSNull class]])
+        model.Distance = 0;
+    else
+        model.Distance = [[dic objectForKey:@"Distance"] integerValue];
     model.name = [dic objectForKey:@"name"];
-    model.age = [[dic objectForKey:@"age"] integerValue];
+    if([dic objectForKey:@"age"] == nil || [[dic objectForKey:@"age"] isKindOfClass:[NSNull class]])
+        model.age = 0;
+    else
+        model.age = [[dic objectForKey:@"age"] integerValue];
     model.birthPlace = [dic objectForKey:@"birthPlace"];
     model.careAge = [dic objectForKey:@"careAge"];
     model.detailIntro = [dic objectForKey:@"detailIntro"];
     model.headerImage = [dic objectForKey:@"headerImage"];
     model.nid = [dic objectForKey:@"id"];
     model.intro = [dic objectForKey:@"intro"];
-    model.price = [[dic objectForKey:@"price"] integerValue];
-    model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
+    if([dic objectForKey:@"price"] == nil || [[dic objectForKey:@"price"] isKindOfClass:[NSNull class]])
+        model.price = 0;
+    else
+        model.price = [[dic objectForKey:@"price"] integerValue];
+    if([dic objectForKey:@"priceDiscount"] == nil || [[dic objectForKey:@"priceDiscount"] isKindOfClass:[NSNull class]])
+        model.priceDiscount = 0;
+    else
+        model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
     model.sex = [dic objectForKey:@"sex"];
-    model.commentsNumber = [[dic objectForKey:@"commentsNumber"] integerValue];
-    model.commentsRate = [[dic objectForKey:@"commentsRate"] integerValue];
+    if([dic objectForKey:@"commentsNumber"] == nil || [[dic objectForKey:@"sex"] isKindOfClass:[NSNull class]])
+        model.commentsNumber = 0;
+    else
+        model.commentsNumber = [[dic objectForKey:@"commentsNumber"] integerValue];
+    if([dic objectForKey:@"commentsRate"] == nil || [[dic objectForKey:@"commentsRate"] isKindOfClass:[NSNull class]])
+        model.commentsRate = 0;
+    else
+        model.commentsRate = [[dic objectForKey:@"commentsRate"] integerValue];
     
     return model;
 }

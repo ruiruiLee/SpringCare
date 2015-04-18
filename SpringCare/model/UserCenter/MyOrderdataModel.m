@@ -186,6 +186,11 @@ static NSMutableArray *noAssessmentOrderList = nil;
             if(block){
                 block (1);
             }
+        }else
+        {
+            if(block){
+                block (0);
+            }
         }
     }];
 }

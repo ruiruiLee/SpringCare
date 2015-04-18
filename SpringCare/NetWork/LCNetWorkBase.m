@@ -99,11 +99,13 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, error);
         if (error.code != -1001) {
-            completion(0, error);
             
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:error.localizedDescription delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertView show];
         }
+        
+        completion(0, error);
+        
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
