@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "define.h"
 #import "NurseListInfoModel.h"
+#import "UserAttentionModel.h"
 
 @interface ProductInfodataModel : NSObject
 
@@ -17,8 +18,18 @@
 
 @end
 
+@interface RegistrUserInfoModel : NSObject
+
+@property (nonatomic, strong) NSString *uId;
+@property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSString *chineseName;
+
+@end
+
+
 @interface MyOrderdataModel : NSObject
 
+@property (nonatomic, assign) BOOL isLoadDetail;
 @property (nonatomic, strong) NSString *oId;
 @property (nonatomic, assign) DateType dateType;
 @property (nonatomic, strong) NSDate *beginDate;
@@ -32,6 +43,12 @@
 @property (nonatomic, assign) PayStatus payStatus;
 @property (nonatomic, strong) ProductInfodataModel *product;
 @property (nonatomic, strong) NSArray *nurseInfo;//NurseListInfoModel *nurseInfo;
+//detail
+
+@property (nonatomic, strong) UserAttentionModel *lover;
+@property (nonatomic, strong) NSString *serialNumber;
+@property (nonatomic, strong) RegistrUserInfoModel *registerUser;
+@property (nonatomic, strong) NSDate *createdDate;
 
 + (NSArray *) GetNoAssessmentOrderList;
 + (NSArray *) GetMyOrderList;
@@ -40,6 +57,12 @@
  *  获取订单数据, pages为0时刷新
  *
  */
-+ (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType block:(block) block;
++ (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType isOnlyIndexSplit:(BOOL) isOnlyIndexSplit block:(block) block;
+
+/**
+ *  获取护工详情
+ *
+ */
+- (void) LoadDetailOrderInfo:(block) block;
 
 @end

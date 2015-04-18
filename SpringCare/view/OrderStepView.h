@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    StepViewType4Step,
+    StepViewType2Step,
+} StepViewType;
+
 @interface OrderStepView : UIView
+{
+    NSArray *ImageCArray;
+    NSArray *lbCArrary;
+}
 
 - (void) SetCurrentStepWithIdx:(NSInteger) idx;
+
+- (void) SetStepViewType:(StepViewType) type;
 
 @end

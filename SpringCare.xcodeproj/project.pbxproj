@@ -108,6 +108,7 @@
 		868B23A71ADF9769003AAD2A /* WorkAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23A61ADF9769003AAD2A /* WorkAddressCell.m */; };
 		868B23A91ADFAB9A003AAD2A /* adduser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868B23A81ADFAB9A003AAD2A /* adduser@2x.png */; };
 		868B23AC1AE1287E003AAD2A /* MyOrderdataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23AB1AE1287E003AAD2A /* MyOrderdataModel.m */; };
+		868B23AE1AE26674003AAD2A /* orderdetailaddr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868B23AD1AE26674003AAD2A /* orderdetailaddr@2x.png */; };
 		869C9EDB1AD3C2080090182E /* nav_shut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDA1AD3C2080090182E /* nav_shut@2x.png */; };
 		869C9EDE1AD3D3750090182E /* relationattentionselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */; };
 		869C9EE01AD3D5F60090182E /* relationheaderbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */; };
@@ -595,6 +596,7 @@
 		868B23A81ADFAB9A003AAD2A /* adduser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adduser@2x.png"; sourceTree = "<group>"; };
 		868B23AA1AE1287E003AAD2A /* MyOrderdataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderdataModel.h; sourceTree = "<group>"; };
 		868B23AB1AE1287E003AAD2A /* MyOrderdataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderdataModel.m; sourceTree = "<group>"; };
+		868B23AD1AE26674003AAD2A /* orderdetailaddr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orderdetailaddr@2x.png"; sourceTree = "<group>"; };
 		869C9EDA1AD3C2080090182E /* nav_shut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_shut@2x.png"; sourceTree = "<group>"; };
 		869C9EDD1AD3D3750090182E /* relationattentionselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationattentionselect@2x.png"; sourceTree = "<group>"; };
 		869C9EDF1AD3D5F60090182E /* relationheaderbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "relationheaderbg@2x.png"; sourceTree = "<group>"; };
@@ -1036,6 +1038,7 @@
 		8642C8BF1ABFF51100251921 /* PNG */ = {
 			isa = PBXGroup;
 			children = (
+				868B23AD1AE26674003AAD2A /* orderdetailaddr@2x.png */,
 				CFB42D141AE1377500FDF891 /* placeholderimage@2x.png */,
 				868B23A81ADFAB9A003AAD2A /* adduser@2x.png */,
 				868B23971ADD4416003AAD2A /* normalpaylogo@2x.png */,
@@ -2125,6 +2128,7 @@
 				86B8E5D11AD7D9A900A5139E /* orderdetailtel@2x.png in Resources */,
 				CFBC51571ADBAA05004FB8F3 /* fx_060@2x.png in Resources */,
 				CFBC51671ADBAA05004FB8F3 /* fx_069@2x.png in Resources */,
+				868B23AE1AE26674003AAD2A /* orderdetailaddr@2x.png in Resources */,
 				862B973F1AD2409700A726D3 /* hospital@2x.png in Resources */,
 				86D627DA1AD134C500DB4369 /* usercentermyorders@2x.png in Resources */,
 				CFBC50EB1ADBAA05004FB8F3 /* fx_004@2x.png in Resources */,

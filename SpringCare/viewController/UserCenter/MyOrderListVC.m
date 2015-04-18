@@ -13,6 +13,7 @@
 #import "MyOrderdataModel.h"
 #import "OrderDetailsVC.h"
 #import "PayForOrderVC.h"
+#import "EvaluateOrderVC.h"
 
 @interface MyOrderListVC ()<MyOrderOnDoingTableCellDelegate, MyOrderTableCellDelegate>
 
@@ -34,21 +35,15 @@
     [self initSubView];
     
     dataList = [MyOrderdataModel GetMyOrderList];
-//    if([dataList count] == 2){
-//        pages = [self GetPagesWithDataArray:[dataList objectAtIndex:1]];
-//    }
-    
-//    if(pages == 0){
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll block:^(int code) {
-            if(code){
-                dataList = [MyOrderdataModel GetMyOrderList];
-                [pullTableView reloadData];
-                [self refreshTable];
-            }else{
-                [self refreshTable];
-            }
-        }];
-//    }
+    [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code) {
+        if(code){
+            dataList = [MyOrderdataModel GetMyOrderList];
+            [pullTableView reloadData];
+            [self refreshTable];
+        }else{
+            [self refreshTable];
+        }
+    }];
 }
 
 - (NSInteger) GetPagesWithDataArray:(NSArray *) array
@@ -57,6 +52,12 @@
     if([array count] % LIMIT_COUNT > 0)
         count ++;
     return count;
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [pullTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -163,10 +164,27 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    OrderDetailsVC *vc = [[OrderDetailsVC alloc] initWithNibName:nil bundle:nil];
+    MyOrderdataModel *model = nil;
+    if(EnumOrderPrepareForAssessment == orderType){
+        model = [dataList objectAtIndex:indexPath.row];
+    }
+    else{
+        if(indexPath.section == 0){
+            model = [[dataList objectAtIndex:0] objectAtIndex:indexPath.row];
+        }else{
+            model = [[dataList objectAtIndex:1] objectAtIndex:indexPath.row];
+        }
+    }
+//    [model addObserver:self forKeyPath:@"orderStatus" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    
+    OrderDetailsVC *vc = [[OrderDetailsVC alloc] initWithOrderModel:model];
     [self.navigationController pushViewController:vc animated:YES];
     
 }
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    [pullTableView reloadData];
+//}
 
 - (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -186,7 +204,7 @@
 {
     pages = 0;
     if(EnumOrderPrepareForAssessment == orderType){
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment block:^(int code) {
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code) {
             if(code){
                 dataList = [MyOrderdataModel GetNoAssessmentOrderList];
                 [pullTableView reloadData];
@@ -196,7 +214,7 @@
             }
         }];
     }else{
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll block:^(int code) {
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code) {
             if(code){
                 dataList = [MyOrderdataModel GetMyOrderList];
                 [pullTableView reloadData];
@@ -214,7 +232,7 @@
     if(EnumOrderPrepareForAssessment == orderType){
         [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.1f];
     }else{
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll block:^(int code) {
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:YES block:^(int code) {
             if(code){
                 dataList = [MyOrderdataModel GetMyOrderList];
                 [pullTableView reloadData];
@@ -272,7 +290,10 @@
 }
 
 - (void) NotifyToCommentWithModel:(MyOrderdataModel *) order cell:(MyOrderTableCell *) cell
-{}
+{
+    EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (void) NotifyToPayWithModel:(MyOrderdataModel *) oreder onDoingcell:(MyOrderOnDoingTableCell *) cell
 {
@@ -281,6 +302,9 @@
 }
 
 - (void) NotifyToCommentWithModel:(MyOrderdataModel *) order onDoingcell:(MyOrderOnDoingTableCell *) cell
-{}
+{
+    EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 @end
