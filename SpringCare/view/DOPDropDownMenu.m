@@ -54,7 +54,7 @@
 
 - (UIColor *)textColor {
     if (!_textColor) {
-        _textColor = _COLOR(0x66, 0x66, 0x66);//[UIColor blackColor];
+        _textColor = [UIColor blackColor];
     }
     return _textColor;
 }
@@ -121,7 +121,7 @@
 }
 
 #pragma mark - init method
-- (instancetype)initWithOrigin:(CGPoint)origin andHeight:(CGFloat)height{
+- (instancetype)initWithOrigin:(CGPoint)origin andHeight:(CGFloat)height {
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     self = [self initWithFrame:CGRectMake(origin.x, origin.y, screenSize.width, height)];
     if (self) {
@@ -141,15 +141,15 @@
         [self addGestureRecognizer:tapGesture];
         
         //background init and tapped
-        _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(origin.x, origin.y, screenSize.width, height)];
+        _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(origin.x, origin.y, screenSize.width, screenSize.height)];
         _backGroundView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
         _backGroundView.opaque = NO;
         UIGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped:)];
         [_backGroundView addGestureRecognizer:gesture];
         
         //add bottom shadow
-        UIView *bottomShadow = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-1, screenSize.width, 1)];
-        bottomShadow.backgroundColor = _COLOR(0xe6, 0xe6, 0xe6);//[UIColor lightGrayColor];
+        UIView *bottomShadow = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-0.5, screenSize.width, 0.5)];
+        bottomShadow.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:bottomShadow];
     }
     return self;
@@ -217,7 +217,7 @@
     CGFloat sizeWidth = (size.width < (self.frame.size.width / _numOfMenu) - 25) ? size.width : self.frame.size.width / _numOfMenu - 25;
     layer.bounds = CGRectMake(0, 0, sizeWidth, size.height);
     layer.string = string;
-    layer.fontSize = 15.0;
+    layer.fontSize = 14.0;
     layer.alignmentMode = kCAAlignmentCenter;
     layer.foregroundColor = color.CGColor;
     
@@ -230,7 +230,7 @@
 
 - (CGSize)calculateTitleSizeWithString:(NSString *)string
 {
-    CGFloat fontSize = 15.0;
+    CGFloat fontSize = 14.0;
     NSDictionary *dic = @{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]};
     CGSize size = [string boundingRectWithSize:CGSizeMake(280, 0) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil].size;
     return size;
@@ -241,12 +241,6 @@
     CGPoint touchPoint = [paramSender locationInView:self];
     //calculate index
     NSInteger tapIndex = touchPoint.x / (self.frame.size.width / _numOfMenu);
-    
-    if (self.delegate || [self.delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
-        [self.delegate menu:self didSelectRowAtIndexPath:[DOPIndexPath indexPathWithCol:tapIndex row:0]];
-    } else {
-        //TODO: delegate is nil
-    }
  
     for (int i = 0; i < _numOfMenu; i++) {
         if (i != tapIndex) {
@@ -310,7 +304,7 @@
         [view.superview addSubview:self];
         
         [UIView animateWithDuration:0.2 animations:^{
-//            view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.3];
+            view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.3];
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -324,17 +318,17 @@
 
 - (void)animateTableView:(UITableView *)tableView show:(BOOL)show complete:(void(^)())complete {
     if (show) {
-        tableView.frame = CGRectMake(0, self.frame.origin.y + self.frame.size.height, self.frame.size.width, 0);
+        tableView.frame = CGRectMake(self.origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width, 0);
         [self.superview addSubview:tableView];
         
         CGFloat tableViewHeight = ([tableView numberOfRowsInSection:0] > 5) ? (5 * tableView.rowHeight) : ([tableView numberOfRowsInSection:0] * tableView.rowHeight);
         
         [UIView animateWithDuration:0.2 animations:^{
-            _tableView.frame = CGRectMake(0, self.frame.origin.y + self.frame.size.height, self.frame.size.width, tableViewHeight);
+            _tableView.frame = CGRectMake(self.origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width, tableViewHeight);
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
-            _tableView.frame = CGRectMake(0, self.frame.origin.y + self.frame.size.height, self.frame.size.width, 0);
+            _tableView.frame = CGRectMake(self.origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width, 0);
         } completion:^(BOOL finished) {
             [tableView removeFromSuperview];
         }];
@@ -401,12 +395,12 @@
 
 #pragma mark - tableview delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (self.delegate || [self.delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
-//        [self confiMenuWithSelectRow:indexPath.row];
-//        [self.delegate menu:self didSelectRowAtIndexPath:[DOPIndexPath indexPathWithCol:self.currentSelectedMenudIndex row:indexPath.row]];
-//    } else {
-//        //TODO: delegate is nil
-//    }
+    if (self.delegate || [self.delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
+        [self confiMenuWithSelectRow:indexPath.row];
+        [self.delegate menu:self didSelectRowAtIndexPath:[DOPIndexPath indexPathWithCol:self.currentSelectedMenudIndex row:indexPath.row]];
+    } else {
+        //TODO: delegate is nil
+    }
 }
 
 - (void)confiMenuWithSelectRow:(NSInteger)row {
@@ -429,3 +423,6 @@
 
 @end
 
+// 版权属于原作者
+// http://code4app.com (cn) http://code4app.net (en)
+// 发布代码于最专业的源码分享网站: Code4App.com 
