@@ -9,7 +9,7 @@
 #import "CityDataModel.h"
 #import "LocationManagerObserver.h"
 #import "AppDelegate.h"
-
+#import "define.h"
 static NSMutableArray *cityDataArray = nil;
 
 @implementation CityDataModel
@@ -50,7 +50,7 @@ static NSMutableArray *cityDataArray = nil;
         }
     }
     
-    NSString *currentCity = [LocationManagerObserver getCurrentCityName];
+    NSString *currentCity = LcationInstance.currentCity;  // [LocationManagerObserver getCurrentCityName];
     if(currentCity != nil){
         CityDataModel *model = [CityDataModel modelWithName:currentCity];
         if(model){

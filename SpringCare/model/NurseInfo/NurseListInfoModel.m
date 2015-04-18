@@ -118,8 +118,8 @@ static NSMutableDictionary *pramaNurseDic = nil;
     }
     
     AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    double lon = delegate._observer.lon;
-    double lat = delegate._observer.lat;
+    double lon = LcationInstance.lon; // delegate._observer.lon;
+    double lat = LcationInstance.lat; //delegate._observer.lat;
     NSString *cityId = delegate.currentCityModel.city_id;
     NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;

@@ -69,8 +69,8 @@
 #define Photo_Place_Holder_Image  nil
 
 #define SeparatorLineColor  _COLOR(0xd7, 0xd7, 0xd7)
-#define TableBackGroundColor _COLOR(0xf8, 0xf8, 0xf8)
-#define TableSectionBackgroundColor _COLORa(0xf3, 0xf5, 0xf7,0.9)
+#define TableBackGroundColor    _COLOR(0xf8, 0xf8, 0xf8)
+#define TableSectionBackgroundColor _COLOR(234, 237, 241) //_COLORa(0xf3, 0xf5, 0xf7,0.9)
 
 #define TIME_LIMIT 5
 #define LIMIT_COUNT 20

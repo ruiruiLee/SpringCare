@@ -13,9 +13,9 @@
 
 @property (nonatomic, assign) double lat;
 @property (nonatomic, assign) double lon;
-
+@property (nonatomic, copy) NSString* currentCity ;
 - (void) startUpdateLocation;
-
-+ (NSString*) getCurrentCityName;
++ (LocationManagerObserver *)sharedInstance;
+//+ (NSString*) getCurrentCityName;
 
 @end
