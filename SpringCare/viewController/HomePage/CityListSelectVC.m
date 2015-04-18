@@ -90,7 +90,7 @@
         cell = [[CityListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     if(indexPath.section == 0){
-        NSString *currentCity = [LocationManagerObserver getCurrentCityName];
+        NSString *currentCity =   LcationInstance.currentCity;   //[LocationManagerObserver getCurrentCityName];
         if(currentCity == nil)
         {
             cell.lbTitle.text = @"正在定位..";

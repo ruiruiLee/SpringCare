@@ -10,46 +10,63 @@
 #import "define.h"
 #import "AppDelegate.h"
 
-static NSString *currentCity = nil;
+//static NSString *currentCity = nil;
 
 @implementation LocationManagerObserver
 @synthesize lat;
 @synthesize lon;
+@synthesize currentCity;
 
-+ (NSString*) getCurrentCityName
+
++ (LocationManagerObserver *)sharedInstance
 {
-    return currentCity;
+    static dispatch_once_t once;
+    static LocationManagerObserver *instance = nil;
+    dispatch_once( &once, ^{
+        instance = [[LocationManagerObserver alloc] init];
+        instance.lat = 30.222;
+        instance.lon = 100.444;
+    } );
+    return instance;
 }
 
-- (id) init
-{
-    self = [super init];
-    if(self){
-        lat = 30.222;
-        lon = 100.444;
-        [self startUpdateLocation];
-    }
-    return self;
-}
+//+ (NSString*) getCurrentCityName
+//{
+//    return currentCity;
+//}
+
+//- (id) init
+//{
+//    self = [super init];
+//    if(self){
+//        lat = 30.222;
+//        lon = 100.444;
+//        [self startUpdateLocation];
+//    }
+//    return self;
+//}
 
 - (void) startUpdateLocation {
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];//创建位置管理器
     locationManager.delegate=self;
     locationManager.desiredAccuracy=kCLLocationAccuracyBest;
     locationManager.distanceFilter=100.0f;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-        [locationManager requestWhenInUseAuthorization];  //调用了这句,就会弹出允许框了.
     CLAuthorizationStatus status =[CLLocationManager authorizationStatus];
     if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            [locationManager requestWhenInUseAuthorization ];
+        }
         AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
         currentCity = @"成都市";
         CityDataModel *model = [CityDataModel modelWithName:currentCity];
         delegate.currentCityModel = model;
-    }else{
+    }
+    else{
     //启动位置更新
     [locationManager startUpdatingLocation];
     }
 }
+
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     lat = newLocation.coordinate.latitude;
