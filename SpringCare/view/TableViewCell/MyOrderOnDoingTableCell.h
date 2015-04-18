@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "MyOrderdataModel.h"
 
+@class MyOrderOnDoingTableCell;
+
+@protocol MyOrderOnDoingTableCellDelegate <NSObject>
+
+- (void) NotifyToPayWithModel:(MyOrderdataModel *) oreder onDoingcell:(MyOrderOnDoingTableCell *) cell;
+- (void) NotifyToCommentWithModel:(MyOrderdataModel *) order onDoingcell:(MyOrderOnDoingTableCell *) cell;
+
+@end
+
 @interface MyOrderOnDoingTableCell : UITableViewCell
 {
     UIImageView *_imgPhoto;//头像
@@ -25,7 +34,11 @@
     
     UILabel *_topLine;
     UILabel *_headerText;
+    
+    MyOrderdataModel *orderModel;
 }
+
+@property (nonatomic, assign) id<MyOrderOnDoingTableCellDelegate> delegate;
 
 - (void) SetContentData:(MyOrderdataModel*) data;
 

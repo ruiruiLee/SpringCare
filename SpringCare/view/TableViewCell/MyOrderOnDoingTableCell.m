@@ -11,6 +11,7 @@
 #import "define.h"
 
 @implementation MyOrderOnDoingTableCell
+@synthesize delegate;
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -73,6 +74,7 @@
     _btnPay.backgroundColor = Abled_Color;
     [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
     _btnPay.layer.cornerRadius = 8;
+    [_btnPay addTarget:self action:@selector(btnToPay:) forControlEvents:UIControlEventTouchUpInside];
     
     _btnStatus = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnStatus];
@@ -80,6 +82,7 @@
     _btnStatus.titleLabel.font = _FONT(15);
     _btnStatus.backgroundColor = _COLOR(0x99, 0x99, 0x99);
     _btnStatus.hidden = YES;
+    [_btnStatus addTarget:self action:@selector(btnToComment:) forControlEvents:UIControlEventTouchUpInside];
     
     _imgLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_imgLogo];
@@ -137,6 +140,8 @@
 
 - (void) SetContentData:(MyOrderdataModel *) data
 {
+    orderModel = data;
+    
     [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
 //    _lbPrice.text = [NSString stringWithFormat:@"¥%ld", data.unitPrice];
     NSMutableString *priceStr = [[NSMutableString alloc] init];
@@ -184,20 +189,48 @@
     _btnPay.hidden = NO;
     _btnStatus.hidden = NO;
     _imgLogo.hidden = NO;
+    _btnStatus.selected = NO;
     if(data.orderStatus == EnumOrderStatusTypeCancel){
         _imgLogo.hidden = YES;
         _btnPay.hidden = YES;
         [_btnStatus setTitle:@"订单取消" forState:UIControlStateNormal];
     }
     else{
-        if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeNoComment && data.payStatus == EnumTypePayed){
+        if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeNoComment && data.payStatus == EnumTypePayed)
+        {
+            _btnPay.hidden = YES;
+            [_btnStatus setTitle:@"已完成" forState:UIControlStateNormal];
+        }
+        else if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeNoComment && data.payStatus == EnumTypePayed){
             _imgLogo.hidden = YES;
             _btnPay.hidden = YES;
+             _btnStatus.selected = YES;
             [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
         }else{
             _imgLogo.hidden = YES;
             _btnStatus.hidden = YES;
             [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
+        }
+    }
+}
+
+- (void) btnToPay:(UIButton*)sender
+{
+    if(delegate && [delegate respondsToSelector:@selector(NotifyToPayWithModel:onDoingcell:)]){
+        if(orderModel){
+            [delegate NotifyToPayWithModel:orderModel onDoingcell:self];
+        }
+    }
+}
+
+- (void) btnToComment:(UIButton*)sender
+{
+    if(sender.selected == NO)
+        return;
+    
+    if(delegate && [delegate respondsToSelector:@selector(NotifyToCommentWithModel:onDoingcell:)]){
+        if(orderModel){
+            [delegate NotifyToCommentWithModel:orderModel onDoingcell:self];
         }
     }
 }

@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "MyOrderdataModel.h"
 
+@class MyOrderTableCell;
+@protocol MyOrderTableCellDelegate <NSObject>
+
+- (void) NotifyToPayWithModel:(MyOrderdataModel *) oreder cell:(MyOrderTableCell *) cell;
+- (void) NotifyToCommentWithModel:(MyOrderdataModel *) order cell:(MyOrderTableCell *) cell;
+
+@end
+
 @interface MyOrderTableCell : UITableViewCell
 {
     UIImageView *_imgPhoto;//头像
@@ -22,7 +30,11 @@
     UIImageView *_imgDayTime;
     UIImageView *_imgNight;
     UILabel *_lbDetailTime;
+    
+    MyOrderdataModel *orderModel;
 }
+
+@property (nonatomic, assign) id<MyOrderTableCellDelegate> delegate;
 
 - (void) SetContentData:(MyOrderdataModel*) data;
 

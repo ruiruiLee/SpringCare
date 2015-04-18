@@ -14,7 +14,7 @@
 #import "OrderDetailsVC.h"
 #import "PayForOrderVC.h"
 
-@interface MyOrderListVC ()
+@interface MyOrderListVC ()<MyOrderOnDoingTableCellDelegate, MyOrderTableCellDelegate>
 
 @end
 
@@ -134,6 +134,7 @@
             }
             MyOrderdataModel *model = [[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             [cell SetContentData:model];
+            cell.delegate = self;
             return cell;
         }
         else{
@@ -143,6 +144,7 @@
             }
             MyOrderdataModel *model = [[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             [cell SetContentData:model];
+            cell.delegate = self;
             return cell;
         }
     }else{
@@ -150,6 +152,7 @@
         if(!cell){
             cell = [[MyOrderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         }
+        cell.delegate = self;
         MyOrderdataModel *model = [dataList objectAtIndex:indexPath.row];
         [cell SetContentData:model];
         return cell;
@@ -259,5 +262,25 @@
     
     [pullTableView reloadData];
 }
+
+#pragma delegate
+
+- (void) NotifyToPayWithModel:(MyOrderdataModel *) oreder cell:(MyOrderTableCell *) cell
+{
+    PayForOrderVC *vc = [[PayForOrderVC alloc] initWithModel:oreder];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) NotifyToCommentWithModel:(MyOrderdataModel *) order cell:(MyOrderTableCell *) cell
+{}
+
+- (void) NotifyToPayWithModel:(MyOrderdataModel *) oreder onDoingcell:(MyOrderOnDoingTableCell *) cell
+{
+    PayForOrderVC *vc = [[PayForOrderVC alloc] initWithModel:oreder];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) NotifyToCommentWithModel:(MyOrderdataModel *) order onDoingcell:(MyOrderOnDoingTableCell *) cell
+{}
 
 @end
