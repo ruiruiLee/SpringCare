@@ -11,7 +11,6 @@
 
 @interface UserModel : NSObject
 {
-    BOOL isLogin;
 }
 
 

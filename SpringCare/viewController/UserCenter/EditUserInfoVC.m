@@ -195,7 +195,7 @@
     if([userData isKindOfClass:[UserModel class]]){
         UserModel *model = (UserModel*)userData;
         if(typedata.cellType == EnumTypeAccount){
-            cell.tfEdit.text = model.username;
+            cell.tfEdit.text = model.mobilePhoneNumber;
         }
         else if(typedata.cellType == EnumTypeUserName){
             cell.tfEdit.text = model.chineseName;
