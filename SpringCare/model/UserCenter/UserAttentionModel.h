@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *sex;
 @property (nonatomic, strong) NSString *height;
 @property (nonatomic, strong) NSString *age;
+@property (nonatomic, strong) NSString *relationId;//注册用户扩展表id
 
 + (NSMutableArray*) GetMyAttentionArray;
 

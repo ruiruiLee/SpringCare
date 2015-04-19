@@ -76,13 +76,15 @@
                 }
                 else if(typedata.cellType == EnumTypeAge){
                     NSString *age = cell.tfEdit.text;
-                    NSDate *date = [NSDate date];
-                    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
-                    NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-                    NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
-                    int year = (int)[comps year];
-                    [mDic setObject:[NSString stringWithFormat:@"%d-01-01 00:00:00", year - [age intValue]] forKey:@"birthDay"];
+                    if(age != nil && [age length] > 5){
+                        NSDate *date = [NSDate date];
+                        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                        NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
+                        NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+                        NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
+                        int year = (int)[comps year];
+                        [mDic setObject:[NSString stringWithFormat:@"%d-01-01 00:00:00", year - [age intValue]] forKey:@"birthDay"];
+                    }
                 }
                 else if(typedata.cellType == EnumTypeAddress){
                     [mDic setObject:cell.tfEdit.text forKey:@"addr"];
@@ -109,7 +111,8 @@
         NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
         if([userData isKindOfClass:[UserAttentionModel class]]){
             UserAttentionModel *model = (UserAttentionModel*)userData;
-            [mDic setObject:model.userid forKey:@"id"];
+            [mDic setObject:model.userid forKey:@"loverId"];
+            [mDic setObject:model.relationId forKey:@"relationId"];
             
         }
         [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
@@ -130,13 +133,15 @@
                 }
                 else if(typedata.cellType == EnumTypeAge){
                     NSString *age = cell.tfEdit.text;
-                    NSDate *date = [NSDate date];
-                    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
-                    NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-                    NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
-                    int year = (int)[comps year];
-                    [mDic setObject:[NSString stringWithFormat:@"%d-01-01 00:00:00", year - [age intValue]] forKey:@"birthDay"];
+                    if(age != nil && [age length] > 5){
+                        NSDate *date = [NSDate date];
+                        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                        NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
+                        NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+                        NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
+                        int year = (int)[comps year];
+                        [mDic setObject:[NSString stringWithFormat:@"%d-01-01 00:00:00", year - [age intValue]] forKey:@"birthDay"];
+                    }
                 }
                 else if(typedata.cellType == EnumTypeAddress){
                     [mDic setObject:cell.tfEdit.text forKey:@"addr"];
