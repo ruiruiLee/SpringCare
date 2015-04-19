@@ -74,6 +74,20 @@ typedef enum : NSUInteger {
  */
 + (NSDate*) convertDateFromString:(NSString*)uiDate;
 
+/**
+ *@Method openCamera:
+ *@Brief 打开照相机
+ *@Param |currentViewController| 当前的viewcontroller
+ **/
++ (void)openCamera:(UIViewController*)currentViewController allowEdit:(BOOL)allowEdit completion:(void (^)(void))completion;
+
+/**
+ *@Method openPhotoLibrary:
+ *@Brief 打开相册
+ *@Param |currentViewController| 当前的viewcontroller
+ **/
++ (void)openPhotoLibrary:(UIViewController*)currentViewController allowEdit:(BOOL)allowEdit completion:(void (^)(void))completion;
+
 + (NSString*) StringFromDate:(NSDate*)Date;
 
 + (int) getAgeWithBirthday:(NSString*) birthday;
