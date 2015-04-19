@@ -348,7 +348,7 @@
     NSArray *imgPicArray = modelData.imgPicArray;//图片数据列表
     
     CGFloat cellHeight = 20.f;
-    if(textContent != nil && ![textContent isKindOfClass:[NSNull class]]){
+    if(textContent != nil && ![textContent isKindOfClass:[NSNull class]] && [textContent length] > 0){
         cellHeight += 2;
         _lbContent.text = textContent;
         
