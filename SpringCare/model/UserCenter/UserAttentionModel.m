@@ -10,6 +10,7 @@
 #import "LCNetWorkBase.h"
 #import "UserModel.h"
 #import "UserRequestAcctionModel.h"
+#import "define.h"
 
 static NSMutableArray *myAttentionArray = nil;
 
@@ -60,7 +61,7 @@ static NSMutableArray *myAttentionArray = nil;
     model.height = [dic objectForKey:@"height"];
     if(model.height == nil)
         model.height = @"";
-    model.age = [dic objectForKey:@"age"];
+    model.age = [NSString stringWithFormat:@"%ld", [Util GetAgeByBirthday:[dic objectForKey:@"birthDay"]]];//[dic objectForKey:@"age"];
     if(model.age == nil)
         model.age = @"";
     

@@ -220,7 +220,8 @@
     _photoImage = [[UIImageView alloc] initWithFrame:CGRectZero];
     _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
     [headerView addSubview:_photoImage];
-    [_photoImage sd_setImageWithURL:[NSURL URLWithString:_nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+
+    [_photoImage sd_setImageWithURL:[NSURL URLWithString:_nurseModel.headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:_nurseModel.sex]])];
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_lbName];

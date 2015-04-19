@@ -104,4 +104,8 @@ typedef enum : NSUInteger {
 
 + (NSString*) ChangeToUTCTime:(NSString*) time;
 
++ (NSString *) headerImagePathWith:(UserSex ) sex;
+
++ (NSInteger) GetAgeByBirthday:(NSString *) day;
+
 @end

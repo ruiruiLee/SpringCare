@@ -212,4 +212,27 @@
     return time;//[Util getStringFromDate:localeDate];
 }
 
++ (NSString *) headerImagePathWith:(UserSex ) sex
+{
+//    return @"";
+    NSString *headerImage = @"nurselistfemale";
+    if( sex == EnumMale)
+        headerImage = @"nurselistmale";
+    return headerImage;
+}
+
++ (NSInteger) GetAgeByBirthday:(NSString *) day
+{
+    NSDate *date = [Util convertDateFromDateString:day];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *components = [calendar components:unitFlags fromDate:date];
+    NSInteger beginyear = [components year]; // 5764
+    
+    components = [calendar components:unitFlags fromDate:[NSDate date]];
+    
+    return [components year] - beginyear;
+}
+
 @end

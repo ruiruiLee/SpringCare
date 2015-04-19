@@ -250,7 +250,12 @@
         NurseListInfoModel *nurseModel = [nurseArray objectAtIndex:0];
         _lbIntro.text = nurseModel.intro;
         _lbName.text = nurseModel.name;
-        [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+//        [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+        if(nurseArray != nil && [nurseArray count] > 0)
+            [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:((NurseListInfoModel*)[nurseArray objectAtIndex:0]).headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:((NurseListInfoModel*)[nurseArray objectAtIndex:0]).sex]])];
+        else
+            [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+        
         NSString *info = [NSString stringWithFormat:@"%@  %ld岁  护龄%@年", nurseModel.birthPlace, nurseModel.age, nurseModel.careAge];
         [_btnInfo setTitle:info forState:UIControlStateNormal];
         
