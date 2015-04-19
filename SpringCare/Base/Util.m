@@ -212,4 +212,13 @@
     return time;//[Util getStringFromDate:localeDate];
 }
 
++ (NSString *) headerImagePathWith:(UserSex ) sex
+{
+//    return @"";
+    NSString *headerImage = @"nurselistfemale";
+    if( sex == EnumMale)
+        headerImage = @"nurselistmale";
+    return headerImage;
+}
+
 @end

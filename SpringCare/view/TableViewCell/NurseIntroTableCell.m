@@ -122,9 +122,12 @@
 
 - (void) SetContentData:(NurseListInfoModel*) model
 {
-    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
+//    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//    }];
+    
+
+    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:model.sex]])];
     
     _lbName.text = model.name;
     [_gradeView setScore:model.commentsRate];
