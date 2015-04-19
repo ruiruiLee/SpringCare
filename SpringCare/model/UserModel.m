@@ -37,41 +37,24 @@
     return user;
 }
 
-- (id)init
-{
-    self = [super init];
-    if(self){
-        isLogin = NO;
-    }
-    return self;
-}
-
 -(BOOL)isLogin{
-   if(isLogin)
-       return true;
-    
     if ( [AVUser currentUser]==nil) {
-        return false;
+         return false;
     }
     else{
         AVUser *user = [AVUser currentUser];
-        UserModel *model = [UserModel sharedUserInfo];
-        model.sessionToken = user.sessionToken;
-        model.username = user.username;
-        model.mobilePhoneNumber = user.mobilePhoneNumber;
-        model.isNew = user.isNew;
-        model.email = user.email;
-        model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
-        model.userId = [user objectForKey:@"objectId"];
-        
+        self.userId= user.objectId;
+        self.mobilePhoneNumber= user.mobilePhoneNumber;
+        self.sessionToken = user.sessionToken;
+        self.username = user.username;
+        self.mobilePhoneNumber = user.mobilePhoneNumber;
+        self.isNew = user.isNew;
+        self.email = user.email;
+        self.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
+        self.userId = [user objectForKey:@"objectId"];
+        self.chineseName = [user objectForKey:@"chinese_name"];
         return true;
     }
-}
-- (void) setUserId:(NSString *)_userId
-{
-    userId = _userId;
-    isLogin = YES;
-    [self getDetailUserInfo];
 }
 
 - (void) getDetailUserInfo
@@ -85,8 +68,6 @@
             self.birthDay = [content objectForKey:@"birthDay"];
             self.career = [content objectForKey:@"career"];
             self.intro = [content objectForKey:@"intro"];
-            self.chineseName = [content objectForKey:@"chineseName"];
-            self.mobilePhoneNumber = [content objectForKey:@"phone"];
         }
     }];
 }

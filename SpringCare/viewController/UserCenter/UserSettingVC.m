@@ -58,22 +58,23 @@
 - (void) btnCancel:(id)sender
 {
     [AVUser logOut];  //清除缓存用户对象
-    if(![self.navigationController.topViewController isKindOfClass:[HomePageVC class]]){
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        UITabBarController *tabbar = self.tabBarController;
-        [self performSelector:@selector(popViewController:) withObject:tabbar afterDelay:0.15];
-        
-    }else{
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//    if(![self.navigationController.topViewController isKindOfClass:[HomePageVC class]]){
+//        
+//        [self.navigationController popViewControllerAnimated:YES];
+//        UITabBarController *tabbar = self.tabBarController;
+//        [self performSelector:@selector(popViewController:) withObject:tabbar afterDelay:0.15];
+//        
+//    }else{
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 
-- (void) popViewController:(id) sender
-{
-    UITabBarController *root = (UITabBarController*) sender;
-    root.selectedIndex = 0;
-}
+//- (void) popViewController:(id) sender
+//{
+//    UITabBarController *root = (UITabBarController*) sender;
+//    root.selectedIndex = 0;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

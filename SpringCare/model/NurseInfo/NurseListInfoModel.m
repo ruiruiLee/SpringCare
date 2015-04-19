@@ -225,32 +225,24 @@ static NSMutableDictionary *pramaNurseDic = nil;
 
 - (void) loadetailDataWithproductId:(NSString*)productId block:(block) block
 {
-//    NurseListInfoModel *model = [self modelWithNurseId:self.nid];
-//    if(model == nil)
-//    {
-//        block(0);
-//    }
-//    else{
-        NSDictionary *prama = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"careId":self.nid, @"productId":productId};
-        [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
-            if(code){
-                NSDictionary *dic = [content objectForKey:@"care"];
-                self.addr = [dic objectForKey:@"addr"];
-                self.isLoadDetail = YES;
-                
-                NSArray *array = [dic objectForKey:@"defaultLover"];
-//                model.defaultLoverArray = [];
-                NSMutableArray *marray = [[NSMutableArray alloc] init];
-                for (int i= 0; i< [array count]; i++) {
-                    NSDictionary *dic = [array objectAtIndex:i];
-                    DefaultLoverModel *lmmodel = [DefaultLoverModel modelFromDictionary:dic];
-                    [marray addObject:lmmodel];
-                }
-                self.defaultLoverArray = marray;
-                self.detailIntro = [dic objectForKey:@"detailIntro"];
+    NSDictionary *prama = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"careId":self.nid, @"productId":productId};
+    [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
+        if(code){
+            NSDictionary *dic = [content objectForKey:@"care"];
+            self.addr = [dic objectForKey:@"addr"];
+            self.isLoadDetail = YES;
+            
+            NSArray *array = [dic objectForKey:@"defaultLover"];
+            NSMutableArray *marray = [[NSMutableArray alloc] init];
+            for (int i= 0; i< [array count]; i++) {
+                NSDictionary *dic = [array objectAtIndex:i];
+                DefaultLoverModel *lmmodel = [DefaultLoverModel modelFromDictionary:dic];
+                [marray addObject:lmmodel];
             }
-        }];
-//    }
+            self.defaultLoverArray = marray;
+            self.detailIntro = [dic objectForKey:@"detailIntro"];
+        }
+    }];
 }
 
 @end
