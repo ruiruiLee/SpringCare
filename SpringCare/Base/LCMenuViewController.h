@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LCMenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface LCMenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 {
     UIImageView *_imgViewBg;
     UITableView *tableview;
     
     UIImageView *_photoBg;
-    UIImageView *_photoImgView;
+    //UIImageView *_photoImgView;
+    UIButton *_btnphotoImg;
+    
+
     UIButton *_btnUserName;
     
     NSArray *unflodConstraints;

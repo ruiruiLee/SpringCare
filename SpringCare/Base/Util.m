@@ -7,7 +7,7 @@
 //
 
 #import "Util.h"
-
+#import <MobileCoreServices/MobileCoreServices.h>
 @implementation Util
 
 + (NSString*) getFullImageUrlPath:(NSString*) path
@@ -83,6 +83,39 @@
     UIGraphicsEndImageContext();
     return newimg;
 }
+
+// 打开照相机
++ (void)openCamera:(UIViewController*)currentViewController allowEdit:(BOOL)allowEdit completion:(void (^)(void))completion
+{
+    UIImagePickerController  *picker = [[UIImagePickerController alloc] init];
+    //
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        picker.delegate      = (id)currentViewController;
+        picker.allowsEditing = allowEdit;
+        picker.sourceType    = UIImagePickerControllerSourceTypeCamera;
+        picker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+        //
+        [currentViewController presentViewController:picker animated:YES completion:completion];
+    }
+}
+
+//打开相册
++ (void)openPhotoLibrary:(UIViewController*)currentViewController allowEdit:(BOOL)allowEdit completion:(void (^)(void))completion
+{
+    UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
+    //
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+    {
+        pickerImage.sourceType    = UIImagePickerControllerSourceTypePhotoLibrary;
+        pickerImage.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+        pickerImage.delegate      = (id)currentViewController;
+        pickerImage.allowsEditing = allowEdit;
+        //
+        [currentViewController presentViewController:pickerImage animated:YES completion:completion];
+    }
+}
+
 
 + (UserSex) GetSexByName:(NSString*) string
 {

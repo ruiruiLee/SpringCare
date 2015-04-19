@@ -8,9 +8,11 @@
 
 #import "LCMenuViewController.h"
 #import "define.h"
+#import "Util.h"
 #import "MenuTableViewCell.h"
 #import "SliderViewController.h"
-#import "UIImageView+WebCache.h"
+
+#import "UIButton+WebCache.h"
 
 #import "UserAttentionVC.h"
 #import "EditUserInfoVC.h"
@@ -20,7 +22,6 @@
 #import "UserSettingVC.h"
 
 #import "UserModel.h"
-#import "SliderViewController.h"
 #import <AVOSCloud/AVOSCloud.h>
 
 @implementation LCMenuViewController
@@ -55,10 +56,7 @@
         [_btnUserName setTitle:model.chineseName forState:UIControlStateNormal];
     }
     if ([keyPath isEqualToString:@"headerFile"]){
-//        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
-        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile] placeholderImage:[UIImage imageNamed:@"placeholderimage"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            
-        }];
+        [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:@""] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
     }
 }
 
@@ -93,10 +91,18 @@
     [_headerView addSubview:_photoBg];
     _photoBg.translatesAutoresizingMaskIntoConstraints = NO;
     _photoBg.image = [UIImage imageNamed:@"usercenterphotobg"];
+    _photoBg.userInteractionEnabled = YES;
     
-    _photoImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [_photoBg addSubview:_photoImgView];
-    _photoImgView.translatesAutoresizingMaskIntoConstraints = NO;
+//    _photoImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+//    [_photoBg addSubview:_photoImgView];
+//    _photoImgView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+     _btnphotoImg = [[UIButton alloc] initWithFrame:CGRectZero];
+     _btnphotoImg.layer.masksToBounds = YES;
+     _btnphotoImg.layer.cornerRadius = (140) / 4;
+     [_photoBg addSubview:_btnphotoImg];
+     _btnphotoImg.translatesAutoresizingMaskIntoConstraints = NO;
+     [_btnphotoImg addTarget:self action:@selector(btnPhotoPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     _btnUserName = [[UIButton alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_btnUserName];
@@ -109,15 +115,15 @@
     _btnUserName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_btnUserName addTarget:self action:@selector(doEditUserInfo:) forControlEvents:UIControlEventTouchUpInside];
  
-    NSDictionary *headerViews = NSDictionaryOfVariableBindings(_photoBg, _photoImgView, _btnUserName);
+    NSDictionary *headerViews = NSDictionaryOfVariableBindings(_photoBg, _btnphotoImg, _btnUserName);
     NSString *format = [NSString stringWithFormat:@"H:|-20-[_photoBg(93)]->=5-[_btnUserName(148)]-%f-|", ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
     unflodConstraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:headerViews];
     [_headerView addConstraints:unflodConstraints];
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnUserName(30)]->=0-|" options:0 metrics:nil views:headerViews]];
     [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_btnUserName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_photoBg attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_photoImgView]-11-|" options:0 metrics:nil views:headerViews]];
-    [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-11-[_photoImgView]-11-|" options:0 metrics:nil views:headerViews]];
+    [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_btnphotoImg]-11-|" options:0 metrics:nil views:headerViews]];
+    [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-11-[_btnphotoImg]-11-|" options:0 metrics:nil views:headerViews]];
     
     tableview = [[UITableView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:tableview];
@@ -162,19 +168,36 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
 }
 
-//- (void) NotifyUserInfo:(NSNotification*) notify
-//{
-//    AVUser *currentUser = [AVUser currentUser];
-//    if ([currentUser objectForKey:@"chinese_name"]==nil) {
-//        [_btnUserName setTitle:currentUser.username forState:UIControlStateNormal];
-//    }
-//    else{
-//        [_btnUserName setTitle:[currentUser objectForKey:@"chinese_name"] forState:UIControlStateNormal];
-////         [_btnUserName setTitle:currentUser.username forState:UIControlStateNormal];
-//    }
-//    // 头像判断
-//    
-//}
+#pragma mark- UIActionSheetDelegate
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [Util openPhotoLibrary:self allowEdit:YES completion:^{
+        }];
+        
+    }else if (buttonIndex == 1)
+    {
+        [Util openCamera:self allowEdit:YES completion:^{}];
+    }
+    else{
+       
+    }
+}
+
+#pragma mark- UIImagePickerControllerDelegate
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],1.0);
+    UIImage *image= [UIImage imageWithData:imageData];;
+   [_btnphotoImg setImage:image forState:UIControlStateNormal];
+        //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
 #pragma UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -280,45 +303,50 @@
 
 #pragma ACTION
 
+- (void) btnPhotoPressed:(UIButton*)sender{
+    UIActionSheet *ac = [[UIActionSheet alloc] initWithTitle:@""
+                                                    delegate:(id)self
+                                           cancelButtonTitle:@"取消"
+                                      destructiveButtonTitle:@"从相册选取"
+                                           otherButtonTitles:@"拍照",nil];
+    ac.actionSheetStyle = UIBarStyleBlackTranslucent;
+    [ac showInView:self.view];
 
+}
 
 - (void) doEditUserInfo:(UIButton*)sender
 {
-//  [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"5"}];
-//    
-//    [[SliderViewController sharedSliderController] closeSideBar];
-
-        NSMutableArray *mArray = [[NSMutableArray alloc] init];
-        EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
-        data1.cellTitleName = @"电话（账户）";
-        data1.cellType = EnumTypeAccount;
-        [mArray addObject:data1];
-        
-        EditCellTypeData *data2 = [[EditCellTypeData alloc] init];
-        data2.cellTitleName = @"姓名";
-        data2.cellType = EnumTypeUserName;
-        [mArray addObject:data2];
-        
-        EditCellTypeData *data3 = [[EditCellTypeData alloc] init];
-        data3.cellTitleName = @"性别";
-        data3.cellType = EnumTypeSex;
-        [mArray addObject:data3];
-        
-        EditCellTypeData *data4 = [[EditCellTypeData alloc] init];
-        data4.cellTitleName = @"年龄";
-        data4.cellType = EnumTypeAge;
-        [mArray addObject:data4];
-        
-        EditCellTypeData *data5 = [[EditCellTypeData alloc] init];
-        data5.cellTitleName = @"地址";
-        data5.cellType = EnumTypeAddress;
-        [mArray addObject:data5];
-        
-        
-        EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
-        [vc setContentArray:mArray andmodel:[UserModel sharedUserInfo]];
-        vc.NavTitle = @"编辑我的资料";
-       [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
+    data1.cellTitleName = @"电话（账户）";
+    data1.cellType = EnumTypeAccount;
+    [mArray addObject:data1];
+    
+    EditCellTypeData *data2 = [[EditCellTypeData alloc] init];
+    data2.cellTitleName = @"姓名";
+    data2.cellType = EnumTypeUserName;
+    [mArray addObject:data2];
+    
+    EditCellTypeData *data3 = [[EditCellTypeData alloc] init];
+    data3.cellTitleName = @"性别";
+    data3.cellType = EnumTypeSex;
+    [mArray addObject:data3];
+    
+    EditCellTypeData *data4 = [[EditCellTypeData alloc] init];
+    data4.cellTitleName = @"年龄";
+    data4.cellType = EnumTypeAge;
+    [mArray addObject:data4];
+    
+    EditCellTypeData *data5 = [[EditCellTypeData alloc] init];
+    data5.cellTitleName = @"地址";
+    data5.cellType = EnumTypeAddress;
+    [mArray addObject:data5];
+    
+    
+    EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
+    [vc setContentArray:mArray andmodel:[UserModel sharedUserInfo]];
+    vc.NavTitle = @"编辑我的资料";
+   [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
 
 
 }

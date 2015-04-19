@@ -10,12 +10,14 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface LocationManagerObserver : NSObject<CLLocationManagerDelegate>
-
+{
+}
 @property (nonatomic, assign) double lat;
 @property (nonatomic, assign) double lon;
+@property (nonatomic, retain) CLLocationManager * locationManager ;
 @property (nonatomic, copy) NSString* currentCity ;
-- (void) startUpdateLocation;
+
 + (LocationManagerObserver *)sharedInstance;
-//+ (NSString*) getCurrentCityName;
+- (void) startUpdateLocation;
 
 @end

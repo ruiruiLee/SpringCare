@@ -132,16 +132,22 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *city = @"";
-    if(indexPath.section == 1){
-        CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
-        city = model.city_name;
-        ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
-    }else
-        city = @"成都市";
+//    CityDataModel *model;
+//    if(indexPath.section == 0){
+//         model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
+//    }
+//    else if(indexPath.section == 1){
+//        model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
+//        ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
+//    }else{
+//        model = [CityDataModel modelWithName:CityName];
+//        model.city_id=CityID;
+//    }
+    CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
+    ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
     if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
     {
-        [delegate NotifyCitySelectedWithData:city];
+        [delegate NotifyCitySelectedWithData:model.city_name];
     }
     
     [self.navigationController dismissViewControllerAnimated:YES completion:^{

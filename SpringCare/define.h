@@ -17,7 +17,7 @@
 
 #define NOTIFY_LOCATION_GAINED  @"NOTIFY_LOCATION_GAINED"
 #define NOTIFY_PICKVIEW_HIDDEN @"NOTIFY_PICKVIEW_HIDDEN"
-#define NOTIFY_USERIN_DISPLAY  @"NOTIFY_USERIN_DISPLAY"
+//#define NOTIFY_USERIN_DISPLAY  @"NOTIFY_USERIN_DISPLAY"
 //#define NOTIFY_MENU_CHANGED @"NOTIFY_MENU_CHANGED"
 
 
@@ -38,6 +38,9 @@
 #define ThemeImage(imageName)  [UIImage imageNamed:imageName]
 
 #define LcationInstance [LocationManagerObserver sharedInstance]
+
+#define CityID @"552cf514e4b02ec896e6cdbf"
+#define CityName @"成都市"
 
 //语音存放地址
 #define SpeechMaxTime 60.0f
