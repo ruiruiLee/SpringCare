@@ -23,10 +23,7 @@
         _lbReplyContent.fontsize = 14.0f;
         _lbReplyContent.fontcolor = _COLOR(0x66, 0x66, 0x66);
         _lbReplyContent.translatesAutoresizingMaskIntoConstraints = NO;
-        _lbReplyContent.maxWidth=240;
-       
-       
-
+        _lbReplyContent.maxWidth = ScreenWidth - 115;
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_lbReplyContent);
         [self.contentView addConstraints:[NSLayoutConstraint

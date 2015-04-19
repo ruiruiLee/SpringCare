@@ -53,7 +53,17 @@
         self.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
         self.userId = [user objectForKey:@"objectId"];
         self.chineseName = [user objectForKey:@"chinese_name"];
+        
         return true;
+    }
+}
+
+- (void) setUserId:(NSString *)uid
+{
+    NSString *storeId = userId;
+    userId = uid;
+    if(![uid isEqualToString:storeId]){
+        [self getDetailUserInfo];
     }
 }
 

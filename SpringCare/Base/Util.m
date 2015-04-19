@@ -162,21 +162,21 @@
     NSString *sub = [uiDate stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     NSString *sub1 = [sub stringByReplacingOccurrencesOfString:@"Z" withString:@""];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.zzz"];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date=[formatter dateFromString:sub1];
     return date;
 }
 
 + (NSString*) ChangeToUTCTime:(NSString*) time
 {
-    NSDate *date = [Util getDateFromString:time];
+//    NSDate *date = [Util getDateFromString:time];
     
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    NSInteger interval = [zone secondsFromGMTForDate: date];
+//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+//    NSInteger interval = [zone secondsFromGMTForDate: date];
+//    
+//    NSDate *localeDate = [date  dateByAddingTimeInterval: -interval];
     
-    NSDate *localeDate = [date  dateByAddingTimeInterval: -interval];
-    
-    return [Util getStringFromDate:localeDate];
+    return time;//[Util getStringFromDate:localeDate];
 }
 
 @end

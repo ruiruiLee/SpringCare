@@ -91,10 +91,6 @@
     _selectView = [[AttentionSelectView alloc] initWithFrame:CGRectMake(ScreenWidth, 64, ScreenWidth/2, SCREEN_HEIGHT - 64)];
     [[UIApplication sharedApplication].keyWindow addSubview:_selectView];
     _selectView.delegate = self;
-//    _selectView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_selectView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_selectView)]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_selectView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_selectView)]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,7 +112,6 @@
 {
     NSArray *dataArray = [EscortTimeDataModel GetEscortTimeData];
     EscortTimeDataModel *data = [dataArray objectAtIndex:indexPath.row];
-//    return [EscortTimeTableCell GetCellHeightWithData:data];
     
     if(prototypeCell == nil){
         __weak EscortTimeVC *bself = self;
@@ -128,14 +123,15 @@
         prototypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    EscortTimeTableCell *cell = (EscortTimeTableCell *)self.prototypeCell;
-    [cell setContentData:data];
-    
-    [cell setNeedsLayout];
-    [cell layoutIfNeeded];
-    
-    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return 1  + size.height;
+//    [prototypeCell setContentData:data];
+//
+//    [prototypeCell setNeedsLayout];
+//    [prototypeCell layoutIfNeeded];
+//    
+//    CGSize size = [prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+//    return 1  + size.height;
+    CGFloat cellHeight = [prototypeCell getContentHeightWithData:data];
+    return cellHeight;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

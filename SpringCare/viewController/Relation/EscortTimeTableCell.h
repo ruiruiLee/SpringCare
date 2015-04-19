@@ -64,4 +64,6 @@ typedef void(^ReplayAction)(int index);
 
 - (void) setContentData:(EscortTimeDataModel*)data;
 
+- (CGFloat) getContentHeightWithData:(EscortTimeDataModel *) modelData;
+
 @end

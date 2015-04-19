@@ -58,7 +58,7 @@
 #define Nav_Title_Color [UIColor WhiteColor]
 
 //陪护时光中用来确定内容的长度
-#define Content_Width [UIScreen mainScreen].bounds.size.width - 120
+#define Content_Width [UIScreen mainScreen].bounds.size.width - 100
 
 //
 #define Disabled_Color  _COLOR(0x8f, 0x8f, 0x97)

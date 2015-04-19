@@ -35,6 +35,22 @@
     [self initSubViews];
 }
 
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+    [_sexPick remove];
+    [_agePick remove];
+    [self.ContentView resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [_sexPick remove];
+    [_agePick remove];
+    [self.ContentView resignFirstResponder];
+}
+
 - (void) NavRightButtonClickEvent:(UIButton *)sender
 {
     [_sexPick remove];
@@ -204,7 +220,8 @@
             cell.tfEdit.text = model.sex;
         }
         else if(typedata.cellType == EnumTypeAge){
-            cell.tfEdit.text = [NSString stringWithFormat:@"%d", [Util getAgeWithBirthday:model.birthDay]];
+            if(model.birthDay != nil)
+                cell.tfEdit.text = [NSString stringWithFormat:@"%d", [Util getAgeWithBirthday:model.birthDay]];
         }
         else if(typedata.cellType == EnumTypeAddress){
             cell.tfEdit.text = model.addr;

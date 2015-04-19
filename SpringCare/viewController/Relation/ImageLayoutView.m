@@ -248,8 +248,6 @@
 -(void)dismissImageAction:(UIImageView*)sender
 {
     NSLog(@"dismissImageAction");
-//    NSInteger index = [_imageList.imageViews indexOfObject:sender.superview];
-//    UIImageView * view = [_imageViews objectAtIndex:index];
     [_imageList removeFromSuperview];
 }
 

@@ -38,7 +38,7 @@
 - (void) initMainViewsWithBlock:(ReplayAction)block
 {
     //时间轴
-    _lbToday = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 60, 60)];
+    _lbToday = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 60, 60)];
     _lbToday.font = _FONT_B(20);
     _lbToday.textAlignment = NSTextAlignmentCenter;
     _lbToday.textColor = [UIColor whiteColor];
@@ -62,9 +62,9 @@
     _lbContent.numberOfLines = 0;
     [self.contentView addSubview:_lbContent];
     _lbContent.translatesAutoresizingMaskIntoConstraints = NO;
-    [_lbContent setLineBreakMode:NSLineBreakByClipping];
+    [_lbContent setLineBreakMode:NSLineBreakByWordWrapping];
     _lbContent.preferredMaxLayoutWidth = Content_Width;
-   // _lbContent.backgroundColor = [UIColor redColor];
+//    _lbContent.backgroundColor = [UIColor redColor];
     
     //展开或关闭
     _btnFoldOrUnfold = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -75,13 +75,11 @@
     [_btnFoldOrUnfold addTarget:self action:@selector(FoldOrUnfoldButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImage *image = [UIImage imageNamed:@"escorttimevolice"];
-   // UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width-5, 0, 2);
     
     //音频
     _btnVolice = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnVolice];
     _btnVolice.translatesAutoresizingMaskIntoConstraints = NO;
-//    [_btnVolice setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
     [_btnVolice setBackgroundImage:[image stretchableImageWithLeftCapWidth:40 topCapHeight:5] forState:UIControlStateNormal];
     [_btnVolice addTarget:self action:@selector(VoicePlayClicked:) forControlEvents:UIControlEventTouchUpInside];
     //音频时间
@@ -113,19 +111,18 @@
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbContent, _btnFoldOrUnfold, _btnVolice, _lbVoliceLimit, _imageContent, _replyContent, _lbTimeLine, _line);
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_lbContent]-20-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_btnFoldOrUnfold]->=20-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_btnVolice(120)]-5-[_lbVoliceLimit]->=10-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_imageContent]-20-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_replyContent]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_lbContent]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_btnFoldOrUnfold]->=20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_btnVolice(120)]-5-[_lbVoliceLimit]->=20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_imageContent]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_replyContent]-20-|" options:0 metrics:nil views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-49-[_lbTimeLine(2)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-39-[_lbTimeLine(2)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_lbTimeLine]-0-|" options:0 metrics:nil views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-100-[_line]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_line]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbVoliceLimit attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_btnVolice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbTimeLine attribute:NSLayoutAttributeCenterx relatedBy:NSLayoutRelationEqual toItem:_btnVolice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
     //中间view间隔都是3个像素
     hLayoutInfoArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbContent]-3-[_btnFoldOrUnfold]-3-[_btnVolice]-10-[_imageContent]-3-[_replyContent]-10-[_line(1)]-0-|" options:0 metrics:nil views:views];
@@ -238,14 +235,15 @@
 
 - (void) setContentData:(EscortTimeDataModel*)data
 {
-    NSLog(@"%@--------------------in", [NSDate date]);
     _model = data;
     
-    for (int i = 0; i < [_model.replyData count]; i++) {
-        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
-        EscortTimeReplyDataModel *data = [_model.replyData objectAtIndex:indexpath.row];
-        data.height =[self tableView:_replyTableView cellForRowAtIndexPath:indexpath].frame.size.height;
-    }
+//    for (int i = 0; i < [_model.replyData count]; i++) {
+//        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
+//        EscortTimeReplyDataModel *data = [_model.replyData objectAtIndex:indexpath.row];
+//        data.height = [NSStrUtil heightForString:data.publishContent
+//                                                   fontSize:14.f
+//                                                   andWidth:ScreenWidth - 115] + 5;
+//    }
     
     NSString *textContent = data.textContent;//文字内容
     NSString *voiceContentUrl = data.voiceContentUrl;//音频内容地址
@@ -261,12 +259,9 @@
         [format appendString:@"[_lbContent]"];
         [format appendString:@"-2-"];
         _lbContent.text = textContent;
-        CGFloat labcontentHeight=[NSStrUtil heightForString:_lbContent.text
-                                                      fontSize:_lbContent.font.pointSize
-                                                      andWidth:_lbContent.frame.size.width];
 
         _btnFoldOrUnfold.hidden = NO;
-        if (labcontentHeight > numberOfLineLimit) {
+        if (data.numberOfLinesTotal > numberOfLineLimit) {
             if(!data.isShut){
                 _lbContent.numberOfLines = numberOfLineLimit;
                 [format appendString:@"[_btnFoldOrUnfold]"];
@@ -288,7 +283,7 @@
     
     if(voiceContentUrl != nil && ![voiceContentUrl isKindOfClass:[NSNull class]])
     {
-        [format appendString:@"[_btnVolice]"];
+        [format appendString:@"[_btnVolice(25)]"];
         [format appendString:@"-10-"];
         _lbVoliceLimit.text = @"12\"";
         _lbVoliceLimit.hidden = NO;
@@ -313,7 +308,7 @@
     [self.contentView removeConstraints:hLayoutInfoArray];
     hLayoutInfoArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
     [self.contentView addConstraints:hLayoutInfoArray];
-    
+//
     _lbPublishTime.text = publishTime;
     
     NSMutableString *replyFormat = [[NSMutableString alloc] init];
@@ -343,8 +338,72 @@
         [_replyTableBg addConstraints:hReplyTableLayoutArray];
         _replyTableBg.hidden = YES;
     }
+}
+
+- (CGFloat) getContentHeightWithData:(EscortTimeDataModel *) modelData
+{
+    NSString *textContent = modelData.textContent;//文字内容
+    NSString *voiceContentUrl = modelData.voiceContentUrl;//音频内容地址
+    NSArray *replyData = modelData.replyData;//回复数据
+    NSArray *imgPicArray = modelData.imgPicArray;//图片数据列表
     
-    NSLog(@"%@--------------------out", [NSDate date]);
+    CGFloat cellHeight = 20.f;
+    if(textContent != nil && ![textContent isKindOfClass:[NSNull class]]){
+        cellHeight += 2;
+        _lbContent.text = textContent;
+        
+        if(modelData.numberOfLinesTotal == 0)
+            modelData.numberOfLinesTotal = [NSStrUtil NumberOfLinesForString:textContent fontSize:_lbContent.font.pointSize andWidth:ScreenWidth-100];
+        
+        if (modelData.numberOfLinesTotal > numberOfLineLimit) {
+            if(modelData.isShut){
+                CGFloat labcontentHeight=[NSStrUtil heightForString:_lbContent.text
+                                                           fontSize:_lbContent.font.pointSize
+                                                           andWidth:ScreenWidth-100];
+                cellHeight += labcontentHeight;
+                cellHeight += 23;
+            }
+            else{
+                cellHeight += [[textContent substringToIndex:1] sizeWithFont:_lbContent.font].height * 5;
+                cellHeight += 23;
+            }
+        }else{
+            CGFloat labcontentHeight=[NSStrUtil heightForString:_lbContent.text
+                                                       fontSize:_lbContent.font.pointSize
+                                                       andWidth:ScreenWidth-100];
+            cellHeight += labcontentHeight;
+            cellHeight += 3;
+        }
+    }
+    
+    if(voiceContentUrl != nil && ![voiceContentUrl isKindOfClass:[NSNull class]])
+    {
+        cellHeight += 35;
+    }
+    
+    if(imgPicArray != nil && [imgPicArray count] > 0)
+    {
+        CGFloat height = [ImageLayoutView heightForFiles:imgPicArray];
+        cellHeight += height;
+        cellHeight += 3;
+    }
+    
+    cellHeight += 37;
+    if([replyData count] > 0){
+        CGFloat height = 0;
+        for (int i = 0; i < [replyData count]; i++) {
+            NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
+            EscortTimeReplyDataModel *data = [replyData objectAtIndex:indexpath.row];
+            data.height = [NSStrUtil heightForString:data.publishContent
+                                            fontSize:14.f
+                                            andWidth:ScreenWidth - 115] + 5;
+            height += data.height;
+        }
+        cellHeight += 21;
+        cellHeight += height;
+    }
+    
+    return cellHeight;
 }
 
 - (void) VoicePlayClicked:(UIButton*)sender{

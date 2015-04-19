@@ -99,7 +99,7 @@
             [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
             [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             _btnStatus.backgroundColor = Abled_Color;
-        }else if (model.orderStatus == EnumOrderStatusTypeNew){
+        }else if (model.orderStatus == EnumOrderStatusTypeNew && model.payStatus == EnumTypeNopay){
             _imgLogo.hidden = YES;
             _btnStatus.tag = 3;
             [_btnStatus setTitle:@"取消订单" forState:UIControlStateNormal];

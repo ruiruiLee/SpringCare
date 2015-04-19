@@ -38,6 +38,8 @@ typedef enum : NSUInteger {
 
 + (EnDeviceType) GetCurrentDeviceType;
 
++ (NSInteger) NumberOfLinesForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width;
+
 @end
 
 @interface NSString (MyExtensions)

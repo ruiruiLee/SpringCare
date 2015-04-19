@@ -94,11 +94,12 @@
 
         isShut = NO;
         itemId = @"11111";
-        textContent = @"撒打个比方公司13608083606fhghggfhgf的风格的损公肥私的风格扶桑岛国个大是大非根深蒂固山东分公司对方感受到分公司的风格的沙发公司的分公司对方感受到分公司山东分公司对方感受到分公司的风格是豆腐干山东分公司对方感受到分公司的风格是豆腐干是豆腐干山东分公司对方感受到分公司的风格山东分公司对方感受到分公司的风格说受到各方山东分公司的风格";
+        textContent = @"撒打个比方公司13608083606fhghggfhgf的风格的损公肥私的风格扶桑岛国个大是";
         
         publishTime = @"14:25";
         voiceContentUrl = @"http";
         publishDate = @"2015-04-17";
+//        self.numberOfLinesTotal = 10;
         
         
         NSMutableArray *_images = [NSMutableArray array];
@@ -153,10 +154,10 @@
         
         NSMutableArray *_reply = [[NSMutableArray alloc] init];
         
-        for (int  i = 0; i < 10; i++) {
-            EscortTimeReplyDataModel *model = [[EscortTimeReplyDataModel alloc] init];
-            [_reply addObject:model];
-        }
+//        for (int  i = 0; i < 10; i++) {
+//            EscortTimeReplyDataModel *model = [[EscortTimeReplyDataModel alloc] init];
+//            [_reply addObject:model];
+//        }
         
         replyData = _reply;
         

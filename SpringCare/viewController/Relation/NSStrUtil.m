@@ -9,6 +9,7 @@
 #import "NSStrUtil.h"
 #import <CommonCrypto/CommonDigest.h> // Need to import for CC_MD5 access
 #import <UIKit/UIKit.h>
+#import "define.h"
 
 @implementation NSStrUtil
 
@@ -162,6 +163,18 @@ UIColor* colorFromHexRGB(NSString *inColorString){
         type = EnumValueTypeiPhone4S;
     }
     return type;
+}
+
++ (NSInteger) NumberOfLinesForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width
+{
+    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, CGFLOAT_MAX)];
+    lb.font = _FONT(fontSize);
+    lb.text = value;
+    lb.numberOfLines = 0;
+    
+    CGSize size = [lb.text sizeWithFont:lb.font constrainedToSize:lb.frame.size lineBreakMode:lb.lineBreakMode];
+    CGFloat height = [[value substringToIndex:1] sizeWithFont:lb.font].height;
+    return size.height / height;
 }
 
 @end
