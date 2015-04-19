@@ -199,7 +199,9 @@
             NSString *code = [content objectForKey:@"code"];
             if(code == nil)
             {
-                _OrderModel.commentStatus = EnumTypeCommented;
+                _OrderModel.commentCount --;
+                if(_OrderModel.commentCount == 0)
+                    _OrderModel.commentStatus = EnumTypeCommented;
 
             }
         }

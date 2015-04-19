@@ -40,6 +40,7 @@
 @property (nonatomic, assign) NSInteger totalPrice;
 @property (nonatomic, assign) OrderStatus orderStatus;
 @property (nonatomic, assign) CommentStatus commentStatus;
+@property (nonatomic, assign) NSInteger commentCount;
 @property (nonatomic, assign) PayStatus payStatus;
 @property (nonatomic, strong) ProductInfodataModel *product;
 @property (nonatomic, strong) NSArray *nurseInfo;//NurseListInfoModel *nurseInfo;

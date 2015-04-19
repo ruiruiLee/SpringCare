@@ -69,6 +69,7 @@
     _btnStatus.translatesAutoresizingMaskIntoConstraints = 0;
     _btnStatus.titleLabel.font = _FONT(15);
     _btnStatus.hidden = YES;
+    _btnStatus.layer.cornerRadius = 8;
     [_btnStatus addTarget:self action:@selector(btnToComment:) forControlEvents:UIControlEventTouchUpInside];
     
     _imgLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -97,7 +98,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgLogo]-20-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnStatus]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnStatus(74)]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbName(30)]-5-[_lbPrice(20)]-5-[_lbDetailTime(20)]-5-[_line(1)]-0-|" options:0 metrics:nil views:views]];
@@ -172,6 +173,7 @@
     _btnStatus.hidden = NO;
     _imgLogo.hidden = NO;
     _btnPay.backgroundColor = Abled_Color;
+    _btnStatus.backgroundColor = [UIColor clearColor];
     [_btnPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if(data.orderStatus == EnumOrderStatusTypeCancel){
@@ -192,6 +194,7 @@
             _btnPay.hidden = YES;
             _btnStatus.selected = YES;
             [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
+            _btnStatus.backgroundColor = Abled_Color;
         }else if(data.payStatus != EnumTypePayed){
             _imgLogo.hidden = YES;
             _btnStatus.hidden = YES;
