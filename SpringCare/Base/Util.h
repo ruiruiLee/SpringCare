@@ -74,6 +74,7 @@ typedef enum : NSUInteger {
  */
 + (NSDate*) convertDateFromString:(NSString*)uiDate;
 
++ (NSInteger) GetAgeByBirthday:(NSString *) day;
 /**
  *@Method openCamera:
  *@Brief 打开照相机
