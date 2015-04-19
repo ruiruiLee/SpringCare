@@ -88,7 +88,7 @@
         _btnStatus.userInteractionEnabled = NO;
     }
     else{
-        if(model.orderStatus == EnumOrderStatusTypeFinish && model.commentStatus == EnumTypeNoComment && model.payStatus == EnumTypePayed)
+        if(model.orderStatus == EnumOrderStatusTypeFinish && model.commentStatus == EnumTypeCommented && model.payStatus == EnumTypePayed)
         {
             [_btnStatus setTitle:@"已完成" forState:UIControlStateNormal];
             _btnStatus.userInteractionEnabled = NO;
@@ -106,12 +106,17 @@
             [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             _btnStatus.backgroundColor = Abled_Color;
         }
-        else{
+        else if(model.payStatus == EnumTypeNopay){
             _imgLogo.hidden = YES;
             _btnStatus.tag = 1;
             [_btnStatus setTitle:@"去付款" forState:UIControlStateNormal];
             [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             _btnStatus.backgroundColor = Abled_Color;
+        }
+        else{
+            _imgLogo.hidden = YES;
+            _btnStatus.userInteractionEnabled = NO;
+            [_btnStatus setTitle:@"已付款" forState:UIControlStateNormal];
         }
     }
 }
@@ -120,7 +125,7 @@
 {
 
         if(delegate && [delegate respondsToSelector:@selector(NotifyButtonClickedWithFlag:)])
-            [delegate NotifyButtonClickedWithFlag:sender.tag-1];
+            [delegate NotifyButtonClickedWithFlag:(int)(sender.tag - 1)];
 
 }
 
@@ -315,8 +320,8 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_LbRelation]-10-[_imgSex]-10-[_lbAge]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnMobile]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_imgPhoto(62)]-10-[_lbName(20)]->=0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_LbRelation(20)]-10-[_btnMobile(20)]-10-[_btnAddress(20)]->=0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_imgPhoto(62)]-2-[_lbName(20)]->=0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_LbRelation(26)]-3-[_btnMobile(20)]-3-[_btnAddress(20)]->=0-|" options:0 metrics:nil views:views]];
         
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_LbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -436,7 +441,7 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0)
-        return 85.f;
+        return 93.f;
     else if (indexPath.section == 1){
 //        return 223.f;
         if(!ordercell)
@@ -449,7 +454,7 @@
         return 1  + size.height;
     }
     else
-        return 120.f;
+        return 103.f;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

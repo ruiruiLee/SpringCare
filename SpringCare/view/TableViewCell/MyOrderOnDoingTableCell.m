@@ -190,13 +190,15 @@
     _btnStatus.hidden = NO;
     _imgLogo.hidden = NO;
     _btnStatus.selected = NO;
+    _btnPay.backgroundColor = Abled_Color;
+    [_btnPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if(data.orderStatus == EnumOrderStatusTypeCancel){
         _imgLogo.hidden = YES;
         _btnPay.hidden = YES;
         [_btnStatus setTitle:@"订单取消" forState:UIControlStateNormal];
     }
     else{
-        if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeNoComment && data.payStatus == EnumTypePayed)
+        if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeCommented && data.payStatus == EnumTypePayed)
         {
             _btnPay.hidden = YES;
             [_btnStatus setTitle:@"已完成" forState:UIControlStateNormal];
@@ -206,10 +208,16 @@
             _btnPay.hidden = YES;
              _btnStatus.selected = YES;
             [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
-        }else{
+        }else if(data.payStatus != EnumTypePayed){
             _imgLogo.hidden = YES;
             _btnStatus.hidden = YES;
             [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
+        }else{
+            _imgLogo.hidden = YES;
+            _btnStatus.hidden = YES;
+            [_btnPay setTitle:@"已付款" forState:UIControlStateNormal];
+            _btnPay.backgroundColor = [UIColor clearColor];
+            [_btnPay setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         }
     }
 }

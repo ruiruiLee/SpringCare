@@ -68,7 +68,6 @@
     [self.contentView addSubview:_btnStatus];
     _btnStatus.translatesAutoresizingMaskIntoConstraints = 0;
     _btnStatus.titleLabel.font = _FONT(15);
-    _btnStatus.backgroundColor = _COLOR(0x99, 0x99, 0x99);
     _btnStatus.hidden = YES;
     [_btnStatus addTarget:self action:@selector(btnToComment:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -144,7 +143,7 @@
     }
     
     _lbPrice.text = priceStr;
-    _lbCountPrice.text = [NSString stringWithFormat:@"%ld", data.totalPrice];
+    _lbCountPrice.text = [NSString stringWithFormat:@"¥%ld", data.totalPrice];
     _lbDetailTime.text = [Util GetOrderServiceTime:data.beginDate enddate:data.endDate datetype:data.dateType];//data.fromto;
 
     NSMutableString *name = [[NSMutableString alloc] init];
@@ -172,26 +171,37 @@
     _btnPay.hidden = NO;
     _btnStatus.hidden = NO;
     _imgLogo.hidden = NO;
+    _btnPay.backgroundColor = Abled_Color;
+    [_btnPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if(data.orderStatus == EnumOrderStatusTypeCancel){
         _imgLogo.hidden = YES;
         _btnPay.hidden = YES;
         [_btnStatus setTitle:@"订单取消" forState:UIControlStateNormal];
+        [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
     }
     else{
-        if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeNoComment && data.payStatus == EnumTypePayed)
+        if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeCommented && data.payStatus == EnumTypePayed)
         {
             _btnPay.hidden = YES;
             [_btnStatus setTitle:@"已完成" forState:UIControlStateNormal];
+            [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         }
         else if(data.orderStatus == EnumOrderStatusTypeFinish && data.commentStatus == EnumTypeNoComment && data.payStatus == EnumTypePayed){
             _imgLogo.hidden = YES;
             _btnPay.hidden = YES;
             _btnStatus.selected = YES;
             [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
-        }else{
+        }else if(data.payStatus != EnumTypePayed){
             _imgLogo.hidden = YES;
             _btnStatus.hidden = YES;
             [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
+        }else{
+            _imgLogo.hidden = YES;
+            _btnStatus.hidden = YES;
+            [_btnPay setTitle:@"已付款" forState:UIControlStateNormal];
+            _btnPay.backgroundColor = [UIColor clearColor];
+             [_btnPay setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         }
     }
 }
