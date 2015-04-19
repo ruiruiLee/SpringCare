@@ -15,6 +15,8 @@
 #import "MyEvaluateListVC.h"
 #import "WorkAddressSelectVC.h"
 #import "LCNetWorkBase.h"
+#import "MyOrderListVC.h"
+#import "SliderViewController.h"
 
 #define LIMIT_LINES 4
 
@@ -154,7 +156,10 @@
                 NSString *code = [content objectForKey:@"code"];
                 if(code == nil)
                 {
-                    [self.navigationController popViewControllerAnimated:YES];
+                    //[self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:NO];
+                     MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+                    [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
                 }
             }
         }
@@ -265,7 +270,7 @@
     _btnUnfold = [[UIButton alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_btnUnfold];
     [_btnUnfold setTitle:@"全文" forState:UIControlStateNormal];
-    [_btnUnfold setTitle:@"关闭" forState:UIControlStateSelected];
+    [_btnUnfold setTitle:@"收起" forState:UIControlStateSelected];
     [_btnUnfold setTitleColor:_COLOR(0x10, 0x9d, 0x59) forState:UIControlStateNormal];
     _btnUnfold.titleLabel.font = _FONT(15);
     _btnUnfold.translatesAutoresizingMaskIntoConstraints = NO;
