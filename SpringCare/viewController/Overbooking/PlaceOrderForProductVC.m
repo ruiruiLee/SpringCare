@@ -14,6 +14,8 @@
 #import "WorkAddressSelectVC.h"
 #import "UserAttentionModel.h"
 #import "PlaceOrderEditCell.h"
+#import "MyOrderListVC.h"
+#import "SliderViewController.h"
 
 @interface PlaceOrderForProductVC () <WorkAddressSelectVCDelegate>
 {
@@ -135,7 +137,9 @@
                 NSString *code = [content objectForKey:@"code"];
                 if(code == nil)
                 {
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+                    [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
                 }
             }
         }
