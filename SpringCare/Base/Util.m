@@ -39,12 +39,18 @@
     return date;
 }
 
-+ (NSString*) StringFromDate:(NSDate*)Date
++ (NSString*) orderTimeFromDate:(NSDate*)Date
 {
+    NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"Sunday", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *comp = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit|NSDayCalendarUnit
+                                         fromDate:Date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-    [formatter setDateFormat:@"yyyy-MM-dd HH"];
-    NSString *string = [formatter stringFromDate:Date];
-    return string;
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *strDate = [formatter stringFromDate:Date];
+    [formatter setDateFormat:@"HH:mm"];
+    NSString *strTime = [formatter stringFromDate:Date];
+    return [NSString stringWithFormat:@"%@ %@  %@",strDate, [weekdays objectAtIndex:[comp weekday]],strTime];
 }
 
 + (int) getAgeWithBirthday:(NSString*) birthday

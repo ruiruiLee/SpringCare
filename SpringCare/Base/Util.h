@@ -65,7 +65,7 @@ typedef enum : NSUInteger {
 /**
  * 获取时间的显示字符,精确到分
  */
-+ (NSString*) getStringFromDate:(NSDate*) date;
++ (NSString*) orderTimeFromDate:(NSDate*) date;
 
 + (NSDate*) getDateFromString:(NSString*) string;
 
@@ -105,7 +105,5 @@ typedef enum : NSUInteger {
 + (NSString*) ChangeToUTCTime:(NSString*) time;
 
 + (NSString *) headerImagePathWith:(UserSex ) sex;
-
-+ (NSInteger) GetAgeByBirthday:(NSString *) day;
 
 @end
