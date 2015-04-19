@@ -145,6 +145,13 @@
     [pullTableView reloadData];
 }
 
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    
+    [searchBar resignFirstResponder];
+}
+
 #pragma UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -191,6 +198,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [searchBar resignFirstResponder];
     
     if(![UserModel sharedUserInfo].isLogin){
         LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
@@ -268,6 +276,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)_searchBar
 {
+    [searchBar resignFirstResponder];
     NSString *searchStr = _searchBar.text;
     if(searchStr == nil || [searchStr isKindOfClass:[NSNull class]])
         searchStr = @"";
@@ -276,13 +285,6 @@
     
     _SearchConditionStr = searchStr;
     
-//    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//    self.DataList = [NurseListInfoModel nurseListModel];
-//    [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:searchStr ordr:nil sortFiled:nil productId:delegate.defaultProductId block:^(int code) {
-//        self.DataList = [NurseListInfoModel nurseListModel];
-//        [pullTableView reloadData];
-//        [self refreshTable];
-//    }];
     pages = 0;
     [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code) {
         self.DataList = [NurseListInfoModel nurseListModel];
