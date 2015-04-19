@@ -61,7 +61,6 @@
     self.window.rootViewController = nav;
     
     [self.window makeKeyAndVisible];
-    // _observer = [[LocationManagerObserver alloc] init];
     
     return YES;
 }

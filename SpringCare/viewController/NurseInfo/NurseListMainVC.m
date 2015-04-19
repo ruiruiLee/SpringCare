@@ -84,8 +84,7 @@
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     pullTableView.tableFooterView = footer;
     
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:delegate.defaultProductId block:^(int code) {
+    [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:nil block:^(int code) {
         self.DataList = [NurseListInfoModel nurseListModel];
         [pullTableView reloadData];
         [self refreshTable];
