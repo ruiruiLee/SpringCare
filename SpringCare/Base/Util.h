@@ -106,4 +106,6 @@ typedef enum : NSUInteger {
 
 + (NSString *) headerImagePathWith:(UserSex ) sex;
 
++ (NSInteger) GetAgeByBirthday:(NSString *) day;
+
 @end

@@ -237,8 +237,35 @@
             cell.lbUnit.hidden = NO;
             cell.lbUnit.text = @"cm";
         }
-    }else if ([userData isKindOfClass:[UserAttentionModel class]]){
-        
+    }
+    else if ([userData isKindOfClass:[UserAttentionModel class]]){
+        UserAttentionModel *model = (UserAttentionModel*)userData;
+        if(typedata.cellType == EnumTypeUserName){
+            cell.tfEdit.text = model.username;
+        }
+        else if(typedata.cellType == EnumTypeSex){
+            cell.tfEdit.text = model.sex;
+        }
+        else if(typedata.cellType == EnumTypeAge){
+
+            cell.tfEdit.text = model.age;
+        }
+        else if(typedata.cellType == EnumTypeAddress){
+            cell.tfEdit.text = model.address;
+        }
+        else if(typedata.cellType == EnumTypeMobile){
+            cell.tfEdit.text = model.ringNum;
+        }
+        else if(typedata.cellType == EnumTypeRelationName){
+            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
+            cell.tfEdit.text = model.relation;
+        }
+        else if(typedata.cellType == EnumTypeHeight){
+            cell.tfEdit.text = [NSString stringWithFormat:@"%d", (int)([model.height floatValue] * 100)];
+            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
+            cell.lbUnit.hidden = NO;
+            cell.lbUnit.text = @"cm";
+        }
     }
     return cell;
 }

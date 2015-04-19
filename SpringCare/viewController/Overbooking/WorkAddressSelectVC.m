@@ -43,7 +43,7 @@
     }
 }
 
-- (void) NavRightButtonClickEvent:(UIButton *)sender
+- (NSArray *)getContentArray
 {
     NSMutableArray *mArray = [[NSMutableArray alloc] init];
     EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
@@ -81,6 +81,12 @@
     data7.cellType = EnumTypeHeight;
     [mArray addObject:data7];
     
+    return mArray;
+}
+
+- (void) NavRightButtonClickEvent:(UIButton *)sender
+{
+    NSArray *mArray = [self getContentArray];
     
     EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
     [vc setContentArray:mArray andmodel:nil];//新增时为空
@@ -179,6 +185,17 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UserAttentionModel *model = [_dataList objectAtIndex:indexPath.row];
+    
+    NSArray *mArray = [self getContentArray];
+    
+    EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
+    [vc setContentArray:mArray andmodel:model];//新增时为空
+    vc.delegate = self;
+    vc.NavTitle = @"编辑资料";
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
