@@ -238,6 +238,7 @@
 
 - (void) setContentData:(EscortTimeDataModel*)data
 {
+    NSLog(@"%@--------------------in", [NSDate date]);
     _model = data;
     
     for (int i = 0; i < [_model.replyData count]; i++) {
@@ -342,6 +343,8 @@
         [_replyTableBg addConstraints:hReplyTableLayoutArray];
         _replyTableBg.hidden = YES;
     }
+    
+    NSLog(@"%@--------------------out", [NSDate date]);
 }
 
 - (void) VoicePlayClicked:(UIButton*)sender{
