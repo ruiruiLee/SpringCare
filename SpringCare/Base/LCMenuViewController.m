@@ -55,7 +55,10 @@
         [_btnUserName setTitle:model.chineseName forState:UIControlStateNormal];
     }
     if ([keyPath isEqualToString:@"headerFile"]){
-        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
+//        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile]];
+        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:model.headerFile] placeholderImage:[UIImage imageNamed:@"placeholderimage"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
     }
 }
 
@@ -84,6 +87,7 @@
     _headerView = [[UIImageView alloc] initWithFrame:CGRectZero];
     _headerView.frame = CGRectMake(0, 0, ScreenWidth, 240);
     _headerView.userInteractionEnabled = YES;
+    
     
     _photoBg = [[UIImageView alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_photoBg];

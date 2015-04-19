@@ -120,6 +120,12 @@
     [pullTableView reloadData];
 }
 
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [searchBar resignFirstResponder];
+}
+
 #pragma UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -168,7 +174,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    [searchBar resignFirstResponder];
     if(![[UserModel sharedUserInfo] isLogin]){
         LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
