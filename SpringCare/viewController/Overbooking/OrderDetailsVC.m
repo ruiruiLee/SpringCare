@@ -523,7 +523,7 @@
         [view addSubview:lbOrderTime];
         lbOrderTime.textColor = _COLOR(0x66, 0x66, 0x66);
         lbOrderTime.font = _FONT(14);
-        lbOrderTime.text = [NSString stringWithFormat:@"下单时间：%@", [Util getStringFromDate:_orderModel.createdDate]];//@"下单时间：2015-03-19 12:46";
+        lbOrderTime.text = [NSString stringWithFormat:@"下单时间：%@", [Util StringFromDate:_orderModel.createdDate]];//@"下单时间：2015-03-19 12:46";
         
         NSDictionary*views = NSDictionaryOfVariableBindings(lbOrderNum, lbOrderTime);
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[lbOrderNum]-20-|" options:0 metrics:nil views:views]];
@@ -557,7 +557,7 @@
 - (void) initDataForView
 {
     lbOrderNum.text = [NSString stringWithFormat:@"订 单 号 ：%@", _orderModel.serialNumber];
-    lbOrderTime.text = [NSString stringWithFormat:@"下单时间：%@", [Util getStringFromDate:_orderModel.createdDate]];//@"下单时间：2015-03-19 12:46";
+    lbOrderTime.text = [NSString stringWithFormat:@"下单时间：%@", [Util StringFromDate:_orderModel.createdDate]];//@"下单时间：2015-03-19 12:46";
     if(_orderModel.orderStatus == EnumOrderStatusTypeCancel){
         [_stepView SetStepViewType:StepViewType2Step];
         [_stepView SetCurrentStepWithIdx:3];//此处为3
