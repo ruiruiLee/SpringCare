@@ -42,9 +42,12 @@
             [self.locationManager requestWhenInUseAuthorization];
         }
         AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//        CityDataModel *model = [CityDataModel modelWithName:CityName];
+        currentCity = CityName;
         CityDataModel *model = [CityDataModel modelWithName:CityName];
-        model.city_id=CityID;
-        delegate.currentCityModel = model;
+        if(model != nil){
+            delegate.currentCityModel = model;
+        }
     }
     else{
     //启动位置更新
