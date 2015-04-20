@@ -47,7 +47,7 @@
     
     _lbAddress = [[UILabel alloc] initWithFrame:CGRectZero];
     _lbAddress.textColor = _COLOR(0x99, 0x99, 0x99);
-    _lbAddress.font = _FONT(13);
+    _lbAddress.font = _FONT(14);
     [bgView addSubview:_lbAddress];
     _lbAddress.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -89,14 +89,15 @@
     if(model.address == nil){
         _lbAddress.text = @"地址";
     }
-    _lbName.text = [NSString stringWithFormat:@"%@   年龄:%@    身高:%@cm", model.username, model.age, model.height];
     
+//    _lbName.text = [NSString stringWithFormat:@"%@     年龄 %@    身高 %@cm", model.username,[model.age isEqual:@"0"]?@"":model.age, model.height==nil?@"":model.height];
+    _lbName.text = [NSString stringWithFormat:@"%@      %@      %@", model.username,[model.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",model.age ], model.height==nil?@"身高":[NSString stringWithFormat:@"%@m",model.height ]];
     NSString *relation = model.relation;
     if(relation == nil || [relation length] == 0)
         relation = @"昵称";
     float width = [NSStrUtil widthForString:relation fontSize:15];
     _btnRelationAndSex.titleEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 16);
-    _btnRelationAndSex.imageEdgeInsets = UIEdgeInsetsMake(0, width + 2, 0, 0);
+    _btnRelationAndSex.imageEdgeInsets = UIEdgeInsetsMake(0, width , 0, 0);
     [_btnRelationAndSex setTitle:relation forState:UIControlStateNormal];
     UserSex sex = [Util GetSexByName:model.sex];
     if(sex == EnumUnknown){
