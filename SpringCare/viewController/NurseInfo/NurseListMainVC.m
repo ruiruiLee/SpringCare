@@ -136,9 +136,10 @@
     NurseIntroTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(!cell){
         cell = [[NurseIntroTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+    }
+    
 //    cell.textLabel.text = ((NurseListInfoModel*)[DataList objectAtIndex:indexPath.row]).name;
     NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
     [cell SetContentData:model];

@@ -16,6 +16,7 @@
 @synthesize lat;
 @synthesize lon;
 @synthesize currentCity;
+@synthesize locationManager;
 
 
 + (LocationManagerObserver *)sharedInstance
@@ -23,18 +24,26 @@
     static dispatch_once_t once;
     static LocationManagerObserver *instance = nil;
     dispatch_once( &once, ^{
-        instance = [[LocationManagerObserver alloc] init];
-        instance.lat = 30.222;
-        instance.lon = 100.444;
-        instance.locationManager = [[CLLocationManager alloc] init];//创建位置管理器
-        instance.locationManager.delegate=(id)self;
-        instance.locationManager.desiredAccuracy=kCLLocationAccuracyBest;
-        instance.locationManager.distanceFilter=100.0f;
-    } );
+        instance = [[LocationManagerObserver alloc] init]; } );
     return instance;
 }
 
+- (id)init
+{
+    NSLog(@"[%@] init:", NSStringFromClass([self class]));
+    
+    if (self = [super init]) {
+        lat = 30.64544373194747;
+        lon = 104.05582188638304;
+        locationManager = [[CLLocationManager alloc] init];//创建位置管理器
+        locationManager.delegate=(id)self;
+        locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+        locationManager.distanceFilter=100.0f;
 
+    }
+    
+    return self;
+}
 - (void) startUpdateLocation {
     CLAuthorizationStatus status =[CLLocationManager authorizationStatus];
     if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
@@ -42,7 +51,6 @@
             [self.locationManager requestWhenInUseAuthorization];
         }
         AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//        CityDataModel *model = [CityDataModel modelWithName:CityName];
         currentCity = CityName;
         CityDataModel *model = [CityDataModel modelWithName:CityName];
         if(model != nil){
@@ -92,4 +100,16 @@
     [manager stopUpdatingLocation];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
+{
+    NSLog(@"[%@] locationManager:didEnterRegion:%@ at %@", NSStringFromClass([self class]), region.identifier, [NSDate date]);
+    
+  }
+
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
+{
+    NSLog(@"[%@] locationManager:didExitRegion:%@ at %@", NSStringFromClass([self class]), region.identifier, [NSDate date]);
+    
+   }
 @end
