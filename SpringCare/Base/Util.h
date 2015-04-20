@@ -68,7 +68,7 @@ typedef enum : NSUInteger {
  * 获取时间的显示字符,精确到小时
  */
 
-+ (NSDate*) StringFromDate:(NSDate*) date;
++ (NSString*) StringFromDate:(NSDate*) date;
 + (NSDate*) convertDateFromString:(NSString*)string;
 + (NSString*) orderTimeFromDate:(NSDate*) date;  //订单展示时间形式
 + (NSInteger) GetAgeByBirthday:(NSString *) day;

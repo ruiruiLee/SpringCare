@@ -37,33 +37,36 @@
     return user;
 }
 
+- (id)init
+{
+    if (self = [super init]) {
+        if ( ![[AVUser currentUser]isEqual: nil]) {
+            AVUser *user = [AVUser currentUser];
+            self.userId= user.objectId;
+            self.mobilePhoneNumber= user.mobilePhoneNumber;
+            self.sessionToken = user.sessionToken;
+            self.username = user.username;
+            self.mobilePhoneNumber = user.mobilePhoneNumber;
+            self.isNew = user.isNew;
+            self.email = user.email;
+            self.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
+            self.chineseName = [user objectForKey:@"chinese_name"];
+         }
+    }
+    
+    return self;
+}
 -(BOOL)isLogin{
     if ( [AVUser currentUser]==nil) {
          return false;
     }
     else{
-        AVUser *user = [AVUser currentUser];
-        self.userId= user.objectId;
-        self.mobilePhoneNumber= user.mobilePhoneNumber;
-        self.sessionToken = user.sessionToken;
-        self.username = user.username;
-        self.mobilePhoneNumber = user.mobilePhoneNumber;
-        self.isNew = user.isNew;
-        self.email = user.email;
-        self.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
-        self.userId = [user objectForKey:@"objectId"];
-        self.chineseName = [user objectForKey:@"chinese_name"];
-        
+        if (self.registerId==nil) {
+             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [self getDetailUserInfo];
+             });
+        }
         return true;
-    }
-}
-
-- (void) setUserId:(NSString *)uid
-{
-    NSString *storeId = userId;
-    userId = uid;
-    if(![uid isEqualToString:storeId]){
-        [self getDetailUserInfo];
     }
 }
 
@@ -75,9 +78,10 @@
             self.registerId = [content objectForKey:@"registerId"];
             self.sex = [content objectForKey:@"sex"];
             self.addr = [content objectForKey:@"addr"];
-            self.birthDay = [content objectForKey:@"birthDay"];
+            self.birthDay = [content objectForKey:@"birthDay"];  //日期
             self.career = [content objectForKey:@"career"];
             self.intro = [content objectForKey:@"intro"];
+            self.chineseName = [content objectForKey:@"chineseName"];
         }
     }];
 }
