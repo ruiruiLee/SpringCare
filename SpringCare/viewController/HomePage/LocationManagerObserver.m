@@ -45,30 +45,27 @@
     return self;
 }
 - (void) startUpdateLocation {
-    CLAuthorizationStatus status =[CLLocationManager authorizationStatus];
-    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            [self.locationManager requestWhenInUseAuthorization];
-        }
-        AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        currentCity = CityName;
-        CityDataModel *model = [CityDataModel modelWithName:CityName];
-        if(model != nil){
-            delegate.currentCityModel = model;
-        }
-    }
-    else{
     //启动位置更新
-        dispatch_async(dispatch_get_main_queue(), ^{
-             //  [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:0.1];
-            [self.locationManager startUpdatingLocation];
-        });
-
-      }
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+      [self.locationManager startUpdatingLocation];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//             //  [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:0.1];
+//          
+//        });
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     NSLog(@"didChangeAuthorizationStatus---%u",status);
+    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    currentCity = CityName;
+    CityDataModel *model = [CityDataModel modelWithName:CityName];
+    if(model != nil){
+        delegate.currentCityModel = model;
+      }
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
