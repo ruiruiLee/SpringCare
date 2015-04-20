@@ -146,7 +146,7 @@
 //    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if([[CityDataModel getCityData] count] < indexPath.row){
+    if([[CityDataModel getCityData] count] > indexPath.row){
         CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
         ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
         if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
