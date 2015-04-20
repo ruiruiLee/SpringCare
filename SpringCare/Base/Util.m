@@ -42,6 +42,17 @@
     return date;
 }
 
++ (NSString*) convertDinstance:(float)distance
+{
+    if (distance>=1000) {
+       // distance =round(distance/1000*100)/100 ;
+        distance=distance/1000;
+         return [NSString stringWithFormat:@"%.2fKm",distance];
+    }
+    else{
+        return [NSString stringWithFormat:@"%.0fm",distance];
+    }
+}
 + (NSString*) orderTimeFromDate:(NSDate*)Date
 {
     NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];

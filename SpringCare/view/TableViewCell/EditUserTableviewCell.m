@@ -39,7 +39,6 @@
     _tfEdit = [[UITextField alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_tfEdit];
     _tfEdit.font = _FONT(16);
-    _tfEdit.textColor = _COLOR(0x99, 0x99, 0x99);
     _tfEdit.translatesAutoresizingMaskIntoConstraints = NO;
     
     _imgUnflod = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -89,8 +88,9 @@
     lbUnit.hidden = YES;
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbTite, _tfEdit, _imgUnflod, _lbLine, lbUnit);
     [self.contentView removeConstraints:layoutArray];
-    
+    _tfEdit.textColor =  _COLOR(0x66, 0x66, 0x66);
     if(celldata.cellType == EnumTypeAccount){
+        _tfEdit.textColor =  _COLOR(0x99, 0x99, 0x99);
         [_tfEdit setEnabled:NO];
         _imgUnflod.hidden = YES;
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(96)]-10-[_tfEdit]-20-|" options:0 metrics:nil views:views];

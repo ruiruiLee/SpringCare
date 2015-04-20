@@ -107,7 +107,7 @@
         [_btnRelation setImage:[UIImage imageNamed:@"femail"] forState:UIControlStateNormal];
     }
     
-    _lbName.text = [NSString stringWithFormat:@"%@  年龄:%@  身高:%@米", data.username, data.age, data.height];
+    _lbName.text = [NSString stringWithFormat:@"%@  年龄:%@    身高:%@cm", data.username, data.age, data.height];
     _Address.text = data.address;
     if(data.address == nil){
         _Address.text = @"地址:";

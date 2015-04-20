@@ -89,7 +89,7 @@
     if(model.address == nil){
         _lbAddress.text = @"地址";
     }
-    _lbName.text = [NSString stringWithFormat:@"%@  年龄:%@  身高:%@米", model.username, model.age, model.height];
+    _lbName.text = [NSString stringWithFormat:@"%@   年龄:%@    身高:%@cm", model.username, model.age, model.height];
     
     NSString *relation = model.relation;
     if(relation == nil || [relation length] == 0)

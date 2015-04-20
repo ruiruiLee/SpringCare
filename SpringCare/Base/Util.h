@@ -63,7 +63,7 @@ typedef enum : NSUInteger {
 + (NSString*) getFullImageUrlPath:(NSString*) path;
 
 
-
++ (NSString*) convertDinstance:(float)distance;
 /**
  * 获取时间的显示字符,精确到小时
  */
