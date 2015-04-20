@@ -8,6 +8,8 @@
 
 #import "FeedBackVC.h"
 #import "define.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import <AVOSCloudSNS/AVOSCloudSNS.h>
 
 @interface FeedBackVC ()
 
@@ -45,6 +47,7 @@
     _btnSubmit.layer.cornerRadius = 8;
     _btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;
     _btnSubmit.backgroundColor = Abled_Color;
+    [_btnSubmit addTarget:self action:@selector(doBtnFeedBack:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbExplation, _tvContent, _btnSubmit);
     
@@ -57,6 +60,26 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) doBtnFeedBack:(UIButton *)sender
+{
+    NSString *content = _tvContent.text;
+    if(content == nil || [content length] == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入内容，谢谢你对我们的支持！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    AVUserFeedbackAgent *agent = [AVUserFeedbackAgent sharedInstance];
+    __weak FeedBackVC *_weakSelf = self;
+    [agent syncFeedbackThreadsWithBlock:@"" contact:content block:^(NSArray *objects, NSError *error) {
+        if(error == nil){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"感谢你对我们产品的支持！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+            
+            [_weakSelf.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 

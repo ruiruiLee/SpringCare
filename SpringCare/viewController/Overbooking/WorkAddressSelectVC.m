@@ -151,6 +151,11 @@
     [cell._btnSelect addTarget:self action:@selector(btnSelected:) forControlEvents:UIControlEventTouchUpInside];
     cell._btnSelect.tag = 100+indexPath.row;
     
+    if(selectLoverId != nil)
+        if([model.userid isEqualToString:selectLoverId]){
+            selectIndexpath = indexPath;
+        }
+    
     if(selectIndexpath != nil){
         if(indexPath.row == selectIndexpath.row && indexPath.section == selectIndexpath.section){
             cell._btnSelect.selected = YES;
@@ -171,15 +176,6 @@
         
         [self.navigationController popViewControllerAnimated:YES];
     }
-//    if(sender.selected == YES)
-//    {
-//        if(selectIndexpath != nil){
-//            WorkAddressCell *cell = (WorkAddressCell*)[_tableview cellForRowAtIndexPath:selectIndexpath];
-//            cell._btnSelect.selected = NO;
-//        }
-//        selectIndexpath = [NSIndexPath indexPathForRow:sender.tag - 100 inSection:0];
-//    }else
-//        selectIndexpath = nil;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -201,6 +197,8 @@
 
 - (void) setSelectItemWithLoverId:(NSString*) loverId
 {
+    selectLoverId = loverId;
+    
     for (int i = 0; i < [_dataList count]; i++) {
         UserAttentionModel *model = [_dataList objectAtIndex:i];
         if([loverId isEqualToString:model.userid]){

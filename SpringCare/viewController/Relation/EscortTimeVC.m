@@ -40,7 +40,7 @@
     UserModel *usermodel = [UserModel sharedUserInfo];
     [usermodel addObserver:self forKeyPath:@"userId" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     if(usermodel.userId != nil){
-        NSArray *data = [UserRequestAcctionModel GetRequestAcctionArray];
+        NSArray *data = [UserAttentionModel GetMyAttentionArray];
         if([data count] == 0){
             [UserAttentionModel loadLoverList:^(int code) {
             }];

@@ -76,6 +76,18 @@
     return [NSString stringWithFormat:@"%@ %@  %@",strDate, [weekdays objectAtIndex:[comp weekday]],strTime];
 }
 
++ (NSString *) reductionTimeFromOrderTime:(NSString *)orderTime
+{
+    NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
+    for (int i = 0; i < [weekdays count]; i++) {
+        NSString *string = [weekdays objectAtIndex:i];
+        NSString *newString = [NSString stringWithFormat:@" %@ ", string];
+        orderTime = [orderTime stringByReplacingOccurrencesOfString:newString withString:@""];
+    }
+    
+    return orderTime;
+}
+
 + (int) getAgeWithBirthday:(NSString*) birthday
 {
     int birth = [[birthday substringToIndex:4] intValue];

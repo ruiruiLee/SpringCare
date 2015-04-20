@@ -40,6 +40,16 @@
     if(self){
         _nurseModel = model;
         ((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId = model.pId;
+        
+        [_nurseModel loadetailDataWithproductId:model.pId block:^(int code) {
+            if(code){
+                if(_nurseModel.defaultLover != nil)
+                    [self NotifyAddressSelected:nil model:_nurseModel.defaultLover];
+                else{
+                    
+                }
+            }
+        }];
     }
     return self;
 }
@@ -85,9 +95,51 @@
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-20-[btnSubmit(44)]-20-|" options:0 metrics:nil views:views]];
 }
 
+- (void) newAttentionWithAddress:(NSString*)address block:(Completion)block;
+{
+    NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
+    
+    [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
+    
+    
+    [mDic setObject:address forKey:@"addr"];
+    
+    [LCNetWorkBase postWithMethod:@"api/lover/save" Params:mDic Completion:^(int code, id content) {
+        if(code){
+            if(block){
+                block(code, content);
+            }
+            
+            [UserAttentionModel loadLoverList:^(int code) {
+                
+            }];
+        }
+    }];
+    
+}
+
 - (void) btnSubmitOrder:(UIButton*)sender
 {
-    
+    if([LocationManagerObserver sharedInstance].currentDetailAdrress == nil && _loverModel == nil){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护位置！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    if(_loverModel == nil){
+        [self newAttentionWithAddress:[LocationManagerObserver sharedInstance].currentDetailAdrress block:^(int code, id content) {
+            if(code){
+                if([content objectForKey:@"code"] == nil)
+                    [self submitWithloverId:@"message"];
+            }
+        }];
+    }
+    else{
+        [self submitWithloverId:_loverModel.userid];
+    }
+}
+
+- (void) submitWithloverId:(NSString*)loverId
+{
     PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
@@ -97,15 +149,10 @@
         return;
     }
     
-    if(_loverModel == nil){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护对象地址！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        return;
-    }
-    
     NSMutableDictionary *Params = [[NSMutableDictionary alloc] init];
     [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
-    [Params setObject:_loverModel.userid forKey:@"loverId"];
+//    [Params setObject:_loverModel.userid forKey:@"loverId"];
+    [Params setObject:loverId forKey:@"loverId"];
     [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId forKey:@"productId"];
     [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel.city_id forKey:@"cityId"];
     
@@ -125,7 +172,7 @@
     }
     [Params setObject:dateType forKey:@"dateType"];//
     
-    [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@", editcell.lbTitle.text]] forKey:@"beginDate"];//
+    [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@:00", [Util reductionTimeFromOrderTime:editcell.lbTitle.text]]] forKey:@"beginDate"];//
     [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
     [Params setObject:[NSNumber numberWithInteger:orgUnitPrice] forKey:@"orgUnitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
