@@ -75,15 +75,8 @@
                     [mDic setObject:[NSNumber numberWithBool:sex] forKey:@"sex"];
                 }
                 else if(typedata.cellType == EnumTypeAge){
-                    NSString *age = cell.tfEdit.text;
-                    if(age != nil && [age length] > 5){
-                        NSDate *date = [NSDate date];
-                        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                        NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
-                        NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-                        NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
-                        int year = (int)[comps year];
-                        [mDic setObject:[NSString stringWithFormat:@"%d-01-01 00:00:00", year - [age intValue]] forKey:@"birthDay"];
+                    if(selectDate != nil){
+                        [mDic setObject:selectDate forKey:@"birthDay"];
                     }
                 }
                 else if(typedata.cellType == EnumTypeAddress){
@@ -92,9 +85,9 @@
                 else if(typedata.cellType == EnumTypeAccount){
                     [mDic setObject:cell.tfEdit.text forKey:@"phone"];
                 }
-                else if(typedata.cellType == EnumTypeRelationName){
-                    [mDic setObject:cell.tfEdit.text forKey:@"nickName"];
-                }
+//                else if(typedata.cellType == EnumTypeRelationName){
+//                    [mDic setObject:cell.tfEdit.text forKey:@"nickName"];
+//                }
                 else if(typedata.cellType == EnumTypeHeight){
                     [mDic setObject:[NSString stringWithFormat:@"%.2f", [cell.tfEdit.text intValue]/100.0] forKey:@"height"];
                 }
@@ -103,7 +96,11 @@
         
         [LCNetWorkBase postWithMethod:@"api/register/save" Params:mDic Completion:^(int code, id content) {
             if(code){
-                [[UserModel sharedUserInfo] getDetailUserInfo];
+                [UserModel sharedUserInfo].sex = [[mDic objectForKey:@"sex"] boolValue]?@"男":@"女";
+                [UserModel sharedUserInfo].addr = [mDic objectForKey:@"addr"];
+                [UserModel sharedUserInfo].birthDay =    [Util StringFromDate:selectDate];
+                [UserModel sharedUserInfo].chineseName = [mDic objectForKey:@"chineseName"];
+
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];
@@ -132,15 +129,8 @@
                     }
                 }
                 else if(typedata.cellType == EnumTypeAge){
-                    NSString *age = cell.tfEdit.text;
-                    if(age != nil && [age length] > 5){
-                        NSDate *date = [NSDate date];
-                        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                        NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
-                        NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-                        NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
-                        int year = (int)[comps year];
-                        [mDic setObject:[NSString stringWithFormat:@"%d-01-01 00:00:00", year - [age intValue]] forKey:@"birthDay"];
+                    if(selectDate != nil){
+                        [mDic setObject:selectDate forKey:@"birthDay"];
                     }
                 }
                 else if(typedata.cellType == EnumTypeAddress){
@@ -331,11 +321,11 @@
     }
     
     else if (pickView == _agePick){
-        NSDate *date =  [Util convertDateFromString:[resultString substringToIndex:13]];
+       selectDate=  [Util convertDateFromString:[resultString substringToIndex:13]];
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
         NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-        NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
+        NSDateComponents *comps  = [calendar components:unitFlags fromDate:selectDate];
         int year = (int)[comps year];
         
         comps  = [calendar components:unitFlags fromDate:[NSDate date]];

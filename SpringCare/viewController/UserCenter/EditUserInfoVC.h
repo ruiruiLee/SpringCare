@@ -19,7 +19,7 @@
 {
     UITableView *_tableview;
     NSArray *_data;
-    
+    NSDate *selectDate;
     id  userData;
     
     LCPickView *_sexPick;

@@ -9,6 +9,7 @@
 #import "NurseIntroTableCell.h"
 #import "define.h"
 #import "UIImageView+WebCache.h"
+#import "Util.h"
 
 @implementation NurseIntroTableCell
 
@@ -122,10 +123,6 @@
 
 - (void) SetContentData:(NurseListInfoModel*) model
 {
-//    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        
-//    }];
-    
 
     [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:model.sex]])];
     
@@ -141,7 +138,7 @@
     _lbWorkIntro.attributedText = attributedString;
     
     _lbPrice.text = [NSString stringWithFormat:@"¥ %ld/天", (long)model.priceDiscount];//model.price;打折价格
-    [_btnLocation setTitle:[NSString stringWithFormat:@"约%ld米", model.distance] forState:UIControlStateNormal];
+    [_btnLocation setTitle:[Util convertDinstance: model.distance] forState:UIControlStateNormal];
     
     _lbOldPrice.text = [NSString stringWithFormat:@"原价:¥%ld/天", model.price];
     if(model.price == model.priceDiscount)

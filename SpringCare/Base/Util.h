@@ -63,12 +63,12 @@ typedef enum : NSUInteger {
 + (NSString*) getFullImageUrlPath:(NSString*) path;
 
 
-
++ (NSString*) convertDinstance:(float)distance;
 /**
  * 获取时间的显示字符,精确到小时
  */
 
-+ (NSDate*) StringFromDate:(NSDate*) date;
++ (NSString*) StringFromDate:(NSDate*) date;
 + (NSDate*) convertDateFromString:(NSString*)string;
 + (NSString*) convertStringFromString:(NSDate*) date;
 + (NSString*) orderTimeFromDate:(NSDate*) date;  //订单展示时间形式
