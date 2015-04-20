@@ -92,13 +92,12 @@
         cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     }
     if(indexPath.section == 0){
-        NSString *currentCity =   LcationInstance.currentCity;   //[LocationManagerObserver getCurrentCityName];
-        if(currentCity == nil)
+        if(LcationInstance.currentCity == nil)
         {
             cell.lbTitle.text = @"正在定位..";
         }else
         {
-            cell.lbTitle.text = currentCity;
+            cell.lbTitle.text = LcationInstance.currentCity;
         }
     }
     else{

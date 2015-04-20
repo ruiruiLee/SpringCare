@@ -1090,7 +1090,6 @@
 				CFBC52091ADCCC3C004FB8F3 /* UIViewAnimation */,
 				CFBC51EE1ADCC980004FB8F3 /* VoiceConvert */,
 				8642C8D71ABFF53C00251921 /* EGOTableViewPullRefresh */,
-				8642C8E51ABFF53C00251921 /* JSONKit */,
 				8642C8E61ABFF53C00251921 /* SBJson3.1.1 */,
 				8642C9001ABFF53C00251921 /* SDWebImage */,
 			);
@@ -1142,13 +1141,6 @@
 				8642C8E41ABFF53C00251921 /* whiteArrow@2x.png */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		8642C8E51ABFF53C00251921 /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = JSONKit;
 			sourceTree = "<group>";
 		};
 		8642C8E61ABFF53C00251921 /* SBJson3.1.1 */ = {

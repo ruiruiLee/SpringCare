@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString *loverId;
 @property (nonatomic, strong) NSString *addr;
 
-- (DefaultLoverModel*) modelFromDictionary:(NSDictionary*) dic;
++ (DefaultLoverModel*) modelFromDictionary:(NSDictionary*) dic;
 
 @end
 

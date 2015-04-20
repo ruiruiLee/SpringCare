@@ -62,18 +62,15 @@ typedef enum : NSUInteger {
  **/
 + (NSString*) getFullImageUrlPath:(NSString*) path;
 
-/**
- * 获取时间的显示字符,精确到分
- */
-+ (NSString*) orderTimeFromDate:(NSDate*) date;
 
-+ (NSDate*) getDateFromString:(NSString*) string;
 
 /**
  * 获取时间的显示字符,精确到小时
  */
-+ (NSDate*) convertDateFromString:(NSString*)uiDate;
 
++ (NSDate*) StringFromDate:(NSDate*) date;
++ (NSDate*) convertDateFromString:(NSString*)string;
++ (NSString*) orderTimeFromDate:(NSDate*) date;  //订单展示时间形式
 + (NSInteger) GetAgeByBirthday:(NSString *) day;
 /**
  *@Method openCamera:
@@ -89,7 +86,6 @@ typedef enum : NSUInteger {
  **/
 + (void)openPhotoLibrary:(UIViewController*)currentViewController allowEdit:(BOOL)allowEdit completion:(void (^)(void))completion;
 
-+ (NSString*) StringFromDate:(NSDate*)Date;
 
 + (int) getAgeWithBirthday:(NSString*) birthday;
 
