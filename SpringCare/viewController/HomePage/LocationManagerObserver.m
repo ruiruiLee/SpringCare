@@ -33,6 +33,7 @@
     NSLog(@"[%@] init:", NSStringFromClass([self class]));
     
     if (self = [super init]) {
+        geocoder = [[CLGeocoder alloc] init];
         lat = 30.64544373194747;
         lon = 104.05582188638304;
         locationManager = [[CLLocationManager alloc] init];//创建位置管理器
@@ -51,7 +52,7 @@
     }
       [self.locationManager startUpdatingLocation];
 //        dispatch_async(dispatch_get_main_queue(), ^{
-//             //  [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:0.1];
+//        [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:0.1];
 //          
 //        });
 }
@@ -76,8 +77,7 @@
     lat = newLocation.coordinate.latitude;
     lon = newLocation.coordinate.longitude;
     AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    if (delegate.currentCityModel == nil) {
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    //if (delegate.currentCityModel == nil) {
         [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             if([placemarks count] > 0){
                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
@@ -93,7 +93,7 @@
                 }
             }
         }];
-    }
+    //}
     [manager stopUpdatingLocation];
 }
 
