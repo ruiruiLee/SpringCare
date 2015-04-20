@@ -151,8 +151,10 @@ static NSMutableDictionary *pramaNurseDic = nil;
         [dic setObject:sortFiled forKey:@"sortFiled"];
     if(productId != nil)
         [dic setObject:productId forKey:@"productId"];
-    else
-         [dic setObject:delegate.defaultProductId forKey:@"productId"];
+    else{
+        if(delegate.defaultProductId != nil)
+             [dic setObject:delegate.defaultProductId forKey:@"productId"];
+    }
     if(order == nil)
         order = @"asc";
     [dic setObject:order forKey:@"order"];

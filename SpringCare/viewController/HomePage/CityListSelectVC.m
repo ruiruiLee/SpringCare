@@ -143,16 +143,20 @@
 //        model = [CityDataModel modelWithName:CityName];
 //        model.city_id=CityID;
 //    }
-    CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
-    ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
-    if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
-    {
-        [delegate NotifyCitySelectedWithData:model.city_name];
-    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    if([[CityDataModel getCityData] count] < indexPath.row){
+        CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
+        ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
+        if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
+        {
+            [delegate NotifyCitySelectedWithData:model.city_name];
+        }
         
-    }];
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
 }
 
 - (void) BeginLocation

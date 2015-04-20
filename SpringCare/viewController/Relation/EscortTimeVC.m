@@ -8,6 +8,8 @@
 
 #import "EscortTimeVC.h"
 #import "UIImageView+WebCache.h"
+#import "UserRequestAcctionModel.h"
+#import "LoginVC.h"
 
 @interface EscortTimeVC ()
 
@@ -18,12 +20,30 @@
 @implementation EscortTimeVC
 @synthesize prototypeCell;
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    UserModel *usermodel = [UserModel sharedUserInfo];
+    if([keyPath isEqualToString:@"userId"])
+    {
+//        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    UserModel *usermodel = [UserModel sharedUserInfo];
+    [usermodel addObserver:self forKeyPath:@"userId" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    if(usermodel.userId != nil){
+        NSArray *data = [UserRequestAcctionModel GetRequestAcctionArray];
+        if([data count] == 0){
+            [UserAttentionModel loadLoverList:^(int code) {
+            }];
+        }
+    }
+    
     self.lbTitle.text = @"陪护时光";
-//    [self.btnLeft setBackgroundImage:[UIImage imageNamed:@"nav-person"] forState:UIControlStateNormal];
     self.NavigationBar.alpha = 0.7f;
     self.btnRight.hidden = NO;
     [self.btnRight setImage:[UIImage imageNamed:@"relationattentionselect"] forState:UIControlStateNormal];
@@ -122,14 +142,6 @@
         prototypeCell.cellDelegate = self;
         prototypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
-//    [prototypeCell setContentData:data];
-//
-//    [prototypeCell setNeedsLayout];
-//    [prototypeCell layoutIfNeeded];
-//    
-//    CGSize size = [prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    return 1  + size.height;
     CGFloat cellHeight = [prototypeCell getContentHeightWithData:data];
     return cellHeight;
 }
