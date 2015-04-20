@@ -134,9 +134,9 @@
     [Params setObject:dateType forKey:@"dateType"];//
     
 //    NSString *beginDate = [NSString stringWithFormat:@"%@:00", editcell.lbTitle.text];
-    [Util ChangeToUTCTime:[NSString stringWithFormat:@"%@", editcell.lbTitle.text]];
+//    [Util ChangeToUTCTime:[NSString stringWithFormat:@"%@", editcell.lbTitle.text]];
     
-    [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@", editcell.lbTitle.text]] forKey:@"beginDate"];//
+    [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@:00", [Util reductionTimeFromOrderTime:editcell.lbTitle.text]]] forKey:@"beginDate"];//
     [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
     
     NSInteger unitPrice = _nurseModel.priceDiscount;

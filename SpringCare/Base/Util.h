@@ -72,6 +72,7 @@ typedef enum : NSUInteger {
 + (NSDate*) convertDateFromString:(NSString*)string;
 + (NSString*) convertStringFromString:(NSDate*) date;
 + (NSString*) orderTimeFromDate:(NSDate*) date;  //订单展示时间形式
++ (NSString *) reductionTimeFromOrderTime:(NSString *)orderTime;//逆转回来，和上面是一对
 + (NSInteger) GetAgeByBirthday:(NSString *) day;
 /**
  *@Method openCamera:
