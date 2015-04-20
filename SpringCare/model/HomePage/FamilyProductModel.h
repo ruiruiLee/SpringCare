@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "define.h"
+#import "UserAttentionModel.h"
 
 @interface FamilyProductModel : NSObject
 
@@ -18,8 +20,17 @@
 @property (nonatomic, assign) NSInteger price;//价格
 @property (nonatomic, assign) NSInteger priceDiscount;//价格打折
 
+@property (nonatomic, assign) BOOL isLoadDetail;
+
+//
+@property (nonatomic, strong) NSString *addr;
+@property (nonatomic, strong) UserAttentionModel *defaultLover;
+@property (nonatomic, strong) NSString *detailIntro;
+
 + (NSArray*) getProductArray;
 
 + (void) setFamilyProduct:(NSArray*)array;
+
+- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block;
 
 @end

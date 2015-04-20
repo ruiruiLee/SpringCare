@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "define.h"
+#import "UserAttentionModel.h"
 
 typedef enum : NSUInteger {
     EnumTypeUnKonwn,
@@ -44,7 +45,7 @@ typedef enum : NSUInteger {
 //详细资料
 @property (nonatomic, assign) BOOL isLoadDetail;
 @property (nonatomic, strong) NSString *addr;
-@property (nonatomic, strong) NSArray *defaultLoverArray;
+@property (nonatomic, strong) UserAttentionModel *defaultLover;
 //
 
 + (NSMutableArray*) nurseListModel;

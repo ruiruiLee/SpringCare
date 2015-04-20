@@ -236,15 +236,13 @@ static NSMutableDictionary *pramaNurseDic = nil;
             self.addr = [dic objectForKey:@"addr"];
             self.isLoadDetail = YES;
             
-            NSArray *array = [dic objectForKey:@"defaultLover"];
-            NSMutableArray *marray = [[NSMutableArray alloc] init];
-            for (int i= 0; i< [array count]; i++) {
-                NSDictionary *dic = [array objectAtIndex:i];
-                DefaultLoverModel *lmmodel = [DefaultLoverModel modelFromDictionary:dic];
-                [marray addObject:lmmodel];
-            }
-            self.defaultLoverArray = marray;
+            NSDictionary *defaultLover = [content objectForKey:@"defaultLover"];
+            UserAttentionModel *lmmodel = [UserAttentionModel modelFromDIctionary:defaultLover];
+            self.defaultLover = lmmodel;
             self.detailIntro = [dic objectForKey:@"detailIntro"];
+            
+            if(block)
+                block(1);
         }
     }];
 }
