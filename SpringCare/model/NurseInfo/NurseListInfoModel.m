@@ -13,7 +13,7 @@
 #import "UserModel.h"
 
 static NSMutableArray *nurseList = nil;
-static EnumNursePriceType modelType = EnumTypeUnKonwn;
+//static EnumNursePriceType modelType = EnumTypeUnKonwn;
 static NSMutableDictionary *pramaNurseDic = nil;
 
 @implementation DefaultLoverModel

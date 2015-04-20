@@ -23,7 +23,7 @@
 
 }
 
-- (void) ReLayoutSubviews;
+//- (void) ReLayoutSubviews;
 
 @end
 
@@ -58,7 +58,7 @@
 
 -(void)layoutImages
 {
-    int count=[_imgurls count];
+    NSUInteger count=[_imgurls count];
     if(count==1) {
 //        if (bFirstSmall) {
 //            [self drawLessThree];

@@ -15,13 +15,16 @@
     return @"";
 }
 
-+ (NSString*) getStringFromDate:(NSDate*) date
+
+
++ (NSString*) StringFromDate:(NSDate*) date
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *string = [formatter stringFromDate:date];
     return string;
 }
+
 
 + (NSDate*) getDateFromString:(NSString*) string
 {
@@ -31,11 +34,11 @@
     return date;
 }
 
-+ (NSDate*) convertDateFromString:(NSString*)uiDate
++ (NSDate*) convertDateFromString:(NSString*)string
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
     [formatter setDateFormat:@"yyyy-MM-dd HH"];
-    NSDate *date=[formatter dateFromString:uiDate];
+    NSDate *date=[formatter dateFromString:string];
     return date;
 }
 
