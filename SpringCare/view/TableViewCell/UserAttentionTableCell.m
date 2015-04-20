@@ -43,7 +43,7 @@
         [self.contentView addSubview:_Address];
         _Address.translatesAutoresizingMaskIntoConstraints = NO;
         _Address.textColor = _COLOR(0x99, 0x99, 0x99);
-        _Address.font = _FONT(13);
+        _Address.font = _FONT(14);
         _Address.numberOfLines = 0;
         _Address.preferredMaxLayoutWidth = ScreenWidth - 169;
         
@@ -91,7 +91,7 @@
     if(relation == nil || [relation length] == 0)
         relation = @"昵称";
     float width = [NSStrUtil widthForString:relation fontSize:18];
-    _btnRelation.titleEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 18);
+    _btnRelation.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 20);
     _btnRelation.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, 0);
     [_btnRelation setTitle:relation forState:UIControlStateNormal];
     UserSex sex = [Util GetSexByName:data.sex];
@@ -107,10 +107,10 @@
         [_btnRelation setImage:[UIImage imageNamed:@"femail"] forState:UIControlStateNormal];
     }
     
-    _lbName.text = [NSString stringWithFormat:@"%@  年龄:%@    身高:%@cm", data.username, data.age, data.height];
+    _lbName.text = [NSString stringWithFormat:@"%@      %@      %@", data.username,[data.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",data.age ], data.height==nil?@"身高":[NSString stringWithFormat:@"%@m",data.height ]];
     _Address.text = data.address;
     if(data.address == nil){
-        _Address.text = @"地址:";
+        _Address.text = @"地址 ";
     }
 }
 

@@ -130,35 +130,59 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    if (_applyData.count>0) {
+        return 2;
+    }
+    else
+        return 1;
+    
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(section == 0)
-        return [_applyData count];
+    if (_applyData.count>0) {
+        if(section == 0)
+            return [_applyData count];
+        else
+            return [_attentionData count];
+    }
     else
-        return [_attentionData count];
+         return [_attentionData count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-//    return 34;
+if (_applyData.count>0) {
     if(section == 0)
         return 54;
+    else
+        return 20;
+  }
     else
         return 20;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 1)
+    
+    if (_applyData.count>0 && indexPath.section==0) {
+        if(self.requestTableCell == nil){
+            self.requestTableCell = [[UserApplyAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+        }
+        UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
+        [self.requestTableCell SetContentData:model];
+        
+        [self.requestTableCell setNeedsLayout];
+        [self.requestTableCell layoutIfNeeded];
+        
+        CGSize size = [self.requestTableCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height;
+
+    }
+    else
     {
         if(self.attentionTableCell == nil){
             self.attentionTableCell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
-            self.attentionTableCell.selectedBackgroundView = [[UIView alloc] initWithFrame:self.attentionTableCell.frame];
-            self.attentionTableCell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
-            
         }
         UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
         [self.attentionTableCell SetContentData:model];
@@ -169,48 +193,36 @@
         CGSize size = [self.attentionTableCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         return 1  + size.height;
     }
-    else{
-        if(self.requestTableCell == nil){
-            self.requestTableCell = [[UserApplyAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
-            self.requestTableCell.selectedBackgroundView = [[UIView alloc] initWithFrame:self.requestTableCell.frame];
-            self.requestTableCell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
-
-        }
-        UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
-        [self.requestTableCell SetContentData:model];
-        
-        [self.requestTableCell setNeedsLayout];
-        [self.requestTableCell layoutIfNeeded];
-        
-        CGSize size = [self.requestTableCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        return 1  + size.height;
-    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 1){
-        UserAttentionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
-        if(!cell){
-            cell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
-             cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        }
-        
-        UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
-        [cell SetContentData:model];
-        return cell;
-    }
-    else{
+    if (_applyData.count>0 && indexPath.section==0) {
         UserApplyAttentionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if(!cell){
             cell = [[UserApplyAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
             [cell._btnAccept addTarget:self action:@selector(btnAccept:) forControlEvents:UIControlEventTouchUpInside];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
-
+            
         }
-    
+        
         UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
         cell._btnAccept.tag = indexPath.row;
+        [cell SetContentData:model];
+        return cell;
+
+    }
+    else{
+        
+        UserAttentionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+        if(!cell){
+            cell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:self.attentionTableCell.frame];
+            cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+
+        }
+        
+        UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
         [cell SetContentData:model];
         return cell;
     }
@@ -316,14 +328,14 @@
     NSString *phone = _searchBar.text;
     BOOL isMobile = [NSStrUtil isMobileNumber:phone];
     if(!isMobile){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"电话号码有误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"电话号码有误" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
     NSDictionary *dic = @{@"phone" : phone, @"requesterId" :[UserModel sharedUserInfo].userId};
     [LCNetWorkBase postWithMethod:@"api/request/apply" Params:dic Completion:^(int code, id content) {
         if(code){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"申请发送成功!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"申请发送成功!" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
         }
     }];

@@ -114,6 +114,9 @@
     [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
     
 
+//    if(editcell.lbTitle.text == nil || [editcell.lbTitle.text length] < 10){
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择订单开始时间！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+
     [mDic setObject:address forKey:@"addr"];
     
     [LCNetWorkBase postWithMethod:@"api/lover/save" Params:mDic Completion:^(int code, id content) {
@@ -134,11 +137,14 @@
 {
     if([LocationManagerObserver sharedInstance].currentDetailAdrress == nil && _loverModel == nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护位置！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+
         [alert show];
         return;
     }
     
     if(_loverModel == nil){
+
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护对象地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [self newAttentionWithAddress:[LocationManagerObserver sharedInstance].currentDetailAdrress block:^(int code, id content) {
             if(code){
                 if([content objectForKey:@"code"] == nil)
@@ -158,6 +164,7 @@
     
     if(editcell.lbTitle.text == nil || [editcell.lbTitle.text length] < 10){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择订单开始时间！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+
         [alert show];
         return;
     }
