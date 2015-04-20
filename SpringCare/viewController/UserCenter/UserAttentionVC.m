@@ -13,8 +13,10 @@
 #import "UserRequestAcctionModel.h"
 #import "LCNetWorkBase.h"
 #import "UserModel.h"
+#import "EditUserInfoVC.h"
+#import "EditCellTypeData.h"
 
-@interface UserAttentionVC ()
+@interface UserAttentionVC ()<EditUserInfoVCDelegate>
 {
     
 }
@@ -31,6 +33,8 @@
     // Do any additional setup after loading the view.
     
     self.NavigationBar.Title = @"我的关注";
+    self.NavigationBar.btnRight.hidden = NO;
+    [self.NavigationBar.btnRight setImage:[UIImage imageNamed:@"adduser"] forState:UIControlStateNormal];
     
     _attentionData = [UserAttentionModel GetMyAttentionArray];
     _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
@@ -45,6 +49,18 @@
     }
     
     [self initSubViews];
+}
+
+- (void) NavRightButtonClickEvent:(UIButton *)sender
+{
+    NSArray *mArray = [self getContentArray];
+    
+    EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
+    [vc setContentArray:mArray andmodel:nil];//新增时为空
+    vc.delegate = self;
+    vc.NavTitle = @"编辑资料";
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,6 +83,47 @@
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+}
+
+- (NSArray *)getContentArray
+{
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    EditCellTypeData *data1 = [[EditCellTypeData alloc] init];
+    data1.cellTitleName = @"地址";
+    data1.cellType = EnumTypeAddress;
+    [mArray addObject:data1];
+    
+    EditCellTypeData *data2 = [[EditCellTypeData alloc] init];
+    data2.cellTitleName = @"关系昵称";
+    data2.cellType = EnumTypeRelationName;
+    [mArray addObject:data2];
+    
+    EditCellTypeData *data3 = [[EditCellTypeData alloc] init];
+    data3.cellTitleName = @"姓名";
+    data3.cellType = EnumTypeUserName;
+    [mArray addObject:data3];
+    
+    EditCellTypeData *data4 = [[EditCellTypeData alloc] init];
+    data4.cellTitleName = @"性别";
+    data4.cellType = EnumTypeSex;
+    [mArray addObject:data4];
+    
+    EditCellTypeData *data5 = [[EditCellTypeData alloc] init];
+    data5.cellTitleName = @"年龄";
+    data5.cellType = EnumTypeAge;
+    [mArray addObject:data5];
+    
+    EditCellTypeData *data6 = [[EditCellTypeData alloc] init];
+    data6.cellTitleName = @"电话";
+    data6.cellType = EnumTypeMobile;
+    [mArray addObject:data6];
+    
+    EditCellTypeData *data7 = [[EditCellTypeData alloc] init];
+    data7.cellTitleName = @"身高";
+    data7.cellType = EnumTypeHeight;
+    [mArray addObject:data7];
+    
+    return mArray;
 }
 
 #pragma UITableViewDataSource
@@ -278,6 +335,17 @@
     [model acceptAcceptRequest:^(int code) {
         if(code){
             model.isAccept = 1;
+            [_tableview reloadData];
+        }
+    }];
+}
+
+- (void) NotifyReloadData
+{
+    [UserAttentionModel loadLoverList:^(int code) {
+        if(code == 1){
+            _attentionData = [UserAttentionModel GetMyAttentionArray];
+            _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
             [_tableview reloadData];
         }
     }];
