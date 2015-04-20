@@ -99,6 +99,9 @@
     {
         if(self.attentionTableCell == nil){
             self.attentionTableCell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+            self.attentionTableCell.selectedBackgroundView = [[UIView alloc] initWithFrame:self.attentionTableCell.frame];
+            self.attentionTableCell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+            
         }
         UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
         [self.attentionTableCell SetContentData:model];
@@ -112,6 +115,9 @@
     else{
         if(self.requestTableCell == nil){
             self.requestTableCell = [[UserApplyAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+            self.requestTableCell.selectedBackgroundView = [[UIView alloc] initWithFrame:self.requestTableCell.frame];
+            self.requestTableCell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+
         }
         UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
         [self.requestTableCell SetContentData:model];
@@ -130,6 +136,7 @@
         UserAttentionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
         if(!cell){
             cell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+             cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
         
         UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
@@ -141,6 +148,8 @@
         if(!cell){
             cell = [[UserApplyAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
             [cell._btnAccept addTarget:self action:@selector(btnAccept:) forControlEvents:UIControlEventTouchUpInside];
+            cell.selectionStyle=UITableViewCellSelectionStyleNone;
+
         }
     
         UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];

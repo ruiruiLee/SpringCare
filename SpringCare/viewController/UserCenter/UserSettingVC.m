@@ -104,7 +104,20 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    if(indexPath.section == 0){
+        // 版本更新
+    }
+
+    if(indexPath.section == 1){
+        if(indexPath.row == 0)
+        {
+           // 告诉朋友
+        }else{
+           // 给app好评
+            NSString *url = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",KEY_APPLE_ID];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        }
+    }
     if(indexPath.section == 2){
         if(indexPath.row == 0)
         {
@@ -122,6 +135,8 @@
     UserSettingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[UserSettingTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     }
     
     if(indexPath.section == 0)
@@ -138,7 +153,7 @@
             cell._imgFold.hidden = NO;
         }
         else{
-            cell._lbTitle.text = @"给我好评";
+            cell._lbTitle.text = @"给我们好评";
             cell._lbContent.hidden = YES;
             cell._imgFold.hidden = NO;
         }
