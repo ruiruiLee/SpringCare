@@ -10,7 +10,6 @@
 #import "define.h"
 #import "AppDelegate.h"
 
-//static NSString *currentCity = nil;
 
 @implementation LocationManagerObserver
 @synthesize lat;
@@ -81,13 +80,28 @@
         [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             if([placemarks count] > 0){
                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
-                NSString *city = placemark.locality;
-                if (!city) {
-                    //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
-                    city = placemark.administrativeArea;
-                }
-                currentCity = city;
-                CityDataModel *model = [CityDataModel modelWithName:city];
+//                NSLog(@"name:%@\n country:%@\n postalCode:%@\n ISOcountryCode:%@\n ocean:%@\n inlandWater:%@\n administrativeArea:%@\n subAdministrativeArea:%@\n locality:%@\n subLocality:%@\n thoroughfare:%@\n subThoroughfare:%@\n",
+//                                                 placemark.name,
+//                                                    placemark.country,
+//                                                   placemark.postalCode,
+//                                                  placemark.ISOcountryCode,
+//                                                   placemark.ocean,
+//                                                 placemark.inlandWater,
+//                                                 placemark.administrativeArea,
+//                                                   placemark.subAdministrativeArea,
+//                                                  placemark.locality,
+//                                                 placemark.subLocality,
+//                                                   placemark.thoroughfare,
+//                                                   placemark.subThoroughfare);
+                
+                 currentCity= !placemark.locality?placemark.administrativeArea:placemark.locality;
+                _currentDetailAdrress =[NSString stringWithFormat:@"%@%@%@%@%@%@", placemark.administrativeArea,
+                  !placemark.subAdministrativeArea?@"":placemark.subAdministrativeArea,
+                  !placemark.locality?@"":placemark.locality,
+                  !placemark.subLocality?@"":placemark.subLocality,
+                  !placemark.thoroughfare?@"":placemark.thoroughfare,
+                 !placemark.subThoroughfare?@"":placemark.subThoroughfare];
+                CityDataModel *model = [CityDataModel modelWithName:currentCity];
                 if(model != nil){
                     delegate.currentCityModel = model;
                 }

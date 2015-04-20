@@ -50,9 +50,8 @@ static NSMutableArray *cityDataArray = nil;
         }
     }
     
-    NSString *currentCity = LcationInstance.currentCity;  // [LocationManagerObserver getCurrentCityName];
-    if(currentCity != nil){
-        CityDataModel *model = [CityDataModel modelWithName:currentCity];
+    if(LcationInstance.currentCity != nil){
+        CityDataModel *model = [CityDataModel modelWithName:LcationInstance.currentCity];
         if(model){
             AppDelegate *delegate = [UIApplication sharedApplication].delegate;
             delegate.currentCityModel = model;
