@@ -46,7 +46,7 @@
 
 - (void) setContentWithData:(EscortTimeReplyDataModel*)data
 {
-    _lbReplyContent.textString = data.publishContent;
+    _lbReplyContent.textString = data.content;
 }
 
 @end

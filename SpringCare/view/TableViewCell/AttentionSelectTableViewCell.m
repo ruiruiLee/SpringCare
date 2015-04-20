@@ -11,6 +11,7 @@
 #import "UIImageView+WebCache.h"
 
 @implementation AttentionSelectTableViewCell
+@synthesize _selectStatus = _selectStatus;
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

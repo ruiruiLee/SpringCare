@@ -82,15 +82,22 @@
     }
     UserAttentionModel *model = [attentionArray objectAtIndex:indexPath.row];
     [cell setContentWithModel:model];
+    if([model.userid isEqualToString:selectId]){
+        cell._selectStatus.image = ThemeImage(@"EscortTimeSelectCurrentSelect");
+    }else
+    {
+        cell._selectStatus.image = nil;
+    }
     return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(delegate && [delegate respondsToSelector:@selector(ViewSelectWithId:)])
+    if(delegate && [delegate respondsToSelector:@selector(ViewSelectWithModel:)])
     {
-        [delegate ViewSelectWithId:@""];
+        UserAttentionModel *model = [attentionArray objectAtIndex:indexPath.row];
+        [delegate ViewSelectWithModel:model];
     }
 }
 
@@ -98,6 +105,13 @@
 {
     if(delegate && [delegate respondsToSelector:@selector(ViewShutDown)])
         [delegate ViewShutDown];
+}
+
+- (void) SetActionDataArray:(NSArray *) array withId:(NSString *) uid
+{
+    attentionArray = array;
+    selectId = uid;
+    [_tableview reloadData];
 }
 
 @end

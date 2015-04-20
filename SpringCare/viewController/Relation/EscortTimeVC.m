@@ -8,10 +8,15 @@
 
 #import "EscortTimeVC.h"
 #import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
 #import "UserRequestAcctionModel.h"
 #import "LoginVC.h"
 
 @interface EscortTimeVC ()
+{
+    
+}
+
 
 @property (nonatomic, strong) EscortTimeTableCell *prototypeCell;
 
@@ -22,7 +27,6 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    UserModel *usermodel = [UserModel sharedUserInfo];
     if([keyPath isEqualToString:@"userId"])
     {
 //        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
@@ -42,6 +46,13 @@
             }];
         }
     }
+    
+    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code) {
+        if(code)
+        {
+            [tableView reloadData];
+        }
+    }];
     
     self.lbTitle.text = @"陪护时光";
     self.NavigationBar.alpha = 0.7f;
@@ -96,8 +107,8 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-49-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
     
-    tableView.tableFooterView = [[UIView alloc] init];
     tableView.tableHeaderView = headerView;
+    tableView.tableFooterView = [[UIView alloc] init];
     
     _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, SCREEN_HEIGHT)];
     [[UIApplication sharedApplication].keyWindow addSubview:_bgView];
@@ -169,7 +180,7 @@
 
 - (void) replyContentWithId:(NSString*)itemId
 {
-    NSLog(itemId);
+//    _currentAttentionId = itemId;
 }
 
 - (void) ReloadTebleView
@@ -179,6 +190,8 @@
 
 - (void) RightButtonClicked:(id)sender
 {
+    [_selectView SetActionDataArray:[UserAttentionModel GetMyAttentionArray] withId:_currentAttentionId];
+    
     [UIView animateWithDuration:0.25f animations:^{
         _selectView.frame = CGRectMake(ScreenWidth/2, 64, ScreenWidth/2, SCREEN_HEIGHT - 64);
         _bgView.hidden = NO;
@@ -227,10 +240,18 @@
 }
 
 #pragma AttentionSelectViewDelegate
-- (void) ViewSelectWithId:(NSString *)uid
+- (void) ViewSelectWithModel:(UserAttentionModel *)usermodel
 {
     [self SelectWiewDismiss];
-    [tableView reloadData];
+    _currentAttentionId = usermodel.userid;
+    [self.btnRight sd_setImageWithURL:[NSURL URLWithString:usermodel.photoUrl] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
+    
+    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code) {
+        if(code)
+        {
+            [tableView reloadData];
+        }
+    }];
 }
 
 - (void) ViewShutDown

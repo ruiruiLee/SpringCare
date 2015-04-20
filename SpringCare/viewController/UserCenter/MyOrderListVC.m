@@ -119,7 +119,7 @@
 {
     if(EnumOrderAll == orderType){
         if(indexPath.section == 0)
-            return 134.f;
+            return 109.f;
     }
     
     return 109.f;
@@ -129,9 +129,9 @@
 {
     if(EnumOrderAll == orderType){
         if(indexPath.section == 0){
-            MyOrderOnDoingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell0"];
+            MyOrderTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell0"];
             if(!cell){
-                cell = [[MyOrderOnDoingTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell0"];
+                cell = [[MyOrderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell0"];
                 cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
                 cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
             }
@@ -186,20 +186,49 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    [pullTableView reloadData];
-//}
 
 - (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = TableSectionBackgroundColor;
+//    view.backgroundColor = TableSectionBackgroundColor;
+    
+    if(section == 0){
+        UIView *headerview = [[UIView alloc] initWithFrame:CGRectZero];
+        [view addSubview:headerview];
+        headerview.translatesAutoresizingMaskIntoConstraints = NO;
+        headerview.backgroundColor = TableBackGroundColor;
+        
+        UILabel *_headerText = [[UILabel alloc] initWithFrame:CGRectZero];//24
+        [headerview addSubview:_headerText];
+        _headerText.translatesAutoresizingMaskIntoConstraints = NO;
+        _headerText.font = _FONT(14);
+        _headerText.textColor = _COLOR(0xe4, 0x39, 0x3c);
+        _headerText.text = @"正在服务中的订单";
+        _headerText.backgroundColor = TableBackGroundColor;
+        
+        UILabel *line = [[UILabel alloc] initWithFrame:CGRectZero];
+        [view addSubview:line];
+        line.backgroundColor = SeparatorLineColor;
+        line.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSDictionary *views = NSDictionaryOfVariableBindings(headerview, _headerText, line);
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[headerview]-0-|" options:0 metrics:nil views:views]];
+        [headerview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_headerText]-0-|" options:0 metrics:nil views:views]];
+        [headerview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_headerText]-0-|" options:0 metrics:nil views:views]];
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[line]-0-|" options:0 metrics:nil views:views]];
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[headerview(24)]-0-[line(1)]-0-|" options:0 metrics:nil views:views]];
+        
+    }else{
+        view.backgroundColor = TableSectionBackgroundColor;
+    }
     return view;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if(section == 0)
+        return 40;
     return 15.f;
 }
 

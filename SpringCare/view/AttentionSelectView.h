@@ -13,7 +13,7 @@
 @protocol AttentionSelectViewDelegate <NSObject>
 
 - (void) ViewShutDown;
-- (void) ViewSelectWithId:(NSString*) uid;
+- (void) ViewSelectWithModel:(UserAttentionModel*) model;
 
 @end
 
@@ -24,8 +24,12 @@
     UIButton *_btnShut;
     
     NSArray *attentionArray;
+    
+    NSString *selectId;
 }
 
 @property (nonatomic, assign) id<AttentionSelectViewDelegate> delegate;
+
+- (void) SetActionDataArray:(NSArray *) array withId:(NSString *) uid;
 
 @end

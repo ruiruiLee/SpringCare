@@ -205,13 +205,13 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_model.replyData count];
+    return [_model.replyInfos count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    return 80.f;
-    NSArray *dataArray =  _model.replyData;
+    NSArray *dataArray =  _model.replyInfos;
     EscortTimeReplyDataModel *data = [dataArray objectAtIndex:indexPath.row];
     
     data.height =[self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
@@ -227,7 +227,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    EscortTimeReplyDataModel *model = [_model.replyData objectAtIndex:indexPath.row];
+    EscortTimeReplyDataModel *model = [_model.replyInfos objectAtIndex:indexPath.row];
     [cell setContentWithData:model];
     
     return cell;
@@ -237,20 +237,12 @@
 {
     _model = data;
     
-//    for (int i = 0; i < [_model.replyData count]; i++) {
-//        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
-//        EscortTimeReplyDataModel *data = [_model.replyData objectAtIndex:indexpath.row];
-//        data.height = [NSStrUtil heightForString:data.publishContent
-//                                                   fontSize:14.f
-//                                                   andWidth:ScreenWidth - 115] + 5;
-//    }
-    
-    NSString *textContent = data.textContent;//文字内容
-    NSString *voiceContentUrl = data.voiceContentUrl;//音频内容地址
+    NSString *textContent = data.content;//文字内容
+    NSString *voiceContentUrl = data.VoliceDataModel.url;//音频内容地址
 //    NSString *voiceLen = data.voiceLen;//音频时长
-    NSString *publishTime = data.publishTime;//发布时间;
-    NSArray *replyData = data.replyData;//回复数据
-    NSArray *imgPicArray = data.imgPicArray;//图片数据列表
+    NSString *publishTime = data.createAt;//发布时间;
+    NSArray *replyData = data.replyInfos;//回复数据
+    NSArray *imgPicArray = data.imgPathArray;//图片数据列表
     
     NSMutableString *format = [[NSMutableString alloc] init];
     [format appendString:@"V:|-20-"];
@@ -342,10 +334,11 @@
 
 - (CGFloat) getContentHeightWithData:(EscortTimeDataModel *) modelData
 {
-    NSString *textContent = modelData.textContent;//文字内容
-    NSString *voiceContentUrl = modelData.voiceContentUrl;//音频内容地址
-    NSArray *replyData = modelData.replyData;//回复数据
-    NSArray *imgPicArray = modelData.imgPicArray;//图片数据列表
+    NSString *textContent = modelData.content;//文字内容
+    NSString *voiceContentUrl = modelData.VoliceDataModel.url;//音频内容地址
+    //    NSString *voiceLen = data.voiceLen;//音频时长
+    NSArray *replyData = modelData.replyInfos;//回复数据
+    NSArray *imgPicArray = modelData.imgPathArray;//图片数据列表
     
     CGFloat cellHeight = 20.f;
     if(textContent != nil && ![textContent isKindOfClass:[NSNull class]] && [textContent length] > 0){
@@ -394,7 +387,7 @@
         for (int i = 0; i < [replyData count]; i++) {
             NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
             EscortTimeReplyDataModel *data = [replyData objectAtIndex:indexpath.row];
-            data.height = [NSStrUtil heightForString:data.publishContent
+            data.height = [NSStrUtil heightForString:data.content
                                             fontSize:14.f
                                             andWidth:ScreenWidth - 115] + 5;
             height += data.height;

@@ -38,7 +38,6 @@
         [self.contentView addSubview:_btnStatus];
         [_btnStatus addTarget:self action:@selector(doBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         _btnStatus.layer.cornerRadius = 5;
-//        _btnStatus.text = @"已付款";
         
         _imgLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgLogo];
@@ -206,7 +205,6 @@
 {
     
     _lbType.text = [NSString stringWithFormat:@"类型：%@", model.product.name];
-//    _lbDetailTime.text = [NSString stringWithFormat:@""];//@"时间：3天（2015.03.19-2015.03.21）";
     NSMutableString *detailTime = [[NSMutableString alloc] init];
     [detailTime appendString:@"时间："];
     [detailTime appendString:[NSString stringWithFormat:@"%ld", model.orderCount]];
@@ -223,7 +221,7 @@
         [detailTime appendString:[NSString stringWithFormat:@"月"]];
     }
     
-    [detailTime appendString:[NSString stringWithFormat:@"(%@时-%@时)", [Util StringFromDate:model.beginDate], [Util StringFromDate:model.endDate]]];
+    [detailTime appendString:[NSString stringWithFormat:@"(%@时-%@时)", [Util convertStringFromString:model.beginDate], [Util convertStringFromString:model.endDate]]];
     _lbDetailTime.text = detailTime;
     
     NSMutableString *priceStr = [[NSMutableString alloc] init];
@@ -250,7 +248,6 @@
         NurseListInfoModel *nurseModel = [nurseArray objectAtIndex:0];
         _lbIntro.text = nurseModel.intro;
         _lbName.text = nurseModel.name;
-//        [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
         if(nurseArray != nil && [nurseArray count] > 0)
             [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:((NurseListInfoModel*)[nurseArray objectAtIndex:0]).headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:((NurseListInfoModel*)[nurseArray objectAtIndex:0]).sex]])];
         else
@@ -306,7 +303,7 @@
         _btnMobile = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnMobile];
         _btnMobile.translatesAutoresizingMaskIntoConstraints = NO;
-        [_btnMobile setImage:[UIImage imageNamed:@"orderdetailtel"] forState:UIControlStateNormal];
+//        [_btnMobile setImage:[UIImage imageNamed:@"orderdetailtel"] forState:UIControlStateNormal];
         [_btnMobile setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         _btnMobile.titleLabel.font = _FONT(15);
         
@@ -326,8 +323,8 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnMobile]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_imgPhoto(62)]-2-[_lbName(20)]->=0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_LbRelation(26)]-3-[_btnMobile(20)]-3-[_btnAddress(20)]->=0-|" options:0 metrics:nil views:views]];
-        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=20-[_LbRelation(26)]-3-[_btnMobile]->=3-[_btnAddress(20)]->=0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_LbRelation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_LbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
@@ -350,9 +347,9 @@
     _lbAge.text = [NSString stringWithFormat:@"%@岁", model.lover.age];
     if(model.lover.age == nil || [model.lover.age length] == 0)
         _lbAge.text = @"年龄";
-    [_btnMobile setTitle:model.lover.ringNum forState:UIControlStateNormal];
-    if(model.lover.ringNum == nil || [model.lover.ringNum length] == 0)
-        [_btnMobile setTitle:@"电话" forState:UIControlStateNormal];
+//    [_btnMobile setTitle:model.lover.ringNum forState:UIControlStateNormal];
+//    if(model.lover.ringNum == nil || [model.lover.ringNum length] == 0)
+//        [_btnMobile setTitle:@"电话" forState:UIControlStateNormal];
     [_btnAddress setTitle:model.lover.address forState:UIControlStateNormal];
     
     UserSex sex = [Util GetSexByName:model.lover.sex];

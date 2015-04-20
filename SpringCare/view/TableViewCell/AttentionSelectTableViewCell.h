@@ -25,6 +25,8 @@
     UIImageView *_imgAttentionLogo;
 }
 
+@property (nonatomic, strong) UIImageView *_selectStatus;
+
 - (void) setContentWithModel:(UserAttentionModel*) model;
 
 @end

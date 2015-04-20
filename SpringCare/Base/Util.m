@@ -42,6 +42,14 @@
     return date;
 }
 
++ (NSString*) convertStringFromString:(NSDate*) date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    [formatter setDateFormat:@"yyyy-MM-dd HH"];
+    NSString *string = [formatter stringFromDate:date];
+    return string;
+}
+
 + (NSString*) orderTimeFromDate:(NSDate*)Date
 {
     NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
