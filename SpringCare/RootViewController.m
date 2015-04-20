@@ -8,6 +8,8 @@
 
 #import "RootViewController.h"
 #import "SliderViewController.h"
+#import "define.h"
+#import "LoginVC.h"
 
 @interface RootViewController ()
 
@@ -31,18 +33,21 @@
     
     homeVC = [[HomePageVC alloc] initWithNibName:nil bundle:nil];
     homeVC.tabBarItem.title=@"首页";
+    homeVC.tabBarItem.tag = 1000;
     homeVC.tabBarItem.image=[UIImage imageNamed:@"tab-home-selected"];
     [homeVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:homeVC];
     
     nurseVC = [[NurseListMainVC alloc] initWithNibName:nil bundle:nil];
     nurseVC.tabBarItem.title=@"陪护师";
+    nurseVC.tabBarItem.tag = 1001;
     nurseVC.tabBarItem.image=[UIImage imageNamed:@"tab-nurse"];
     [nurseVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:nurseVC];
     
     messageListVC = [[EscortTimeVC alloc] initWithNibName:nil bundle:nil];
     messageListVC.tabBarItem.title=@"陪护时光";
+    messageListVC.tabBarItem.tag = 1002;
     [messageListVC.tabBarItem setImage:[UIImage imageNamed:@"tab-lovetime"]];
     [messageListVC.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:messageListVC];
@@ -88,6 +93,19 @@
 
     self.pageViewController.doubleSided = NO;
     return UIPageViewControllerSpineLocationMin;
+}
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if(item.tag == 1002){
+        if(![UserModel sharedUserInfo].isLogin){
+            LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self.selectedViewController presentViewController:nav animated:YES completion:^{
+                
+            }];
+        }
+    }
 }
 
 @end
