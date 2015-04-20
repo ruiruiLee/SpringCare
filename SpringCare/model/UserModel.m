@@ -49,8 +49,8 @@
             self.mobilePhoneNumber = user.mobilePhoneNumber;
             self.isNew = user.isNew;
             self.email = user.email;
-            self.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
-            self.chineseName = [user objectForKey:@"chinese_name"];
+            //self.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
+            //self.chineseName = [user objectForKey:@"chinese_name"];
          }
     }
     
@@ -82,6 +82,7 @@
             self.career = [content objectForKey:@"career"];
             self.intro = [content objectForKey:@"intro"];
             self.chineseName = [content objectForKey:@"chineseName"];
+            self.headerFile = [content objectForKey:@"headerImage"];
         }
     }];
 }

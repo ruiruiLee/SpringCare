@@ -56,7 +56,7 @@
         [_btnUserName setTitle:model.chineseName forState:UIControlStateNormal];
     }
     if ([keyPath isEqualToString:@"headerFile"]){
-        [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:@""] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
+        [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
     }
 }
 
