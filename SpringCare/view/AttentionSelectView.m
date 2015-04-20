@@ -80,7 +80,7 @@
         cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
 
     }
-       UserAttentionModel *model = [attentionArray objectAtIndex:indexPath.row];
+    UserAttentionModel *model = [attentionArray objectAtIndex:indexPath.row];
     [cell setContentWithModel:model];
     return cell;
 }
