@@ -221,8 +221,9 @@
     if(cell == nil){
         cell = [[MenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.contentView.backgroundColor = [UIColor clearColor];
+         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+   
     cell.separatorLine.hidden = NO;
     if(indexPath.row == 0){
         cell.imgIcon.image = [UIImage imageNamed:@"usercentermyattention"];

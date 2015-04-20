@@ -76,8 +76,11 @@
     AttentionSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(!cell){
         cell = [[AttentionSelectTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+
     }
-    UserAttentionModel *model = [attentionArray objectAtIndex:indexPath.row];
+       UserAttentionModel *model = [attentionArray objectAtIndex:indexPath.row];
     [cell setContentWithModel:model];
     return cell;
 }

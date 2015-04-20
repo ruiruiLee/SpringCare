@@ -81,7 +81,7 @@
     pullTableView.translatesAutoresizingMaskIntoConstraints = NO;
     pullTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     pullTableView.pullDelegate = self;
-    
+    pullTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     self.pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];
     self.pullTableView.pullBackgroundColor = TableBackGroundColor;
     self.pullTableView.backgroundColor = TableBackGroundColor;
@@ -132,6 +132,8 @@
             MyOrderOnDoingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell0"];
             if(!cell){
                 cell = [[MyOrderOnDoingTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell0"];
+                cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+                cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
             }
             MyOrderdataModel *model = [[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             [cell SetContentData:model];
@@ -142,6 +144,9 @@
             MyOrderTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
             if(!cell){
                 cell = [[MyOrderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+                cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+                cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+
             }
             MyOrderdataModel *model = [[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             [cell SetContentData:model];

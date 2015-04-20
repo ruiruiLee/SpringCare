@@ -88,6 +88,8 @@
     CityListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(!cell){
         cell = [[CityListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     }
     if(indexPath.section == 0){
         NSString *currentCity =   LcationInstance.currentCity;   //[LocationManagerObserver getCurrentCityName];
