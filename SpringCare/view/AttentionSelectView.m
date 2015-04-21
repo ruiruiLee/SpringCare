@@ -88,6 +88,12 @@
     {
         cell._selectStatus.image = nil;
     }
+    
+    if(model.isCare){
+        cell._imgAttentionLogo.hidden = NO;
+    }else{
+        cell._imgAttentionLogo.hidden = YES;
+    }
     return cell;
 }
 

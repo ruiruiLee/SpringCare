@@ -25,9 +25,12 @@
 
 }
 
+@property (nonatomic, strong)UserAttentionModel *_loverModel;
+
 @end
 
 @implementation PlaceOrderForProductVC
+@synthesize _loverModel = _loverModel;
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender
 {
@@ -43,15 +46,16 @@
         
         ((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId = model.pId;
         
+        __weak PlaceOrderForProductVC *weakSelf = self;
         [_productModel loadetailDataWithproductId:model.pId block:^(id content) {
            // NSDictionary *dic = [content objectForKey:@"care"];
              NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
             if (dicLover.count>0) {
-                _loverModel =  [[UserAttentionModel alloc] init];
-                _loverModel.userid = [dicLover objectForKey:@"id"];
-                _loverModel.address =[dicLover objectForKey:@"addr"];
+                weakSelf._loverModel =  [[UserAttentionModel alloc] init];
+                weakSelf._loverModel.userid = [dicLover objectForKey:@"id"];
+                weakSelf._loverModel.address =[dicLover objectForKey:@"addr"];
             }
-         [self NotifyAddressSelected:nil model:_loverModel];
+         [weakSelf NotifyAddressSelected:nil model:weakSelf._loverModel];
         
         }];
     }
@@ -182,13 +186,14 @@
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
     
+    __weak PlaceOrderForProductVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
                 NSString *code = [content objectForKey:@"code"];
                 if(code == nil)
                 {
-                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
                     MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
                     [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
                 }

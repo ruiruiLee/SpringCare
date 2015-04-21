@@ -249,6 +249,7 @@
     _SearchConditionStr = searchStr;
     
 
+    self.pullTableView.pullTableIsRefreshing = YES;
     pages = 0;
     __weak NurseListMainVC *_weakSelf = self;
     [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code, id content) {

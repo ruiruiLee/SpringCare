@@ -40,5 +40,6 @@
 @property(nonatomic,strong) NSArray *cityArr;
 @property(nonatomic,strong) NSArray *areaArr;
 @property(nonatomic,strong) NSArray *currentAreaArr;
+@property(nonatomic, strong)AdScrollView * scrollView;
 
 @end

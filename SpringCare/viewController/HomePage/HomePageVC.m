@@ -21,6 +21,7 @@
 #import "AppDelegate.h"
 
 @implementation HomePageVC
+@synthesize scrollView = scrollView;
 
 - (void) dealloc
 {
@@ -39,15 +40,15 @@
 
 - (void) loadData
 {
+    __weak HomePageVC *weakSelf = self;
     [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
         if(code == 1){
-            NSLog(@"%@", content);
             if([content isKindOfClass:[NSDictionary class]]){
                 AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 delegate.hospital_product_id = [content objectForKey:@"hospitalProductId"];
                 delegate.defaultProductId = [content objectForKey:@"defaultProductId"];
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
-                scrollView.imageNameArray = [NewsDataModel getImageUrlArray];
+                weakSelf.scrollView.imageNameArray = [NewsDataModel getImageUrlArray];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
                 NSArray *wordList = [content objectForKey:@"wordList"];
                 for (int i = 0; i < [wordList count]; i++) {

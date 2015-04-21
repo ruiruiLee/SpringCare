@@ -98,8 +98,10 @@ static NSInteger totalCount = 0;
     NSMutableArray *photoArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < [files count]; i++) {
         FileDataModel *file = [FileDataModel ObjectFromDictionary:[files objectAtIndex:i]];
-        if(file.fileType == 1){
-            [photoArray addObject:file.url];
+        if(file.fileType == 99){
+            ObjImageDataInfo *info = [[ObjImageDataInfo alloc] init];
+            info.urlPath = file.url;
+            [photoArray addObject:info];
         }else if (file.fileType == 2)
             model.VoliceDataModel = file;
             
@@ -124,8 +126,10 @@ static NSInteger totalCount = 0;
     }
     
     NSMutableDictionary *mdic = [[NSMutableDictionary alloc] init];
-    if(loverId)
+    if(loverId){
         [mdic setObject:loverId forKey:@"loverId"];
+    }
+    [mdic setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
     [mdic setObject:[NSNumber numberWithInteger:LIMIT_COUNT] forKey:@"limit"];
     [mdic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     
