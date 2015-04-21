@@ -32,7 +32,7 @@
     static dispatch_once_t onceToken;
     static UserModel *user = nil;
     dispatch_once(&onceToken, ^{
-        user = [[UserModel alloc]init];
+        user = [[UserModel alloc] init];
     });
     return user;
 }

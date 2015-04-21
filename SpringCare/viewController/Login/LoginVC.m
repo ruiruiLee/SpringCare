@@ -247,14 +247,14 @@
     __weak LoginVC *weakSelf = self;
     [AVUser signUpOrLoginWithMobilePhoneNumberInBackground:phone smsCode:verifyCode block:^(AVUser *user, NSError *error) {
         if(error == nil){
-//            UserModel *model = [UserModel sharedUserInfo];
-//            model.sessionToken = user.sessionToken;
-//            model.username = user.username;
-//            model.mobilePhoneNumber = user.mobilePhoneNumber;
-//            model.isNew = user.isNew;
-//            model.email = user.email;
-//            model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
-//            model.userId = [user objectForKey:@"objectId"];
+            UserModel *model = [UserModel sharedUserInfo];
+            model.sessionToken = user.sessionToken;
+            model.username = user.username;
+            model.mobilePhoneNumber = user.mobilePhoneNumber;
+            model.isNew = user.isNew;
+            model.email = user.email;
+            model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
+            model.userId = [user objectForKey:@"objectId"];
             
             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
                 
