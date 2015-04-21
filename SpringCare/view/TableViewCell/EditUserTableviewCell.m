@@ -111,6 +111,7 @@
     else if (celldata.cellType == EnumTypeAddress){
         _imgUnflod.hidden = YES;
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(46)]-10-[_tfEdit]-20-|" options:0 metrics:nil views:views];
+        _tfEdit.placeholder = @"必须填写";
     }
     else if (celldata.cellType == EnumTypeMobile){
         _imgUnflod.hidden = YES;
@@ -120,6 +121,7 @@
     else if (celldata.cellType == EnumTypeRelationName){
         _imgUnflod.hidden = YES;
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(96)]-10-[_tfEdit]-20-|" options:0 metrics:nil views:views];
+        _tfEdit.placeholder = @"如父亲，母亲";
     }
     else if (celldata.cellType == EnumTypeHeight){
         _imgUnflod.hidden = YES;

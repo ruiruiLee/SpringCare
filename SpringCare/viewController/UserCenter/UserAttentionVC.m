@@ -177,7 +177,6 @@ if (_applyData.count>0) {
         
         CGSize size = [self.requestTableCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         return size.height;
-
     }
     else
     {
@@ -189,7 +188,7 @@ if (_applyData.count>0) {
         
         [self.attentionTableCell setNeedsLayout];
         [self.attentionTableCell layoutIfNeeded];
-        
+    //  return   [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
         CGSize size = [self.attentionTableCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         return 1  + size.height;
     }
@@ -205,10 +204,9 @@ if (_applyData.count>0) {
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
             
         }
-        
-        UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
+       UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
         cell._btnAccept.tag = indexPath.row;
-        [cell SetContentData:model];
+       [cell SetContentData:model];
         return cell;
 
     }
@@ -221,7 +219,6 @@ if (_applyData.count>0) {
             cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
 
         }
-        
         UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
         [cell SetContentData:model];
         return cell;

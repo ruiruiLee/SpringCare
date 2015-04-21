@@ -247,13 +247,17 @@
         }
         else if(typedata.cellType == EnumTypeAddress){
             cell.tfEdit.text = model.address;
+            if(model.address == nil || [model.address length] == 0)
+                cell.tfEdit.placeholder = @"必须填写";
         }
         else if(typedata.cellType == EnumTypeMobile){
+            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
             cell.tfEdit.text = model.ringNum;
         }
         else if(typedata.cellType == EnumTypeRelationName){
-            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
             cell.tfEdit.text = model.relation;
+            if(model.relation == nil || [model.relation length] == 0)
+                cell.tfEdit.placeholder = @"如父亲，母亲";
         }
         else if(typedata.cellType == EnumTypeHeight){
             cell.tfEdit.text = [NSString stringWithFormat:@"%d", (int)([model.height floatValue] * 100)];

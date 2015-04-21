@@ -12,7 +12,9 @@
 @interface UserAttentionTableCell : UITableViewCell
 {
     UIImageView *_photoImage;
-    UIButton *_btnRelation;
+   // UIButton *_btnRelation;
+    UIImageView * ImgSex;
+    UILabel *_lbRelation;
     UILabel *_lbName;
     UIButton *_btnRing;
     UILabel *_Address;
