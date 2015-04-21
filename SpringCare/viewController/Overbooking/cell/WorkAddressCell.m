@@ -52,7 +52,7 @@
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
-    _lbName.font = _FONT(16);
+    _lbName.font = _FONT(15);
     [bgView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -106,7 +106,7 @@
     }
     
     NSString * personH=[NSString stringWithFormat:@"%@",model.height ];
-    _lbName.text = [NSString stringWithFormat:@"%@     %@      %@", [model.username isEqual:@""]?@"姓名":model.username,[model.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",model.age ],[personH isEqual:@"0"]?@"身高":[NSString stringWithFormat:@"%@米",personH]];
+    _lbName.text = [NSString stringWithFormat:@"%@     %@     %@", [model.username isEqual:@""]?@"姓名":model.username,[model.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",model.age ],[personH isEqual:@"0"]?@"身高":[NSString stringWithFormat:@"%@米",personH]];
     NSString *relation = model.relation;
     if(relation == nil || [relation length] == 0)
         relation = @"昵称";

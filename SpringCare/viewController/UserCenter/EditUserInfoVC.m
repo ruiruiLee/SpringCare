@@ -136,7 +136,7 @@
                 else if(typedata.cellType == EnumTypeAddress){
                     [mDic setObject:cell.tfEdit.text forKey:@"addr"];
                 }
-                else if(typedata.cellType == EnumTypeAccount){
+                else if(typedata.cellType == EnumTypeMobile){
                     [mDic setObject:cell.tfEdit.text forKey:@"phone"];
                 }
                 else if(typedata.cellType == EnumTypeRelationName){

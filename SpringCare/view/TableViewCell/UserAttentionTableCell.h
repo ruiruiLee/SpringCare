@@ -19,6 +19,7 @@
     UIButton *_btnRing;
     UILabel *_Address;
     UILabel *_line;
+    NSString *phoneNum;
 }
 
 - (void) SetContentData:(UserAttentionModel*) data;
