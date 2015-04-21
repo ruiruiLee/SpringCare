@@ -116,7 +116,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
     return model;
 }
 
-+ (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType isOnlyIndexSplit:(BOOL) isOnlyIndexSplit block:(block) block
++ (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType isOnlyIndexSplit:(BOOL) isOnlyIndexSplit block:(CompletionBlock) block
 {
     if(pages == 0){
         if(orderType == EnumOrderAll){
@@ -147,11 +147,9 @@ static NSMutableArray *noAssessmentOrderList = nil;
             offset = [noAssessmentOrderList count];
     }
     if(pages > 0){
-//        isOnlyIndexSplit = @"false";
         [params setObject:@"true" forKey:@"isOnlyIndexSplit"];
     }
     else{
-//        isOnlyIndexSplit = @"true";
         [params setObject:@"false" forKey:@"isOnlyIndexSplit"];
     }
     [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
@@ -161,6 +159,8 @@ static NSMutableArray *noAssessmentOrderList = nil;
     
     [LCNetWorkBase postWithMethod:@"api/order/register/list" Params:params Completion:^(int code, id content) {
         if(code){
+            NSMutableArray *result = [[NSMutableArray alloc] init];
+            
             if(orderType == EnumOrderAll){
                 if([content isKindOfClass:[NSDictionary class]]){
                     NSArray *serverOrders = [content objectForKey:@"serverOrders"];
@@ -178,6 +178,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
                             NSDictionary *dic = [otherOrders objectAtIndex:i];
                             MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
                             [subArrayOther addObject:model];
+                            [result addObject:model];
                         }
                         [myOrderList addObject:subArrayOther];
                     }else{
@@ -193,6 +194,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
                             NSDictionary *dic = [otherOrders objectAtIndex:i];
                             MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
                             [subArrayOther addObject:model];
+                            [result addObject:model];
                         }
                     }
                 }
@@ -205,6 +207,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
                         NSDictionary *dic = [otherOrders objectAtIndex:i];
                         MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
                         [noAssessmentOrderList addObject:model];
+                        [result addObject:model];
                     }
                 }
                 else if ([content isKindOfClass:[NSArray class]]){
@@ -212,17 +215,18 @@ static NSMutableArray *noAssessmentOrderList = nil;
                         NSDictionary *dic = [content objectAtIndex:i];
                         MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
                         [noAssessmentOrderList addObject:model];
+                        [result addObject:model];
                     }
                 }
             }
             
             if(block){
-                block (1);
+                block (1, result);
             }
         }else
         {
             if(block){
-                block (0);
+                block (0, nil);
             }
         }
     }];

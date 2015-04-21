@@ -35,7 +35,7 @@
     [self initSubView];
     
     dataList = [MyOrderdataModel GetMyOrderList];
-    [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code) {
+    [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
             dataList = [MyOrderdataModel GetMyOrderList];
             [pullTableView reloadData];
@@ -238,7 +238,7 @@
 {
     pages = 0;
     if(EnumOrderPrepareForAssessment == orderType){
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code) {
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
                 dataList = [MyOrderdataModel GetNoAssessmentOrderList];
                 [pullTableView reloadData];
@@ -248,7 +248,7 @@
             }
         }];
     }else{
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code) {
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
                 dataList = [MyOrderdataModel GetMyOrderList];
                 [pullTableView reloadData];
@@ -266,7 +266,7 @@
     if(EnumOrderPrepareForAssessment == orderType){
         [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.1f];
     }else{
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:YES block:^(int code) {
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:YES block:^(int code, id content) {
             if(code){
                 dataList = [MyOrderdataModel GetMyOrderList];
                 [pullTableView reloadData];
