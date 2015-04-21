@@ -47,7 +47,7 @@ static NSInteger nurseTotal = 0;
 @synthesize careAge;
 @synthesize commentsNumber;
 @synthesize commentsRate;
-@synthesize addr;
+
 
 //详细部分
 @synthesize isLoadDetail;

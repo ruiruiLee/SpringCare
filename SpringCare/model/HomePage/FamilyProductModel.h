@@ -21,10 +21,6 @@
 @property (nonatomic, assign) NSInteger priceDiscount;//价格打折
 //@property (nonatomic, assign) BOOL isLoadDetail;
 
-//
-
-//@property (nonatomic, strong) UserAttentionModel *defaultLover;
-//@property (nonatomic, strong) NSString *detailIntro;
 
 + (NSArray*) getProductArray;
 

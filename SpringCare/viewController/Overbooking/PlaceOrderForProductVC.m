@@ -46,9 +46,11 @@
         [_productModel loadetailDataWithproductId:model.pId block:^(id content) {
            // NSDictionary *dic = [content objectForKey:@"care"];
              NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
-           _loverModel=  [[UserAttentionModel alloc] init];
-            _loverModel.userid = [dicLover objectForKey:@"id"];
-           _loverModel.address =[dicLover objectForKey:@"addr"];
+            if (dicLover.count>0) {
+                _loverModel =  [[UserAttentionModel alloc] init];
+                _loverModel.userid = [dicLover objectForKey:@"id"];
+                _loverModel.address =[dicLover objectForKey:@"addr"];
+            }
          [self NotifyAddressSelected:nil model:_loverModel];
         
         }];
@@ -309,9 +311,8 @@
   
     PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-     editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
     if (model==nil) {
-        if (![[LcationInstance currentDetailAdrress] isEqualToString:@""]) {
+        if ([LcationInstance currentDetailAdrress]) {
             editcell.lbTitle.font = _FONT_B(16);
             editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
             editcell.lbTitle.text=[LcationInstance currentDetailAdrress];
