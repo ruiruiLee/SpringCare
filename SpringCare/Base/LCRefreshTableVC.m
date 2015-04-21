@@ -131,11 +131,13 @@
 {
     self.pullTableView.pullLastRefreshDate = [NSDate date];
     self.pullTableView.pullTableIsRefreshing = NO;
+    [pullTableView reloadData];
 }
 
 - (void) loadMoreDataToTable
 {
     self.pullTableView.pullTableIsLoadingMore = NO;
+    [pullTableView reloadData];
 }
 
 @end
