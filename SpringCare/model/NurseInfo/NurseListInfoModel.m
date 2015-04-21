@@ -15,6 +15,7 @@
 static NSMutableArray *nurseList = nil;
 //static EnumNursePriceType modelType = EnumTypeUnKonwn;
 static NSMutableDictionary *pramaNurseDic = nil;
+static NSInteger nurseTotal = 0;
 
 @implementation DefaultLoverModel
 @synthesize loverId;
@@ -169,7 +170,8 @@ static NSMutableDictionary *pramaNurseDic = nil;
     [LCNetWorkBase postWithMethod:@"api/care/list" Params:dic Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
-                NSArray *results = [content objectForKey:@"results"];
+                NSArray *results = [content objectForKey:@"rows"];
+                nurseTotal = [[content objectForKey:@"total"] integerValue];
                 if([results isKindOfClass:[NSArray class]]){
                     if(nurseList == nil){
                         nurseList = [[NSMutableArray alloc] init];
@@ -209,7 +211,8 @@ static NSMutableDictionary *pramaNurseDic = nil;
     [LCNetWorkBase postWithMethod:@"api/care/list" Params:pramaNurseDic Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
-                NSArray *results = [content objectForKey:@"results"];
+                NSArray *results = [content objectForKey:@"rows"];
+                nurseTotal = [[content objectForKey:@"total"] integerValue];
                 if([results isKindOfClass:[NSArray class]]){
                     for (int i = 0; i <[results count]; i++) {
                         NSDictionary *dic = [results objectAtIndex:i];

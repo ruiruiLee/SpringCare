@@ -159,7 +159,7 @@ if (_applyData.count>0) {
         return 20;
   }
     else
-        return 20;
+        return 54;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -321,6 +321,15 @@ if (_applyData.count>0) {
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [_tableview deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSArray *mArray = [self getContentArray];
+    
+    EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
+    [vc setContentArray:mArray andmodel:[_attentionData objectAtIndex:indexPath.row]];//新增时为空
+    vc.delegate = self;
+    vc.NavTitle = @"编辑资料";
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) doApplyAttention:(UIButton*) sender
