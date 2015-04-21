@@ -235,7 +235,15 @@
 #pragma mark - 点中回复按钮
 #pragma mark EscortTimeTableCellDelegate
 -(void)commentButtonClick:(id)target userReply:(NSString*)userReply{
-    if (_feedbackView==nil) {
+//    _replyContentModel = target.model;
+    if([target isKindOfClass:[EscortTimeTableCell class]]){
+        _replyContentModel = ((EscortTimeTableCell*)target)._model;
+    }else
+        _replyContentModel = nil;
+    
+    _reReplyPId = userReply;
+    
+    if (_feedbackView == nil) {
         _feedbackView =[[feedbackView alloc ] initWithNibName:@"feedbackView" bundle:nil controlHidden:NO];
         _feedbackView.delegate=(id)self;
         [self.view addSubview:_feedbackView.view];
@@ -248,6 +256,45 @@
 -(void)commitMessage:(NSString*)msg   //按确认按钮或者发送按钮实现消息发送
 {
     NSLog(@"%@",msg);
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    if(msg)
+        [parmas setObject:msg forKey:@"content"];
+    [parmas setObject:[UserModel sharedUserInfo].userId forKey:@"replyUserId"];
+    if(_replyContentModel){
+        [parmas setObject:_replyContentModel.itemId forKey:@"careTimeId"];
+    }
+    if(_reReplyPId){
+        [parmas setObject:_reReplyPId forKey:@"orgUserId"];
+    }
+    
+    __weak EscortTimeVC *weakSelf = self;
+    [LCNetWorkBase postWithMethod:@"api/careTime/reply" Params:parmas Completion:^(int code, id content) {
+        if(code){
+            if([content isKindOfClass:[NSDictionary class]]){
+                if ([content objectForKey:@"code"] == nil) {
+                    NSString *replyId = [content objectForKey:@"message"];
+                    [weakSelf replyCompleteWithReplyId:replyId content:msg];
+                }
+            }
+        }
+    }];
+}
+
+- (void) replyCompleteWithReplyId:(NSString *) replyId content:(NSString *) content
+{
+    NSMutableArray *replyinfos = (NSMutableArray*)_replyContentModel.replyInfos;
+    EscortTimeReplyDataModel *replyModel = [[EscortTimeReplyDataModel alloc] init];
+    replyModel.guId = replyId;
+    replyModel.content = content;
+    replyModel.replyUserId = [UserModel sharedUserInfo].userId;
+    replyModel.replyUserName = [UserModel sharedUserInfo].chineseName;
+    replyModel.orgUserId = _reReplyPId;
+    
+    
+//    @property (nonatomic, strong) NSString *orgUserName;
+//    @property (nonatomic, strong) NSString *orgUserId;
+    [replyinfos addObject:replyModel];
+    [tableView reloadData];
 }
 
 -(void)changeParentViewFram:(int)newHeight

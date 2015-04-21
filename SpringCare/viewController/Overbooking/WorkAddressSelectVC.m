@@ -161,8 +161,11 @@
     if(selectIndexpath != nil){
         if(indexPath.row == selectIndexpath.row && indexPath.section == selectIndexpath.section){
             cell._btnSelect.selected = YES;
+        }else{
+            cell._btnSelect.selected = NO;
         }
-    }
+    }else
+        cell._btnSelect.selected = NO;
     return cell;
 }
 

@@ -16,7 +16,7 @@
 @interface EscortTimeVC : MainBaseVC<UITableViewDataSource, UITableViewDelegate, EscortTimeTableCellDelegate, AttentionSelectViewDelegate>
 {
     UITableView *tableView;
-    EscortTimeDataModel *model;
+    EscortTimeDataModel *_model;
     
     feedbackView  *_feedbackView;
     UIImageView  *_photoImgView;//头像
@@ -26,6 +26,10 @@
     UIView *_bgView;
     
     NSString *_currentAttentionId;//用来处理当前的陪护时光是谁的
+    
+    //
+    EscortTimeDataModel *_replyContentModel;//
+    NSString *_reReplyPId;//被回复人id
 }
 
 @end

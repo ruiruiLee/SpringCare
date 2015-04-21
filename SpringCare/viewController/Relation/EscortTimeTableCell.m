@@ -11,6 +11,7 @@
 @implementation EscortTimeTableCell
 @synthesize cellDelegate;
 @synthesize _lbToday;
+@synthesize _model = _model;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -183,7 +184,7 @@
 
 - (void)btnReplyPressed {
     if ([cellDelegate respondsToSelector:@selector(commentButtonClick:userReply:)]) {
-        [cellDelegate commentButtonClick:self userReply:nil];
+        [cellDelegate commentButtonClick:self userReply:_model.careId];
     }
 
 }

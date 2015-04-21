@@ -60,7 +60,7 @@
 - (void) setContentData:(MyOrderdataModel *) model
 {
     NSMutableString *priceStr = [[NSMutableString alloc] init];
-    [priceStr appendString:[NSString stringWithFormat:@"单价:¥%ld", model.unitPrice]];
+    [priceStr appendString:[NSString stringWithFormat:@"单价：¥%ld", model.unitPrice]];
     if(model.dateType == EnumTypeHalfDay){
         [priceStr appendString:[NSString stringWithFormat:@"/12h X %ld天", model.orderCount]];
     }
@@ -75,7 +75,12 @@
     }
     
     _lbPrice.text = priceStr;
-    _lbTotalPrice.text = [NSString stringWithFormat:@"总价:¥%ld", model.totalPrice];
+    NSString *total = [NSString stringWithFormat:@"总价：¥%ld", model.totalPrice];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:total];
+    NSRange range = [total rangeOfString:[NSString stringWithFormat:@"¥%ld", model.totalPrice]];
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
+    _lbTotalPrice.attributedText = string;
     
     _btnStatus.userInteractionEnabled = YES;
     [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
@@ -181,9 +186,9 @@
         _lbPrice = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbPrice];
         _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
-        _lbPrice.font = _FONT(18);
-        _lbPrice.textColor = _COLOR(0xf1, 0x13, 0x59);
-        _lbPrice.text = @"单价：380元/24小时";
+        _lbPrice.font = _FONT(15);
+        _lbPrice.textColor = _COLOR(0x99, 0x99, 0x99);//_COLOR(0xf1, 0x13, 0x59);
+//        _lbPrice.text = @"单价：380元/24小时";
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_lbType, _lbPrice, _lbName, _lbIntro, _lbDetailTime, _line, _btnInfo, _imgPhoto);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_line]-20-|" options:0 metrics:nil views:views]];
@@ -225,7 +230,7 @@
     _lbDetailTime.text = detailTime;
     
     NSMutableString *priceStr = [[NSMutableString alloc] init];
-    [priceStr appendString:[NSString stringWithFormat:@"单价:%ld元", model.unitPrice]];
+    [priceStr appendString:[NSString stringWithFormat:@"单价：%ld元", model.unitPrice]];
     if(model.dateType == EnumTypeHalfDay){
         [priceStr appendString:[NSString stringWithFormat:@"/12小时"]];
     }
@@ -238,7 +243,13 @@
     else if (model.dateType == EnumTypeOneMounth){
         [priceStr appendString:[NSString stringWithFormat:@"/月"]];
     }
-    _lbPrice.text = priceStr;
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:priceStr];
+    NSRange range = NSMakeRange(3, [priceStr length] - 3);
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
+    
+    _lbPrice.attributedText = string;
     
     NSArray *nurseArray = model.nurseInfo;
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbType, _lbPrice, _lbName, _lbIntro, _lbDetailTime, _line, _btnInfo, _imgPhoto);
@@ -285,7 +296,7 @@
         [self.contentView addSubview:_lbName];
         _lbName.translatesAutoresizingMaskIntoConstraints = NO;
         _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
-        _lbName.font = _FONT(15);
+        _lbName.font = _FONT(16);
         _lbName.textAlignment = NSTextAlignmentCenter;
         
         _LbRelation = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -298,21 +309,21 @@
         [self.contentView addSubview:_lbAge];
         _lbAge.translatesAutoresizingMaskIntoConstraints = NO;
         _lbAge.textColor = _COLOR(0x66, 0x66, 0x66);
-        _lbAge.font = _FONT(15);
+        _lbAge.font = _FONT(16);
         
         _btnMobile = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnMobile];
         _btnMobile.translatesAutoresizingMaskIntoConstraints = NO;
 //        [_btnMobile setImage:[UIImage imageNamed:@"orderdetailtel"] forState:UIControlStateNormal];
         [_btnMobile setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-        _btnMobile.titleLabel.font = _FONT(15);
+        _btnMobile.titleLabel.font = _FONT(16);
         
         _btnAddress = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnAddress];
         _btnAddress.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnAddress setImage:[UIImage imageNamed:@"orderdetailaddr"] forState:UIControlStateNormal];
         [_btnAddress setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-        _btnAddress.titleLabel.font = _FONT(15);
+        _btnAddress.titleLabel.font = _FONT(16);
         
         _imgSex = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgSex];
@@ -322,15 +333,18 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_LbRelation]-10-[_imgSex]-10-[_lbAge]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnMobile]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_imgPhoto(62)]-2-[_lbName(20)]->=0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=20-[_LbRelation(26)]-3-[_btnMobile]->=3-[_btnAddress(20)]->=0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_LbRelation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_lbName]->=20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_imgPhoto(62)]->=10-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_LbRelation(20)]-2-[_lbName(18)]-2-[_btnAddress(22)]->=10-|" options:0 metrics:nil views:views]];
+//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_LbRelation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_LbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbAge attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_LbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnAddress attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbName attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnAddress attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbName attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgPhoto attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     return self;
 }
@@ -343,7 +357,7 @@
         _lbName.text = @"姓名";
     _LbRelation.text = model.lover.relation;
     if(model.lover.relation == nil || [model.lover.relation length] == 0)
-        _LbRelation.text = @"关系";
+        _LbRelation.text = @"昵称";
     _lbAge.text = [NSString stringWithFormat:@"%@岁", model.lover.age];
     if(model.lover.age == nil || [model.lover.age length] == 0)
         _lbAge.text = @"年龄";
@@ -460,7 +474,7 @@
         return 1  + size.height;
     }
     else
-        return 103.f;
+        return 92.f;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

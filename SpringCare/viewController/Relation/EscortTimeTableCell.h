@@ -60,6 +60,7 @@ typedef void(^ReplayAction)(int index);
 
 @property (nonatomic, assign) id<EscortTimeTableCellDelegate> cellDelegate;
 @property (nonatomic, strong) UILabel *_lbToday;
+@property (nonatomic, strong) EscortTimeDataModel *_model;
 
 - (id)initWithReuseIdentifier:(NSString*)reuseIdentifier blocks:(ReplayAction)blocks;
 
