@@ -22,6 +22,8 @@
 
 @implementation HomeCareListVC
 @synthesize producttypeCell;
+@synthesize _tableview = _tableview;
+@synthesize _dataArray = _dataArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,12 +47,13 @@
 
 - (void) loadData
 {
+    __weak HomeCareListVC *weakSelf = self;
     [LCNetWorkBase requestWithMethod:@"api/product/family" Params:nil Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSArray class]]){
                 [FamilyProductModel setFamilyProduct:content];
-                _dataArray = [FamilyProductModel getProductArray];
-                [_tableview reloadData];
+                weakSelf._dataArray = [FamilyProductModel getProductArray];
+                [weakSelf._tableview reloadData];
             }
         }
     }];

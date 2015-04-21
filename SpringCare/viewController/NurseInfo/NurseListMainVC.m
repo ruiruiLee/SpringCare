@@ -219,12 +219,14 @@
     NSLog(@"refreshTable");
     self.pullTableView.pullLastRefreshDate = [NSDate date];
     self.pullTableView.pullTableIsRefreshing = NO;
+    [pullTableView reloadData];
 }
 
 - (void) loadMoreDataToTable
 {
     NSLog(@"loadMoreDataToTable");
     self.pullTableView.pullTableIsLoadingMore = NO;
+    [pullTableView reloadData];
 }
 
 #pragma KVO/KVC
@@ -235,20 +237,6 @@
 }
 
 #pragma mark - UISearchDisplayController delegate methods
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    NSLog(@"%@", searchText);
-    NSString *searchStr = searchText;
-    if(searchStr == nil || [searchStr isKindOfClass:[NSNull class]])
-        searchStr = @"";
-    if([_SearchConditionStr isEqual:searchStr])
-        return;
-    
-    //    [pullTableView reloadData];
-    self.pullTableView.pullTableIsRefreshing = YES;
-//    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
-}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)_searchBar
 {
@@ -261,18 +249,14 @@
     _SearchConditionStr = searchStr;
     
 
+    self.pullTableView.pullTableIsRefreshing = YES;
     pages = 0;
+    __weak NurseListMainVC *_weakSelf = self;
     [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code, id content) {
-//        self.DataList = [NurseListInfoModel nurseListModel];
-        [self.DataList removeAllObjects];
-        [self.DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
-        [pullTableView reloadData];
-        [self refreshTable];
+        [DataList removeAllObjects];
+        [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
+        [_weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
-    
-    if(!self.pullTableView.pullTableIsRefreshing) {
-        self.pullTableView.pullTableIsRefreshing = YES;
-    }
     
 }
 

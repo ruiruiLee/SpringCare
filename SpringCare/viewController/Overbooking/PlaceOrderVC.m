@@ -28,9 +28,12 @@
     NSString * productId;
 }
 
+@property (nonatomic, strong)UserAttentionModel *_loverModel;
+
 @end
 
 @implementation PlaceOrderVC
+@synthesize _loverModel = _loverModel;
 
 
 - (id) initWithModel:(NurseListInfoModel*) model andproductId:(NSString*)_productId
@@ -51,20 +54,22 @@
     self.NavigationBar.Title = @"下 单";
     
     [self initSubviews];
+    
+    __weak PlaceOrderVC *weakSelf = self;
+    __weak NurseListInfoModel *weaknurseModel = _nurseModel;
     [_nurseModel loadetailDataWithproductId:productId block:^(id content) {
 
          NSDictionary *dic = [content objectForKey:@"care"];
-        //_nurseModel.addr =[dic objectForKey:@"addr"];
-        _nurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
-        _nurseModel.isLoadDetail=YES;
+        weaknurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
+        weaknurseModel.isLoadDetail=YES;
           NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
         if (dicLover.count>0) {
-            _loverModel =  [[UserAttentionModel alloc] init];
-            _loverModel.userid = [dicLover objectForKey:@"id"];
-            _loverModel.address =[dicLover objectForKey:@"addr"];
+            weakSelf._loverModel =  [[UserAttentionModel alloc] init];
+            weakSelf._loverModel.userid = [dicLover objectForKey:@"id"];
+            weakSelf._loverModel.address =[dicLover objectForKey:@"addr"];
         }
-        [self modifyDetailView];
-        [self NotifyAddressSelected:nil model:_loverModel];
+        [weakSelf modifyDetailView];
+        [weakSelf NotifyAddressSelected:nil model:weakSelf._loverModel];
         
     }];
 
@@ -147,10 +152,11 @@
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
+        __weak PlaceOrderVC *weakSelf = self;
         [self newAttentionWithAddress:[LocationManagerObserver sharedInstance].currentDetailAdrress block:^(int code, id content) {
             if(code){
                 if([content objectForKey:@"code"] == nil)
-                    [self submitWithloverId:@"message"];
+                    [weakSelf submitWithloverId:@"message"];
             }
         }];
     }
@@ -199,13 +205,14 @@
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
     
+    __weak PlaceOrderVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
                 NSString *code = [content objectForKey:@"code"];
                 if(code == nil)
                 {
-                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
                     MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
                     [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
                 }

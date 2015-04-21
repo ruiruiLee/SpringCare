@@ -16,5 +16,7 @@
 }
 
 @property (nonatomic, strong) ProductInfoCell *producttypeCell;
+@property (nonatomic, strong) UITableView *_tableview;
+@property (nonatomic, strong) NSArray *_dataArray;
 
 @end

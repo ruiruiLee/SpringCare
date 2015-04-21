@@ -43,17 +43,15 @@
 
 - (void) AddImages:(NSArray*) images
 {
+    for (id obj in self.subviews) {
+        [obj removeFromSuperview];
+    }
     _imgurls = images;
     _bigUrls = [[NSMutableArray alloc]init];
     _images = [[NSMutableArray alloc]init];
     _imageViews = [[NSMutableArray alloc]init];
     
     [self layoutImages];
-    
-//    if([images isKindOfClass:[NSArray class]])
-//    {
-//        
-//    }
 }
 
 -(void)layoutImages

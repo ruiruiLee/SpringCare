@@ -373,6 +373,8 @@
 @end
 
 @implementation OrderDetailsVC
+@synthesize _orderModel = _orderModel;
+@synthesize _stepView = _stepView;
 
 - (id) initWithOrderModel:(MyOrderdataModel *) model
 {
@@ -392,10 +394,12 @@
     [self initSubviews];
     
     if(!_orderModel.isLoadDetail){
+        __weak OrderDetailsVC *weakSelf = self;
+        __weak UITableView *weakTableView = _tableview;
         [_orderModel LoadDetailOrderInfo:^(int code) {
             if(code){
-                [_tableview reloadData];
-                [self initDataForView];
+                [weakTableView reloadData];
+                [weakSelf initDataForView];
             }
         }];
     }
@@ -595,19 +599,21 @@
         EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:_orderModel];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (flag == 2){
+        
+        __weak OrderDetailsVC *weakSelf = self;
             [LCNetWorkBase postWithMethod:@"api/order/cancel" Params:@{@"orderId" : _orderModel.oId, @"registerId" : [UserModel sharedUserInfo].userId} Completion:^(int code, id content) {
                 if(code){
                     if([content isKindOfClass:[NSDictionary class]]){
                         NSString *code = [content objectForKey:@"code"];
                         if(code == nil)
                         {
-                            _orderModel.orderStatus = EnumOrderStatusTypeCancel;
-                            if(_orderModel.orderStatus == EnumOrderStatusTypeCancel){
-                                [_stepView SetStepViewType:StepViewType2Step];
-                                [_stepView SetCurrentStepWithIdx:3];//此处为3
+                            weakSelf._orderModel.orderStatus = EnumOrderStatusTypeCancel;
+                            if(weakSelf._orderModel.orderStatus == EnumOrderStatusTypeCancel){
+                                [weakSelf._stepView SetStepViewType:StepViewType2Step];
+                                [weakSelf._stepView SetCurrentStepWithIdx:3];//此处为3
                             }else{
-                                [_stepView SetStepViewType:StepViewType4Step];
-                                [_stepView SetCurrentStepWithIdx:[self GetStepWithModel:_orderModel]];
+                                [weakSelf._stepView SetStepViewType:StepViewType4Step];
+                                [weakSelf._stepView SetCurrentStepWithIdx:[self GetStepWithModel:_orderModel]];
                             }
                         }
                     }

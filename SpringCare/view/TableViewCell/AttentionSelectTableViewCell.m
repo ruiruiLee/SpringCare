@@ -12,6 +12,7 @@
 
 @implementation AttentionSelectTableViewCell
 @synthesize _selectStatus = _selectStatus;
+@synthesize _imgAttentionLogo = _imgAttentionLogo;
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

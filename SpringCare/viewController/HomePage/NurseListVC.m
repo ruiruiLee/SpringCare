@@ -268,20 +268,6 @@
 
 #pragma mark - UISearchDisplayController delegate methods
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    NSLog(@"%@", searchText);
-    NSString *searchStr = searchText;
-    if(searchStr == nil || [searchStr isKindOfClass:[NSNull class]])
-        searchStr = @"";
-    if([_SearchConditionStr isEqual:searchStr])
-        return;
-    
-    //    [pullTableView reloadData];
-    self.pullTableView.pullTableIsRefreshing = YES;
-    //    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
-}
-
 - (void)searchBarSearchButtonClicked:(UISearchBar *)_searchBar
 {
     [searchBar resignFirstResponder];
@@ -290,21 +276,16 @@
         searchStr = @"";
     if([_SearchConditionStr isEqual:searchStr])
         return;
-    
+    self.pullTableView.pullTableIsRefreshing = YES;
     _SearchConditionStr = searchStr;
     
     pages = 0;
+    __weak NurseListVC *_weakSelf = self;
     [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code, id content) {
-//        self.DataList = [NurseListInfoModel nurseListModel];
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
-        [pullTableView reloadData];
-        [self refreshTable];
+        [_weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
-    
-    if(!self.pullTableView.pullTableIsRefreshing) {
-        self.pullTableView.pullTableIsRefreshing = YES;
-    }
 }
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {

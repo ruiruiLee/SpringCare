@@ -78,6 +78,9 @@
     OrderInfoCell *ordercell;
 }
 
+@property (nonatomic, strong)MyOrderdataModel *_orderModel;
+@property (nonatomic, strong)OrderStepView *_stepView;
+
 - (id) initWithOrderModel:(MyOrderdataModel *) model;
 
 @end

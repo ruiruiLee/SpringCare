@@ -225,10 +225,11 @@
     _btnVerifyCode.enabled = NO;
     _btnVerifyCode.backgroundColor = Disabled_Color;
     NSString *phone = _tfPhoneNum.text;
+    __weak LoginVC *weakSelf = self;
     [AVOSCloud requestSmsCodeWithPhoneNumber:phone callback:^(BOOL succeeded, NSError *error) {
         [self TimerOutTimer];
         if(succeeded){
-            [self TimerOutTimer];
+            [weakSelf TimerOutTimer];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"验证码已发送" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
         }
