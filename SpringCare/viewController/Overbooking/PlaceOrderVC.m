@@ -245,6 +245,23 @@
         
         UIView *headerView = _tableview.tableHeaderView;
         
+        CGRect frame = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:4];
+        CGRect frame1 = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:5];
+        
+        [headerView removeConstraints:headerViewHeightConstraint];
+        NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _btnUnfold, _btnInfo, _btnCert,
+                                                             _detailInfo);
+        if(frame1.size.height != frame.size.height){
+            headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-32-[_lbName(20)]-4-[_btnInfo(21)]-18-[_detailInfo]-8-[_btnUnfold(20)]->=0-|" options:0 metrics:nil views:views];
+            _btnUnfold.hidden = NO;
+        }
+        else{
+            headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-32-[_lbName(20)]-4-[_btnInfo(21)]-18-[_detailInfo]-8-|" options:0 metrics:nil views:views];
+            _btnUnfold.hidden = YES;
+        }
+        
+        [headerView addConstraints:headerViewHeightConstraint];
+        
         [headerView setNeedsLayout];
         [headerView layoutIfNeeded];
         
