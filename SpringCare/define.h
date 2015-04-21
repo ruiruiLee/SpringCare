@@ -84,5 +84,6 @@
 #define LIMIT_COUNT 20
 
 typedef void(^block)(int code);
+typedef void(^CompletionBlock)(int code, id content);
 
 #endif

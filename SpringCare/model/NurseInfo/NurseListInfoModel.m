@@ -192,7 +192,7 @@ static NSInteger nurseTotal = 0;
     }];
 }
 
-- (void) loadNurseDataWithPage:(int) pages prama:(NSDictionary*)prama block:(block) block
+- (void) loadNurseDataWithPage:(int) pages prama:(NSDictionary*)prama block:(CompletionBlock) block
 {
     if(pages == 0){
         [nurseList removeAllObjects];
@@ -213,17 +213,21 @@ static NSInteger nurseTotal = 0;
             if([content isKindOfClass:[NSDictionary class]]){
                 NSArray *results = [content objectForKey:@"rows"];
                 nurseTotal = [[content objectForKey:@"total"] integerValue];
+                
+                NSMutableArray *result = [[NSMutableArray alloc] init];
+                
                 if([results isKindOfClass:[NSArray class]]){
                     for (int i = 0; i <[results count]; i++) {
                         NSDictionary *dic = [results objectAtIndex:i];
                         if([[dic allKeys] count] > 0){
                             NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:dic];
                             [nurseList addObject:model];
+                            [result addObject:model];
                         }
                     }
                 }
                 if(block){
-                    block(code);
+                    block(code, result);
                 }
             }
         }
