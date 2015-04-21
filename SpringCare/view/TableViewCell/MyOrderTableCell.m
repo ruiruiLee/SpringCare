@@ -96,7 +96,8 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _lbPrice, _lbCountPrice, _line, _btnPay, _btnStatus, _imgLogo, _imgDayTime, _imgNight, _lbDetailTime);
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views]];
+    layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
+    [self.contentView addConstraints:layoutArray];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgLogo]-20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnStatus(74)]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
@@ -166,15 +167,24 @@
     
     _imgDayTime.image = [UIImage imageNamed:@"daytime"];
     _imgNight.image = [UIImage imageNamed:@"night"];
+    
+    [self.contentView removeConstraints:layoutArray];
+    NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _lbPrice, _lbCountPrice, _line, _btnPay, _btnStatus, _imgLogo, _imgDayTime, _imgNight, _lbDetailTime);
+    layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
+    
     if(data.dateType == EnumTypeHalfDay){
         ServiceTimeType timeType = [Util GetServiceTimeType:data.beginDate];
         if(timeType == EnumServiceTimeNight){
+            layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
             _imgDayTime.image = nil;
         }
         else if (timeType == EnumServiceTimeDay){
+            layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_imgDayTime]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
             _imgNight.image = nil;
         }
     }
+    
+    [self.contentView addConstraints:layoutArray];
     
     _btnPay.hidden = NO;
     _btnStatus.hidden = NO;

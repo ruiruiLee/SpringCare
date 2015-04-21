@@ -24,6 +24,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>Pods-SpringCare-Pingpp.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Pods-SpringCare.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -42,7 +47,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1366BBE03BDE6E90F07720E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D3DF8AAFCDFC3F89A240587</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>23F7BA822C67230644FB24E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>275F86458712279A56CE6671</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2A05AC5B96C6912FC916754B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -63,6 +88,11 @@
 			<true/>
 		</dict>
 		<key>99BADE4FD37966C1764DDF2B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9CFFFFC0A85622695526DA48</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -98,6 +128,11 @@
 			<true/>
 		</dict>
 		<key>F37130713E9DD9F740D9BA21</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F4CE9DC917F1FA695D377069</key>
 		<dict>
 			<key>primary</key>
 			<true/>

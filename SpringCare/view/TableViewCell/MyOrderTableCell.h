@@ -32,6 +32,8 @@
     UILabel *_lbDetailTime;
     
     MyOrderdataModel *orderModel;
+    
+    NSArray *layoutArray;
 }
 
 @property (nonatomic, assign) id<MyOrderTableCellDelegate> delegate;
