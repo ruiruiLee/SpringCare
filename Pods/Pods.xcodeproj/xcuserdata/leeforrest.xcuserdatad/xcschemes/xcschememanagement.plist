@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SpringCare-Pingpp.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SpringCare.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>23F7BA822C67230644FB24E7</key>
+		<key>1366BBE03BDE6E90F07720E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4021AB9FA5DED8DA36317544</key>
+		<key>1D3DF8AAFCDFC3F89A240587</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A7C0B5465DBEF5725CCC72F9</key>
+		<key>275F86458712279A56CE6671</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C3B889248967B60A6B615714</key>
+		<key>2A05AC5B96C6912FC916754B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E75CEB97C67B350B2B334033</key>
+		<key>9CFFFFC0A85622695526DA48</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F4CE9DC917F1FA695D377069</key>
 		<dict>
 			<key>primary</key>
 			<true/>

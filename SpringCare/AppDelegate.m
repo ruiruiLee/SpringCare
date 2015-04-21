@@ -8,11 +8,11 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
-#import "LCRefreshTableVC.h"
+//#import "LCRefreshTableVC.h"
 #import "ProjectDefine.h"
 #import "LCMenuViewController.h"
 #import "SliderViewController.h"
-
+#import "Pingpp.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 
@@ -122,4 +122,22 @@
     //这儿你可以加入自己的代码 根据推送的数据进行相应处理
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    [Pingpp handleOpenURL:url withCompletion:^(NSString *result, PingppError *error) {
+        // result : success, fail, cancel, invalid
+        NSString *msg;
+        if (error == nil) {
+            NSLog(@"PingppError is nil");
+            msg = result;
+        } else {
+            NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+            msg = [NSString stringWithFormat:@"result=%@ PingppError: code=%lu msg=%@", result, (unsigned long)error.code, [error getMsg]];
+        }
+        UIAlertView *mAlert =  [[UIAlertView alloc] initWithTitle:@"信息提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [mAlert show];
+
+    }];
+    return  YES;
+}
 @end

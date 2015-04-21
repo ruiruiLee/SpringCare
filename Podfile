@@ -6,6 +6,7 @@ target 'SpringCare' do
 pod 'AVOSCloud'
 pod 'AVOSCloudSNS'
 
+pod 'Pingpp', :git => 'https://github.com/PingPlusPlus/pingpp-ios.git', :branch => 'alipay_wx_upmp'
 
 pod 'FMDB'
 # pod 'FMDB/FTS'   # FMDB with FTS
