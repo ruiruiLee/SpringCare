@@ -1320,7 +1320,6 @@
 			isa = PBXGroup;
 			children = (
 				865C85691ACCEDFF006ABCA4 /* control */,
-				865C856C1ACCEDFF006ABCA4 /* data */,
 				865C856E1ACCEDFF006ABCA4 /* EscortTimeDataModel.h */,
 				865C856F1ACCEDFF006ABCA4 /* EscortTimeDataModel.m */,
 				865C85701ACCEDFF006ABCA4 /* EscortTimeReplyCell.h */,
@@ -1425,13 +1424,6 @@
 				865C856B1ACCEDFF006ABCA4 /* PageLoadFootView.m */,
 			);
 			path = control;
-			sourceTree = "<group>";
-		};
-		865C856C1ACCEDFF006ABCA4 /* data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = data;
 			sourceTree = "<group>";
 		};
 		865C85861ACCEDFF006ABCA4 /* util */ = {

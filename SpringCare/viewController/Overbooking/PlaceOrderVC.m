@@ -17,6 +17,7 @@
 #import "LCNetWorkBase.h"
 #import "MyOrderListVC.h"
 #import "SliderViewController.h"
+#import "LoginVC.h"
 
 #define LIMIT_LINES 4
 
@@ -57,7 +58,8 @@
     
     __weak PlaceOrderVC *weakSelf = self;
     __weak NurseListInfoModel *weaknurseModel = _nurseModel;
-    [_nurseModel loadetailDataWithproductId:productId block:^(id content) {
+   //if([UserModel sharedUserInfo].isLogin){
+        [_nurseModel loadetailDataWithproductId:productId block:^(id content) {
 
          NSDictionary *dic = [content objectForKey:@"care"];
         weaknurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
@@ -70,9 +72,8 @@
         }
         [weakSelf modifyDetailView];
         [weakSelf NotifyAddressSelected:nil model:weakSelf._loverModel];
-        
     }];
-
+ //  }
 }
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender
@@ -141,14 +142,17 @@
 
 - (void) btnSubmitOrder:(UIButton*)sender
 {
-    if([LocationManagerObserver sharedInstance].currentDetailAdrress == nil && _loverModel == nil){
+    if(![[UserModel sharedUserInfo] isLogin]){
+        LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
+    }
+    else if([LocationManagerObserver sharedInstance].currentDetailAdrress == nil && _loverModel == nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护地址！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 
         [alert show];
-        return;
     }
-    
-    if(_loverModel == nil){
+    else if(_loverModel == nil){
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];

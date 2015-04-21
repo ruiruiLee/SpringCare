@@ -177,11 +177,8 @@
     if(![[UserModel sharedUserInfo] isLogin]){
         LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-//        [self.navigationController pushViewController:nav animated:YES];
-        [self.navigationController presentViewController:nav animated:YES completion:^{
-            
-        }];
-    }
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
+         }
     else{
         NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
         PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model andproductId:[[NurseListInfoModel PramaNurseDic] objectForKey:@"productId"]];
