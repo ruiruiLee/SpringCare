@@ -203,23 +203,23 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if(indexPath.row == 0){
-        cell.lbTitle.text = @"请选择服务开始日期";
+        cell.lbTitle.text = @"请选择服务开始时间";
         cell.lbTitle.font = _FONT(18);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderdatestart"] forState:UIControlStateNormal];
     }
     else{
         cell.lbTitle.text = @"陪护地址";
-        cell.lbTitle.font = _FONT(18);
+        cell.lbTitle.font = _FONT(16);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderaddress"] forState:UIControlStateNormal];
-        if(_nurseData.defaultLover != nil){
-            cell.lbTitle.text = _nurseData.defaultLover.address;
-            cell.lbTitle.font = _FONT_B(18);
-            cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
-        }else{
-            cell.lbTitle.text = [LocationManagerObserver sharedInstance].currentDetailAdrress;
-            cell.lbTitle.font = _FONT_B(18);
-            cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
-        }
+//        if(_nurseData.defaultLover != nil){
+//            cell.lbTitle.text = _nurseData.defaultLover.address;
+//            cell.lbTitle.font = _FONT_B(18);
+//            cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+//        }else{
+//            cell.lbTitle.text = [LocationManagerObserver sharedInstance].currentDetailAdrress;
+//            cell.lbTitle.font = _FONT_B(18);
+//            cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+//        }
     }
 
     return cell;
