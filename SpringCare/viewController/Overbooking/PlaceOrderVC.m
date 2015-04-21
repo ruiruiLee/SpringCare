@@ -54,15 +54,17 @@
     [_nurseModel loadetailDataWithproductId:productId block:^(id content) {
 
          NSDictionary *dic = [content objectForKey:@"care"];
-        _nurseModel.addr =[dic objectForKey:@"addr"];
+        //_nurseModel.addr =[dic objectForKey:@"addr"];
         _nurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
         _nurseModel.isLoadDetail=YES;
-         NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
-        _nurseModel.defaultLover =  [[UserAttentionModel alloc] init];
-        _nurseModel.defaultLover.userid = [dicLover objectForKey:@"id"];
-        _nurseModel.defaultLover.address =[dicLover objectForKey:@"addr"];
+          NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
+        if (dicLover.count>0) {
+            _loverModel =  [[UserAttentionModel alloc] init];
+            _loverModel.userid = [dicLover objectForKey:@"id"];
+            _loverModel.address =[dicLover objectForKey:@"addr"];
+        }
         [self modifyDetailView];
-        [self NotifyAddressSelected:nil model:_nurseModel.defaultLover];
+        [self NotifyAddressSelected:nil model:_loverModel];
         
     }];
 
@@ -461,7 +463,8 @@
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     if (model==nil) {
-        if (![[LcationInstance currentDetailAdrress] isEqualToString:@""]) {
+        NSLog(@"%@",[LcationInstance currentDetailAdrress]);
+        if ([LcationInstance currentDetailAdrress]) {
             editcell.lbTitle.font = _FONT_B(16);
             editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
             editcell.lbTitle.text=[LcationInstance currentDetailAdrress];

@@ -44,9 +44,6 @@ typedef enum : NSUInteger {
 
 //详细资料
 @property (nonatomic, assign) BOOL isLoadDetail;
-@property (nonatomic, strong) NSString *addr;
-@property (nonatomic, strong) UserAttentionModel *defaultLover;
-//
 
 + (NSMutableArray*) nurseListModel;
 

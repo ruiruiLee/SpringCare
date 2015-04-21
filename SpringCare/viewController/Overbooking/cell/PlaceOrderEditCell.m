@@ -211,15 +211,6 @@
         cell.lbTitle.text = @"陪护地址";
         cell.lbTitle.font = _FONT(16);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderaddress"] forState:UIControlStateNormal];
-//        if(_nurseData.defaultLover != nil){
-//            cell.lbTitle.text = _nurseData.defaultLover.address;
-//            cell.lbTitle.font = _FONT_B(18);
-//            cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
-//        }else{
-//            cell.lbTitle.text = [LocationManagerObserver sharedInstance].currentDetailAdrress;
-//            cell.lbTitle.font = _FONT_B(18);
-//            cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
-//        }
     }
 
     return cell;
