@@ -153,7 +153,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if(indexPath.row == 0){
-        cell.lbTitle.text = @"请选择服务开始日期";
+        cell.lbTitle.text = @"请选择服务开始时间";
         cell.lbTitle.font = _FONT(18);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderdatestart"] forState:UIControlStateNormal];
     }
