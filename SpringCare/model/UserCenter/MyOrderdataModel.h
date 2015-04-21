@@ -58,7 +58,7 @@
  *  获取订单数据, pages为0时刷新
  *
  */
-+ (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType isOnlyIndexSplit:(BOOL) isOnlyIndexSplit block:(block) block;
++ (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType isOnlyIndexSplit:(BOOL) isOnlyIndexSplit block:(CompletionBlock) block;
 
 /**
  *  获取护工详情

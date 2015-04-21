@@ -174,6 +174,15 @@
     NSArray *dataArray = [EscortTimeDataModel GetEscortTimeData];
     EscortTimeDataModel *data = [dataArray objectAtIndex:indexPath.row];
     [cell setContentData:data];
+    if(indexPath.row > 0){
+        EscortTimeDataModel *data1 = [dataArray objectAtIndex:indexPath.row - 1];
+        if([Util isOneDay:[Util convertDateFromDateString:data.createAt] end:[Util convertDateFromDateString:data1.createAt]]){
+            cell._lbToday.hidden = YES;
+        }else{
+            cell._lbToday.hidden = NO;
+        }
+        
+    }
     
     return cell;
 }

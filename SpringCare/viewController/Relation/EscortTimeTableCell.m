@@ -10,6 +10,7 @@
 #import "NSStrUtil.h"
 @implementation EscortTimeTableCell
 @synthesize cellDelegate;
+@synthesize _lbToday;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -46,7 +47,6 @@
     _lbToday.layer.cornerRadius = 30;
     _lbToday.clipsToBounds = YES;
     _lbToday.text = [NSStrUtil convertTimetoBroadFormat:@"2015-04-17"];
-   // _lbToday.text = @"14/03";
     
     _lbTimeLine = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbTimeLine];
@@ -279,9 +279,11 @@
         [format appendString:@"-10-"];
         _lbVoliceLimit.text = @"12\"";
         _lbVoliceLimit.hidden = NO;
+        _btnVolice.hidden = NO;
     }else
     {
         _lbVoliceLimit.hidden = YES;
+        _btnVolice.hidden = YES;
     }
     
     if(imgPicArray != nil && [imgPicArray count] > 0)

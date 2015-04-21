@@ -276,4 +276,20 @@
     return [components year] - beginyear;
 }
 
++ (BOOL) isOneDay:(NSDate *) begin end:(NSDate *) end
+{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *components = [calendar components:unitFlags fromDate:begin];
+    NSInteger beginyear = [components year]; // 5764
+    
+    components = [calendar components:unitFlags fromDate:end];
+    NSInteger endyear = [components year]; // 5764
+    
+    if(beginyear == endyear){
+        return YES;
+    }else
+        return NO;
+}
+
 @end
