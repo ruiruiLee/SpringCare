@@ -32,12 +32,23 @@
     [bgView addSubview:_photoImage];
     _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
     
-    _btnRelationAndSex = [[UIButton alloc] initWithFrame:CGRectZero];
-    [bgView addSubview:_btnRelationAndSex];
-    _btnRelationAndSex.translatesAutoresizingMaskIntoConstraints = NO;
-    _btnRelationAndSex.titleLabel.font = _FONT(15);
-    [_btnRelationAndSex setTitleColor:_COLOR(0x22, 0x22, 0x22) forState:UIControlStateNormal];
-    _btnRelationAndSex.userInteractionEnabled = NO;
+//    _btnRelationAndSex = [[UIButton alloc] initWithFrame:CGRectZero];
+//    [bgView addSubview:_btnRelationAndSex];
+//    _btnRelationAndSex.translatesAutoresizingMaskIntoConstraints = NO;
+//    _btnRelationAndSex.titleLabel.font = _FONT(15);
+//    [_btnRelationAndSex setTitleColor:_COLOR(0x22, 0x22, 0x22) forState:UIControlStateNormal];
+//    _btnRelationAndSex.userInteractionEnabled = NO;
+//    
+    _lbRelation =[[UILabel alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:_lbRelation];
+    _lbRelation.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbRelation.textColor = _COLOR(0x22, 0x22, 0x22);
+    _lbRelation.font = _FONT_B(20);
+    
+    ImgSex = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:ImgSex];
+    ImgSex.translatesAutoresizingMaskIntoConstraints = NO;
+
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
@@ -47,7 +58,7 @@
     
     _lbAddress = [[UILabel alloc] initWithFrame:CGRectZero];
     _lbAddress.textColor = _COLOR(0x99, 0x99, 0x99);
-    _lbAddress.font = _FONT(14);
+    _lbAddress.font = _FONT(15);
     [bgView addSubview:_lbAddress];
     _lbAddress.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -62,14 +73,28 @@
     _line.translatesAutoresizingMaskIntoConstraints = NO;
     _line.backgroundColor = SeparatorLineColor;
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_line, _btnSelect, _btnRelationAndSex, _lbName, _lbAddress, _photoImage);
-    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(72)]-20-[_btnRelationAndSex]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
+    NSDictionary *views = NSDictionaryOfVariableBindings(_line, _btnSelect, _lbRelation, _lbName, _lbAddress, _photoImage,ImgSex);
+    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(72)]-20-[_lbRelation]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(72)]-20-[_lbName]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(72)]-20-[_line]-0-|" options:0 metrics:nil views:views]];
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(72)]-20-[_lbAddress]->=10-|" options:0 metrics:nil views:views]];
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_photoImage(72)]-15-|" options:0 metrics:nil views:views]];
-    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_btnRelationAndSex(20)]-6-[_lbName(20)]-0-[_lbAddress(20)]-15-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+
+    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_lbRelation(20)]-6-[_lbName(20)]-0-[_lbAddress(20)]-15-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_btnSelect attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+//    NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _lbRelation, _btnRing, _line, _Address,ImgSex);
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-10-[_lbName]->=10-[_btnRing]-20-|" options:0 metrics:nil views:views]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-10-[_Address]->=10-[_btnRing]-20-|" options:0 metrics:nil views:views]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_photoImage(86)]->=15-|" options:0 metrics:nil views:views]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_photoImage(86)]-15-[_line]-0-|" options:0 metrics:nil views:views]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
+//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbRelation(30)]-1-[_lbName(20)]-2-[_Address]->=10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbRelation attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
 
 - (void)awakeFromNib {
@@ -91,26 +116,25 @@
     }
     
 //    _lbName.text = [NSString stringWithFormat:@"%@     年龄 %@    身高 %@cm", model.username,[model.age isEqual:@"0"]?@"":model.age, model.height==nil?@"":model.height];
-    _lbName.text = [NSString stringWithFormat:@"%@      %@      %@", model.username,[model.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",model.age ], model.height==nil?@"身高":[NSString stringWithFormat:@"%@m",model.height ]];
+    NSString * personH=[NSString stringWithFormat:@"%@",model.height ];
+   
+    _lbName.text = [NSString stringWithFormat:@"%@     %@      %@", [model.username isEqual:@""]?@"姓名":model.username,[model.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",model.age ],[personH isEqual:@"0"]?@"身高":[NSString stringWithFormat:@"%@米",personH]];
     NSString *relation = model.relation;
     if(relation == nil || [relation length] == 0)
         relation = @"昵称";
-    float width = [NSStrUtil widthForString:relation fontSize:15];
-    _btnRelationAndSex.titleEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 16);
-    _btnRelationAndSex.imageEdgeInsets = UIEdgeInsetsMake(0, width , 0, 0);
-    [_btnRelationAndSex setTitle:relation forState:UIControlStateNormal];
+    
+    _lbRelation.text =relation;
     UserSex sex = [Util GetSexByName:model.sex];
     if(sex == EnumUnknown){
-        [_btnRelationAndSex setImage:nil forState:UIControlStateNormal];
-        _btnRelationAndSex.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        _btnRelationAndSex.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        
     }
     else if (sex == EnumMale){
-        [_btnRelationAndSex setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];
+        [ImgSex setImage:ThemeImage(@"mail")];
     }
     else{
-        [_btnRelationAndSex setImage:[UIImage imageNamed:@"femail"] forState:UIControlStateNormal];
+        [ImgSex setImage:ThemeImage(@"femail")];
     }
-}
+
+    }
 
 @end

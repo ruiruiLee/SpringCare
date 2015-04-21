@@ -12,7 +12,8 @@
 @interface WorkAddressCell : UITableViewCell
 {
     UIImageView *_photoImage;
-    UIButton *_btnRelationAndSex;
+    UIImageView * ImgSex;
+    UILabel *_lbRelation;
     UILabel *_lbName;
     UILabel *_lbAddress;
     UIButton *_btnSelect;
