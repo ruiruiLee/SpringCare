@@ -328,6 +328,7 @@
         editcell.lbTitle.font = _FONT_B(16);
         editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
         editcell.lbTitle.text = model.address;
+        _loverModel=model;
     }
    
     

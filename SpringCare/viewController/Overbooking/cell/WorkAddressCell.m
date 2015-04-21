@@ -84,17 +84,7 @@
 
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_lbRelation(20)]-6-[_lbName(20)]-0-[_lbAddress(20)]-15-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_btnSelect attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    
-//    NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _lbRelation, _btnRing, _line, _Address,ImgSex);
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-10-[_lbName]->=10-[_btnRing]-20-|" options:0 metrics:nil views:views]];
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-10-[_Address]->=10-[_btnRing]-20-|" options:0 metrics:nil views:views]];
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_photoImage(86)]->=15-|" options:0 metrics:nil views:views]];
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_photoImage(86)]-15-[_line]-0-|" options:0 metrics:nil views:views]];
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
-//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbRelation(30)]-1-[_lbName(20)]-2-[_Address]->=10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
-//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbRelation attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+
 }
 
 - (void)awakeFromNib {
@@ -115,9 +105,7 @@
         _lbAddress.text = @"地址";
     }
     
-//    _lbName.text = [NSString stringWithFormat:@"%@     年龄 %@    身高 %@cm", model.username,[model.age isEqual:@"0"]?@"":model.age, model.height==nil?@"":model.height];
     NSString * personH=[NSString stringWithFormat:@"%@",model.height ];
-   
     _lbName.text = [NSString stringWithFormat:@"%@     %@      %@", [model.username isEqual:@""]?@"姓名":model.username,[model.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",model.age ],[personH isEqual:@"0"]?@"身高":[NSString stringWithFormat:@"%@米",personH]];
     NSString *relation = model.relation;
     if(relation == nil || [relation length] == 0)
