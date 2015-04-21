@@ -53,27 +53,16 @@ static NSMutableArray *familyProductArray = nil;
 {
     self = [super init];
     if(self){
-        self.isLoadDetail = NO;
     }
     return self;
 }
 
-- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block
+- (void) loadetailDataWithproductId:(NSString*)productId block:(void(^)(id content))block
 {
     NSDictionary *prama = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"productId":productId};
     [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
         if(code){
-            NSDictionary *dic = [content objectForKey:@"care"];
-            self.addr = [dic objectForKey:@"addr"];
-            self.isLoadDetail = YES;
-            
-            NSDictionary *defaultLover = [content objectForKey:@"defaultLover"];
-            UserAttentionModel *lmmodel = [UserAttentionModel modelFromDIctionary:defaultLover];
-            self.defaultLover = lmmodel;
-            self.detailIntro = [dic objectForKey:@"detailIntro"];
-            
-            if(block)
-                block(1);
+                block(content);
         }
     }];
 }

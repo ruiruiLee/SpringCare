@@ -25,33 +25,21 @@
     NurseListInfoModel *_nurseModel;
     
     UserAttentionModel *_loverModel;
+    NSString * productId;
 }
 
 @end
 
 @implementation PlaceOrderVC
 
-- (void) dealloc
-{
-    [_nurseModel removeObserver:self forKeyPath:@"detailIntro"];
-}
 
-- (id) initWithModel:(NurseListInfoModel*) model andproductId:(NSString*)productId
+- (id) initWithModel:(NurseListInfoModel*) model andproductId:(NSString*)_productId
 {
     self = [super initWithNibName:nil bundle:nil];
     if(self)
     {
         _nurseModel = model;
-        
-        [_nurseModel loadetailDataWithproductId:productId block:^(int code) {
-            if(code){
-                if(_nurseModel.defaultLover != nil)
-                    [self NotifyAddressSelected:nil model:_nurseModel.defaultLover];
-                else{
-                    
-                }
-            }
-        }];
+        productId = _productId;
     }
     return self;
 }
@@ -63,6 +51,21 @@
     self.NavigationBar.Title = @"下 单";
     
     [self initSubviews];
+    [_nurseModel loadetailDataWithproductId:productId block:^(id content) {
+
+         NSDictionary *dic = [content objectForKey:@"care"];
+        _nurseModel.addr =[dic objectForKey:@"addr"];
+        _nurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
+        _nurseModel.isLoadDetail=YES;
+         NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
+        _nurseModel.defaultLover =  [[UserAttentionModel alloc] init];
+        _nurseModel.defaultLover.userid = [dicLover objectForKey:@"id"];
+        _nurseModel.defaultLover.address =[dicLover objectForKey:@"addr"];
+        [self modifyDetailView];
+        [self NotifyAddressSelected:nil model:_nurseModel.defaultLover];
+        
+    }];
+
 }
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender
@@ -112,10 +115,6 @@
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     
     [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
-    
-
-//    if(editcell.lbTitle.text == nil || [editcell.lbTitle.text length] < 10){
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择订单开始时间！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 
     [mDic setObject:address forKey:@"addr"];
     
@@ -136,7 +135,7 @@
 - (void) btnSubmitOrder:(UIButton*)sender
 {
     if([LocationManagerObserver sharedInstance].currentDetailAdrress == nil && _loverModel == nil){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护位置！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护地址！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 
         [alert show];
         return;
@@ -144,7 +143,8 @@
     
     if(_loverModel == nil){
 
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护对象地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
         [self newAttentionWithAddress:[LocationManagerObserver sharedInstance].currentDetailAdrress block:^(int code, id content) {
             if(code){
                 if([content objectForKey:@"code"] == nil)
@@ -235,27 +235,23 @@
     _tableview.tableHeaderView = headerView;
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if([keyPath isEqualToString:@"detailIntro"])
-    {
-        if(_nurseModel.detailIntro != nil){
-            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_nurseModel.detailIntro];
-            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            [paragraphStyle setLineSpacing:2];//调整行间距
-            [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [_nurseModel.detailIntro length])];
-            _detailInfo.attributedText = attributedString;
-            
-            UIView *headerView = _tableview.tableHeaderView;
-            
-            [headerView setNeedsLayout];
-            [headerView layoutIfNeeded];
-            
-            CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            headerView.frame = CGRectMake(0, 0, ScreenWidth, size.height + 1);
-            
-            _tableview.tableHeaderView = headerView;
-        }
+-(void)modifyDetailView{
+    if(_nurseModel.detailIntro != nil){
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_nurseModel.detailIntro];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:2];//调整行间距
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [_nurseModel.detailIntro length])];
+        _detailInfo.attributedText = attributedString;
+        
+        UIView *headerView = _tableview.tableHeaderView;
+        
+        [headerView setNeedsLayout];
+        [headerView layoutIfNeeded];
+        
+        CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        headerView.frame = CGRectMake(0, 0, ScreenWidth, size.height + 1);
+        
+        _tableview.tableHeaderView = headerView;
     }
 }
 
@@ -301,15 +297,15 @@
     _detailInfo.font = _FONT(13);
     _detailInfo.numberOfLines = LIMIT_LINES;
     _detailInfo.preferredMaxLayoutWidth = ScreenWidth - 44;
-    [_nurseModel addObserver:self forKeyPath:@"detailIntro" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    if(_nurseModel.detailIntro != nil){
-        _detailInfo.text = _nurseModel.detailIntro;
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_detailInfo.text];
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle setLineSpacing:2];//调整行间距
-        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [_detailInfo.text length])];
-        _detailInfo.attributedText = attributedString;
-    }
+//    [_nurseModel addObserver:self forKeyPath:@"detailIntro" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+//    if(_nurseModel.detailIntro != nil){
+//        _detailInfo.text = _nurseModel.detailIntro;
+//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_detailInfo.text];
+//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//        [paragraphStyle setLineSpacing:2];//调整行间距
+//        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [_detailInfo.text length])];
+//        _detailInfo.attributedText = attributedString;
+//    }
     
     CGRect frame = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:4];
     CGRect frame1 = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:5];
@@ -464,11 +460,21 @@
     //获取服务地址
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    editcell.lbTitle.text = model.address;
-    editcell.lbTitle.font = _FONT_B(18);
-    editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
-    
-    _loverModel = model;
+    if (model==nil) {
+        if (![[LcationInstance currentDetailAdrress] isEqualToString:@""]) {
+            editcell.lbTitle.font = _FONT_B(16);
+            editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+            editcell.lbTitle.text=[LcationInstance currentDetailAdrress];
+
+           }
+      }
+    else{
+        editcell.lbTitle.font = _FONT_B(16);
+        editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+        editcell.lbTitle.text = model.address;
+    }
+
+
 }
 
 @end

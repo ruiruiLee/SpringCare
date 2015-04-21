@@ -19,9 +19,10 @@
 
 @interface PlaceOrderForProductVC () <WorkAddressSelectVCDelegate>
 {
-    FamilyProductModel *_nurseModel;
+    FamilyProductModel *_productModel;
     
     UserAttentionModel *_loverModel;
+
 }
 
 @end
@@ -38,17 +39,18 @@
 {
     self = [super initWithNibName:nil bundle:nil];
     if(self){
-        _nurseModel = model;
+        _productModel = model;
+        
         ((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId = model.pId;
         
-        [_nurseModel loadetailDataWithproductId:model.pId block:^(int code) {
-            if(code){
-                if(_nurseModel.defaultLover != nil)
-                    [self NotifyAddressSelected:nil model:_nurseModel.defaultLover];
-                else{
-                    
-                }
-            }
+        [_productModel loadetailDataWithproductId:model.pId block:^(id content) {
+           // NSDictionary *dic = [content objectForKey:@"care"];
+             NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
+           _loverModel=  [[UserAttentionModel alloc] init];
+            _loverModel.userid = [dicLover objectForKey:@"id"];
+           _loverModel.address =[dicLover objectForKey:@"addr"];
+         [self NotifyAddressSelected:nil model:_loverModel];
+        
         }];
     }
     return self;
@@ -157,8 +159,8 @@
     [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel.city_id forKey:@"cityId"];
     
     UnitsType type = cell.businessTypeView.uniteType;
-    NSInteger orgUnitPrice = _nurseModel.price;
-    NSInteger unitPrice = _nurseModel.priceDiscount;
+    NSInteger orgUnitPrice = _productModel.price;
+    NSInteger unitPrice = _productModel.priceDiscount;
     NSString *dateType = @"2";
     if(type == EnumTypeWeek){
         dateType = @"3";
@@ -231,7 +233,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
         }
-        [cell setNurseListInfo:_nurseModel];
+        [cell setNurseListInfo:_productModel];
         return cell;
     }
 }
@@ -301,15 +303,29 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void) NotifyAddressSelected:(WorkAddressSelectVC *)selectVC model:(UserAttentionModel *)model
+- (void) NotifyAddressSelected:(WorkAddressSelectVC *)selectVC  model:(UserAttentionModel*) model
 {
     //获取服务地址
+  
     PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    editcell.lbTitle.text = model.address;
-    editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+     editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+    if (model==nil) {
+        if (![[LcationInstance currentDetailAdrress] isEqualToString:@""]) {
+            editcell.lbTitle.font = _FONT_B(16);
+            editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+            editcell.lbTitle.text=[LcationInstance currentDetailAdrress];
+            
+        }
+    }
+    else{
+        editcell.lbTitle.font = _FONT_B(16);
+        editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+        editcell.lbTitle.text = model.address;
+    }
+   
     
-    _loverModel = model;
+
 }
 
 @end
