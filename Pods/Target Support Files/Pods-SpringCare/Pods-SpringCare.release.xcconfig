@@ -1,7 +1,8 @@
-FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AVOSCloud/iOS/release-v3.0.0" "$(PODS_ROOT)/AVOSCloudSNS/iOS/release-v3.0.0"
+FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AVOSCloud/iOS/release-v3.0.0" "$(PODS_ROOT)/AVOSCloudSNS/iOS/release-v3.0.0" "$(PODS_ROOT)/Pingpp/lib/Channels"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AVOSCloud" "${PODS_ROOT}/Headers/Public/AVOSCloudSNS" "${PODS_ROOT}/Headers/Public/FMDB"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/AVOSCloud" -isystem "${PODS_ROOT}/Headers/Public/AVOSCloudSNS" -isystem "${PODS_ROOT}/Headers/Public/FMDB"
-OTHER_LDFLAGS = -ObjC -l"Pods-SpringCare-AFNetworking" -l"Pods-SpringCare-AVOSCloud" -l"Pods-SpringCare-AVOSCloudSNS" -l"Pods-SpringCare-FMDB" -l"icucore" -l"sqlite3" -framework "AVOSCloud" -framework "AVOSCloudSNS" -framework "CFNetwork" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreTelephony" -framework "MobileCoreServices" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AVOSCloud" "${PODS_ROOT}/Headers/Public/AVOSCloudSNS" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/Pingpp"
+LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/Pingpp/lib/Channels" "$(PODS_ROOT)/Pingpp/lib/Channels" "$(PODS_ROOT)/Pingpp/lib"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/AVOSCloud" -isystem "${PODS_ROOT}/Headers/Public/AVOSCloudSNS" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/Pingpp"
+OTHER_LDFLAGS = -ObjC -l"ObjC" -l"Pods-SpringCare-AFNetworking" -l"Pods-SpringCare-AVOSCloud" -l"Pods-SpringCare-AVOSCloudSNS" -l"Pods-SpringCare-FMDB" -l"Pods-SpringCare-Pingpp" -l"UPPayPlugin" -l"WeChatSDK" -l"c++" -l"icucore" -l"pingpp" -l"sqlite3" -framework "AVOSCloud" -framework "AVOSCloudSNS" -framework "AlipaySDK" -framework "CFNetwork" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreTelephony" -framework "MobileCoreServices" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -weak_framework "PassKit"
 OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
 PODS_ROOT = ${SRCROOT}/Pods

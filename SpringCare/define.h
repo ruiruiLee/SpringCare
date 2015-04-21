@@ -45,6 +45,11 @@
 #define CityID @"552cf514e4b02ec896e6cdbf"
 #define CityName @"成都市"
 
+// 支付
+#define kUrlScheme      @"springcarepayschemes"
+#define kUrl            @"YOUR-URL"
+
+
 //语音存放地址
 #define SpeechMaxTime 60.0f
 
