@@ -101,7 +101,8 @@
         if(![UserModel sharedUserInfo].isLogin){
             LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            [self.selectedViewController presentViewController:nav animated:YES completion:^{
+            
+            [messageListVC.navigationController presentViewController:nav animated:YES completion:^{
                 
             }];
         }

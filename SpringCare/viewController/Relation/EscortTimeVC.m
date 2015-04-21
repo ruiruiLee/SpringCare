@@ -29,7 +29,15 @@
 {
     if([keyPath isEqualToString:@"userId"])
     {
-//        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
+        [UserAttentionModel loadLoverList:^(int code) {
+        }];
+        
+        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code) {
+            if(code)
+            {
+                [tableView reloadData];
+            }
+        }];
     }
 }
 
@@ -45,14 +53,14 @@
             [UserAttentionModel loadLoverList:^(int code) {
             }];
         }
+        
+        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code) {
+            if(code)
+            {
+                [tableView reloadData];
+            }
+        }];
     }
-    
-    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code) {
-        if(code)
-        {
-            [tableView reloadData];
-        }
-    }];
     
     self.lbTitle.text = @"陪护时光";
     self.NavigationBar.alpha = 0.7f;

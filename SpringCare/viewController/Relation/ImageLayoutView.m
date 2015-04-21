@@ -12,11 +12,12 @@
 #import "ObjImageDataInfo.h"
 #import "HBImageViewList.h"
 #import "NSImageUtil.h"
+#import "define.h"
 
 #define imageMaxWidth 200
 #define imageMaxHeight 120
 #define imageSpace 6
-#define imageSize 76
+#define imageSize (ScreenWidth - 112)/3
 
 @interface ImageLayoutView ()
 {
@@ -34,7 +35,7 @@
     self = [super initWithFrame:frame];
     if(self)
     {
-        
+     
         self.clipsToBounds = NO;
 //        self.backgroundColor = [UIColor greenColor];
     }

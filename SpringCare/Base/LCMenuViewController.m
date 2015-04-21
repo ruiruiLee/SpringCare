@@ -93,10 +93,6 @@
     _photoBg.image = [UIImage imageNamed:@"usercenterphotobg"];
     _photoBg.userInteractionEnabled = YES;
     
-//    _photoImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-//    [_photoBg addSubview:_photoImgView];
-//    _photoImgView.translatesAutoresizingMaskIntoConstraints = NO;
-    
      _btnphotoImg = [[UIButton alloc] initWithFrame:CGRectZero];
      _btnphotoImg.layer.masksToBounds = YES;
      _btnphotoImg.layer.cornerRadius = (140) / 4;
