@@ -53,8 +53,7 @@ static NSMutableArray *cityDataArray = nil;
     if(LcationInstance.currentCity != nil){
         CityDataModel *model = [CityDataModel modelWithName:LcationInstance.currentCity];
         if(model){
-            AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-            delegate.currentCityModel = model;
+            [cfAppDelegate setCurrentCityModel:model];
         }
     }
 }

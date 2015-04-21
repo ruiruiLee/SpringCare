@@ -180,13 +180,13 @@
     NSMutableDictionary *Params = [[NSMutableDictionary alloc] init];
     [Params setObject:_nurseModel.nid forKey:@"careId"];
     [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
-//    [Params setObject:_loverModel.userid forKey:@"loverId"];
     [Params setObject:loverId forKey:@"loverId"];
-    [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId forKey:@"productId"];
-    [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel.city_id forKey:@"cityId"];
+    [Params setObject:[cfAppDelegate defaultProductId] forKey:@"productId"];
+    [Params setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
     
     BusinessType type = cell.businessTypeView.businesstype;
     NSString *dateType = @"1";
+    
     if(type == EnumType24Hours)
         dateType = @"2";
     [Params setObject:dateType forKey:@"dateType"];//

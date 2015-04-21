@@ -25,8 +25,7 @@
 
 - (void) dealloc
 {
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self forKeyPath:@"currentCityModel"];
+    [cfAppDelegate removeObserver:self forKeyPath:@"currentCityModel"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -44,9 +43,9 @@
     [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
         if(code == 1){
             if([content isKindOfClass:[NSDictionary class]]){
-                AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-                delegate.hospital_product_id = [content objectForKey:@"hospitalProductId"];
-                delegate.defaultProductId = [content objectForKey:@"defaultProductId"];
+                
+                [cfAppDelegate setHospital_product_id:[content objectForKey:@"hospitalProductId"]] ;
+                [cfAppDelegate setDefaultProductId:[content objectForKey:@"defaultProductId"] ];
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
                 weakSelf.scrollView.imageNameArray = [NewsDataModel getImageUrlArray];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
@@ -67,17 +66,14 @@
 {
     if([keyPath isEqualToString:@"currentCityModel"])
     {
-        AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        [activityBtn setTitle:delegate.currentCityModel.city_name forState:UIControlStateNormal];
+        [activityBtn setTitle:[cfAppDelegate currentCityModel].city_name forState:UIControlStateNormal];
     }
 }
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self forKeyPath:@"currentCityModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [cfAppDelegate addObserver:self forKeyPath:@"currentCityModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     [self loadData];
     
@@ -117,8 +113,7 @@
 
 - (void) doBtnInNurseList:(UIButton*)sender
 {
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    NurseListVC *vc = [[NurseListVC alloc] initWithProductId:delegate.hospital_product_id];
+    NurseListVC *vc = [[NurseListVC alloc] initWithProductId:[cfAppDelegate hospital_product_id]];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

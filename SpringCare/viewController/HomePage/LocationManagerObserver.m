@@ -59,11 +59,10 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     NSLog(@"didChangeAuthorizationStatus---%u",status);
     if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     currentCity = CityName;
     CityDataModel *model = [CityDataModel modelWithName:CityName];
     if(model != nil){
-        delegate.currentCityModel = model;
+        [cfAppDelegate setCurrentCityModel:model] ;
       }
     }
 }
@@ -75,7 +74,6 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     lat = newLocation.coordinate.latitude;
     lon = newLocation.coordinate.longitude;
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     //if (delegate.currentCityModel == nil) {
         [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             if([placemarks count] > 0){
@@ -103,7 +101,7 @@
                  !placemark.subThoroughfare?@"":placemark.subThoroughfare];
                 CityDataModel *model = [CityDataModel modelWithName:currentCity];
                 if(model != nil){
-                    delegate.currentCityModel = model;
+                    [cfAppDelegate setCurrentCityModel:model] ;
                 }
             }
         }];

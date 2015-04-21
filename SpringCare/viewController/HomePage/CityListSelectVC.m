@@ -133,22 +133,11 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    CityDataModel *model;
-//    if(indexPath.section == 0){
-//         model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
-//    }
-//    else if(indexPath.section == 1){
-//        model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
-//        ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
-//    }else{
-//        model = [CityDataModel modelWithName:CityName];
-//        model.city_id=CityID;
-//    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if([[CityDataModel getCityData] count] > indexPath.row){
         CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
-        ((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel = model;
+        [cfAppDelegate setCurrentCityModel:model];
         if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
         {
             [delegate NotifyCitySelectedWithData:model.city_name];
