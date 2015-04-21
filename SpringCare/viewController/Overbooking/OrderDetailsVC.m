@@ -614,26 +614,33 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else if (flag == 2){
         
-        __weak OrderDetailsVC *weakSelf = self;
+//        __weak OrderDetailsVC *weakSelf = self;
             [LCNetWorkBase postWithMethod:@"api/order/cancel" Params:@{@"orderId" : _orderModel.oId, @"registerId" : [UserModel sharedUserInfo].userId} Completion:^(int code, id content) {
                 if(code){
                     if([content isKindOfClass:[NSDictionary class]]){
                         NSString *code = [content objectForKey:@"code"];
                         if(code == nil)
                         {
-                            weakSelf._orderModel.orderStatus = EnumOrderStatusTypeCancel;
-                            if(weakSelf._orderModel.orderStatus == EnumOrderStatusTypeCancel){
-                                [weakSelf._stepView SetStepViewType:StepViewType2Step];
-                                [weakSelf._stepView SetCurrentStepWithIdx:3];//此处为3
-                            }else{
-                                [weakSelf._stepView SetStepViewType:StepViewType4Step];
-                                [weakSelf._stepView SetCurrentStepWithIdx:[self GetStepWithModel:_orderModel]];
-                            }
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单取消成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            [alert show];
+//                            weakSelf._orderModel.orderStatus = EnumOrderStatusTypeCancel;
+//                            if(weakSelf._orderModel.orderStatus == EnumOrderStatusTypeCancel){
+//                                [weakSelf._stepView SetStepViewType:StepViewType2Step];
+//                                [weakSelf._stepView SetCurrentStepWithIdx:3];//此处为3
+//                            }else{
+//                                [weakSelf._stepView SetStepViewType:StepViewType4Step];
+//                                [weakSelf._stepView SetCurrentStepWithIdx:[self GetStepWithModel:_orderModel]];
+//                            }
                         }
                     }
                 }
             }];
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -21,6 +21,8 @@
 
 @implementation MyOrderListVC
 @synthesize pullTableView;
+@synthesize dataOnDoingList = dataOnDoingList;
+@synthesize dataOtherList = dataOtherList;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,16 +34,22 @@
     
     self.NavigationBar.Title = @"我的订单";
     
+    dataOtherList = [[NSMutableArray alloc] init];
+    
     [self initSubView];
     
-    dataList = [MyOrderdataModel GetMyOrderList];
+    __weak MyOrderListVC *weakSelf = self;
     [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
-            dataList = [MyOrderdataModel GetMyOrderList];
-            [pullTableView reloadData];
-            [self refreshTable];
+            NSArray *dataList = [MyOrderdataModel GetMyOrderList];
+            
+            dataOnDoingList = [dataList objectAtIndex:0];
+            [dataOtherList addObjectsFromArray:[dataList objectAtIndex:1]];
+            
+            [weakSelf.pullTableView reloadData];
+            [weakSelf refreshTable];
         }else{
-            [self refreshTable];
+            [weakSelf refreshTable];
         }
     }];
 }
@@ -97,8 +105,12 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if(EnumOrderAll == orderType)
-        return [dataList count];
+    if(EnumOrderAll == orderType){
+        if([dataOnDoingList count] == 0)
+            return 1;
+        else
+            return 2;
+    }
     else
         return 1;
 }
@@ -106,22 +118,21 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(EnumOrderAll == orderType){
-        if(section == 0)
-            return [[dataList objectAtIndex:0] count];
+        if(section == 0){
+            if([dataOnDoingList count] > 0)
+                return [dataOnDoingList count];
+            else
+                return [dataOtherList count];
+        }
         else
-            return [[dataList objectAtIndex:1] count];
+            return [dataOtherList count];
     }
     else
-        return [dataList count];
+        return [dataListForCom count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(EnumOrderAll == orderType){
-        if(indexPath.section == 0)
-            return 109.f;
-    }
-    
     return 109.f;
 }
 
@@ -135,7 +146,11 @@
                 cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
                 cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
             }
-            MyOrderdataModel *model = [[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            MyOrderdataModel *model = nil;//[[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            if([dataOnDoingList count] == 0)
+                model = [dataOtherList objectAtIndex:indexPath.row];
+            else
+                model = [dataOnDoingList objectAtIndex:indexPath.row];
             [cell SetContentData:model];
             cell.delegate = self;
             return cell;
@@ -148,7 +163,7 @@
                 cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
 
             }
-            MyOrderdataModel *model = [[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            MyOrderdataModel *model = [dataOtherList objectAtIndex:indexPath.row];
             [cell SetContentData:model];
             cell.delegate = self;
             return cell;
@@ -159,7 +174,7 @@
             cell = [[MyOrderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         }
         cell.delegate = self;
-        MyOrderdataModel *model = [dataList objectAtIndex:indexPath.row];
+        MyOrderdataModel *model = [dataListForCom objectAtIndex:indexPath.row];
         [cell SetContentData:model];
         return cell;
     }
@@ -171,13 +186,16 @@
     
     MyOrderdataModel *model = nil;
     if(EnumOrderPrepareForAssessment == orderType){
-        model = [dataList objectAtIndex:indexPath.row];
+        model = [dataListForCom objectAtIndex:indexPath.row];
     }
     else{
         if(indexPath.section == 0){
-            model = [[dataList objectAtIndex:0] objectAtIndex:indexPath.row];
+            if([dataOnDoingList count] == 0)
+                model = [dataOtherList objectAtIndex:indexPath.row];
+            else
+                model = [dataOnDoingList objectAtIndex:indexPath.row];
         }else{
-            model = [[dataList objectAtIndex:1] objectAtIndex:indexPath.row];
+            model = [dataOtherList objectAtIndex:indexPath.row];
         }
     }
 //    [model addObserver:self forKeyPath:@"orderStatus" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
@@ -191,43 +209,43 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = TableSectionBackgroundColor;
-//    view.backgroundColor = TableSectionBackgroundColor;
-    
-    if(section == 0){
-        UIView *headerview = [[UIView alloc] initWithFrame:CGRectZero];
-        [view addSubview:headerview];
-        headerview.translatesAutoresizingMaskIntoConstraints = NO;
-        headerview.backgroundColor = TableBackGroundColor;
-        
-        UILabel *_headerText = [[UILabel alloc] initWithFrame:CGRectZero];//24
-        [headerview addSubview:_headerText];
-        _headerText.translatesAutoresizingMaskIntoConstraints = NO;
-        _headerText.font = _FONT(14);
-        _headerText.textColor = _COLOR(0xe4, 0x39, 0x3c);
-        _headerText.text = @"正在服务中的订单";
-        _headerText.backgroundColor = TableBackGroundColor;
-        
-        UILabel *line = [[UILabel alloc] initWithFrame:CGRectZero];
-        [view addSubview:line];
-        line.backgroundColor = SeparatorLineColor;
-        line.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        NSDictionary *views = NSDictionaryOfVariableBindings(headerview, _headerText, line);
-        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[headerview]-0-|" options:0 metrics:nil views:views]];
-        [headerview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_headerText]-0-|" options:0 metrics:nil views:views]];
-        [headerview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_headerText]-0-|" options:0 metrics:nil views:views]];
-        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[line]-0-|" options:0 metrics:nil views:views]];
-        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[headerview(24)]-0-[line(1)]-0-|" options:0 metrics:nil views:views]];
-        
-    }else{
-        view.backgroundColor = TableSectionBackgroundColor;
+    if(EnumOrderAll == orderType){
+        if(section == 0 && [dataOnDoingList count] > 0){
+            UIView *headerview = [[UIView alloc] initWithFrame:CGRectZero];
+            [view addSubview:headerview];
+            headerview.translatesAutoresizingMaskIntoConstraints = NO;
+            headerview.backgroundColor = TableBackGroundColor;
+            
+            UILabel *_headerText = [[UILabel alloc] initWithFrame:CGRectZero];//24
+            [headerview addSubview:_headerText];
+            _headerText.translatesAutoresizingMaskIntoConstraints = NO;
+            _headerText.font = _FONT(14);
+            _headerText.textColor = _COLOR(0xe4, 0x39, 0x3c);
+            _headerText.text = @"正在服务中的订单";
+            _headerText.backgroundColor = TableBackGroundColor;
+            
+            UILabel *line = [[UILabel alloc] initWithFrame:CGRectZero];
+            [view addSubview:line];
+            line.backgroundColor = SeparatorLineColor;
+            line.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            NSDictionary *views = NSDictionaryOfVariableBindings(headerview, _headerText, line);
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[headerview]-0-|" options:0 metrics:nil views:views]];
+            [headerview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_headerText]-0-|" options:0 metrics:nil views:views]];
+            [headerview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_headerText]-0-|" options:0 metrics:nil views:views]];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[line]-0-|" options:0 metrics:nil views:views]];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[headerview(24)]-0-[line(1)]-0-|" options:0 metrics:nil views:views]];
+            
+        }else{
+            view.backgroundColor = TableSectionBackgroundColor;
+        }
     }
     return view;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if(section == 0)
+    if(EnumOrderAll == orderType && section == 0 && [dataOnDoingList count] > 0)
         return 40;
     return 15.f;
 }
@@ -240,7 +258,8 @@
     if(EnumOrderPrepareForAssessment == orderType){
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
-                dataList = [MyOrderdataModel GetNoAssessmentOrderList];
+                dataListForCom = [MyOrderdataModel GetNoAssessmentOrderList];
+                
                 [pullTableView reloadData];
                 [self refreshTable];
             }else{
@@ -250,7 +269,11 @@
     }else{
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
-                dataList = [MyOrderdataModel GetMyOrderList];
+                NSArray *dataList = [MyOrderdataModel GetMyOrderList];
+                
+                dataOnDoingList = [dataList objectAtIndex:0];
+                [dataOtherList removeAllObjects];
+                [dataOtherList addObjectsFromArray:[dataList objectAtIndex:1]];
                 [pullTableView reloadData];
                 [self refreshTable];
             }else{
@@ -268,7 +291,7 @@
     }else{
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:YES block:^(int code, id content) {
             if(code){
-                dataList = [MyOrderdataModel GetMyOrderList];
+                [dataOtherList addObjectsFromArray:content];
                 [pullTableView reloadData];
                 [self loadMoreDataToTable];
             }else{
@@ -300,16 +323,13 @@
     if(idx == 0){
         //全部订单
         orderType = EnumOrderAll;
-        dataList = [MyOrderdataModel GetMyOrderList];
-        if([dataList count] == 2){
-            pages = [self GetPagesWithDataArray:[dataList objectAtIndex:1]];
-        }
     }
     else{
         //待评价
         orderType = EnumOrderPrepareForAssessment;
-        dataList = [MyOrderdataModel GetNoAssessmentOrderList];
-        pages = [self GetPagesWithDataArray:dataList];
+        if(dataListForCom == nil){
+            [self pullTableViewDidTriggerRefresh:nil];
+        }
     }
     
     [pullTableView reloadData];

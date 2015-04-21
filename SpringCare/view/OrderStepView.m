@@ -174,7 +174,7 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_imgStep1, _imgStep2, _imgStep3, _imgStep4, _lbStep1, _lbStep2, _lbStep3, _lbStep4, _line1, _line2, _line3);
     
     if(type == StepViewType2Step){
-        ImageCArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_imgStep1]-0-[_line1]-0-[_imgStep2]-29-|" options:0 metrics:nil views:views];
+        ImageCArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_imgStep1(33)]-0-[_line1]-0-[_imgStep2(33)]-29-|" options:0 metrics:nil views:views];
         lbCArrary = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbStep1]->=0-[_lbStep2]->=0-|" options:0 metrics:nil views:views];
         _lbStep2.text = @"已取消";
         

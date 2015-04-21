@@ -15,7 +15,9 @@
 {
     LCTabBar *_tabBar;
     
-    NSArray *dataList;
+    NSArray *dataListForCom;//待评价数据
+    NSArray *dataOnDoingList;//正在进行中的订单
+    NSMutableArray *dataOtherList;//其他订单
     
     NSInteger pages;
     
@@ -23,5 +25,7 @@
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;
+@property (nonatomic, strong) NSArray *dataOnDoingList;
+@property (nonatomic, strong) NSMutableArray *dataOtherList;
 
 @end

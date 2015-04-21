@@ -154,8 +154,6 @@ static NSMutableArray *noAssessmentOrderList = nil;
     }
     [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
-    if(isOnlyIndexSplit)
-        [params setObject:@"true" forKey:@"offset"];
     
     [LCNetWorkBase postWithMethod:@"api/order/register/list" Params:params Completion:^(int code, id content) {
         if(code){
