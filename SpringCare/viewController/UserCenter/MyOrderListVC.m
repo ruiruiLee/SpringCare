@@ -270,9 +270,9 @@
             if(code){
                 dataList = [MyOrderdataModel GetMyOrderList];
                 [pullTableView reloadData];
-                [self refreshTable];
+                [self loadMoreDataToTable];
             }else{
-                [self refreshTable];
+                [self loadMoreDataToTable];
             }
         }];
     }

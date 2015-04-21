@@ -31,6 +31,7 @@
         _productId = pid;
         _model = [[NurseListInfoModel alloc] init];
         _SearchConditionStr = @"";
+        DataList = [[NSMutableArray alloc] init];
         ((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId = pid;
     }
     return self;
@@ -105,7 +106,8 @@
 //    NSString *productId = [[NurseListInfoModel PramaNurseDic] objectForKey:@"productId"];
 //    if(!([cityId isEqualToString:[[NurseListInfoModel PramaNurseDic] objectForKey:@"cityId"]] && [_productId isEqualToString:productId])){
         [_model loadNurseDataWithPage:0 type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:_productId block:^(int code) {
-            self.DataList = [NurseListInfoModel nurseListModel];
+//            self.DataList = [NurseListInfoModel nurseListModel];
+            [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
             [pullTableView reloadData];
             [self refreshTable];
         }];
@@ -223,8 +225,10 @@
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
     pages = 0;
-    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code) {
-        self.DataList = [NurseListInfoModel nurseListModel];
+    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
+//        self.DataList = [NurseListInfoModel nurseListModel];
+        [DataList removeAllObjects];
+        [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [self refreshTable];
     }];
 }
@@ -233,8 +237,9 @@
 {
     pages ++;
     
-    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code) {
-        self.DataList = [NurseListInfoModel nurseListModel];
+    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
+//        self.DataList = [NurseListInfoModel nurseListModel];
+        [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [self loadMoreDataToTable];
     }];
 }
@@ -289,8 +294,10 @@
     _SearchConditionStr = searchStr;
     
     pages = 0;
-    [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code) {
-        self.DataList = [NurseListInfoModel nurseListModel];
+    [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code, id content) {
+//        self.DataList = [NurseListInfoModel nurseListModel];
+        [DataList removeAllObjects];
+        [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [pullTableView reloadData];
         [self refreshTable];
     }];

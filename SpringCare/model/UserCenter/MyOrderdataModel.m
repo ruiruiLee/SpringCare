@@ -146,6 +146,14 @@ static NSMutableArray *noAssessmentOrderList = nil;
         if(offset >= [noAssessmentOrderList count])
             offset = [noAssessmentOrderList count];
     }
+    if(pages > 0){
+//        isOnlyIndexSplit = @"false";
+        [params setObject:@"true" forKey:@"isOnlyIndexSplit"];
+    }
+    else{
+//        isOnlyIndexSplit = @"true";
+        [params setObject:@"false" forKey:@"isOnlyIndexSplit"];
+    }
     [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     if(isOnlyIndexSplit)
