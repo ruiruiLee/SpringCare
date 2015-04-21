@@ -323,15 +323,6 @@
     _detailInfo.font = _FONT(13);
     _detailInfo.numberOfLines = LIMIT_LINES;
     _detailInfo.preferredMaxLayoutWidth = ScreenWidth - 44;
-//    [_nurseModel addObserver:self forKeyPath:@"detailIntro" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-//    if(_nurseModel.detailIntro != nil){
-//        _detailInfo.text = _nurseModel.detailIntro;
-//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_detailInfo.text];
-//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-//        [paragraphStyle setLineSpacing:2];//调整行间距
-//        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [_detailInfo.text length])];
-//        _detailInfo.attributedText = attributedString;
-//    }
     
     CGRect frame = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:4];
     CGRect frame1 = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:5];
@@ -500,6 +491,7 @@
         editcell.lbTitle.font = _FONT_B(16);
         editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
         editcell.lbTitle.text = model.address;
+        _loverModel=model;
     }
 
 

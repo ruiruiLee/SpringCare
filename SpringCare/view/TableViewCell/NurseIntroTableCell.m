@@ -45,7 +45,7 @@
     _lbCommitCount = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbCommitCount];
     _lbCommitCount.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbCommitCount.font = _FONT(11);
+    _lbCommitCount.font = _FONT(12);
     _lbCommitCount.textColor = _COLOR(0x99, 0x99, 0x99);
     
     _imgCert = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -62,7 +62,7 @@
     _lbWorkIntro = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbWorkIntro];
     _lbWorkIntro.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbWorkIntro.font = _FONT(12);
+    _lbWorkIntro.font = _FONT(13);
     _lbWorkIntro.textColor = _COLOR(0x99, 0x99, 0x99);
     _lbWorkIntro.numberOfLines = 0;
     _lbWorkIntro.preferredMaxLayoutWidth = ScreenWidth - 117;

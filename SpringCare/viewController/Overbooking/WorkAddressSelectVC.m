@@ -146,6 +146,8 @@
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WorkAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     UserAttentionModel * model = [_dataList objectAtIndex:indexPath.row];
     [cell setContentWithModel:model];
     [cell._btnSelect addTarget:self action:@selector(btnSelected:) forControlEvents:UIControlEventTouchUpInside];
