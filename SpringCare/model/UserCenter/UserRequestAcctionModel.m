@@ -78,7 +78,6 @@ static NSMutableArray *requestAcctionArray = nil;
     NSDictionary *dic = @{@"requestId":userid};
     [LCNetWorkBase postWithMethod:@"api/request/accept" Params:dic Completion:^(int code, id content) {
         if(code){
-//            [requestAcctionArray removeObject:self];
             if(block)
                 block(1);
         }

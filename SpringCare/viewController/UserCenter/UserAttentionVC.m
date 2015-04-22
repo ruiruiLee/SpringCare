@@ -165,12 +165,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-if (_applyData.count>0) {
-    if(section == 0)
-        return 54;
-    else
-        return 20;
-  }
+    if (_applyData.count>0) {
+        if(section == 0)
+            return 54;
+        else
+            return 20;
+      }
     else
         return 54;
 }
@@ -201,7 +201,6 @@ if (_applyData.count>0) {
         
         [self.attentionTableCell setNeedsLayout];
         [self.attentionTableCell layoutIfNeeded];
-    //  return   [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
         CGSize size = [self.attentionTableCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         return 1  + size.height;
     }
@@ -249,13 +248,39 @@ if (_applyData.count>0) {
         if(indexPath.section == 0){
             UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
             [model deleteAcctionRequest:^(int code) {
-                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                if(code){
+                    [tableView beginUpdates];
+                    
+                    if ([[UserRequestAcctionModel GetRequestAcctionArray] count] <= 0) {
+                        
+                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+                        
+                    }
+                    
+                    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    
+                    [tableView endUpdates];
+                    
+                    [tableView reloadData];
+                }
             }];
             _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
         }else{
             UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
             [model deleteAttention:^(int code) {
-                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                if(code){
+                    [tableView beginUpdates];
+                    
+                    if ([[UserAttentionModel GetMyAttentionArray] count] <= 0) {
+                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+                    }
+                    
+                    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    
+                    [tableView endUpdates];
+                    
+                    [tableView reloadData];
+                }
             }];
             _attentionData = [UserAttentionModel GetMyAttentionArray];
         }

@@ -30,6 +30,11 @@
         [self.contentView addSubview:_btnphotoImg];
         _btnphotoImg.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnphotoImg addTarget:self action:@selector(btnPhotoPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _attentionLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_attentionLogo];
+        _attentionLogo.translatesAutoresizingMaskIntoConstraints = NO;
+        _attentionLogo.image = ThemeImage(@"relevancelogo");
 
         _lbRelation =[[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbRelation];
@@ -66,7 +71,7 @@
         _line.translatesAutoresizingMaskIntoConstraints = NO;
         _line.backgroundColor = SeparatorLineColor;
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_btnphotoImg, _lbName, _lbRelation, _btnRing, _line, _Address,ImgSex);
+        NSDictionary *views = NSDictionaryOfVariableBindings(_btnphotoImg, _lbName, _lbRelation, _btnRing, _line, _Address,ImgSex, _attentionLogo);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(86)]-10-[_lbName]->=10-[_btnRing(48)]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(86)]-10-[_Address]->=10-[_btnRing(48)]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_btnphotoImg(86)]->=15-|" options:0 metrics:nil views:views]];
@@ -75,7 +80,10 @@
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbRelation(30)]-1-[_lbName(20)]-2-[_Address]->=10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbRelation attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-                [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
         
     }
     return self;
@@ -147,6 +155,11 @@
     phoneNum = data.ringNum;
     [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:data.photoUrl] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
 
+    if(data.isCare){
+        _attentionLogo.hidden = NO;
+    }else{
+        _attentionLogo.hidden = YES;
+    }
     
     NSString *relation = data.relation;
     if(relation == nil || [relation length] == 0)

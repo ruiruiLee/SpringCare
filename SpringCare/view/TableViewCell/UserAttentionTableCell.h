@@ -25,6 +25,8 @@
     UILabel *_Address;
     UILabel *_line;
     NSString *phoneNum;
+    
+    UIImageView *_attentionLogo;
 }
 //@property (assign, nonatomic) id<ChangHeaderPhotoDelegate> delegate;
 @property (nonatomic, weak) UserAttentionVC *parentController;

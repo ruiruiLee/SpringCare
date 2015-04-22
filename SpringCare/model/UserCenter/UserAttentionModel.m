@@ -97,14 +97,25 @@ static NSMutableArray *myAttentionArray = nil;
 
 - (void) deleteAttention:(block) block
 {
-    NSDictionary *dic = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"loverId":userid};
-    [LCNetWorkBase postWithMethod:@"api/oneLover/delete" Params:dic Completion:^(int code, id content) {
-        if(code){
-            [myAttentionArray removeObject:self];
-            if(block)
-                block(1);
-        }
-    }];
+    if(self.isCare){
+        NSDictionary *dic = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"loverId":userid};
+        [LCNetWorkBase postWithMethod:@"api/oneLover/delete" Params:dic Completion:^(int code, id content) {
+            if(code){
+                [myAttentionArray removeObject:self];
+                if(block)
+                    block(1);
+            }
+        }];
+    }else{
+        NSDictionary *dic = @{@"registerId":[UserModel sharedUserInfo].userId, @"loverId":userid};
+        [LCNetWorkBase postWithMethod:@"api/lover/delete" Params:dic Completion:^(int code, id content) {
+            if(code){
+                [myAttentionArray removeObject:self];
+                if(block)
+                    block(1);
+            }
+        }];
+    }
 }
 
 @end
