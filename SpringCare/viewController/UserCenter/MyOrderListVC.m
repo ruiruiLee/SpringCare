@@ -42,12 +42,12 @@
     [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
             NSArray *dataList = [MyOrderdataModel GetMyOrderList];
-            
             dataOnDoingList = [dataList objectAtIndex:0];
             [dataOtherList addObjectsFromArray:[dataList objectAtIndex:1]];
-            
+                     // else{
             [weakSelf.pullTableView reloadData];
             [weakSelf refreshTable];
+           // }
         }else{
             [weakSelf refreshTable];
         }
@@ -127,8 +127,20 @@
         else
             return [dataOtherList count];
     }
-    else
+    else{
+        if(dataListForCom.count==0){
+            UIImage *img = ThemeImage(@"orderend");
+            UIImageView *imageView= [[UIImageView alloc]initWithFrame:CGRectMake(pullTableView.frame.size.width/2-img.size.width/2, pullTableView.frame.size.height/2-img.size.height-64, img.size.width, img.size.height)];
+           // [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orderend"]];
+            imageView.image=img;
+            [self.pullTableView addSubview:imageView];
+        }
+        else{
+            //[self.pullTableView setBackgroundView:nil];
+
+        }
         return [dataListForCom count];
+    }
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -143,6 +155,7 @@
             MyOrderTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell0"];
             if(!cell){
                 cell = [[MyOrderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell0"];
+                cell.backgroundColor=[UIColor clearColor];//关键语句
                 cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
                 cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
             }

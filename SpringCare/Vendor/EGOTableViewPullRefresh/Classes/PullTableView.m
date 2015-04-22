@@ -175,6 +175,19 @@
     [loadMoreView setBackgroundColor:self.pullBackgroundColor textColor:self.pullTextColor arrowImage:self.pullArrowImage];
 }
 
+// 在tableview 的 numberOfRowsInSection 方法里判断 没有数据就展示 。
+-(void)displayEmpityImageView:(UIImage *)img{
+    //UIImage *img = ThemeImage(@"orderend");
+   backgroundImageView= [[UIImageView alloc]initWithFrame:CGRectMake(self.frame.size.width/2-img.size.width/2, self.frame.size.height/2-img.size.height-64, img.size.width, img.size.height)];
+    // [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orderend"]];
+    backgroundImageView.image=img;
+    [self addSubview:backgroundImageView];
+
+}
+-(void)removeBackgroudImgView{
+    [backgroundImageView removeFromSuperview];
+}
+
 - (void)setPullArrowImage:(UIImage *)aPullArrowImage
 {
     if(aPullArrowImage != pullArrowImage) {
