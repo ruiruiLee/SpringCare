@@ -43,9 +43,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if(self){
         _productModel = model;
-        
-        ((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId = model.pId;
-        
+        [cfAppDelegate setDefaultProductId: model.pId];
         __weak PlaceOrderForProductVC *weakSelf = self;
         [_productModel loadetailDataWithproductId:model.pId block:^(id content) {
            // NSDictionary *dic = [content objectForKey:@"care"];
@@ -161,8 +159,8 @@
     [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
 //    [Params setObject:_loverModel.userid forKey:@"loverId"];
     [Params setObject:loverId forKey:@"loverId"];
-    [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId forKey:@"productId"];
-    [Params setObject:((AppDelegate*)[UIApplication sharedApplication].delegate).currentCityModel.city_id forKey:@"cityId"];
+    [Params setObject:[cfAppDelegate defaultProductId] forKey:@"productId"];
+    [Params setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
     
     UnitsType type = cell.businessTypeView.uniteType;
     NSInteger orgUnitPrice = _productModel.price;

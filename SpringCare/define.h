@@ -17,15 +17,14 @@
 
 #define NOTIFY_LOCATION_GAINED  @"NOTIFY_LOCATION_GAINED"
 #define NOTIFY_PICKVIEW_HIDDEN @"NOTIFY_PICKVIEW_HIDDEN"
-//#define NOTIFY_USERIN_DISPLAY  @"NOTIFY_USERIN_DISPLAY"
-//#define NOTIFY_MENU_CHANGED @"NOTIFY_MENU_CHANGED"
+
 
 
 #define SERVER_ADDRESS @"http://spring.avosapps.com/"
 
 #define KEY_APPLE_ID @"702715314"
 
-
+#define cfAppDelegate (AppDelegate*)[UIApplication sharedApplication].delegate
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 
 #define  numberOfLineLimit 5

@@ -135,11 +135,9 @@ static NSInteger nurseTotal = 0;
     if(pages == 0){
         [nurseList removeAllObjects];
     }
-    
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+
     double lon = LcationInstance.lon; // delegate._observer.lon;
     double lat = LcationInstance.lat; //delegate._observer.lat;
-    NSString *cityId = delegate.currentCityModel.city_id;
     NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;
     if(offset >= [nurseList count])
@@ -153,20 +151,21 @@ static NSInteger nurseTotal = 0;
     if(productId != nil)
         [dic setObject:productId forKey:@"productId"];
     else{
-        if(delegate.defaultProductId != nil)
-             [dic setObject:delegate.defaultProductId forKey:@"productId"];
+        [dic setObject:[cfAppDelegate defaultProductId] forKey:@"productId"];
     }
     if(order == nil)
         order = @"asc";
     [dic setObject:order forKey:@"order"];
     if(!(key == nil || [key length] == 0))
         [dic setObject:key forKey:@"key"];
-    if(cityId != nil)
-        [dic setObject:cityId forKey:@"cityId"];
+    if ([cfAppDelegate currentCityModel]!=nil) {
+        [dic setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
+    }
+    
     [dic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     
     pramaNurseDic = dic;
-    
+   
     [LCNetWorkBase postWithMethod:@"api/care/list" Params:dic Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
@@ -203,7 +202,11 @@ static NSInteger nurseTotal = 0;
     if(offset >= [nurseList count])
         offset = [nurseList count];
     [pramaNurseDic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
-    
+    if ([cfAppDelegate currentCityModel]!=nil) {
+        [pramaNurseDic setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
+    }
+
+    [pramaNurseDic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     NSArray *array = [prama allKeys];
     for (int  i = 0; i < [array count]; i++) {
         [pramaNurseDic setObject:[prama objectForKey:[array objectAtIndex:i]] forKey:[array objectAtIndex:i]];

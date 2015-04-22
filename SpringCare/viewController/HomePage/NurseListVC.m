@@ -32,7 +32,7 @@
         _model = [[NurseListInfoModel alloc] init];
         _SearchConditionStr = @"";
         DataList = [[NSMutableArray alloc] init];
-        ((AppDelegate*)[UIApplication sharedApplication].delegate).defaultProductId = pid;
+        [cfAppDelegate setDefaultProductId:pid] ;
     }
     return self;
 }
@@ -100,13 +100,7 @@
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     pullTableView.tableFooterView = footer;
-    
-//    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//    NSString *cityId = delegate.currentCityModel.city_id;
-//    NSString *productId = [[NurseListInfoModel PramaNurseDic] objectForKey:@"productId"];
-//    if(!([cityId isEqualToString:[[NurseListInfoModel PramaNurseDic] objectForKey:@"cityId"]] && [_productId isEqualToString:productId])){
-        [_model loadNurseDataWithPage:0 type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:_productId block:^(int code) {
-//            self.DataList = [NurseListInfoModel nurseListModel];
+    [_model loadNurseDataWithPage:0 type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:_productId block:^(int code) {
             [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
             [pullTableView reloadData];
             [self refreshTable];
@@ -115,11 +109,7 @@
         if(!self.pullTableView.pullTableIsRefreshing) {
             self.pullTableView.pullTableIsRefreshing = YES;
         }
-        
-//    }
-//    else{
-//        self.DataList = [NurseListInfoModel nurseListModel];
-//    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

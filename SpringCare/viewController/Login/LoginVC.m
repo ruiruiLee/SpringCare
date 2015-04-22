@@ -254,8 +254,8 @@
             model.isNew = user.isNew;
             model.email = user.email;
             model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
-            model.userId = [user objectForKey:@"objectId"];
-            
+            model.userId = user.objectId ;
+            model.chineseName = [user objectForKey:@"chinese_name"];
             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
                 
             }];

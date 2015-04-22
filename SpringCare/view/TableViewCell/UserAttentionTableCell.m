@@ -24,16 +24,6 @@
         _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
         _photoImage.layer.cornerRadius = 43;
         
-//        _btnRelation = [[UIButton alloc] initWithFrame:CGRectZero];
-//        [self.contentView addSubview:_btnRelation];
-//        _btnRelation.translatesAutoresizingMaskIntoConstraints = NO;
-//        [_btnRelation setTitleColor:_COLOR(0x22, 0x22, 0x22) forState:UIControlStateNormal];
-////        _btnRelation.contentEdgeInsets = UIEdgeInsetsMake(0, 200, 0, 0);
-//////        _btnRelation.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 24);
-//        _btnRelation.titleLabel.font = _FONT_B(20);
-//        _btnRelation.userInteractionEnabled = NO;
-        
-        
         _lbRelation =[[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbRelation];
         _lbRelation.translatesAutoresizingMaskIntoConstraints = NO;
@@ -49,7 +39,7 @@
         [self.contentView addSubview:_lbName];
         _lbName.translatesAutoresizingMaskIntoConstraints = NO;
         _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
-        _lbName.font = _FONT(16);
+        _lbName.font = _FONT(15);
         
         _Address = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_Address];
@@ -63,7 +53,7 @@
         [self.contentView addSubview:_btnRing];
         _btnRing.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnRing setImage:[UIImage imageNamed:@"userattentionring"] forState:UIControlStateNormal];
-        
+        [_btnRing addTarget:self action:@selector(btnRingClicked) forControlEvents:UIControlEventTouchUpInside];
         _line = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_line];
         _line.translatesAutoresizingMaskIntoConstraints = NO;
@@ -84,9 +74,6 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    // Initialization code
-}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -94,8 +81,33 @@
     // Configure the view for the selected state
 }
 
+- (void)btnRingClicked{
+    if (![phoneNum isEqual:@""]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您确定要拨打电话吗?" message:phoneNum delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        [alertView setTag:11];
+        [alertView show];
+    }
+    else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您没有设置电话号码！" message:@"" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+
+    }
+   
+}
+
+#pragma alertdelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if ([alertView tag] == 11) {
+        if (buttonIndex==0) {
+            NSURL *phoneURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",phoneNum]];
+            [[UIApplication sharedApplication] openURL:phoneURL];
+        }
+    }
+}
+
 - (void) SetContentData:(UserAttentionModel*) data
 {
+    phoneNum = data.ringNum;
     [_photoImage sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"placeholderimage"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
@@ -116,7 +128,7 @@
         [ImgSex setImage:ThemeImage(@"femail")];
     }
      NSString * personH=[NSString stringWithFormat:@"%@",data.height ];
-    _lbName.text = [NSString stringWithFormat:@"%@     %@      %@", [data.username isEqual:@""]?@"姓名":data.username,[data.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",data.age ], [personH isEqual:@"0"]?@"身高":[NSString stringWithFormat:@"%@米",personH]];
+    _lbName.text = [NSString stringWithFormat:@"%@     %@     %@", [data.username isEqual:@""]?@"姓名":data.username,[data.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",data.age ], [personH isEqual:@"0"]?@"身高":[NSString stringWithFormat:@"%@米",personH]];
     _Address.text = data.address;
     if(data.address == nil){
         _Address.text = @"地址 ";

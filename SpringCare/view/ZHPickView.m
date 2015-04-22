@@ -443,7 +443,9 @@
     NSInteger day1 = [components day]; // 15
     NSInteger month1 = [components month]; // 9
     NSInteger year1 = [components year]; // 5764
-    
+    if (_hourArray.count==0) {
+        return;
+    }
     cIndex = [_pickerView selectedRowInComponent:1];
     int hour = [_hourArray[cIndex] intValue];
     
