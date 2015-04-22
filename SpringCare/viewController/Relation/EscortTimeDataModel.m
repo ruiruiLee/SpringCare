@@ -37,13 +37,31 @@ static NSInteger totalCount = 0;
     EscortTimeReplyDataModel *model = [[EscortTimeReplyDataModel alloc] init];
     model.replyUserHeaderImage = [dic objectForKey:@"replyUserHeaderImage"];
     model.replyUserName = [dic objectForKey:@"replyUserName"];
+    model.replyUserPhone = [dic objectForKey:@"replyUserPhone"];
     model.guId = [dic objectForKey:@"guId"];
     model.replyDate = [dic objectForKey:@"replyDate"];
-    model.content = [dic objectForKey:@"content"];
     model.replyUserId = [dic objectForKey:@"replyUserId"];
     model.orgUserHeaderImage = [dic objectForKey:@"orgUserHeaderImage"];
     model.orgUserName = [dic objectForKey:@"orgUserName"];
+    model.orgUserPhone = [dic objectForKey:@"orgUserPhone"];
     model.orgUserId = [dic objectForKey:@"orgUserId"];
+    
+    NSString *content = [dic objectForKey:@"content"];
+    NSMutableString *str = [[NSMutableString alloc] init];
+    if(model.replyUserName!= nil){
+        [str appendString:model.replyUserName];
+    }else{
+        [str appendString:model.replyUserPhone];
+    }
+    
+    if(model.orgUserName != nil){
+        [str appendString:[NSString stringWithFormat:@"回复%@：%@", model.orgUserName,content]];
+    }else if (model.orgUserPhone != nil){
+        [str appendString:[NSString stringWithFormat:@"回复%@：%@", model.orgUserPhone, content]];
+    }else
+        [str appendString:[NSString stringWithFormat:@"：%@", content]];
+
+    model.content = str;
     
     return model;
 }
@@ -92,7 +110,7 @@ static NSInteger totalCount = 0;
     model.careId = [dic objectForKey:@"careId"];
     model.content = [dic objectForKey:@"content"];
     model.createAt = [dic objectForKey:@"createAt"];
-    model.replyInfos = [EscortTimeReplyDataModel ArrayFromDictionaryArray:[dic objectForKey:@"replyInfos"]];
+    model.replyInfos = [EscortTimeReplyDataModel ArrayFromDictionaryArray:[dic objectForKey:@"replys"]];
     
     NSArray *files = [dic objectForKey:@"files"];
     NSMutableArray *photoArray = [[NSMutableArray alloc] init];

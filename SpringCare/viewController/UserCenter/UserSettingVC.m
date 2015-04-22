@@ -59,22 +59,8 @@
 {
     [AVUser logOut];  //清除缓存用户对象
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-//    if(![self.navigationController.topViewController isKindOfClass:[HomePageVC class]]){
-//        
-//        [self.navigationController popViewControllerAnimated:YES];
-//        UITabBarController *tabbar = self.tabBarController;
-//        [self performSelector:@selector(popViewController:) withObject:tabbar afterDelay:0.15];
-//        
-//    }else{
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+    [UserModel sharedUserInfo].userId = nil;
 }
-
-//- (void) popViewController:(id) sender
-//{
-//    UITabBarController *root = (UITabBarController*) sender;
-//    root.selectedIndex = 0;
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

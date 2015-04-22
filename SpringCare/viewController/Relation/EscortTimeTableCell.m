@@ -184,7 +184,7 @@
 
 - (void)btnReplyPressed {
     if ([cellDelegate respondsToSelector:@selector(commentButtonClick:userReply:)]) {
-        [cellDelegate commentButtonClick:self userReply:_model.careId];
+        [cellDelegate commentButtonClick:self userReply:nil];
     }
 
 }
@@ -215,7 +215,7 @@
     NSArray *dataArray =  _model.replyInfos;
     EscortTimeReplyDataModel *data = [dataArray objectAtIndex:indexPath.row];
     
-    data.height =[self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+//    data.height =[self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
     return data.height;
 }
 
@@ -232,6 +232,16 @@
     [cell setContentWithData:model];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EscortTimeReplyDataModel *model = [_model.replyInfos objectAtIndex:indexPath.row];
+    NSString *replyId = model.guId;
+    
+    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:userReply:)]) {
+        [cellDelegate commentButtonClick:self userReply:replyId];
+    }
 }
 
 - (void) setContentData:(EscortTimeDataModel*)data
@@ -321,10 +331,11 @@
     
     [_replyTableBg removeConstraints:hReplyTableLayoutArray];
     if([replyData count] > 0){
-        CGFloat height = 0;
+        float height = 0;
         for (int i = 0; i < [replyData count]; i++) {
-            EscortTimeReplyDataModel *model = [replyData objectAtIndex:i];
-            height += model.height;
+            NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
+            EscortTimeReplyDataModel *data = [replyData objectAtIndex:indexpath.row];
+            height += data.height;
         }
         NSString *tableviewformat = [NSString stringWithFormat:@"V:|-13-[_replyTableView(%f)]-5-|", height];
         hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:tableviewformat options:0 metrics:nil views:views];
@@ -393,12 +404,10 @@
         for (int i = 0; i < [replyData count]; i++) {
             NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
             EscortTimeReplyDataModel *data = [replyData objectAtIndex:indexpath.row];
-            data.height = [NSStrUtil heightForString:data.content
-                                            fontSize:14.f
-                                            andWidth:ScreenWidth - 115] + 5;
+            data.height = [NSStrUtil HeightOfString:data.content fontSize:15.f andWidth:ScreenWidth - 115] + 8;
             height += data.height;
         }
-        cellHeight += 21;
+        cellHeight += 18;
         cellHeight += height;
     }
     

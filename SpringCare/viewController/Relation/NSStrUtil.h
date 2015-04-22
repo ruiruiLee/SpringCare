@@ -40,6 +40,8 @@ typedef enum : NSUInteger {
 
 + (NSInteger) NumberOfLinesForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width;
 
++ (float) HeightOfString:(NSString *) value fontSize:(float)fontSize andWidth:(float)width;
+
 @end
 
 @interface NSString (MyExtensions)
