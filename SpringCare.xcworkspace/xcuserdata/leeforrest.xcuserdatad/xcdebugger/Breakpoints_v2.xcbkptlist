@@ -9,22 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SpringCare/view/TableViewCell/UserApplyAttentionTableCell.m"
-            timestampString = "451229696.534698"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "-SetContentData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
             timestampString = "451323442.517809"
             startingColumnNumber = "9223372036854775807"
@@ -73,7 +57,7 @@
                   symbolName = "-[PlaceOrderForProductVC submitWithloverId:]"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451329388.900808"
+                  timestampString = "451375827.928136"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "188"
@@ -87,7 +71,7 @@
                   symbolName = "__44-[PlaceOrderForProductVC submitWithloverId:]_block_invoke"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451329388.901119"
+                  timestampString = "451375827.92843"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "188"
