@@ -39,6 +39,7 @@
 
 #define ThemeImage(imageName)  [UIImage imageNamed:imageName]
 
+#define orderBackbroundImg ThemeImage(@"orderend")
 #define LcationInstance [LocationManagerObserver sharedInstance]
 
 #define CityID @"552cf514e4b02ec896e6cdbf"

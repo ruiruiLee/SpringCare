@@ -44,10 +44,8 @@
             NSArray *dataList = [MyOrderdataModel GetMyOrderList];
             dataOnDoingList = [dataList objectAtIndex:0];
             [dataOtherList addObjectsFromArray:[dataList objectAtIndex:1]];
-                     // else{
             [weakSelf.pullTableView reloadData];
             [weakSelf refreshTable];
-           // }
         }else{
             [weakSelf refreshTable];
         }
@@ -118,7 +116,16 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(EnumOrderAll == orderType){
-        if(section == 0){
+        
+        if(dataOnDoingList.count==0&&dataOtherList.count==0){
+            [self.pullTableView displayEmpityImageView:orderBackbroundImg];
+        }
+        else{
+            [self.pullTableView removeBackgroudImgView];
+            
+        }
+
+     if(section == 0){
             if([dataOnDoingList count] > 0)
                 return [dataOnDoingList count];
             else
@@ -129,14 +136,10 @@
     }
     else{
         if(dataListForCom.count==0){
-            UIImage *img = ThemeImage(@"orderend");
-            UIImageView *imageView= [[UIImageView alloc]initWithFrame:CGRectMake(pullTableView.frame.size.width/2-img.size.width/2, pullTableView.frame.size.height/2-img.size.height-64, img.size.width, img.size.height)];
-           // [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orderend"]];
-            imageView.image=img;
-            [self.pullTableView addSubview:imageView];
+            [self.pullTableView displayEmpityImageView:orderBackbroundImg];
         }
         else{
-            //[self.pullTableView setBackgroundView:nil];
+            [self.pullTableView removeBackgroudImgView];
 
         }
         return [dataListForCom count];

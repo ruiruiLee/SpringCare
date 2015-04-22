@@ -164,35 +164,9 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
 }
 
-#pragma mark- UIActionSheetDelegate
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        [Util openPhotoLibrary:self allowEdit:YES completion:^{
-        }];
-        
-    }else if (buttonIndex == 1)
-    {
-        [Util openCamera:self allowEdit:YES completion:^{}];
-    }
-    else{
-       
-    }
-}
 
-#pragma mark- UIImagePickerControllerDelegate
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],1.0);
-    UIImage *image= [UIImage imageWithData:imageData];;
-   [_btnphotoImg setImage:image forState:UIControlStateNormal];
-        //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-}
 
 #pragma UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -248,25 +222,6 @@
 {
    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
-//        case 0:{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"1"}];
-//        }
-//            break;
-//        case 1:{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"2"}];
-//        }
-//            break;
-//        case 2:{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"3"}];
-//        }
-//            break;
-//        case 3:{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_MENU_CHANGED object:nil userInfo:@{@"type" : @"4"}];
-//        }
-//            break;
-//        default:
-//            break;
-            
     case 0:
     {
         UserAttentionVC *vc = [[UserAttentionVC alloc] initWithNibName:nil bundle:nil];
@@ -298,8 +253,34 @@
 
 }
 
-#pragma ACTION
+#pragma mark- UIActionSheetDelegate
 
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [Util openPhotoLibrary:self allowEdit:YES completion:^{
+        }];
+        
+    }else if (buttonIndex == 1)
+    {
+        [Util openCamera:self allowEdit:YES completion:^{}];
+    }
+    else{
+        
+    }
+}
+#pragma mark- UIImagePickerControllerDelegate
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],1.0);
+    UIImage *image= [UIImage imageWithData:imageData];;
+    [_btnphotoImg setImage:image forState:UIControlStateNormal];
+    //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+#pragma ACTION
 - (void) btnPhotoPressed:(UIButton*)sender{
     UIActionSheet *ac = [[UIActionSheet alloc] initWithTitle:@""
                                                     delegate:(id)self

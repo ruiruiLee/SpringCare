@@ -21,7 +21,6 @@
     NSArray *_data;
     NSDate *selectDate;
     id  userData;
-    
     LCPickView *_sexPick;
     LCPickView *_agePick;
     
@@ -29,6 +28,7 @@
 }
 
 @property (nonatomic, assign) id<EditUserInfoVCDelegate> delegate;
+
 
 - (void) setContentArray:(NSArray*)dataArray andmodel:(id) model;
 

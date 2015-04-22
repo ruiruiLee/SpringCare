@@ -8,7 +8,9 @@
 
 #import "LCBaseVC.h"
 
-@interface UserAttentionVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
+
+
+@interface UserAttentionVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate>
 {
     UITableView *_tableview;
     
@@ -17,6 +19,6 @@
     NSMutableArray *_attentionData;
     NSMutableArray *_applyData;
 }
-
+@property (nonatomic, weak) UIImage *photoimg;
 
 @end

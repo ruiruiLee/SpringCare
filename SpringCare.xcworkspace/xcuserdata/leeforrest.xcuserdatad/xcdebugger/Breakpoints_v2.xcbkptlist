@@ -57,7 +57,7 @@
                   symbolName = "-[PlaceOrderForProductVC submitWithloverId:]"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451375827.928136"
+                  timestampString = "451384947.522586"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "188"
@@ -71,7 +71,7 @@
                   symbolName = "__44-[PlaceOrderForProductVC submitWithloverId:]_block_invoke"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451375827.92843"
+                  timestampString = "451384947.52282"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "188"
@@ -141,38 +141,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "85"
             endingLineNumber = "85"
-            landmarkName = "-NavRightButtonClickEvent:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/UserCenter/EditUserInfoVC.m"
-            timestampString = "451325837.57294"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "-NavRightButtonClickEvent:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/UserCenter/EditUserInfoVC.m"
-            timestampString = "451325947.368222"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
             landmarkName = "-NavRightButtonClickEvent:"
             landmarkType = "5">
          </BreakpointContent>

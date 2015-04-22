@@ -11,7 +11,8 @@
 
 @interface UserApplyAttentionTableCell : UITableViewCell
 {
-    UIImageView *_photoImage;
+   // UIImageView *_photoImage;
+     UIButton *_btnphotoImg;
     UILabel *_lbUserName;
     UILabel *_lbActionName;
     UIButton *_btnAccept;

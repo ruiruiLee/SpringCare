@@ -8,7 +8,9 @@
 
 #import "UserApplyAttentionTableCell.h"
 #import "define.h"
-#import "UIImageView+WebCache.h"
+//#import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+
 
 @implementation UserApplyAttentionTableCell
 @synthesize _btnAccept;
@@ -21,10 +23,13 @@
     {
         self.backgroundColor = [UIColor clearColor];
         
-        _photoImage = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_photoImage];
-        _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
-        _photoImage.layer.cornerRadius = 43;
+        _btnphotoImg = [[UIButton alloc] initWithFrame:CGRectZero];
+        _btnphotoImg.layer.masksToBounds = YES;
+        _btnphotoImg.layer.cornerRadius = (140) / 4;
+        [self.contentView addSubview:_btnphotoImg];
+        _btnphotoImg.translatesAutoresizingMaskIntoConstraints = NO;
+        _btnphotoImg.userInteractionEnabled=NO;
+        
         
         _lbUserName = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbUserName];
@@ -53,6 +58,7 @@
         _imgExplaction.translatesAutoresizingMaskIntoConstraints = NO;
         _imgExplaction.image = [UIImage imageNamed:@"usercenterapplystatus"];
         
+        
         _lbExplaction = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbExplaction];
         _lbExplaction.translatesAutoresizingMaskIntoConstraints = NO;
@@ -72,17 +78,17 @@
         _line.translatesAutoresizingMaskIntoConstraints = NO;
         _line.backgroundColor = SeparatorLineColor;
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbUserName, _lbActionName, _btnAccept, _lbExplaction, _imgExplaction, _line);
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(86)]-10-[_lbUserName]-10-[_lbActionName]->=10-[_btnAccept(59)]-22.5-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_photoImage(86)]-10-[_imgExplaction(12)]-1-[_lbExplaction]->=10-[_btnAccept(59)]->=0-|" options:0 metrics:nil views:views]];
+        NSDictionary *views = NSDictionaryOfVariableBindings(_btnphotoImg, _lbUserName, _lbActionName, _btnAccept, _lbExplaction, _imgExplaction, _line);
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(86)]-10-[_lbUserName]-10-[_lbActionName]->=10-[_btnAccept(59)]-22.5-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnphotoImg(86)]-10-[_imgExplaction(12)]-1-[_lbExplaction]->=10-[_btnAccept(59)]->=0-|" options:0 metrics:nil views:views]];
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_photoImage(86)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnphotoImg(86)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbUserName(20)]->=0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_photoImage(86)]->=15-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_btnphotoImg(86)]->=15-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbActionName(20)]->=0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnAccept(32)]->=0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImage attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnAccept attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbActionName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbUserName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbExplaction attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_imgExplaction attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
@@ -102,12 +108,11 @@
     // Configure the view for the selected state
 }
 
+
 - (void) SetContentData:(UserRequestAcctionModel*) data
 {
     requestModel = data;
-    [_photoImage sd_setImageWithURL:[NSURL URLWithString:data.photoUrl] placeholderImage:[UIImage imageNamed:@"placeholderimage"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-    }];
+    [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:data.photoUrl] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
     
     if(!data.isAccept){
         [_btnAccept setTitle:@"接受" forState:UIControlStateNormal];
@@ -115,6 +120,7 @@
     }else{
         [_btnAccept setTitle:@"已接受" forState:UIControlStateNormal];
         _btnAccept.userInteractionEnabled = NO;
+         _btnAccept.backgroundColor = Disabled_Color;
     }
     _lbUserName.text = data.username;
 }

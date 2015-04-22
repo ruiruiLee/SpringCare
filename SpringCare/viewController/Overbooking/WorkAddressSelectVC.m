@@ -101,7 +101,7 @@
     [UserAttentionModel loadLoverList:^(int code) {
         if(code == 1){
             _dataList = [UserAttentionModel GetMyAttentionArray];
-            [_tableview reloadData];
+          [_tableview reloadData];
         }
     }];
 }

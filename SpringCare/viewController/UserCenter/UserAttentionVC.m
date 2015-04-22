@@ -126,6 +126,19 @@
     return mArray;
 }
 
+#pragma mark- UIImagePickerControllerDelegate
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],1.0);
+   _photoimg= [UIImage imageWithData:imageData];;
+  
+    //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
 #pragma UITableViewDataSource
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -217,7 +230,7 @@ if (_applyData.count>0) {
             cell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
             cell.selectedBackgroundView = [[UIView alloc] initWithFrame:self.attentionTableCell.frame];
             cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
-
+            cell.parentController= self;
         }
         UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
         [cell SetContentData:model];
@@ -317,9 +330,12 @@ if (_applyData.count>0) {
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_tableview deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSArray *mArray = [self getContentArray];
+     [_tableview deselectRowAtIndexPath:indexPath animated:YES];
+    if (_applyData.count>0 && indexPath.section==0) {
+        return;
+    }
+    else{
+       NSArray *mArray = [self getContentArray];
     
     EditUserInfoVC *vc = [[EditUserInfoVC alloc] initWithNibName:nil bundle:nil];
     [vc setContentArray:mArray andmodel:[_attentionData objectAtIndex:indexPath.row]];//新增时为空
@@ -327,6 +343,7 @@ if (_applyData.count>0) {
     vc.NavTitle = @"编辑资料";
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void) doApplyAttention:(UIButton*) sender
@@ -357,14 +374,14 @@ if (_applyData.count>0) {
         }
     }];
 }
-
 - (void) NotifyReloadData
 {
     [UserAttentionModel loadLoverList:^(int code) {
         if(code == 1){
             _attentionData = [UserAttentionModel GetMyAttentionArray];
             _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
-            [_tableview reloadData];
+             [_tableview reloadData];
+          
         }
     }];
 }
