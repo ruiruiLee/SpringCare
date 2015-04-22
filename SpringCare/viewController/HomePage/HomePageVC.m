@@ -131,7 +131,9 @@
 - (void) initWithSubviews
 {
     //广告
-    scrollView = [[AdScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 187 + 64)];
+    float scale = ScreenWidth/375.0;
+    
+    scrollView = [[AdScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale)];
 //    AdDataModel * dataModel = [AdDataModel adDataModelWithImageNameAndAdTitleArray];
     //如果滚动视图的父视图由导航控制器控制,必须要设置该属性(ps,猜测这是为了正常显示,导航控制器内部设置了UIEdgeInsetsMake(64, 0, 0, 0))
 //    scrollView.imageNameArray = dataModel.imageNameArray;
@@ -234,7 +236,7 @@
 
 - (void) InitConstraintsForiPhone4S:(NSDictionary*) views
 {
-    _banner.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 174);
+//    _banner.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 174);
     CGFloat oh = _banner.frame.size.height;
     NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(20)]->=10-|", oh + 16 ];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
@@ -262,10 +264,10 @@
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(60)]-0-[line(1.2)]-0-[btnCommitment(60)]->=0-|" options:0 metrics:nil views:views]];
     
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(35)]-5-[lbPhone]-5-[imgIden(25)]-15-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(35)]-5-[lbPhone]-5-[imgIden(25)]-11-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(32.5)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(32.5)]->=0-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(32.5)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(14)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:lbPhone attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgIden attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -273,40 +275,46 @@
     [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:line attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
 }
 
+
 - (void) InitConstraintsForiPhone5:(NSDictionary*) views
 {
+    btnIntro.titleLabel.font = _FONT(12);
+    btnCommitment.titleLabel.font = _FONT(12);
+    lbPhone.font = _FONT(21);
+    btnRing.layer.cornerRadius = 8;
+    
     CGFloat oh = _banner.frame.size.height;
     
-    NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(20)]->=10-|", oh + 16];
+    NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(17)]->=10-|", oh + 16];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
     
-    NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(9)]->=10-|", oh + 22];
+    NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(7.5)]->=10-|", oh + 22];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:lineHformat options:0 metrics:nil views:views]];
     
-    NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(20)]->=10-|", oh + 16];
+    NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(17)]->=10-|", oh + 16];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:commentHformat options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(20)]-39-[btnHospital(114)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(20)]-39-[btnHome(114)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(114)]-32-[btnHome(114)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(114)]-42-[btnRing(50)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(17)]-39-[btnHospital(98)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(17)]-39-[btnHome(98)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(98)]-32-[btnHome(98)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(98)]-42-[btnRing(46)]->=0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnRing(220)]->=0-|" options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(60)]-0-[line(1.2)]-0-[btnCommitment(60)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(61)]-0-[line(1.2)]-0-[btnCommitment(61)]->=0-|" options:0 metrics:nil views:views]];
     
     [btnIntro addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[underLine]-9-|" options:0 metrics:nil views:views]];
     [btnIntro addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLine(0.7)]-2-|" options:0 metrics:nil views:views]];
     [btnCommitment addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-9-[underLineCommit]-9-|" options:0 metrics:nil views:views]];
     [btnCommitment addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLineCommit(0.7)]-2-|" options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnHospital attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-72]];
+    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnHospital attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-62]];
     
     [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnRing attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(35)]-5-[lbPhone]-5-[imgIden(25)]-15-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(32.5)]->=0-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(32.5)]->=0-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(32.5)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(30)]-5-[lbPhone]-5-[imgIden(11)]-15-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(30)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(30)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(14)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:lbPhone attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgIden attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -368,38 +376,41 @@
     
     btnIntro.titleLabel.font = _FONT(15);
     btnCommitment.titleLabel.font = _FONT(15);
-    lbPhone.font = _FONT(23);
+    lbPhone.font = _FONT(25);
+    btnRing.layer.cornerRadius = 10;
     
-    NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(30)]->=10-|", oh + 26];
+    NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(26)]->=10-|", oh + 26 - 7 + 1.9];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
     
-    NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(14)]->=10-|", oh + 35];
+    NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(12)]->=10-|", oh + 33 - 7 + 1.9];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:lineHformat options:0 metrics:nil views:views]];
     
-    NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(30)]->=10-|", oh + 26];
+    NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(26)]->=10-|", oh + 26 -7 + 1.9];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:commentHformat options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(30)]-69-[btnHospital(144)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(30)]-69-[btnHome(144)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(144)]-42-[btnHome(144)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(144)]-72-[btnRing(64)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnRing(280)]->=0-|" options:0 metrics:nil views:views]];
+    NSString *hospitalHFormat = [NSString stringWithFormat:@"V:|-%f-[btnHospital(149)]->=0-|", oh + 87 + 8.7];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:hospitalHFormat options:0 metrics:nil views:views]];
+    NSString *homeHFormat = [NSString stringWithFormat:@"V:|-%f-[btnHome(149)]->=0-|", oh + 87 + 8.7];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:homeHFormat options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(149)]-36-[btnHome(149)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(149)]-52-[btnRing]-98-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-59.5-[btnRing]-59.5-|" options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(80)]-0-[line(1.2)]-0-[btnCommitment(80)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(77)]-0-[line(1.2)]-0-[btnCommitment(77)]->=0-|" options:0 metrics:nil views:views]];
     
     [btnIntro addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[underLine]-9-|" options:0 metrics:nil views:views]];
-    [btnIntro addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLine(0.7)]-2-|" options:0 metrics:nil views:views]];
+    [btnIntro addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLine(0.8)]-2-|" options:0 metrics:nil views:views]];
     [btnCommitment addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-9-[underLineCommit]-9-|" options:0 metrics:nil views:views]];
-    [btnCommitment addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLineCommit(0.7)]-2-|" options:0 metrics:nil views:views]];
+    [btnCommitment addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[underLineCommit(0.8)]-2-|" options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnHospital attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-93]];
+    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnHospital attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:-83]];
     
     [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnRing attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[imgRing(35)]-5-[lbPhone]-5-[imgIden(25)]-25-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(32.5)]->=0-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(32.5)]->=0-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(32.5)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[imgRing(45)]-5-[lbPhone]-5-[imgIden(11)]-22-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(45)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(45)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(14)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:lbPhone attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgIden attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
