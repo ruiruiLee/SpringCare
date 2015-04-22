@@ -45,10 +45,16 @@
 {
     [super viewDidLoad];
     
+    
+    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeySend;
+    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
+    
     self.NavigationBar.Title = @"快速登录";
     [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     [self initSubViews];
     [_tfPhoneNum becomeFirstResponder];
+    
 }
 
 - (void) initSubViews

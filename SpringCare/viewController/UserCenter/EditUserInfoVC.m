@@ -12,8 +12,11 @@
 #import "UserModel.h"
 #import "LCNetWorkBase.h"
 #import "UserAttentionModel.h"
+#import "IQKeyboardReturnKeyHandler.h"
 
 @interface EditUserInfoVC ()
+
+@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
 
 @end
 
@@ -33,6 +36,10 @@
     self.NavigationBar.btnRight.titleLabel.font = _FONT(16);
     
     [self initSubViews];
+    
+    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyNext;
+    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
 }
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender

@@ -8,10 +8,12 @@
 
 #import "MyEvaluateListVC.h"
 #import "EvaluateListCell.h"
+#import "IQKeyboardReturnKeyHandler.h"
 
 @interface MyEvaluateListVC ()
 
 @property (nonatomic, strong) EvaluateListCell *prototypeCell;
+@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
 
 @end
 
@@ -24,6 +26,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.NavigationBar.Title = @"我的评价";
+    
+    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeySend;
+    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
+    
     [self initSubviews];
 }
 

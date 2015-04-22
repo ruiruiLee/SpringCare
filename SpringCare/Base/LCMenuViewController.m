@@ -60,12 +60,6 @@
     }
 }
 
-//
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//}
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];
@@ -83,7 +77,6 @@
     _imgViewBg.translatesAutoresizingMaskIntoConstraints = NO;
     
     _headerView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _headerView.frame = CGRectMake(0, 0, ScreenWidth, 240);
     _headerView.userInteractionEnabled = YES;
     
     
@@ -105,14 +98,14 @@
     _btnUserName.translatesAutoresizingMaskIntoConstraints = NO;
     _btnUserName.titleLabel.font = _FONT(18);
     [_btnUserName setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _btnUserName.imageEdgeInsets = UIEdgeInsetsMake(6, 136, 8, 0);
+    _btnUserName.imageEdgeInsets = UIEdgeInsetsMake(6, ScreenWidth - (ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)) - 20 - 93 - 5 - 14, 8, 0);
     _btnUserName.titleEdgeInsets = UIEdgeInsetsMake(7, 0, 7, 14);
     [_btnUserName setImage:[UIImage imageNamed:@"usercentershut"] forState:UIControlStateNormal];
     _btnUserName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_btnUserName addTarget:self action:@selector(doEditUserInfo:) forControlEvents:UIControlEventTouchUpInside];
  
     NSDictionary *headerViews = NSDictionaryOfVariableBindings(_photoBg, _btnphotoImg, _btnUserName);
-    NSString *format = [NSString stringWithFormat:@"H:|-20-[_photoBg(93)]->=5-[_btnUserName(148)]-%f-|", ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+    NSString *format = [NSString stringWithFormat:@"H:|-20-[_photoBg(93)]-5-[_btnUserName(%f)]-%f-|", ScreenWidth - (ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)) - 20 - 93 - 5, ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
     unflodConstraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:headerViews];
     [_headerView addConstraints:unflodConstraints];
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
@@ -129,8 +122,6 @@
     tableview.backgroundColor = [UIColor clearColor];
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableview.scrollEnabled = NO;
-    
-    tableview.tableHeaderView = _headerView;
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 120)];
     tableview.tableFooterView = footerView;
@@ -158,15 +149,48 @@
     
     
     NSDictionary *footViews = NSDictionaryOfVariableBindings(_imgLogo, _btnHotLine);
-    NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(110)]-24-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(39)]-61.5-|" options:0 metrics:nil views:footViews]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
+    
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    
+    if(type == EnumValueTypeiPhone4S)
+    {
+        [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(34)]-26.5-|" options:0 metrics:nil views:footViews]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(34)]-26.5-|" options:0 metrics:nil views:footViews]];
+        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 170);
+        NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(96)]-4-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
+        _btnHotLine.titleLabel.font = _FONT(13);
+    }
+    else if (type == EnumValueTypeiPhone5)
+    {
+        [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(34)]-41.5-|" options:0 metrics:nil views:footViews]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(34)]-41.5-|" options:0 metrics:nil views:footViews]];
+        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 220);
+        NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(96)]-4-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
+        _btnHotLine.titleLabel.font = _FONT(13);
+    }
+    else if(type == EnumValueTypeiPhone6){
+        [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(39)]-61.5-|" options:0 metrics:nil views:footViews]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
+        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 240);
+        NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(110)]-24-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
+    }
+    else if (type == EnumValueTypeiPhone6P){
+        [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(39)]-61.5-|" options:0 metrics:nil views:footViews]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
+        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 240);
+        NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(110)]-24-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
+    }
+    
+    tableview.tableHeaderView = _headerView;
 }
-
-
-
-
 
 #pragma UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -176,7 +200,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    
+    if(type == EnumValueTypeiPhone4S)
+        return 60;
+    else if (type == EnumValueTypeiPhone5)
+        return 60;
+    else
+        return 70;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

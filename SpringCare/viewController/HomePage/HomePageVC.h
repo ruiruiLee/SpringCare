@@ -35,6 +35,8 @@
     NSString *promiseUrl;
     
     AdScrollView * scrollView;
+    
+    float oldY;
 }
 
 @property(nonatomic,strong) NSArray *cityArr;

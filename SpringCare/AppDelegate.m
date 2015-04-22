@@ -16,6 +16,8 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 
+#import "IQKeyboardManager.h"
+
 
 //#define AVOSCloudAppID  @"26x0xztg3ypms8o4ou42lxgk3gg6hl2rm6z9illft1pkoigh"
 //#define AVOSCloudAppKey @"0xjxw6o8kk5jtkoqfi8mbl17fxoymrk29fo7b1u6ankirw31"
@@ -43,6 +45,12 @@
     
     /* 重要! 注册子类 App生命周期内 只需要执行一次即可*/
 //    [Student registerSubclass];
+    
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES;
+    manager.shouldResignOnTouchOutside = YES;
+    manager.shouldToolbarUsesTextFieldTintColor = NO;
+    manager.enableAutoToolbar = NO;
     
 #if !TARGET_IPHONE_SIMULATOR
     [application registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge |

@@ -11,7 +11,11 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 
+#import "IQKeyboardReturnKeyHandler.h"
+
 @interface FeedBackVC ()
+
+@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
 
 @end
 
@@ -22,6 +26,11 @@
     // Do any additional setup after loading the view.
     self.NavigationBar.Title = @"意见反馈";
     self.ContentView.backgroundColor = TableBackGroundColor;
+    
+    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeySend;
+    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
+    
     [self initSubViews];
 }
 
@@ -40,6 +49,7 @@
     [self.ContentView addSubview:_tvContent];
     _tvContent.translatesAutoresizingMaskIntoConstraints = NO;
     _tvContent.font = _FONT(14);
+    _tvContent.returnKeyType = UIReturnKeySend;
     
     _btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:_btnSubmit];
@@ -64,6 +74,7 @@
 
 - (void) doBtnFeedBack:(UIButton *)sender
 {
+    [_tvContent resignFirstResponder];
     NSString *content = _tvContent.text;
     if(content == nil || [content length] == 0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入内容，谢谢你对我们的支持！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -82,6 +93,14 @@
     }];
 }
 
-
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [self doBtnFeedBack:_btnSubmit];
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

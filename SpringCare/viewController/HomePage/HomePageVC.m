@@ -128,12 +128,22 @@
     }];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView
+{
+    [aScrollView setContentOffset: CGPointMake(aScrollView.contentOffset.x, oldY)];
+}
+
 - (void) initWithSubviews
 {
     //广告
     float scale = ScreenWidth/375.0;
     
-    scrollView = [[AdScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale)];
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    
+    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale);
+    if(type == EnumValueTypeiPhone4S)
+        rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale - 40);
+    scrollView = [[AdScrollView alloc]initWithFrame:rect];
 //    AdDataModel * dataModel = [AdDataModel adDataModelWithImageNameAndAdTitleArray];
     //如果滚动视图的父视图由导航控制器控制,必须要设置该属性(ps,猜测这是为了正常显示,导航控制器内部设置了UIEdgeInsetsMake(64, 0, 0, 0))
 //    scrollView.imageNameArray = dataModel.imageNameArray;
@@ -217,7 +227,6 @@
     
     NSDictionary *views = NSDictionaryOfVariableBindings(btnIntro, line, btnCommitment, btnHospital, btnHome, btnRing, imgRing, lbPhone, imgIden, underLine, underLineCommit);
     
-    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
     if(type == EnumValueTypeiPhone4S){
         [self InitConstraintsForiPhone4S:views];
     }
@@ -236,7 +245,6 @@
 
 - (void) InitConstraintsForiPhone4S:(NSDictionary*) views
 {
-//    _banner.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 174);
     CGFloat oh = _banner.frame.size.height;
     NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(20)]->=10-|", oh + 16 ];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
@@ -264,7 +272,7 @@
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(60)]-0-[line(1.2)]-0-[btnCommitment(60)]->=0-|" options:0 metrics:nil views:views]];
     
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(35)]-5-[lbPhone]-5-[imgIden(25)]-11-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(35)]-5-[lbPhone]-5-[imgIden(11)]-15-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(32.5)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(32.5)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(14)]->=0-|" options:0 metrics:nil views:views]];

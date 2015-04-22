@@ -20,4 +20,9 @@
 
 - (void) NavRightButtonClickEvent:(UIButton *)sender;
 
+//监控键盘事件
+- (void) keyboardWillShow:(NSNotification *) notify;
+
+- (void) keyboardWillHide:(NSNotification *)notify;
+
 @end

@@ -51,14 +51,24 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"viewWillAppear");
     [super viewWillAppear:animated];
     [AVAnalytics beginLogPageView:_NavigationBar.Title];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [AVAnalytics endLogPageView:_NavigationBar.Title ];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    NSLog(@"viewDidDisappear");
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -87,6 +97,16 @@
     if(self.NavigationBar != nil){
         self.NavigationBar.Title = title;
     }
+}
+
+- (void) keyboardWillShow:(NSNotification *) notify
+{
+    
+}
+
+- (void) keyboardWillHide:(NSNotification *)notify
+{
+    
 }
 
 @end
