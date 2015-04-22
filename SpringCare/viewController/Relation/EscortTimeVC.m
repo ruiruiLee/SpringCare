@@ -11,6 +11,7 @@
 #import "UIButton+WebCache.h"
 #import "UserRequestAcctionModel.h"
 #import "LoginVC.h"
+#import "NurseListInfoModel.h"
 
 @interface EscortTimeVC ()
 {
@@ -24,6 +25,7 @@
 
 @implementation EscortTimeVC
 @synthesize prototypeCell;
+@synthesize tableView = tableView;
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -31,13 +33,59 @@
     {
         [UserAttentionModel loadLoverList:^(int code) {
         }];
-        
-        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code) {
-            if(code)
-            {
-                [tableView reloadData];
+        [self LoaddefaultLoverInfo];
+    }
+}
+
+- (void) LoaddefaultLoverInfo
+{
+    UserModel *usermodel = [UserModel sharedUserInfo];
+    if(!usermodel.isLogin)
+        return;
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    [parmas setObject:usermodel.userId forKey:@"registerId"];
+    __weak EscortTimeVC *weakSelf = self;
+    [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
+        if(code){
+            if(content == nil){
+                [weakSelf CheckDefaultImgViewShow];
             }
-        }];
+            if([content isKindOfClass:[NSDictionary class]]){
+                if([content objectForKey:@"code"] == nil){
+                    if([content objectForKey:@"defaultLoverId"] != nil){
+                        UserAttentionModel *model = [[UserAttentionModel alloc] init];
+                        model.userid = [content objectForKey:@"defaultLoverId"];
+                        [weakSelf ViewSelectWithModel:model];
+                        
+                        if([content objectForKey:@"id"] != nil){
+                            NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
+                            [weakSelf SetHeaderInfoWithModel:model];
+                        }else {
+                            [weakSelf SetHeaderInfoWithModel:nil];
+                        }
+                    }
+                }
+            }
+        }
+    }];
+}
+
+- (void) SetHeaderInfoWithModel:(NurseListInfoModel *) nurse
+{
+    if(nurse){
+        _lbName.text = nurse.name;
+        _lbName.hidden = NO;
+        _btnInfo.hidden = NO;
+        NSString *info = [NSString stringWithFormat:@"%@  %ld岁 护龄%@年", nurse.birthPlace, nurse.age, nurse.careAge];
+        [_btnInfo setTitle:info forState:UIControlStateNormal];
+        NSString *imgPath = [Util headerImagePathWith:[Util GetSexByName:nurse.sex]];
+        [_photoImgView sd_setImageWithURL:[NSURL URLWithString:nurse.headerImage] placeholderImage:ThemeImage(imgPath)];
+    }else{
+        _lbName.text = @"";
+        _lbName.hidden = YES;
+        [_btnInfo setTitle:@"" forState:UIControlStateNormal];
+        _btnInfo.hidden = YES;
+        
     }
 }
 
@@ -45,22 +93,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UserModel *usermodel = [UserModel sharedUserInfo];
-    [usermodel addObserver:self forKeyPath:@"userId" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    if(usermodel.userId != nil){
-        NSArray *data = [UserAttentionModel GetMyAttentionArray];
-        if([data count] == 0){
-            [UserAttentionModel loadLoverList:^(int code) {
-            }];
-        }
-        
-        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code) {
-            if(code)
-            {
-                [tableView reloadData];
-            }
-        }];
-    }
+    pages = 0;
+    _dataList = [[NSMutableArray alloc] init];
     
     self.lbTitle.text = @"陪护时光";
     self.NavigationBar.alpha = 0.7f;
@@ -77,14 +111,12 @@
     _photoImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_photoImgView];
     _photoImgView.translatesAutoresizingMaskIntoConstraints = NO;
-    [_photoImgView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
     _lbName.font = _FONT_B(17);
     _lbName.textAlignment = NSTextAlignmentRight;
-    _lbName.text = @"王莹莹";
     _lbName.textColor = _COLOR(0xff, 0xff, 0xff);
     
     _btnInfo = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -93,7 +125,6 @@
     _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
     _btnInfo.titleLabel.font = _FONT_B(15);
     [_btnInfo setTitleColor:_COLOR(0xff, 0xff, 0xff) forState:UIControlStateNormal];
-    [_btnInfo setTitle:@"四川人  38岁 护龄12年" forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(headerbg, _photoImgView, _lbName, _btnInfo);
@@ -105,18 +136,27 @@
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnInfo]-5-[_photoImgView(82)]-16.5-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbName(18)]-2-[_btnInfo(21)]-28-|" options:0 metrics:nil views:views]];
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+    tableView = [[PullTableView alloc] initWithFrame:CGRectZero];
     tableView.delegate = self;
     tableView.dataSource = self;
     [self.view insertSubview:tableView belowSubview:self.NavigationBar];
     tableView.translatesAutoresizingMaskIntoConstraints = NO;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.pullDelegate = self;
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-49-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
     
     tableView.tableHeaderView = headerView;
     tableView.tableFooterView = [[UIView alloc] init];
+    
+    _defaultImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [self.view insertSubview:_defaultImgView belowSubview:self.NavigationBar];
+    _defaultImgView.translatesAutoresizingMaskIntoConstraints = NO;
+    _defaultImgView.image = ThemeImage(@"img_index_03bg");
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_defaultImgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_defaultImgView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_defaultImgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_defaultImgView)]];
+    _defaultImgView.hidden = YES;
     
     _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, SCREEN_HEIGHT)];
     [[UIApplication sharedApplication].keyWindow addSubview:_bgView];
@@ -130,6 +170,38 @@
     _selectView = [[AttentionSelectView alloc] initWithFrame:CGRectMake(ScreenWidth, 64, ScreenWidth/2, SCREEN_HEIGHT - 64)];
     [[UIApplication sharedApplication].keyWindow addSubview:_selectView];
     _selectView.delegate = self;
+    
+    UserModel *usermodel = [UserModel sharedUserInfo];
+    if(!usermodel.isLogin){
+        _defaultImgView.hidden = NO;
+    }else{
+        _defaultImgView.hidden = YES;
+    }
+    [usermodel addObserver:self forKeyPath:@"userId" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    if(usermodel.userId != nil){
+        NSArray *data = [UserAttentionModel GetMyAttentionArray];
+        if([data count] == 0){
+            [UserAttentionModel loadLoverList:^(int code) {
+            }];
+        }
+        
+        [self LoaddefaultLoverInfo];
+    }
+}
+
+- (void) CheckDefaultImgViewShow
+{
+    UserModel *usermodel = [UserModel sharedUserInfo];
+    if(!usermodel.isLogin){
+        _defaultImgView.hidden = NO;
+    }else{
+        _defaultImgView.hidden = YES;
+    }
+    if([[EscortTimeDataModel GetEscortTimeData] count] == 0){
+        _defaultImgView.hidden = NO;
+    }else
+        _defaultImgView.hidden = YES;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,13 +216,12 @@
 
 - (NSInteger) tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[EscortTimeDataModel GetEscortTimeData] count];
+    return [_dataList count];
 }
 
 - (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *dataArray = [EscortTimeDataModel GetEscortTimeData];
-    EscortTimeDataModel *data = [dataArray objectAtIndex:indexPath.row];
+    EscortTimeDataModel *data = [_dataList objectAtIndex:indexPath.row];
     
     if(prototypeCell == nil){
         __weak EscortTimeVC *bself = self;
@@ -179,11 +250,10 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    NSArray *dataArray = [EscortTimeDataModel GetEscortTimeData];
-    EscortTimeDataModel *data = [dataArray objectAtIndex:indexPath.row];
+    EscortTimeDataModel *data = [_dataList objectAtIndex:indexPath.row];
     [cell setContentData:data];
     if(indexPath.row > 0){
-        EscortTimeDataModel *data1 = [dataArray objectAtIndex:indexPath.row - 1];
+        EscortTimeDataModel *data1 = [_dataList objectAtIndex:indexPath.row - 1];
         if([Util isOneDay:[Util convertDateFromDateString:data.createAt] end:[Util convertDateFromDateString:data1.createAt]]){
             cell._lbToday.hidden = YES;
         }else{
@@ -307,13 +377,23 @@
 - (void) ViewSelectWithModel:(UserAttentionModel *)usermodel
 {
     [self SelectWiewDismiss];
+    
+    self.tableView.pullTableIsRefreshing = YES;
+    
     _currentAttentionId = usermodel.userid;
     [self.btnRight sd_setImageWithURL:[NSURL URLWithString:usermodel.photoUrl] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
     
-    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code) {
+    __weak EscortTimeVC *weakSelf = self;
+    __weak PullTableView *weakTableView = tableView;
+    __weak NSMutableArray *weakDataList = _dataList;
+    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code, id content) {
+        [weakSelf refreshTable];
         if(code)
         {
-            [tableView reloadData];
+            [weakDataList removeAllObjects];
+            [weakDataList addObjectsFromArray:content];
+            [weakSelf CheckDefaultImgViewShow];
+            [weakTableView reloadData];
         }
     }];
 }
@@ -321,6 +401,50 @@
 - (void) ViewShutDown
 {
     [self SelectWiewDismiss];
+}
+
+#pragma mark - PullTableViewDelegate
+
+- (void)pullTableViewDidTriggerRefresh:(PullTableView *)_pullTableView
+{
+    pages = 0;
+    
+    UserAttentionModel *model = [[UserAttentionModel alloc] init];
+    model.userid = _currentAttentionId;
+    [self ViewSelectWithModel:model];
+}
+
+- (void)pullTableViewDidTriggerLoadMore:(PullTableView *)_pullTableView
+{
+    pages ++;
+    
+    __weak EscortTimeVC *weakSelf = self;
+    __weak PullTableView *weakTableView = tableView;
+    __weak NSMutableArray *weakDataList = _dataList;
+    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:pages block:^(int code, id content) {
+        [weakSelf loadMoreDataToTable];
+        if(code)
+        {
+            [weakDataList addObjectsFromArray:content];
+            [weakSelf CheckDefaultImgViewShow];
+            [weakTableView reloadData];
+        }
+    }];
+}
+
+#pragma mark - Refresh and load more methods
+
+- (void) refreshTable
+{
+    NSLog(@"refreshTable");
+    self.tableView.pullLastRefreshDate = [NSDate date];
+    self.tableView.pullTableIsRefreshing = NO;
+}
+
+- (void) loadMoreDataToTable
+{
+    NSLog(@"loadMoreDataToTable");
+    self.tableView.pullTableIsLoadingMore = NO;
 }
 
 @end

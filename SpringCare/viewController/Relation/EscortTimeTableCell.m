@@ -295,6 +295,9 @@
         [format appendString:string];
         [format appendString:@"-3-"];
         [_imageContent AddImages:imgPicArray];
+        _imageContent.hidden = NO;
+    }else{
+        _imageContent.hidden = YES;
     }
     
     [format appendString:@"[_replyContent]-10-[_line(1)]-0-|"];
