@@ -66,6 +66,17 @@
 
 @end
 
+
+
+
+@class OrderDetailsVC;
+
+@protocol OrderDetailsVCDelegate <NSObject>
+
+- (void) NotifyOrderCancelAndRefreshTableView:(OrderDetailsVC *) orderDetailVC;
+
+@end
+
 @interface OrderDetailsVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, OrderPriceCellDelegate>
 {
     UITableView *_tableview;
@@ -80,6 +91,7 @@
 
 @property (nonatomic, strong)MyOrderdataModel *_orderModel;
 @property (nonatomic, strong)OrderStepView *_stepView;
+@property (nonatomic, assign) id<OrderDetailsVCDelegate> delegate;
 
 - (id) initWithOrderModel:(MyOrderdataModel *) model;
 

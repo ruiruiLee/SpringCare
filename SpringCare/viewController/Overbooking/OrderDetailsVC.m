@@ -389,6 +389,7 @@
 @implementation OrderDetailsVC
 @synthesize _orderModel = _orderModel;
 @synthesize _stepView = _stepView;
+@synthesize delegate;
 
 - (id) initWithOrderModel:(MyOrderdataModel *) model
 {
@@ -641,6 +642,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [self.navigationController popViewControllerAnimated:YES];
+    if(delegate && [delegate respondsToSelector:@selector(NotifyOrderCancelAndRefreshTableView:)]){
+        [delegate NotifyOrderCancelAndRefreshTableView:self];
+    }
 }
 
 @end

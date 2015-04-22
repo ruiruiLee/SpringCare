@@ -15,7 +15,7 @@
 #import "PayForOrderVC.h"
 #import "EvaluateOrderVC.h"
 
-@interface MyOrderListVC ()<MyOrderOnDoingTableCellDelegate, MyOrderTableCellDelegate>
+@interface MyOrderListVC ()<MyOrderOnDoingTableCellDelegate, MyOrderTableCellDelegate, OrderDetailsVCDelegate>
 
 @end
 
@@ -201,6 +201,7 @@
 //    [model addObserver:self forKeyPath:@"orderStatus" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     OrderDetailsVC *vc = [[OrderDetailsVC alloc] initWithOrderModel:model];
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -256,17 +257,19 @@
 {
     pages = 0;
     if(EnumOrderPrepareForAssessment == orderType){
+        __weak MyOrderListVC *weakSelf = self;
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
                 dataListForCom = [MyOrderdataModel GetNoAssessmentOrderList];
                 
-                [pullTableView reloadData];
-                [self refreshTable];
+                [weakSelf.pullTableView reloadData];
+                [weakSelf refreshTable];
             }else{
-                [self refreshTable];
+                [weakSelf refreshTable];
             }
         }];
     }else{
+        __weak MyOrderListVC *weakSelf = self;
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
                 NSArray *dataList = [MyOrderdataModel GetMyOrderList];
@@ -274,10 +277,10 @@
                 dataOnDoingList = [dataList objectAtIndex:0];
                 [dataOtherList removeAllObjects];
                 [dataOtherList addObjectsFromArray:[dataList objectAtIndex:1]];
-                [pullTableView reloadData];
-                [self refreshTable];
+                [weakSelf.pullTableView reloadData];
+                [weakSelf refreshTable];
             }else{
-                [self refreshTable];
+                [weakSelf refreshTable];
             }
         }];
     }
@@ -328,6 +331,7 @@
         //待评价
         orderType = EnumOrderPrepareForAssessment;
         if(dataListForCom == nil){
+            self.pullTableView.pullTableIsRefreshing = YES;
             [self pullTableViewDidTriggerRefresh:nil];
         }
     }
@@ -359,6 +363,14 @@
 {
     EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:order];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma delegate
+
+- (void) NotifyOrderCancelAndRefreshTableView:(OrderDetailsVC *)orderDetailVC
+{
+    self.pullTableView.pullTableIsRefreshing = YES;
+    [self pullTableViewDidTriggerRefresh:nil];
 }
 
 @end
