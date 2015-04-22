@@ -56,6 +56,6 @@
 
 + (NSArray*) GetEscortTimeData;
 
-+ (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(block) block;
++ (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(CompletionBlock) block;
 
 @end

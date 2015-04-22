@@ -112,7 +112,7 @@ static NSInteger totalCount = 0;
     return model;
 }
 
-+ (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(block) block
++ (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(CompletionBlock) block
 {
     if(num == 0){
         [EscortTimeDataModel GetEscortTimeData];
@@ -135,6 +135,7 @@ static NSInteger totalCount = 0;
     
     [LCNetWorkBase postWithMethod:@"api/careTime/list" Params:mdic Completion:^(int code, id content) {
         if(code){
+            NSMutableArray *result = [[NSMutableArray alloc] init];
             if([content isKindOfClass:[NSDictionary class]]){
                 totalCount = [[content objectForKey:@"total"] integerValue];
                 NSArray *array = [content objectForKey:@"rows"];
@@ -142,10 +143,11 @@ static NSInteger totalCount = 0;
                     NSDictionary *dic = [array objectAtIndex:i];
                     EscortTimeDataModel *model = [EscortTimeDataModel ObjectFromDictionary:dic];
                     [escortTimeData addObject:model];
+                    [result addObject:model];
                 }
             }
             if(block)
-                block(1);
+                block(1, result);
         }
     }];
 }

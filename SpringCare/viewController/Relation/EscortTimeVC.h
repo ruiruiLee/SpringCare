@@ -12,10 +12,11 @@
 #import "MainBaseVC.h"
 #import "AttentionSelectView.h"
 #import "feedbackView.h"
+#import "PullTableView.h"
 
-@interface EscortTimeVC : MainBaseVC<UITableViewDataSource, UITableViewDelegate, EscortTimeTableCellDelegate, AttentionSelectViewDelegate>
+@interface EscortTimeVC : MainBaseVC<UITableViewDataSource, UITableViewDelegate, EscortTimeTableCellDelegate, AttentionSelectViewDelegate, PullTableViewDelegate>
 {
-    UITableView *tableView;
+    PullTableView *tableView;
     EscortTimeDataModel *_model;
     
     feedbackView  *_feedbackView;
@@ -30,6 +31,15 @@
     //
     EscortTimeDataModel *_replyContentModel;//
     NSString *_reReplyPId;//被回复人id
+    
+    UIImageView *_defaultImgView;
+    
+    NSInteger pages;
+    NSInteger totalPages;
+    
+    NSMutableArray *_dataList;
 }
+
+@property (nonatomic, strong) PullTableView *tableView;
 
 @end
