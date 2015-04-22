@@ -31,9 +31,23 @@
 {
     if([keyPath isEqualToString:@"userId"])
     {
-        [UserAttentionModel loadLoverList:^(int code) {
-        }];
-        [self LoaddefaultLoverInfo];
+        NSString *new = [change objectForKey:@"new"];
+        if([new isKindOfClass:[NSNull class]]){
+            _defaultImgView.hidden = NO;
+            [self SetHeaderInfoWithModel:nil];
+            pages = 0;
+            [_dataList removeAllObjects];
+            [self.btnRight setImage:[UIImage imageNamed:@"relationattentionselect"] forState:UIControlStateNormal];
+            
+            LoginVC *vc = [[LoginVC alloc] init];
+            [self.navigationController presentViewController:vc animated:YES completion:nil];
+        }
+        else{
+        
+            [UserAttentionModel loadLoverList:^(int code) {
+            }];
+            [self LoaddefaultLoverInfo];
+        }
     }
 }
 
@@ -277,13 +291,17 @@
 
 - (void) RightButtonClicked:(id)sender
 {
-    [_selectView SetActionDataArray:[UserAttentionModel GetMyAttentionArray] withId:_currentAttentionId];
-    
-    [UIView animateWithDuration:0.25f animations:^{
-        _selectView.frame = CGRectMake(ScreenWidth/2, 64, ScreenWidth/2, SCREEN_HEIGHT - 64);
-        _bgView.hidden = NO;
-        _bgView.backgroundColor = _COLOR(0x22, 0x22, 0x22);
-    }];
+    UserModel *usermodel = [UserModel sharedUserInfo];
+    if(usermodel.isLogin){
+        [_selectView SetActionDataArray:[UserAttentionModel GetMyAttentionArray] withId:_currentAttentionId];
+        [UIView animateWithDuration:0.25f animations:^{
+            _selectView.frame = CGRectMake(ScreenWidth/2, 64, ScreenWidth/2, SCREEN_HEIGHT - 64);
+            _bgView.hidden = NO;
+            _bgView.backgroundColor = _COLOR(0x22, 0x22, 0x22);
+        }];
+    }else{
+        
+    }
 }
 
 - (void) SelectWiewDismiss
@@ -359,10 +377,6 @@
     replyModel.replyUserId = [UserModel sharedUserInfo].userId;
     replyModel.replyUserName = [UserModel sharedUserInfo].chineseName;
     replyModel.orgUserId = _reReplyPId;
-    
-    
-//    @property (nonatomic, strong) NSString *orgUserName;
-//    @property (nonatomic, strong) NSString *orgUserId;
     [replyinfos addObject:replyModel];
     [tableView reloadData];
 }
@@ -387,13 +401,45 @@
     __weak PullTableView *weakTableView = tableView;
     __weak NSMutableArray *weakDataList = _dataList;
     [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code, id content) {
-        [weakSelf refreshTable];
         if(code)
         {
             [weakDataList removeAllObjects];
             [weakDataList addObjectsFromArray:content];
             [weakSelf CheckDefaultImgViewShow];
             [weakTableView reloadData];
+        }
+        
+//        [weakSelf refreshTable];
+        [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
+    }];
+    
+    if(usermodel && usermodel.userid)
+        [self LoadCareInfoWithLoveId:usermodel.userid];
+}
+
+- (void)LoadCareInfoWithLoveId:(NSString*) loverId
+{
+    if(loverId == nil || [loverId isKindOfClass:[NSNull class]])
+        return;
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    [parmas setObject:loverId forKey:@"loverId"];
+    __weak EscortTimeVC *weakSelf = self;
+    [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
+        if(code){
+            if(content == nil){
+                [weakSelf CheckDefaultImgViewShow];
+            }
+            if([content isKindOfClass:[NSDictionary class]]){
+                if([content objectForKey:@"code"] == nil){
+                        
+                    if([content objectForKey:@"id"] != nil){
+                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
+                        [weakSelf SetHeaderInfoWithModel:model];
+                    }else {
+                        [weakSelf SetHeaderInfoWithModel:nil];
+                    }
+                }
+            }
         }
     }];
 }

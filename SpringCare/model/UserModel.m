@@ -46,7 +46,7 @@
             self.mobilePhoneNumber= user.mobilePhoneNumber;
             self.sessionToken = user.sessionToken;
             self.username = user.username;
-            self.mobilePhoneNumber = user.mobilePhoneNumber;
+
             self.isNew = user.isNew;
             self.email = user.email;
             //self.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
