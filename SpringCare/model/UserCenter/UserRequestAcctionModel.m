@@ -38,9 +38,9 @@ static NSMutableArray *requestAcctionArray = nil;
 {
     UserRequestAcctionModel *model = [[UserRequestAcctionModel alloc] init];
     model.userid = [dic objectForKey:@"id"];
-    model.username = [dic objectForKey:@"chinese_name"];
-    model.isAccept = [[dic objectForKey:@"is_agree"] boolValue];
-    model.photoUrl = [dic objectForKey:@"header_image"];
+    model.username = [dic objectForKey:@"chineseName"];
+    model.isAccept = [[dic objectForKey:@"isAgree"] boolValue];
+    model.photoUrl = [dic objectForKey:@"headerImage"];
     model.phone = [dic objectForKey:@"phone"];
     
     return model;

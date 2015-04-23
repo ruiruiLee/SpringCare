@@ -7,6 +7,7 @@
 //
 
 #import "FamilyProductModel.h"
+#import "define.h"
 
 static NSMutableArray *familyProductArray = nil;
 

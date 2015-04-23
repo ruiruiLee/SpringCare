@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "define.h"
-#import "UserAttentionModel.h"
 
 @interface FamilyProductModel : NSObject
 

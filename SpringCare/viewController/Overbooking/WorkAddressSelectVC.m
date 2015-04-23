@@ -9,7 +9,6 @@
 #import "WorkAddressSelectVC.h"
 #import "define.h"
 #import "WorkAddressCell.h"
-#import "LCNetWorkBase.h"
 #import "EditCellTypeData.h"
 #import "EditUserInfoVC.h"
 

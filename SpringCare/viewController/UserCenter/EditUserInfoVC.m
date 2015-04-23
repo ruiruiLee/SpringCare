@@ -10,7 +10,6 @@
 #import "EditUserTableviewCell.h"
 #import "EditCellTypeData.h"
 #import "UserModel.h"
-#import "LCNetWorkBase.h"
 #import "UserAttentionModel.h"
 #import "IQKeyboardReturnKeyHandler.h"
 

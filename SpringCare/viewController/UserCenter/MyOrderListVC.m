@@ -17,6 +17,8 @@
 
 @interface MyOrderListVC ()<MyOrderOnDoingTableCellDelegate, MyOrderTableCellDelegate, OrderDetailsVCDelegate>
 
+@property (nonatomic, strong) MyOrderTableCell *prototypeCell;
+
 @end
 
 @implementation MyOrderListVC
@@ -124,7 +126,7 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if(isComment){
+    if(!isComment){
         if([dataOnDoingList count] == 0)
             return 1;
         else
@@ -169,20 +171,29 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return 109.f;
-    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
-    if(type == EnumValueTypeiPhone4S || EnumValueTypeiPhone5 == type){
-        return 99.f;
-        
-    }else if (EnumValueTypeiPhone6 == type){
-        return 109.f;
+    if(self.prototypeCell == nil){
+        self.prototypeCell = [[MyOrderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        self.prototypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    else if (EnumValueTypeiPhone6P == type){
-        return 119.f;
-    }
-    else{
-        return 92.f;
-    }
+    MyOrderdataModel *model = nil;//[[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    if(!isComment){
+        if(indexPath.section == 0){
+            if([dataOnDoingList count] == 0)
+                model = [dataOtherList objectAtIndex:indexPath.row];
+            else
+                model = [dataOnDoingList objectAtIndex:indexPath.row];
+        }else
+            model = [dataOtherList objectAtIndex:indexPath.row];
+    }else
+        model = [dataListForCom objectAtIndex:indexPath.row];
+    MyOrderTableCell *cell = (MyOrderTableCell *)self.prototypeCell;
+    [cell SetContentData:model];
+    
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    
+    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return 1  + size.height;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -310,7 +321,7 @@
         __weak MyOrderListVC *weakSelf = self;
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
-                dataListForCom = [MyOrderdataModel GetNoAssessmentOrderList];
+                dataListForCom = [NSArray arrayWithArray:[MyOrderdataModel GetNoAssessmentOrderList]];
                 
                 [weakSelf.pullTableView reloadData];
                 [weakSelf refreshTable];
