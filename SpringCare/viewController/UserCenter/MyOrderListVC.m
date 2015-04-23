@@ -24,9 +24,21 @@
 @synthesize dataOnDoingList = dataOnDoingList;
 @synthesize dataOtherList = dataOtherList;
 
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)NotifyCommentChanged:(NSNotification *) notify
+{
+    [pullTableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCommentChanged:) name:Notify_Comment_Changed object:nil];
     
     pages = 0;
     

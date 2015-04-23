@@ -306,6 +306,7 @@
     [headerView addSubview:_btnCert];
     _btnCert.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnCert setImage:[UIImage imageNamed:@"placeoredercert"] forState:UIControlStateNormal];
+    [_btnCert addTarget:self action:@selector(lookImageAction:) forControlEvents:UIControlEventTouchUpInside];
     
     _btnInfo = [[UIButton alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_btnInfo];
@@ -316,8 +317,8 @@
     [_btnInfo setTitle:title  forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
     float width = [NSStrUtil widthForString:title fontSize:12];//screenwidth - 183
-    if(width > ScreenWidth - 183 - 21)
-        width = ScreenWidth - 183 - 21;
+    if(width > ScreenWidth - 178 - 21)
+        width = ScreenWidth - 178 - 21;
     _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, width);
     _btnInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -345,8 +346,8 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _btnUnfold, _btnInfo, _btnCert,
                                                          _detailInfo);
     
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage(82)]-10-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage]-10-[_btnInfo]->=10-[_btnCert(43)]-16-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage(82)]-5-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage]-5-[_btnInfo]->=10-[_btnCert(43)]-16-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_detailInfo]-29-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_btnUnfold]->=20-|" options:0 metrics:nil views:views]];
     
@@ -501,6 +502,22 @@
     }
 
 
+}
+
+-(void)lookImageAction:(UIButton *)sender
+{
+    NSLog(@"lookImageAction");
+    return;
+    _imageList = [[HBImageViewList alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [_imageList addTarget:self tapOnceAction:@selector(dismissImageAction:)];
+    [_imageList addImagesURL:nil withSmallImage:nil];
+    [self.view.window addSubview:_imageList];
+}
+
+-(void)dismissImageAction:(UIImageView*)sender
+{
+    NSLog(@"dismissImageAction");
+    [_imageList removeFromSuperview];
 }
 
 @end

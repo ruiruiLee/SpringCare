@@ -200,8 +200,10 @@
             if(code == nil)
             {
                 _OrderModel.commentCount --;
-                if(_OrderModel.commentCount == 0)
+                if(_OrderModel.commentCount == 0){
                     _OrderModel.commentStatus = EnumTypeCommented;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Comment_Changed object:nil];
+                }
 
             }
         }

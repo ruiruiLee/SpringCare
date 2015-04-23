@@ -8,6 +8,7 @@
 
 #import "LCBaseVC.h"
 #import "PlaceOrderEditCell.h"
+#import "HBImageViewList.h"
 
 @class NurseListInfoModel;
 
@@ -23,6 +24,8 @@
     UIButton *_btnUnfold;
     
     NSArray *headerViewHeightConstraint;
+    
+    HBImageViewList *_imageList;
 }
 
 - (id) initWithModel:(NurseListInfoModel*) model andproductId:(NSString*)productId;

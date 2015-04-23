@@ -82,8 +82,8 @@ static NSMutableArray *noAssessmentOrderList = nil;
     if([marray count] > 0)
         model.nurseInfo = marray;
     model.payStatus = ([[dic objectForKey:@"payStatus"] intValue] == 0) ? EnumTypeNopay : EnumTypePayed;
-    model.commentStatus = ([[dic objectForKey:@"payStatus"] intValue] == 0) ? EnumTypeCommented : EnumTypeNoComment;
-    model.commentCount = [[dic objectForKey:@"payStatus"] integerValue];
+    model.commentStatus = ([[dic objectForKey:@"commentStatus"] intValue] <= 0) ? EnumTypeCommented : EnumTypeNoComment;
+    model.commentCount = [[dic objectForKey:@"commentStatus"] integerValue];
     int dateType = [[dic objectForKey:@"dateType"] intValue];
     if(dateType == 1)
         model.dateType = EnumTypeHalfDay;

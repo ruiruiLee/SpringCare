@@ -410,6 +410,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCommentChanged:) name:Notify_Comment_Changed object:nil];
+    
     // Do any additional setup after loading the view.
     self.NavigationBar.Title = @"订单详情";
     
@@ -652,6 +655,16 @@
     if(delegate && [delegate respondsToSelector:@selector(NotifyOrderCancelAndRefreshTableView:)]){
         [delegate NotifyOrderCancelAndRefreshTableView:self];
     }
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)NotifyCommentChanged:(NSNotification *) notify
+{
+    [_tableview reloadData];
 }
 
 @end
