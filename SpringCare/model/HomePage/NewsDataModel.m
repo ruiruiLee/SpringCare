@@ -32,6 +32,16 @@ static NSMutableArray *newsArray = nil;
     return array;
 }
 
++ (NSArray*) getNewsUrlArray
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [newsArray count]; i++) {
+        NewsDataModel *model = [newsArray objectAtIndex:i];
+        [array addObject:model.news_url];
+    }
+    return array;
+}
+
 + (void) SetNewsWithArray:(NSArray*) list
 {
     if(!newsArray){
@@ -46,7 +56,7 @@ static NSMutableArray *newsArray = nil;
             NewsDataModel *model = [[NewsDataModel alloc] init];
             model.image_url = [dic objectForKey:@"image_url"];
             model.news_title = [dic objectForKey:@"news_title"];
-            
+            model.news_url = [dic objectForKey:@"url"];
             [newsArray addObject:model];
         }
     }

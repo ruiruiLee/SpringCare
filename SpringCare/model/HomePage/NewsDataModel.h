@@ -12,9 +12,10 @@
 
 @property (nonatomic, strong) NSString *image_url;
 @property (nonatomic, strong) NSString *news_title;
-
+@property (nonatomic, strong) NSString *news_url;
 + (NSArray*) getNews;
 + (NSArray*) getImageUrlArray;
++ (NSArray*) getNewsUrlArray;
 + (void) SetNewsWithArray:(NSArray*) list;
 
 @end

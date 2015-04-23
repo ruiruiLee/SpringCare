@@ -119,7 +119,6 @@
     _btnLogin = [[UIButton alloc] initWithFrame:CGRectZero];
     [scrollview addSubview:_btnLogin];
     _btnLogin.enabled = NO;
-    _btnLogin.backgroundColor = [UIColor blueColor];
     _btnLogin.layer.cornerRadius = 5;
     [_btnLogin setTitle:@"登 录" forState:UIControlStateNormal];
     _btnLogin.backgroundColor = Disabled_Color;
