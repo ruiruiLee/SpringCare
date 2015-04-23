@@ -22,25 +22,25 @@ static NSMutableArray *newsArray = nil;
     return newsArray;
 }
 
-+ (NSArray*) getImageUrlArray
-{
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [newsArray count]; i++) {
-        NewsDataModel *model = [newsArray objectAtIndex:i];
-        [array addObject:model.image_url];
-    }
-    return array;
-}
-
-+ (NSArray*) getNewsUrlArray
-{
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [newsArray count]; i++) {
-        NewsDataModel *model = [newsArray objectAtIndex:i];
-        [array addObject:model.news_url];
-    }
-    return array;
-}
+//+ (NSArray*) getImageUrlArray
+//{
+//    NSMutableArray *array = [[NSMutableArray alloc] init];
+//    for (int i = 0; i < [newsArray count]; i++) {
+//        NewsDataModel *model = [newsArray objectAtIndex:i];
+//        [array addObject:model.image_url];
+//    }
+//    return array;
+//}
+//
+//+ (NSArray*) getNewsUrlArray
+//{
+//    NSMutableArray *array = [[NSMutableArray alloc] init];
+//    for (int i = 0; i < [newsArray count]; i++) {
+//        NewsDataModel *model = [newsArray objectAtIndex:i];
+//        [array addObject:model.news_url];
+//    }
+//    return array;
+//}
 
 + (void) SetNewsWithArray:(NSArray*) list
 {
