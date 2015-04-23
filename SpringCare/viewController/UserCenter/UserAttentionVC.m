@@ -11,7 +11,6 @@
 #import "UserAttentionTableCell.h"
 #import "UserApplyAttentionTableCell.h"
 #import "UserRequestAcctionModel.h"
-#import "LCNetWorkBase.h"
 #import "UserModel.h"
 #import "EditUserInfoVC.h"
 #import "EditCellTypeData.h"

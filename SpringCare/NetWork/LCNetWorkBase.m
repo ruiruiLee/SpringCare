@@ -7,25 +7,25 @@
 //
 
 #import "LCNetWorkBase.h"
-#import "define.h"
+
 #import <AFNetworking.h>
 #import "SBJson.h"
 #import "ProjectDefine.h"
 
+#define SERVER_ADDRESS @"http://spring.avosapps.com/"
 @implementation LCNetWorkBase
 
-+ (NSString *)stringFromDate:(NSDate *)date{
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //zzz表示时区，zzz可以删除，这样返回的日期字符将不包含时区信息。
-    [dateFormatter setDateFormat:@"HH:mm:ss"];
-    
-    NSString *destDateString = [dateFormatter stringFromDate:date];
-    
-    return destDateString;
++ (id)sharedLCNetWorkBase
+{
+    static LCNetWorkBase *instance = nil;
+    //
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{instance = [[LCNetWorkBase alloc] init];});
+    return instance;
 }
 
-+ (void)requestWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion
+
+- (void)requestWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion
 {
     NSString *path = SERVER_ADDRESS;
     if (method != nil && method.length > 0) {
@@ -64,7 +64,7 @@
     }];
 }
 
-+ (void)postWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion
+- (void)postWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion
 {
     NSString *path = SERVER_ADDRESS;
     if (method != nil && method.length > 0) {
@@ -113,7 +113,7 @@
     }];
 }
 
-+ (void)postWithParams:(NSString*)params Url:(NSString*)url Completion:(Completion)completion
+- (void)postWithParams:(NSString*)params Url:(NSString*)url Completion:(Completion)completion
 {
     NSLog(@"%@", url);
     NSString *soapLength = [NSString stringWithFormat:@"%ld", (unsigned long)[params length]];

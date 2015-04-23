@@ -21,8 +21,10 @@
 
 
 
-#define SERVER_ADDRESS @"http://spring.avosapps.com/"
 
+
+
+#define LCNetWorkBase [LCNetWorkBase sharedLCNetWorkBase]
 #define KEY_APPLE_ID @"702715314"
 
 #define cfAppDelegate (AppDelegate*)[UIApplication sharedApplication].delegate
