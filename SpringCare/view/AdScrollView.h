@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, UIPageControlShowStyle)
 @property (retain,nonatomic,readonly) UIPageControl * pageControl;
 @property (retain,nonatomic,readwrite) NSArray * NewsmodelArray;
 @property (assign,nonatomic,readwrite) UIPageControlShowStyle  PageControlShowStyle;
-
+@property (weak,nonatomic) UIViewController * parentController;
 //- (void)setAdTitleArray:(NSArray *)adTitleArray withShowStyle:(AdTitleShowStyle)adTitleStyle;
 
 @end
