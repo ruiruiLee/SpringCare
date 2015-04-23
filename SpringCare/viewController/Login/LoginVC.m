@@ -291,6 +291,8 @@
     }
 }
 
+
+//键盘监控事件
 - (void) keyboardWillShow:(NSNotification *) notify
 {
     EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
