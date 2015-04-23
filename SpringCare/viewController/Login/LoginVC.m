@@ -45,16 +45,13 @@
 {
     [super viewDidLoad];
     
-    
-    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeySend;
-    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
-    
     self.NavigationBar.Title = @"快速登录";
     [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     [self initSubViews];
     [_tfPhoneNum becomeFirstResponder];
     
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
 }
 
 - (void) initSubViews
@@ -291,6 +288,36 @@
         _btnLogin.enabled = NO;
         _btnLogin.backgroundColor = Disabled_Color;
         _tfVerifyCode.text = @"";
+    }
+}
+
+- (void) keyboardWillShow:(NSNotification *) notify
+{
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    if(type == EnumValueTypeiPhone4S){
+        [UIView animateWithDuration:0.25 animations:^{
+            scrollview.contentOffset = CGPointMake(0, 92);
+        }];
+    }
+    else if (type == EnumValueTypeiPhone5){
+        [UIView animateWithDuration:0.25 animations:^{
+            scrollview.contentOffset = CGPointMake(0, 40);
+        }];
+    }
+}
+
+- (void) keyboardWillHide:(NSNotification *)notify
+{
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    if(type == EnumValueTypeiPhone4S){
+        [UIView animateWithDuration:0.25 animations:^{
+            
+        }];
+    }
+    else if (type == EnumValueTypeiPhone5){
+        [UIView animateWithDuration:0.25 animations:^{
+            
+        }];
     }
 }
 
