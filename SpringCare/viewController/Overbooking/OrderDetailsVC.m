@@ -557,7 +557,7 @@
         [view addSubview:lb];
         lb.textColor = _COLOR(0x66, 0x66, 0x66);
         lb.font = _FONT(14);
-        lb.text = @"被保护人信息";
+        lb.text = @"被陪护人信息";
         
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[lb]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(lb)]];
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[lb]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(lb)]];

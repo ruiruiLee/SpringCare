@@ -21,7 +21,7 @@
 #import "AppDelegate.h"
 
 @implementation HomePageVC
-@synthesize scrollView = scrollView;
+//@synthesize scrollView = scrollView;
 
 - (void) dealloc
 {
@@ -39,7 +39,6 @@
 
 - (void) loadData
 {
-    __weak HomePageVC *weakSelf = self;
     [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
         if(code == 1){
             if([content isKindOfClass:[NSDictionary class]]){
@@ -47,7 +46,8 @@
                 [cfAppDelegate setHospital_product_id:[content objectForKey:@"hospitalProductId"]] ;
                 [cfAppDelegate setDefaultProductId:[content objectForKey:@"defaultProductId"] ];
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
-                weakSelf.scrollView.imageNameArray = [NewsDataModel getImageUrlArray];
+                _banner.NewsmodelArray =  [NewsDataModel getNews];
+                // _banner.adNewsArray = [NewsDataModel getNewsUrlArray];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
                 NSArray *wordList = [content objectForKey:@"wordList"];
                 for (int i = 0; i < [wordList count]; i++) {
@@ -143,16 +143,16 @@
     CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale);
     if(type == EnumValueTypeiPhone4S)
         rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale - 40);
-    scrollView = [[AdScrollView alloc]initWithFrame:rect];
+    _banner = [[AdScrollView alloc]initWithFrame:rect];
 //    AdDataModel * dataModel = [AdDataModel adDataModelWithImageNameAndAdTitleArray];
     //如果滚动视图的父视图由导航控制器控制,必须要设置该属性(ps,猜测这是为了正常显示,导航控制器内部设置了UIEdgeInsetsMake(64, 0, 0, 0))
 //    scrollView.imageNameArray = dataModel.imageNameArray;
     
-    scrollView.PageControlShowStyle = UIPageControlShowStyleCenter;
-    scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-    scrollView.pageControl.currentPageIndicatorTintColor = Abled_Color;
-    [self.view insertSubview:scrollView belowSubview:self.NavigationBar];
-    _banner = scrollView;
+    _banner.PageControlShowStyle = UIPageControlShowStyleCenter;
+    _banner.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+    _banner.pageControl.currentPageIndicatorTintColor = Abled_Color;
+    [self.view insertSubview:_banner belowSubview:self.NavigationBar];
+    //_banner = scrollView;
     
     UIColor *dark = _COLOR(90, 90, 100);
     //介绍

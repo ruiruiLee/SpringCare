@@ -34,14 +34,11 @@
     NSString *introduceUrl;
     NSString *promiseUrl;
     
-    AdScrollView * scrollView;
-    
     float oldY;
 }
 
 @property(nonatomic,strong) NSArray *cityArr;
 @property(nonatomic,strong) NSArray *areaArr;
 @property(nonatomic,strong) NSArray *currentAreaArr;
-@property(nonatomic, strong)AdScrollView * scrollView;
 
 @end
