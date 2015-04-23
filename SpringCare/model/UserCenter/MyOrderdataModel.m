@@ -119,7 +119,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
 + (void) loadOrderlistWithPages:(NSInteger) pages type:(OrderListType) orderType isOnlyIndexSplit:(BOOL) isOnlyIndexSplit block:(CompletionBlock) block
 {
     if(pages == 0){
-        if(orderType == EnumOrderAll){
+        if(orderType == EnumOrderOther){
             [MyOrderdataModel GetMyOrderList];
             [myOrderList removeAllObjects];
         }
@@ -133,18 +133,21 @@ static NSMutableArray *noAssessmentOrderList = nil;
     [params setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
     NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;
-    if(orderType == EnumOrderAll){
-        [params setObject:@"index" forKey:@"searchType"];
+    if(orderType == EnumOrderOther){
+        [params setObject:@"other" forKey:@"searchType"];
         if([myOrderList count] < 2){
             offset = 0;
         }else{
-            if(offset >= [[myOrderList objectAtIndex:1] count])
-                offset = [[myOrderList objectAtIndex:1] count];
+            if(offset >= [myOrderList count])
+                offset = [myOrderList count];
         }
-    }else{
+        [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+        [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    }else if (orderType == EnumOrderService){
+        [params setObject:@"service" forKey:@"searchType"];
+    }
+    else{
         [params setObject:@"waitComment" forKey:@"searchType"];
-        if(offset >= [noAssessmentOrderList count])
-            offset = [noAssessmentOrderList count];
     }
     if(pages > 0){
         [params setObject:@"true" forKey:@"isOnlyIndexSplit"];
@@ -152,65 +155,34 @@ static NSMutableArray *noAssessmentOrderList = nil;
     else{
         [params setObject:@"false" forKey:@"isOnlyIndexSplit"];
     }
-    [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
-    [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     
     [LCNetWorkBase postWithMethod:@"api/order/register/list" Params:params Completion:^(int code, id content) {
         if(code){
             NSMutableArray *result = [[NSMutableArray alloc] init];
-            
-            if(orderType == EnumOrderAll){
+            NSArray *otherOrders = [content objectForKey:@"rows"];
+            NSInteger total = [[content objectForKey:@"total"] integerValue];
+            if(orderType == EnumOrderOther){
                 if([content isKindOfClass:[NSDictionary class]]){
-                    NSArray *serverOrders = [content objectForKey:@"serverOrders"];
-                    NSArray *otherOrders = [content objectForKey:@"otherOrders"];
-                    if([myOrderList count] < 2){
-                        NSMutableArray *subArrayService = [[NSMutableArray alloc] init];
-                        for (int i = 0; i < [serverOrders count]; i++) {
-                            NSDictionary *dic = [serverOrders objectAtIndex:i];
-                            MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
-                            [subArrayService addObject:model];
-                        }
-                        [myOrderList addObject:subArrayService];
-                        NSMutableArray *subArrayOther = [[NSMutableArray alloc] init];
-                        for (int i = 0; i < [otherOrders count]; i++) {
-                            NSDictionary *dic = [otherOrders objectAtIndex:i];
-                            MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
-                            [subArrayOther addObject:model];
-                            [result addObject:model];
-                        }
-                        [myOrderList addObject:subArrayOther];
-                    }else{
-                        NSMutableArray *subArrayService = [myOrderList objectAtIndex:0];
-                        for (int i = 0; i < [serverOrders count]; i++) {
-                            NSDictionary *dic = [serverOrders objectAtIndex:i];
-                            MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
-                            [subArrayService addObject:model];
-                        }
-
-                        NSMutableArray *subArrayOther = [myOrderList objectAtIndex:1];
-                        for (int i = 0; i < [otherOrders count]; i++) {
-                            NSDictionary *dic = [otherOrders objectAtIndex:i];
-                            MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
-                            [subArrayOther addObject:model];
-                            [result addObject:model];
-                        }
+                    for (int i = 0; i < [otherOrders count]; i++) {
+                        NSDictionary *dic = [otherOrders objectAtIndex:i];
+                        MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
+                        [myOrderList addObject:model];
+                        [result addObject:model];
                     }
+                }
+            }
+            else if (orderType == EnumOrderService){
+                for (int i = 0; i < [otherOrders count]; i++) {
+                    NSDictionary *dic = [otherOrders objectAtIndex:i];
+                    MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
+                    [result addObject:model];
                 }
             }
             else{
                 
                 if([content isKindOfClass:[NSDictionary class]]){
-                    NSArray *otherOrders = [content objectForKey:@"otherOrders"];
                     for (int i = 0; i < [otherOrders count]; i++) {
                         NSDictionary *dic = [otherOrders objectAtIndex:i];
-                        MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
-                        [noAssessmentOrderList addObject:model];
-                        [result addObject:model];
-                    }
-                }
-                else if ([content isKindOfClass:[NSArray class]]){
-                    for (int i = 0; i < [content count]; i++) {
-                        NSDictionary *dic = [content objectAtIndex:i];
                         MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
                         [noAssessmentOrderList addObject:model];
                         [result addObject:model];

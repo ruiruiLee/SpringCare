@@ -23,6 +23,7 @@
 @synthesize pullTableView;
 @synthesize dataOnDoingList = dataOnDoingList;
 @synthesize dataOtherList = dataOtherList;
+@synthesize isComment;
 
 - (void) dealloc
 {
@@ -42,7 +43,7 @@
     
     pages = 0;
     
-    orderType = EnumOrderAll;
+    isComment = NO;
     
     self.NavigationBar.Title = @"我的订单";
     
@@ -51,11 +52,19 @@
     [self initSubView];
     
     __weak MyOrderListVC *weakSelf = self;
-    [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code, id content) {
+    [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderService isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
-            NSArray *dataList = [MyOrderdataModel GetMyOrderList];
-            dataOnDoingList = [dataList objectAtIndex:0];
-            [dataOtherList addObjectsFromArray:[dataList objectAtIndex:1]];
+            dataOnDoingList = content;
+            [weakSelf.pullTableView reloadData];
+            [weakSelf refreshTable];
+        }else{
+            [weakSelf refreshTable];
+        }
+    }];
+    
+    [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
+        if(code){
+            [dataOtherList addObjectsFromArray:content];
             [weakSelf.pullTableView reloadData];
             [weakSelf refreshTable];
         }else{
@@ -115,7 +124,7 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if(EnumOrderAll == orderType){
+    if(isComment){
         if([dataOnDoingList count] == 0)
             return 1;
         else
@@ -127,7 +136,7 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(EnumOrderAll == orderType){
+    if(!isComment){
         
         if(dataOnDoingList.count==0&&dataOtherList.count==0){
             [self.pullTableView displayEmpityImageView:orderBackbroundImg];
@@ -160,12 +169,25 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 109.f;
+//    return 109.f;
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    if(type == EnumValueTypeiPhone4S || EnumValueTypeiPhone5 == type){
+        return 99.f;
+        
+    }else if (EnumValueTypeiPhone6 == type){
+        return 109.f;
+    }
+    else if (EnumValueTypeiPhone6P == type){
+        return 119.f;
+    }
+    else{
+        return 92.f;
+    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(EnumOrderAll == orderType){
+    if(!isComment){
         if(indexPath.section == 0){
             MyOrderTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell0"];
             if(!cell){
@@ -213,7 +235,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     MyOrderdataModel *model = nil;
-    if(EnumOrderPrepareForAssessment == orderType){
+    if(isComment){
         model = [dataListForCom objectAtIndex:indexPath.row];
     }
     else{
@@ -238,7 +260,7 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = TableSectionBackgroundColor;
-    if(EnumOrderAll == orderType){
+    if(!isComment){
         if(section == 0 && [dataOnDoingList count] > 0){
             UIView *headerview = [[UIView alloc] initWithFrame:CGRectZero];
             [view addSubview:headerview];
@@ -274,7 +296,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if(EnumOrderAll == orderType && section == 0 && [dataOnDoingList count] > 0)
+    if(!isComment && section == 0 && [dataOnDoingList count] > 0)
         return 40;
     return 15.f;
 }
@@ -284,7 +306,7 @@
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)_pullTableView
 {
     pages = 0;
-    if(EnumOrderPrepareForAssessment == orderType){
+    if(isComment){
         __weak MyOrderListVC *weakSelf = self;
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
@@ -298,13 +320,20 @@
         }];
     }else{
         __weak MyOrderListVC *weakSelf = self;
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:NO block:^(int code, id content) {
+        [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderService isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
-                NSArray *dataList = [MyOrderdataModel GetMyOrderList];
-                
-                dataOnDoingList = [dataList objectAtIndex:0];
+                dataOnDoingList = content;
+                [weakSelf.pullTableView reloadData];
+                [weakSelf refreshTable];
+            }else{
+                [weakSelf refreshTable];
+            }
+        }];
+        
+        [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
+            if(code){
                 [dataOtherList removeAllObjects];
-                [dataOtherList addObjectsFromArray:[dataList objectAtIndex:1]];
+                [dataOtherList addObjectsFromArray:content];
                 [weakSelf.pullTableView reloadData];
                 [weakSelf refreshTable];
             }else{
@@ -317,16 +346,17 @@
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)_pullTableView
 {
     pages ++;
-    if(EnumOrderPrepareForAssessment == orderType){
+    if(isComment){
         [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.1f];
     }else{
-        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderAll isOnlyIndexSplit:YES block:^(int code, id content) {
+        __weak MyOrderListVC *weakSelf = self;
+        [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
                 [dataOtherList addObjectsFromArray:content];
-                [pullTableView reloadData];
-                [self loadMoreDataToTable];
+                [weakSelf.pullTableView reloadData];
+                [weakSelf loadMoreDataToTable];
             }else{
-                [self loadMoreDataToTable];
+                [weakSelf loadMoreDataToTable];
             }
         }];
     }
@@ -353,11 +383,11 @@
 {
     if(idx == 0){
         //全部订单
-        orderType = EnumOrderAll;
+        isComment = NO;
     }
     else{
         //待评价
-        orderType = EnumOrderPrepareForAssessment;
+        isComment = YES;
         if(dataListForCom == nil){
             self.pullTableView.pullTableIsRefreshing = YES;
             [self pullTableViewDidTriggerRefresh:nil];

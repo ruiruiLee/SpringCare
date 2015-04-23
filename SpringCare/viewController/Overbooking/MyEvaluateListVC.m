@@ -79,10 +79,6 @@
        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    //    cell.textLabel.text = ((NurseListInfoModel*)[DataList objectAtIndex:indexPath.row]).name;
-    //    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-    //    [cell SetContentData:model];
-    
     return cell;
 }
 
@@ -112,13 +108,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    //    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-    //    NurseDetailInfoVC *vc = [[NurseDetailInfoVC alloc] initWithModel:model];
-    //    vc.hidesBottomBarWhenPushed = YES;
-    //    [self.navigationController pushViewController:vc animated:YES];
-    //
-    //    [model addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 
 #pragma mark - PullTableViewDelegate
@@ -148,5 +137,15 @@
     self.tableview.pullTableIsLoadingMore = NO;
 }
 
+
+- (void) LoadEvaluateListDataWithPages:(NSInteger) page
+{
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    [LCNetWorkBase postWithMethod:@"" Params:parmas Completion:^(int code, id content) {
+        if(code){
+            
+        }
+    }];
+}
 
 @end

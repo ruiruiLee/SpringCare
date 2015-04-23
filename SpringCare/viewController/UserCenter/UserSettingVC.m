@@ -38,7 +38,7 @@
     _tableview.backgroundColor = TableBackGroundColor;
     
     UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 80)];
-    _tableview.tableFooterView = footView;
+    
     UIButton *btnCancel = [[UIButton alloc] initWithFrame:CGRectZero];
     btnCancel.translatesAutoresizingMaskIntoConstraints = NO;
     btnCancel.backgroundColor = Abled_Color;
@@ -46,13 +46,37 @@
     [btnCancel setTitleColor:_COLOR(0xff, 0xff, 0xff) forState:UIControlStateNormal];
     [btnCancel setTitle:@"退 出" forState:UIControlStateNormal];
     [footView addSubview:btnCancel];
-    btnCancel.titleLabel.font = _FONT(18);
     [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-28-[btnCancel]-28-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
     [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[btnCancel]-3-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
     [btnCancel addTarget:self action:@selector(btnCancel:) forControlEvents:UIControlEventTouchUpInside];
     
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    if(type == EnumValueTypeiPhone4S){
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 70);
+        btnCancel.titleLabel.font = _FONT(17);
+    }
+    else if (type == EnumValueTypeiPhone5){
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 70);
+        btnCancel.titleLabel.font = _FONT(17);
+    }
+    else if (type == EnumValueTypeiPhone6){
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 80);
+        btnCancel.titleLabel.font = _FONT(18);
+    }
+    else if (type == EnumValueTypeiPhone6P){
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 90);
+        btnCancel.titleLabel.font = _FONT(20);
+    }else{
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 70);
+        btnCancel.titleLabel.font = _FONT(17);
+    }
+    
+    _tableview.tableFooterView = footView;
+    
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+    
+    
 }
 
 - (void) btnCancel:(id)sender

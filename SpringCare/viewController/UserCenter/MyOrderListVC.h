@@ -20,10 +20,9 @@
     NSMutableArray *dataOtherList;//其他订单
     
     NSInteger pages;
-    
-    OrderListType orderType;
 }
 
+@property (nonatomic, assign) BOOL isComment;//是否待评价;
 @property (nonatomic, strong) PullTableView *pullTableView;
 @property (nonatomic, strong) NSArray *dataOnDoingList;
 @property (nonatomic, strong) NSMutableArray *dataOtherList;

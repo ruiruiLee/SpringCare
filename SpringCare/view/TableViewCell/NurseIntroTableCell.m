@@ -30,12 +30,10 @@
     _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_imgPhoto];
     _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
-    _imgPhoto.layer.cornerRadius = 32;
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbName.font = _FONT(15);
     _lbName.textColor = _COLOR(0x22, 0x22, 0x22);
     
     _gradeView = [[GradeInfoView alloc] initWithFrame:CGRectZero];
@@ -45,7 +43,6 @@
     _lbCommitCount = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbCommitCount];
     _lbCommitCount.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbCommitCount.font = _FONT(12);
     _lbCommitCount.textColor = _COLOR(0x99, 0x99, 0x99);
     
     _imgCert = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -56,21 +53,17 @@
     _lbNurseIntro = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbNurseIntro];
     _lbNurseIntro.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbNurseIntro.font = _FONT(13);
     _lbNurseIntro.textColor = _COLOR(0x6b, 0x4e, 0x3e);
     
     _lbWorkIntro = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbWorkIntro];
     _lbWorkIntro.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbWorkIntro.font = _FONT(13);
     _lbWorkIntro.textColor = _COLOR(0x99, 0x99, 0x99);
     _lbWorkIntro.numberOfLines = 0;
-    _lbWorkIntro.preferredMaxLayoutWidth = ScreenWidth - 117;
     
     _lbOldPrice = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbOldPrice];
     _lbOldPrice.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbOldPrice.font = _FONT(14);
     _lbOldPrice.textColor = _COLOR(0x99, 0x99, 0x99);
     
     _lineation = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -81,7 +74,6 @@
     _lbPrice = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbPrice];
     _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbPrice.font = _FONT(15);
     _lbPrice.textColor = _COLOR(0xe4, 0x39, 0x3c);
     
     _btnLocation = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -89,7 +81,6 @@
     _btnLocation.translatesAutoresizingMaskIntoConstraints = NO;
     _btnLocation.userInteractionEnabled = NO;
     [_btnLocation setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
-    _btnLocation.titleLabel.font = _FONT(13);
     _btnLocation.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 4, 0);
     [_btnLocation setImage:[UIImage imageNamed:@"nurselistlocation"] forState:UIControlStateNormal];
     
@@ -100,6 +91,98 @@
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbWorkIntro, _lbNurseIntro, _lbName, _lbCommitCount, _imgCert, _imgPhoto, _btnLocation, _gradeView, _line, _lbOldPrice, _lineation);
     
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    if(type == EnumValueTypeiPhone4S){
+        [self InitConstraintsForiPhone5:views];
+    }
+    else if (type == EnumValueTypeiPhone5){
+        [self InitConstraintsForiPhone5:views];
+    }
+    else if (type == EnumValueTypeiPhone6){
+        [self InitConstraintsForiPhone6:views];
+    }
+    else if (type == EnumValueTypeiPhone6P){
+        [self InitConstraintsForiPhone6P:views];
+    }else{
+        [self InitConstraintsForiPhone5:views];
+    }
+}
+
+- (void) InitConstraintsForiPhone5:(NSDictionary*) views
+{
+    _imgPhoto.layer.cornerRadius = 31;
+    _lbName.font = _FONT(14);
+    _lbCommitCount.font = _FONT(11);
+    _lbNurseIntro.font = _FONT(12);
+    _lbWorkIntro.font = _FONT(12);
+    _lbOldPrice.font = _FONT(13);
+    _lbPrice.font = _FONT(14);
+    _btnLocation.titleLabel.font = _FONT(12);
+    _lbWorkIntro.preferredMaxLayoutWidth = ScreenWidth - 97;
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_imgPhoto(62)]->=10-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_lbName]-5-[_gradeView(70)]-5-[_lbCommitCount]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_lbName(20)]-5-[_lbNurseIntro(21)]-5-[_lbWorkIntro]-8-[_lbPrice(21)]-14-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_gradeView(20)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_lbCommitCount(20)]->=0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(62)]-10-[_imgCert(21)]-5-[_lbNurseIntro]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbName(20)]-5-[_imgCert(21)]->=10-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(62)]-10-[_lbWorkIntro]-10-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(62)]-10-[_lbPrice]-8-[_lbOldPrice]->=10-[_btnLocation]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbWorkIntro]-8-[_btnLocation(21)]-15-|" options:0 metrics:nil views:views]];
+    
+    [_lbOldPrice addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lineation]-0-|" options:0 metrics:nil views:views]];
+    [_lbOldPrice addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lineation(1)]->=0-|" options:0 metrics:nil views:views]];
+    [_lbOldPrice addConstraint:[NSLayoutConstraint constraintWithItem:_lineation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbOldPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:1]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbOldPrice attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(62)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
+}
+
+- (void) InitConstraintsForiPhone6:(NSDictionary*) views
+{
+    _imgPhoto.layer.cornerRadius = 36;
+    _lbName.font = _FONT(15);
+    _lbCommitCount.font = _FONT(12);
+    _lbNurseIntro.font = _FONT(13);
+    _lbWorkIntro.font = _FONT(13);
+    _lbOldPrice.font = _FONT(14);
+    _lbPrice.font = _FONT(15);
+    _btnLocation.titleLabel.font = _FONT(13);
+    _lbWorkIntro.preferredMaxLayoutWidth = ScreenWidth - 107;
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_imgPhoto(72)]->=10-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(72)]-10-[_lbName]-5-[_gradeView(70)]-5-[_lbCommitCount]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_lbName(20)]-5-[_lbNurseIntro(21)]-5-[_lbWorkIntro]-8-[_lbPrice(21)]-14-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_gradeView(20)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_lbCommitCount(20)]->=0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(72)]-10-[_imgCert(21)]-5-[_lbNurseIntro]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbName(20)]-5-[_imgCert(21)]->=10-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(72)]-10-[_lbWorkIntro]-10-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(72)]-10-[_lbPrice]-8-[_lbOldPrice]->=10-[_btnLocation]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbWorkIntro]-8-[_btnLocation(21)]-15-|" options:0 metrics:nil views:views]];
+    
+    [_lbOldPrice addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lineation]-0-|" options:0 metrics:nil views:views]];
+    [_lbOldPrice addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lineation(1)]->=0-|" options:0 metrics:nil views:views]];
+    [_lbOldPrice addConstraint:[NSLayoutConstraint constraintWithItem:_lineation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbOldPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:1]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbOldPrice attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgPhoto(72)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
+}
+
+- (void) InitConstraintsForiPhone6P:(NSDictionary*) views
+{
+    _imgPhoto.layer.cornerRadius = 41;
+    _lbName.font = _FONT(17);
+    _lbCommitCount.font = _FONT(13);
+    _lbNurseIntro.font = _FONT(14);
+    _lbWorkIntro.font = _FONT(14);
+    _lbOldPrice.font = _FONT(15);
+    _lbPrice.font = _FONT(16);
+    _btnLocation.titleLabel.font = _FONT(14);
+    _lbWorkIntro.preferredMaxLayoutWidth = ScreenWidth - 117;
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_imgPhoto(82)]->=10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbName]-5-[_gradeView(70)]-5-[_lbCommitCount]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_lbName(20)]-5-[_lbNurseIntro(21)]-5-[_lbWorkIntro]-8-[_lbPrice(21)]-14-[_line(1)]-0-|" options:0 metrics:nil views:views]];
@@ -137,10 +220,10 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [model.intro length])];
     _lbWorkIntro.attributedText = attributedString;
     
-    _lbPrice.text = [NSString stringWithFormat:@"¥ %ld/天", (long)model.priceDiscount];//model.price;打折价格
+    _lbPrice.text = [NSString stringWithFormat:@"¥%ld/天", (long)model.priceDiscount];//model.price;打折价格
     [_btnLocation setTitle:[Util convertDinstance: model.distance] forState:UIControlStateNormal];
     
-    _lbOldPrice.text = [NSString stringWithFormat:@"原价:¥%ld/天", model.price];
+    _lbOldPrice.text = [NSString stringWithFormat:@"原价:%ld", model.price];
     if(model.price == model.priceDiscount)
         _lbOldPrice.hidden = YES;
     else

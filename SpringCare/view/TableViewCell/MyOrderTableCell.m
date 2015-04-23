@@ -35,20 +35,17 @@
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbName];
     _lbName.textColor = _COLOR(0x22, 0x22, 0x22);
-    _lbName.font = _FONT(15);
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
     
     _lbPrice = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbPrice];
     _lbPrice.textColor = _COLOR(0x66, 0x66, 0x66);
     _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbPrice.font = _FONT(13);
     
     _lbCountPrice = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbCountPrice];
     _lbCountPrice.textColor = _COLOR(0xe4, 0x39, 0x3c);
     _lbCountPrice.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbCountPrice.font = _FONT(18);
     
     _line = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_line];
@@ -58,7 +55,6 @@
     _btnPay = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnPay];
     _btnPay.translatesAutoresizingMaskIntoConstraints = 0;
-    _btnPay.titleLabel.font = _FONT(15);
     _btnPay.backgroundColor = Abled_Color;
     [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
     _btnPay.layer.cornerRadius = 8;
@@ -67,7 +63,6 @@
     _btnStatus = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnStatus];
     _btnStatus.translatesAutoresizingMaskIntoConstraints = 0;
-    _btnStatus.titleLabel.font = _FONT(15);
     _btnStatus.hidden = YES;
     _btnStatus.layer.cornerRadius = 8;
     [_btnStatus addTarget:self action:@selector(btnToComment:) forControlEvents:UIControlEventTouchUpInside];
@@ -91,18 +86,45 @@
     [self.contentView addSubview:_lbDetailTime];
     _lbDetailTime.textColor = _COLOR(0x99, 0x99, 0x99);
     _lbDetailTime.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbDetailTime.font = _FONT(12);
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _lbPrice, _lbCountPrice, _line, _btnPay, _btnStatus, _imgLogo, _imgDayTime, _imgNight, _lbDetailTime);
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
-    layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
-    [self.contentView addConstraints:layoutArray];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgLogo]-20-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnStatus(74)]-15-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbName(30)]-5-[_lbPrice(20)]-5-[_lbDetailTime(20)]-5-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    if(type == EnumValueTypeiPhone4S){
+        [self InitConstraintsForiPhone5:views];
+    }
+    else if (type == EnumValueTypeiPhone5){
+        [self InitConstraintsForiPhone5:views];
+    }
+    else if (type == EnumValueTypeiPhone6){
+        [self InitConstraintsForiPhone6:views];
+    }
+    else if (type == EnumValueTypeiPhone6P){
+        [self InitConstraintsForiPhone6P:views];
+    }else{
+        [self InitConstraintsForiPhone5:views];
+    }
+}
+
+- (void) InitConstraintsForiPhone5:(NSDictionary*) views
+{
+    _lbName.font = _FONT(14);
+    _lbPrice.font = _FONT(12);
+    _lbCountPrice.font = _FONT(17);
+    _btnPay.titleLabel.font = _FONT(14);
+    _btnStatus.titleLabel.font = _FONT(14);
+    _lbDetailTime.font = _FONT(11);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(62)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
+    layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
+    [self.contentView addConstraints:layoutArray];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgLogo(75)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(75)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnStatus(58)]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-17-[_lbName(25)]-3-[_lbPrice(18)]-3-[_lbDetailTime(14)]-6-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgPhoto attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgLogo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -112,8 +134,69 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbCountPrice attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgDayTime attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDetailTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgNight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDetailTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    
 }
+
+- (void) InitConstraintsForiPhone6:(NSDictionary*) views
+{
+    _lbName.font = _FONT(15);
+    _lbPrice.font = _FONT(13);
+    _lbCountPrice.font = _FONT(18);
+    _btnPay.titleLabel.font = _FONT(15);
+    _btnStatus.titleLabel.font = _FONT(15);
+    _lbDetailTime.font = _FONT(12);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(72)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(72)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(72)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
+    layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(72)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
+    [self.contentView addConstraints:layoutArray];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgLogo(85)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(85)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnStatus(66)]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(72)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-17-[_lbName(30)]-5-[_lbPrice(20)]-5-[_lbDetailTime(20)]-8-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgPhoto attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgLogo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnPay attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnStatus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbCountPrice attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgDayTime attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDetailTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgNight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDetailTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+}
+
+- (void) InitConstraintsForiPhone6P:(NSDictionary*) views
+{
+    _lbName.font = _FONT(16);
+    _lbPrice.font = _FONT(14);
+    _lbCountPrice.font = _FONT(19);
+    _btnPay.titleLabel.font = _FONT(16);
+    _btnStatus.titleLabel.font = _FONT(16);
+    _lbDetailTime.font = _FONT(13);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(82)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
+    layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
+    [self.contentView addConstraints:layoutArray];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnStatus(74)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnStatus(74)]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_imgLogo(95)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(95)]->=0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_line]-0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_lbName(30)]-9-[_lbPrice(20)]-10-[_lbDetailTime(20)]-10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgPhoto attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgLogo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnPay attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnStatus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbCountPrice attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgDayTime attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDetailTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgNight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDetailTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+}
+
 
 - (void)awakeFromNib {
     // Initialization code

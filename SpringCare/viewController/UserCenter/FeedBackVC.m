@@ -40,7 +40,7 @@
     [self.ContentView addSubview:_lbExplation];
     _lbExplation.translatesAutoresizingMaskIntoConstraints = NO;
     _lbExplation.textColor = _COLOR(0x66, 0x66, 0x66);
-    _lbExplation.font = _FONT(14);
+    _lbExplation.font = _FONT(13);
     _lbExplation.backgroundColor = [UIColor clearColor];
     _lbExplation.text = @"告诉“春风陪护”您的宝贵意见，我们改进会更快哦";
     

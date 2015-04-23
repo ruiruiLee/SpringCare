@@ -26,7 +26,6 @@
         
         _btnphotoImg = [[UIButton alloc] initWithFrame:CGRectZero];
         _btnphotoImg.layer.masksToBounds = YES;
-        _btnphotoImg.layer.cornerRadius = 36;
         [self.contentView addSubview:_btnphotoImg];
         _btnphotoImg.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnphotoImg addTarget:self action:@selector(btnPhotoPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -40,7 +39,6 @@
         [self.contentView addSubview:_lbRelation];
         _lbRelation.translatesAutoresizingMaskIntoConstraints = NO;
         _lbRelation.textColor = _COLOR(0x22, 0x22, 0x22);
-        _lbRelation.font = _FONT_B(20);
         
         ImgSex = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:ImgSex];
@@ -51,13 +49,11 @@
         [self.contentView addSubview:_lbName];
         _lbName.translatesAutoresizingMaskIntoConstraints = NO;
         _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
-        _lbName.font = _FONT(15);
         
         _Address = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_Address];
         _Address.translatesAutoresizingMaskIntoConstraints = NO;
         _Address.textColor = _COLOR(0x99, 0x99, 0x99);
-        _Address.font = _FONT(15);
         _Address.numberOfLines = 0;
         _Address.preferredMaxLayoutWidth = ScreenWidth - 169;
         
@@ -72,23 +68,92 @@
         _line.backgroundColor = SeparatorLineColor;
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_btnphotoImg, _lbName, _lbRelation, _btnRing, _line, _Address,ImgSex, _attentionLogo);
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(72)]-10-[_lbName]->=10-[_btnRing(48)]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(72)]-10-[_Address]->=10-[_btnRing(48)]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=15-[_btnphotoImg(72)]->=15-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnphotoImg(72)]-15-[_line]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(72)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbRelation(30)]-1-[_lbName(20)]-2-[_Address]->=10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbRelation attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        
+        EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+        if(type == EnumValueTypeiPhone4S){
+            [self InitConstraintsForiPhone5:views];
+        }
+        else if (type == EnumValueTypeiPhone5){
+            [self InitConstraintsForiPhone5:views];
+        }
+        else if (type == EnumValueTypeiPhone6){
+            [self InitConstraintsForiPhone6:views];
+        }
+        else if (type == EnumValueTypeiPhone6P){
+            [self InitConstraintsForiPhone6P:views];
+        }else{
+            [self InitConstraintsForiPhone5:views];
+        }
     }
     return self;
 }
+
+- (void) InitConstraintsForiPhone5:(NSDictionary*) views
+{
+    _btnphotoImg.layer.cornerRadius = 31;
+    _lbRelation.font = _FONT_B(18);
+    _lbName.font = _FONT(14);
+    _Address.font = _FONT(14);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=15-[_btnRing(42)]->=15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(62)]-10-[_lbName]->=10-[_btnRing(42)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(62)]-10-[_Address]->=10-[_btnRing(42)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=15-[_btnphotoImg(62)]->=15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnphotoImg(62)]-15-[_line]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(62)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbRelation(30)]-1-[_lbName(20)]-2-[_Address]->=10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbRelation attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+}
+
+- (void) InitConstraintsForiPhone6:(NSDictionary*) views
+{
+    _btnphotoImg.layer.cornerRadius = 36;
+    _lbRelation.font = _FONT_B(20);
+    _lbName.font = _FONT(15);
+    _Address.font = _FONT(15);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=15-[_btnRing(48)]->=15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(72)]-10-[_lbName]->=10-[_btnRing(48)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(72)]-10-[_Address]->=10-[_btnRing(48)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=15-[_btnphotoImg(72)]->=15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnphotoImg(72)]-15-[_line]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(72)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbRelation(30)]-1-[_lbName(20)]-2-[_Address]->=10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbRelation attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+}
+
+- (void) InitConstraintsForiPhone6P:(NSDictionary*) views
+{
+    _btnphotoImg.layer.cornerRadius = 41;
+    _lbRelation.font = _FONT_B(22);
+    _lbName.font = _FONT(16);
+    _Address.font = _FONT(16);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=15-[_btnRing(54)]->=15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(82)]-10-[_lbName]->=10-[_btnRing(54)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(82)]-10-[_Address]->=10-[_btnRing(54)]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=15-[_btnphotoImg(82)]->=15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnphotoImg(82)]-15-[_line]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(82)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbRelation(30)]-1-[_lbName(20)]-2-[_Address]->=10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbRelation attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+}
+
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

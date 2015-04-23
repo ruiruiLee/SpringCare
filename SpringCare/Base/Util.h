@@ -44,7 +44,8 @@ typedef enum : NSUInteger {
 } PayStatus;
 
 typedef enum : NSUInteger {
-    EnumOrderAll,
+    EnumOrderService,
+    EnumOrderOther,
     EnumOrderPrepareForAssessment,
 } OrderListType;
 

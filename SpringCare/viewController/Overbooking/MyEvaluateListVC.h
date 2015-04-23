@@ -8,12 +8,16 @@
 
 #import "LCBaseVC.h"
 #import "PullTableView.h"
+#import "EvaluateDataModel.h"
 
 @interface MyEvaluateListVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
 {
     PullTableView *_tableview;
     NSString *_SearchConditionStr;
     UILabel *lbTitle;
+    
+    NSInteger pages;
+    NSInteger totals;
 }
 
 @property (nonatomic, strong) PullTableView *tableview;

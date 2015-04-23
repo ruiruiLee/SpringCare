@@ -140,7 +140,20 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 102.f;
+//    return 102.f;
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    if(type == EnumValueTypeiPhone4S || EnumValueTypeiPhone5 == type){
+        return 86.f;
+        
+    }else if (EnumValueTypeiPhone6 == type){
+        return 102.f;
+    }
+    else if (EnumValueTypeiPhone6P == type){
+        return 118.f;
+    }
+    else{
+        return 92.f;
+    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

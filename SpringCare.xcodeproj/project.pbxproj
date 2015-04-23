@@ -122,6 +122,7 @@
 		869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 869C9EE61AD404F10090182E /* EditUserInfoVC.m */; };
 		86B0994D1ACC07430005BC98 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0994C1ACC07430005BC98 /* LoginVC.m */; };
 		86B7497A1AE89A68000BA6DB /* CertBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B749791AE89A68000BA6DB /* CertBrowserVC.m */; };
+		86B7497D1AE8CB9C000BA6DB /* EvaluateDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B7497C1AE8CB9C000BA6DB /* EvaluateDataModel.m */; };
 		86B8E5541AD4CC0F00A5139E /* EditCellTypeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5531AD4CC0F00A5139E /* EditCellTypeData.m */; };
 		86B8E5571AD4CE0900A5139E /* EditUserTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5561AD4CE0900A5139E /* EditUserTableviewCell.m */; };
 		86B8E55A1AD4E35B00A5139E /* MyOrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5591AD4E35B00A5139E /* MyOrderListVC.m */; };
@@ -635,6 +636,8 @@
 		86B0994C1ACC07430005BC98 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		86B749781AE89A68000BA6DB /* CertBrowserVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertBrowserVC.h; sourceTree = "<group>"; };
 		86B749791AE89A68000BA6DB /* CertBrowserVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertBrowserVC.m; sourceTree = "<group>"; };
+		86B7497B1AE8CB9C000BA6DB /* EvaluateDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateDataModel.h; sourceTree = "<group>"; };
+		86B7497C1AE8CB9C000BA6DB /* EvaluateDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateDataModel.m; sourceTree = "<group>"; };
 		86B8E5521AD4CC0F00A5139E /* EditCellTypeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCellTypeData.h; sourceTree = "<group>"; };
 		86B8E5531AD4CC0F00A5139E /* EditCellTypeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCellTypeData.m; sourceTree = "<group>"; };
 		86B8E5551AD4CE0900A5139E /* EditUserTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserTableviewCell.h; sourceTree = "<group>"; };
@@ -1134,6 +1137,8 @@
 				8642C9A71AC04F3A00251921 /* UserModel.m */,
 				86B8E5A61AD690AB00A5139E /* OrderListModel.h */,
 				86B8E5A71AD690AB00A5139E /* OrderListModel.m */,
+				86B7497B1AE8CB9C000BA6DB /* EvaluateDataModel.h */,
+				86B7497C1AE8CB9C000BA6DB /* EvaluateDataModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2644,6 +2649,7 @@
 				8642C93C1ABFF53C00251921 /* SBJsonStreamWriterState.m in Sources */,
 				8642C94B1ABFF53C00251921 /* UIImage+MultiFormat.m in Sources */,
 				8642C9651ABFF56500251921 /* LCBaseVC.m in Sources */,
+				86B7497D1AE8CB9C000BA6DB /* EvaluateDataModel.m in Sources */,
 				865C859B1ACCEDFF006ABCA4 /* NSStrUtil.m in Sources */,
 				86B8E5741AD523E900A5139E /* UserAppraisalCell.m in Sources */,
 				86C095381ACD5AB500371BF3 /* AdDataModel.m in Sources */,
