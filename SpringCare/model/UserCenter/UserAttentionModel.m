@@ -7,7 +7,7 @@
 //
 
 #import "UserAttentionModel.h"
-#import "LCNetWorkBase.h"
+
 #import "UserModel.h"
 #import "UserRequestAcctionModel.h"
 #import "define.h"

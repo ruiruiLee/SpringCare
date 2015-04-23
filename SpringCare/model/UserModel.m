@@ -7,7 +7,6 @@
 //
 
 #import "UserModel.h"
-#import "LCNetWorkBase.h"
  #import <AVOSCloud/AVOSCloud.h>
 @implementation UserModel
 @synthesize isNew;

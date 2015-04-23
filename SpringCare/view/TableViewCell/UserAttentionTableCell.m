@@ -9,8 +9,10 @@
 #import "UserAttentionTableCell.h"
 #import "define.h"
 #import "UIButton+WebCache.h"
+#import "UserAttentionVC.h"
 
 @implementation UserAttentionTableCell
+
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -18,11 +20,6 @@
     if(self){
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
-        
-//        _photoImage = [[UIImageView alloc] initWithFrame:CGRectZero];
-//        [self.contentView addSubview:_photoImage];
-//        _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
-//        _photoImage.layer.cornerRadius = 43;
         
         _btnphotoImg = [[UIButton alloc] initWithFrame:CGRectZero];
         _btnphotoImg.layer.masksToBounds = YES;
@@ -176,34 +173,25 @@
    
 }
 
+
 #pragma mark- UIActionSheetDelegate
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [Util openPhotoLibrary:_parentController allowEdit:YES completion:nil];
-        
-        
+        [Util openPhotoLibrary:_parentController allowEdit:YES completion:^{
+            self.parentController.currentCell=self;
+        }];
     }else if (buttonIndex == 1)
     {
-        [Util openCamera:_parentController allowEdit:YES completion:nil];
+        [Util openCamera:_parentController allowEdit:YES completion:^{
+            self.parentController.currentCell=self;
+        }];
+        
     }
     else{
         
     }
-}
-
-
-#pragma ACTION
-- (void) btnPhotoPressed:(UIButton*)sender{
-    UIActionSheet *ac = [[UIActionSheet alloc] initWithTitle:@""
-                                                    delegate:(id)self
-                                           cancelButtonTitle:@"取消"
-                                      destructiveButtonTitle:@"从相册选取"
-                                           otherButtonTitles:@"拍照",nil];
-    ac.actionSheetStyle = UIBarStyleBlackTranslucent;
-    [ac showInView:self];
-    
 }
 
 #pragma alertdelegate
@@ -216,8 +204,25 @@
     }
 }
 
+#pragma ACTION
+- (void) btnPhotoPressed:(UIButton*)sender{
+    NSLog(@"%@",[self class ]);
+    
+    UIActionSheet *ac = [[UIActionSheet alloc] initWithTitle:@""
+                                                    delegate:(id)self
+                                           cancelButtonTitle:@"取消"
+                                      destructiveButtonTitle:@"从相册选取"
+                                           otherButtonTitles:@"拍照",nil];
+    ac.actionSheetStyle = UIBarStyleBlackTranslucent;
+    [ac showInView:self];
+    
+}
+
+
+
 - (void) SetContentData:(UserAttentionModel*) data
 {
+    _model=data;
     phoneNum = data.ringNum;
     [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:data.photoUrl] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
 

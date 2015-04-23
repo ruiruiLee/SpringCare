@@ -11,11 +11,12 @@ typedef void(^Completion) (int code, id content);
 
 @interface LCNetWorkBase : NSObject
 
-+ (void)requestWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion;
++ (id)sharedLCNetWorkBase;
+- (void)requestWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion;
 
-+ (void)postWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion;
+- (void)postWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion;
 
-+ (void)postWithParams:(NSString*)params Url:(NSString*)url Completion:(Completion)completion;
+- (void)postWithParams:(NSString*)params Url:(NSString*)url Completion:(Completion)completion;
 
 
 @end
