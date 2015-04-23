@@ -133,12 +133,14 @@
 {
     NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],1.0);
     photoimg= [UIImage imageWithData:imageData];;
-    //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
+    photoimg = [Util fitSmallImage:photoimg scaledToSize:imgHeaderSize];
      [self dismissViewControllerAnimated:YES completion:^{
      [self.currentCell.btnphotoImg setImage:photoimg forState:UIControlStateNormal];
       AVFile *file = [AVFile fileWithName:@"head.png" data:imageData];
+      
       [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
       //  NSLog(@"%@", file.objectId) ;
+            self.currentCell.model.photoUrl=file.url;
           NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
               [mDic setObject:self.currentCell.model.userid forKey:@"loverId"];
               [mDic setObject:file.objectId forKey:@"headerImageId"];

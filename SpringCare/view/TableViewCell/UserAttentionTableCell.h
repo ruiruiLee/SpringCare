@@ -8,17 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-
 #import "UserAttentionModel.h"
 
 @class UserAttentionVC;
-//@class UserAttentionTableCell;
-//
-//@protocol ChangHeaderPhotoDelegate <NSObject>
-//
-//- (void) NotifyReloadHeadPhoto:(UserAttentionTableCell*)cell;
-//
-//@end
 
 @interface UserAttentionTableCell : UITableViewCell<UIActionSheetDelegate>
 {
@@ -36,7 +28,6 @@
 
 //@property (assign, nonatomic) id<ChangHeaderPhotoDelegate> delegate;
 @property (nonatomic, retain) UIButton *btnphotoImg;
-
 @property (nonatomic, retain) UserAttentionVC *parentController;
 @property (nonatomic, retain) UserAttentionModel *model;
 - (void) SetContentData:(UserAttentionModel*) data;

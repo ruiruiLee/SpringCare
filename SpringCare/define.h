@@ -40,7 +40,9 @@
 
 #define ThemeImage(imageName)  [UIImage imageNamed:imageName]
 
+// 订单列表页面没有数据的时候 加载的图片
 #define orderBackbroundImg ThemeImage(@"orderend")
+
 #define LcationInstance [LocationManagerObserver sharedInstance]
 
 #define CityID @"552cf514e4b02ec896e6cdbf"
@@ -60,8 +62,8 @@
 
 //首页海报图片压缩比例大小
 #define imgCoverSize CGSizeMake(750, 508)
+#define imgHeaderSize CGSizeMake(200, 200)
 
-//#define _FONT(s) [UIFont fontWithName:@"STHeitiSC-Medium" size:(s)]//[UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT(s) [UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT_B(s) [UIFont boldSystemFontOfSize:(s)]
 
