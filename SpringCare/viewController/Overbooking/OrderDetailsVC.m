@@ -265,6 +265,13 @@
             [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
         
         NSString *info = [NSString stringWithFormat:@"%@  %ld岁  护龄%@年", nurseModel.birthPlace, nurseModel.age, nurseModel.careAge];
+        
+        float width = [NSStrUtil widthForString:info fontSize:12];//screenwidth - 183
+        if(width > ScreenWidth - 142 - 21)
+            width = ScreenWidth - 142 - 21;
+        _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, width);
+        
         [_btnInfo setTitle:info forState:UIControlStateNormal];
         
         constraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_imgPhoto(82)]-16-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views];

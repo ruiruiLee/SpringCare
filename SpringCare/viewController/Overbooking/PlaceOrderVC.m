@@ -315,8 +315,10 @@
     NSString *title = [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge];
     [_btnInfo setTitle:title  forState:UIControlStateNormal];
     [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
-    float width = [NSStrUtil widthForString:title fontSize:12];
-    _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    float width = [NSStrUtil widthForString:title fontSize:12];//screenwidth - 183
+    if(width > ScreenWidth - 183 - 21)
+        width = ScreenWidth - 183 - 21;
+    _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, width);
     _btnInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
@@ -343,8 +345,8 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _btnUnfold, _btnInfo, _btnCert,
                                                          _detailInfo);
     
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_photoImage(82)]-10-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-29-[_photoImage]-10-[_btnInfo]->=10-[_btnCert(43)]-16-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage(82)]-10-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage]-10-[_btnInfo]->=10-[_btnCert(43)]-16-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_detailInfo]-29-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_btnUnfold]->=20-|" options:0 metrics:nil views:views]];
     
