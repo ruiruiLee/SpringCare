@@ -304,11 +304,16 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+      //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
+   [self dismissViewControllerAnimated:YES completion:^{
     NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],1.0);
-    UIImage *image= [UIImage imageWithData:imageData];;
+    UIImage *image= [UIImage imageWithData:imageData];
     [_btnphotoImg setImage:image forState:UIControlStateNormal];
-    //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    AVFile *file = [AVFile fileWithName:@"head.png" data:imageData];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+          NSLog(@"%@", file.objectId) ;
+      }];
+    }];
     
 }
 #pragma ACTION

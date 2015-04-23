@@ -7,17 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+
+
 #import "UserAttentionModel.h"
-#import "UserAttentionVC.h"
+
+@class UserAttentionVC;
+//@class UserAttentionTableCell;
+//
 //@protocol ChangHeaderPhotoDelegate <NSObject>
-//@optional
-//- (void) NotifyReloadHeadPhoto:(UIImage*)image;
+//
+//- (void) NotifyReloadHeadPhoto:(UserAttentionTableCell*)cell;
 //
 //@end
+
 @interface UserAttentionTableCell : UITableViewCell<UIActionSheetDelegate>
 {
    // UIImageView *_photoImage;
-    UIButton *_btnphotoImg;
+    //UIButton *_btnphotoImg;
     UIImageView * ImgSex;
     UILabel *_lbRelation;
     UILabel *_lbName;
@@ -25,11 +31,16 @@
     UILabel *_Address;
     UILabel *_line;
     NSString *phoneNum;
-    
     UIImageView *_attentionLogo;
 }
+
 //@property (assign, nonatomic) id<ChangHeaderPhotoDelegate> delegate;
-@property (nonatomic, weak) UserAttentionVC *parentController;
+@property (nonatomic, retain) UIButton *btnphotoImg;
+
+@property (nonatomic, retain) UserAttentionVC *parentController;
+@property (nonatomic, retain) UserAttentionModel *model;
 - (void) SetContentData:(UserAttentionModel*) data;
 
 @end
+
+

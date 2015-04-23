@@ -15,6 +15,7 @@
 #import "UserModel.h"
 #import "EditUserInfoVC.h"
 #import "EditCellTypeData.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface UserAttentionVC ()<EditUserInfoVCDelegate>
 {
@@ -131,14 +132,23 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],1.0);
-   _photoimg= [UIImage imageWithData:imageData];;
-  
+    photoimg= [UIImage imageWithData:imageData];;
     //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
+     [self dismissViewControllerAnimated:YES completion:^{
+     [self.currentCell.btnphotoImg setImage:photoimg forState:UIControlStateNormal];
+      AVFile *file = [AVFile fileWithName:@"head.png" data:imageData];
+      [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+      //  NSLog(@"%@", file.objectId) ;
+          NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
+              [mDic setObject:self.currentCell.model.userid forKey:@"loverId"];
+              [mDic setObject:file.objectId forKey:@"headerImageId"];
+           [LCNetWorkBase postWithMethod:@"api/lover/save" Params:mDic Completion:nil];
+        }];
+   }];
 }
-
+- (void) NotifyReloadHeadPhoto:(UserAttentionTableCell*)cell{
+   
+}
 #pragma UITableViewDataSource
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -223,7 +233,6 @@
 
     }
     else{
-        
         UserAttentionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
         if(!cell){
             cell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];

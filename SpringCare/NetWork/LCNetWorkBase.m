@@ -93,7 +93,10 @@
             [alertView show];
             return ;
         }
-        completion(1, result);
+        if (completion!=nil) {
+            completion(1, result);
+        }
+        
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -103,9 +106,9 @@
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:error.localizedDescription delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertView show];
         }
-        
+         if (completion!=nil) {
         completion(0, error);
-        
+         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
