@@ -47,7 +47,6 @@
                 [cfAppDelegate setDefaultProductId:[content objectForKey:@"defaultProductId"] ];
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
                 _banner.NewsmodelArray =  [NewsDataModel getNews];
-                // _banner.adNewsArray = [NewsDataModel getNewsUrlArray];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
                 NSArray *wordList = [content objectForKey:@"wordList"];
                 for (int i = 0; i < [wordList count]; i++) {
@@ -144,15 +143,11 @@
     if(type == EnumValueTypeiPhone4S)
         rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale - 40);
     _banner = [[AdScrollView alloc]initWithFrame:rect];
-//    AdDataModel * dataModel = [AdDataModel adDataModelWithImageNameAndAdTitleArray];
-    //如果滚动视图的父视图由导航控制器控制,必须要设置该属性(ps,猜测这是为了正常显示,导航控制器内部设置了UIEdgeInsetsMake(64, 0, 0, 0))
-//    scrollView.imageNameArray = dataModel.imageNameArray;
-    
+    _banner.parentController=self;
     _banner.PageControlShowStyle = UIPageControlShowStyleCenter;
     _banner.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
     _banner.pageControl.currentPageIndicatorTintColor = Abled_Color;
     [self.view insertSubview:_banner belowSubview:self.NavigationBar];
-    //_banner = scrollView;
     
     UIColor *dark = _COLOR(90, 90, 100);
     //介绍

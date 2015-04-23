@@ -11,6 +11,7 @@
 #import "UIButton+WebCache.h"
 #import "define.h"
 #import "NewsDataModel.h"
+#import "WebContentVC.h"
 
 #define UISCREENWIDTH  self.bounds.size.width//广告的宽度
 #define UISCREENHEIGHT  self.bounds.size.height//广告的高度
@@ -19,7 +20,10 @@
 
 static CGFloat const chageImageTime = 3.0;
 
-@interface AdScrollView ()
+@interface AdScrollView (){
+    NSMutableArray * titleUrlarray;
+    NSMutableArray * titleArray;
+}
 
 @end
 
@@ -53,13 +57,16 @@ static CGFloat const chageImageTime = 3.0;
     if([_NewsmodelArray count] == 0){
         return;
     }
+    titleUrlarray =  [[NSMutableArray alloc]init];
+    titleArray  =  [[NSMutableArray alloc]init];
     self.contentSize = CGSizeMake(UISCREENWIDTH * models.count,UISCREENHEIGHT);
     _pageControl.numberOfPages = [models count];
     for (int i = 0; i < models.count; i++) {
     
         //添加图片展示按钮
         NewsDataModel *item = [models objectAtIndex:i];
-
+        [titleUrlarray addObject:item.news_url];
+         [titleArray addObject:item.news_title];
         UIButton * imageView = [UIButton buttonWithType:UIButtonTypeCustom];
         [imageView setFrame:CGRectMake(i * self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
         [imageView sd_setImageWithURL:[NSURL URLWithString:item.image_url] forState:UIControlStateNormal placeholderImage:nil];
@@ -106,7 +113,13 @@ static CGFloat const chageImageTime = 3.0;
 
 - (void) clickPageImage:(UIButton*)sender
 {
-    NSLog(@"%ld",(long)sender.tag);
+        NSLog(@"%ld",(long)sender.tag);
+    if (titleUrlarray!=nil) {
+        WebContentVC *vc = [[WebContentVC alloc] initWithTitle:titleArray[sender.tag]==nil?@"详情":titleArray[sender.tag] url:titleUrlarray[sender.tag]];
+        vc.hidesBottomBarWhenPushed = YES;
+        [vc loadInfoFromUrl:titleUrlarray[sender.tag] ];
+        [_parentController.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 
