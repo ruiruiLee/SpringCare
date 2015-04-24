@@ -437,7 +437,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == 0){
         if(_nurseModel.commentsNumber > 0){
-            MyEvaluateListVC *vc = [[MyEvaluateListVC alloc] initWithNibName:nil bundle:nil];
+            MyEvaluateListVC *vc = [[MyEvaluateListVC alloc] initVCWithNurseId:_nurseModel.nid];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

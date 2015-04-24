@@ -11,9 +11,11 @@
 #import "IQKeyboardReturnKeyHandler.h"
 
 @interface MyEvaluateListVC ()
+{
+    NSString *_currentCareId;
+}
 
 @property (nonatomic, strong) EvaluateListCell *prototypeCell;
-@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
 
 @end
 
@@ -22,16 +24,45 @@
 @synthesize DataList;
 @synthesize prototypeCell;
 
+- (id) initVCWithNurseId:(NSString *) nurseId
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if(self){
+        _currentCareId = nurseId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.NavigationBar.Title = @"我的评价";
     
-    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeySend;
-    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
+    pages = 0;
+    DataList = [[NSMutableArray alloc] init];
+    // Do any additional setup after loading the view.
+    self.NavigationBar.Title = @"评价";
+    _careModel = [[CareEvaluateInfoModel alloc] init];
+    _careModel.careId = _currentCareId;
+    __weak MyEvaluateListVC *weakSelf = self;
+    self.tableview.pullTableIsRefreshing = YES;
+    [_careModel LoadCommentListWithPages:pages isOnlySplit:NO block:^(int code, id content) {
+        if(code){
+            [weakSelf.DataList addObjectsFromArray:content];
+            [weakSelf.tableview reloadData];
+            
+            [weakSelf reSetHeaderView];
+        }
+        
+        [weakSelf refreshTable];
+    }];
     
     [self initSubviews];
+}
+
+- (void) reSetHeaderView
+{
+//    lbTitle.text = @"累计评价36（好评80%）";
+    NSString *text = [NSString stringWithFormat:@"累计评价%ld（好评%@%@）", _careModel.commentsNumber, _careModel.commentsRate, @"%"];
+    lbTitle.text = text;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +78,6 @@
     lbTitle.textColor = _COLOR(0x99, 0x99, 0x99);
     lbTitle.font = _FONT(15);
     [headerView addSubview:lbTitle];
-    lbTitle.text = @"累计评价36（好评80%）";
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[lbTitle]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(lbTitle)]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-19-[lbTitle]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(lbTitle)]];
     
@@ -68,7 +98,7 @@
 #pragma UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;//[DataList count];
+    return [DataList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,7 +108,8 @@
         cell = [[EvaluateListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    EvaluateDataModel *data = [DataList objectAtIndex:indexPath.row];
+    [cell SetContentDataWith:data];
     return cell;
 }
 
@@ -94,9 +125,9 @@
         prototypeCell = [[EvaluateListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         prototypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    //    NurseListInfoModel *data = [DataList objectAtIndex:indexPath.row];
+    EvaluateDataModel *data = [DataList objectAtIndex:indexPath.row];
     EvaluateListCell *cell = (EvaluateListCell *)self.prototypeCell;
-    //    [cell SetContentData:data];
+    [cell SetContentDataWith:data];
     
     [cell setNeedsLayout];
     [cell layoutIfNeeded];
@@ -114,12 +145,34 @@
 
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
-    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
+    pages = 0;
+    
+    __weak MyEvaluateListVC *weakSelf = self;
+    [_careModel LoadCommentListWithPages:pages isOnlySplit:NO block:^(int code, id content) {
+        if(code){
+            [weakSelf.DataList removeAllObjects];
+            [weakSelf.DataList addObjectsFromArray:content];
+            [weakSelf.tableview reloadData];
+        }
+        [weakSelf reSetHeaderView];
+//        [weakSelf refreshTable];
+        [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.1];
+    }];
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
 {
-    [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:3.0f];
+    pages ++;
+    
+    __weak MyEvaluateListVC *weakSelf = self;
+    [_careModel LoadCommentListWithPages:pages isOnlySplit:YES block:^(int code, id content) {
+        if(code){
+            [weakSelf.DataList addObjectsFromArray:content];
+            [weakSelf.tableview reloadData];
+        }
+        [weakSelf reSetHeaderView];
+        [weakSelf performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.1];
+    }];
 }
 
 #pragma mark - Refresh and load more methods
@@ -137,15 +190,5 @@
     self.tableview.pullTableIsLoadingMore = NO;
 }
 
-
-- (void) LoadEvaluateListDataWithPages:(NSInteger) page
-{
-    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-    [LCNetWorkBase postWithMethod:@"" Params:parmas Completion:^(int code, id content) {
-        if(code){
-            
-        }
-    }];
-}
 
 @end
