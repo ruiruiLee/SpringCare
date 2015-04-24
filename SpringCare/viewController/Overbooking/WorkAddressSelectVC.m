@@ -33,7 +33,7 @@
     
     _dataList = [UserAttentionModel GetMyAttentionArray];
     if([_dataList count] == 0){
-        [UserAttentionModel loadLoverList:^(int code) {
+        [UserAttentionModel loadLoverList:@"true" block:^(int code) {
             if(code == 1){
                 _dataList = [UserAttentionModel GetMyAttentionArray];
                 [_tableview reloadData];
@@ -97,7 +97,7 @@
 
 - (void) NotifyReloadData
 {
-    [UserAttentionModel loadLoverList:^(int code) {
+    [UserAttentionModel loadLoverList:@"true" block:^(int code) {
         if(code == 1){
             _dataList = [UserAttentionModel GetMyAttentionArray];
           [_tableview reloadData];

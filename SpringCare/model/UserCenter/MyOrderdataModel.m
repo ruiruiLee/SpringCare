@@ -160,7 +160,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
         if(code){
             NSMutableArray *result = [[NSMutableArray alloc] init];
             NSArray *otherOrders = [content objectForKey:@"rows"];
-            NSInteger total = [[content objectForKey:@"total"] integerValue];
+            //NSInteger total = [[content objectForKey:@"total"] integerValue];
             if(orderType == EnumOrderOther){
                 if([content isKindOfClass:[NSDictionary class]]){
                     for (int i = 0; i < [otherOrders count]; i++) {

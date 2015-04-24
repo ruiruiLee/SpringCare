@@ -29,6 +29,7 @@
 {
     UIView *bgView = self.contentView;
     _photoImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+     _photoImage.layer.masksToBounds = YES;
     [bgView addSubview:_photoImage];
     _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
 //    
@@ -83,6 +84,7 @@
 
 - (void) InitConstraintsForiPhone5:(NSDictionary*) views
 {
+     _photoImage.layer.cornerRadius = 31;
     _lbRelation.font = _FONT_B(18);
     _lbName.font = _FONT(14);
     _lbAddress.font = _FONT(14);
@@ -102,6 +104,7 @@
 
 - (void) InitConstraintsForiPhone6:(NSDictionary*) views
 {
+     _photoImage.layer.cornerRadius = 36;
     _lbRelation.font = _FONT_B(20);
     _lbName.font = _FONT(15);
     _lbAddress.font = _FONT(15);
@@ -121,6 +124,7 @@
 
 - (void) InitConstraintsForiPhone6P:(NSDictionary*) views
 {
+    _photoImage.layer.cornerRadius = 41;
     _lbRelation.font = _FONT_B(22);
     _lbName.font = _FONT(16);
     _lbAddress.font = _FONT(16);

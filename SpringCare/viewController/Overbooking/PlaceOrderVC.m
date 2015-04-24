@@ -131,7 +131,7 @@
                 block(code, content);
             }
             
-            [UserAttentionModel loadLoverList:^(int code) {
+            [UserAttentionModel loadLoverList:@"true" block:^(int code) {
 
             }];
         }
@@ -506,7 +506,6 @@
 -(void)lookImageAction:(UIButton *)sender
 {
     NSLog(@"lookImageAction");
-    return;
     _imageList = [[HBImageViewList alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [_imageList addTarget:self tapOnceAction:@selector(dismissImageAction:)];
     [_imageList addImagesURL:nil withSmallImage:nil];

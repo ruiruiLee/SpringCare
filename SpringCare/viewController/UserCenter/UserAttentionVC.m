@@ -39,7 +39,7 @@
     _attentionData = [UserAttentionModel GetMyAttentionArray];
     _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
     if([_attentionData count] == 0){
-        [UserAttentionModel loadLoverList:^(int code) {
+        [UserAttentionModel loadLoverList:@"true" block:^(int code) {
             if(code == 1){
                 _attentionData = [UserAttentionModel GetMyAttentionArray];
                 _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
@@ -411,7 +411,7 @@
 }
 - (void) NotifyReloadData
 {
-    [UserAttentionModel loadLoverList:^(int code) {
+    [UserAttentionModel loadLoverList:@"true" block:^(int code) {
         if(code == 1){
             _attentionData = [UserAttentionModel GetMyAttentionArray];
             _applyData = [UserRequestAcctionModel GetRequestAcctionArray];

@@ -32,12 +32,14 @@
     EscortTimeDataModel *_replyContentModel;//
     NSString *_reReplyPId;//被回复人id
     
-    UIImageView *_defaultImgView;
+    //UIImageView *_defaultImgView;
     
     NSInteger pages;
     NSInteger totalPages;
     
     NSMutableArray *_dataList;
+    NSArray *AttentionArray;
+    UIView *headerView;
 }
 
 @property (nonatomic, strong) PullTableView *tableView;
