@@ -44,6 +44,8 @@
 
 // 订单列表页面没有数据的时候 加载的图片
 #define orderBackbroundImg ThemeImage(@"orderend")
+// 陪护时光无数据时加载的页面。
+#define TimeBackbroundImg ThemeImage(@"img_index_03bg")
 
 #define LcationInstance [LocationManagerObserver sharedInstance]
 

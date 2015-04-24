@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 //#import "LCRefreshTableVC.h"
-#import "ProjectDefine.h"
+//#import "ProjectDefine.h"
 #import "LCMenuViewController.h"
 #import "SliderViewController.h"
 #import "Pingpp.h"
@@ -59,7 +59,7 @@
                                                      UIRemoteNotificationTypeSound];
 #endif
     
-    [ProjectDefine shareProjectDefine];
+   // [ProjectDefine shareProjectDefine];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     

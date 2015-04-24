@@ -115,8 +115,67 @@
     self.btnRight.hidden = NO;
     [self.btnRight setImage:[UIImage imageNamed:@"relationattentionselect"] forState:UIControlStateNormal];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];
+    tableView = [[PullTableView alloc] initWithFrame:CGRectZero];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [self.view insertSubview:tableView belowSubview:self.NavigationBar];
+    tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.pullDelegate = self;
     
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-49-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
+    
+    
+    
+    _defaultImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [self.view insertSubview:_defaultImgView belowSubview:self.NavigationBar];
+    _defaultImgView.translatesAutoresizingMaskIntoConstraints = NO;
+    _defaultImgView.image = ThemeImage(@"img_index_03bg");
+    
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_defaultImgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_defaultImgView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_defaultImgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_defaultImgView)]];
+    _defaultImgView.hidden = YES;
+    
+    [self creatHeadView];
+    tableView.tableHeaderView = headerView;
+    tableView.tableFooterView = [[UIView alloc] init];
+    
+
+    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, SCREEN_HEIGHT)];
+    [[UIApplication sharedApplication].keyWindow addSubview:_bgView];
+    _bgView.hidden = YES;
+    _bgView.alpha = 0.6;
+    UITapGestureRecognizer* singleRecognizer;
+    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
+    //点击的次数
+    singleRecognizer.numberOfTapsRequired = 1; // 单击
+    [_bgView addGestureRecognizer:singleRecognizer];
+    _selectView = [[AttentionSelectView alloc] initWithFrame:CGRectMake(ScreenWidth, 64, ScreenWidth/2, SCREEN_HEIGHT - 64)];
+    [[UIApplication sharedApplication].keyWindow addSubview:_selectView];
+    _selectView.delegate = self;
+    
+    UserModel *usermodel = [UserModel sharedUserInfo];
+    if(!usermodel.isLogin){
+        _defaultImgView.hidden = NO;
+    }else{
+        _defaultImgView.hidden = YES;
+    }
+    [usermodel addObserver:self forKeyPath:@"userId" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    if(usermodel.userId != nil){
+        NSArray *data = [UserAttentionModel GetMyAttentionArray];
+        if([data count] == 0){
+            [UserAttentionModel loadLoverList:^(int code) {
+            }];
+        }
+        
+        [self LoaddefaultLoverInfo];
+    }
+}
+
+-(void)creatHeadView{
+    headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];
     UIImageView *headerbg = [[UIImageView alloc] initWithFrame:CGRectZero];
     [headerView addSubview:headerbg];
     headerbg.image = [UIImage imageNamed:@"relationheaderbg"];
@@ -150,57 +209,7 @@
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnInfo]-5-[_photoImgView(82)]-16.5-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbName(18)]-2-[_btnInfo(21)]-28-|" options:0 metrics:nil views:views]];
     
-    tableView = [[PullTableView alloc] initWithFrame:CGRectZero];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [self.view insertSubview:tableView belowSubview:self.NavigationBar];
-    tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    tableView.pullDelegate = self;
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-49-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
-    
-    tableView.tableHeaderView = headerView;
-    tableView.tableFooterView = [[UIView alloc] init];
-    
-    _defaultImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [self.view insertSubview:_defaultImgView belowSubview:self.NavigationBar];
-    _defaultImgView.translatesAutoresizingMaskIntoConstraints = NO;
-    _defaultImgView.image = ThemeImage(@"img_index_03bg");
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_defaultImgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_defaultImgView)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_defaultImgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_defaultImgView)]];
-    _defaultImgView.hidden = YES;
-    
-    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, SCREEN_HEIGHT)];
-    [[UIApplication sharedApplication].keyWindow addSubview:_bgView];
-    _bgView.hidden = YES;
-    _bgView.alpha = 0.6;
-    UITapGestureRecognizer* singleRecognizer;
-    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
-    //点击的次数
-    singleRecognizer.numberOfTapsRequired = 1; // 单击
-    [_bgView addGestureRecognizer:singleRecognizer];
-    _selectView = [[AttentionSelectView alloc] initWithFrame:CGRectMake(ScreenWidth, 64, ScreenWidth/2, SCREEN_HEIGHT - 64)];
-    [[UIApplication sharedApplication].keyWindow addSubview:_selectView];
-    _selectView.delegate = self;
-    
-    UserModel *usermodel = [UserModel sharedUserInfo];
-    if(!usermodel.isLogin){
-        _defaultImgView.hidden = NO;
-    }else{
-        _defaultImgView.hidden = YES;
-    }
-    [usermodel addObserver:self forKeyPath:@"userId" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    if(usermodel.userId != nil){
-        NSArray *data = [UserAttentionModel GetMyAttentionArray];
-        if([data count] == 0){
-            [UserAttentionModel loadLoverList:^(int code) {
-            }];
-        }
-        
-        [self LoaddefaultLoverInfo];
-    }
+
 }
 
 - (void) CheckDefaultImgViewShow
@@ -230,6 +239,15 @@
 
 - (NSInteger) tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (_dataList.count==0) {
+        UIImageView *imageView=[[UIImageView alloc]initWithImage:TimeBackbroundImg];
+       [_tableView setBackgroundView:imageView];
+        [tableView.tableHeaderView removeFromSuperview];
+    
+         }
+    else{
+        [_tableView setBackgroundView:nil];
+         }
     return [_dataList count];
 }
 

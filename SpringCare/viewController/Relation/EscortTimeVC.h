@@ -38,6 +38,7 @@
     NSInteger totalPages;
     
     NSMutableArray *_dataList;
+    UIView *headerView;
 }
 
 @property (nonatomic, strong) PullTableView *tableView;
