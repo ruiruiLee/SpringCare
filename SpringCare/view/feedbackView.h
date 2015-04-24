@@ -22,6 +22,8 @@
     NSDictionary   *_plistDic;
     NSString* tempStr ;
     int navHeight;
+    UITapGestureRecognizer *tapGesture;
+    UIView * parentView;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *controlView;

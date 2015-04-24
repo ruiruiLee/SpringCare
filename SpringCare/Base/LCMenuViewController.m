@@ -37,23 +37,17 @@
 
 - (void) dealloc
 {
-    UserModel *model = [UserModel sharedUserInfo];
-    [model removeObserver:self forKeyPath:@"username"];
-    [model removeObserver:self forKeyPath:@"chineseName"];
-    [model removeObserver:self forKeyPath:@"headerFile"];
+    [[UserModel sharedUserInfo] removeObserver:self forKeyPath:@"chineseName"];
+    [[UserModel sharedUserInfo] removeObserver:self forKeyPath:@"headerFile"];
 }
 
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    UserModel *model = [UserModel sharedUserInfo];
-    if([keyPath isEqualToString:@"username"])
-    {
-        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
-    }
+
     if([keyPath isEqualToString:@"chineseName"])
     {
-        [_btnUserName setTitle:model.chineseName forState:UIControlStateNormal];
+        [_btnUserName setTitle:[UserModel sharedUserInfo].displayName forState:UIControlStateNormal];
     }
     if ([keyPath isEqualToString:@"headerFile"]){
         [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];

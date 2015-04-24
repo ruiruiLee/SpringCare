@@ -314,33 +314,30 @@
 
 #pragma mark - 点中回复按钮
 #pragma mark EscortTimeTableCellDelegate
--(void)commentButtonClick:(id)target userReply:(NSString*)userReply{
+-(void)commentButtonClick:(id)target ReplyName:(NSString*)ReplyName ReplyID:(NSString*)ReplyID{
 //    _replyContentModel = target.model;
     if([target isKindOfClass:[EscortTimeTableCell class]]){
         _replyContentModel = ((EscortTimeTableCell*)target)._model;
     }else
         _replyContentModel = nil;
     
-    _reReplyPId = userReply;
+    _reReplyPId = ReplyID;
+    _reReplyName=ReplyName;
     if (_feedbackView == nil) {
         _feedbackView =[[feedbackView alloc ] initWithNibName:@"feedbackView" bundle:nil controlHidden:NO];
         _feedbackView.delegate=(id)self;
         [self.view addSubview:_feedbackView.view];
-        
-    }
 
-        [self performSelector:@selector(displayKeybord) withObject:nil afterDelay:0.8];
+    }
+ [_feedbackView.feedbackTextField becomeFirstResponder];
 }
--(void)displayKeybord{
-    [_feedbackView.feedbackTextField becomeFirstResponder];
-}
+
 #pragma mark - feedbackViewDelegate
 -(void)commitMessage:(NSString*)msg   //按确认按钮或者发送按钮实现消息发送
 {
     NSLog(@"%@",msg);
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-    if(msg)
-        [parmas setObject:msg forKey:@"content"];
+    [parmas setObject:msg forKey:@"content"];
     [parmas setObject:[UserModel sharedUserInfo].userId forKey:@"replyUserId"];
     if(_replyContentModel){
         [parmas setObject:_replyContentModel.itemId forKey:@"careTimeId"];
@@ -349,13 +346,12 @@
         [parmas setObject:_reReplyPId forKey:@"orgUserId"];
     }
     
-    __weak EscortTimeVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/careTime/reply" Params:parmas Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
                 if ([content objectForKey:@"code"] == nil) {
                     NSString *replyId = [content objectForKey:@"message"];
-                    [weakSelf replyCompleteWithReplyId:replyId content:msg];
+                    [self replyCompleteWithReplyId:replyId content:msg];
                 }
             }
         }
@@ -375,10 +371,16 @@
     NSMutableArray *replyinfos = (NSMutableArray*)_replyContentModel.replyInfos;
     EscortTimeReplyDataModel *replyModel = [[EscortTimeReplyDataModel alloc] init];
     replyModel.guId = replyId;
-    replyModel.content = content;
+  
     replyModel.replyUserId = [UserModel sharedUserInfo].userId;
     replyModel.replyUserName = [UserModel sharedUserInfo].chineseName;
-    replyModel.orgUserId = _reReplyPId;
+    if(_reReplyPId==nil){
+         replyModel.content =[NSString stringWithFormat:@"%@:%@",@"我", content] ;
+    }
+    else{
+          replyModel.content =[NSString stringWithFormat:@"我@%@:%@",_reReplyName,content]  ;
+          replyModel.orgUserId = _reReplyPId;
+        }
     [replyinfos addObject:replyModel];
     [tableView reloadData];
 }
@@ -461,15 +463,15 @@
 {
     pages ++;
     
-    __weak EscortTimeVC *weakSelf = self;
-    __weak PullTableView *weakTableView = tableView;
-    __weak NSMutableArray *weakDataList = _dataList;
+    //__weak EscortTimeVC *weakSelf = self;
+   // __weak PullTableView *weakTableView = tableView;
+   // __weak NSMutableArray *weakDataList = _dataList;
     [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:pages block:^(int code, id content) {
-        [weakSelf loadMoreDataToTable];
+        [self loadMoreDataToTable];
         if(code)
         {
-            [weakDataList addObjectsFromArray:content];
-            [weakTableView reloadData];
+            [_dataList addObjectsFromArray:content];
+            [tableView reloadData];
         }
     }];
 }

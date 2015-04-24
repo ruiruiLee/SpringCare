@@ -11,11 +11,11 @@
 #import "EditCellTypeData.h"
 #import "UserModel.h"
 #import "UserAttentionModel.h"
-#import "IQKeyboardReturnKeyHandler.h"
+
 
 @interface EditUserInfoVC ()
 
-@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
+
 
 @end
 
@@ -26,7 +26,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     [self.NavigationBar.btnRight setTitle:@"完成" forState:UIControlStateNormal];
     self.NavigationBar.btnRight.hidden = NO;
     self.NavigationBar.btnRight.layer.cornerRadius = 8;
@@ -35,10 +34,6 @@
     self.NavigationBar.btnRight.titleLabel.font = _FONT(16);
     
     [self initSubViews];
-    
-    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyNext;
-    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
 }
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender

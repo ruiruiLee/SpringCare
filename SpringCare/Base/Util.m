@@ -42,10 +42,18 @@
     return date;
 }
 
-+ (NSString*) convertStringFromString:(NSDate*) date
++ (NSString*) convertStringFromDate:(NSDate*) date
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
     [formatter setDateFormat:@"yyyy-MM-dd HH"];
+    NSString *string = [formatter stringFromDate:date];
+    return string;
+}
+
++ (NSString*) convertShotStrFromDate:(NSDate*) date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    [formatter setDateFormat:@"M月d日 HH"];
     NSString *string = [formatter stringFromDate:date];
     return string;
 }

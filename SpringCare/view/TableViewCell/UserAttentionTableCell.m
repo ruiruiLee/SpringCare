@@ -247,8 +247,7 @@
     else{
         [ImgSex setImage:ThemeImage(@"femail")];
     }
-     NSString * personH=[NSString stringWithFormat:@"%@",data.height ];
-    _lbName.text = [NSString stringWithFormat:@"%@     %@     %@", [data.username isEqual:@""]?@"姓名":data.username,[data.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",data.age ], [personH isEqual:@"0"]?@"身高":[NSString stringWithFormat:@"%@米",personH]];
+    _lbName.text = [NSString stringWithFormat:@"%@     %@     %@", [data.username isEqual:@""]?@"姓名":data.username,[data.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",data.age ], !data.height?@"身高":[NSString stringWithFormat:@"%@米",data.height]];
     _Address.text = data.address;
     if(data.address == nil){
         _Address.text = @"地址 ";

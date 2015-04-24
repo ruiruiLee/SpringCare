@@ -237,7 +237,7 @@
         UserAttentionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
         if(!cell){
             cell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
-            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:self.attentionTableCell.frame];
+            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
             cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
             cell.parentController= self;
         }

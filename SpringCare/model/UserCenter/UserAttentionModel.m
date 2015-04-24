@@ -23,6 +23,9 @@ static NSMutableArray *myAttentionArray = nil;
 @synthesize address;
 @synthesize isCare;
 @synthesize age;
+@synthesize sex;
+@synthesize height;
+@synthesize relationId;
 
 + (NSMutableArray*) GetMyAttentionArray
 {

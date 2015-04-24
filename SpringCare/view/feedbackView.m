@@ -51,7 +51,7 @@
         _plistDic =[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle]
                                                                pathForResource:@"faceMap_ch"
                                                                ofType:@"plist"]];
-     self.view.frame =CGRectMake(0,0, _winSize.width, _keyBoardSize.height+contentHeight);
+       self.view.frame =CGRectMake(0,_winSize.height, _winSize.width, _keyBoardSize.height+contentHeight);
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification
@@ -65,21 +65,7 @@
         return self;
 }
 
--(void)addSuperViewClickGesture{
-    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(finishOpration)];
-    tapGesture.numberOfTapsRequired=1;
-//    NSLog(@"%@",[self.view.superview class]);
-   for (id  subView in self.view.superview.subviews){
-       if ([subView isKindOfClass:[UITableView class]]) {
-            [subView addGestureRecognizer:tapGesture];
-            addGesture=YES;
-            break;
-       }
-   }
 
-   // [self.view.superview addGestureRecognizer:tapGesture];
-    
-}
 - (void)viewDidLoad
 {
     self.feedbackTextField.text = @"";
@@ -97,9 +83,6 @@
     }
     else{
         self.ReplyView.hidden=YES;
-//        self.feedbackTextField.frame=CGRectMake(_feedbackTextField.frame.origin.x+10, _feedbackTextField.frame.origin.y, _feedbackTextField.frame.size.width+extendedLen, _feedbackTextField.frame.size.height);
-//        self.commitButton.frame=CGRectMake(_commitButton.frame.origin.x+extendedLen+10, _commitButton.frame.origin.y, _commitButton.frame.size.width, _commitButton.frame.size.height);
-
     }
         [self.view endEditing:YES];
 }
@@ -114,12 +97,11 @@
 
 //切换键盘或者表情
 - (IBAction)commitButtonPressed:(id)sender {
-  
+     faceshow =!faceshow;
     if (faceshow) {   // 变成显示表情
         [self.commitButton setImage:ThemeImage(@"chat_keyboard") forState:UIControlStateNormal];
         [self.feedbackTextField resignFirstResponder];
         if (_faceBoardView == nil) {
-            faceshow =!faceshow;
             _faceBoardView = [[FaceBoardView alloc] initWithFrame:CGRectMake(0,contentHeight,_keyBoardSize.width,_keyBoardSize.height-contentHeight)];
             _faceBoardView.delegate = self;
 
@@ -160,10 +142,9 @@
         //添加父亲view手势 ，如果父亲是tableview添加后将会掩盖didselectrow事件 ,这种千万不能加
         [self addSuperViewClickGesture];
     }
-
     NSDictionary *info = [notification userInfo];
    _keyBoardSize =[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    NSLog(@"%f",_keyBoardSize.height);
+   // NSLog(@"%f",_keyBoardSize.height);
     [UIView animateWithDuration:0.2 animations:^{
         //父view变化
           int pheight =_winSize.height-navHeight-_keyBoardSize.height+20;
@@ -171,9 +152,10 @@
         if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]) {
             [_delegate changeParentViewFram:pheight];
         }
-       self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
+            self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
+    //});NSLog(@"%f",self.view.frame.size.height);
         } completion:nil];
-    NSLog(@"%f",self.view.frame.size.height);
+
 }
 //键盘隐藏
 - (void)keyBoardWillHide:(NSNotification*)notification {
@@ -190,12 +172,39 @@
         self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,self.view.frame.size.height);    } completion:nil];
  }
 }
+
+-(void)addSuperViewClickGesture{
+    if (tapGesture==nil) {
+        tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(finishOpration)];
+        tapGesture.numberOfTapsRequired=1;
+    }
+   
+    //    NSLog(@"%@",[self.view.superview class]);
+    if (parentView==nil) {
+        for (id  subView in self.view.superview.subviews){
+            if ([subView isKindOfClass:[UITableView class]]) {
+                parentView = subView;
+                break;
+            }
+        }
+
+    }
+     [parentView addGestureRecognizer:tapGesture];
+    addGesture=YES;
+}
+
+
 //还原成原始坐标位置
 -(void)finishOpration
 {
+    if (addGesture) {
+        [parentView removeGestureRecognizer:tapGesture];
+        addGesture=NO;
+    }
     if (!self) {
         return;
     }
+    
     if (faceshow) {  //显示的是表情
         faceshow=NO;
         [self.commitButton setImage:ThemeImage(@"chat_smailbtn") forState:UIControlStateNormal];

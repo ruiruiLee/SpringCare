@@ -55,6 +55,18 @@
     
     return self;
 }
+-(NSString*) displayName{
+    if (self.chineseName.length==0) {
+        
+        return self.mobilePhoneNumber;
+    }
+    else{
+        return self.chineseName;
+    }
+}
+-(void)setDisplayName:(NSString *)displayName{
+    
+}
 -(BOOL)isLogin{
     if ( [AVUser currentUser]==nil) {
          return false;

@@ -32,13 +32,14 @@ static NSInteger totalCount = 0;
 @implementation EscortTimeReplyDataModel
 @synthesize height;
 
+
 + (EscortTimeReplyDataModel *) ObjectFromDictionary:(NSDictionary *)dic
 {
     EscortTimeReplyDataModel *model = [[EscortTimeReplyDataModel alloc] init];
     model.replyUserHeaderImage = [dic objectForKey:@"replyUserHeaderImage"];
     model.replyUserName = [dic objectForKey:@"replyUserName"];
     model.replyUserPhone = [dic objectForKey:@"replyUserPhone"];
-    model.guId = [dic objectForKey:@"guId"];
+    model.guId = [dic objectForKey:@"id"];
     model.replyDate = [dic objectForKey:@"replyDate"];
     model.replyUserId = [dic objectForKey:@"replyUserId"];
     model.orgUserHeaderImage = [dic objectForKey:@"orgUserHeaderImage"];
@@ -49,21 +50,33 @@ static NSInteger totalCount = 0;
     NSString *content = [dic objectForKey:@"content"];
     NSMutableString *str = [[NSMutableString alloc] init];
     if(model.replyUserName!= nil){
-        [str appendString:model.replyUserName];
-    }else{
-        [str appendString:model.replyUserPhone];
+        if ([model.replyUserName isEqualToString:[UserModel sharedUserInfo].displayName]) {
+            [str appendString:@"我"];
+        }
+        else
+          [str appendString:model.replyUserName];
     }
     
     if(model.orgUserName != nil){
-        [str appendString:[NSString stringWithFormat:@"回复%@：%@", model.orgUserName,content]];
-    }else if (model.orgUserPhone != nil){
-        [str appendString:[NSString stringWithFormat:@"回复%@：%@", model.orgUserPhone, content]];
-    }else
-        [str appendString:[NSString stringWithFormat:@"：%@", content]];
+        if ([model.orgUserName isEqualToString:[UserModel sharedUserInfo].displayName]) {
+           [str appendString:[NSString stringWithFormat:@"@%@",@"我"]];
+        }
+        else
+            [str appendString:[NSString stringWithFormat:@"@%@", model.orgUserName]];
+    }
+    [str appendString:[NSString stringWithFormat:@":%@", content]];
 
     model.content = str;
     
     return model;
+}
+
++ (EscortTimeReplyDataModel *) ReplysFromDictionary:(NSDictionary *)dic{
+     EscortTimeReplyDataModel *model = [[EscortTimeReplyDataModel alloc] init];
+    model.replyUserName = [dic objectForKey:@"replyUserName"];
+    model.replyUserPhone = [dic objectForKey:@"replyUserPhone"];
+     model.replyUserId = [dic objectForKey:@"replyUserId"];
+     return model;
 }
 
 + (NSArray *) ArrayFromDictionaryArray:(NSArray *) array
@@ -129,6 +142,7 @@ static NSInteger totalCount = 0;
     
     return model;
 }
+
 
 + (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(CompletionBlock) block
 {

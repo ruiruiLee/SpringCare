@@ -30,7 +30,7 @@
 @property (nonatomic, strong) NSString *career;
 @property (nonatomic, strong) NSString *intro;
 @property (nonatomic, strong) NSString *chineseName;
-
+@property (nonatomic, strong) NSString *displayName;
 +(UserModel *)sharedUserInfo;
 
 -(BOOL)isLogin;

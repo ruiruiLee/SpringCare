@@ -31,7 +31,7 @@
     //
     EscortTimeDataModel *_replyContentModel;//
     NSString *_reReplyPId;//被回复人id
-    
+    NSString *_reReplyName;//被回复人名字
     //UIImageView *_defaultImgView;
     
     NSInteger pages;

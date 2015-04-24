@@ -33,7 +33,8 @@
 @property (nonatomic, strong) NSString *orgUserPhone;//被回复人姓名
 @property (nonatomic, strong) NSString *orgUserId;
 
-
++ (EscortTimeReplyDataModel *) ObjectFromDictionary:(NSDictionary *)dic;
++ (NSArray *) ArrayFromDictionaryArray:(NSArray *) array;
 @end
 
 @interface EscortTimeDataModel : NSObject

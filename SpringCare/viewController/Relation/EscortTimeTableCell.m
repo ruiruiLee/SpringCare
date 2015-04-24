@@ -165,7 +165,7 @@
     _replyTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _replyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _replyTableView.backgroundColor = [UIColor clearColor];
-    _replyTableView.scrollEnabled = NO;
+     _replyTableView.scrollEnabled = NO;
     
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbPublishTime, _btnReply, _replyTableView, _replyTableBg);
@@ -183,8 +183,8 @@
 }
 
 - (void)btnReplyPressed {
-    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:userReply:)]) {
-        [cellDelegate commentButtonClick:self userReply:nil];
+    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:ReplyName:ReplyID:)]) {
+        [cellDelegate commentButtonClick:self ReplyName:nil ReplyID:nil];
     }
 
 }
@@ -225,7 +225,9 @@
     EscortTimeReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(!cell){
         cell = [[EscortTimeReplyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+
     }
     
     EscortTimeReplyDataModel *model = [_model.replyInfos objectAtIndex:indexPath.row];
@@ -237,10 +239,9 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EscortTimeReplyDataModel *model = [_model.replyInfos objectAtIndex:indexPath.row];
-    NSString *replyId = model.guId;
-    
-    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:userReply:)]) {
-        [cellDelegate commentButtonClick:self userReply:replyId];
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:ReplyName:ReplyID:)]) {
+        [cellDelegate commentButtonClick:self ReplyName:model.replyUserName ReplyID:model.guId];
     }
 }
 
@@ -341,6 +342,7 @@
         hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:tableviewformat options:0 metrics:nil views:views];
         [_replyTableBg addConstraints:hReplyTableLayoutArray];
         _replyTableBg.hidden = NO;
+        [_replyTableView reloadData];
     }
     else{
         hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_replyTableView]-0-|" options:0 metrics:nil views:views];

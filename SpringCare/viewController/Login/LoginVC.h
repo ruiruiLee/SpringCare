@@ -7,7 +7,7 @@
 //
 
 #import "LCBaseVC.h"
-#import "IQKeyboardReturnKeyHandler.h"
+//#import "IQKeyboardReturnKeyHandler.h"
 
 @interface LoginVC : LCBaseVC <UITextFieldDelegate>
 {
@@ -24,6 +24,6 @@
     NSInteger _count;
 }
 
-@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
+//@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
 
 @end
