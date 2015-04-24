@@ -68,16 +68,16 @@ static NSMutableArray *myAttentionArray = nil;
     return model;
 }
 
-+ (void) loadLoverList:(block) block
+
++ (void) loadLoverList:(NSString*)needRequest block:(block) block
 {
     if(!myAttentionArray){
         myAttentionArray = [[NSMutableArray alloc] init];
+        
     }
+    
     [myAttentionArray removeAllObjects];
-    
-    
-    UserModel *model = [UserModel sharedUserInfo];
-    NSDictionary *dic = @{@"currentUserId" : model.userId, @"isLoadRequest" :@"true"};
+    NSDictionary *dic = @{@"currentUserId" :  [UserModel sharedUserInfo].userId, @"isLoadRequest" :needRequest};
     [LCNetWorkBase postWithMethod:@"api/lover/list" Params:dic Completion:^(int code, id content) {
         if(code){
             NSArray *lovers = [content objectForKey:@"lovers"];
@@ -86,8 +86,10 @@ static NSMutableArray *myAttentionArray = nil;
                 UserAttentionModel *model = [self modelFromDIctionary:dic];
                 [myAttentionArray addObject:model];
             }
+            if([content objectForKey:@"requests"]!=nil){
             NSArray *requests = [content objectForKey:@"requests"];
             [UserRequestAcctionModel SetRequestAcctionArrayWithArray:requests];
+            }
             if(block){
                 block(1);
             }

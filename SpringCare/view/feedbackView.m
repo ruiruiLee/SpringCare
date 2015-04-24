@@ -45,13 +45,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         faceshow =NO;
-        ControlHidden =hidden;
+        ControlHidden =hidden; //点击父控件隐藏输入表情框
         _winSize=[UIScreen mainScreen].applicationFrame.size;
         navHeight=44 ;
         _plistDic =[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle]
                                                                pathForResource:@"faceMap_ch"
                                                                ofType:@"plist"]];
-       self.view.frame =CGRectMake(0, _winSize.height, _winSize.width, _keyBoardSize.height+contentHeight);
+     self.view.frame =CGRectMake(0,0, _winSize.width, _keyBoardSize.height+contentHeight);
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification
@@ -114,15 +114,16 @@
 
 //切换键盘或者表情
 - (IBAction)commitButtonPressed:(id)sender {
-    faceshow =!faceshow;
+  
     if (faceshow) {   // 变成显示表情
         [self.commitButton setImage:ThemeImage(@"chat_keyboard") forState:UIControlStateNormal];
         [self.feedbackTextField resignFirstResponder];
         if (_faceBoardView == nil) {
-       
-          _faceBoardView = [[FaceBoardView alloc] initWithFrame:CGRectMake(0,contentHeight,_keyBoardSize.width,_keyBoardSize.height-contentHeight)];
+            faceshow =!faceshow;
+            _faceBoardView = [[FaceBoardView alloc] initWithFrame:CGRectMake(0,contentHeight,_keyBoardSize.width,_keyBoardSize.height-contentHeight)];
             _faceBoardView.delegate = self;
-            [self.view addSubview:_faceBoardView];
+
+        [self.view addSubview:_faceBoardView];
         }
          [UIView animateWithDuration:0.25f
                               delay:0.0f
@@ -144,6 +145,7 @@
     else{  //键盘
         [self.commitButton setImage:ThemeImage(@"chat_smailbtn") forState:UIControlStateNormal];
         [self.feedbackTextField becomeFirstResponder];
+      //  [_faceBoardView removeFromSuperview];
          //NSLog(@"%f",self.view.frame.origin.y);238
     }
     if (!addGesture &&!ControlHidden) {
@@ -161,19 +163,17 @@
 
     NSDictionary *info = [notification userInfo];
    _keyBoardSize =[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-
+    NSLog(@"%f",_keyBoardSize.height);
     [UIView animateWithDuration:0.2 animations:^{
         //父view变化
-       // int pheight =_winSize.height-navHeight- _controlView.frame.size.height-keyboardSize.height;
           int pheight =_winSize.height-navHeight-_keyBoardSize.height+20;
         
         if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]) {
             [_delegate changeParentViewFram:pheight];
         }
        self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
-        } completion:^(BOOL finished) {
-        
-    }];
+        } completion:nil];
+    NSLog(@"%f",self.view.frame.size.height);
 }
 //键盘隐藏
 - (void)keyBoardWillHide:(NSNotification*)notification {
@@ -182,14 +182,12 @@
     [UIView animateWithDuration:0.2 animations:^{
         //父view变化
 //        int pheight =ControlHidden? _winSize.height-navHeight:_winSize.height-navHeight- _controlView.frame.size.height;
-        int pheight =_winSize.height;
+      int pheight =_winSize.height;
         [self.feedbackTextField resignFirstResponder];
         if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]) {
             [_delegate changeParentViewFram:pheight];
         }
-        self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,self.view.frame.size.height);    } completion:^(BOOL finished) {
-        
-    }];
+        self.view.frame=CGRectMake(0,pheight,self.view.frame.size.width,self.view.frame.size.height);    } completion:nil];
  }
 }
 //还原成原始坐标位置

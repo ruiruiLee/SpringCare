@@ -131,7 +131,7 @@
                 block(code, content);
             }
             
-            [UserAttentionModel loadLoverList:^(int code) {
+            [UserAttentionModel loadLoverList:@"true" block:^(int code) {
 
             }];
         }

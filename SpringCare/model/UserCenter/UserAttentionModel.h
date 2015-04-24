@@ -25,7 +25,7 @@
 
 + (NSMutableArray*) GetMyAttentionArray;
 
-+ (void) loadLoverList:(block) block;
++ (void) loadLoverList:(NSString*)needRequest block:(block) block;
 
 + (UserAttentionModel*) modelFromDIctionary:(NSDictionary*)dic;
 

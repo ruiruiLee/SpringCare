@@ -156,7 +156,7 @@
         
         [LCNetWorkBase postWithMethod:@"api/lover/save" Params:mDic Completion:^(int code, id content) {
             if(code){
-                [UserAttentionModel loadLoverList:^(int code) {
+                [UserAttentionModel loadLoverList:@"true" block:^(int code)  {
                     if(code == 1){
                         if(delegate && [delegate respondsToSelector:@selector(NotifyReloadData)]){
                             [delegate NotifyReloadData];
