@@ -116,6 +116,7 @@
     _lbDetailTime.font = _FONT(11);
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(62)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnPay(28)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
     layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views];
     [self.contentView addConstraints:layoutArray];
@@ -144,6 +145,7 @@
     _btnPay.titleLabel.font = _FONT(15);
     _btnStatus.titleLabel.font = _FONT(15);
     _lbDetailTime.font = _FONT(12);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnPay(32)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(72)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(72)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(72)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
@@ -174,6 +176,7 @@
     _btnPay.titleLabel.font = _FONT(16);
     _btnStatus.titleLabel.font = _FONT(16);
     _lbDetailTime.font = _FONT(13);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnPay(36)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(82)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbPrice]->=10-[_lbCountPrice]-15-|" options:0 metrics:nil views:views]];
@@ -294,7 +297,14 @@
             _btnStatus.selected = YES;
             [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
             _btnStatus.backgroundColor = Abled_Color;
-        }else if(data.payStatus != EnumTypePayed){
+        }else if(data.orderStatus == EnumOrderStatusTypeNew){
+            _imgLogo.hidden = YES;
+            [_btnStatus setTitle:@"待确定" forState:UIControlStateNormal];
+            [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
+//            [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
+            _btnPay.hidden = YES;
+        }
+        else if(data.payStatus != EnumTypePayed){
             _imgLogo.hidden = YES;
             _btnStatus.hidden = YES;
             [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
