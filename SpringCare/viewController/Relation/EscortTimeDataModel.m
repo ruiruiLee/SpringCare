@@ -9,7 +9,7 @@
 #import "EscortTimeDataModel.h"
 #import "ObjImageDataInfo.h"
 #import "define.h"
-
+#import "Util.h"
 static NSMutableArray *escortTimeData = nil;
 static NSInteger totalCount = 0;
 
@@ -32,13 +32,14 @@ static NSInteger totalCount = 0;
 @implementation EscortTimeReplyDataModel
 @synthesize height;
 
+
 + (EscortTimeReplyDataModel *) ObjectFromDictionary:(NSDictionary *)dic
 {
     EscortTimeReplyDataModel *model = [[EscortTimeReplyDataModel alloc] init];
     model.replyUserHeaderImage = [dic objectForKey:@"replyUserHeaderImage"];
     model.replyUserName = [dic objectForKey:@"replyUserName"];
     model.replyUserPhone = [dic objectForKey:@"replyUserPhone"];
-    model.guId = [dic objectForKey:@"guId"];
+    model.guId = [dic objectForKey:@"id"];
     model.replyDate = [dic objectForKey:@"replyDate"];
     model.replyUserId = [dic objectForKey:@"replyUserId"];
     model.orgUserHeaderImage = [dic objectForKey:@"orgUserHeaderImage"];
@@ -49,21 +50,33 @@ static NSInteger totalCount = 0;
     NSString *content = [dic objectForKey:@"content"];
     NSMutableString *str = [[NSMutableString alloc] init];
     if(model.replyUserName!= nil){
-        [str appendString:model.replyUserName];
-    }else{
-        [str appendString:model.replyUserPhone];
+        if ([model.replyUserName isEqualToString:[UserModel sharedUserInfo].displayName]) {
+            [str appendString:@"我"];
+        }
+        else
+          [str appendString:model.replyUserName];
     }
     
     if(model.orgUserName != nil){
-        [str appendString:[NSString stringWithFormat:@"回复%@：%@", model.orgUserName,content]];
-    }else if (model.orgUserPhone != nil){
-        [str appendString:[NSString stringWithFormat:@"回复%@：%@", model.orgUserPhone, content]];
-    }else
-        [str appendString:[NSString stringWithFormat:@"：%@", content]];
+        if ([model.orgUserName isEqualToString:[UserModel sharedUserInfo].displayName]) {
+           [str appendString:[NSString stringWithFormat:@"@%@",@"我"]];
+        }
+        else
+            [str appendString:[NSString stringWithFormat:@"@%@", model.orgUserName]];
+    }
+    [str appendString:[NSString stringWithFormat:@":%@", content]];
 
     model.content = str;
     
     return model;
+}
+
++ (EscortTimeReplyDataModel *) ReplysFromDictionary:(NSDictionary *)dic{
+     EscortTimeReplyDataModel *model = [[EscortTimeReplyDataModel alloc] init];
+    model.replyUserName = [dic objectForKey:@"replyUserName"];
+    model.replyUserPhone = [dic objectForKey:@"replyUserPhone"];
+     model.replyUserId = [dic objectForKey:@"replyUserId"];
+     return model;
 }
 
 + (NSArray *) ArrayFromDictionaryArray:(NSArray *) array
@@ -109,7 +122,9 @@ static NSInteger totalCount = 0;
     model.itemId = [dic objectForKey:@"id"];
     model.careId = [dic objectForKey:@"careId"];
     model.content = [dic objectForKey:@"content"];
-    model.createAt = [dic objectForKey:@"createAt"];
+    model.createAt = [dic objectForKey:@"createdAt"];
+    model.createTime =  [Util convertTimeFromStringDate:model.createAt];
+    model.createDate = [Util convertTimetoBroadFormat:model.createAt];
     model.replyInfos = [EscortTimeReplyDataModel ArrayFromDictionaryArray:[dic objectForKey:@"replys"]];
     
     NSArray *files = [dic objectForKey:@"files"];
@@ -130,41 +145,34 @@ static NSInteger totalCount = 0;
     return model;
 }
 
+
 + (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(CompletionBlock) block
 {
-    if(num == 0){
-        [EscortTimeDataModel GetEscortTimeData];
-        [escortTimeData removeAllObjects];
-    }
-    
-    NSInteger limit = LIMIT_COUNT;
-    NSInteger offset = limit * num;
-    if(offset > [escortTimeData count]){
-        offset = [escortTimeData count];
-    }
-    
+
     NSMutableDictionary *mdic = [[NSMutableDictionary alloc] init];
     if(loverId){
         [mdic setObject:loverId forKey:@"loverId"];
     }
     [mdic setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
     [mdic setObject:[NSNumber numberWithInteger:LIMIT_COUNT] forKey:@"limit"];
-    [mdic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
+    [mdic setObject:[NSNumber numberWithInteger:num] forKey:@"offset"];
     
     [LCNetWorkBase postWithMethod:@"api/careTime/list" Params:mdic Completion:^(int code, id content) {
         if(code){
             NSMutableArray *result = [[NSMutableArray alloc] init];
-            if([content isKindOfClass:[NSDictionary class]]){
                 totalCount = [[content objectForKey:@"total"] integerValue];
+            if (totalCount>0) {
                 NSArray *array = [content objectForKey:@"rows"];
+                NSString* previousDate=nil;
                 for (int i = 0; i < [array count]; i++) {
                     NSDictionary *dic = [array objectAtIndex:i];
                     EscortTimeDataModel *model = [EscortTimeDataModel ObjectFromDictionary:dic];
+                    model.showTime = ![previousDate isEqualToString:model.createDate];
+                    previousDate = model.createDate;
                     [escortTimeData addObject:model];
                     [result addObject:model];
                 }
-            }
-            if(block)
+              }
                 block(1, result);
         }
     }];

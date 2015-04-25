@@ -11,11 +11,11 @@
 #import "EditCellTypeData.h"
 #import "UserModel.h"
 #import "UserAttentionModel.h"
-#import "IQKeyboardReturnKeyHandler.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface EditUserInfoVC ()
 
-@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
+
 
 @end
 
@@ -26,7 +26,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     [self.NavigationBar.btnRight setTitle:@"完成" forState:UIControlStateNormal];
     self.NavigationBar.btnRight.hidden = NO;
     self.NavigationBar.btnRight.layer.cornerRadius = 8;
@@ -35,10 +34,6 @@
     self.NavigationBar.btnRight.titleLabel.font = _FONT(16);
     
     [self initSubViews];
-    
-    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyNext;
-    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
 }
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender
@@ -65,12 +60,11 @@
     
     if([userData isKindOfClass:[UserModel class]]){
         NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
-        [mDic setObject:[UserModel sharedUserInfo].registerId forKey:@"registerId"];
-        [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"baseUserId"];
+        [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
         
         for (int i = 0; i < [_data count]; i++) {
             EditCellTypeData *typedata = [_data objectAtIndex:i];
-            EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];//[_tableview dequeueReusableCellWithIdentifier:@"cell" forIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             if(cell.tfEdit.text != nil){
                 NSLog(@"%@", cell.tfEdit.text);
                 if(typedata.cellType == EnumTypeUserName){
@@ -91,25 +85,49 @@
                 else if(typedata.cellType == EnumTypeAccount){
                     [mDic setObject:cell.tfEdit.text forKey:@"phone"];
                 }
-//                else if(typedata.cellType == EnumTypeRelationName){
-//                    [mDic setObject:cell.tfEdit.text forKey:@"nickName"];
-//                }
                 else if(typedata.cellType == EnumTypeHeight){
-                    [mDic setObject:[NSString stringWithFormat:@"%.2f", [cell.tfEdit.text intValue]/100.0] forKey:@"height"];
+                    //[mDic setObject:[NSString stringWithFormat:@"%.2f", [cell.tfEdit.text intValue]/100.0] forKey:@"height"];
+                    [mDic setObject:cell.tfEdit.text  forKey:@"height"];
                 }
             }
         }
         
-        [LCNetWorkBase postWithMethod:@"api/register/save" Params:mDic Completion:^(int code, id content) {
-            if(code){
+        AVUser *user = [AVUser currentUser];
+        [user setObject:[mDic objectForKey:@"chineseName"] forKey:@"chineseName"];
+        [user setObject: [mDic objectForKey:@"sex"] forKey:@"sex"];
+        [user setObject:[mDic objectForKey:@"birthDay"]  forKey:@"birthDay"];
+        [user setObject:[mDic objectForKey:@"addr"] forKey:@"addr"];
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
                 [UserModel sharedUserInfo].sex = [[mDic objectForKey:@"sex"] boolValue]?@"男":@"女";
                 [UserModel sharedUserInfo].addr = [mDic objectForKey:@"addr"];
-                [UserModel sharedUserInfo].birthDay =    [Util StringFromDate:selectDate];
+                [UserModel sharedUserInfo].birthDay =    selectDate ;  //[Util StringFromDate:selectDate];
                 [UserModel sharedUserInfo].chineseName = [mDic objectForKey:@"chineseName"];
-
-                [self.navigationController popViewControllerAnimated:YES];
-            }
+            } 
         }];
+//        self.userId= muser.objectId;
+//        self.mobilePhoneNumber= muser.mobilePhoneNumber;
+//        self.sessionToken = muser.sessionToken;
+//        self.username = muser.username;
+//        self.isNew = muser.isNew;
+//        self.email = muser.email;
+//        self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
+//        self.addr = [muser objectForKey:@"addr"];
+//        self.birthDay = [muser objectForKey:@"birthDay"];  //日期
+//        self.career = [muser objectForKey:@"career"];
+//        self.intro = [muser objectForKey:@"intro"];
+//        self.chineseName = [muser objectForKey:@"chineseName"];
+//        self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
+//        [LCNetWorkBase postWithMethod:@"api/register/save" Params:mDic Completion:^(int code, id content) {
+//            if(code){
+//                [UserModel sharedUserInfo].sex = [[mDic objectForKey:@"sex"] boolValue]?@"男":@"女";
+//                [UserModel sharedUserInfo].addr = [mDic objectForKey:@"addr"];
+//                [UserModel sharedUserInfo].birthDay =    selectDate ;  //[Util StringFromDate:selectDate];
+//                [UserModel sharedUserInfo].chineseName = [mDic objectForKey:@"chineseName"];
+//
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }
+//        }];
     }else{
         NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
         if([userData isKindOfClass:[UserAttentionModel class]]){
@@ -118,7 +136,7 @@
             [mDic setObject:model.relationId forKey:@"relationId"];
             
         }
-        [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
+        [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
         
         for (int i = 0; i < [_data count]; i++) {
             EditCellTypeData *typedata = [_data objectAtIndex:i];
@@ -149,7 +167,8 @@
                     [mDic setObject:cell.tfEdit.text forKey:@"nickName"];
                 }
                 else if(typedata.cellType == EnumTypeHeight){
-                    [mDic setObject:[NSString stringWithFormat:@"%.2f", [cell.tfEdit.text intValue]/100.0] forKey:@"height"];
+                    //[mDic setObject:[NSString stringWithFormat:@"%.2f", [cell.tfEdit.text intValue]/100.0] forKey:@"height"];
+                        [mDic setObject:cell.tfEdit.text  forKey:@"height"];
                 }
             }
         }
@@ -208,7 +227,9 @@
     cell.lbUnit.hidden = YES;
     
     EditCellTypeData *typedata = [_data objectAtIndex:indexPath.row];
+    
     [cell SetcontentData:typedata info:nil];
+    
     if([userData isKindOfClass:[UserModel class]]){
         UserModel *model = (UserModel*)userData;
         if(typedata.cellType == EnumTypeAccount){
@@ -253,8 +274,8 @@
         }
         else if(typedata.cellType == EnumTypeAddress){
             cell.tfEdit.text = model.address;
-            if(model.address == nil || [model.address length] == 0)
-                cell.tfEdit.placeholder = @"必须填写";
+            //if(model.address == nil || [model.address length] == 0)
+              //  cell.tfEdit.placeholder = @"必须填写";
         }
         else if(typedata.cellType == EnumTypeMobile){
             cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;

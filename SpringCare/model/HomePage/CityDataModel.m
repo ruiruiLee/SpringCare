@@ -41,10 +41,10 @@ static NSMutableArray *cityDataArray = nil;
         if([dic isKindOfClass:[NSDictionary class]]){
             CityDataModel *model = [[CityDataModel alloc] init];
             model.city_id = [dic objectForKey:@"id"];
-            model.city_name = [dic objectForKey:@"city_name"];
+            model.city_name = [dic objectForKey:@"cityName"];
             model.latitude = [[dic objectForKey:@"latitude"] doubleValue];
             model.longitude = [[dic objectForKey:@"longitude"] doubleValue];
-            model.short_name = [dic objectForKey:@"short_name"];
+            model.short_name = [dic objectForKey:@"shortName"];
             
             [cityDataArray addObject:model];
         }

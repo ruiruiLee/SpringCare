@@ -37,23 +37,17 @@
 
 - (void) dealloc
 {
-    UserModel *model = [UserModel sharedUserInfo];
-    [model removeObserver:self forKeyPath:@"username"];
-    [model removeObserver:self forKeyPath:@"chineseName"];
-    [model removeObserver:self forKeyPath:@"headerFile"];
+    [[UserModel sharedUserInfo] removeObserver:self forKeyPath:@"chineseName"];
+    [[UserModel sharedUserInfo] removeObserver:self forKeyPath:@"headerFile"];
 }
 
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    UserModel *model = [UserModel sharedUserInfo];
-    if([keyPath isEqualToString:@"username"])
-    {
-        [_btnUserName setTitle:model.username forState:UIControlStateNormal];
-    }
+
     if([keyPath isEqualToString:@"chineseName"])
     {
-        [_btnUserName setTitle:model.chineseName forState:UIControlStateNormal];
+        [_btnUserName setTitle:[UserModel sharedUserInfo].displayName forState:UIControlStateNormal];
     }
     if ([keyPath isEqualToString:@"headerFile"]){
         [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
@@ -66,7 +60,6 @@
     
     UserModel *model = [UserModel sharedUserInfo];
     [model addObserver:self forKeyPath:@"chineseName" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [model addObserver:self forKeyPath:@"username" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [model addObserver:self forKeyPath:@"headerFile" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     self.navigationController.navigationBarHidden=YES;
@@ -92,7 +85,7 @@
      [_photoBg addSubview:_btnphotoImg];
      _btnphotoImg.translatesAutoresizingMaskIntoConstraints = NO;
      [_btnphotoImg addTarget:self action:@selector(btnPhotoPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
+      [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
     _btnUserName = [[UIButton alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_btnUserName];
     _btnUserName.translatesAutoresizingMaskIntoConstraints = NO;
@@ -103,7 +96,7 @@
     [_btnUserName setImage:[UIImage imageNamed:@"usercentershut"] forState:UIControlStateNormal];
     _btnUserName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_btnUserName addTarget:self action:@selector(doEditUserInfo:) forControlEvents:UIControlEventTouchUpInside];
- 
+  [_btnUserName setTitle:[UserModel sharedUserInfo].displayName forState:UIControlStateNormal];
     NSDictionary *headerViews = NSDictionaryOfVariableBindings(_photoBg, _btnphotoImg, _btnUserName);
     NSString *format = [NSString stringWithFormat:@"H:|-20-[_photoBg(93)]-5-[_btnUserName(%f)]-%f-|", ScreenWidth - (ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)) - 20 - 93 - 5, ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
     unflodConstraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:headerViews];
@@ -315,7 +308,7 @@
         [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             //  NSLog(@"%@", file.objectId) ;
             NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
-            [mDic setObject: [UserModel sharedUserInfo].userId forKey:@"baseUserId"];
+            [mDic setObject: [UserModel sharedUserInfo].userId forKey:@"registerId"];
             [mDic setObject:file.objectId forKey:@"headerImageId"];
             [LCNetWorkBase postWithMethod:@"api/register/save" Params:mDic Completion:nil];
         }];

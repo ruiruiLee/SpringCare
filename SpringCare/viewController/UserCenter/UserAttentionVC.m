@@ -38,6 +38,7 @@
     
     _attentionData = [UserAttentionModel GetMyAttentionArray];
     _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+    
     if([_attentionData count] == 0){
         [UserAttentionModel loadLoverList:@"true" block:^(int code) {
             if(code == 1){
@@ -237,7 +238,7 @@
         UserAttentionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
         if(!cell){
             cell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
-            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:self.attentionTableCell.frame];
+            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
             cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
             cell.parentController= self;
         }
@@ -255,35 +256,48 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        if(indexPath.section == 0){
-            UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
-            [model deleteAcctionRequest:^(int code) {
-                if(code){
-                    [tableView beginUpdates];
-                    
-                    if ([[UserRequestAcctionModel GetRequestAcctionArray] count] <= 0) {
+        if (_applyData.count>0 ){
+            if(indexPath.section == 0){
+                UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
+                [model deleteAcctionRequest:^(int code) {
+                    if(code){
+                        [tableView beginUpdates];
                         
-                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+                        if ([[UserRequestAcctionModel GetRequestAcctionArray] count] <= 0) {
+                            
+                            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+                            
+                        }
                         
+                        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                        
+                        [tableView endUpdates];
+                        
+                        [tableView reloadData];
                     }
-                    
-                    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    
-                    [tableView endUpdates];
-                    
-                    [tableView reloadData];
-                }
-            }];
-            _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
-        }else{
+                }];
+                _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+            }else{
+                UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
+                [model deleteAttention:^(int code) {
+                    if(code){
+                        [tableView beginUpdates];
+                        
+                        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                        
+                        [tableView endUpdates];
+                        
+                        [tableView reloadData];
+                    }
+                }];
+                _attentionData = [UserAttentionModel GetMyAttentionArray];
+            }
+        }
+        else{
             UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
             [model deleteAttention:^(int code) {
                 if(code){
                     [tableView beginUpdates];
-                    
-                    if ([[UserAttentionModel GetMyAttentionArray] count] <= 0) {
-                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
-                    }
                     
                     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                     

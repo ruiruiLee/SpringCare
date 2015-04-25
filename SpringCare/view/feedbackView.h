@@ -17,11 +17,15 @@
     BOOL ControlHidden;
     BOOL addGesture;
     BOOL _hasReply;
+    BOOL _hasShow;
     CGSize      _winSize;
     CGSize     _keyBoardSize;
     NSDictionary   *_plistDic;
     NSString* tempStr ;
     int navHeight;
+    UITapGestureRecognizer *tapGesture;
+    UIView * parentView;
+    int offheight;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *controlView;

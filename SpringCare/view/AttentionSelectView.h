@@ -13,7 +13,7 @@
 @protocol AttentionSelectViewDelegate <NSObject>
 
 - (void) ViewShutDown;
-- (void) ViewSelectWithModel:(UserAttentionModel*) model;
+- (void) ViewSelectWithModel:(NSString*) loverID imagurl:(NSString*)imgUrl;
 
 @end
 

@@ -60,7 +60,7 @@ static NSMutableArray *familyProductArray = nil;
 
 - (void) loadetailDataWithproductId:(NSString*)productId block:(void(^)(id content))block
 {
-    NSDictionary *prama = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"productId":productId};
+    NSDictionary *prama = @{@"registerId":[UserModel sharedUserInfo].userId, @"productId":productId};
     [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
         if(code){
                 block(content);

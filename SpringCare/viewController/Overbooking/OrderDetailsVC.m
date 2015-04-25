@@ -88,7 +88,7 @@
     _btnStatus.tag = 4;
     if(model.orderStatus == EnumOrderStatusTypeCancel){
         _imgLogo.hidden = YES;
-        [_btnStatus setTitle:@"订单取消" forState:UIControlStateNormal];
+        [_btnStatus setTitle:@"已取消" forState:UIControlStateNormal];
         _btnStatus.userInteractionEnabled = NO;
     }
     else{
@@ -143,6 +143,8 @@
     if(self){
         _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
         _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
+         _imgPhoto.layer.masksToBounds = YES;
+         _imgPhoto.layer.cornerRadius = 32;
         [self.contentView addSubview:_imgPhoto];
         
         _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -187,7 +189,7 @@
         [self.contentView addSubview:_lbPrice];
         _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
         _lbPrice.font = _FONT(15);
-        _lbPrice.textColor = _COLOR(0x99, 0x99, 0x99);//_COLOR(0xf1, 0x13, 0x59);
+        _lbPrice.textColor = _COLOR(0x99, 0x99, 0x99);
 //        _lbPrice.text = @"单价：380元/24小时";
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_lbType, _lbPrice, _lbName, _lbIntro, _lbDetailTime, _line, _btnInfo, _imgPhoto);
@@ -226,7 +228,7 @@
         [detailTime appendString:[NSString stringWithFormat:@"月"]];
     }
     
-    [detailTime appendString:[NSString stringWithFormat:@"(%@时-%@时)", [Util convertStringFromString:model.beginDate], [Util convertStringFromString:model.endDate]]];
+    [detailTime appendString:[NSString stringWithFormat:@"(%@点-%@点)", [Util convertShotStrFromDate:model.beginDate], [Util convertShotStrFromDate:model.endDate]]];
     _lbDetailTime.text = detailTime;
     
     NSMutableString *priceStr = [[NSMutableString alloc] init];
@@ -247,7 +249,7 @@
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:priceStr];
     NSRange range = NSMakeRange(3, [priceStr length] - 3);
     [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
-    [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
+    [string addAttribute:NSFontAttributeName value:_FONT(15) range:range];
     
     _lbPrice.attributedText = string;
     
@@ -297,6 +299,8 @@
     if(self){
         _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgPhoto];
+        _imgPhoto.layer.masksToBounds = YES;
+        _imgPhoto.layer.cornerRadius = 32;
         _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
         
         _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -634,14 +638,6 @@
                         {
                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单取消成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                             [alert show];
-//                            weakSelf._orderModel.orderStatus = EnumOrderStatusTypeCancel;
-//                            if(weakSelf._orderModel.orderStatus == EnumOrderStatusTypeCancel){
-//                                [weakSelf._stepView SetStepViewType:StepViewType2Step];
-//                                [weakSelf._stepView SetCurrentStepWithIdx:3];//此处为3
-//                            }else{
-//                                [weakSelf._stepView SetStepViewType:StepViewType4Step];
-//                                [weakSelf._stepView SetCurrentStepWithIdx:[self GetStepWithModel:_orderModel]];
-//                            }
                         }
                     }
                 }

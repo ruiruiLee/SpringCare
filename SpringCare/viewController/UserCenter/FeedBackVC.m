@@ -11,11 +11,11 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 
-#import "IQKeyboardReturnKeyHandler.h"
+//#import "IQKeyboardReturnKeyHandler.h"
 
 @interface FeedBackVC ()
 
-@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
+//@property (nonatomic, strong) IQKeyboardReturnKeyHandler    *returnKeyHandler;
 
 @end
 
@@ -27,9 +27,9 @@
     self.NavigationBar.Title = @"意见反馈";
     self.ContentView.backgroundColor = TableBackGroundColor;
     
-    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeySend;
-    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
+//    self.returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+//    self.returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeySend;
+//    self.returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarBySubviews;
     
     [self initSubViews];
 }

@@ -100,10 +100,10 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(delegate && [delegate respondsToSelector:@selector(ViewSelectWithModel:)])
+    if(delegate && [delegate respondsToSelector:@selector(ViewSelectWithModel:imagurl:)])
     {
         UserAttentionModel *model = [attentionArray objectAtIndex:indexPath.row];
-        [delegate ViewSelectWithModel:model];
+        [delegate ViewSelectWithModel:model.userid imagurl:model.photoUrl];
     }
 }
 

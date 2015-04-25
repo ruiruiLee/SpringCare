@@ -42,38 +42,12 @@
         }
         else{
             self.btnRight.hidden = NO;
-            [self loadDataList];
+            [self loadDataList:nil];
         }
     }
 }
 
-- (void) LoadDefaultDoctorInfo
-{
 
-    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-    [parmas setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
-    //__weak EscortTimeVC *weakSelf = self;
-    [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
-        if(code){
-            if([content isKindOfClass:[NSDictionary class]]){
-                if([content objectForKey:@"code"] == nil){
-                    if([content objectForKey:@"defaultLoverId"] != nil){
-                        UserAttentionModel *model = [[UserAttentionModel alloc] init];
-                        model.userid = [content objectForKey:@"defaultLoverId"];
-                        [self ViewSelectWithModel:model];
-                        
-                        if([content objectForKey:@"id"] != nil){
-                            NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
-                            [self SetHeaderInfoWithModel:model];
-                        }else {
-                            [self SetHeaderInfoWithModel:nil];
-                        }
-                    }
-                }
-            }
-        }
-    }];
-}
 
 - (void) SetHeaderInfoWithModel:(NurseListInfoModel *) nurse
 {
@@ -81,7 +55,7 @@
         _lbName.text = nurse.name;
         _lbName.hidden = NO;
         _btnInfo.hidden = NO;
-        NSString *info = [NSString stringWithFormat:@"%@  %ld岁 护龄%@年", nurse.birthPlace, nurse.age, nurse.careAge];
+        NSString *info = [NSString stringWithFormat:@"%@  %d岁 护龄%@年", nurse.birthPlace, nurse.age, nurse.careAge];
         [_btnInfo setTitle:info forState:UIControlStateNormal];
         NSString *imgPath = [Util headerImagePathWith:[Util GetSexByName:nurse.sex]];
         [_photoImgView sd_setImageWithURL:[NSURL URLWithString:nurse.headerImage] placeholderImage:ThemeImage(imgPath)];
@@ -100,7 +74,6 @@
     
     pages = 0;
     _dataList = [[NSMutableArray alloc] init];
-    
     self.lbTitle.text = @"陪护时光";
     self.NavigationBar.alpha = 0.7f;
     self.btnRight.layer.masksToBounds = YES;
@@ -141,31 +114,79 @@
 
     if(usermodel.isLogin){
         self.btnRight.hidden = NO;
-        [self loadDataList];
+        [self loadDataList:nil];
          }else{
         self.btnRight.hidden = YES;
     }
 }
 
 
--(void)loadDataList{
-    [self LoadDefaultDoctorInfo]; // 加载陪护师信息 ，headview显示
-    [UserAttentionModel loadLoverList:@"false" block:^(int code) {
-        AttentionArray =[UserAttentionModel GetMyAttentionArray];
-        _currentAttentionId= [AttentionArray[0] userid];
-        NSURL *imgurl =[NSURL URLWithString:[AttentionArray[0] photoUrl]];
-        
-        //获取 用户的陪护对象
-        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code, id content) {
+-(void)loadDataList:(NSString*)loverID{
+    [_dataList removeAllObjects];
+    [self LoadDefaultDoctorInfo:loverID]; // 加载陪护师信息 ，headview显示
+    [UserAttentionModel loadLoverList:@"false" block:^(int code) {    //获取 用户的陪护对象
+     AttentionArray =[UserAttentionModel GetMyAttentionArray];
+        if (loverID==nil) {
+            _currentLoverId= [AttentionArray[0] userid];
+            NSURL *imgurl =[NSURL URLWithString:[AttentionArray[0] photoUrl]];
+            [self.btnRight sd_setImageWithURL:imgurl forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
+        }
+      
+    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
             if(code)
             {
-                [self.btnRight sd_setImageWithURL:imgurl forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
                 [_dataList addObjectsFromArray:content];
                 [tableView reloadData];
             }
         }];
     }] ;
 
+}
+//- (void)LoadCareInfoWithLoveId:(NSString*) loverId
+//{
+//    if(loverId == nil || [loverId isKindOfClass:[NSNull class]])
+//        return;
+//    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+//    [parmas setObject:loverId forKey:@"loverId"];
+//    // __weak EscortTimeVC *weakSelf = self;
+//    [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
+//        if(code){
+//            if([content isKindOfClass:[NSDictionary class]]){
+//                if([content objectForKey:@"code"] == nil){
+//                    
+//                    if([content objectForKey:@"id"] != nil){
+//                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
+//                        [self SetHeaderInfoWithModel:model];
+//                    }else {
+//                        [self SetHeaderInfoWithModel:nil];
+//                    }
+//                }
+//            }
+//        }
+//    }];
+//}
+- (void) LoadDefaultDoctorInfo:(NSString*)loverID
+{
+     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    if (loverID==nil) {
+        [parmas setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
+    }
+    else{
+     [parmas setObject:loverID forKey:@"loverId"];
+    }
+    [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
+        if(code){
+               // if([content objectForKey:@"defaultLoverId"] != nil){
+                    if([content objectForKey:@"id"] != nil){
+                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
+                        [self SetHeaderInfoWithModel:model];
+                    }else {
+                        [self SetHeaderInfoWithModel:nil];
+                    }
+                }
+
+           //  }
+    }];
 }
 -(void)creatHeadView{
     headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];
@@ -252,10 +273,9 @@
     EscortTimeTableCell *cell = nil;
     cell = [_tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(cell == nil){
-        __weak EscortTimeVC *bself = self;
         cell = [[EscortTimeTableCell alloc] initWithReuseIdentifier:@"cell" blocks:^(int index) {
             NSString *itemId = ((EscortTimeDataModel*)[[EscortTimeDataModel GetEscortTimeData] objectAtIndex:index]).itemId;
-            [bself replyContentWithId:itemId];
+            [self replyContentWithId:itemId];
         }];
         cell.cellDelegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -263,15 +283,6 @@
     
     EscortTimeDataModel *data = [_dataList objectAtIndex:indexPath.row];
     [cell setContentData:data];
-    if(indexPath.row > 0){
-        EscortTimeDataModel *data1 = [_dataList objectAtIndex:indexPath.row - 1];
-        if([Util isOneDay:[Util convertDateFromDateString:data.createAt] end:[Util convertDateFromDateString:data1.createAt]]){
-            cell._lbToday.hidden = YES;
-        }else{
-            cell._lbToday.hidden = NO;
-        }
-        
-    }
     
     return cell;
 }
@@ -286,7 +297,7 @@
 {
     if (AttentionArray.count>0) {
         if([UserModel sharedUserInfo].isLogin){
-            [_selectView SetActionDataArray:AttentionArray withId:_currentAttentionId];
+            [_selectView SetActionDataArray:AttentionArray withId:_currentLoverId];
             [UIView animateWithDuration:0.25f animations:^{
                 _selectView.frame = CGRectMake(ScreenWidth/2, 64, ScreenWidth/2, SCREEN_HEIGHT - 64);
                 _bgView.hidden = NO;
@@ -314,33 +325,30 @@
 
 #pragma mark - 点中回复按钮
 #pragma mark EscortTimeTableCellDelegate
--(void)commentButtonClick:(id)target userReply:(NSString*)userReply{
+-(void)commentButtonClick:(id)target ReplyName:(NSString*)ReplyName ReplyID:(NSString*)ReplyID{
 //    _replyContentModel = target.model;
     if([target isKindOfClass:[EscortTimeTableCell class]]){
         _replyContentModel = ((EscortTimeTableCell*)target)._model;
     }else
         _replyContentModel = nil;
     
-    _reReplyPId = userReply;
+    _reReplyPId = ReplyID;
+    _reReplyName=ReplyName;
     if (_feedbackView == nil) {
         _feedbackView =[[feedbackView alloc ] initWithNibName:@"feedbackView" bundle:nil controlHidden:NO];
         _feedbackView.delegate=(id)self;
         [self.view addSubview:_feedbackView.view];
-        
-    }
 
-        [self performSelector:@selector(displayKeybord) withObject:nil afterDelay:0.8];
+    }
+ [_feedbackView.feedbackTextField becomeFirstResponder];
 }
--(void)displayKeybord{
-    [_feedbackView.feedbackTextField becomeFirstResponder];
-}
+
 #pragma mark - feedbackViewDelegate
 -(void)commitMessage:(NSString*)msg   //按确认按钮或者发送按钮实现消息发送
 {
     NSLog(@"%@",msg);
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-    if(msg)
-        [parmas setObject:msg forKey:@"content"];
+    [parmas setObject:msg forKey:@"content"];
     [parmas setObject:[UserModel sharedUserInfo].userId forKey:@"replyUserId"];
     if(_replyContentModel){
         [parmas setObject:_replyContentModel.itemId forKey:@"careTimeId"];
@@ -349,13 +357,12 @@
         [parmas setObject:_reReplyPId forKey:@"orgUserId"];
     }
     
-    __weak EscortTimeVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/careTime/reply" Params:parmas Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
                 if ([content objectForKey:@"code"] == nil) {
                     NSString *replyId = [content objectForKey:@"message"];
-                    [weakSelf replyCompleteWithReplyId:replyId content:msg];
+                    [self replyCompleteWithReplyId:replyId content:msg];
                 }
             }
         }
@@ -375,10 +382,16 @@
     NSMutableArray *replyinfos = (NSMutableArray*)_replyContentModel.replyInfos;
     EscortTimeReplyDataModel *replyModel = [[EscortTimeReplyDataModel alloc] init];
     replyModel.guId = replyId;
-    replyModel.content = content;
+  
     replyModel.replyUserId = [UserModel sharedUserInfo].userId;
     replyModel.replyUserName = [UserModel sharedUserInfo].chineseName;
-    replyModel.orgUserId = _reReplyPId;
+    if(_reReplyPId==nil){
+         replyModel.content =[NSString stringWithFormat:@"%@:%@",@"我", content] ;
+    }
+    else{
+          replyModel.content =[NSString stringWithFormat:@"我@%@:%@",_reReplyName,content]  ;
+          replyModel.orgUserId = _reReplyPId;
+        }
     [replyinfos addObject:replyModel];
     [tableView reloadData];
 }
@@ -386,23 +399,22 @@
 
 -(void)changeParentViewFram:(int)newHeight
 {
-    //tableView.frame=CGRectMake(tableView.frame.origin.x,tableView.frame.origin.y,tableView.frame.size.width,newHeight);
-    // [tableView setContentOffset:CGPointMake(0.0, newHeight) animated:YES];
+    newHeight=newHeight>0?newHeight-20:newHeight+20;
+    NSLog(@"%f",tableView.contentOffset.y);
+   [tableView setContentOffset:CGPointMake(0.0,tableView.contentOffset.y+ newHeight) animated:YES];
+     NSLog(@"%f",tableView.contentOffset.y);
 }
-#pragma AttentionSelectViewDelegate
-- (void) ViewSelectWithModel:(UserAttentionModel *)usermodel
+#pragma AttentionSelectViewDelegat
+- (void) ViewSelectWithModel:(NSString*) loverID imagurl:(NSString*)imgUrl
 {
+    pages=0;
     [self SelectWiewDismiss];
-    
+    _currentLoverId=loverID;
     self.tableView.pullTableIsRefreshing = YES;
-    
-    _currentAttentionId = usermodel.userid;
-    [self.btnRight sd_setImageWithURL:[NSURL URLWithString:usermodel.photoUrl] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
-    
-   // __weak EscortTimeVC *weakSelf = self;
-    //__weak PullTableView *weakTableView = tableView;
-    //__weak NSMutableArray *weakDataList = _dataList;
-    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:0 block:^(int code, id content) {
+    [self LoadDefaultDoctorInfo:loverID]; // 获取护工信息
+    [self.btnRight sd_setImageWithURL:[NSURL URLWithString:imgUrl] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
+
+    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
         if(code)
         {
             [_dataList removeAllObjects];
@@ -412,34 +424,10 @@
 
         [self performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
-    
-    if(usermodel && usermodel.userid)
-        [self LoadCareInfoWithLoveId:usermodel.userid];
+        
 }
 
-- (void)LoadCareInfoWithLoveId:(NSString*) loverId
-{
-    if(loverId == nil || [loverId isKindOfClass:[NSNull class]])
-        return;
-    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-    [parmas setObject:loverId forKey:@"loverId"];
-   // __weak EscortTimeVC *weakSelf = self;
-    [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
-        if(code){
-            if([content isKindOfClass:[NSDictionary class]]){
-                if([content objectForKey:@"code"] == nil){
-                        
-                    if([content objectForKey:@"id"] != nil){
-                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
-                        [self SetHeaderInfoWithModel:model];
-                    }else {
-                        [self SetHeaderInfoWithModel:nil];
-                    }
-                }
-            }
-        }
-    }];
-}
+
 
 - (void) ViewShutDown
 {
@@ -448,30 +436,36 @@
 
 #pragma mark - PullTableViewDelegate
 
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+//{
+//    
+//    NSLog(@"%f",tableView.contentInset.bottom);
+//}
+
+
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)_pullTableView
 {
-    pages = 0;
-    
-    UserAttentionModel *model = [[UserAttentionModel alloc] init];
-    model.userid = _currentAttentionId;
-    [self ViewSelectWithModel:model];
+    if([UserModel sharedUserInfo].isLogin){
+        pages = 0;
+        [self loadDataList:_currentLoverId];
+
+      }
+     [self performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)_pullTableView
 {
-    pages ++;
-    
-    __weak EscortTimeVC *weakSelf = self;
-    __weak PullTableView *weakTableView = tableView;
-    __weak NSMutableArray *weakDataList = _dataList;
-    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentAttentionId pages:pages block:^(int code, id content) {
-        [weakSelf loadMoreDataToTable];
-        if(code)
-        {
-            [weakDataList addObjectsFromArray:content];
-            [weakTableView reloadData];
-        }
-    }];
+     if([UserModel sharedUserInfo].isLogin){
+        pages ++;
+        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+            if([(NSArray*)content count]>0)
+            {
+                [_dataList addObjectsFromArray:content];
+                [tableView reloadData];
+            }
+        }];
+     }
+     [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.2];
 }
 
 #pragma mark - Refresh and load more methods

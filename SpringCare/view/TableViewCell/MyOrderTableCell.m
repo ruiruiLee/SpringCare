@@ -281,7 +281,7 @@
     if(data.orderStatus == EnumOrderStatusTypeCancel){
         _imgLogo.hidden = YES;
         _btnPay.hidden = YES;
-        [_btnStatus setTitle:@"订单取消" forState:UIControlStateNormal];
+        [_btnStatus setTitle:@"已取消" forState:UIControlStateNormal];
         [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
     }
     else{

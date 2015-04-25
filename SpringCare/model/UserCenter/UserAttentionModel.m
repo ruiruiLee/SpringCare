@@ -23,6 +23,9 @@ static NSMutableArray *myAttentionArray = nil;
 @synthesize address;
 @synthesize isCare;
 @synthesize age;
+@synthesize sex;
+@synthesize height;
+@synthesize relationId;
 
 + (NSMutableArray*) GetMyAttentionArray
 {
@@ -75,9 +78,8 @@ static NSMutableArray *myAttentionArray = nil;
         myAttentionArray = [[NSMutableArray alloc] init];
         
     }
-    
     [myAttentionArray removeAllObjects];
-    NSDictionary *dic = @{@"currentUserId" :  [UserModel sharedUserInfo].userId, @"isLoadRequest" :needRequest};
+    NSDictionary *dic = @{@"registerId" :  [UserModel sharedUserInfo].userId, @"isLoadRequest" :needRequest};
     [LCNetWorkBase postWithMethod:@"api/lover/list" Params:dic Completion:^(int code, id content) {
         if(code){
             NSArray *lovers = [content objectForKey:@"lovers"];
@@ -100,7 +102,7 @@ static NSMutableArray *myAttentionArray = nil;
 - (void) deleteAttention:(block) block
 {
     if(self.isCare){
-        NSDictionary *dic = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"loverId":userid};
+        NSDictionary *dic = @{@"registerId":[UserModel sharedUserInfo].userId, @"loverId":userid};
         [LCNetWorkBase postWithMethod:@"api/oneLover/delete" Params:dic Completion:^(int code, id content) {
             if(code){
                 [myAttentionArray removeObject:self];

@@ -47,7 +47,7 @@
     _lbToday.backgroundColor = Abled_Color;
     _lbToday.layer.cornerRadius = 30;
     _lbToday.clipsToBounds = YES;
-    _lbToday.text = [NSStrUtil convertTimetoBroadFormat:@"2015-04-17"];
+
     
     _lbTimeLine = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbTimeLine];
@@ -165,7 +165,7 @@
     _replyTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _replyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _replyTableView.backgroundColor = [UIColor clearColor];
-    _replyTableView.scrollEnabled = NO;
+     _replyTableView.scrollEnabled = NO;
     
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbPublishTime, _btnReply, _replyTableView, _replyTableBg);
@@ -183,8 +183,8 @@
 }
 
 - (void)btnReplyPressed {
-    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:userReply:)]) {
-        [cellDelegate commentButtonClick:self userReply:nil];
+    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:ReplyName:ReplyID:)]) {
+        [cellDelegate commentButtonClick:self ReplyName:nil ReplyID:nil];
     }
 
 }
@@ -225,7 +225,9 @@
     EscortTimeReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(!cell){
         cell = [[EscortTimeReplyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+
     }
     
     EscortTimeReplyDataModel *model = [_model.replyInfos objectAtIndex:indexPath.row];
@@ -237,10 +239,9 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EscortTimeReplyDataModel *model = [_model.replyInfos objectAtIndex:indexPath.row];
-    NSString *replyId = model.guId;
-    
-    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:userReply:)]) {
-        [cellDelegate commentButtonClick:self userReply:replyId];
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([cellDelegate respondsToSelector:@selector(commentButtonClick:ReplyName:ReplyID:)]) {
+        [cellDelegate commentButtonClick:self ReplyName:model.replyUserName ReplyID:model.guId];
     }
 }
 
@@ -251,7 +252,14 @@
     NSString *textContent = data.content;//文字内容
     NSString *voiceContentUrl = data.VoliceDataModel.url;//音频内容地址
 //    NSString *voiceLen = data.voiceLen;//音频时长
-    NSString *publishTime = data.createAt;//发布时间;
+   _lbPublishTime.text = data.createTime;//发布时间;
+    
+    if (data.showTime) {
+        _lbToday.text = data.createDate;  //发布日期
+        _lbToday.hidden = NO;
+      }else{
+        _lbToday.hidden = YES;
+    }
     NSArray *replyData = data.replyInfos;//回复数据
     NSArray *imgPicArray = data.imgPathArray;//图片数据列表
     
@@ -316,8 +324,8 @@
     [self.contentView removeConstraints:hLayoutInfoArray];
     hLayoutInfoArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
     [self.contentView addConstraints:hLayoutInfoArray];
-//
-    _lbPublishTime.text = publishTime;
+    
+    
     
     NSMutableString *replyFormat = [[NSMutableString alloc] init];
     [replyFormat appendString:@"V:|-0-[_btnReply(25)]"];
@@ -341,6 +349,7 @@
         hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:tableviewformat options:0 metrics:nil views:views];
         [_replyTableBg addConstraints:hReplyTableLayoutArray];
         _replyTableBg.hidden = NO;
+        [_replyTableView reloadData];
     }
     else{
         hReplyTableLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_replyTableView]-0-|" options:0 metrics:nil views:views];

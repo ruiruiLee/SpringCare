@@ -33,7 +33,8 @@
 @property (nonatomic, strong) NSString *orgUserPhone;//被回复人姓名
 @property (nonatomic, strong) NSString *orgUserId;
 
-
++ (EscortTimeReplyDataModel *) ObjectFromDictionary:(NSDictionary *)dic;
++ (NSArray *) ArrayFromDictionaryArray:(NSArray *) array;
 @end
 
 @interface EscortTimeDataModel : NSObject
@@ -45,6 +46,8 @@
 @property (nonatomic, strong) NSString *careId;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *createAt;
+@property (nonatomic, strong) NSString *createDate;
+@property (nonatomic, strong) NSString *createTime;
 @property (nonatomic, strong) NSArray *replyInfos;
 
 
@@ -57,7 +60,7 @@
 @property (nonatomic, assign) BOOL isShut;//是否展开， 0未展开； 1展开
 
 + (NSArray*) GetEscortTimeData;
-
++ (EscortTimeDataModel *) ObjectFromDictionary:(NSDictionary *)dic;
 + (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(CompletionBlock) block;
 
 @end
