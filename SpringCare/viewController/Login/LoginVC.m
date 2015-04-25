@@ -249,21 +249,7 @@
     
     [AVUser signUpOrLoginWithMobilePhoneNumberInBackground:phone smsCode:verifyCode block:^(AVUser *user, NSError *error) {
         if(error == nil){
-            UserModel *model = [UserModel sharedUserInfo];
-            model.sessionToken = user.sessionToken;
-            model.username = user.username;
-            model.mobilePhoneNumber = user.mobilePhoneNumber;
-            model.isNew = user.isNew;
-            model.email = user.email;
-            model.userId = user.objectId ;
-            model.sex = [user objectForKey:@"sex"];
-            model.addr = [user objectForKey:@"addr"];
-            model.birthDay = [user objectForKey:@"birthDay"];  //日期
-            model.career = [user objectForKey:@"career"];
-            model.intro = [user objectForKey:@"intro"];
-            model.chineseName = [user objectForKey:@"chineseName"];
-            model.headerFile = [user objectForKey:@"headerImage"];
-
+            [[UserModel sharedUserInfo] modifyInfo];
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }
         else{

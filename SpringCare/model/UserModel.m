@@ -67,10 +67,20 @@
 }
 -(void)modifyInfo{
     AVUser *muser = [AVUser currentUser];
+    self.userId= muser.objectId;
+    self.mobilePhoneNumber= muser.mobilePhoneNumber;
+    self.sessionToken = muser.sessionToken;
+    self.username = muser.username;
+    self.isNew = muser.isNew;
+    self.email = muser.email;
     self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
     self.addr = [muser objectForKey:@"addr"];
-    self.birthDay =    [muser objectForKey:@"birthDay"];  //日期
+    self.birthDay = [muser objectForKey:@"birthDay"];  //日期
+    self.career = [muser objectForKey:@"career"];
+    self.intro = [muser objectForKey:@"intro"];
     self.chineseName = [muser objectForKey:@"chineseName"];
+    self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
+
 }
 -(BOOL)isLogin{
     if ( [AVUser currentUser]==nil) {
