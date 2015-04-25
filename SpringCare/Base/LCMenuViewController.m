@@ -38,7 +38,6 @@
 - (void) dealloc
 {
     [[UserModel sharedUserInfo] removeObserver:self forKeyPath:@"chineseName"];
-    [[UserModel sharedUserInfo] removeObserver:self forKeyPath:@"headerFile"];
 }
 
 
@@ -49,9 +48,6 @@
     {
         [_btnUserName setTitle:[UserModel sharedUserInfo].displayName forState:UIControlStateNormal];
     }
-    if ([keyPath isEqualToString:@"headerFile"]){
-        [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
-    }
 }
 
 - (void) viewDidLoad
@@ -60,7 +56,6 @@
     
     UserModel *model = [UserModel sharedUserInfo];
     [model addObserver:self forKeyPath:@"chineseName" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [model addObserver:self forKeyPath:@"headerFile" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     self.navigationController.navigationBarHidden=YES;
     
@@ -306,11 +301,13 @@
     AVFile *file = [AVFile fileWithName:@"head.png" data:imageData];
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            //  NSLog(@"%@", file.objectId) ;
-            NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
-            [mDic setObject: [UserModel sharedUserInfo].userId forKey:@"registerId"];
-            [mDic setObject:file.objectId forKey:@"headerImageId"];
-            [LCNetWorkBase postWithMethod:@"api/register/save" Params:mDic Completion:nil];
+            AVUser *user = [AVUser currentUser];
+            [user setObject:file forKey:@"headerImage"];
+            [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [[UserModel sharedUserInfo] setHeaderFile:file.url];
+                }
+            }];
         }];
 
       }];

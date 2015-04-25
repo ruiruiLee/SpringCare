@@ -65,8 +65,12 @@
         return self.chineseName;
     }
 }
--(void)setDisplayName:(NSString *)displayName{
-    
+-(void)modifyInfo{
+    AVUser *muser = [AVUser currentUser];
+    self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
+    self.addr = [muser objectForKey:@"addr"];
+    self.birthDay =    [muser objectForKey:@"birthDay"];  //日期
+    self.chineseName = [muser objectForKey:@"chineseName"];
 }
 -(BOOL)isLogin{
     if ( [AVUser currentUser]==nil) {

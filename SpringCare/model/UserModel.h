@@ -34,5 +34,5 @@
 +(UserModel *)sharedUserInfo;
 
 -(BOOL)isLogin;
-
+-(void)modifyInfo;
 @end
