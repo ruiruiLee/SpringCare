@@ -15,8 +15,8 @@ static NSMutableArray *cityDataArray = nil;
 @implementation CityDataModel
 @synthesize city_id;
 @synthesize city_name;
-@synthesize latitude;
-@synthesize longitude;
+//@synthesize latitude;
+//@synthesize longitude;
 @synthesize short_name;
 
 + (NSArray*) getCityData
@@ -42,8 +42,8 @@ static NSMutableArray *cityDataArray = nil;
             CityDataModel *model = [[CityDataModel alloc] init];
             model.city_id = [dic objectForKey:@"id"];
             model.city_name = [dic objectForKey:@"cityName"];
-            model.latitude = [[dic objectForKey:@"latitude"] doubleValue];
-            model.longitude = [[dic objectForKey:@"longitude"] doubleValue];
+//            model.latitude = [[dic objectForKey:@"latitude"] doubleValue];
+//            model.longitude = [[dic objectForKey:@"longitude"] doubleValue];
             model.short_name = [dic objectForKey:@"shortName"];
             
             [cityDataArray addObject:model];
