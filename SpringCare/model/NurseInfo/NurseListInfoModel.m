@@ -97,6 +97,8 @@ static NSInteger nurseTotal = 0;
     model.headerImage = [dic objectForKey:@"headerImage"];
     model.nid = [dic objectForKey:@"id"];
     model.intro = [dic objectForKey:@"intro"];
+    if(model.intro == nil)
+        model.intro = @"";
     if([dic objectForKey:@"price"] == nil || [[dic objectForKey:@"price"] isKindOfClass:[NSNull class]])
         model.price = 0;
     else
@@ -167,7 +169,7 @@ static NSInteger nurseTotal = 0;
    
     [LCNetWorkBase postWithMethod:@"api/care/list" Params:dic Completion:^(int code, id content) {
         if(code){
-            if([content isKindOfClass:[NSDictionary class]]){
+    
                 NSArray *results = [content objectForKey:@"rows"];
                 nurseTotal = [[content objectForKey:@"total"] integerValue];
                 if([results isKindOfClass:[NSArray class]]){
@@ -181,7 +183,6 @@ static NSInteger nurseTotal = 0;
                             [nurseList addObject:model];
                         }
                     }
-                }
                 if(block){
                     block(code);
                 }
@@ -239,7 +240,7 @@ static NSInteger nurseTotal = 0;
 //- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block
 - (void) loadetailDataWithproductId:(NSString*)productId block:(void(^)(id content))block
 {
-    NSDictionary *prama = @{@"currentUserId":[UserModel sharedUserInfo].userId, @"careId":self.nid, @"productId":productId};
+    NSDictionary *prama = @{@"registerId":[UserModel sharedUserInfo].userId, @"careId":self.nid, @"productId":productId};
     [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
         if(code){
             block(content);

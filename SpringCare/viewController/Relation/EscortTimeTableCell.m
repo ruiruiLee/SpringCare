@@ -47,7 +47,7 @@
     _lbToday.backgroundColor = Abled_Color;
     _lbToday.layer.cornerRadius = 30;
     _lbToday.clipsToBounds = YES;
-    _lbToday.text = [NSStrUtil convertTimetoBroadFormat:@"2015-04-17"];
+
     
     _lbTimeLine = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbTimeLine];
@@ -252,7 +252,14 @@
     NSString *textContent = data.content;//文字内容
     NSString *voiceContentUrl = data.VoliceDataModel.url;//音频内容地址
 //    NSString *voiceLen = data.voiceLen;//音频时长
-    NSString *publishTime = data.createAt;//发布时间;
+   _lbPublishTime.text = data.createTime;//发布时间;
+    
+    if (data.showTime) {
+        _lbToday.text = data.createDate;  //发布日期
+        _lbToday.hidden = NO;
+      }else{
+        _lbToday.hidden = YES;
+    }
     NSArray *replyData = data.replyInfos;//回复数据
     NSArray *imgPicArray = data.imgPathArray;//图片数据列表
     
@@ -317,8 +324,8 @@
     [self.contentView removeConstraints:hLayoutInfoArray];
     hLayoutInfoArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
     [self.contentView addConstraints:hLayoutInfoArray];
-//
-    _lbPublishTime.text = publishTime;
+    
+    
     
     NSMutableString *replyFormat = [[NSMutableString alloc] init];
     [replyFormat appendString:@"V:|-0-[_btnReply(25)]"];

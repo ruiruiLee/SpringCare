@@ -26,7 +26,7 @@
     AttentionSelectView *_selectView;
     UIView *_bgView;
     
-    NSString *_currentAttentionId;//用来处理当前的陪护时光是谁的
+    NSString *_currentLoverId;//用来处理当前的陪护时光是谁的
     
     //
     EscortTimeDataModel *_replyContentModel;//

@@ -23,10 +23,10 @@
 @property (nonatomic, strong) NSString *userId;//用户id
 
 //详情
-@property (nonatomic, strong) NSString *registerId;//注册用户扩展表id
+//@property (nonatomic, strong) NSString *registerId;//注册用户扩展表id
 @property (nonatomic, strong) NSString *addr;
 @property (nonatomic, strong) NSString *sex;
-@property (nonatomic, strong) NSString *birthDay;
+@property (nonatomic, strong) NSDate *birthDay;
 @property (nonatomic, strong) NSString *career;
 @property (nonatomic, strong) NSString *intro;
 @property (nonatomic, strong) NSString *chineseName;
@@ -34,6 +34,5 @@
 +(UserModel *)sharedUserInfo;
 
 -(BOOL)isLogin;
-- (void) getDetailUserInfo;
 
 @end

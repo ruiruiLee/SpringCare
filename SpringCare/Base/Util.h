@@ -71,11 +71,13 @@ typedef enum : NSUInteger {
 
 + (NSString*) StringFromDate:(NSDate*) date;
 + (NSDate*) convertDateFromString:(NSString*)string;
++ (NSString*) convertTimeFromStringDate:(NSString*) stringdate;
 + (NSString*) convertStringFromDate:(NSDate*) date;
 + (NSString*) convertShotStrFromDate:(NSDate*) date;
 + (NSString*) orderTimeFromDate:(NSDate*) date;  //订单展示时间形式
 + (NSString *) reductionTimeFromOrderTime:(NSString *)orderTime;//逆转回来，和上面是一对
 + (NSInteger) GetAgeByBirthday:(NSString *) day;
++(NSString *) convertTimetoBroadFormat:(NSString*)inputDate;
 /**
  *@Method openCamera:
  *@Brief 打开照相机
@@ -91,7 +93,7 @@ typedef enum : NSUInteger {
 + (void)openPhotoLibrary:(UIViewController*)currentViewController allowEdit:(BOOL)allowEdit completion:(void (^)(void))completion;
 
 
-+ (int) getAgeWithBirthday:(NSString*) birthday;
++ (int) getAgeWithBirthday:(NSDate*) birthDate;
 
 + (UIImage *)fitSmallImage:(UIImage *)image scaledToSize:(CGSize)tosize;
 

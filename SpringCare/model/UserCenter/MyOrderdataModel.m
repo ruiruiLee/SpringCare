@@ -130,7 +130,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
     }
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
+    [params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
     NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;
     if(orderType == EnumOrderOther){

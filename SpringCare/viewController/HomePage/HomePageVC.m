@@ -50,9 +50,9 @@
                 NSArray *wordList = [content objectForKey:@"wordList"];
                 for (int i = 0; i < [wordList count]; i++) {
                     NSDictionary *dic = [wordList objectAtIndex:i];
-                    if([[dic objectForKey:@"news_title"] isEqualToString:@"护理介绍"])
+                    if([[dic objectForKey:@"newsTitle"] isEqualToString:@"护理介绍"])
                         introduceUrl = [dic objectForKey:@"url"];
-                    else if ([[dic objectForKey:@"news_title"] isEqualToString:@"护理承诺"])
+                    else if ([[dic objectForKey:@"newsTitle"] isEqualToString:@"护理承诺"])
                         promiseUrl = [dic objectForKey:@"url"];
                 }
             }

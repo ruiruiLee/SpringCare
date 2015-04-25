@@ -58,6 +58,16 @@
     return string;
 }
 
++ (NSString*) convertTimeFromStringDate:(NSString*) stringdate
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+     NSDate *date=[formatter dateFromString:stringdate];
+    
+    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init] ;
+    [formatter2 setDateFormat:@"HH:mm"];
+    return [formatter2 stringFromDate:date];
+}
 + (NSString*) convertDinstance:(float)distance
 {
     if (distance>=1000) {
@@ -68,6 +78,34 @@
     else{
         return [NSString stringWithFormat:@"%.0fm",distance];
     }
+}
+
++(NSString *)convertTimetoBroadFormat:(NSString*) inputDate{
+    
+    if (!inputDate||inputDate.length==0) {
+        return @"";
+    }
+   // inputDate = [inputDate substringToIndex:10];
+    //实例化一个NSDateFormatter对象
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate* compareDate = [dateFormatter dateFromString:inputDate];
+    NSTimeInterval  timeInterval = [compareDate timeIntervalSinceNow];
+    timeInterval = -timeInterval;
+    NSInteger temp = timeInterval/60/60; // 小时
+    NSString *result=@"";
+    if(temp<24){
+        result = NSLocalizedString(@"今天", @"");
+    }
+    else if(temp/24 <2){
+        result = NSLocalizedString(@"昨天", @"");
+    }
+    else{
+        //[dateFormatter setDateFormat:NSLocalizedString(@"MD",nil)];
+        [dateFormatter setDateFormat:@"dd/MM"];
+        result = [dateFormatter stringFromDate:compareDate];
+    }
+    return  result;
 }
 
 + (NSString*) orderTimeFromDate:(NSDate*)Date
@@ -96,18 +134,16 @@
     return orderTime;
 }
 
-+ (int) getAgeWithBirthday:(NSString*) birthday
++ (int) getAgeWithBirthday:(NSDate*) birthDate
 {
-    int birth = [[birthday substringToIndex:4] intValue];
-    NSDate *date = [NSDate date];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
-    NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-    NSDateComponents *comps  = [calendar components:unitFlags fromDate:date];
-    int year = (int)[comps year];
-    
-    return (year - birth);
-}
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+//    [formatter setDateFormat:@"yyyy-MM-dd"];
+//    NSDate *birthDate=[formatter dateFromString:birthday];
+
+    NSTimeInterval dateDiff = [birthDate timeIntervalSinceNow];
+    int age = trunc(dateDiff/(60*60*24))/365;
+    return -age;
+    }
 
 //图像等比例压缩 .充满空隙
 

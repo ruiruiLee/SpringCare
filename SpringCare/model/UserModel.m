@@ -17,8 +17,6 @@
 @synthesize headerFile;
 @synthesize userId;
 
-//
-@synthesize registerId;
 @synthesize sex;
 @synthesize addr;
 @synthesize birthDay;
@@ -39,20 +37,23 @@
 - (id)init
 {
     if (self = [super init]) {
-        if ( ![[AVUser currentUser]isEqual: nil]) {
-            AVUser *user = [AVUser currentUser];
-            self.userId= user.objectId;
-            self.mobilePhoneNumber= user.mobilePhoneNumber;
-            self.sessionToken = user.sessionToken;
-            self.username = user.username;
-
-            self.isNew = user.isNew;
-            self.email = user.email;
-            //self.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
-            //self.chineseName = [user objectForKey:@"chinese_name"];
-         }
+        AVUser *muser = [AVUser currentUser];
+        if ( muser!=nil) {
+            self.userId= muser.objectId;
+            self.mobilePhoneNumber= muser.mobilePhoneNumber;
+            self.sessionToken = muser.sessionToken;
+            self.username = muser.username;
+            self.isNew = muser.isNew;
+            self.email = muser.email;
+            self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
+            self.addr = [muser objectForKey:@"addr"];
+            self.birthDay = [muser objectForKey:@"birthDay"];  //日期
+            self.career = [muser objectForKey:@"career"];
+            self.intro = [muser objectForKey:@"intro"];
+            self.chineseName = [muser objectForKey:@"chineseName"];
+            self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
+        }
     }
-    
     return self;
 }
 -(NSString*) displayName{
@@ -72,30 +73,25 @@
          return false;
     }
     else{
-        if (self.registerId==nil) {
-             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            [self getDetailUserInfo];
-             });
-        }
         return true;
     }
 }
 
-- (void) getDetailUserInfo
-{
-    NSDictionary *dic = @{@"id" : self.userId};
-    [LCNetWorkBase postWithMethod:@"api/register/detail" Params:dic Completion:^(int code, id content) {
-        if(code){
-            self.registerId = [content objectForKey:@"registerId"];
-            self.sex = [content objectForKey:@"sex"];
-            self.addr = [content objectForKey:@"addr"];
-            self.birthDay = [content objectForKey:@"birthDay"];  //日期
-            self.career = [content objectForKey:@"career"];
-            self.intro = [content objectForKey:@"intro"];
-            self.chineseName = [content objectForKey:@"chineseName"];
-            self.headerFile = [content objectForKey:@"headerImage"];
-        }
-    }];
-}
+//- (void) getDetailUserInfo
+//{
+//    NSDictionary *dic = @{@"id" : self.userId};
+//    [LCNetWorkBase postWithMethod:@"api/register/detail" Params:dic Completion:^(int code, id content) {
+//        if(code){
+//            self.registerId = [content objectForKey:@"registerId"];
+//            self.sex = [content objectForKey:@"sex"];
+//            self.addr = [content objectForKey:@"addr"];
+//            self.birthDay = [content objectForKey:@"birthDay"];  //日期
+//            self.career = [content objectForKey:@"career"];
+//            self.intro = [content objectForKey:@"intro"];
+//            self.chineseName = [content objectForKey:@"chineseName"];
+//            self.headerFile = [content objectForKey:@"headerImage"];
+//        }
+//    }];
+//}
 
 @end

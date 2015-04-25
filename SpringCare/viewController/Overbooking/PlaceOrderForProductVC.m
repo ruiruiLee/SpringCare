@@ -105,7 +105,7 @@
 {
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     
-    [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"currentUserId"];
+    [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
     
     
     [mDic setObject:address forKey:@"addr"];

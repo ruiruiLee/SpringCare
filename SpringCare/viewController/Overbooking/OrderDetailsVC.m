@@ -88,7 +88,7 @@
     _btnStatus.tag = 4;
     if(model.orderStatus == EnumOrderStatusTypeCancel){
         _imgLogo.hidden = YES;
-        [_btnStatus setTitle:@"订单取消" forState:UIControlStateNormal];
+        [_btnStatus setTitle:@"已取消" forState:UIControlStateNormal];
         _btnStatus.userInteractionEnabled = NO;
     }
     else{

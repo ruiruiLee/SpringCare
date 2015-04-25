@@ -247,7 +247,6 @@
     NSString *verifyCode = _tfVerifyCode.text;
     NSString *phone = _tfPhoneNum.text;
     
-    __weak LoginVC *weakSelf = self;
     [AVUser signUpOrLoginWithMobilePhoneNumberInBackground:phone smsCode:verifyCode block:^(AVUser *user, NSError *error) {
         if(error == nil){
             UserModel *model = [UserModel sharedUserInfo];
@@ -256,12 +255,16 @@
             model.mobilePhoneNumber = user.mobilePhoneNumber;
             model.isNew = user.isNew;
             model.email = user.email;
-            model.headerFile = ((AVFile*)[user objectForKey:@"header_image"]).url;
             model.userId = user.objectId ;
-            model.chineseName = [user objectForKey:@"chinese_name"];
-            [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
-                
-            }];
+            model.sex = [user objectForKey:@"sex"];
+            model.addr = [user objectForKey:@"addr"];
+            model.birthDay = [user objectForKey:@"birthDay"];  //日期
+            model.career = [user objectForKey:@"career"];
+            model.intro = [user objectForKey:@"intro"];
+            model.chineseName = [user objectForKey:@"chineseName"];
+            model.headerFile = [user objectForKey:@"headerImage"];
+
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }
         else{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入正确的验证码！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
