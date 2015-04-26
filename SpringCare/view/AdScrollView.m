@@ -121,7 +121,7 @@ static CGFloat const chageImageTime = 3.0;
 
 - (void)moveToTargetPosition:(CGFloat)targetX
 {
-    NSLog(@"moveToTargetPosition : %f" , targetX);
+  //  NSLog(@"moveToTargetPosition : %f" , targetX);
     if (targetX >= self.contentSize.width) {
         targetX = 0.0;
     }

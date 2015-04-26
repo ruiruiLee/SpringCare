@@ -423,10 +423,10 @@
         }
     }];
 }
-- (void) NotifyReloadData
+- (void) NotifyReloadData:(NSString*)loveID
 {
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {
-        if(code == 1){
+        if(code){
             _attentionData = [UserAttentionModel GetMyAttentionArray];
             _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
              [_tableview reloadData];

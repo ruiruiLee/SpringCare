@@ -24,9 +24,8 @@
     
     NSArray *_dataList;
     
-    NSIndexPath *selectIndexpath;
-    
     NSString *selectLoverId;
+    UserAttentionModel * SelectModel;
 }
 @property (nonatomic, copy) NSString * currentAdress;
 @property (nonatomic, assign) id<WorkAddressSelectVCDelegate> delegate;

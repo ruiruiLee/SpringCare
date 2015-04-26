@@ -11,8 +11,7 @@
 
 @protocol EditUserInfoVCDelegate <NSObject>
 
-- (void) NotifyReloadData;
-
+- (void) NotifyReloadData:(NSString*)loveID;
 @end
 
 @interface EditUserInfoVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, LCPickViewDelegate>

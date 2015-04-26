@@ -83,19 +83,37 @@
     return mArray;
 }
 
-- (void) NavRightButtonClickEvent:(UIButton *)sender
-{
-    [self pushtoEditUserinfo:nil];
-  }
 
-- (void) NotifyReloadData
+
+- (void) NotifyReloadData:(NSString*)loveID
 {
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {
-        if(code == 1){
+        if(code){
             _dataList = [UserAttentionModel GetMyAttentionArray];
-          [_tableview reloadData];
+            if([loveID isEqual: @"Add"]){
+                 SelectModel = _dataList[0];
+                 selectLoverId=SelectModel.userid;
+            }
+            else{
+                [self setSelectItemWithLoverId:selectLoverId];
+            }
+            [_tableview reloadData];
         }
     }];
+}
+
+- (void) setSelectItemWithLoverId:(NSString*) loverId
+{
+    selectLoverId = loverId;
+    for (int i = 0; i < [_dataList count]; i++) {
+        UserAttentionModel *model = [_dataList objectAtIndex:i];
+        if([loverId isEqualToString:model.userid]){
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//            WorkAddressCell *cell = (WorkAddressCell*)[_tableview cellForRowAtIndexPath:indexPath];
+//            cell._btnSelect.selected = YES;
+            SelectModel = model;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,43 +175,41 @@
     [cell setContentWithModel:model];
     [cell._btnSelect addTarget:self action:@selector(btnSelected:) forControlEvents:UIControlEventTouchUpInside];
     cell._btnSelect.tag = 100+indexPath.row;
-    
-    if(selectLoverId != nil)
+    cell._btnSelect.selected = NO;
+    if(selectLoverId != nil){
         if([model.userid isEqualToString:selectLoverId]){
-            selectIndexpath = indexPath;
+             cell._btnSelect.selected = YES;
         }
-    
-    if(selectIndexpath != nil){
-        if(indexPath.row == selectIndexpath.row && indexPath.section == selectIndexpath.section){
-            cell._btnSelect.selected = YES;
-        }else{
-            cell._btnSelect.selected = NO;
-        }
-    }else
-        cell._btnSelect.selected = NO;
+
+    }
+        
     return cell;
 }
 
 - (void) btnSelected:(UIButton*)sender
 {
-    sender.selected = !sender.selected;
-    if(sender.selected == YES){
-        
-        if(delegate && [delegate respondsToSelector:@selector(NotifyAddressSelected:model:)]){
-            if([_dataList count] > sender.tag - 100 && sender.tag - 100 >= 0)
-                [delegate NotifyAddressSelected:self model:[_dataList objectAtIndex:sender.tag - 100]];
-        }
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    sender.selected=YES;
+    SelectModel = [_dataList objectAtIndex:sender.tag - 100];
+    [self NavLeftButtonClickEvent:sender];
 }
-
+- (void) NavRightButtonClickEvent:(UIButton *)sender
+{
+    [self pushtoEditUserinfo:nil];
+}
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+     if(delegate && [delegate respondsToSelector:@selector(NotifyAddressSelected:model:)]){
+        [delegate NotifyAddressSelected:self model:SelectModel];
+     }
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UserAttentionModel *model = [_dataList objectAtIndex:indexPath.row];
-    [self pushtoEditUserinfo:model];
+    SelectModel= [_dataList objectAtIndex:indexPath.row];
+    selectLoverId=SelectModel.userid;
+    [self pushtoEditUserinfo:SelectModel];
 }
 
 -(void)pushtoEditUserinfo:(id)model{
@@ -206,28 +222,13 @@
 
 }
 -(void)setCurrentAdress:(NSString *)currentAdress{
-    UserAttentionModel *model = nil;
     if(currentAdress){
-      model =  [[UserAttentionModel alloc]init];
-      model.address = currentAdress;
+      SelectModel =  [[UserAttentionModel alloc]init];
+      SelectModel.address = currentAdress;
     }
-    [self performSelector:@selector(pushtoEditUserinfo:) withObject:model afterDelay:0.5];
-   // [self pushtoEditUserinfo:model];
+    [self performSelector:@selector(pushtoEditUserinfo:) withObject:SelectModel afterDelay:1];
 }
 
-- (void) setSelectItemWithLoverId:(NSString*) loverId
-{
-    selectLoverId = loverId;
-    
-    for (int i = 0; i < [_dataList count]; i++) {
-        UserAttentionModel *model = [_dataList objectAtIndex:i];
-        if([loverId isEqualToString:model.userid]){
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            selectIndexpath = indexPath;
-            WorkAddressCell *cell = (WorkAddressCell*)[_tableview cellForRowAtIndexPath:indexPath];
-            cell._btnSelect.selected = YES;
-        }
-    }
-}
+
 
 @end

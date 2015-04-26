@@ -12,8 +12,8 @@
 
 @property (nonatomic, strong) NSString *city_id;
 @property (nonatomic, strong) NSString *city_name;
-//@property (nonatomic, assign) double latitude;
-//@property (nonatomic, assign) double longitude;
+@property (nonatomic, assign) double latitude;
+@property (nonatomic, assign) double longitude;
 @property (nonatomic, strong) NSString *short_name;
 
 + (NSArray*) getCityData;
