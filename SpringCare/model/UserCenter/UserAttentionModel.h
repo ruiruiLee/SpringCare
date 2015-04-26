@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, assign) BOOL isCare;//是否关注对象
 @property (nonatomic, strong) NSString *sex;
-@property (nonatomic, strong) NSString *height;
+@property (nonatomic, assign) NSInteger height;
 @property (nonatomic, strong) NSString *age;
 @property (nonatomic, strong) NSString *relationId;//注册用户扩展表id
 

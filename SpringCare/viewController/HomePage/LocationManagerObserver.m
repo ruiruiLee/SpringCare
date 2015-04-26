@@ -14,7 +14,6 @@
 @implementation LocationManagerObserver
 @synthesize lat;
 @synthesize lon;
-@synthesize currentCity;
 @synthesize locationManager;
 
 
@@ -59,8 +58,8 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     NSLog(@"didChangeAuthorizationStatus---%u",status);
     if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
-    currentCity = CityName;
-    CityDataModel *model = [CityDataModel modelWithName:CityName];
+    _currentCity = CityName;
+    CityDataModel *model = [CityDataModel modelWithName:_currentCity];
     if(model != nil){
         [cfAppDelegate setCurrentCityModel:model] ;
       }
@@ -74,7 +73,6 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     lat = newLocation.coordinate.latitude;
     lon = newLocation.coordinate.longitude;
-    //if (delegate.currentCityModel == nil) {
         [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             if([placemarks count] > 0){
                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
@@ -92,20 +90,30 @@
 //                                                   placemark.thoroughfare,
 //                                                   placemark.subThoroughfare);
                 
-                 currentCity= !placemark.locality?placemark.administrativeArea:placemark.locality;
-                _currentDetailAdrress =[NSString stringWithFormat:@"%@%@%@%@%@%@", placemark.administrativeArea,
+                 _currentCity= !placemark.locality?placemark.administrativeArea:placemark.locality;
+                 _currentDetailAdrress =[NSString stringWithFormat:@"%@%@%@%@%@%@", placemark.administrativeArea,
                   !placemark.subAdministrativeArea?@"":placemark.subAdministrativeArea,
                   !placemark.locality?@"":placemark.locality,
                   !placemark.subLocality?@"":placemark.subLocality,
                   !placemark.thoroughfare?@"":placemark.thoroughfare,
                  !placemark.subThoroughfare?@"":placemark.subThoroughfare];
-                CityDataModel *model = [CityDataModel modelWithName:currentCity];
+                CityDataModel *model = [CityDataModel modelWithName:_currentCity];
                 if(model != nil){
                     [cfAppDelegate setCurrentCityModel:model] ;
                 }
+                // 更新当前用户坐标到服务器
+                if ([AVUser currentUser]!=nil) {
+                    AVUser *user = [AVUser currentUser];
+                    AVGeoPoint *point = [AVGeoPoint geoPointWithLatitude:lat longitude:lon];
+                    [user setObject:point forKey:@"locationPoint"];
+                    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+                            [[UserModel sharedUserInfo] modifyLocation:_currentDetailAdrress];
+                        }
+                    }];
+                }
             }
         }];
-    //}
     [manager stopUpdatingLocation];
 }
 

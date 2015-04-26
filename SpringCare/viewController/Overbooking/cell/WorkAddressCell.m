@@ -161,7 +161,7 @@
         _lbAddress.text = @"地址";
     }
     
-    _lbName.text = [NSString stringWithFormat:@"%@     %@     %@", [model.username isEqual:@""]?@"姓名":model.username,[model.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",model.age ],!model.height?@"身高":[NSString stringWithFormat:@"%@cm",model.height]];
+    _lbName.text = [NSString stringWithFormat:@"%@     %@     %@", [model.username isEqual:@""]?@"姓名":model.username,[model.age isEqual:@"0"]?@"年龄":[NSString stringWithFormat:@"%@岁",model.age ],model.height<=0?@"身高":[NSString stringWithFormat:@"%dcm",model.height]];
     NSString *relation = model.relation;
     if(relation == nil || [relation length] == 0)
         relation = @"昵称";

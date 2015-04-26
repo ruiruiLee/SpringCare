@@ -8,7 +8,6 @@
 
 #import "NurseListInfoModel.h"
 #import "AppDelegate.h"
-#import "CityDataModel.h"
 #import "UserModel.h"
 
 static NSMutableArray *nurseList = nil;

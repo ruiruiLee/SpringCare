@@ -7,12 +7,12 @@
 //
 
 #import "UserModel.h"
- #import <AVOSCloud/AVOSCloud.h>
+
 @implementation UserModel
-@synthesize isNew;
+//@synthesize isNew;
 @synthesize username;
-@synthesize sessionToken;
-@synthesize email;
+//@synthesize sessionToken;
+//@synthesize email;
 @synthesize mobilePhoneNumber;
 @synthesize headerFile;
 @synthesize userId;
@@ -21,7 +21,7 @@
 @synthesize addr;
 @synthesize birthDay;
 @synthesize career;
-@synthesize intro;
+//@synthesize intro;
 @synthesize chineseName;
 
 +(UserModel *)sharedUserInfo
@@ -41,17 +41,18 @@
         if ( muser!=nil) {
             self.userId= muser.objectId;
             self.mobilePhoneNumber= muser.mobilePhoneNumber;
-            self.sessionToken = muser.sessionToken;
+            //self.sessionToken = muser.sessionToken;
             self.username = muser.username;
-            self.isNew = muser.isNew;
-            self.email = muser.email;
+            //self.isNew = muser.isNew;
+            //self.email = muser.email;
             self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
             self.addr = [muser objectForKey:@"addr"];
             self.birthDay = [muser objectForKey:@"birthDay"];  //日期
             self.career = [muser objectForKey:@"career"];
-            self.intro = [muser objectForKey:@"intro"];
+            //self.intro = [muser objectForKey:@"intro"];
             self.chineseName = [muser objectForKey:@"chineseName"];
             self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
+            self.locationPoint =[muser objectForKey:@"locationPoint"];
         }
     }
     return self;
@@ -65,8 +66,28 @@
         return self.chineseName;
     }
 }
--(void)setDisplayName:(NSString *)displayName{
-    
+-(void)modifyLocation:(NSString*)detailAddress{
+     self.locationPoint =[[AVUser currentUser] objectForKey:@"locationPoint"];
+    if (detailAddress) {
+            self.currentDetailAdrress= detailAddress;
+    }
+}
+-(void)modifyInfo{
+    AVUser *muser = [AVUser currentUser];
+    self.userId= muser.objectId;
+    self.mobilePhoneNumber= muser.mobilePhoneNumber;
+    //self.sessionToken = muser.sessionToken;
+    self.username = muser.username;
+    //self.isNew = muser.isNew;
+    //self.email = muser.email;
+    self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
+    self.addr = [muser objectForKey:@"addr"];
+    self.birthDay = [muser objectForKey:@"birthDay"];  //日期
+    self.career = [muser objectForKey:@"career"];
+    //self.intro = [muser objectForKey:@"intro"];
+    self.chineseName = [muser objectForKey:@"chineseName"];
+    self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
+
 }
 -(BOOL)isLogin{
     if ( [AVUser currentUser]==nil) {
@@ -77,21 +98,5 @@
     }
 }
 
-//- (void) getDetailUserInfo
-//{
-//    NSDictionary *dic = @{@"id" : self.userId};
-//    [LCNetWorkBase postWithMethod:@"api/register/detail" Params:dic Completion:^(int code, id content) {
-//        if(code){
-//            self.registerId = [content objectForKey:@"registerId"];
-//            self.sex = [content objectForKey:@"sex"];
-//            self.addr = [content objectForKey:@"addr"];
-//            self.birthDay = [content objectForKey:@"birthDay"];  //日期
-//            self.career = [content objectForKey:@"career"];
-//            self.intro = [content objectForKey:@"intro"];
-//            self.chineseName = [content objectForKey:@"chineseName"];
-//            self.headerFile = [content objectForKey:@"headerImage"];
-//        }
-//    }];
-//}
 
 @end
