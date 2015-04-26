@@ -336,18 +336,18 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
 
 - (void)configureViewShadowWithDirection:(RMoveDirection)direction
 {
-    CGFloat shadowW;
-    switch (direction)
-    {
-        case RMoveDirectionLeft:
-            shadowW = 2.0f;
-            break;
-        case RMoveDirectionRight:
-            shadowW = -2.0f;
-            break;
-        default:
-            break;
-    }
+//    CGFloat shadowW;
+//    switch (direction)
+//    {
+//        case RMoveDirectionLeft:
+//            shadowW = 2.0f;
+//            break;
+//        case RMoveDirectionRight:
+//            shadowW = -2.0f;
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 

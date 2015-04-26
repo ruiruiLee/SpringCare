@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "LocationManagerObserver.h"
 #import "define.h"
-#import "AppDelegate.h"
+
 
 
 @implementation LocationManagerObserver
