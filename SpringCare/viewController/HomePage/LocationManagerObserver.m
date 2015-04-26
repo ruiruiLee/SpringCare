@@ -69,11 +69,8 @@
 
 -(void)saveLocation{
    // NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        CityDataModel *model = [[CityDataModel alloc]init];
-        model.city_name = _currentCity;
-        model.latitude = _lat;
-        model.longitude = _lon;
-        [cfAppDelegate setCurrentCityModel:model] ;
+    CityDataModel *model = [CityDataModel modelWithName:_currentCity];
+    [cfAppDelegate setCurrentCityModel:model] ;
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
