@@ -183,7 +183,7 @@
     
     CGPathRef bound = CGPathCreateCopyByStrokingPath(layer.path, nil, layer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, layer.miterLimit);
     layer.bounds = CGPathGetBoundingBox(bound);
-    
+    CGPathRelease(bound);
     layer.position = point;
     
     return layer;
@@ -206,6 +206,7 @@
     layer.position = point;
 //    NSLog(@"separator position: %@",NSStringFromCGPoint(point));
 //    NSLog(@"separator bounds: %@",NSStringFromCGRect(layer.bounds));
+    CGPathRelease(bound);
     return layer;
 }
 

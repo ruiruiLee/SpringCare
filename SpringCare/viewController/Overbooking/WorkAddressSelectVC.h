@@ -28,8 +28,9 @@
     
     NSString *selectLoverId;
 }
-
+@property (nonatomic, copy) NSString * currentAdress;
 @property (nonatomic, assign) id<WorkAddressSelectVCDelegate> delegate;
+
 
 - (void) setSelectItemWithLoverId:(NSString*) loverId;
 

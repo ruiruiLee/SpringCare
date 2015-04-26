@@ -123,48 +123,32 @@
 
 -(void)loadDataList:(NSString*)loverID{
     [_dataList removeAllObjects];
-    [self LoadDefaultDoctorInfo:loverID]; // 加载陪护师信息 ，headview显示
+   
     [UserAttentionModel loadLoverList:@"false" block:^(int code) {    //获取 用户的陪护对象
      AttentionArray =[UserAttentionModel GetMyAttentionArray];
+     if (AttentionArray.count>0) {
+        [self LoadDefaultDoctorInfo:loverID]; // 加载陪护师信息 ，headview显示
         if (loverID==nil) {
             _currentLoverId= [AttentionArray[0] userid];
             NSURL *imgurl =[NSURL URLWithString:[AttentionArray[0] photoUrl]];
             [self.btnRight sd_setImageWithURL:imgurl forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
-        }
-      
-    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
-            if(code)
-            {
+          }
+       
+           [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+              if(code)
+              {
                 [_dataList addObjectsFromArray:content];
                 [tableView reloadData];
-            }
-        }];
+              }
+           }];
+        }
+     else{
+         _currentLoverId= nil;
+     }
     }] ;
 
 }
-//- (void)LoadCareInfoWithLoveId:(NSString*) loverId
-//{
-//    if(loverId == nil || [loverId isKindOfClass:[NSNull class]])
-//        return;
-//    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-//    [parmas setObject:loverId forKey:@"loverId"];
-//    // __weak EscortTimeVC *weakSelf = self;
-//    [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
-//        if(code){
-//            if([content isKindOfClass:[NSDictionary class]]){
-//                if([content objectForKey:@"code"] == nil){
-//                    
-//                    if([content objectForKey:@"id"] != nil){
-//                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
-//                        [self SetHeaderInfoWithModel:model];
-//                    }else {
-//                        [self SetHeaderInfoWithModel:nil];
-//                    }
-//                }
-//            }
-//        }
-//    }];
-//}
+
 - (void) LoadDefaultDoctorInfo:(NSString*)loverID
 {
      NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];

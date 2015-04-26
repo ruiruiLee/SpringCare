@@ -183,6 +183,9 @@
             content = @"这次的服务有带提高";
             score = 3;
         }
+        else{
+             content = @"我对这次的服务非常满意";
+        }
     }
     
     NurseListInfoModel *nurseModel = [_OrderModel.nurseInfo objectAtIndex:_nurseIdx];

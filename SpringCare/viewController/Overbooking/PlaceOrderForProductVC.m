@@ -302,8 +302,13 @@
     WorkAddressSelectVC *vc = [[WorkAddressSelectVC alloc] initWithNibName:nil bundle:nil];
     vc.delegate = self;
     if(_loverModel != nil){
+        
         vc.view.backgroundColor = [UIColor clearColor];
         [vc setSelectItemWithLoverId:_loverModel.userid];
+        
+    }
+    else{
+        vc.currentAdress = [LcationInstance currentDetailAdrress];
     }
     [self.navigationController pushViewController:vc animated:YES];
 }

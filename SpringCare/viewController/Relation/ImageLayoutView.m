@@ -132,7 +132,7 @@
         if(scale!=1){
             image=[UIImage imageWithCGImage:image.CGImage scale:scale orientation:UIImageOrientationUp];
         }
-        size=image.size;
+        //size=image.size;
         imageView.frame=CGRectMake(0, 0, width, height);
         imageView.image=image;
         UITapGestureRecognizer * tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(lookImageAction:)];

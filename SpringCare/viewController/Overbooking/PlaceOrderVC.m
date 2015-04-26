@@ -198,10 +198,10 @@
     [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
     
     NSInteger unitPrice = _nurseModel.priceDiscount;
-    NSInteger orgUnitPrice = _nurseModel.price;
+    //NSInteger orgUnitPrice = _nurseModel.price;
     if(type == EnumType12Hours){
         unitPrice = unitPrice/2;
-        orgUnitPrice = orgUnitPrice/2;
+       // orgUnitPrice = orgUnitPrice/2;
     }
     
     [Params setObject:[NSNumber numberWithInteger:_nurseModel.price] forKey:@"orgUnitPrice"];//
@@ -472,10 +472,15 @@
     WorkAddressSelectVC *vc = [[WorkAddressSelectVC alloc] initWithNibName:nil bundle:nil];
     vc.delegate = self;
     if(_loverModel != nil){
+       
         vc.view.backgroundColor = [UIColor clearColor];
         [vc setSelectItemWithLoverId:_loverModel.userid];
+        
     }
-    [self.navigationController pushViewController:vc animated:YES];
+   else{
+       vc.currentAdress = [LcationInstance currentDetailAdrress];
+    }
+   [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) NotifyAddressSelected:(WorkAddressSelectVC *)selectVC model:(UserAttentionModel *)model
@@ -497,7 +502,6 @@
         editcell.lbTitle.font = _FONT_B(16);
         editcell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
         editcell.lbTitle.text = model.address;
-        _loverModel=model;
     }
 
 
