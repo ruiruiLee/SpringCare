@@ -23,6 +23,9 @@
 @property (nonatomic, strong) UIButton *btnRight;
 @property (nonatomic, strong) NSString *Title;
 
+@property (nonatomic, strong) UIControl *controlLeft;
+@property (nonatomic, strong) UIControl *controlRight;
+
 @property (nonatomic, weak) id<LCNavigationbarDelegate> delegate;
 
 - (void) HandleLeftButtonClickEvent:(UIButton*)sender;

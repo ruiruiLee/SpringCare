@@ -26,6 +26,9 @@
 @property (nonatomic, strong) UIButton *btnLeft;
 @property (nonatomic, strong) UIButton *btnRight;
 
+@property (nonatomic, strong) UIControl *controlLeft;
+@property (nonatomic, strong) UIControl *controlRight;
+
 - (void) LeftButtonClicked:(id)sender;
 - (void) RightButtonClicked:(id)sender;
 

@@ -10,6 +10,8 @@
 #import "define.h"
 
 @implementation LCNavigationbar
+@synthesize controlLeft;
+@synthesize controlRight;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -19,13 +21,11 @@
         
         _btnLeft = [[UIButton alloc] initWithFrame:CGRectZero];
         [self addSubview:_btnLeft];
-        [_btnLeft addTarget:self action:@selector(HandleLeftButtonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
         _btnLeft.translatesAutoresizingMaskIntoConstraints = NO;
         [_btnLeft setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         
         _btnRight = [[UIButton alloc] initWithFrame:CGRectZero];
         [self addSubview:_btnRight];
-        [_btnRight addTarget:self action:@selector(HandleRightButtonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
         _btnRight.translatesAutoresizingMaskIntoConstraints = NO;
         
         _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -36,11 +36,26 @@
         _lbTitle.textAlignment = NSTextAlignmentCenter;
         _lbTitle.textColor = [UIColor whiteColor];
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_btnLeft, _btnRight, _lbTitle);
+        controlLeft = [[UIControl alloc] initWithFrame:CGRectZero];
+        [self addSubview:controlLeft];
+        controlLeft.translatesAutoresizingMaskIntoConstraints = NO;
+        [controlLeft addTarget:self action:@selector(HandleLeftButtonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+        
+        controlRight = [[UIControl alloc] initWithFrame:CGRectZero];
+        [self addSubview:controlRight];
+        controlRight.translatesAutoresizingMaskIntoConstraints = NO;
+        [controlRight addTarget:self action:@selector(HandleRightButtonClickEvent:) forControlEvents:UIControlEventTouchUpInside];
+        
+        NSDictionary *views = NSDictionaryOfVariableBindings(_btnLeft, _btnRight, _lbTitle, controlLeft, controlRight);
 
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_lbTitle attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=10-[_lbTitle(200)]->=10-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_lbTitle(28)]-8-|" options:0 metrics:nil views:views]];
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[controlLeft(80)]->=10-|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[controlLeft(48)]-0-|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[controlRight(80)]-0-|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[controlRight(48)]-0-|" options:0 metrics:nil views:views]];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-13-[_btnLeft(28)]->=0-[_lbTitle]->=0-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbTitle]->=0-[_btnRight(50)]-13-|" options:0 metrics:nil views:views]];
