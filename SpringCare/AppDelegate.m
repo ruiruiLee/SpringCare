@@ -93,8 +93,15 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-   // _observer = [[LocationManagerObserver alloc] init];
-    [LcationInstance startUpdateLocation];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                [LcationInstance startUpdateLocation];
+//    
+//            });
+            dispatch_async(dispatch_get_main_queue(), ^{
+            [LcationInstance startUpdateLocation];
+    
+            });
+   // [LcationInstance startUpdateLocation];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

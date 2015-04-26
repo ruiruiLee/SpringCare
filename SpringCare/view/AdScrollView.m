@@ -68,6 +68,7 @@ static CGFloat const chageImageTime = 3.0;
         [titleUrlarray addObject:item.news_url];
          [titleArray addObject:item.news_title];
         UIButton * imageView = [UIButton buttonWithType:UIButtonTypeCustom];
+          [imageView setContentMode:UIViewContentModeScaleAspectFill];
         [imageView setFrame:CGRectMake(i * self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
         [imageView sd_setImageWithURL:[NSURL URLWithString:item.image_url] forState:UIControlStateNormal placeholderImage:nil];
           imageView.tag = i;
@@ -77,36 +78,21 @@ static CGFloat const chageImageTime = 3.0;
         //添加标题栏
         if (item.news_title.length>0) {
            UILabel * lbltitle = [[UILabel alloc] initWithFrame:CGRectMake(i * self.frame.size.width+5, self.frame.size.height-20.0, self.frame.size.width, 20.0)];
+            [lbltitle setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+            [lbltitle setTextColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]];
+
              lbltitle.text =item.news_title;
              lbltitle.backgroundColor = [UIColor clearColor];
             [self addSubview:lbltitle];
         }
-        [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
+        if (models.count>1) {
+            [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(switchFocusImageItems) userInfo:nil repeats:YES];
+
+        }
+        //[self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
 
     }
 
-    
-//    _moveTime = [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(animalMoveImage) userInfo:nil repeats:YES];
-//    _isTimeUp = NO;
-//    if([imageNameArray count] == 1){
-//         [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] forState:UIControlStateNormal placeholderImage:nil];
-//         [self addClick:_leftImageView];
-//         [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] forState:UIControlStateNormal placeholderImage:nil];
-//         [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] forState:UIControlStateNormal placeholderImage:nil];
-//        }
-//    if([imageNameArray count] == 2){
-//        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] forState:UIControlStateNormal placeholderImage:nil];
-//
-//     
-//    }
-//    if([imageNameArray count] >= 3){
-//        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] forState:UIControlStateNormal placeholderImage:nil];
-//         [self addClick:_leftImageView];
-//        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[2]] forState:UIControlStateNormal placeholderImage:nil];
-//    }
 }
 
 
@@ -130,7 +116,7 @@ static CGFloat const chageImageTime = 3.0;
     CGFloat targetX = self.contentOffset.x + self.frame.size.width;
     [self moveToTargetPosition:targetX];
     
-    [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
+    //[self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
 }
 
 - (void)moveToTargetPosition:(CGFloat)targetX
@@ -195,67 +181,6 @@ static CGFloat const chageImageTime = 3.0;
     _pageControl.currentPage = (int)(scrollView.contentOffset.x / scrollView.frame.size.width);
     
 }
-
-#pragma mark - 图片停止时,调用该函数使得滚动视图复用
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-//{
-//    if (self.contentOffset.x == 0)
-//    {
-//        currentImage = (currentImage-1)%_imageNameArray.count;
-//        _pageControl.currentPage = (_pageControl.currentPage - 1)%_imageNameArray.count;
-//    }
-//    else if(self.contentOffset.x == UISCREENWIDTH * 2)
-//    {
-//        
-//       currentImage = (currentImage + 1)%_imageNameArray.count;
-//       _pageControl.currentPage = (_pageControl.currentPage + 1)%_imageNameArray.count;
-//    }
-//    else
-//    {
-//        return;
-//    }
-//    
-//    if([_imageNameArray count] == 0)
-//        return;
-//    if([_imageNameArray count] == 1){
-//        
-//
-//        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage)%_imageNameArray.count]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage)%_imageNameArray.count]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage)%_imageNameArray.count]] forState:UIControlStateNormal placeholderImage:nil];
-//
-//    }
-//    if([_imageNameArray count] == 2){
-//        
-//        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[currentImage%_imageNameArray.count]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] forState:UIControlStateNormal placeholderImage:nil];
-//
-//        if(currentImage == 0){
-//            [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] forState:UIControlStateNormal placeholderImage:nil];
-//            [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[1]] forState:UIControlStateNormal placeholderImage:nil];
-//
-//        }
-//        else{
-//            [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] forState:UIControlStateNormal placeholderImage:nil];
-//             [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[0]] forState:UIControlStateNormal placeholderImage:nil];
-//        }
-//    }
-//    if([_imageNameArray count] >= 3){
-//
-//        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage-1)%_imageNameArray.count]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage)%_imageNameArray.count]] forState:UIControlStateNormal placeholderImage:nil];
-//        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageNameArray[(currentImage+1)%_imageNameArray.count]]  forState:UIControlStateNormal placeholderImage:nil];
-//    }
-//    
-//    self.contentOffset = CGPointMake(UISCREENWIDTH, 0);
-//    
-//    //手动控制图片滚动应该取消那个三秒的计时器
-//    if (!_isTimeUp) {
-//        [_moveTime setFireDate:[NSDate dateWithTimeIntervalSinceNow:chageImageTime]];
-//    }
-//    _isTimeUp = NO;
-//}
 
 @end
 

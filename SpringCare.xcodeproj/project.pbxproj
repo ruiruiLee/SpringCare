@@ -184,7 +184,6 @@
 		86C095281ACD472F00371BF3 /* tab-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */; };
 		86C095291ACD472F00371BF3 /* tab-lovetime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */; };
 		86C0952A1ACD472F00371BF3 /* tab-nurse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C095231ACD472F00371BF3 /* tab-nurse@2x.png */; };
-		86C095381ACD5AB500371BF3 /* AdDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095341ACD5AB500371BF3 /* AdDataModel.m */; };
 		86C0953A1ACD5AB500371BF3 /* AdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095371ACD5AB500371BF3 /* AdScrollView.m */; };
 		86C095451ACD5F5C00371BF3 /* MainBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095441ACD5F5C00371BF3 /* MainBaseVC.m */; };
 		86C0954A1ACE59B300371BF3 /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C095491ACE59B300371BF3 /* DOPDropDownMenu.m */; };
@@ -719,8 +718,6 @@
 		86C095211ACD472F00371BF3 /* tab-home-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-home-selected@2x.png"; sourceTree = "<group>"; };
 		86C095221ACD472F00371BF3 /* tab-lovetime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-lovetime@2x.png"; sourceTree = "<group>"; };
 		86C095231ACD472F00371BF3 /* tab-nurse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-nurse@2x.png"; sourceTree = "<group>"; };
-		86C095331ACD5AB500371BF3 /* AdDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdDataModel.h; sourceTree = "<group>"; };
-		86C095341ACD5AB500371BF3 /* AdDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdDataModel.m; sourceTree = "<group>"; };
 		86C095361ACD5AB500371BF3 /* AdScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdScrollView.h; sourceTree = "<group>"; };
 		86C095371ACD5AB500371BF3 /* AdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdScrollView.m; sourceTree = "<group>"; };
 		86C095431ACD5F5C00371BF3 /* MainBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainBaseVC.h; sourceTree = "<group>"; };
@@ -1266,8 +1263,6 @@
 				CFBC50271ADBA9EE004FB8F3 /* feedbackView.xib */,
 				86B8E6071AD9027C00A5139E /* ZHPickView.h */,
 				86B8E6081AD9027D00A5139E /* ZHPickView.m */,
-				86C095331ACD5AB500371BF3 /* AdDataModel.h */,
-				86C095341ACD5AB500371BF3 /* AdDataModel.m */,
 				86C095361ACD5AB500371BF3 /* AdScrollView.h */,
 				86C095371ACD5AB500371BF3 /* AdScrollView.m */,
 				86C095591AD0DAF400371BF3 /* GradeInfoView.h */,
@@ -2514,7 +2509,6 @@
 				86B7497D1AE8CB9C000BA6DB /* EvaluateDataModel.m in Sources */,
 				865C859B1ACCEDFF006ABCA4 /* NSStrUtil.m in Sources */,
 				86B8E5741AD523E900A5139E /* UserAppraisalCell.m in Sources */,
-				86C095381ACD5AB500371BF3 /* AdDataModel.m in Sources */,
 				8642C9461ABFF53C00251921 /* SDWebImageDownloaderOperation.m in Sources */,
 				86B8E58A1AD6159B00A5139E /* DateCountSelectView.m in Sources */,
 				86B8E59F1AD65F5500A5139E /* UserSettingTableCell.m in Sources */,
