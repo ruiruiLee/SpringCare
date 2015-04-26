@@ -1,4 +1,4 @@
-//
+
 //  EscortTimeVC.m
 //  Demo
 //
@@ -64,6 +64,7 @@
         _lbName.hidden = YES;
         [_btnInfo setTitle:@"" forState:UIControlStateNormal];
         _btnInfo.hidden = YES;
+        _photoImgView.image=ThemeImage(@"nurselistfemale");
         
     }
 }
@@ -123,7 +124,6 @@
 
 -(void)loadDataList:(NSString*)loverID{
     [_dataList removeAllObjects];
-   
     [UserAttentionModel loadLoverList:@"false" block:^(int code) {    //获取 用户的陪护对象
      AttentionArray =[UserAttentionModel GetMyAttentionArray];
      if (AttentionArray.count>0) {

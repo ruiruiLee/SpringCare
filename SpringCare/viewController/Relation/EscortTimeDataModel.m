@@ -153,9 +153,10 @@ static NSInteger totalCount = 0;
     if(loverId){
         [mdic setObject:loverId forKey:@"loverId"];
     }
+    NSInteger offset = num * LIMIT_COUNT;
     [mdic setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
     [mdic setObject:[NSNumber numberWithInteger:LIMIT_COUNT] forKey:@"limit"];
-    [mdic setObject:[NSNumber numberWithInteger:num] forKey:@"offset"];
+    [mdic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     
     [LCNetWorkBase postWithMethod:@"api/careTime/list" Params:mdic Completion:^(int code, id content) {
         if(code){
