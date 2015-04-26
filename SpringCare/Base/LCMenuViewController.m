@@ -87,7 +87,7 @@
     _btnUserName.titleLabel.font = _FONT(18);
     [_btnUserName setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _btnUserName.imageEdgeInsets = UIEdgeInsetsMake(6, ScreenWidth - (ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)) - 20 - 93 - 5 - 14, 8, 0);
-    _btnUserName.titleEdgeInsets = UIEdgeInsetsMake(7, 0, 7, 14);
+    _btnUserName.titleEdgeInsets = UIEdgeInsetsMake(7, -16, 7, 14);
     [_btnUserName setImage:[UIImage imageNamed:@"usercentershut"] forState:UIControlStateNormal];
     _btnUserName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_btnUserName addTarget:self action:@selector(doEditUserInfo:) forControlEvents:UIControlEventTouchUpInside];
@@ -149,6 +149,7 @@
         NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(96)]-4-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
         _btnHotLine.titleLabel.font = _FONT(13);
+        _btnUserName.titleLabel.font = _FONT(14);
     }
     else if (type == EnumValueTypeiPhone5)
     {
@@ -159,6 +160,7 @@
         NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(96)]-4-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
         _btnHotLine.titleLabel.font = _FONT(13);
+        _btnUserName.titleLabel.font = _FONT(14);
     }
     else if(type == EnumValueTypeiPhone6){
         [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
