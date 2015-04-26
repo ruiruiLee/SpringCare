@@ -44,19 +44,20 @@
     //统计应用启动情况
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    /* 重要! 注册子类 App生命周期内 只需要执行一次即可*/
-//    [Student registerSubclass];
-    
-//    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
-//    manager.enable = YES;
-//    manager.shouldResignOnTouchOutside = YES;
-//    manager.shouldToolbarUsesTextFieldTintColor = NO;
-//    manager.enableAutoToolbar = NO;
-    
 #if !TARGET_IPHONE_SIMULATOR
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert
+                                                | UIUserNotificationTypeBadge
+                                                | UIUserNotificationTypeSound
+                                                                                 categories:nil];
+        [application registerUserNotificationSettings:settings];
+        [application registerForRemoteNotifications];
+    }
+    else{
     [application registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge |
                                                      UIRemoteNotificationTypeAlert |
                                                      UIRemoteNotificationTypeSound];
+    }
 #endif
     
    // [ProjectDefine shareProjectDefine];
@@ -93,14 +94,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                [LcationInstance startUpdateLocation];
-//    
-//            });
-            dispatch_async(dispatch_get_main_queue(), ^{
-            [LcationInstance startUpdateLocation];
-    
-            });
+     dispatch_async(dispatch_get_main_queue(), ^{[LcationInstance startUpdateLocation];});
    // [LcationInstance startUpdateLocation];
 }
 
@@ -110,18 +104,8 @@
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    //推送功能打开时, 注册当前的设备, 同时记录用户活跃, 方便进行有针对的推送
     AVInstallation *currentInstallation = [AVInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
-    
-    //可选 但是很重要. 我们可以在任何地方给currentInstallation设置任意值,方便进行有针对的推送
-    //比如如果我们知道用户的年龄了,可以加上下面这一行 这样推送时我们可以选择age>20岁的用户进行通知
-    //[currentInstallation setObject:@"28" forKey:@"age"];
-    
-    //我们当然也可以设置根据地理位置提醒 发挥想象力吧!
-    
-    
-    //当然别忘了任何currentInstallation的变更后做保存
     [currentInstallation saveInBackground];
 }
 
