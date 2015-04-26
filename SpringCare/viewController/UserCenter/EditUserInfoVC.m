@@ -94,10 +94,11 @@
         NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
         if([userData isKindOfClass:[UserAttentionModel class]]){
             UserAttentionModel *model = (UserAttentionModel*)userData;
-            [mDic setObject:model.userid forKey:@"loverId"];
-            [mDic setObject:model.relationId forKey:@"relationId"];
-            
-        }
+            if (model.userid!=nil) {
+                [mDic setObject:model.userid forKey:@"loverId"];
+                [mDic setObject:model.relationId forKey:@"relationId"];
+            }
+         }
         [mDic setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
         
         for (int i = 0; i < [_data count]; i++) {
@@ -136,14 +137,23 @@
         
         [LCNetWorkBase postWithMethod:@"api/lover/save" Params:mDic Completion:^(int code, id content) {
             if(code){
-                [UserAttentionModel loadLoverList:@"true" block:^(int code)  {
-                    if(code == 1){
-                        if(delegate && [delegate respondsToSelector:@selector(NotifyReloadData)]){
-                            [delegate NotifyReloadData];
-                        }
-                        [self.navigationController popViewControllerAnimated:YES];
+                if(delegate && [delegate respondsToSelector:@selector(NotifyReloadData:)]){
+                    if ([mDic objectForKey:@"loverId"]==nil) {
+                        [delegate NotifyReloadData:@"Add"];
+                      }
+                    else{
+                        [delegate NotifyReloadData:@"edit"];
                     }
-                }];
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+//                [UserAttentionModel loadLoverList:@"true" block:^(int code)  {
+//                    if(code == 1){
+//                        if(delegate && [delegate respondsToSelector:@selector(NotifyReloadData:)]){
+//                            [delegate NotifyReloadData:d];
+//                        }
+//                        [self.navigationController popViewControllerAnimated:YES];
+//                    }
+//                }];
             }
         }];
     }

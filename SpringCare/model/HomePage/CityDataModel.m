@@ -15,8 +15,8 @@ static NSMutableArray *cityDataArray = nil;
 @implementation CityDataModel
 @synthesize city_id;
 @synthesize city_name;
-//@synthesize latitude;
-//@synthesize longitude;
+@synthesize latitude;
+@synthesize longitude;
 @synthesize short_name;
 
 + (NSArray*) getCityData
@@ -50,12 +50,7 @@ static NSMutableArray *cityDataArray = nil;
         }
     }
     
-    if(LcationInstance.currentCity != nil){
-        CityDataModel *model = [CityDataModel modelWithName:LcationInstance.currentCity];
-        if(model){
-            [cfAppDelegate setCurrentCityModel:model];
-        }
-    }
+
 }
 
 + (CityDataModel*) modelWithName:(NSString*) name

@@ -136,16 +136,14 @@ static NSInteger nurseTotal = 0;
         [nurseList removeAllObjects];
     }
 
-    double lon = LcationInstance.lon; // delegate._observer.lon;
-    double lat = LcationInstance.lat; //delegate._observer.lat;
     NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;
     if(offset >= [nurseList count])
         offset = [nurseList count];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
-    [dic setObject:[NSNumber numberWithDouble:lon] forKey:@"longitude"];
-    [dic setObject:[NSNumber numberWithDouble:lat] forKey:@"latitude"];
+    [dic setObject:[NSNumber numberWithDouble: LcationInstance.lon] forKey:@"longitude"];
+    [dic setObject:[NSNumber numberWithDouble: LcationInstance.lat] forKey:@"latitude"];
     if(sortFiled != nil)
         [dic setObject:sortFiled forKey:@"sortFiled"];
     if(productId != nil)

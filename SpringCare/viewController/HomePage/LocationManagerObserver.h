@@ -12,8 +12,6 @@
 @interface LocationManagerObserver : NSObject<CLLocationManagerDelegate>
 {
     CLGeocoder *geocoder ;
-   
-    
 }
 @property (nonatomic, assign) double lat;
 @property (nonatomic, assign) double lon;

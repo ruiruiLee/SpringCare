@@ -94,10 +94,12 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     dispatch_async(dispatch_get_main_queue(), ^{[LcationInstance startUpdateLocation];});
-   // [LcationInstance startUpdateLocation];
-}
 
+     [self performSelector:@selector(openlocation) withObject:nil afterDelay:0.5];
+}
+- (void)openlocation{
+    [LcationInstance startUpdateLocation];
+}
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }

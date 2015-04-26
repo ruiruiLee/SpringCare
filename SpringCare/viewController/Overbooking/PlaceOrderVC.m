@@ -147,9 +147,10 @@
         [self.navigationController presentViewController:nav animated:YES completion:nil];
     }
     else if([LocationManagerObserver sharedInstance].currentDetailAdrress == nil && _loverModel == nil){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护地址！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 
         [alert show];
+        return;
     }
     else if(_loverModel == nil){
 
@@ -162,6 +163,7 @@
                     [weakSelf submitWithloverId:@"message"];
             }
         }];
+        return;
     }
     else{
         [self submitWithloverId:_loverModel.userid];
@@ -174,7 +176,7 @@
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     if(editcell.lbTitle.text == nil || [editcell.lbTitle.text length] < 10){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择订单开始时间！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择订单开始时间！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 
         [alert show];
         return;
