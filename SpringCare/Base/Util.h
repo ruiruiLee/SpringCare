@@ -111,4 +111,8 @@ typedef enum : NSUInteger {
 
 + (BOOL) isOneDay:(NSDate *) begin end:(NSDate *) end;
 
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
+
++ (UIImage *)GetBtnBackgroundImage;
+
 @end

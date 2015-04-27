@@ -41,10 +41,11 @@
     
     UIButton *btnCancel = [[UIButton alloc] initWithFrame:CGRectZero];
     btnCancel.translatesAutoresizingMaskIntoConstraints = NO;
-    btnCancel.backgroundColor = Abled_Color;
     btnCancel.layer.cornerRadius = 5;
     [btnCancel setTitleColor:_COLOR(0xff, 0xff, 0xff) forState:UIControlStateNormal];
     [btnCancel setTitle:@"退 出" forState:UIControlStateNormal];
+    [btnCancel setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
+    btnCancel.clipsToBounds = YES;
     [footView addSubview:btnCancel];
     [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-28-[btnCancel]-28-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
     [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[btnCancel]-3-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];

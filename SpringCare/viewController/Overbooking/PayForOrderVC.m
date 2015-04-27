@@ -162,7 +162,9 @@
     UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnSubmit];
     btnSubmit.layer.cornerRadius = 22;
-    btnSubmit.backgroundColor = Abled_Color;
+//    btnSubmit.backgroundColor = Abled_Color;
+    [btnSubmit setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
+    btnSubmit.clipsToBounds = YES;
     [btnSubmit setTitle:@"立即付款" forState:UIControlStateNormal];
     btnSubmit.titleLabel.font = _FONT(18);
     btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;

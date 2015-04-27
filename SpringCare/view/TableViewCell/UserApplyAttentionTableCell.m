@@ -45,7 +45,9 @@
         [self.contentView addSubview:_btnAccept];
         _btnAccept.translatesAutoresizingMaskIntoConstraints = NO;
         _btnAccept.layer.cornerRadius = 8;
-        _btnAccept.backgroundColor = Abled_Color;
+//        _btnAccept.backgroundColor = Abled_Color;
+        [_btnAccept setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
+        _btnAccept.clipsToBounds = YES;
         [_btnAccept setTitle:@"接受" forState:UIControlStateNormal];
         [_btnAccept setTitle:@"接受" forState:UIControlStateSelected];
         

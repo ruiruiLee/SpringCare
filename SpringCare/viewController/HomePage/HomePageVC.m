@@ -197,7 +197,11 @@
     btnRing = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnRing];
     btnRing.translatesAutoresizingMaskIntoConstraints = NO;
-    btnRing.backgroundColor = _COLOR(0x66, 0x66, 0x66);
+//    btnRing.backgroundColor = _COLOR(0x66, 0x66, 0x66);
+    UIImage *image = [Util imageWithColor:_COLOR(0x66, 0x66, 0x66) size:CGSizeMake(5, 5)];
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
+    [btnRing setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
+    btnRing.clipsToBounds = YES;
     btnRing.layer.cornerRadius = 8;
     [btnRing addTarget:self action:@selector(btnRingClicked) forControlEvents:UIControlEventTouchUpInside];
     imgRing = [[UIImageView alloc] initWithFrame:CGRectZero];

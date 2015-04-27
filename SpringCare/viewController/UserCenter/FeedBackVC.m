@@ -56,8 +56,10 @@
     [_btnSubmit setTitle:@"提交宝贵意见" forState:UIControlStateNormal];
     _btnSubmit.layer.cornerRadius = 8;
     _btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;
-    _btnSubmit.backgroundColor = Abled_Color;
+//    _btnSubmit.backgroundColor = Abled_Color;
     [_btnSubmit addTarget:self action:@selector(doBtnFeedBack:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnSubmit setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
+    _btnSubmit.clipsToBounds = YES;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbExplation, _tvContent, _btnSubmit);
     
@@ -79,6 +81,7 @@
     if(content == nil || [content length] == 0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入内容，谢谢你对我们的支持！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
+        return;
     }
     
     AVUserFeedbackAgent *agent = [AVUserFeedbackAgent sharedInstance];
