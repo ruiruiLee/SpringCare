@@ -245,16 +245,27 @@
     }
 }
 
+
+/**
+ @Brief 根据语音时间长度计算控件长度
+ **/
+#define kMaxVoiceImageWidth 160.0
+#define kMinVoiceImageWidth 40.0
+- (CGFloat) VoiceButtonWithVoiceTimeLength:(float)timeLength {
+    CGFloat ratioLegth = kMaxVoiceImageWidth * (timeLength / 30);
+    return kMinVoiceImageWidth + ratioLegth;
+}
+
 - (void) setContentData:(EscortTimeDataModel*)data
 {
     _model = data;
-    
     NSString *textContent = data.content;//文字内容
     NSString *voiceContentUrl = data.VoliceDataModel.url;//音频内容地址
-//    NSString *voiceLen = data.voiceLen;//音频时长
+    NSString *voiceLen = data.VoliceDataModel.seconds;//音频时长
    _lbPublishTime.text = data.createTime;//发布时间;
     
     if (data.showTime) {
+        
         _lbToday.text = data.createDate;  //发布日期
         _lbToday.hidden = NO;
       }else{
@@ -299,6 +310,7 @@
         _lbVoliceLimit.text = @"12\"";
         _lbVoliceLimit.hidden = NO;
         _btnVolice.hidden = NO;
+        
     }else
     {
         _lbVoliceLimit.hidden = YES;

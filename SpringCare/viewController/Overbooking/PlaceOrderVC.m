@@ -147,23 +147,23 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         [self.navigationController presentViewController:nav animated:YES completion:nil];
     }
-    else if([LocationManagerObserver sharedInstance].currentDetailAdrress == nil && _loverModel == nil){
+    else if( !_loverModel){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 
         [alert show];
         return;
     }
-    else if(_loverModel == nil){
+    else if(!_loverModel.address||[_loverModel.address isEqual:@""]){
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
-        __weak PlaceOrderVC *weakSelf = self;
-        [self newAttentionWithAddress:[LocationManagerObserver sharedInstance].currentDetailAdrress block:^(int code, id content) {
-            if(code){
-                if([content objectForKey:@"code"] == nil)
-                    [weakSelf submitWithloverId:@"message"];
-            }
-        }];
+//        __weak PlaceOrderVC *weakSelf = self;
+//        [self newAttentionWithAddress:[LocationManagerObserver sharedInstance].currentDetailAdrress block:^(int code, id content) {
+//            if(code){
+//                if([content objectForKey:@"code"] == nil)
+//                    [weakSelf submitWithloverId:@"message"];
+//            }
+//        }];
         return;
     }
     else{

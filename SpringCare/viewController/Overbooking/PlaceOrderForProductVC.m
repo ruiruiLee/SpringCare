@@ -16,7 +16,7 @@
 #import "PlaceOrderEditCell.h"
 #import "MyOrderListVC.h"
 #import "SliderViewController.h"
-
+#import "LoginVC.h"
 @interface PlaceOrderForProductVC () <WorkAddressSelectVCDelegate>
 {
     FamilyProductModel *_productModel;
@@ -163,18 +163,21 @@
 
 - (void) btnSubmitOrder:(UIButton*)sender
 {
-    if([LocationManagerObserver sharedInstance].currentDetailAdrress == nil && _loverModel == nil){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择陪护位置！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    if(![[UserModel sharedUserInfo] isLogin]){
+        LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
+    }
+    else if( !_loverModel){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
         [alert show];
         return;
     }
-    if(_loverModel == nil){
-        [self newAttentionWithAddress:[LocationManagerObserver sharedInstance].currentDetailAdrress block:^(int code, id content) {
-            if(code){
-                if([content objectForKey:@"code"] == nil)
-                    [self submitWithloverId:@"message"];
-            }
-        }];
+    else if(!_loverModel.address||[_loverModel.address isEqual:@""]){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
     }
     else{
         [self submitWithloverId:_loverModel.userid];
