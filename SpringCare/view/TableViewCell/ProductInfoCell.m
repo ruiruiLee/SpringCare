@@ -62,23 +62,17 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_bgView, _photoImgV, _lbTitle, _lbExplain);
     
     CGFloat multiplier = 299.0 / (323.0 * 2);
-    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImgV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_photoImgV attribute:NSLayoutAttributeWidth multiplier:multiplier constant:0]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_bgView]-26-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-17-[_bgView]-17-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_bgView]-10-|" options:0 metrics:nil views:views]];
     
     [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbExplain]-0-|" options:0 metrics:nil views:views]];
     NSString *format = [NSString stringWithFormat:@"H:|-0-[_photoImgV(%f)]-0-|", ScreenWidth - 52];
     [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
-    NSString *vformat = [NSString stringWithFormat:@"V:|-0-[_photoImgV(%f)]-3-[_lbExplain(>=30)]-3-|", (ScreenWidth - 52) * 0.63];
+    NSString *vformat = [NSString stringWithFormat:@"V:|-0-[_photoImgV(%f)]-0-[_lbExplain(>=30)]-0-|", (ScreenWidth - 52) * multiplier];
     [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vformat options:0 metrics:nil views:views]];
     [_photoImgV addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbTitle]-0-|" options:0 metrics:nil views:views]];
     [_photoImgV addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbTitle(36)]-0-|" options:0 metrics:nil views:views]];
-    
-//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_bgView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1 constant:-52]];
-//    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImgV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_bgView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-//    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImgV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_photoImgV attribute:NSLayoutAttributeWidth multiplier:0.8 constant:0]];
-//    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImgV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_photoImgV attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 }
 
 - (void)awakeFromNib {
@@ -96,7 +90,7 @@
 //    [_photoImgV sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:nil];
     _photoImgV.image = [UIImage imageNamed:@"hospital"];
     _lbTitle.text = model.productName;
-    _lbExplain.text = model.productDesc;
+//    _lbExplain.text = @"我发的是扶桑岛国地方个地方个地方山高水低";
 }
 
 @end
