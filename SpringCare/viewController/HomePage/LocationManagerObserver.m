@@ -31,8 +31,8 @@
     
     if (self = [super init]) {
         geocoder = [[CLGeocoder alloc] init];
-        _lat = 30.643063;
-        _lon = 104.058155;
+//        _lat = 30.643063;
+//        _lon = 104.058155;
         locationManager = [[CLLocationManager alloc] init];//创建位置管理器
         locationManager.delegate=(id)self;
         locationManager.desiredAccuracy=kCLLocationAccuracyBest;
@@ -48,6 +48,7 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
       [self.locationManager startUpdatingLocation];
+       // NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //        [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:0.1];
 //        });
@@ -63,15 +64,25 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"didChangeAuthorizationStatus----%@",error);
-    _currentCity = CityName;
     [self saveLocation];
 }
 
 -(void)saveLocation{
-   // NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    CityDataModel *model = [CityDataModel modelWithName:_currentCity];
-    [cfAppDelegate setCurrentCityModel:model] ;
-}
+    CityDataModel *model ;
+    if (!_currentCity) {
+        model= [CityDataModel modelWithName:CityName];
+        [cfAppDelegate setCurrentCityModel:model] ;
+     }
+    else{
+        model = [CityDataModel modelWithName:_currentCity];
+        if (model==nil) {
+            [cfAppDelegate setCurrentCityModel:[CityDataModel modelWithName:CityName]] ;
+        }
+        [cfAppDelegate setCurrentCityModel:model] ;
+
+     }
+    
+  }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     _lat = newLocation.coordinate.latitude;
