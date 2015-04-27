@@ -60,6 +60,7 @@
     [searchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [searchBar sizeToFit];
     searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    searchBar.showsCancelButton = YES;
     
     searchBar.backgroundImage = [self imageWithColor:_COLOR(0xf3, 0xf5, 0xf7) size:CGSizeMake(ScreenWidth, 44)];
     
@@ -257,11 +258,16 @@
 }
 
 #pragma mark - UISearchDisplayController delegate methods
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)_searchBar
+- (void)searchBarCancelButtonClicked:(UISearchBar *)Bar
 {
     [searchBar resignFirstResponder];
-    NSString *searchStr = _searchBar.text;
+    searchBar.text = @"";
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)Bar
+{
+    [searchBar resignFirstResponder];
+    NSString *searchStr = Bar.text;
     if(searchStr == nil || [searchStr isKindOfClass:[NSNull class]])
         searchStr = @"";
     if([_SearchConditionStr isEqual:searchStr])
