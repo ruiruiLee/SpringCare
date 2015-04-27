@@ -68,11 +68,13 @@
 }
 
 -(void)saveLocation{
+    CityDataModel *model ;
     if (!_currentCity) {
-         [cfAppDelegate setCurrentCityModel:[CityDataModel modelWithName:CityName]] ;
+        model= [CityDataModel modelWithName:CityName];
+        [cfAppDelegate setCurrentCityModel:model] ;
      }
     else{
-        CityDataModel *model = [CityDataModel modelWithName:_currentCity];
+        model = [CityDataModel modelWithName:_currentCity];
         if (model==nil) {
             [cfAppDelegate setCurrentCityModel:[CityDataModel modelWithName:CityName]] ;
         }
