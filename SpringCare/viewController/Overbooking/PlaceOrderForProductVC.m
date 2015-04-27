@@ -85,6 +85,9 @@
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
     [_tableview registerClass:[PayTypeForProductCell class] forCellReuseIdentifier:@"cell2"];
     
+    UIView *header = [self CreateTableHeader];
+    _tableview.tableHeaderView = header;
+    
     UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnSubmit];
     btnSubmit.layer.cornerRadius = 22;
@@ -99,6 +102,38 @@
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-20-[btnSubmit(44)]-20-|" options:0 metrics:nil views:views]];
+}
+
+- (UIView *) CreateTableHeader
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 100)];
+    
+    _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
+    _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
+    [headerView addSubview:_lbTitle];
+    _lbTitle.font = _FONT(15);
+    _lbTitle.textColor = _COLOR(0x66, 0x66, 0x66);
+    _lbTitle.text = [NSString stringWithFormat:@"产品名称：%@", _productModel.productName];
+    
+    _lbExplain = [[UILabel alloc] initWithFrame:CGRectZero];
+    _lbExplain.translatesAutoresizingMaskIntoConstraints = NO;
+    [headerView addSubview:_lbExplain];
+    _lbExplain.font = _FONT(15);
+    _lbExplain.textColor = _COLOR(0x66, 0x66, 0x66);
+    _lbExplain.text = [NSString stringWithFormat:@"产品介绍：%@", _productModel.productDesc];
+    _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 35;
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(_lbExplain, _lbTitle);
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTitle]-10-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbExplain]-10-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_lbTitle]-8-[_lbExplain]-10-|" options:0 metrics:nil views:views]];
+    
+    [headerView setNeedsLayout];
+    [headerView layoutIfNeeded];
+    
+    CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    headerView.frame = CGRectMake(0, 0, ScreenWidth, size.height + 1);
+    return headerView;
 }
 
 - (void) newAttentionWithAddress:(NSString*)address block:(Completion)block;

@@ -87,10 +87,10 @@
 
 - (void) SetContentWithDic:(FamilyProductModel*)model
 {
-//    [_photoImgV sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:nil];
-    _photoImgV.image = [UIImage imageNamed:@"hospital"];
+    [_photoImgV sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:ThemeImage(@"nurselistfemale")];
+//    _photoImgV.image = [UIImage imageNamed:@"nurselistfemale"];
     _lbTitle.text = model.productName;
-//    _lbExplain.text = @"我发的是扶桑岛国地方个地方个地方山高水低";
+    _lbExplain.text = model.productDesc;
 }
 
 @end

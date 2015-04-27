@@ -13,6 +13,9 @@
 @interface PlaceOrderForProductVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, PlaceOrderEditForProductCellDelegate>
 {
     UITableView *_tableview;
+    
+    UILabel *_lbTitle;
+    UILabel *_lbExplain;
 }
 
 - (id) initWithModel:(FamilyProductModel*) model;
