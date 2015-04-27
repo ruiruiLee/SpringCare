@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CityDataModel.h"
 @interface CityListCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *lbTitle;
+@property (nonatomic, retain) CityDataModel * CityModel;
 @property (nonatomic, strong) UIImageView *imgSelectFlag;
 
 @end

@@ -94,15 +94,16 @@
     if(indexPath.section == 0){
         if(LcationInstance.currentCity == nil)
         {
-            cell.lbTitle.text = @"正在定位..";
+            cell.lbTitle.text = @"正在定位....";
         }else
         {
-            cell.lbTitle.text = LcationInstance.currentCity;
+            cell.lbTitle.text =  LcationInstance.currentCity;
         }
     }
     else{
-        CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
-        cell.lbTitle.text = model.city_name;
+        cell.CityModel= [[CityDataModel getCityData] objectAtIndex:indexPath.row];
+        cell.lbTitle.text =  cell.CityModel.city_name;
+        cell.imgSelectFlag.hidden=YES;
     }
     return cell;
 }
@@ -134,20 +135,26 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if([[CityDataModel getCityData] count] > indexPath.row){
-        CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
-        [cfAppDelegate setCurrentCityModel:model];
-        if(delegate && [delegate respondsToSelector:@selector(NotifyCitySelectedWithData:)])
-        {
-            [delegate NotifyCitySelectedWithData:model.city_name];
-        }
-        
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            
-        }];
-    }
-}
+     if(indexPath.section == 0){
+        CityListCell *cell = (CityListCell *)[tableView cellForRowAtIndexPath:indexPath];
+        CityDataModel *model =  [CityDataModel modelWithName:cell.lbTitle.text];
+         if (model==nil) {
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"友情提示" message:@"对不起,您所在的城市目前暂时还不在我们的服务范围内" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+             [alert show];
+         }
+         else{
+              [cfAppDelegate setCurrentCityModel:model];
+               [delegate NotifyCitySelectedWithData:model.city_name];
+             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+         }
+     }
+     else{
+           CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
+           [cfAppDelegate setCurrentCityModel:model];
+           [delegate NotifyCitySelectedWithData:model.city_name];
+           [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+     }
+   }
 
 - (void) BeginLocation
 {

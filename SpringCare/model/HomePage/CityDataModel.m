@@ -8,15 +8,12 @@
 
 #import "CityDataModel.h"
 #import "LocationManagerObserver.h"
-#import "AppDelegate.h"
 #import "define.h"
 static NSMutableArray *cityDataArray = nil;
 
 @implementation CityDataModel
 @synthesize city_id;
 @synthesize city_name;
-@synthesize latitude;
-@synthesize longitude;
 @synthesize short_name;
 
 + (NSArray*) getCityData

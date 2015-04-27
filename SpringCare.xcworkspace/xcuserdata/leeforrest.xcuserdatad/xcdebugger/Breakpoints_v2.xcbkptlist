@@ -57,7 +57,7 @@
                   symbolName = "-[PlaceOrderForProductVC submitWithloverId:]"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451746795.458093"
+                  timestampString = "451801437.78935"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "188"
@@ -71,7 +71,7 @@
                   symbolName = "__44-[PlaceOrderForProductVC submitWithloverId:]_block_invoke"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451746795.458668"
+                  timestampString = "451801437.789518"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "188"
@@ -222,70 +222,6 @@
             startingLineNumber = "134"
             endingLineNumber = "134"
             landmarkName = "-refreshTable"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/Relation/EscortTimeVC.m"
-            timestampString = "451730853.235511"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
-            landmarkName = "-pullTableViewDidTriggerLoadMore:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/HomePage/LocationManagerObserver.m"
-            timestampString = "451746794.933796"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-locationManager:didUpdateToLocation:fromLocation:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/model/HomePage/CityDataModel.m"
-            timestampString = "451746573.846722"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "+SetCityDataWithArray:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/model/HomePage/CityDataModel.m"
-            timestampString = "451746592.643559"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "+modelWithName:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
