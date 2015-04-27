@@ -122,6 +122,7 @@
                     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
                             [[UserModel sharedUserInfo] modifyLocation:_currentDetailAdrress];
+                            NSLog(@"+++++++++++++++++%@----------------------", _currentDetailAdrress);
                         }
                     }];
                 }
