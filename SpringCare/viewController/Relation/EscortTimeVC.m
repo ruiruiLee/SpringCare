@@ -43,6 +43,9 @@
         else{
             self.btnRight.hidden = NO;
             [self loadDataList:nil];
+            
+            if([UserModel sharedUserInfo].userId != nil)
+                [self LoadDefaultDoctorInfo:nil];
         }
     }
 }
@@ -119,6 +122,9 @@
          }else{
         self.btnRight.hidden = YES;
     }
+    
+    if([UserModel sharedUserInfo].userId != nil)
+        [self LoadDefaultDoctorInfo:nil];
 }
 
 
@@ -126,25 +132,25 @@
     [_dataList removeAllObjects];
     [UserAttentionModel loadLoverList:@"false" block:^(int code) {    //获取 用户的陪护对象
      AttentionArray =[UserAttentionModel GetMyAttentionArray];
-     if (AttentionArray.count>0) {
-        [self LoadDefaultDoctorInfo:loverID]; // 加载陪护师信息 ，headview显示
-        if (loverID==nil) {
-            _currentLoverId= [AttentionArray[0] userid];
-            NSURL *imgurl =[NSURL URLWithString:[AttentionArray[0] photoUrl]];
-            [self.btnRight sd_setImageWithURL:imgurl forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
-          }
-       
-           [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
-              if(code)
-              {
-                [_dataList addObjectsFromArray:content];
-                [tableView reloadData];
-              }
-           }];
-        }
-     else{
-         _currentLoverId= nil;
-     }
+//     if (AttentionArray.count>0) {
+//        [self LoadDefaultDoctorInfo:loverID]; // 加载陪护师信息 ，headview显示
+//        if (loverID==nil) {
+//            _currentLoverId= [AttentionArray[0] userid];
+//            NSURL *imgurl =[NSURL URLWithString:[AttentionArray[0] photoUrl]];
+//            [self.btnRight sd_setImageWithURL:imgurl forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
+//          }
+//       
+//           [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+//              if(code)
+//              {
+//                [_dataList addObjectsFromArray:content];
+//                [tableView reloadData];
+//              }
+//           }];
+//        }
+//     else{
+//         _currentLoverId= nil;
+//     }
     }] ;
 
 }
@@ -156,17 +162,34 @@
         [parmas setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
     }
     else{
-     [parmas setObject:loverID forKey:@"loverId"];
+        [parmas setObject:loverID forKey:@"loverId"];
     }
+    __weak EscortTimeVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
         if(code){
                // if([content objectForKey:@"defaultLoverId"] != nil){
                     if([content objectForKey:@"id"] != nil){
                         NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
-                        [self SetHeaderInfoWithModel:model];
+                        [weakSelf SetHeaderInfoWithModel:model];
+                        [weakSelf.btnRight sd_setImageWithURL:[NSURL URLWithString:model.headerImage] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
                     }else {
-                        [self SetHeaderInfoWithModel:nil];
+                        [weakSelf SetHeaderInfoWithModel:nil];
                     }
+            if([content objectForKey:@"defaultLoverId"] != nil)
+            {
+                _currentLoverId = [content objectForKey:@"defaultLoverId"];
+                [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+                    if(code)
+                    {
+                        [_dataList removeAllObjects];
+                        [_dataList addObjectsFromArray:content];
+                        [weakSelf.tableView reloadData];
+                    }
+                    
+                    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
+                }];
+            }
+            
                 }
 
            //  }
@@ -431,7 +454,15 @@
 {
     if([UserModel sharedUserInfo].isLogin){
         pages = 0;
-        [self loadDataList:_currentLoverId];
+//        [self loadDataList:_currentLoverId];
+        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+            if(code)
+            {
+                [_dataList removeAllObjects];
+                [_dataList addObjectsFromArray:content];
+                [tableView reloadData];
+            }
+        }];
 
       }
      [self performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];

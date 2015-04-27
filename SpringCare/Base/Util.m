@@ -323,6 +323,7 @@
 
 + (BOOL) isOneDay:(NSDate *) begin end:(NSDate *) end
 {
+    NSLog(@"isOneDay");
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
     NSDateComponents *components = [calendar components:unitFlags fromDate:begin];
