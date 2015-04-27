@@ -93,6 +93,7 @@
 @property (nonatomic, strong)MyOrderdataModel *_orderModel;
 @property (nonatomic, strong)OrderStepView *_stepView;
 @property (nonatomic, assign) id<OrderDetailsVCDelegate> delegate;
+@property (nonatomic, strong) UITableView *_tableview;
 
 - (id) initWithOrderModel:(MyOrderdataModel *) model;
 

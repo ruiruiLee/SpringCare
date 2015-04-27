@@ -409,6 +409,7 @@
 @synthesize _orderModel = _orderModel;
 @synthesize _stepView = _stepView;
 @synthesize delegate;
+@synthesize _tableview = _tableview;
 
 - (id) initWithOrderModel:(MyOrderdataModel *) model
 {
@@ -637,7 +638,8 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else if (flag == 2){
         
-//        __weak OrderDetailsVC *weakSelf = self;
+        __weak MyOrderdataModel *weakModel = _orderModel;
+        __weak OrderDetailsVC *weakSelf = self;
             [LCNetWorkBase postWithMethod:@"api/order/cancel" Params:@{@"orderId" : _orderModel.oId, @"registerId" : [UserModel sharedUserInfo].userId} Completion:^(int code, id content) {
                 if(code){
                     if([content isKindOfClass:[NSDictionary class]]){
@@ -646,6 +648,9 @@
                         {
                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单取消成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                             [alert show];
+                            
+                            weakModel.orderStatus = 99;
+                            [weakSelf._tableview reloadData];
                         }
                     }
                 }
