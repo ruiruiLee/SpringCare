@@ -136,7 +136,7 @@
     photoimg = [Util fitSmallImage:photoimg scaledToSize:imgHeaderSize];
      [self dismissViewControllerAnimated:YES completion:^{
      [self.currentCell.btnphotoImg setImage:photoimg forState:UIControlStateNormal];
-      AVFile *file = [AVFile fileWithName:@"head.png" data:imageData];
+      AVFile *file = [AVFile fileWithName:@"head.jpg" data:imageData];
       
       [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
       //  NSLog(@"%@", file.objectId) ;
