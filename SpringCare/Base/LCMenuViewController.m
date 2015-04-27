@@ -300,7 +300,7 @@
     UIImage *image= [UIImage imageWithData:imageData];
     image = [Util fitSmallImage:image scaledToSize:imgHeaderSize];
     [_btnphotoImg setImage:image forState:UIControlStateNormal];
-    AVFile *file = [AVFile fileWithName:@"head.png" data:imageData];
+    AVFile *file = [AVFile fileWithName:@"head.jpg" data:imageData];
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             AVUser *user = [AVUser currentUser];
