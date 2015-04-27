@@ -421,8 +421,6 @@
         PayTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        [cell setPaytype:EnumTypeAfter];
-        
         return cell;
     }
     else{

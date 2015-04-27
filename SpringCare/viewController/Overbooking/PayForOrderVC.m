@@ -13,9 +13,12 @@
 
 @interface PayForOrderVC ()
 
+@property (nonatomic, assign) PayType paytype;
+
 @end
 
 @implementation PayForOrderVC
+@synthesize paytype;
 
 - (id) initWithModel:(MyOrderdataModel *) model
 {
@@ -235,7 +238,40 @@
         cell._line.hidden = YES;
     }
     
+
+    if(paytype == EnumTypeAlipay){
+        if(indexPath.row == 0)
+            cell._btnSelect.selected = YES;
+        else
+            cell._btnSelect.selected = NO;
+    }
+    else if(paytype == EnumTypeWechat){
+        if(indexPath.row == 1)
+            cell._btnSelect.selected = YES;
+        else
+            cell._btnSelect.selected = NO;
+    }
+    
     return cell;
 }
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (indexPath.row == 0){
+        [self setPaytype:EnumTypeAlipay];
+    }
+    else{
+        [self setPaytype:EnumTypeWechat];
+    }
+}
+
+- (void) setPaytype:(PayType)_paytype
+{
+    paytype = _paytype;
+
+    [_tableview reloadData];
+}
+
 
 @end

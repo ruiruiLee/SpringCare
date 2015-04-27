@@ -38,6 +38,7 @@
     UILabel *_lbPrice;//价格
     UILabel *_lbDetailTime;
     UIButton *_btnInfo;//护工信息
+    UIImageView *_logo;
     UILabel *_lbIntro;//护工介绍
     
     UILabel *_lbType;
