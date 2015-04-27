@@ -37,6 +37,7 @@
     _ContentView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_ContentView];
     _ContentView.translatesAutoresizingMaskIntoConstraints = NO;
+    _ContentView.clipsToBounds = YES;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_ContentView, _NavigationBar);
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_NavigationBar]-0-|" options:0 metrics:nil views:views]];

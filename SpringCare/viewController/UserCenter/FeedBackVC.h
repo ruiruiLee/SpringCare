@@ -10,9 +10,12 @@
 
 @interface FeedBackVC : LCBaseVC<UITextViewDelegate>
 {
+    UIScrollView *scrollview;
     UITextView *_tvContent;
     UILabel *_lbExplation;
     UIButton *_btnSubmit;
 }
+
+@property (nonatomic, strong)UIScrollView *scrollview;
 
 @end

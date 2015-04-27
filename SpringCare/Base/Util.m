@@ -353,7 +353,7 @@
     UIImage *image = [Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)];
     UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
     
-    return [image resizableImageWithCapInsets:inset];
+    return [image resizableImageWithCapInsets:inset ];
 }
 
 @end

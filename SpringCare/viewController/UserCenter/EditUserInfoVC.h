@@ -27,6 +27,7 @@
 }
 
 @property (nonatomic, assign) id<EditUserInfoVCDelegate> delegate;
+@property (nonatomic, strong) UITableView *_tableview;
 
 
 - (void) setContentArray:(NSArray*)dataArray andmodel:(id) model;

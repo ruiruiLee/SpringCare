@@ -21,6 +21,7 @@
 
 @implementation EditUserInfoVC
 @synthesize delegate;
+@synthesize _tableview = _tableview;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -334,6 +335,33 @@
         
         cell.tfEdit.text = [NSString stringWithFormat:@"%d", year1 - year];
     }
+}
+
+- (void) keyboardWillShow:(NSNotification *) notify
+{
+    
+    CGFloat keyboardHeight = [[notify.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    CGFloat height = self.ContentView.frame.size.height;
+    
+    __weak EditUserInfoVC *weakSelf = self;
+    [UIView animateWithDuration:0.25 animations:^{
+//        CGFloat offset = 232 + keyboardHeight - height + 5;
+//        if(offset < 0)
+//            offset = 0;
+//        weakSelf._tableview.contentOffset = CGPointMake(0, offset);
+        weakSelf._tableview.frame = CGRectMake(0, 0, ScreenWidth, height - keyboardHeight);
+    }];
+}
+
+- (void) keyboardWillHide:(NSNotification *)notify
+{
+    CGFloat height = self.ContentView.frame.size.height;
+    
+    __weak EditUserInfoVC *weakSelf = self;
+    [UIView animateWithDuration:0.25 animations:^{
+//        weakSelf._tableview.contentOffset = CGPointMake(0, 0);
+        weakSelf._tableview.frame = CGRectMake(0, 0, ScreenWidth, height);
+    }];
 }
 
 @end

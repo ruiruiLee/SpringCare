@@ -58,6 +58,7 @@
     _btnPay.backgroundColor = Abled_Color;
     [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
     _btnPay.layer.cornerRadius = 8;
+    _btnPay.clipsToBounds = YES;
     [_btnPay addTarget:self action:@selector(btnToPay:) forControlEvents:UIControlEventTouchUpInside];
     
     _btnStatus = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -65,6 +66,7 @@
     _btnStatus.translatesAutoresizingMaskIntoConstraints = 0;
     _btnStatus.hidden = YES;
     _btnStatus.layer.cornerRadius = 8;
+    _btnStatus.clipsToBounds = YES;
     [_btnStatus addTarget:self action:@selector(btnToComment:) forControlEvents:UIControlEventTouchUpInside];
     
     _imgLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -278,8 +280,13 @@
     _btnPay.hidden = NO;
     _btnStatus.hidden = NO;
     _imgLogo.hidden = NO;
-    _btnPay.backgroundColor = Abled_Color;
-    _btnStatus.backgroundColor = [UIColor clearColor];
+    
+    UIImage *image = [Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)];
+    
+//    _btnPay.backgroundColor = Abled_Color;
+    [_btnPay setBackgroundImage:image forState:UIControlStateNormal];
+//    _btnStatus.backgroundColor = [UIColor clearColor];
+    [_btnStatus setBackgroundImage:nil forState:UIControlStateNormal];
     [_btnPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if(data.orderStatus == EnumOrderStatusTypeCancel){
@@ -300,7 +307,8 @@
             _btnPay.hidden = YES;
             _btnStatus.selected = YES;
             [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
-            _btnStatus.backgroundColor = Abled_Color;
+//            _btnStatus.backgroundColor = Abled_Color;
+            [_btnStatus setBackgroundImage:image forState:UIControlStateNormal];
         }else if(data.orderStatus == EnumOrderStatusTypeNew){
             _imgLogo.hidden = YES;
             [_btnStatus setTitle:@"待确定" forState:UIControlStateNormal];
@@ -316,7 +324,8 @@
             _imgLogo.hidden = YES;
             _btnStatus.hidden = YES;
             [_btnPay setTitle:@"已付款" forState:UIControlStateNormal];
-            _btnPay.backgroundColor = [UIColor clearColor];
+//            _btnPay.backgroundColor = [UIColor clearColor];
+            [_btnPay setBackgroundImage:nil forState:UIControlStateNormal];
              [_btnPay setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         }
     }

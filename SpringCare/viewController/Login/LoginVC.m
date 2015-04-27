@@ -48,10 +48,16 @@
     self.NavigationBar.Title = @"快速登录";
     [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     [self initSubViews];
-    [_tfPhoneNum becomeFirstResponder];
+//    [_tfPhoneNum becomeFirstResponder];
+    [self performSelector:@selector(showKeyBoard) withObject:nil afterDelay:0.001];
     
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
+}
+
+- (void) showKeyBoard
+{
+    [_tfPhoneNum becomeFirstResponder];
 }
 
 - (void) initSubViews
@@ -87,11 +93,14 @@
     _tfPhoneNum.layer.borderColor = _COLOR(225, 225, 225).CGColor;
     _tfPhoneNum.delegate = self;
     _tfPhoneNum.keyboardType = UIKeyboardTypeNumberPad;
-    [_tfPhoneNum becomeFirstResponder];
+//    [_tfPhoneNum becomeFirstResponder];
     
     _btnVerifyCode = [[UIButton alloc] initWithFrame:CGRectZero];
     [scrollview addSubview:_btnVerifyCode];
-    _btnVerifyCode.backgroundColor = Disabled_Color;//[UIColor greenColor];//初始化为disabled
+    _btnVerifyCode.clipsToBounds = YES;
+    UIImage *image =[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)];
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
+    [_btnVerifyCode setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
     _btnVerifyCode.enabled = NO;
     _btnVerifyCode.layer.cornerRadius = 5;
     [_btnVerifyCode setTitle:@"获取验证码" forState:UIControlStateNormal];
@@ -116,13 +125,14 @@
     _btnLogin = [[UIButton alloc] initWithFrame:CGRectZero];
     [scrollview addSubview:_btnLogin];
     _btnLogin.enabled = NO;
-    _btnLogin.backgroundColor = [UIColor blueColor];
     _btnLogin.layer.cornerRadius = 5;
+    _btnLogin.clipsToBounds = YES;
     [_btnLogin setTitle:@"登 录" forState:UIControlStateNormal];
-    _btnLogin.backgroundColor = Disabled_Color;
+//    _btnLogin.backgroundColor = Disabled_Color;
     _btnLogin.titleLabel.font = _FONT(18);
     _btnLogin.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnLogin addTarget:self action:@selector(btnLoginUseVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnLogin setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
     
     UIButton *btnAgreement = [[UIButton alloc] initWithFrame:CGRectZero];
     btnAgreement.backgroundColor = [UIColor clearColor];
@@ -203,15 +213,19 @@
         }
         if ([NSStrUtil isMobileNumber:text]) {
             _btnVerifyCode.enabled = YES;
-            _btnVerifyCode.backgroundColor = Abled_Color;
+//            _btnVerifyCode.backgroundColor = Abled_Color;
             _btnLogin.enabled = YES;
-            _btnLogin.backgroundColor = Abled_Color;
+//            _btnLogin.backgroundColor = Abled_Color;
+            [_btnLogin setBackgroundImage:[Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
+            [_btnVerifyCode setBackgroundImage:[Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
 
         }else{
             _btnVerifyCode.enabled = NO;
-            _btnVerifyCode.backgroundColor = Disabled_Color;
+//            _btnVerifyCode.backgroundColor = Disabled_Color;
             _btnLogin.enabled = NO;
-            _btnLogin.backgroundColor = Disabled_Color;
+//            _btnLogin.backgroundColor = Disabled_Color;
+            [_btnLogin setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
+            [_btnVerifyCode setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
 
         }
     }
@@ -226,7 +240,8 @@
     [_tfPhoneNum resignFirstResponder];
     [_tfVerifyCode resignFirstResponder];
     _btnVerifyCode.enabled = NO;
-    _btnVerifyCode.backgroundColor = Disabled_Color;
+//    _btnVerifyCode.backgroundColor = Disabled_Color;
+    [_btnVerifyCode setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
     NSString *phone = _tfPhoneNum.text;
     __weak LoginVC *weakSelf = self;
     [AVOSCloud requestSmsCodeWithPhoneNumber:phone callback:^(BOOL succeeded, NSError *error) {
@@ -270,12 +285,13 @@
 - (void)TimerObserver
 {
     _count --;
-    [_btnVerifyCode setTitle:[NSString stringWithFormat:@"%ld秒", _count] forState:UIControlStateNormal];
+    [_btnVerifyCode setTitle:[NSString stringWithFormat:@"%d秒", _count] forState:UIControlStateNormal];
     if(_count == 0){
         [_timerOutTimer invalidate];
         [_btnVerifyCode setTitle:@"重取验证码" forState:UIControlStateNormal];
         _btnLogin.enabled = NO;
-        _btnLogin.backgroundColor = Disabled_Color;
+//        _btnLogin.backgroundColor = Disabled_Color;
+        [_btnLogin setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
         _tfVerifyCode.text = @"";
     }
 }
@@ -302,12 +318,12 @@
     EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
     if(type == EnumValueTypeiPhone4S){
         [UIView animateWithDuration:0.25 animations:^{
-            
+            scrollview.contentOffset = CGPointMake(0, 0);
         }];
     }
     else if (type == EnumValueTypeiPhone5){
         [UIView animateWithDuration:0.25 animations:^{
-            
+            scrollview.contentOffset = CGPointMake(0, 0);
         }];
     }
 }
