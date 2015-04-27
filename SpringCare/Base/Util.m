@@ -145,6 +145,19 @@
     return -age;
     }
 
++ (NSInteger) GetAgeByBirthday:(NSString *) day
+{
+    NSDate *date = [Util convertDateFromDateString:day];
+    return [self getAgeWithBirthday:date];
+//    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
+//    NSDateComponents *components = [calendar components:unitFlags fromDate:date];
+//    NSInteger beginyear = [components year]; // 5764
+//    
+//    components = [calendar components:unitFlags fromDate:[NSDate date]];
+//    
+//    return [components year] - beginyear;
+}
 //图像等比例压缩 .充满空隙
 
 +(UIImage *)fitSmallImage:(UIImage *)image scaledToSize:(CGSize)tosize
@@ -306,19 +319,7 @@
     return headerImage;
 }
 
-+ (NSInteger) GetAgeByBirthday:(NSString *) day
-{
-    NSDate *date = [Util convertDateFromDateString:day];
-    
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
-    NSDateComponents *components = [calendar components:unitFlags fromDate:date];
-    NSInteger beginyear = [components year]; // 5764
-    
-    components = [calendar components:unitFlags fromDate:[NSDate date]];
-    
-    return [components year] - beginyear;
-}
+
 
 + (BOOL) isOneDay:(NSDate *) begin end:(NSDate *) end
 {
