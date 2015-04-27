@@ -153,10 +153,15 @@
         _lbName.font = _FONT(18);
         _lbName.translatesAutoresizingMaskIntoConstraints = NO;
         
+        _logo = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_logo];
+        _logo.translatesAutoresizingMaskIntoConstraints = NO;
+        _logo.image = [UIImage imageNamed:@"nurselistcert"];
+        
         _btnInfo = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnInfo];
         _btnInfo.titleLabel.font = _FONT(14);
-        [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
+//        [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
         [_btnInfo setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -192,18 +197,20 @@
         _lbPrice.textColor = _COLOR(0x99, 0x99, 0x99);
 //        _lbPrice.text = @"单价：380元/24小时";
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_lbType, _lbPrice, _lbName, _lbIntro, _lbDetailTime, _line, _btnInfo, _imgPhoto);
+        NSDictionary *views = NSDictionaryOfVariableBindings(_lbType, _lbPrice, _lbName, _lbIntro, _lbDetailTime, _line, _btnInfo, _imgPhoto, _logo);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_line]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbDetailTime]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbPrice]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbType]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_lbName]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_btnInfo]->=20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_logo]-6-[_btnInfo]->=20-|" options:0 metrics:nil views:views]];
         constraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_imgPhoto(82)]-16-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_lbIntro]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:constraintArray];
         nurseConstraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[_lbName(20)]-3-[_btnInfo(20)]-1-[_lbIntro]->=0-[_line(1)]->=0-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:nurseConstraintArray];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_logo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_btnInfo attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     return self;
 }
@@ -268,21 +275,17 @@
         
         NSString *info = [NSString stringWithFormat:@"%@  %ld岁  护龄%@年", nurseModel.birthPlace, nurseModel.age, nurseModel.careAge];
         
-        float width = [NSStrUtil widthForString:info fontSize:12];//screenwidth - 183
-        if(width > ScreenWidth - 142 - 21)
-            width = ScreenWidth - 142 - 21;
-        _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, width);
-        
         [_btnInfo setTitle:info forState:UIControlStateNormal];
         
         constraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_imgPhoto(82)]-16-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views];
         nurseConstraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[_lbName(20)]-3-[_btnInfo(20)]-1-[_lbIntro]->=0-[_line(1)]->=0-|" options:0 metrics:nil views:views];
         _btnInfo.hidden = NO;
+        _logo.hidden = NO;
     }else{
         constraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_imgPhoto(0)]-0-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views];
         nurseConstraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_line(1)]->=0-|" options:0 metrics:nil views:views];
         _btnInfo.hidden = YES;
+        _logo.hidden = YES;
     }
     
     [self.contentView addConstraints:constraintArray];

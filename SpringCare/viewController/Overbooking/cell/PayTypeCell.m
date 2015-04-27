@@ -101,6 +101,8 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
+        
+        [self setPaytype:EnumTypeAfter];
     }
     return self;
 }
@@ -143,15 +145,17 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PayTypeItemCell *cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    cell1._btnSelect.selected = NO;
-    cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
-    cell1._btnSelect.selected = NO;
-    cell1 = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
-    cell1._btnSelect.selected = NO;
+    if(indexPath.row == 0){
+        [self setPaytype:EnumTypeAfter];
+    }
+    else if (indexPath.row == 1){
+        [self setPaytype:EnumTypeAlipay];
+    }
+    else{
+        [self setPaytype:EnumTypeWechat];
+    }
     
-    PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:indexPath];
-    cell._btnSelect.selected = YES;
+    [_tableview reloadData];
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -172,6 +176,19 @@
         cell._logoImage.image = [UIImage imageNamed:@"wechatlogo"];
         cell._payName.text = @"微信支付";
         cell._line.hidden = YES;
+    }
+    
+    if(paytype == EnumTypeAfter){
+        if(indexPath.row == 0)
+            cell._btnSelect.selected = YES;
+    }
+    else if(paytype == EnumTypeAlipay){
+        if(indexPath.row == 1)
+            cell._btnSelect.selected = YES;
+    }
+    else if(paytype == EnumTypeWechat){
+        if(indexPath.row == 2)
+            cell._btnSelect.selected = YES;
     }
     
     return cell;
