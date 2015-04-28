@@ -223,7 +223,7 @@
     
     NSArray *nurseinfo = data.nurseInfo;
     if(nurseinfo != nil && [nurseinfo count] > 0)
-        [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:((NurseListInfoModel*)[nurseinfo objectAtIndex:0]).headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:((NurseListInfoModel*)[nurseinfo objectAtIndex:0]).sex]])];
+        [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:HeadImage(((NurseListInfoModel*)[nurseinfo objectAtIndex:0]).headerImage)] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:((NurseListInfoModel*)[nurseinfo objectAtIndex:0]).sex]])];
     else
         [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
     

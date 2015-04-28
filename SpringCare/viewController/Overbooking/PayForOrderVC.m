@@ -83,7 +83,7 @@
         path = ((NurseListInfoModel *)[nurse objectAtIndex:0]).headerImage;
     }
     _imgPhoto = [self creatImageViewWithimage:nil placeholder:@"nurselistfemale" rootView:_nurseInfoBg];
-    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:HeadImage(path)] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
     _lbName = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];

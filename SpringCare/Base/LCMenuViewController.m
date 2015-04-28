@@ -296,7 +296,7 @@
 {
       //image = [Util fitSmallImage:image scaledToSize:imgCoverSize];
    [self dismissViewControllerAnimated:YES completion:^{
-    NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],1.0);
+    NSData * imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerEditedImage"],0.5);
     UIImage *image= [UIImage imageWithData:imageData];
     image = [Util fitSmallImage:image scaledToSize:imgHeaderSize];
     [_btnphotoImg setImage:image forState:UIControlStateNormal];

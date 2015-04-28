@@ -90,7 +90,6 @@
     UIViewController *currentViewController = self.pageViewController.viewControllers[0];
     NSArray *viewControllers = @[currentViewController];
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-
     self.pageViewController.doubleSided = NO;
     return UIPageViewControllerSpineLocationMin;
 }

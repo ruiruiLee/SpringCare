@@ -70,7 +70,13 @@ static CGFloat const chageImageTime = 3.0;
         UIButton * imageView = [UIButton buttonWithType:UIButtonTypeCustom];
           [imageView setContentMode:UIViewContentModeScaleAspectFill];
         [imageView setFrame:CGRectMake(i * self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:item.image_url] forState:UIControlStateNormal placeholderImage:nil];
+         EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+        if (type==EnumValueTypeiPhone4S) {
+             [imageView sd_setImageWithURL:[NSURL URLWithString:PostersImage4s(item.image_url)] forState:UIControlStateNormal placeholderImage:nil];
+        }
+        else{
+             [imageView sd_setImageWithURL:[NSURL URLWithString:PostersImage(item.image_url)] forState:UIControlStateNormal placeholderImage:nil];
+        }
           imageView.tag = i;
         //添加点击事件
         [imageView addTarget:self action:@selector(clickPageImage:) forControlEvents:UIControlEventTouchUpInside];
