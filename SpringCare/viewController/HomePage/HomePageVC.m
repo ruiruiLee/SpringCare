@@ -270,8 +270,8 @@
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(60)]-0-[line(1.2)]-0-[btnCommitment(60)]->=0-|" options:0 metrics:nil views:views]];
     
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(35)]-5-[lbPhone]-5-[imgIden(11)]-15-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(32.5)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(34)]-5-[lbPhone]-5-[imgIden(11)]-15-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(34)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(32.5)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(14)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -317,8 +317,8 @@
     
     [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnRing attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(30)]-5-[lbPhone]-5-[imgIden(11)]-15-|" options:0 metrics:nil views:views]];
-    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(30)]->=0-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[imgRing(34)]-5-[lbPhone]-5-[imgIden(11)]-15-|" options:0 metrics:nil views:views]];
+    [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgRing(34)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbPhone(30)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgIden(14)]->=0-|" options:0 metrics:nil views:views]];
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgRing attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
