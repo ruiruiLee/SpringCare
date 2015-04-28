@@ -455,9 +455,9 @@
     else{
     [voiceFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
        
-         NSString *recordAmrPath = [_recoderAndPlayer getPathByFileName:array[array.count-1] ofType:@""];
+         NSString *recordAmrPath = [_recoderAndPlayer getPathByFileName:array[array.count-1] ofType:nil];
          [ data writeToFile:recordAmrPath atomically:YES];
-          [_recoderAndPlayer startPlaying:voiceFile.objectId];
+          [_recoderAndPlayer startPlaying:array[array.count-1]];
         
     }];
    
