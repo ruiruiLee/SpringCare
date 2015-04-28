@@ -133,7 +133,8 @@ static NSInteger totalCount = 0;
         FileDataModel *file = [FileDataModel ObjectFromDictionary:[files objectAtIndex:i]];
         if(file.fileType == 1){
             ObjImageDataInfo *info = [[ObjImageDataInfo alloc] init];
-            info.urlPath = file.url;
+            info.urlBigPath = file.url;
+            info.urlSmallPath = TimesImage(file.url);
             [photoArray addObject:info];
         }else if (file.fileType == 2)
             model.VoliceDataModel = file;

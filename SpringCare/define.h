@@ -79,8 +79,9 @@
 #define PostersImage4s(imageUrl) FormatImage(imageUrl,320,175)
 
 //应用里头像处理尺寸
-#define HeadImage(imageUrl) FormatImage(imageUrl,100,100)
+#define HeadImage(imageUrl) FormatImage(imageUrl,150,150)
 
+#define TimesImage(imageUrl) FormatImage(imageUrl,200,200)
 
 #define _FONT(s) [UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT_B(s) [UIFont boldSystemFontOfSize:(s)]

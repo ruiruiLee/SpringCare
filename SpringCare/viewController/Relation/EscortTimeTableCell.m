@@ -83,6 +83,8 @@
     _btnVolice.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnVolice setBackgroundImage:[image stretchableImageWithLeftCapWidth:40 topCapHeight:5] forState:UIControlStateNormal];
     [_btnVolice addTarget:self action:@selector(VoicePlayClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _btnVolice.clipsToBounds = YES;
+    _btnVolice.layer.cornerRadius = 5;
     //音频时间
     _lbVoliceLimit = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbVoliceLimit];
@@ -252,7 +254,7 @@
  @Brief 根据语音时间长度计算控件长度
  **/
 #define kAveVoiceImageWidth 1.2
-#define kMinVoiceImageWidth 30.0
+#define kMinVoiceImageWidth 40.0
 - (CGFloat) VoiceButtonWithVoiceTimeLength:(float)timeLength {
     CGFloat ratioLegth = kAveVoiceImageWidth * timeLength;
     return kMinVoiceImageWidth + ratioLegth;
