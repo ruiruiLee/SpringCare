@@ -443,9 +443,23 @@
 }
 
 - (void) VoicePlayClicked:(UIButton*)sender{
+    
     _recoderAndPlayer = [RecoderAndPlayer sharedRecoderAndPlayer];
     _recoderAndPlayer.delegate=(id)self;
-    [_recoderAndPlayer startPlaying:@"音频文件名.amr"];
+     AVFile *voiceFile =   [AVFile fileWithURL: _model.VoliceDataModel.url];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath: voiceFile.objectId]) {
+        [_recoderAndPlayer startPlaying:voiceFile.objectId];
+    }
+    else{
+    [voiceFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+         NSString *recordAmrPath = [_recoderAndPlayer getPathByFileName:voiceFile.objectId ofType:@""];
+         [ data writeToFile:recordAmrPath atomically:YES];
+          [_recoderAndPlayer startPlaying:voiceFile.objectId];
+        
+    }];
+   
+    }
 
 }
 - (void) FoldOrUnfoldButtonClicked:(UIButton*)sender

@@ -55,4 +55,5 @@ AVAudioPlayerDelegate>
 
 //停止播放
 - (void)stopPlaying;
+- (NSString*)getPathByFileName:(NSString *)_fileName ofType:(NSString *)_type;
 @end

@@ -73,7 +73,7 @@
                   symbolName = "-[PlaceOrderForProductVC newAttentionWithAddress:block:]"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451898791.482814"
+                  timestampString = "451900943.167087"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
@@ -87,7 +87,7 @@
                   symbolName = "__56-[PlaceOrderForProductVC newAttentionWithAddress:block:]_block_invoke"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451898791.483391"
+                  timestampString = "451900943.170335"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
@@ -350,38 +350,6 @@
             startingLineNumber = "89"
             endingLineNumber = "89"
             landmarkName = "-modifyInfo"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/HomePage/LocationManagerObserver.m"
-            timestampString = "451897750.791854"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-saveLocation"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/HomePage/LocationManagerObserver.m"
-            timestampString = "451898241.009066"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "-locationManager:didChangeAuthorizationStatus:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
