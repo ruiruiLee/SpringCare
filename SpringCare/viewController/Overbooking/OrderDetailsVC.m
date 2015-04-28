@@ -149,7 +149,7 @@
         _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
         _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
          _imgPhoto.layer.masksToBounds = YES;
-         _imgPhoto.layer.cornerRadius = 32;
+         _imgPhoto.layer.cornerRadius = 41;
         [self.contentView addSubview:_imgPhoto];
         
         _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -308,7 +308,7 @@
         _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgPhoto];
         _imgPhoto.layer.masksToBounds = YES;
-        _imgPhoto.layer.cornerRadius = 32;
+        _imgPhoto.layer.cornerRadius = 31;
         _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
         
         _lbName = [[UILabel alloc] initWithFrame:CGRectZero];

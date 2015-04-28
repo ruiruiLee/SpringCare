@@ -31,6 +31,7 @@
     _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
     _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:_imgPhoto];
+    _imgPhoto.clipsToBounds = YES;
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbName];
@@ -120,6 +121,7 @@
     _btnPay.titleLabel.font = _FONT(14);
     _btnStatus.titleLabel.font = _FONT(14);
     _lbDetailTime.font = _FONT(11);
+    _imgPhoto.layer.cornerRadius = 31;
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(62)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(62)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnPay(28)]->=0-|" options:0 metrics:nil views:views]];
@@ -151,6 +153,7 @@
     _btnPay.titleLabel.font = _FONT(15);
     _btnStatus.titleLabel.font = _FONT(15);
     _lbDetailTime.font = _FONT(12);
+    _imgPhoto.layer.cornerRadius = 36;
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnPay(32)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(72)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(72)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
@@ -182,6 +185,7 @@
     _btnPay.titleLabel.font = _FONT(16);
     _btnStatus.titleLabel.font = _FONT(16);
     _lbDetailTime.font = _FONT(13);
+    _imgPhoto.layer.cornerRadius = 41;
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnPay(36)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(82)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_imgPhoto(82)]-10-[_lbName]->=10-[_btnPay(74)]-15-|" options:0 metrics:nil views:views]];
