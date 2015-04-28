@@ -447,13 +447,14 @@
     _recoderAndPlayer = [RecoderAndPlayer sharedRecoderAndPlayer];
     _recoderAndPlayer.delegate=(id)self;
      AVFile *voiceFile =   [AVFile fileWithURL: _model.VoliceDataModel.url];
+     NSArray *array =  [ voiceFile.url componentsSeparatedByString:@"/"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath: voiceFile.objectId]) {
-        [_recoderAndPlayer startPlaying:voiceFile.objectId];
+    if ([fileManager fileExistsAtPath: array[array.count-1]]) {
+        [_recoderAndPlayer startPlaying:array[array.count-1]];
     }
     else{
     [voiceFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        NSArray *array =  [ voiceFile.url componentsSeparatedByString:@"/"];
+       
          NSString *recordAmrPath = [_recoderAndPlayer getPathByFileName:array[array.count-1] ofType:@""];
          [ data writeToFile:recordAmrPath atomically:YES];
           [_recoderAndPlayer startPlaying:voiceFile.objectId];
