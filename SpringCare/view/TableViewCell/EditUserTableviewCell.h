@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "EditCellTypeData.h"
 
-@interface EditUserTableviewCell : UITableViewCell
+@protocol EditUserTableviewCellDelegate <NSObject>
+
+- (void) NotifyTextChanged:(NSString *)value type:(EditCellType) type;
+
+@end
+
+@interface EditUserTableviewCell : UITableViewCell<UITextFieldDelegate>
 {
     UILabel *_lbTite;
     UITextField *_tfEdit;
@@ -21,6 +27,8 @@
 @property (nonatomic , assign) EditCellType cellType;
 @property (nonatomic, strong) UILabel *lbUnit;
 @property (nonatomic, strong) NSArray *layoutArray;
+
+@property (nonatomic, assign) id<EditUserTableviewCellDelegate> delegate;
 
 - (void) SetcontentData:(EditCellTypeData*) celldata info:(NSDictionary*) info;
 
