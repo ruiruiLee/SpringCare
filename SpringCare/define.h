@@ -41,7 +41,7 @@
 //#FF2A66
 #define RGBwithHex(hex) _COLOR(((float)((hex & 0xFF0000) >> 16)),((float)((hex & 0xFF00) >> 8)),((float)(hex & 0xFF)))
 
-#define ThemeImage(imageName)  [UIImage imageNamed:imageName]
+
 
 // 订单列表页面没有数据的时候 加载的图片
 #define orderBackbroundImg ThemeImage(@"orderend")
@@ -65,9 +65,22 @@
 
 #define chat_VoiceCache_file(_fileName) [[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"VoiceCache"] stringByAppendingPathComponent:_fileName]
 
+#define ThemeImage(imageName)  [UIImage imageNamed:imageName]
+
 //首页海报图片压缩比例大小
 #define imgCoverSize CGSizeMake(750, 508)
 #define imgHeaderSize CGSizeMake(200, 200)
+
+
+#define FormatImage(imageUrl,imageWidth,imageHeight) [NSString stringWithFormat:@"%@?imageView/2/w/%d/h/%d", imageUrl,imageWidth,imageHeight]
+
+//首页海报以及产品图片压缩比例大小
+#define PostersImage(imageUrl) FormatImage(imageUrl,414,277)
+#define PostersImage4s(imageUrl) FormatImage(imageUrl,320,175)
+
+//应用里头像处理尺寸
+#define HeadImage(imageUrl) FormatImage(imageUrl,100,100)
+
 
 #define _FONT(s) [UIFont fontWithName:@"Helvetica Neue" size:(s)]
 #define _FONT_B(s) [UIFont boldSystemFontOfSize:(s)]

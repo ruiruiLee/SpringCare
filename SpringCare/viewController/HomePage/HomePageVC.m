@@ -39,9 +39,8 @@
 - (void) loadData
 {
     [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
-        if(code == 1){
+        if(code){
             if([content isKindOfClass:[NSDictionary class]]){
-                
                 [cfAppDelegate setHospital_product_id:[content objectForKey:@"hospitalProductId"]] ;
                 [cfAppDelegate setDefaultProductId:[content objectForKey:@"defaultProductId"] ];
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
@@ -55,6 +54,7 @@
                     else if ([[dic objectForKey:@"newsTitle"] isEqualToString:@"护理承诺"])
                         promiseUrl = [dic objectForKey:@"url"];
                 }
+                [LcationInstance startUpdateLocation];
             }
         }
     }];

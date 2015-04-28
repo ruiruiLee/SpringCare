@@ -208,7 +208,7 @@
 - (void) SetContentData:(NurseListInfoModel*) model
 {
 
-    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:model.sex]])];
+    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:HeadImage(model.headerImage)] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:model.sex]])];
     
     _lbName.text = model.name;
     [_gradeView setScore:model.commentsRate];

@@ -274,7 +274,7 @@
         _lbIntro.text = nurseModel.intro;
         _lbName.text = nurseModel.name;
         if(nurseArray != nil && [nurseArray count] > 0)
-            [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:((NurseListInfoModel*)[nurseArray objectAtIndex:0]).headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:((NurseListInfoModel*)[nurseArray objectAtIndex:0]).sex]])];
+            [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:HeadImage(((NurseListInfoModel*)[nurseArray objectAtIndex:0]).headerImage)] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:((NurseListInfoModel*)[nurseArray objectAtIndex:0]).sex]])];
         else
             [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
         
@@ -370,7 +370,7 @@
 
 - (void) setContentData:(MyOrderdataModel *) model
 {
-    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:model.lover.photoUrl] placeholderImage:[UIImage imageNamed:@"placeholderimage"]];
+    [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:HeadImage(model.lover.photoUrl)] placeholderImage:[UIImage imageNamed:@"placeholderimage"]];
     _lbName.text = model.lover.username;
     if(model.lover.username == nil || [model.lover.username length] == 0)
         _lbName.text = @"姓名";
