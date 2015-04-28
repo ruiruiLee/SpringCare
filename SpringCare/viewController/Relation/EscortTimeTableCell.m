@@ -251,10 +251,10 @@
 /**
  @Brief 根据语音时间长度计算控件长度
  **/
-#define kMaxVoiceImageWidth 160.0
-#define kMinVoiceImageWidth 40.0
+#define kAveVoiceImageWidth 1.2
+#define kMinVoiceImageWidth 30.0
 - (CGFloat) VoiceButtonWithVoiceTimeLength:(float)timeLength {
-    CGFloat ratioLegth = kMaxVoiceImageWidth * (timeLength / 30);
+    CGFloat ratioLegth = kAveVoiceImageWidth * timeLength;
     return kMinVoiceImageWidth + ratioLegth;
 }
 
@@ -453,11 +453,13 @@
         [_recoderAndPlayer startPlaying:array[array.count-1]];
     }
     else{
+    sender.userInteractionEnabled=false;
     [voiceFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-       
+        
          NSString *recordAmrPath = [_recoderAndPlayer getPathByFileName:array[array.count-1] ofType:nil];
          [ data writeToFile:recordAmrPath atomically:YES];
           [_recoderAndPlayer startPlaying:array[array.count-1]];
+          sender.userInteractionEnabled=true;
         
     }];
    
