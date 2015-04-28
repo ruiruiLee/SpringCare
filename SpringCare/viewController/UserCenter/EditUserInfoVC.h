@@ -24,6 +24,9 @@
     LCPickView *_agePick;
     
     NSIndexPath *indexpathStore;
+    
+    
+    NSMutableDictionary *_EditDic;
 }
 
 @property (nonatomic, assign) id<EditUserInfoVCDelegate> delegate;

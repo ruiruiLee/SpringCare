@@ -13,7 +13,7 @@
 #import "UserAttentionModel.h"
 #import <AVOSCloud/AVOSCloud.h>
 
-@interface EditUserInfoVC ()
+@interface EditUserInfoVC ()<EditUserTableviewCellDelegate>
 
 
 
@@ -41,7 +41,7 @@
 {
     [_sexPick remove];
     [_agePick remove];
-    [self.ContentView resignFirstResponder];
+    [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Resign_First_Responder object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -50,38 +50,38 @@
     [super touchesBegan:touches withEvent:event];
     [_sexPick remove];
     [_agePick remove];
-    [self.ContentView resignFirstResponder];
+    [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Resign_First_Responder object:nil];
 }
 
 - (void) NavRightButtonClickEvent:(UIButton *)sender
 {
     [_sexPick remove];
     [_agePick remove];
-    [self.ContentView resignFirstResponder];
+    [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Resign_First_Responder object:nil];
     
     if([userData isKindOfClass:[UserModel class]]){
         AVUser *user = [AVUser currentUser];
 
         for (int i = 0; i < [_data count]; i++) {
             EditCellTypeData *typedata = [_data objectAtIndex:i];
-            EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            if(cell.tfEdit.text != nil){
-                NSLog(@"%@", cell.tfEdit.text);
-                if(typedata.cellType == EnumTypeUserName){
-                     [user setObject:cell.tfEdit.text forKey:@"chineseName"];
+            if(typedata.cellType == EnumTypeUserName){
+                if([_EditDic objectForKey:@"UserName"] != nil)
+                     [user setObject:[_EditDic objectForKey:@"UserName"] forKey:@"chineseName"];
+            }
+            else if(typedata.cellType == EnumTypeSex){
+                if([_EditDic objectForKey:@"Sex"] != nil){
+                    int sex = [[_EditDic objectForKey:@"Sex"] isEqualToString:@"女"] ? 0: 1;
+                    [user setObject: [NSNumber numberWithInt:sex]  forKey:@"sex"];
                 }
-                else if(typedata.cellType == EnumTypeSex){
-                    int sex = [cell.tfEdit.text isEqualToString:@"女"] ? 0: 1;
-                      [user setObject: [NSNumber numberWithInt:sex]  forKey:@"sex"];
+            }
+            else if(typedata.cellType == EnumTypeAge){
+                if(selectDate != nil){
+                    [user setObject:selectDate  forKey:@"birthDay"];
                 }
-                else if(typedata.cellType == EnumTypeAge){
-                    if(selectDate != nil){
-                        [user setObject:selectDate  forKey:@"birthDay"];
-                    }
-                }
-                else if(typedata.cellType == EnumTypeAddress){
-                     [user setObject:cell.tfEdit.text forKey:@"addr"];
-                }
+            }
+            else if(typedata.cellType == EnumTypeAddress){
+                if([_EditDic objectForKey:@"Address"] != nil)
+                    [user setObject:[_EditDic objectForKey:@"Address"] forKey:@"addr"];
             }
         }
  
@@ -104,16 +104,14 @@
         
         for (int i = 0; i < [_data count]; i++) {
             EditCellTypeData *typedata = [_data objectAtIndex:i];
-            EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            if(cell.tfEdit.text != nil){
-                NSLog(@"%@", cell.tfEdit.text);
                 if(typedata.cellType == EnumTypeUserName){
-                    [mDic setObject:cell.tfEdit.text forKey:@"name"];
+                    if([_EditDic objectForKey:@"UserName"] != nil)
+                        [mDic setObject:[_EditDic objectForKey:@"UserName"] forKey:@"name"];
                 }
                 else if(typedata.cellType == EnumTypeSex){
-                    if(cell.tfEdit.text != nil && ![cell.tfEdit.text isKindOfClass:[NSNull class]] && [cell.tfEdit.text length] > 0){
-                        UserSex sex = [cell.tfEdit.text isEqualToString:@"女"] ? EnumFemale: EnumMale;
-                        [mDic setObject:[NSNumber numberWithBool:sex] forKey:@"sex"];
+                    if([_EditDic objectForKey:@"Sex"] != nil){
+                        int sex = [[_EditDic objectForKey:@"Sex"] isEqualToString:@"女"] ? 0: 1;
+                        [mDic setObject: [NSNumber numberWithInt:sex]  forKey:@"sex"];
                     }
                 }
                 else if(typedata.cellType == EnumTypeAge){
@@ -122,18 +120,21 @@
                     }
                 }
                 else if(typedata.cellType == EnumTypeAddress){
-                    [mDic setObject:cell.tfEdit.text forKey:@"addr"];
+                    if([_EditDic objectForKey:@"Address"] != nil)
+                        [mDic setObject:[_EditDic objectForKey:@"Address"] forKey:@"addr"];
                 }
                 else if(typedata.cellType == EnumTypeMobile){
-                    [mDic setObject:cell.tfEdit.text forKey:@"phone"];
+                    if([_EditDic objectForKey:@"Mobile"] != nil)
+                        [mDic setObject:[_EditDic objectForKey:@"Mobile"] forKey:@"phone"];
                 }
                 else if(typedata.cellType == EnumTypeRelationName){
-                    [mDic setObject:cell.tfEdit.text forKey:@"nickName"];
+                    if([_EditDic objectForKey:@"RelationName"] != nil)
+                        [mDic setObject:[_EditDic objectForKey:@"RelationName"] forKey:@"nickName"];
                 }
                 else if(typedata.cellType == EnumTypeHeight){
-                        [mDic setObject:cell.tfEdit.text  forKey:@"height"];
+                    if([_EditDic objectForKey:@"Height"] != nil)
+                        [mDic setObject:[NSString stringWithFormat:@"%d", [[_EditDic objectForKey:@"Height"] integerValue]] forKey:@"height"];
                 }
-            }
         }
         
         [LCNetWorkBase postWithMethod:@"api/lover/save" Params:mDic Completion:^(int code, id content) {
@@ -147,14 +148,6 @@
                     }
                 }
                 [self.navigationController popViewControllerAnimated:YES];
-//                [UserAttentionModel loadLoverList:@"true" block:^(int code)  {
-//                    if(code == 1){
-//                        if(delegate && [delegate respondsToSelector:@selector(NotifyReloadData:)]){
-//                            [delegate NotifyReloadData:d];
-//                        }
-//                        [self.navigationController popViewControllerAnimated:YES];
-//                    }
-//                }];
             }
         }];
     }
@@ -198,72 +191,46 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.lbUnit.hidden = YES;
     
+    cell.delegate = self;
+    
     EditCellTypeData *typedata = [_data objectAtIndex:indexPath.row];
     
     [cell SetcontentData:typedata info:nil];
     
-    if([userData isKindOfClass:[UserModel class]]){
-        UserModel *model = (UserModel*)userData;
         if(typedata.cellType == EnumTypeAccount){
-            cell.tfEdit.text = model.mobilePhoneNumber;
+            cell.tfEdit.text = [_EditDic objectForKey:@"Account"];//model.mobilePhoneNumber;
+            cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
         }
         else if(typedata.cellType == EnumTypeUserName){
-            cell.tfEdit.text = model.chineseName;
+            cell.tfEdit.text = [_EditDic objectForKey:@"UserName"];//model.chineseName;
+            cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
         }
         else if(typedata.cellType == EnumTypeSex){
-            cell.tfEdit.text = model.sex;
+            cell.tfEdit.text = [_EditDic objectForKey:@"Sex"];//model.sex;
+            cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
         }
         else if(typedata.cellType == EnumTypeAge){
-            if(model.birthDay != nil)
-                cell.tfEdit.text = [NSString stringWithFormat:@"%d", [Util getAgeWithBirthday:model.birthDay]];
+            cell.tfEdit.text = [_EditDic objectForKey:@"Age"];//[NSString stringWithFormat:@"%d", [Util getAgeWithBirthday:model.birthDay]];
         }
         else if(typedata.cellType == EnumTypeAddress){
             cell.tfEdit.placeholder = nil;
-            cell.tfEdit.text = model.addr;
+            cell.tfEdit.text = [_EditDic objectForKey:@"Address"];//model.addr;
+            cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
         }
         else if(typedata.cellType == EnumTypeMobile){
-            cell.tfEdit.text = model.mobilePhoneNumber;
+            cell.tfEdit.text = [_EditDic objectForKey:@"Mobile"];//model.mobilePhoneNumber;
+            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
         }
         else if(typedata.cellType == EnumTypeRelationName){
-            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
+            cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
+            cell.tfEdit.text = [_EditDic objectForKey:@"RelationName"];
         }
         else if(typedata.cellType == EnumTypeHeight){
             cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
+            cell.tfEdit.text = [NSString stringWithFormat:@"%d", [[_EditDic objectForKey:@"Height"] integerValue]];
             cell.lbUnit.hidden = NO;
             cell.lbUnit.text = @"cm";
         }
-    }
-    else if ([userData isKindOfClass:[UserAttentionModel class]]){
-        UserAttentionModel *model = (UserAttentionModel*)userData;
-        if(typedata.cellType == EnumTypeUserName){
-            cell.tfEdit.text = model.username;
-        }
-        else if(typedata.cellType == EnumTypeSex){
-            cell.tfEdit.text = model.sex;
-        }
-        else if(typedata.cellType == EnumTypeAge){
-
-            cell.tfEdit.text = model.age;
-        }
-        else if(typedata.cellType == EnumTypeAddress){
-            cell.tfEdit.text = model.address;
-        }
-        else if(typedata.cellType == EnumTypeMobile){
-            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
-            cell.tfEdit.text = model.ringNum;
-        }
-        else if(typedata.cellType == EnumTypeRelationName){
-            cell.tfEdit.text = model.relation;
-            if(model.relation == nil || [model.relation length] == 0)
-                cell.tfEdit.placeholder = @"如父亲，母亲";
-        }
-        else if(typedata.cellType == EnumTypeHeight){
-            cell.tfEdit.text = [NSString stringWithFormat:@"%ld", (long)model.height];
-            cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
-            cell.lbUnit.hidden = NO;
-            cell.lbUnit.text = @"cm";
-        }
-    }
     return cell;
 }
 
@@ -276,7 +243,7 @@
 {
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     
-    EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:indexPath];//[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    EditUserTableviewCell *cell = (EditUserTableviewCell*)[_tableview cellForRowAtIndexPath:indexPath];
     
     [_sexPick remove];
     [_agePick remove];
@@ -311,7 +278,76 @@
 {
     userData = model;
     _data = dataArray;
+    
+    [self initEditDic:dataArray andmodel:model];
+    
     [_tableview reloadData];
+}
+
+- (void) initEditDic:(NSArray*)dataArray andmodel:(id) model
+{
+    _EditDic = [[NSMutableDictionary alloc] init];
+    
+    if([model isKindOfClass:[UserModel class]]){
+        for (int i = 0; i < [dataArray count]; i++) {
+            EditCellTypeData *typedata = [dataArray objectAtIndex:i];
+            UserModel *userinfo = (UserModel*)model;
+            if(typedata.cellType == EnumTypeAccount){
+                if(userinfo.mobilePhoneNumber != nil)
+                    [_EditDic setObject:userinfo.mobilePhoneNumber forKey:@"Account"];
+            }
+            else if(typedata.cellType == EnumTypeUserName){
+                if(userinfo.chineseName != nil)
+                    [_EditDic setObject:userinfo.chineseName forKey:@"UserName"];
+            }
+            else if(typedata.cellType == EnumTypeSex){
+                if(userinfo.sex != nil)
+                    [_EditDic setObject:userinfo.sex forKey:@"Sex"];
+            }
+            else if(typedata.cellType == EnumTypeAge){
+                if(userinfo.birthDay != nil)
+                    [_EditDic setObject:[NSString stringWithFormat:@"%d", [Util getAgeWithBirthday:userinfo.birthDay]] forKey:@"Age"];
+            }
+            else if(typedata.cellType == EnumTypeAddress){
+                if(userinfo.addr != nil)
+                    [_EditDic setObject:userinfo.addr forKey:@"Address"];
+            }
+        }
+    }
+    else{
+        for (int i = 0; i < [dataArray count]; i++) {
+            EditCellTypeData *typedata = [dataArray objectAtIndex:i];
+            UserAttentionModel *attention = (UserAttentionModel*)model;
+            if(typedata.cellType == EnumTypeUserName){
+                if(attention.username != nil)
+                    [_EditDic setObject:attention.username forKey:@"UserName"];
+            }
+            else if(typedata.cellType == EnumTypeSex){
+                if(attention.sex != nil)
+                     [_EditDic setObject:attention.sex forKey:@"Sex"];
+            }
+            else if(typedata.cellType == EnumTypeAge){
+                if(attention.age != nil)
+                    [_EditDic setObject:attention.age forKey:@"Age"];
+            }
+            else if(typedata.cellType == EnumTypeAddress){
+                if(attention.address != nil)
+                    [_EditDic setObject:attention.address forKey:@"Address"];
+            }
+            else if(typedata.cellType == EnumTypeMobile){
+                if(attention.ringNum != nil)
+                    [_EditDic setObject:attention.ringNum forKey:@"Mobile"];
+            }
+            else if(typedata.cellType == EnumTypeRelationName){
+                if(attention.relation != nil)
+                    [_EditDic setObject:attention.relation forKey:@"RelationName"];
+            }
+            else if(typedata.cellType == EnumTypeHeight){
+                [_EditDic setObject:[NSNumber numberWithInteger:attention.height] forKey:@"Height"];
+            }
+            
+        }
+    }
 }
 
 -(void)toobarDonBtnHaveClick:(LCPickView *)pickView resultString:(NSString *)resultString
@@ -362,6 +398,37 @@
 //        weakSelf._tableview.contentOffset = CGPointMake(0, 0);
         weakSelf._tableview.frame = CGRectMake(0, 0, ScreenWidth, height);
     }];
+}
+
+- (void) NotifyTextChanged:(NSString *)value type:(EditCellType) type
+{
+    if(type == EnumTypeUserName){
+        if(value != nil)
+            [_EditDic setObject:value forKey:@"UserName"];
+    }
+    else if(type == EnumTypeSex){
+        if(value != nil)
+            [_EditDic setObject:value forKey:@"Sex"];
+    }
+    else if(type == EnumTypeAge){
+        if(value != nil)
+            [_EditDic setObject:value forKey:@"Age"];
+    }
+    else if(type == EnumTypeAddress){
+        if(value != nil)
+            [_EditDic setObject:value forKey:@"Address"];
+    }
+    else if(type == EnumTypeMobile){
+        if(value != nil)
+            [_EditDic setObject:value forKey:@"Mobile"];
+    }
+    else if(type == EnumTypeRelationName){
+        if(value != nil)
+            [_EditDic setObject:value forKey:@"RelationName"];
+    }
+    else if(type == EnumTypeHeight){
+        [_EditDic setObject:[NSNumber numberWithInteger:[value integerValue]] forKey:@"Height"];
+    }
 }
 
 @end

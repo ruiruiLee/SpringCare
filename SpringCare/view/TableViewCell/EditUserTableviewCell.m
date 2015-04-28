@@ -14,12 +14,24 @@
 @synthesize cellType;
 @synthesize lbUnit;
 @synthesize layoutArray;
+@synthesize delegate;
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)NotifyResignFirstResponder:(NSNotification *) notify
+{
+    [_tfEdit resignFirstResponder];
+}
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyResignFirstResponder:) name:Notify_Resign_First_Responder object:nil];
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
         
@@ -40,6 +52,7 @@
     [self.contentView addSubview:_tfEdit];
     _tfEdit.font = _FONT(16);
     _tfEdit.translatesAutoresizingMaskIntoConstraints = NO;
+    _tfEdit.delegate = self;
     
     _imgUnflod = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_imgUnflod];
@@ -132,6 +145,14 @@
         lbUnit.hidden = NO;
     }
     [self.contentView addConstraints:layoutArray];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+//    NSLog(@"");
+    if(delegate && [delegate respondsToSelector:@selector(NotifyTextChanged:type:)]){
+        [delegate NotifyTextChanged:textField.text type:self.cellType];
+    }
 }
 
 @end
