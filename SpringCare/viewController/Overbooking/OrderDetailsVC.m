@@ -134,7 +134,7 @@
 {
 
         if(delegate && [delegate respondsToSelector:@selector(NotifyButtonClickedWithFlag:)])
-            [delegate NotifyButtonClickedWithFlag:(int)(sender.tag - 1)];
+            [delegate NotifyButtonClickedWithFlag:sender];
 
 }
 
@@ -627,8 +627,10 @@
         return 0;
 }
 
-- (void) NotifyButtonClickedWithFlag:(int) flag
+- (void) NotifyButtonClickedWithFlag:(UIButton*) sender
 {
+    
+    NSInteger flag = (sender.tag - 1);
 //    0 去付款， 1 去评论
     if(flag == 0){
         PayForOrderVC *vc = [[PayForOrderVC alloc] initWithModel:_orderModel];
@@ -637,11 +639,12 @@
         EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:_orderModel];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (flag == 2){
-        
+        sender.userInteractionEnabled=false;
         __weak MyOrderdataModel *weakModel = _orderModel;
         __weak OrderDetailsVC *weakSelf = self;
             [LCNetWorkBase postWithMethod:@"api/order/cancel" Params:@{@"orderId" : _orderModel.oId, @"registerId" : [UserModel sharedUserInfo].userId} Completion:^(int code, id content) {
                 if(code){
+                    sender.userInteractionEnabled=true;
                     if([content isKindOfClass:[NSDictionary class]]){
                         NSString *code = [content objectForKey:@"code"];
                         if(code == nil)

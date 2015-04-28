@@ -13,7 +13,7 @@
 
 @protocol OrderPriceCellDelegate <NSObject>
 
-- (void) NotifyButtonClickedWithFlag:(int) flag;//0 去付款， 1 去评论
+- (void) NotifyButtonClickedWithFlag:(UIButton*) sender;//0 去付款， 1 去评论
 
 @end
 
