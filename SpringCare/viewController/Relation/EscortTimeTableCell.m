@@ -426,13 +426,13 @@
         cellHeight += 3;
     }
     
-    cellHeight += 37;
+    cellHeight += 39;
     if([replyData count] > 0){
         CGFloat height = 0;
         for (int i = 0; i < [replyData count]; i++) {
             NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
             EscortTimeReplyDataModel *data = [replyData objectAtIndex:indexpath.row];
-            data.height = [NSStrUtil HeightOfString:data.content fontSize:15.f andWidth:ScreenWidth - 115] + 8;
+            data.height = [NSStrUtil HeightOfString:data.content fontSize:15.f andWidth:ScreenWidth - 115] + 9;
             height += data.height;
         }
         cellHeight += 18;
