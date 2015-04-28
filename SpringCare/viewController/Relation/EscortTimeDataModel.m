@@ -131,7 +131,7 @@ static NSInteger totalCount = 0;
     NSMutableArray *photoArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < [files count]; i++) {
         FileDataModel *file = [FileDataModel ObjectFromDictionary:[files objectAtIndex:i]];
-        if(file.fileType == 99){
+        if(file.fileType == 1){
             ObjImageDataInfo *info = [[ObjImageDataInfo alloc] init];
             info.urlPath = file.url;
             [photoArray addObject:info];

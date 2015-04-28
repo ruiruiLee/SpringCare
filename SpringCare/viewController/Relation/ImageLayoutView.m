@@ -259,7 +259,8 @@
     else if(count == 1){
         return  imageMaxHeight + offset;
     }else{
-        return (count/4+1)*(imageSize + imageSpace)+offset;
+//        return (count/4+1)*(imageSize + imageSpace)+offset;
+        return (count/3 + ((count % 3) > 0 ? 1 : 0)) * (imageSize + imageSpace)+offset;
     }
 }
 

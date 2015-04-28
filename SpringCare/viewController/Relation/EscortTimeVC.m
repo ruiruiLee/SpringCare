@@ -171,7 +171,7 @@
                     if([content objectForKey:@"id"] != nil){
                         NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
                         [weakSelf SetHeaderInfoWithModel:model];
-                        [weakSelf.btnRight sd_setImageWithURL:[NSURL URLWithString:model.headerImage] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
+//                        [weakSelf.btnRight sd_setImageWithURL:[NSURL URLWithString:[weakSelf headerImagePath]] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
                     }else {
                         [weakSelf SetHeaderInfoWithModel:nil];
                     }
@@ -188,6 +188,9 @@
                     
                     [self performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
                 }];
+                
+                NSString *headerImage = [content objectForKey:@"loverHeaderImageUrl"];
+                [weakSelf.btnRight sd_setImageWithURL:[NSURL URLWithString:headerImage] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
             }
             
                 }
@@ -195,6 +198,7 @@
            //  }
     }];
 }
+
 -(void)creatHeadView{
     headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];
     UIImageView *headerbg = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -205,6 +209,8 @@
     _photoImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_photoImgView];
     _photoImgView.translatesAutoresizingMaskIntoConstraints = NO;
+    _photoImgView.clipsToBounds = YES;
+    _photoImgView.layer.cornerRadius = 41;
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_lbName];

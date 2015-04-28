@@ -114,7 +114,9 @@
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_lbContent]-20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_btnFoldOrUnfold]->=20-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_btnVolice(120)]-5-[_lbVoliceLimit]->=20-|" options:0 metrics:nil views:views]];
+    
+    Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_btnVolice(120)]-5-[_lbVoliceLimit]->=20-|" options:0 metrics:nil views:views];
+    [self.contentView addConstraints:Constraints];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_imageContent]-20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_replyContent]-20-|" options:0 metrics:nil views:views]];
     
@@ -307,9 +309,14 @@
     {
         [format appendString:@"[_btnVolice(25)]"];
         [format appendString:@"-10-"];
-        _lbVoliceLimit.text = @"12\"";
+        _lbVoliceLimit.text = [NSString stringWithFormat:@"%@\"", voiceLen];//@"12\"";
         _lbVoliceLimit.hidden = NO;
         _btnVolice.hidden = NO;
+        [self.contentView removeConstraints:Constraints];
+        NSDictionary *views = NSDictionaryOfVariableBindings(_lbContent, _btnFoldOrUnfold, _btnVolice, _lbVoliceLimit, _imageContent, _replyContent, _lbTimeLine, _line);
+        NSString *format = [NSString stringWithFormat:@"H:|-80-[_btnVolice(%f)]-5-[_lbVoliceLimit]->=20-|", [self VoiceButtonWithVoiceTimeLength:[voiceLen floatValue]]];
+        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
+        [self.contentView addConstraints:Constraints];
         
     }else
     {

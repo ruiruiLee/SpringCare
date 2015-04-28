@@ -55,6 +55,8 @@ typedef void(^ReplayAction)(int index);
     
     UILabel *_line;
     NSString *previousTime;
+    
+    NSArray *Constraints;
 }
 
 
