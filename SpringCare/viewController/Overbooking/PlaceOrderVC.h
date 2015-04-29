@@ -20,6 +20,7 @@
     UILabel *_lbName;
     UIButton *_btnCert;
     UIButton *_btnInfo;
+    UIImageView *_imgvLogo;
     UILabel *_detailInfo;
     UIButton *_btnUnfold;
     

@@ -85,8 +85,12 @@
     _lbTotalPrice.attributedText = string;
     
     _btnStatus.userInteractionEnabled = YES;
+    UIImage *image = [Util imageWithColor:[UIColor clearColor] size:CGSizeMake(5, 5)];
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
+    UIImage *normalImage = [image resizableImageWithCapInsets:inset ];
+    
     [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-    _btnStatus.backgroundColor = [UIColor clearColor];
+    [_btnStatus setBackgroundImage:normalImage forState:UIControlStateNormal];
     _btnStatus.tag = 4;
     if(model.orderStatus == EnumOrderStatusTypeCancel){
         _imgLogo.hidden = YES;
@@ -652,7 +656,7 @@
                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"订单取消成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                             [alert show];
                             
-                            weakModel.orderStatus = 99;
+                            weakModel.orderStatus = EnumOrderStatusTypeCancel;
                             [weakSelf._tableview reloadData];
                         }
                     }
