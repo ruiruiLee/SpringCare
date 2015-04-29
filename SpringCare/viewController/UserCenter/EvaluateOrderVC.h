@@ -15,6 +15,8 @@
     MyOrderdataModel *_orderModel;
 }
 
+@property (nonatomic, strong) NSMutableArray *dataList;
+
 - (id) initWithModel:(MyOrderdataModel *)model;
 
 @end

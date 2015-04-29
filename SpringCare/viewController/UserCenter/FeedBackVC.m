@@ -72,7 +72,8 @@
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[scrollview]-0-|" options:0 metrics:nil views:views]];
     
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_lbExplation]-15-|" options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_tvContent]-15-|" options:0 metrics:nil views:views]];
+    NSString *format = [NSString stringWithFormat:@"H:|-15-[_tvContent(%f)]-15-|", ScreenWidth - 30];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnSubmit]-15-|" options:0 metrics:nil views:views]];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbExplation(20)]-5-[_tvContent(120)]-20-[_btnSubmit(42)]->=0-|" options:0 metrics:nil views:views]];
 }

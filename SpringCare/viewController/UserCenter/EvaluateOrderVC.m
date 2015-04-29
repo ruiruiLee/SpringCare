@@ -9,11 +9,12 @@
 #import "EvaluateOrderVC.h"
 #import "EvaluateOrderCell.h"
 
-@interface EvaluateOrderVC ()
+@interface EvaluateOrderVC ()<EvaluateOrderCellDelegate>
 
 @end
 
 @implementation EvaluateOrderVC
+@synthesize dataList;
 
 - (id) initWithModel:(MyOrderdataModel *)model
 {
@@ -35,6 +36,8 @@
     // Do any additional setup after loading the view.
     
     self.NavigationBar.Title = @"评价订单";
+    
+    dataList = [[NSMutableArray alloc] initWithArray:_orderModel.nurseInfo];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCommentChanged:) name:Notify_Comment_Changed object:nil];
     
@@ -72,7 +75,7 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_orderModel.nurseInfo count];
+    return [dataList count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,8 +89,16 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //    NurseListInfoModel *model = [_orderModel.nurseInfo objectAtIndex:indexPath.row];
 //    [cell SetContentWithModel:model orderId:_orderModel.oId];
-    [cell SetContentWithModel:_orderModel nuridx:(int)indexPath.row];
+//    [cell SetContentWithModel:_orderModel nuridx:(int)indexPath.row];
+    [cell SetContentWithModel:_orderModel nursemodel:[_orderModel.nurseInfo objectAtIndex:indexPath.row]];
+    cell.delegate = self;
     return cell;
+}
+
+- (void) NotifyEvaluateSuccessAndDelete:(NurseListInfoModel *)model
+{
+    [dataList removeObject:model];
+    [_tableview reloadData];
 }
 
 @end

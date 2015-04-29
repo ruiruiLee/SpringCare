@@ -10,6 +10,12 @@
 #import "PlaceholderTextView.h"
 #import "MyOrderdataModel.h"
 
+@protocol EvaluateOrderCellDelegate <NSObject>
+
+- (void) NotifyEvaluateSuccessAndDelete:(NurseListInfoModel*) model;
+
+@end
+
 @interface EvaluateOrderCell : UITableViewCell<UITextViewDelegate>
 {
     UIView *_headerView;
@@ -26,9 +32,12 @@
     UILabel *_line;
     
     MyOrderdataModel *_OrderModel;
-    int _nurseIdx;
+//    int _nurseIdx;
+    NurseListInfoModel *_nurseModel;
 }
 
-- (void) SetContentWithModel:(MyOrderdataModel *) model nuridx:(int) nuridx;
+@property (nonatomic, assign) id<EvaluateOrderCellDelegate> delegate;
+
+- (void) SetContentWithModel:(MyOrderdataModel *) model nursemodel:(NurseListInfoModel *) nursemodel;
 
 @end

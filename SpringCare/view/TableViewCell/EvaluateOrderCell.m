@@ -11,6 +11,7 @@
 #import "UIImageView+WebCache.h"
 
 @implementation EvaluateOrderCell
+@synthesize delegate;
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -152,16 +153,17 @@
     _btnBest.layer.borderColor = borderColor.CGColor;
 }
 
-- (void) SetContentWithModel:(MyOrderdataModel *) model nuridx:(int) nuridx
+- (void) SetContentWithModel:(MyOrderdataModel *) model nursemodel:(NurseListInfoModel *) nursemodel
 {
     _OrderModel = model;
-    _nurseIdx = nuridx;
+//    _nurseIdx = nuridx;
+    _nurseModel = nursemodel;
     
-    NurseListInfoModel *nurseModel = [_OrderModel.nurseInfo objectAtIndex:nuridx];
+//    NurseListInfoModel *nurseModel = [_OrderModel.nurseInfo objectAtIndex:nuridx];
     
-    [_photoImage sd_setImageWithURL:[NSURL URLWithString:nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
-    _lbName.text = nurseModel.name;
-    NSString *title = [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", nurseModel.birthPlace, nurseModel.age, nurseModel.careAge];
+    [_photoImage sd_setImageWithURL:[NSURL URLWithString:_nurseModel.headerImage] placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
+    _lbName.text = _nurseModel.name;
+    NSString *title = [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge];
     [_btnInfo setTitle:title forState:UIControlStateNormal];
     float width = [NSStrUtil widthForString:title fontSize:12];
     _btnInfo.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -188,7 +190,7 @@
         }
     }
     
-    NurseListInfoModel *nurseModel = [_OrderModel.nurseInfo objectAtIndex:_nurseIdx];
+    NurseListInfoModel *nurseModel = _nurseModel;//[_OrderModel.nurseInfo objectAtIndex:_nurseIdx];
     
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
     [parmas setObject:content forKey:@"content"];
@@ -202,11 +204,22 @@
             NSString *code = [content objectForKey:@"code"];
             if(code == nil)
             {
-                _OrderModel.commentCount --;
-                if(_OrderModel.commentCount == 0){
+                NSInteger count = [[content objectForKey:@"message"] integerValue];
+                
+                if(delegate && [delegate respondsToSelector:@selector(NotifyEvaluateSuccessAndDelete:)])
+                {
+                    [delegate NotifyEvaluateSuccessAndDelete:nurseModel];
+                }
+                
+                if(count == 0){
                     _OrderModel.commentStatus = EnumTypeCommented;
                     [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Comment_Changed object:nil];
                 }
+//                _OrderModel.commentCount --;
+//                if(_OrderModel.commentCount == 0){
+//                    _OrderModel.commentStatus = EnumTypeCommented;
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Comment_Changed object:nil];
+//                }
 
             }
         }
