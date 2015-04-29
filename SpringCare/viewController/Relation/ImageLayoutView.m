@@ -105,7 +105,7 @@
 -(void)drawSingleImage:(ObjImageDataInfo*) url
 {
     UIImageView * imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageMaxWidth, imageMaxHeight)];
-    [imageView sd_setImageWithURL:[NSURL URLWithString:url.urlSmallPath] placeholderImage:[UIImage imageNamed:@"img_loading_for_talk"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [imageView sd_setImageWithURL:[NSURL URLWithString:url.urlSmallPath] placeholderImage:[UIImage imageNamed:@"defalut_timeimg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if(image == nil)return ;
         CGSize size = image.size;
         float scale = size.height/size.width;
