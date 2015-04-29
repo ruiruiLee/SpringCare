@@ -123,8 +123,9 @@ static NSInteger totalCount = 0;
     model.careId = [dic objectForKey:@"careId"];
     model.content = [dic objectForKey:@"content"];
     model.createAt = [dic objectForKey:@"createdAt"];
-    model.createTime =  [Util convertTimeFromStringDate:model.createAt];
-    model.createDate = [Util convertTimetoBroadFormat:model.createAt];
+    NSArray *array = [Util convertTimeFromStringDate:model.createAt];
+    model.createTime =  array[1];
+    model.createDate =   array[0];//[Util convertTimetoBroadFormat:array[0]];
     model.replyInfos = [EscortTimeReplyDataModel ArrayFromDictionaryArray:[dic objectForKey:@"replys"]];
     
     NSArray *files = [dic objectForKey:@"files"];

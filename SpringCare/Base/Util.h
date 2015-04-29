@@ -71,7 +71,7 @@ typedef enum : NSUInteger {
 
 + (NSString*) StringFromDate:(NSDate*) date;
 + (NSDate*) convertDateFromString:(NSString*)string;
-+ (NSString*) convertTimeFromStringDate:(NSString*) stringdate;
++ (NSArray*) convertTimeFromStringDate:(NSString*) stringdate;
 + (NSString*) convertStringFromDate:(NSDate*) date;
 + (NSString*) convertShotStrFromDate:(NSDate*) date;
 + (NSString*) orderTimeFromDate:(NSDate*) date;  //订单展示时间形式

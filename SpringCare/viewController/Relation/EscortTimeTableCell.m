@@ -270,7 +270,7 @@
     
     if (data.showTime) {
         
-        _lbToday.text = data.createDate;  //发布日期
+        _lbToday.text =  [Util convertTimetoBroadFormat:data.createDate]; //发布日期
         _lbToday.hidden = NO;
       }else{
         _lbToday.hidden = YES;
