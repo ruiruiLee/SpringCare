@@ -35,7 +35,12 @@
     self.NavigationBar.Title = @"我的关注";
     self.NavigationBar.btnRight.hidden = NO;
     [self.NavigationBar.btnRight setImage:[UIImage imageNamed:@"adduser"] forState:UIControlStateNormal];
-    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    _searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    _searchBar.backgroundColor = [UIColor clearColor];
+    _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 44)];
+    _searchBar.placeholder = @"请输入要关注人手机号";
+    _searchBar.keyboardType = UIKeyboardTypeNumberPad;
     _attentionData = [UserAttentionModel GetMyAttentionArray];
     _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
     
@@ -345,19 +350,15 @@
     return image;
 }
 
+
 - (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
     view.backgroundColor = TableSectionBackgroundColor;
     
     if (section == 0) {
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+
         [view addSubview:_searchBar];
-        _searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-        _searchBar.backgroundColor = [UIColor clearColor];
-        _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 44)];
-        _searchBar.placeholder = @"请输入要关注人手机号";
-        
         UIButton *_btnApply = [[UIButton alloc] initWithFrame:CGRectZero];
         [view addSubview:_btnApply];
         _btnApply.translatesAutoresizingMaskIntoConstraints = NO;
@@ -398,18 +399,24 @@
 - (void) doApplyAttention:(UIButton*) sender
 {
     NSString *phone = _searchBar.text;
+    if(phone.length==0)
+    {
+        [_searchBar resignFirstResponder];
+        return;
+    }
     BOOL isMobile = [NSStrUtil isMobileNumber:phone];
     if(!isMobile){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"电话号码有误" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
+    sender.userInteractionEnabled=false;
     NSDictionary *dic = @{@"phone" : phone, @"requesterId" :[UserModel sharedUserInfo].userId};
     [LCNetWorkBase postWithMethod:@"api/request/apply" Params:dic Completion:^(int code, id content) {
-        if(code){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"申请发送成功!" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+         sender.userInteractionEnabled=true;
+        [_searchBar resignFirstResponder];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[content objectForKey:@"message"]  delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
-        }
     }];
 }
 

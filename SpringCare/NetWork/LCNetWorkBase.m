@@ -54,11 +54,14 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, error);
-        if (error.code != -1001) {
+//        if (error.code != -1001) {
+//            completion(0, error);
+//            
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:error.localizedDescription delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//            [alertView show];
+//        }
+        if (completion!=nil) {
             completion(0, error);
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:error.localizedDescription delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alertView show];
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -89,25 +92,29 @@
         
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, result);
         if([result isKindOfClass:[NSDictionary class]] && [result objectForKey:@"code"] != nil){
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[result objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alertView show];
-            return ;
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[result objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//            [alertView show];
+//            return ;
+            if (completion!=nil) {
+                completion(0, result);
+            }
+
+        }else{
+            if (completion!=nil) {
+                completion(1, result);
+            }
         }
-        if (completion!=nil) {
-            completion(1, result);
-        }
-        
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, error);
-        if (error.code != -1001) {
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:error.localizedDescription delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
+//        if (error.code != -1001) {
+//            
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:error.localizedDescription delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//            [alertView show];
+//        }
          if (completion!=nil) {
-        completion(0, error);
+              completion(0, error);
          }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -121,12 +128,7 @@
     /**
      * 处理短时间内重复请求
      **/
-//    NSString *path = [NSString stringWithFormat:@"%@%@", url, params];
-//    if ([ProjectDefine searchRequestTag:path]) {
-//        return;
-//    }else{
-//        [ProjectDefine addRequestTag:path];
-//    }
+
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];

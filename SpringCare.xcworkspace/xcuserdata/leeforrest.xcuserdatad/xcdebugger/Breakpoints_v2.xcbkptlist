@@ -73,7 +73,7 @@
                   symbolName = "-[PlaceOrderForProductVC newAttentionWithAddress:block:]"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451971507.22702"
+                  timestampString = "451982734.956875"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
@@ -87,7 +87,7 @@
                   symbolName = "__56-[PlaceOrderForProductVC newAttentionWithAddress:block:]_block_invoke"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "451971507.227247"
+                  timestampString = "451982734.957023"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
@@ -110,22 +110,6 @@
             startingLineNumber = "258"
             endingLineNumber = "258"
             landmarkName = "-searchBarSearchButtonClicked:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/NetWork/LCNetWorkBase.m"
-            timestampString = "451649293.591174"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "-postWithMethod:Params:Completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
