@@ -35,11 +35,12 @@
     [super viewDidLoad];
     self.lbTitle.text = @"陪护师";
     
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width
-                                                                           , 44)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    //[[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     searchBar.placeholder = @"搜索";
     searchBar.delegate = self;
     [searchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+      [searchBar setBarStyle:UIBarStyleDefault];
     [searchBar sizeToFit];
     searchBar.translatesAutoresizingMaskIntoConstraints = NO;
     searchBar.showsCancelButton = YES;
@@ -234,6 +235,10 @@
     
 }
 
+- (void) LeftButtonClicked:(id)sender{
+    [super LeftButtonClicked:sender];
+    [searchBar resignFirstResponder];
+}
 #pragma mark - UISearchDisplayController delegate methods
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)Bar
