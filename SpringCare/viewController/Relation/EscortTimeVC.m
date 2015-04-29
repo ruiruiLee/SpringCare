@@ -130,7 +130,7 @@
 
 -(void)loadDataList:(NSString*)loverID{
     [_dataList removeAllObjects];
-    [UserAttentionModel loadLoverList:@"false" block:^(int code) {    //获取 用户的陪护对象
+    [UserAttentionModel loadLoverList:@"true" block:^(int code) {    //获取 用户的陪护对象
      AttentionArray =[UserAttentionModel GetMyAttentionArray];
 //     if (AttentionArray.count>0) {
 //        [self LoadDefaultDoctorInfo:loverID]; // 加载陪护师信息 ，headview显示
