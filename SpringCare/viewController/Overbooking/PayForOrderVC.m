@@ -83,6 +83,8 @@
         path = ((NurseListInfoModel *)[nurse objectAtIndex:0]).headerImage;
     }
     _imgPhoto = [self creatImageViewWithimage:nil placeholder:@"nurselistfemale" rootView:_nurseInfoBg];
+    _imgPhoto.clipsToBounds = YES;
+    _imgPhoto.layer.cornerRadius = 41;
     [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:HeadImage(path)] placeholderImage:[UIImage imageNamed:@"nurselistfemale"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
@@ -176,6 +178,8 @@
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_payLogo(14)]-5-[_lbPaytype]-20-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-28-[_nurseInfoBg(106)]-18-[_totalPriceBg(52.5)]-20-[_payLogo(18)]-6-|" options:0 metrics:nil views:views]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_lbPaytype attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_payLogo attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(82)]->=0-|" options:0 metrics:nil views:views]];
     
     [_totalPriceBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_lbTotalPrice]->=10-[_lbTotalPriceValue]-20-|" options:0 metrics:nil views:views]];
     [_totalPriceBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_lbTotalPrice(28)]->=10-|" options:0 metrics:nil views:views]];
