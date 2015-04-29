@@ -415,8 +415,11 @@
     [LCNetWorkBase postWithMethod:@"api/request/apply" Params:dic Completion:^(int code, id content) {
          sender.userInteractionEnabled=true;
         [_searchBar resignFirstResponder];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[content objectForKey:@"message"]  delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        if (code) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"申请已经发送！"  delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
+        }
+        
     }];
 }
 
