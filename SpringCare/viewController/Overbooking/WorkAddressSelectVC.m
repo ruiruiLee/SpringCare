@@ -91,8 +91,10 @@
         if(code){
             _dataList = [UserAttentionModel GetMyAttentionArray];
             if([loveID isEqual: @"Add"]){
-                 SelectModel = _dataList[0];
-                 selectLoverId=SelectModel.userid;
+                if([_dataList count] > 0){
+                     SelectModel = _dataList[0];
+                     selectLoverId=SelectModel.userid;
+                }
             }
             else{
                 [self setSelectItemWithLoverId:selectLoverId];

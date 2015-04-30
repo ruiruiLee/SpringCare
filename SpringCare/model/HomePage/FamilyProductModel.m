@@ -43,8 +43,14 @@ static NSMutableArray *familyProductArray = nil;
         model.isDirectOrder = [[dic objectForKey:@"isDirectOrder"] boolValue];
         model.productName = [dic objectForKey:@"productName"];
         model.productDesc = [dic objectForKey:@"productDesc"];
-        model.price = [[dic objectForKey:@"price"] integerValue];
-        model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
+        if([[dic objectForKey:@"price"] isKindOfClass:[NSNull class]])
+            model.price = 0;
+        else
+            model.price = [[dic objectForKey:@"price"] integerValue];
+        if([[dic objectForKey:@"priceDiscount"] isKindOfClass:[NSNull class]])
+            model.priceDiscount = 0;
+        else
+            model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
         
         [familyProductArray addObject:model];
     }

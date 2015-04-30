@@ -356,6 +356,8 @@
     
     if(pickView == _sexPick){
         cell.tfEdit.text = resultString;
+        if(resultString != nil)
+            [_EditDic setObject:resultString forKey:@"Sex"];
     }
     
     else if (pickView == _agePick){
