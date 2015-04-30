@@ -57,6 +57,7 @@
     UIImageView *_imgPhoto;//头像
     UILabel *_lbName;//名字
     UILabel *_lbAge;
+    UILabel * _lbHeight;
     UIButton *_btnMobile;
     UIButton *_btnAddress;
     UILabel *_LbRelation;
