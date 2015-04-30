@@ -208,6 +208,7 @@ static NSInteger nurseTotal = 0;
     for (int  i = 0; i < [array count]; i++) {
         [pramaNurseDic setObject:[prama objectForKey:[array objectAtIndex:i]] forKey:[array objectAtIndex:i]];
     }
+    
     [LCNetWorkBase postWithMethod:@"api/care/list" Params:pramaNurseDic Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){

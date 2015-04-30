@@ -57,8 +57,8 @@
     pullTableView.delegate = self;
     pullTableView.pullDelegate = self;
     
-    self.prices = @[@"价格区间",@"200元-300元",@"300元-500元",@"500元以上"];
-    self.ages = @[@"年龄区间",@"20岁-30岁",@"30岁-40岁",@"40岁以上"];
+    self.prices = @[@"价格区间",@"200元-299元",@"300元-499元",@"500元以上"];
+    self.ages = @[@"年龄区间",@"20岁-29岁",@"30岁-39岁",@"40岁以上"];
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
     //数据先初始化
     
@@ -325,16 +325,71 @@
             break;
     }
     
-//    pages = 0;
-//    [_model loadNurseDataWithPage:(int)pages prama:@{@"sortFiled": sortFiled} block:^(int code) {
-//        self.DataList = [NurseListInfoModel nurseListModel];
-        [pullTableView reloadData];
-//        [self refreshTable];
-//   }];
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
     
-//    if(!self.pullTableView.pullTableIsRefreshing) {
-//        self.pullTableView.pullTableIsRefreshing = YES;
-//    }
+    if(indexPath.column == 0){
+        NSInteger min = 0;
+        NSInteger max = 0;
+        if(indexPath.row == 0){
+        }
+        else if (indexPath.row == 1){
+            min = 200;
+            max = 299;
+        }
+        else if (indexPath.row == 2){
+            min = 300;
+            max = 499;
+        }
+        else if (indexPath.row == 3){
+            max = 500;
+        }
+        
+        [parmas setObject:[NSNumber numberWithInteger:min] forKey:@"minPrice"];
+        [parmas setObject:[NSNumber numberWithInteger:max] forKey:@"maxPrice"];
+    }
+    else if (indexPath.column == 1){
+        NSInteger min = 0;
+        NSInteger max = 0;
+        if(indexPath.row == 0){}
+        else if (indexPath.row == 1){
+            min = 20;
+            max = 29;
+        }
+        else if (indexPath.row == 2){
+            min = 30;
+            max = 39;
+        }
+        else if (indexPath.row == 3){
+            max = 40;
+        }
+        [parmas setObject:[NSNumber numberWithInteger:min] forKey:@"minAge"];
+        [parmas setObject:[NSNumber numberWithInteger:max] forKey:@"maxAge"];
+    }
+    else{
+        NSString *sortFiled = @"geoPoint";
+        if(indexPath.row == 0){}
+        else if (indexPath.row == 1){
+            sortFiled = @"careAge";
+        }
+        else if (indexPath.row == 2){
+            sortFiled = @"commentRate";
+        }
+        else if (indexPath.row == 3){
+            sortFiled = @"commentCount";
+        }
+        [parmas setObject:sortFiled forKey:@"sortFiled"];
+    }
+    
+    pages = 0;
+    self.pullTableView.pullTableIsRefreshing = YES;
+    __weak NurseListMainVC *weakSelf = self;
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
+        [weakSelf.DataList removeAllObjects];
+        [weakSelf.DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
+        [weakSelf.pullTableView reloadData];
+        [weakSelf refreshTable];
+    }];
+
 }
 
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
