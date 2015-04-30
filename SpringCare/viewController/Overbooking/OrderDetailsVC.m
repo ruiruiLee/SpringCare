@@ -367,7 +367,7 @@
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnMobile]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_lbName]-10-[_lbAge]-10-[_lbHeight]->=20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_lbName]-20-[_lbAge]-20-[_lbHeight]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_imgPhoto(62)]->=10-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_LbRelation(20)]-2-[_lbName(18)]-2-[_btnAddress(22)]->=10-|" options:0 metrics:nil views:views]];
 //        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_LbRelation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -399,7 +399,7 @@
     _lbAge.text = [NSString stringWithFormat:@"%@岁", model.lover.age];
     if(model.lover.age == nil || [model.lover.age isEqual:@"0"])
         _lbAge.text = @"年龄";
-    if(model.lover.height == 0)
+    if(model.lover.height > 0)
         _lbHeight.text = [NSString stringWithFormat:@"%dcm",model.lover.height];
     else
         _lbHeight.text=@"身高";
