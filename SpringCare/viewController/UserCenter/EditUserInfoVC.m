@@ -213,9 +213,14 @@
             cell.tfEdit.text = [_EditDic objectForKey:@"Age"];//[NSString stringWithFormat:@"%d", [Util getAgeWithBirthday:model.birthDay]];
         }
         else if(typedata.cellType == EnumTypeAddress){
-            cell.tfEdit.placeholder = nil;
-            cell.tfEdit.text = [_EditDic objectForKey:@"Address"];//model.addr;
-            cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
+            if([_EditDic objectForKey:@"Address"] != nil && [[_EditDic objectForKey:@"Address"] length] > 0){
+                cell.tfEdit.placeholder = nil;
+                cell.tfEdit.text = [_EditDic objectForKey:@"Address"];//model.addr;
+                cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
+            }
+            if([userData isKindOfClass:[UserModel class]]){
+                cell.tfEdit.placeholder = nil;
+            }
         }
         else if(typedata.cellType == EnumTypeMobile){
             cell.tfEdit.text = [_EditDic objectForKey:@"Mobile"];//model.mobilePhoneNumber;
