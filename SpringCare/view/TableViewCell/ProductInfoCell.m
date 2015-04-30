@@ -45,7 +45,7 @@
     
     _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
     [_photoImgV addSubview:_lbTitle];
-    _lbTitle.font = _FONT(16);
+    _lbTitle.font = _FONT_B(16);
     _lbTitle.textColor = [UIColor whiteColor];
     _lbTitle.backgroundColor = [UIColor blackColor];
     _lbTitle.alpha = 0.3f;
@@ -66,7 +66,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_bgView]-26-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_bgView]-10-|" options:0 metrics:nil views:views]];
     
-    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbExplain]-0-|" options:0 metrics:nil views:views]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_lbExplain]-0-|" options:0 metrics:nil views:views]];
     NSString *format = [NSString stringWithFormat:@"H:|-0-[_photoImgV(%f)]-0-|", ScreenWidth - 52];
     [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
     NSString *vformat = [NSString stringWithFormat:@"V:|-0-[_photoImgV(%f)]-0-[_lbExplain(>=30)]-0-|", (ScreenWidth - 52) * multiplier];
@@ -89,7 +89,7 @@
 {
     [_photoImgV sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:ThemeImage(@"nurselistfemale")];
 //    _photoImgV.image = [UIImage imageNamed:@"nurselistfemale"];
-    _lbTitle.text = model.productName;
+    _lbTitle.text = [NSString stringWithFormat:@"  %@",model.productName];
     _lbExplain.text = model.productDesc;
 }
 
