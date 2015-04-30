@@ -50,7 +50,7 @@
         score = 5;
     for (int i = 0; i < score; i++) {
         UIImageView *imgview = [_viewArray objectAtIndex:i];
-        imgview.image = [UIImage imageNamed:@"b27_icon_star_yellow"];
+        imgview.image = [UIImage imageNamed:@"star_red"];
     }
 }
 
@@ -58,7 +58,7 @@
 {
     for (int i = 0; i < 5; i++) {
         UIImageView *imgview = [_viewArray objectAtIndex:i];
-        imgview.image = [UIImage imageNamed:@"b27_icon_star_gray"];
+        imgview.image = [UIImage imageNamed:@"star_gray"];
     }
 }
 
