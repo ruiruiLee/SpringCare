@@ -289,11 +289,10 @@
     _imgLogo.hidden = NO;
     
     UIImage *image = [Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)];
+    UIImage *clearImage = [Util imageWithColor:[UIColor clearColor] size:CGSizeMake(5, 5)];
     
-//    _btnPay.backgroundColor = Abled_Color;
     [_btnPay setBackgroundImage:image forState:UIControlStateNormal];
-//    _btnStatus.backgroundColor = [UIColor clearColor];
-    [_btnStatus setBackgroundImage:nil forState:UIControlStateNormal];
+    [_btnStatus setBackgroundImage:clearImage forState:UIControlStateNormal];
     [_btnPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if(data.orderStatus == EnumOrderStatusTypeCancel){
@@ -331,8 +330,8 @@
             _imgLogo.hidden = YES;
             _btnStatus.hidden = YES;
             [_btnPay setTitle:@"已付款" forState:UIControlStateNormal];
-//            _btnPay.backgroundColor = [UIColor clearColor];
-            [_btnPay setBackgroundImage:nil forState:UIControlStateNormal];
+            _btnPay.backgroundColor = [UIColor clearColor];
+            [_btnPay setBackgroundImage:clearImage forState:UIControlStateNormal];
              [_btnPay setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         }
     }

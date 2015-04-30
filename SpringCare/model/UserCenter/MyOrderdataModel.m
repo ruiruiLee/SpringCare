@@ -135,12 +135,9 @@ static NSMutableArray *noAssessmentOrderList = nil;
     NSInteger offset = pages * limit;
     if(orderType == EnumOrderOther){
         [params setObject:@"other" forKey:@"searchType"];
-        if([myOrderList count] < 2){
-            offset = 0;
-        }else{
+
             if(offset >= [myOrderList count])
                 offset = [myOrderList count];
-        }
         [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
         [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     }else if (orderType == EnumOrderService){
