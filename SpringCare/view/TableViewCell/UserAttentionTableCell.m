@@ -146,8 +146,8 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbRelation attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attentionLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_btnphotoImg attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
 
