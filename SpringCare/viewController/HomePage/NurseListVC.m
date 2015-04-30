@@ -101,10 +101,11 @@
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     pullTableView.tableFooterView = footer;
+    __weak NurseListVC *weakSelf = self;
     [_model loadNurseDataWithPage:0 type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:_productId block:^(int code) {
             [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
-            [pullTableView reloadData];
-            [self refreshTable];
+            [weakSelf.pullTableView reloadData];
+            [weakSelf refreshTable];
         }];
         
         if(!self.pullTableView.pullTableIsRefreshing) {
@@ -214,11 +215,13 @@
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
     pages = 0;
+    __weak NurseListVC *weakSelf = self;
     [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
 //        self.DataList = [NurseListInfoModel nurseListModel];
         [DataList removeAllObjects];
-        [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
-        [self refreshTable];
+        [DataList addObjectsFromArray:content];
+        [weakSelf.pullTableView reloadData];
+        [weakSelf refreshTable];
     }];
 }
 
@@ -226,10 +229,12 @@
 {
     pages ++;
     
+    __weak NurseListVC *weakSelf = self;
     [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
 //        self.DataList = [NurseListInfoModel nurseListModel];
-        [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
-        [self loadMoreDataToTable];
+        [DataList addObjectsFromArray:content];
+        [weakSelf.pullTableView reloadData];
+        [weakSelf loadMoreDataToTable];
     }];
 }
 

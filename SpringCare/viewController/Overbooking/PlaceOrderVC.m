@@ -324,7 +324,7 @@
     _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
     _btnInfo.titleLabel.font = _FONT(12);
     [_btnInfo setTitleColor:_COLOR(0x6b, 0x4e, 0x3e) forState:UIControlStateNormal];
-    NSString *title = [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge];
+    NSString *title = [NSString stringWithFormat:@"%@ %d岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge];
     [_btnInfo setTitle:title  forState:UIControlStateNormal];
     _btnInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
@@ -352,7 +352,7 @@
                                                          _detailInfo, _imgvLogo);
     
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage(82)]-5-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage]-5-[_imgvLogo]-5-[_btnInfo]->=10-[_btnCert(43)]-16-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage]-5-[_imgvLogo(21)]-5-[_btnInfo]->=4-[_btnCert(43)]-16-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_detailInfo]-29-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_btnUnfold]->=20-|" options:0 metrics:nil views:views]];
     
