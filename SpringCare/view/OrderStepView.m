@@ -88,6 +88,11 @@
     lbCArrary = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_lbStep1]->=0-[_lbStep2]->=0-[_lbStep3]->=0-[_lbStep4]->=0-|" options:0 metrics:nil views:views];
     [self addConstraints:lbCArrary];
     
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgStep1(33)]->=0-|" options:0 metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgStep2(33)]->=0-|" options:0 metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgStep3(33)]->=0-|" options:0 metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgStep4(33)]->=0-|" options:0 metrics:nil views:views]];
+    
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_imgStep2 attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgStep1 attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_imgStep3 attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgStep1 attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_imgStep4 attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgStep1 attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
