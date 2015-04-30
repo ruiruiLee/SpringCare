@@ -151,23 +151,25 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 
         [alert show];
-        return;
     }
     else if(!_loverModel.address||[_loverModel.address isEqual:@""]){
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
-//        __weak PlaceOrderVC *weakSelf = self;
-//        [self newAttentionWithAddress:[LocationManagerObserver sharedInstance].currentDetailAdrress block:^(int code, id content) {
-//            if(code){
-//                if([content objectForKey:@"code"] == nil)
-//                    [weakSelf submitWithloverId:@"message"];
-//            }
-//        }];
-        return;
+
     }
     else{
-        [self submitWithloverId:_loverModel.userid];
+        if(_loverModel.userid==nil){
+            __weak PlaceOrderVC *weakSelf = self;
+            [self newAttentionWithAddress:_loverModel.address block:^(int code, id content) {
+                if(code){
+                    if([content objectForKey:@"code"] == nil)
+                        [weakSelf submitWithloverId:@"message"];
+                }
+            }];
+        }
+      else
+         [self submitWithloverId:_loverModel.userid];
     }
 }
 
@@ -474,7 +476,7 @@
 {
     WorkAddressSelectVC *vc = [[WorkAddressSelectVC alloc] initWithNibName:nil bundle:nil];
     vc.delegate = self;
-    if(_loverModel != nil){
+    if(_loverModel.userid != nil){
        
         vc.view.backgroundColor = [UIColor clearColor];
         [vc setSelectItemWithLoverId:_loverModel.userid];
