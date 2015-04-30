@@ -7,11 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "escorttimereply@2x.png"
+      "filename" : "escorttimereply@2.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "escorttimereply@3.png"
     }
   ],
   "info" : {

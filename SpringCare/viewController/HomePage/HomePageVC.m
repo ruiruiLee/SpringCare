@@ -221,7 +221,7 @@
     imgIden = [[UIImageView alloc] initWithFrame:CGRectZero];
     [btnRing addSubview:imgIden];
     imgIden.translatesAutoresizingMaskIntoConstraints = NO;
-    imgIden.image = [UIImage imageNamed:@"shut"];
+    imgIden.image = [UIImage imageNamed:@"nav-right"];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(btnIntro, line, btnCommitment, btnHospital, btnHome, btnRing, imgRing, lbPhone, imgIden, underLine, underLineCommit);
     

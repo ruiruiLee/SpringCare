@@ -73,7 +73,7 @@
                   symbolName = "-[PlaceOrderForProductVC newAttentionWithAddress:block:]"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "452077363.499655"
+                  timestampString = "452084737.271451"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
@@ -87,7 +87,7 @@
                   symbolName = "__56-[PlaceOrderForProductVC newAttentionWithAddress:block:]_block_invoke"
                   moduleName = "SpringCare"
                   urlString = "file:///Users/leeforrest/Documents/SpringCare/SpringCare/viewController/Overbooking/PlaceOrderForProductVC.m"
-                  timestampString = "452077363.499878"
+                  timestampString = "452084737.271881"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
@@ -254,54 +254,6 @@
             startingLineNumber = "151"
             endingLineNumber = "151"
             landmarkName = "-btnSubmitOrder:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/Overbooking/OrderDetailsVC.m"
-            timestampString = "452076397.642381"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
-            landmarkName = "-initWithStyle:reuseIdentifier:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/Overbooking/OrderDetailsVC.m"
-            timestampString = "452077275.280515"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
-            landmarkName = "-setContentData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpringCare/viewController/Overbooking/OrderDetailsVC.m"
-            timestampString = "452077383.509622"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
-            landmarkName = "-initWithStyle:reuseIdentifier:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
