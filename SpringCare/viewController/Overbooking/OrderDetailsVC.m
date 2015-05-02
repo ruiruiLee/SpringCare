@@ -450,7 +450,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCommentChanged:) name:Notify_Comment_Changed object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCommentChanged:) name:Notify_Comment_Changed object:nil];
     
     // Do any additional setup after loading the view.
     self.NavigationBar.Title = @"订单详情";
@@ -663,6 +663,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else if(flag == 1){
         EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:_orderModel];
+         vc.delegate=self;
         [self.navigationController pushViewController:vc animated:YES];
     }else if (flag == 2){
         sender.userInteractionEnabled=false;
@@ -695,14 +696,11 @@
     }
 }
 
-- (void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+#pragma EvaluateOrderDelegate
+- (void) NotifyReloadOrderInfo{
+   [_tableview reloadData];
 }
 
-- (void)NotifyCommentChanged:(NSNotification *) notify
-{
-    [_tableview reloadData];
-}
 
 @end

@@ -213,18 +213,16 @@
         }
         if ([NSStrUtil isMobileNumber:text]) {
             _btnVerifyCode.enabled = YES;
-//            _btnVerifyCode.backgroundColor = Abled_Color;
-            _btnLogin.enabled = YES;
-//            _btnLogin.backgroundColor = Abled_Color;
-            [_btnLogin setBackgroundImage:[Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
             [_btnVerifyCode setBackgroundImage:[Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
+            _btnLogin.enabled = YES;
+            [_btnLogin setBackgroundImage:[Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
+
 
         }else{
-            _btnVerifyCode.enabled = NO;
-//            _btnVerifyCode.backgroundColor = Disabled_Color;
+            
             _btnLogin.enabled = NO;
-//            _btnLogin.backgroundColor = Disabled_Color;
             [_btnLogin setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
+            _btnVerifyCode.enabled = NO;
             [_btnVerifyCode setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
 
         }
@@ -240,14 +238,15 @@
     [_tfPhoneNum resignFirstResponder];
     [_tfVerifyCode resignFirstResponder];
     _btnVerifyCode.enabled = NO;
-//    _btnVerifyCode.backgroundColor = Disabled_Color;
     [_btnVerifyCode setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
     NSString *phone = _tfPhoneNum.text;
     __weak LoginVC *weakSelf = self;
     [AVOSCloud requestSmsCodeWithPhoneNumber:phone callback:^(BOOL succeeded, NSError *error) {
-        [self TimerOutTimer];
+        //[self TimerOutTimer];
         if(succeeded){
             [weakSelf TimerOutTimer];
+//            _btnLogin.enabled = YES;
+//            [_btnLogin setBackgroundImage:[Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"验证码已发送" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
         }else{
@@ -292,9 +291,10 @@
     if(_count == 0){
         [_timerOutTimer invalidate];
         [_btnVerifyCode setTitle:@"重取验证码" forState:UIControlStateNormal];
-        _btnLogin.enabled = NO;
-//        _btnLogin.backgroundColor = Disabled_Color;
-        [_btnLogin setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
+         [_btnVerifyCode setBackgroundImage:[Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
+        _btnVerifyCode.enabled = YES;
+//        _btnLogin.enabled = NO;
+//        [_btnLogin setBackgroundImage:[Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
         _tfVerifyCode.text = @"";
     }
 }

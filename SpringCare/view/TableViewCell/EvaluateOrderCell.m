@@ -206,20 +206,14 @@
             {
                 NSInteger count = [[content objectForKey:@"message"] integerValue];
                 
+                if(count == 0){
+                    _OrderModel.commentStatus = EnumTypeCommented;
+                   // [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Comment_Changed object:nil];
+                }
                 if(delegate && [delegate respondsToSelector:@selector(NotifyEvaluateSuccessAndDelete:)])
                 {
                     [delegate NotifyEvaluateSuccessAndDelete:nurseModel];
                 }
-                
-                if(count == 0){
-                    _OrderModel.commentStatus = EnumTypeCommented;
-                    [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Comment_Changed object:nil];
-                }
-//                _OrderModel.commentCount --;
-//                if(_OrderModel.commentCount == 0){
-//                    _OrderModel.commentStatus = EnumTypeCommented;
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Comment_Changed object:nil];
-//                }
 
             }
         }
