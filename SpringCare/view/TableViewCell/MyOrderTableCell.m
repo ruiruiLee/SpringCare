@@ -225,6 +225,8 @@
 
 - (void) SetContentData:(MyOrderdataModel *) data
 {
+    if(data == nil)
+        return;
     orderModel = data;
 //    [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
     
