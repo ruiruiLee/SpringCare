@@ -175,6 +175,9 @@
 
 - (void) submitWithloverId:(NSString*)loverId
 {
+    if (self.payValue!=nil) {
+         NSLog(@"charge = %@", self.payValue);
+    }
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     

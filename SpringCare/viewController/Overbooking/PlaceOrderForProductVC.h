@@ -17,7 +17,7 @@
     UILabel *_lbTitle;
     UILabel *_lbExplain;
 }
-
+@property (strong, nonatomic) NSString *payValue;
 - (id) initWithModel:(FamilyProductModel*) model;
 
 @end
