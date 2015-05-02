@@ -9,7 +9,7 @@
 #import "LCBaseVC.h"
 #import "OrderStepView.h"
 #import "MyOrderdataModel.h"
-
+#import "EvaluateOrderVC.h"
 
 @protocol OrderPriceCellDelegate <NSObject>
 
@@ -79,7 +79,7 @@
 
 @end
 
-@interface OrderDetailsVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, OrderPriceCellDelegate>
+@interface OrderDetailsVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, OrderPriceCellDelegate,EvaluateOrderDelegate>
 {
     UITableView *_tableview;
     OrderStepView *_stepView;

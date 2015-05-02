@@ -38,16 +38,13 @@
     self.NavigationBar.Title = @"评价订单";
     
     dataList = [[NSMutableArray alloc] initWithArray:_orderModel.nurseInfo];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCommentChanged:) name:Notify_Comment_Changed object:nil];
-    
     [self initSubViews];
 }
 
-- (void)NotifyCommentChanged:(NSNotification *) notify
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)NotifyCommentChanged:(NSNotification *) notify
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -98,7 +95,14 @@
 - (void) NotifyEvaluateSuccessAndDelete:(NurseListInfoModel *)model
 {
     [dataList removeObject:model];
-    [_tableview reloadData];
+    if (dataList.count==0) {
+        if(_delegate && [_delegate respondsToSelector:@selector(NotifyReloadOrderInfo)]){
+            [_delegate NotifyReloadOrderInfo];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+      [_tableview reloadData];
 }
 
 @end

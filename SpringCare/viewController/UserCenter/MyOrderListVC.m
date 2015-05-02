@@ -27,21 +27,11 @@
 @synthesize dataOtherList = dataOtherList;
 @synthesize isComment;
 
-- (void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
-- (void)NotifyCommentChanged:(NSNotification *) notify
-{
-    [pullTableView reloadData];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCommentChanged:) name:Notify_Comment_Changed object:nil];
     
     pages = 0;
     
@@ -52,11 +42,15 @@
     dataOtherList = [[NSMutableArray alloc] init];
     
     [self initSubView];
-    
+    [self loadDataList];
+   }
+
+-(void)loadDataList{
+      [dataOtherList removeAllObjects];
     __weak MyOrderListVC *weakSelf = self;
     [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderService isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
-            dataOnDoingList = content;
+            dataOnDoingList = content; // 正在进行中的订单
             [weakSelf.pullTableView reloadData];
             [weakSelf refreshTable];
         }else{
@@ -66,13 +60,14 @@
     
     [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
-            [dataOtherList addObjectsFromArray:content];
+            [dataOtherList addObjectsFromArray:content]; // 全部订单
             [weakSelf.pullTableView reloadData];
             [weakSelf refreshTable];
         }else{
             [weakSelf refreshTable];
         }
     }];
+
 }
 
 - (NSInteger) GetPagesWithDataArray:(NSArray *) array
@@ -86,7 +81,9 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [pullTableView reloadData];
+    if(isComment){
+    [self pullTableViewDidTriggerRefresh:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,6 +121,12 @@
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_tabBar(40)]-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
 }
 
+
+#pragma EvaluateOrderDelegate
+//- (void) NotifyReloadOrderInfo{
+//    [self pullTableViewDidTriggerRefresh:nil];
+//}
+
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     if(!isComment){
@@ -139,15 +142,6 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(!isComment){
-        
-        if(dataOnDoingList.count==0&&dataOtherList.count==0){
-            [self.pullTableView displayEmpityImageView:orderBackbroundImg];
-        }
-        else{
-            [self.pullTableView removeBackgroudImgView];
-            
-        }
-
      if(section == 0){
             if([dataOnDoingList count] > 0)
                 return [dataOnDoingList count];
@@ -158,13 +152,6 @@
             return [dataOtherList count];
     }
     else{
-        if(dataListForCom.count==0){
-            [self.pullTableView displayEmpityImageView:orderBackbroundImg];
-        }
-        else{
-            [self.pullTableView removeBackgroudImgView];
-
-        }
         return [dataListForCom count];
     }
 }
@@ -321,7 +308,7 @@
         __weak MyOrderListVC *weakSelf = self;
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
-                dataListForCom = [NSArray arrayWithArray:[MyOrderdataModel GetNoAssessmentOrderList]];
+                dataListForCom = [NSArray arrayWithArray:[MyOrderdataModel GetNoAssessmentOrderList]]; //评论中的订单
                 
                 [weakSelf.pullTableView reloadData];
                 [weakSelf refreshTable];
@@ -330,27 +317,8 @@
             }
         }];
     }else{
-        __weak MyOrderListVC *weakSelf = self;
-        [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderService isOnlyIndexSplit:NO block:^(int code, id content) {
-            if(code){
-                dataOnDoingList = content;
-                [weakSelf.pullTableView reloadData];
-                [weakSelf refreshTable];
-            }else{
-                [weakSelf refreshTable];
-            }
-        }];
         
-        [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
-            if(code){
-                [dataOtherList removeAllObjects];
-                [dataOtherList addObjectsFromArray:content];
-                [weakSelf.pullTableView reloadData];
-                [weakSelf refreshTable];
-            }else{
-                [weakSelf refreshTable];
-            }
-        }];
+        [self loadDataList];
     }
 }
 
@@ -419,6 +387,7 @@
 - (void) NotifyToCommentWithModel:(MyOrderdataModel *) order cell:(MyOrderTableCell *) cell
 {
     EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:order];
+    vc.delegate=(id)self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -431,6 +400,7 @@
 - (void) NotifyToCommentWithModel:(MyOrderdataModel *) order onDoingcell:(MyOrderOnDoingTableCell *) cell
 {
     EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:order];
+     vc.delegate=(id)self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

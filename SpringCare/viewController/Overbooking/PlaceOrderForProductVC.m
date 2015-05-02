@@ -180,7 +180,17 @@
         [alert show];
     }
     else{
-        [self submitWithloverId:_loverModel.userid];
+        if(_loverModel.userid==nil){
+            __weak PlaceOrderForProductVC *weakSelf = self;
+            [self newAttentionWithAddress:_loverModel.address block:^(int code, id content) {
+                if(code){
+                    if([content objectForKey:@"code"] == nil)
+                        [weakSelf submitWithloverId:@"message"];
+                }
+            }];
+        }
+        else
+            [self submitWithloverId:_loverModel.userid];
     }
 }
 
@@ -227,15 +237,9 @@
     __weak PlaceOrderForProductVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
         if(code){
-            if([content isKindOfClass:[NSDictionary class]]){
-                NSString *code = [content objectForKey:@"code"];
-                if(code == nil)
-                {
-                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                    MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
-                    [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
-                }
-            }
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+            MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+            [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
         }
     }];
 }

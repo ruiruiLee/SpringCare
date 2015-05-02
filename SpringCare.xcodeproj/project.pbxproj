@@ -517,8 +517,8 @@
 		86B8E5531AD4CC0F00A5139E /* EditCellTypeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCellTypeData.m; sourceTree = "<group>"; };
 		86B8E5551AD4CE0900A5139E /* EditUserTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserTableviewCell.h; sourceTree = "<group>"; };
 		86B8E5561AD4CE0900A5139E /* EditUserTableviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserTableviewCell.m; sourceTree = "<group>"; };
-		86B8E5581AD4E35B00A5139E /* MyOrderListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderListVC.h; sourceTree = "<group>"; };
-		86B8E5591AD4E35B00A5139E /* MyOrderListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderListVC.m; sourceTree = "<group>"; };
+		86B8E5581AD4E35B00A5139E /* MyOrderListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyOrderListVC.h; path = ../UserCenter/MyOrderListVC.h; sourceTree = "<group>"; };
+		86B8E5591AD4E35B00A5139E /* MyOrderListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyOrderListVC.m; path = ../UserCenter/MyOrderListVC.m; sourceTree = "<group>"; };
 		86B8E55B1AD4E3C100A5139E /* FeedBackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackVC.h; sourceTree = "<group>"; };
 		86B8E55C1AD4E3C100A5139E /* FeedBackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackVC.m; sourceTree = "<group>"; };
 		86B8E55E1AD4E8A200A5139E /* AttentionSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionSelectView.h; sourceTree = "<group>"; };
@@ -549,8 +549,8 @@
 		86B8E5A71AD690AB00A5139E /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderListModel.m; path = ../OrderListModel.m; sourceTree = "<group>"; };
 		86B8E5B31AD6A5ED00A5139E /* MyOrderOnDoingTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderOnDoingTableCell.h; sourceTree = "<group>"; };
 		86B8E5B41AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderOnDoingTableCell.m; sourceTree = "<group>"; };
-		86B8E5B61AD6ADFB00A5139E /* EvaluateOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateOrderVC.h; sourceTree = "<group>"; };
-		86B8E5B71AD6ADFB00A5139E /* EvaluateOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateOrderVC.m; sourceTree = "<group>"; };
+		86B8E5B61AD6ADFB00A5139E /* EvaluateOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluateOrderVC.h; path = ../UserCenter/EvaluateOrderVC.h; sourceTree = "<group>"; };
+		86B8E5B71AD6ADFB00A5139E /* EvaluateOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluateOrderVC.m; path = ../UserCenter/EvaluateOrderVC.m; sourceTree = "<group>"; };
 		86B8E5B91AD6B17600A5139E /* EvaluateOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateOrderCell.h; sourceTree = "<group>"; };
 		86B8E5BA1AD6B17600A5139E /* EvaluateOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateOrderCell.m; sourceTree = "<group>"; };
 		86B8E5BC1AD7729900A5139E /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
@@ -1195,14 +1195,10 @@
 				863C8E341AD29E81009D7496 /* UserAttentionTableCell.m */,
 				869C9EE51AD404F10090182E /* EditUserInfoVC.h */,
 				869C9EE61AD404F10090182E /* EditUserInfoVC.m */,
-				86B8E5581AD4E35B00A5139E /* MyOrderListVC.h */,
-				86B8E5591AD4E35B00A5139E /* MyOrderListVC.m */,
 				86B8E55B1AD4E3C100A5139E /* FeedBackVC.h */,
 				86B8E55C1AD4E3C100A5139E /* FeedBackVC.m */,
 				86B8E59A1AD65D1500A5139E /* UserSettingVC.h */,
 				86B8E59B1AD65D1500A5139E /* UserSettingVC.m */,
-				86B8E5B61AD6ADFB00A5139E /* EvaluateOrderVC.h */,
-				86B8E5B71AD6ADFB00A5139E /* EvaluateOrderVC.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -1371,6 +1367,10 @@
 				86B8E5DD1AD7EEF800A5139E /* PlaceOrderForProductVC.m */,
 				868B239C1ADF5B8A003AAD2A /* MyEvaluateListVC.h */,
 				868B239D1ADF5B8A003AAD2A /* MyEvaluateListVC.m */,
+				86B8E5B61AD6ADFB00A5139E /* EvaluateOrderVC.h */,
+				86B8E5B71AD6ADFB00A5139E /* EvaluateOrderVC.m */,
+				86B8E5581AD4E35B00A5139E /* MyOrderListVC.h */,
+				86B8E5591AD4E35B00A5139E /* MyOrderListVC.m */,
 				868B23A21ADF9537003AAD2A /* WorkAddressSelectVC.h */,
 				868B23A31ADF9537003AAD2A /* WorkAddressSelectVC.m */,
 				86B749781AE89A68000BA6DB /* CertBrowserVC.h */,

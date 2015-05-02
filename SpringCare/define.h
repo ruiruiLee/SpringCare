@@ -17,7 +17,6 @@
 
 #define NOTIFY_LOCATION_GAINED  @"NOTIFY_LOCATION_GAINED"
 #define NOTIFY_PICKVIEW_HIDDEN @"NOTIFY_PICKVIEW_HIDDEN"
-#define Notify_Comment_Changed @"Notify_Comment_Changed"
 #define Notify_Resign_First_Responder @"Notify_Resign_First_Responder"
 
 
