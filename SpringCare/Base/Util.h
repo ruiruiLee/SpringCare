@@ -115,4 +115,6 @@ typedef enum : NSUInteger {
 
 + (UIImage *)GetBtnBackgroundImage;
 
++ (BOOL) isDateShowFirstDate:(NSString *)date1 secondDate:(NSString *)date2;
+
 @end

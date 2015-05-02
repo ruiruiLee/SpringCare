@@ -245,7 +245,7 @@
     EscortTimeReplyDataModel *model = [_model.replyInfos objectAtIndex:indexPath.row];
      [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([cellDelegate respondsToSelector:@selector(commentButtonClick:ReplyName:ReplyID:)]) {
-        [cellDelegate commentButtonClick:self ReplyName:model.replyUserName ReplyID:model.guId];
+        [cellDelegate commentButtonClick:self ReplyName:model.replyUserName ReplyID:model.replyUserId];
     }
 }
 

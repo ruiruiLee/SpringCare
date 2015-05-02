@@ -297,6 +297,22 @@
     EscortTimeDataModel *data = [_dataList objectAtIndex:indexPath.row];
     [cell setContentData:data];
     
+    BOOL showTime = NO;
+    NSString *createAt = [Util StringFromDate:[NSDate date]];
+    if(indexPath.row > 0){
+        createAt = ((EscortTimeDataModel*)[_dataList objectAtIndex:indexPath.row - 1]).createAt;
+        showTime = [Util isDateShowFirstDate:createAt secondDate:data.createAt];
+    }else
+        showTime = YES;
+    
+    if (showTime) {
+        
+        cell._lbToday.text =  [Util convertTimetoBroadFormat:data.createDate]; //发布日期
+        cell._lbToday.hidden = NO;
+    }else{
+        cell._lbToday.hidden = YES;
+    }
+    
     return cell;
 }
 
@@ -353,6 +369,10 @@
         [self.view addSubview:_feedbackView.view];
 
     }
+    if(ReplyName != nil){
+        _feedbackView.feedbackTextField.placeholder = [NSString stringWithFormat:@"@%@:", ReplyName];
+    }else
+        _feedbackView.feedbackTextField.placeholder = @"我要回复";
  [_feedbackView.feedbackTextField becomeFirstResponder];
 }
 

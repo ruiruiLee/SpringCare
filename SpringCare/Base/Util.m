@@ -364,4 +364,11 @@
     return [image resizableImageWithCapInsets:inset ];
 }
 
++ (BOOL) isDateShowFirstDate:(NSString *)date1 secondDate:(NSString *)date2
+{
+    if([date1 isEqualToString:date2])
+        return YES;
+    return NO;
+}
+
 @end
