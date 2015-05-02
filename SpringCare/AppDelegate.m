@@ -131,14 +131,21 @@
         NSString *msg;
         if (error == nil) {
             NSLog(@"PingppError is nil");
-            msg = result;
+            if ([result isEqual:@"success"]) {
+                msg = @"支付成功！";
+            }
+            else{
+                msg = result;
+            }
+            
         } else {
             NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
             msg = [NSString stringWithFormat:@"result=%@ PingppError: code=%lu msg=%@", result, (unsigned long)error.code, [error getMsg]];
         }
         UIAlertView *mAlert =  [[UIAlertView alloc] initWithTitle:@"信息提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [mAlert show];
-
+        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+       
     }];
     return  YES;
 }

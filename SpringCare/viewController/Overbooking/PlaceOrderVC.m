@@ -324,7 +324,7 @@
     _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
     _btnInfo.titleLabel.font = _FONT(12);
     [_btnInfo setTitleColor:_COLOR(0x6b, 0x4e, 0x3e) forState:UIControlStateNormal];
-    NSString *title = [NSString stringWithFormat:@"%@ %d岁 护龄%@年", _nurseModel.birthPlace, _nurseModel.age, _nurseModel.careAge];
+    NSString *title = [NSString stringWithFormat:@"%@ %ld岁 护龄%@年", _nurseModel.birthPlace, (long)_nurseModel.age, _nurseModel.careAge];
     [_btnInfo setTitle:title  forState:UIControlStateNormal];
     _btnInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
@@ -424,6 +424,7 @@
     }
     else if (indexPath.section == 2){
         PayTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2" forIndexPath:indexPath];
+        cell.parentController = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;

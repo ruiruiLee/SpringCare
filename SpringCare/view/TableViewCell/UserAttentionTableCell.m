@@ -85,6 +85,7 @@
     return self;
 }
 
+
 - (void) InitConstraintsForiPhone5:(NSDictionary*) views
 {
     _btnphotoImg.layer.cornerRadius = 31;

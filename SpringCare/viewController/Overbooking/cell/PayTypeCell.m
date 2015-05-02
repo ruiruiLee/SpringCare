@@ -8,7 +8,7 @@
 
 #import "PayTypeCell.h"
 #import "define.h"
-
+#import "PlaceOrderVC.h"
 @implementation PayTypeItemCell
 @synthesize _btnSelect = _btnSelect;
 @synthesize _logoImage = _logoImage;
@@ -145,14 +145,18 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PlaceOrderVC *vc = (PlaceOrderVC*)self.parentController;
     if(indexPath.row == 0){
         [self setPaytype:EnumTypeAfter];
+        vc.payValue=nil;
     }
     else if (indexPath.row == 1){
         [self setPaytype:EnumTypeAlipay];
+         vc.payValue=@"alipay";
     }
     else{
         [self setPaytype:EnumTypeWechat];
+         vc.payValue=@"wx";
     }
     
     [_tableview reloadData];
