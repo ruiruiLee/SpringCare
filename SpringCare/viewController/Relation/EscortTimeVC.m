@@ -369,6 +369,9 @@
         [self.view addSubview:_feedbackView.view];
 
     }
+    if(ReplyName != nil){
+        _feedbackView.feedbackTextField.placeholder = [NSString stringWithFormat:@"@%@:", ReplyName];
+    }
  [_feedbackView.feedbackTextField becomeFirstResponder];
 }
 
