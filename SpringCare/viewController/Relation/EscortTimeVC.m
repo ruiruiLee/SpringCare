@@ -432,10 +432,10 @@
 
 -(void)changeParentViewFram:(int)newHeight
 {
-    newHeight=newHeight>0?newHeight-20:newHeight+20;
-    NSLog(@"%f",tableView.contentOffset.y);
-   [tableView setContentOffset:CGPointMake(0.0,tableView.contentOffset.y+ newHeight) animated:YES];
-     NSLog(@"%f",tableView.contentOffset.y);
+//    newHeight=newHeight>0?newHeight-50:newHeight+50;
+//    NSLog(@"%f",tableView.contentOffset.y);
+//   [tableView setContentOffset:CGPointMake(0.0,tableView.contentOffset.y+ newHeight) animated:YES];
+//     NSLog(@"%f",tableView.contentOffset.y);
 }
 #pragma AttentionSelectViewDelegat
 - (void) ViewSelectWithModel:(NSString*) loverID imagurl:(NSString*)imgUrl

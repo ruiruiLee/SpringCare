@@ -121,30 +121,30 @@
 {
     NSLog(@"%@", url);
     NSString *soapLength = [NSString stringWithFormat:@"%ld", (unsigned long)[params length]];
-    
     /**
      * 处理短时间内重复请求
      **/
 
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
     manager.securityPolicy.allowInvalidCertificates = YES;
-    [manager.requestSerializer setValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:soapLength forHTTPHeaderField:@"Content-Length"];
     NSError *error = nil;
     NSMutableURLRequest *request = [manager.requestSerializer requestWithMethod:@"POST" URLString:url parameters:nil error:&error];
     [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *response = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
-        
-//        [ProjectDefine removeRequestTag:path];
         NSLog(@"%@", response);
+        if (completion!=nil) {
+            completion(1, response);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *response = [[NSString alloc] initWithData:(NSData *)[operation responseObject] encoding:NSUTF8StringEncoding];
-        
-//        [ProjectDefine removeRequestTag:path];
         NSLog(@"%@", response);
+        if (completion!=nil) {
+            completion(0, response);
+        }
     }];
     [manager.operationQueue addOperation:operation];
 }

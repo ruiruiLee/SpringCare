@@ -45,7 +45,7 @@
     dataOtherList = [[NSMutableArray alloc] init];
     
     [self initSubView];
-    [self loadDataList];
+   // [self loadDataList];
    }
 
 -(void)loadDataList{
@@ -91,9 +91,9 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(isComment){
+    //if(isComment){
     [self pullTableViewDidTriggerRefresh:nil];
-    }
+    //}
 }
 
 - (void)didReceiveMemoryWarning {
@@ -389,7 +389,7 @@
         //待评价
         isComment = YES;
         if(dataListForCom == nil){
-            self.pullTableView.pullTableIsRefreshing = YES;
+            //self.pullTableView.pullTableIsRefreshing = YES;
             [self pullTableViewDidTriggerRefresh:nil];
         }
     }

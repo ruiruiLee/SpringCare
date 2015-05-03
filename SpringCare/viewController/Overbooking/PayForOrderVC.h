@@ -29,6 +29,7 @@
     UILabel *_lbPaytype;
     
     MyOrderdataModel *_OrderModel;
+    NSString *_payValue;
 }
 
 - (id) initWithModel:(MyOrderdataModel *) model;

@@ -54,7 +54,7 @@
 
 // 支付
 #define kUrlScheme      @"springcarepayschemes"
-#define kUrl            @"YOUR-URL"
+#define kUrl            @"http://springcare.avosapps.com/api/order/pay/getToken"
 
 
 //语音存放地址

@@ -270,7 +270,7 @@
     if (indexPath.section == 1){
         PayTypeForProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.parentController=self;
         return cell;
     }
     else{

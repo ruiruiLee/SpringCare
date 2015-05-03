@@ -36,5 +36,5 @@ typedef enum : NSUInteger {
 }
 
 @property (nonatomic, assign) PayType paytype;
-
+@property (nonatomic, retain) UIViewController *parentController;
 @end

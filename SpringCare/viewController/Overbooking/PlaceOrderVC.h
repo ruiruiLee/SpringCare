@@ -28,7 +28,7 @@
     
     HBImageViewList *_imageList;
 }
-
+@property (strong, nonatomic) NSString *payValue;
 - (id) initWithModel:(NurseListInfoModel*) model andproductId:(NSString*)productId;
 
 @end
