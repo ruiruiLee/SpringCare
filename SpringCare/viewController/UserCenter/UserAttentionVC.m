@@ -406,8 +406,7 @@
     }
     BOOL isMobile = [NSStrUtil isMobileNumber:phone];
     if(!isMobile){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"电话号码有误" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+        [Util showAlertMessage:@"电话号码有误！" ];
         return;
     }
     sender.userInteractionEnabled=false;
@@ -416,8 +415,7 @@
          sender.userInteractionEnabled=true;
         [_searchBar resignFirstResponder];
         if (code) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"申请已经发送！"  delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+             [Util showAlertMessage:@"申请已经发送！" ];
         }
         
     }];

@@ -67,7 +67,7 @@
 #define ThemeImage(imageName)  [UIImage imageNamed:imageName]
 
 //首页海报图片压缩比例大小
-#define imgCoverSize CGSizeMake(750, 508)
+//#define imgCoverSize CGSizeMake(750, 508)
 #define imgHeaderSize CGSizeMake(200, 200)
 
 

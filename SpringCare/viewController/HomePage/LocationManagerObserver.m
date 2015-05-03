@@ -57,8 +57,7 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     NSLog(@"didChangeAuthorizationStatus---%u",status);
     if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请在设置［隐私］里打开" message:@"定位服务已经关闭" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-         [alert show];
+        [Util showAlertMessage:@"定位服务已经关闭,请在设置［隐私］里打开!" ];
      }
 }
 

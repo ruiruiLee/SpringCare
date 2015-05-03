@@ -317,7 +317,7 @@
             [_btnStatus setBackgroundImage:image forState:UIControlStateNormal];
         }else if(data.orderStatus == EnumOrderStatusTypeNew){
             _imgLogo.hidden = YES;
-            [_btnStatus setTitle:@"待确定" forState:UIControlStateNormal];
+            [_btnStatus setTitle:@"确定中" forState:UIControlStateNormal];
             [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
 //            [_btnPay setTitle:@"去付款" forState:UIControlStateNormal];
             _btnPay.hidden = YES;

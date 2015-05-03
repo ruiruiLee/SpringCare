@@ -247,11 +247,9 @@
             [weakSelf TimerOutTimer];
 //            _btnLogin.enabled = YES;
 //            [_btnLogin setBackgroundImage:[Util imageWithColor:Abled_Color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"验证码已发送" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            [Util showAlertMessage:@"验证码已发送!" ];
         }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"服务器错误，稍后再试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            [Util showAlertMessage:@"服务器错误，稍后再试!" ];
         }
     }];
 }
@@ -270,8 +268,8 @@
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }
         else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入正确的验证码！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+
+             [Util showAlertMessage:@"请输入正确的验证码！" ];
         }
     }];
 }

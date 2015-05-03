@@ -116,5 +116,6 @@ typedef enum : NSUInteger {
 + (UIImage *)GetBtnBackgroundImage;
 
 + (BOOL) isDateShowFirstDate:(NSString *)date1 secondDate:(NSString *)date2;
-
++ (void)showAlertMessage:(NSString*)msg;
++ (void)PayForOrders:(NSDictionary*) dict Controller:(UIViewController*)weakSelf;
 @end
