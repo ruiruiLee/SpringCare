@@ -42,6 +42,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) NSInteger commentsRate;
 @property (nonatomic, assign) NSInteger commentsNumber;
 
+@property (nonatomic, strong) NSArray *certList;
+
 //详细资料
 @property (nonatomic, assign) BOOL isLoadDetail;
 
@@ -50,6 +52,12 @@ typedef enum : NSUInteger {
 + (NSDictionary*) PramaNurseDic;
 
 + (NurseListInfoModel*)objectFromDictionary:(NSDictionary*) dic;
+
+/**
+ * 获取证书信息
+ *
+ */
+- (void) LoadBaseInfoWithBlock:(block) block;
 
 /**
  * 通过页数来获取数据

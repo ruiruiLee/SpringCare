@@ -55,8 +55,14 @@ static NSMutableArray *newsArray = nil;
         if([dic isKindOfClass:[NSDictionary class]]){
             NewsDataModel *model = [[NewsDataModel alloc] init];
             model.image_url = [dic objectForKey:@"imageUrl"];
+            if(model.image_url == nil)
+                model.image_url = @"";
             model.news_title = [dic objectForKey:@"newsTitle"];
+            if(model.news_title == nil)
+                model.news_title = @"";
             model.news_url = [dic objectForKey:@"url"];
+            if(model.news_url == nil)
+                model.news_url = @"";
             [newsArray addObject:model];
         }
     }

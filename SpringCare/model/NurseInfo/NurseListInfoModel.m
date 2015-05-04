@@ -246,4 +246,22 @@ static NSInteger nurseTotal = 0;
     }];
 }
 
+- (void) LoadBaseInfoWithBlock:(block) block
+{
+    NSDictionary *prama = @{@"careId":self.nid};
+    __weak NurseListInfoModel *weakSelf = self;
+    [LCNetWorkBase postWithMethod:@"api/care/BaseInfo" Params:prama Completion:^(int code, id content) {
+        if(code == 1){
+            if([content isKindOfClass:[NSDictionary class]]){
+                if([content objectForKey:@"code"] == nil){
+                    
+                }
+            }
+        }
+        if(code){
+            block(code);
+        }
+    }];
+}
+
 @end

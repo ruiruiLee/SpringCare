@@ -60,10 +60,10 @@
    //if([UserModel sharedUserInfo].isLogin){
         [_nurseModel loadetailDataWithproductId:productId block:^(id content) {
 
-         NSDictionary *dic = [content objectForKey:@"care"];
+        NSDictionary *dic = [content objectForKey:@"care"];
         weaknurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
         weaknurseModel.isLoadDetail=YES;
-          NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
+        NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
         if (dicLover.count>0) {
             weakSelf._loverModel =  [[UserAttentionModel alloc] init];
             weakSelf._loverModel.userid = [dicLover objectForKey:@"id"];

@@ -106,7 +106,7 @@ static CGFloat const chageImageTime = 3.0;
 - (void) clickPageImage:(UIButton*)sender
 {
         NSLog(@"%ld",(long)sender.tag);
-    if (titleUrlarray!=nil) {
+    if (titleUrlarray!=nil && [titleUrlarray[sender.tag] length] > 0) {
         WebContentVC *vc = [[WebContentVC alloc] initWithTitle:titleArray[sender.tag]==nil?@"详情":titleArray[sender.tag] url:titleUrlarray[sender.tag]];
         vc.hidesBottomBarWhenPushed = YES;
         [vc loadInfoFromUrl:titleUrlarray[sender.tag] ];
