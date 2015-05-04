@@ -66,7 +66,8 @@
              UIRemoteNotificationTypeAlert |
              UIRemoteNotificationTypeSound];
         }
-#endif        // 引导界面展示
+#endif       
+        // 引导界面展示
         // [_rootTabController showIntroWithCrossDissolve];
         
     }

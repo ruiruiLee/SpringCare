@@ -109,7 +109,8 @@
     }
     else{
         //[dateFormatter setDateFormat:NSLocalizedString(@"MD",nil)];
-        [dateFormatter setDateFormat:@"dd/MM"];
+         //[dateFormatter setDateFormat:@"MM-dd"];
+         [dateFormatter setDateFormat:@"dd/MM"];
         result = [dateFormatter stringFromDate:compareDate];
     }
     return  result;

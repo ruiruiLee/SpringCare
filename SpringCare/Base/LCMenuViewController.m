@@ -149,7 +149,7 @@
         NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(96)]-4-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
         _btnHotLine.titleLabel.font = _FONT(13);
-        _btnUserName.titleLabel.font = _FONT(14);
+        _btnUserName.titleLabel.font = _FONT(15);
     }
     else if (type == EnumValueTypeiPhone5)
     {
@@ -160,7 +160,7 @@
         NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(96)]-4-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
         _btnHotLine.titleLabel.font = _FONT(13);
-        _btnUserName.titleLabel.font = _FONT(14);
+        _btnUserName.titleLabel.font = _FONT(15);
     }
     else if(type == EnumValueTypeiPhone6){
         [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];

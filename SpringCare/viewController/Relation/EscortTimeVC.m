@@ -178,11 +178,12 @@
             if([content objectForKey:@"defaultLoverId"] != nil)
             {
                 _currentLoverId = [content objectForKey:@"defaultLoverId"];
-                [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+                [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId previousDate:previousDate pages:pages block:^(int code, id content) {
                     if(code)
                     {
                         [_dataList removeAllObjects];
                         [_dataList addObjectsFromArray:content];
+                         previousDate = [(EscortTimeDataModel*)_dataList[_dataList.count-1] createDate];
                         [weakSelf.tableView reloadData];
                     }
                     
@@ -297,22 +298,6 @@
     EscortTimeDataModel *data = [_dataList objectAtIndex:indexPath.row];
     [cell setContentData:data];
     
-//    BOOL showTime = NO;
-//    NSString *createAt = [Util StringFromDate:[NSDate date]];
-//    if(indexPath.row > 0){
-//        createAt = ((EscortTimeDataModel*)[_dataList objectAtIndex:indexPath.row - 1]).createAt;
-//        showTime = [Util isDateShowFirstDate:createAt secondDate:data.createAt];
-//    }else
-//        showTime = YES;
-//    
-//    if (showTime) {
-//        
-//        cell._lbToday.text =  [Util convertTimetoBroadFormat:data.createDate]; //发布日期
-//        cell._lbToday.hidden = NO;
-//    }else{
-//        cell._lbToday.hidden = YES;
-//    }
-//    
     return cell;
 }
 
@@ -441,17 +426,19 @@
 - (void) ViewSelectWithModel:(NSString*) loverID imagurl:(NSString*)imgUrl
 {
     pages=0;
+    previousDate=nil;
     [self SelectWiewDismiss];
     _currentLoverId=loverID;
     self.tableView.pullTableIsRefreshing = YES;
     [self LoadDefaultDoctorInfo:loverID]; // 获取护工信息
     [self.btnRight sd_setImageWithURL:[NSURL URLWithString:imgUrl] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
 
-    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+    [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId previousDate:previousDate pages:pages block:^(int code, id content) {
         if(code)
         {
             [_dataList removeAllObjects];
             [_dataList addObjectsFromArray:content];
+             previousDate = [(EscortTimeDataModel*)_dataList[_dataList.count-1] createDate];
             [tableView reloadData];
         }
 
@@ -480,12 +467,14 @@
 {
     if([UserModel sharedUserInfo].isLogin){
         pages = 0;
+        previousDate=nil;
 //        [self loadDataList:_currentLoverId];
-        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId previousDate:previousDate pages:pages block:^(int code, id content) {
             if(code)
             {
                 [_dataList removeAllObjects];
                 [_dataList addObjectsFromArray:content];
+                 previousDate = [(EscortTimeDataModel*)_dataList[_dataList.count-1] createDate];
                 [tableView reloadData];
             }
         }];
@@ -498,10 +487,12 @@
 {
      if([UserModel sharedUserInfo].isLogin){
         pages ++;
-        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
+        [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId previousDate:previousDate pages:pages block:^(int code, id content) {
             if([(NSArray*)content count]>0)
             {
                 [_dataList addObjectsFromArray:content];
+                
+                previousDate = [(EscortTimeDataModel*)_dataList[_dataList.count-1] createDate];
                 [tableView reloadData];
             }
         }];
