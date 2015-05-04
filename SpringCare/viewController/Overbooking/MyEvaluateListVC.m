@@ -46,6 +46,7 @@
     self.tableview.pullTableIsRefreshing = YES;
     [_careModel LoadCommentListWithPages:pages isOnlySplit:NO block:^(int code, id content) {
         if(code){
+            [weakSelf.DataList removeAllObjects];
             [weakSelf.DataList addObjectsFromArray:content];
             [weakSelf.tableview reloadData];
             
@@ -61,7 +62,7 @@
 - (void) reSetHeaderView
 {
 //    lbTitle.text = @"累计评价36（好评80%）";
-    NSString *text = [NSString stringWithFormat:@"累计评价%ld（好评%@%@）", _careModel.commentsNumber, _careModel.commentsRate, @"%"];
+    NSString *text = [NSString stringWithFormat:@"累计评价%d（好评%@%@）", _careModel.commentsNumber, _careModel.commentsRate, @"%"];
     lbTitle.text = text;
 }
 
@@ -145,28 +146,25 @@
 
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
-    pages = 0;
-    
     __weak MyEvaluateListVC *weakSelf = self;
-    [_careModel LoadCommentListWithPages:pages isOnlySplit:NO block:^(int code, id content) {
+    [_careModel LoadCommentListWithPages:0 isOnlySplit:NO block:^(int code, id content) {
         if(code){
+            pages = 0;
             [weakSelf.DataList removeAllObjects];
             [weakSelf.DataList addObjectsFromArray:content];
             [weakSelf.tableview reloadData];
         }
         [weakSelf reSetHeaderView];
-//        [weakSelf refreshTable];
         [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.1];
     }];
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
 {
-    pages ++;
-    
     __weak MyEvaluateListVC *weakSelf = self;
-    [_careModel LoadCommentListWithPages:pages isOnlySplit:YES block:^(int code, id content) {
+    [_careModel LoadCommentListWithPages:pages + 1 isOnlySplit:YES block:^(int code, id content) {
         if(code){
+            pages ++;
             [weakSelf.DataList addObjectsFromArray:content];
             [weakSelf.tableview reloadData];
         }

@@ -17,6 +17,7 @@
     UILabel *lbTitle;
     
     NSInteger pages;
+    NSInteger totals;
     
     CareEvaluateInfoModel *_careModel;
 }

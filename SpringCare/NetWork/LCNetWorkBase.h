@@ -7,9 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AFNetworking.h>
+
 typedef void(^Completion) (int code, id content);
 
 @interface LCNetWorkBase : NSObject
+
+@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 
 + (id)sharedLCNetWorkBase;
 
