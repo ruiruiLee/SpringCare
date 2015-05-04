@@ -271,8 +271,8 @@
     
     if(prototypeCell == nil){
         prototypeCell = [[EscortTimeTableCell alloc] initWithReuseIdentifier:@"cell" blocks:^(int index) {
-            NSString *itemId = ((EscortTimeDataModel*)[[EscortTimeDataModel GetEscortTimeData] objectAtIndex:index]).itemId;
-            [self replyContentWithId:itemId];
+//            NSString *itemId = ((EscortTimeDataModel*)[[EscortTimeDataModel GetEscortTimeData] objectAtIndex:index]).itemId;
+//            [self replyContentWithId:itemId];
         }];
         prototypeCell.cellDelegate = self;
         prototypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -287,8 +287,8 @@
     cell = [_tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(cell == nil){
         cell = [[EscortTimeTableCell alloc] initWithReuseIdentifier:@"cell" blocks:^(int index) {
-            NSString *itemId = ((EscortTimeDataModel*)[[EscortTimeDataModel GetEscortTimeData] objectAtIndex:index]).itemId;
-            [self replyContentWithId:itemId];
+//            NSString *itemId = ((EscortTimeDataModel*)[[EscortTimeDataModel GetEscortTimeData] objectAtIndex:index]).itemId;
+//            [self replyContentWithId:itemId];
         }];
         cell.cellDelegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -297,29 +297,29 @@
     EscortTimeDataModel *data = [_dataList objectAtIndex:indexPath.row];
     [cell setContentData:data];
     
-    BOOL showTime = NO;
-    NSString *createAt = [Util StringFromDate:[NSDate date]];
-    if(indexPath.row > 0){
-        createAt = ((EscortTimeDataModel*)[_dataList objectAtIndex:indexPath.row - 1]).createAt;
-        showTime = [Util isDateShowFirstDate:createAt secondDate:data.createAt];
-    }else
-        showTime = YES;
-    
-    if (showTime) {
-        
-        cell._lbToday.text =  [Util convertTimetoBroadFormat:data.createDate]; //发布日期
-        cell._lbToday.hidden = NO;
-    }else{
-        cell._lbToday.hidden = YES;
-    }
-    
+//    BOOL showTime = NO;
+//    NSString *createAt = [Util StringFromDate:[NSDate date]];
+//    if(indexPath.row > 0){
+//        createAt = ((EscortTimeDataModel*)[_dataList objectAtIndex:indexPath.row - 1]).createAt;
+//        showTime = [Util isDateShowFirstDate:createAt secondDate:data.createAt];
+//    }else
+//        showTime = YES;
+//    
+//    if (showTime) {
+//        
+//        cell._lbToday.text =  [Util convertTimetoBroadFormat:data.createDate]; //发布日期
+//        cell._lbToday.hidden = NO;
+//    }else{
+//        cell._lbToday.hidden = YES;
+//    }
+//    
     return cell;
 }
 
-- (void) replyContentWithId:(NSString*)itemId
-{
-//    _currentAttentionId = itemId;
-}
+//- (void) replyContentWithId:(NSString*)itemId
+//{
+////    _currentAttentionId = itemId;
+//}
 
 
 - (void) RightButtonClicked:(id)sender

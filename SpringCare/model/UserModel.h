@@ -18,7 +18,7 @@
 //@property (nonatomic, strong) NSString *email;
 //@property (nonatomic, strong) NSString *sessionToken;
 @property (nonatomic, strong) NSString *username;
-//@property (nonatomic, assign) BOOL isNew;
+@property (nonatomic, assign) BOOL isNew;
 @property (nonatomic, strong) NSString *headerFile;
 @property (nonatomic, strong) NSString *userId;//用户id
 
