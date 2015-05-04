@@ -16,6 +16,9 @@
 #import "EvaluateOrderVC.h"
 
 @interface MyOrderListVC ()<MyOrderOnDoingTableCellDelegate, MyOrderTableCellDelegate, OrderDetailsVCDelegate>
+{
+    int loadCount;
+}
 
 @property (nonatomic, strong) MyOrderTableCell *prototypeCell;
 
@@ -48,10 +51,15 @@
 -(void)loadDataList{
       [dataOtherList removeAllObjects];
     __weak MyOrderListVC *weakSelf = self;
+    
+    loadCount = 2;
+    
     [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderService isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
             dataOnDoingList = content; // 正在进行中的订单
-            [weakSelf.pullTableView reloadData];
+            loadCount -- ;
+            if(loadCount == 0)
+                [weakSelf.pullTableView reloadData];
             [weakSelf refreshTable];
         }else{
             [weakSelf refreshTable];
@@ -61,7 +69,9 @@
     [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
             [dataOtherList addObjectsFromArray:content]; // 全部订单
-            [weakSelf.pullTableView reloadData];
+            loadCount -- ;
+            if(loadCount == 0)
+                [weakSelf.pullTableView reloadData];
             [weakSelf refreshTable];
         }else{
             [weakSelf refreshTable];
@@ -165,12 +175,16 @@
     MyOrderdataModel *model = nil;//[[dataList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     if(!isComment){
         if(indexPath.section == 0){
-            if([dataOnDoingList count] == 0)
-                model = [dataOtherList objectAtIndex:indexPath.row];
-            else
+            if([dataOnDoingList count] == 0){
+                if([dataOtherList count] > indexPath.row)
+                    model = [dataOtherList objectAtIndex:indexPath.row];
+            }
+            else{
                 model = [dataOnDoingList objectAtIndex:indexPath.row];
+            }
         }else
-            model = [dataOtherList objectAtIndex:indexPath.row];
+            if([dataOtherList count] > indexPath.row)
+                model = [dataOtherList objectAtIndex:indexPath.row];
     }else
         model = [dataListForCom objectAtIndex:indexPath.row];
     MyOrderTableCell *cell = (MyOrderTableCell *)self.prototypeCell;
@@ -211,8 +225,10 @@
                 cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
 
             }
-            MyOrderdataModel *model = [dataOtherList objectAtIndex:indexPath.row];
-            [cell SetContentData:model];
+            if([dataOtherList count] > indexPath.row){
+                MyOrderdataModel *model = [dataOtherList objectAtIndex:indexPath.row];
+                [cell SetContentData:model];
+            }
             cell.delegate = self;
             return cell;
         }
@@ -238,12 +254,17 @@
     }
     else{
         if(indexPath.section == 0){
-            if([dataOnDoingList count] == 0)
-                model = [dataOtherList objectAtIndex:indexPath.row];
-            else
-                model = [dataOnDoingList objectAtIndex:indexPath.row];
+            if([dataOnDoingList count] == 0){
+                if([dataOtherList count] > indexPath.row)
+                    model = [dataOtherList objectAtIndex:indexPath.row];
+            }
+            else{
+                if([dataOtherList count] > indexPath.row)
+                    model = [dataOnDoingList objectAtIndex:indexPath.row];
+            }
         }else{
-            model = [dataOtherList objectAtIndex:indexPath.row];
+            if([dataOtherList count] > indexPath.row)
+                model = [dataOtherList objectAtIndex:indexPath.row];
         }
     }
 //    [model addObserver:self forKeyPath:@"orderStatus" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];

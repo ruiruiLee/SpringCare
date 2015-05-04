@@ -61,7 +61,7 @@
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_bgView, _photoImgV, _lbTitle, _lbExplain);
     
-    CGFloat multiplier = 299.0 / (323.0 * 2);
+    CGFloat multiplier = 0.5;//299.0 / (323.0 * 2);
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_bgView]-26-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_bgView]-10-|" options:0 metrics:nil views:views]];
