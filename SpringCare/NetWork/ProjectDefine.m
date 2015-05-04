@@ -74,8 +74,7 @@ BOOL isFromSelf = NO;
 
 +(void)showMessageAutoHide:(NSString*)string
 {
-//    UIAlertView *AlertView = [[UIAlertView alloc] initWithTitle:@"提示" message:string delegate:nil cancelButtonTitle:@"確定" otherButtonTitles:nil, nil];
-//    [AlertView show];
+
 }
 
 +(void)showMessage:(NSString*)string

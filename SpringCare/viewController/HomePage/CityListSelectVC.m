@@ -139,8 +139,7 @@
         CityListCell *cell = (CityListCell *)[tableView cellForRowAtIndexPath:indexPath];
         CityDataModel *model =  [CityDataModel modelWithName:cell.lbTitle.text];
          if (model==nil) {
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"友情提示" message:@"对不起,您所在的城市目前暂时还不在我们的服务范围内" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-             [alert show];
+             [Util showAlertMessage:@"对不起,您所在的城市目前暂时还不在我们的服务范围内" ];
          }
          else{
               [cfAppDelegate setCurrentCityModel:model];

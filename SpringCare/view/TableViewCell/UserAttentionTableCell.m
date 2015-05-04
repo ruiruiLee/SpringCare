@@ -167,9 +167,7 @@
         [alertView show];
     }
     else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您没有设置电话号码！" message:@"" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alertView show];
-
+       [Util showAlertMessage:@"您没有设置电话号码！" ];
     }
    
 }

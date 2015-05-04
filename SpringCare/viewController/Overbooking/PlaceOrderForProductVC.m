@@ -168,16 +168,9 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         [self.navigationController presentViewController:nav animated:YES completion:nil];
     }
-    else if( !_loverModel){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        
-        [alert show];
+    else if( !_loverModel||!_loverModel.address||[_loverModel.address isEqual:@""]){
+          [Util showAlertMessage:@"请选择陪护地址！" ];
         return;
-    }
-    else if(!_loverModel.address||[_loverModel.address isEqual:@""]){
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择陪护地址！" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
     }
     else{
         if(_loverModel.userid==nil){
@@ -196,15 +189,20 @@
 
 - (void) submitWithloverId:(NSString*)loverId
 {
+    if (self.payValue!=nil) {
+        NSLog(@"charge = %@", self.payValue);
+    }
     PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     if(editcell.lbTitle.text == nil || [editcell.lbTitle.text length] < 10){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请选择订单开始时间！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+        [Util showAlertMessage:@"请选择订单开始时间！" ];
         return;
     }
-    
+    if([cfAppDelegate currentCityModel].city_id ==nil){
+        [Util showAlertMessage:@"定位失败，请选择所在服务城市！" ];
+        return;
+    }
     NSMutableDictionary *Params = [[NSMutableDictionary alloc] init];
     [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
 //    [Params setObject:_loverModel.userid forKey:@"loverId"];
@@ -236,10 +234,20 @@
     
     __weak PlaceOrderForProductVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
-        if(code){
-            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
-            [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+        NSString *orderID = [content objectForKey:@"message"];
+        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+        MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+        [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+        if(orderID != nil &&self.payValue!=nil)
+        {
+            // 付款
+            MyOrderListVC * __weak weakSelf = vc;
+            NSDictionary* dict = @{
+                                   @"channel" : self.payValue,
+                                   @"amount"  : [NSString stringWithFormat:@"%@", [Params objectForKey:@"totalPrice"]],
+                                   @"orderId":orderID
+                                   };
+            [Util PayForOrders:dict Controller:weakSelf];
         }
     }];
 }

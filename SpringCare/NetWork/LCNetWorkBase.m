@@ -10,7 +10,7 @@
 
 #import <AFNetworking.h>
 #import "SBJson.h"
-#import "ProjectDefine.h"
+//#import "ProjectDefine.h"
 
 //#define SERVER_ADDRESS @"http://spring.avosapps.com/"
 #define SERVER_ADDRESS @"http://springcare.avosapps.com/"

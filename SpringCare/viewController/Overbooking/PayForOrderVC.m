@@ -9,7 +9,6 @@
 #import "PayForOrderVC.h"
 #import "PayTypeCell.h"
 #import "define.h"
-#import "Pingpp.h"
 #import "UIImageView+WebCache.h"
 
 @interface PayForOrderVC ()
@@ -283,49 +282,50 @@
     [_tableview reloadData];
 }
 
-- (void)showAlertMessage:(NSString*)msg
-{
-    UIAlertView * mAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定"  otherButtonTitles:nil, nil];
-    [mAlert show];
-}
+//- (void)showAlertMessage:(NSString*)msg
+//{
+//    UIAlertView * mAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定"  otherButtonTitles:nil, nil];
+//    [mAlert show];
+//}
 
 - (void)btnSubmitClicked:(UIButton*) sender{
     if (_payValue==nil) {
-        [self showAlertMessage:@"请选择支付方式！"];
+        [Util showAlertMessage:@"请选择支付方式！"];
         return;
     }
-    sender.userInteractionEnabled=false;
+   // sender.userInteractionEnabled=false;
     PayForOrderVC * __weak weakSelf = self;
     NSDictionary* dict = @{
                            @"channel" : _payValue,
                            @"amount"  : [NSString stringWithFormat:@"%ld", (long)_OrderModel.totalPrice],
                            @"orderId":_OrderModel.oId
                            };
-    NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *bodyData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    [LCNetWorkBase postWithParams:bodyData  Url:kUrl Completion:^(int code, id content) {
-        if(code){
-             NSLog(@"charge = %@", content);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [Pingpp createPayment:(NSString*)content viewController:weakSelf appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
-                    NSLog(@"completion block: %@", result);
-                     sender.userInteractionEnabled=true;
-                    if (error == nil) {
-                        NSLog(@"PingppError is nil");
-                         [weakSelf showAlertMessage:@"支付成功！"];
-                    } else {
-                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
-                         [weakSelf showAlertMessage: [NSString stringWithFormat:@"支付失败(%@)",[error getMsg]]];
-                    }
-                 
-                }];
-            });
-        }
-        else{
-              sender.userInteractionEnabled=true;
-            [weakSelf showAlertMessage:@"支付失败，服务器链接错误！"];
-
-        }
-    }];
+    [Util PayForOrders:dict Controller:weakSelf];
+//    NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+//    NSString *bodyData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//    [LCNetWorkBase postWithParams:bodyData  Url:kUrl Completion:^(int code, id content) {
+//        if(code){
+//             NSLog(@"charge = %@", content);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [Pingpp createPayment:(NSString*)content viewController:weakSelf appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
+//                    NSLog(@"completion block: %@", result);
+//                     sender.userInteractionEnabled=true;
+//                    if (error == nil) {
+//                        NSLog(@"PingppError is nil");
+//                         [weakSelf showAlertMessage:@"支付成功！"];
+//                    } else {
+//                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+//                         [weakSelf showAlertMessage: [NSString stringWithFormat:@"支付失败(%@)",[error getMsg]]];
+//                    }
+//                 
+//                }];
+//            });
+//        }
+//        else{
+//              sender.userInteractionEnabled=true;
+//            [weakSelf showAlertMessage:@"支付失败，服务器链接错误！"];
+//
+//        }
+//    }];
 }
 @end

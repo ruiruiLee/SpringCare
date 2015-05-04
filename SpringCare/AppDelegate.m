@@ -142,8 +142,7 @@
             NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
             msg = [NSString stringWithFormat:@"result=%@ PingppError: code=%lu msg=%@", result, (unsigned long)error.code, [error getMsg]];
         }
-        UIAlertView *mAlert =  [[UIAlertView alloc] initWithTitle:@"信息提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [mAlert show];
+        [Util showAlertMessage:msg];
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
        
     }];
