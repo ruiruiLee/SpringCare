@@ -53,6 +53,7 @@
     
     self.NavigationBar.Title = @"下 单";
     
+    
     [self initSubviews];
     
     __weak PlaceOrderVC *weakSelf = self;
@@ -63,6 +64,7 @@
         NSDictionary *dic = [content objectForKey:@"care"];
         weaknurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
         weaknurseModel.isLoadDetail=YES;
+        weaknurseModel.certList = [dic objectForKey:@"certList"];
         NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
         if (dicLover.count>0) {
             weakSelf._loverModel =  [[UserAttentionModel alloc] init];
@@ -283,6 +285,10 @@
         CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         headerView.frame = CGRectMake(0, 0, ScreenWidth, size.height + 1);
         
+        if(_nurseModel.certList != nil && [_nurseModel.certList count] > 0){
+            _btnCert.hidden = NO;
+        }
+        
         _tableview.tableHeaderView = headerView;
     }
 }
@@ -311,6 +317,7 @@
     _btnCert.translatesAutoresizingMaskIntoConstraints = NO;
     [_btnCert setImage:[UIImage imageNamed:@"placeoredercert"] forState:UIControlStateNormal];
     [_btnCert addTarget:self action:@selector(lookImageAction:) forControlEvents:UIControlEventTouchUpInside];
+    _btnCert.hidden = YES;
     
     _imgvLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_imgvLogo];
@@ -516,7 +523,7 @@
     NSLog(@"lookImageAction");
     _imageList = [[HBImageViewList alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [_imageList addTarget:self tapOnceAction:@selector(dismissImageAction:)];
-    [_imageList addImagesURL:nil withSmallImage:nil];
+    [_imageList addImagesURL:_nurseModel.certList withSmallImage:nil];
     [self.view.window addSubview:_imageList];
 }
 
