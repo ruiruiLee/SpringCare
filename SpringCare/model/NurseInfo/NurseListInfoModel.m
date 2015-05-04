@@ -238,6 +238,8 @@ static NSInteger nurseTotal = 0;
 //- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block
 - (void) loadetailDataWithproductId:(NSString*)productId block:(void(^)(id content))block
 {
+//    [self LoadBaseInfoWithBlock:nil];
+    
     NSDictionary *prama = @{@"registerId":[UserModel sharedUserInfo].userId, @"careId":self.nid, @"productId":productId};
     [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
         if(code){
@@ -254,11 +256,11 @@ static NSInteger nurseTotal = 0;
         if(code == 1){
             if([content isKindOfClass:[NSDictionary class]]){
                 if([content objectForKey:@"code"] == nil){
-                    
+                    weakSelf.certList = [content objectForKey:@"certList"];
                 }
             }
         }
-        if(code){
+        if(block){
             block(code);
         }
     }];
