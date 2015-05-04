@@ -45,10 +45,10 @@
         __weak WorkAddressSelectVC *weakSelf = self;
         [UserAttentionModel loadLoverList:@"true" block:^(int code) {
             if(code == 1){
-                _dataList = [UserAttentionModel GetMyAttentionArray];
+                _dataList = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];//[UserAttentionModel GetMyAttentionArray];
                 [weakSelf._tableview reloadData];
             }
-            [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+            [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
         }];
     }
 }
@@ -102,7 +102,8 @@
     [refreshView startAnimatingWithScrollView:_tableview];
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {
         if(code){
-            _dataList = [UserAttentionModel GetMyAttentionArray];
+//            _dataList = [UserAttentionModel GetMyAttentionArray];
+            _dataList = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];
             if([loveID isEqual: @"Add"]){
                 if([_dataList count] > 0){
                      SelectModel = _dataList[0];
@@ -115,7 +116,7 @@
             [weakSelf._tableview reloadData];
         }
         
-        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
     }];
 }
 
@@ -296,11 +297,12 @@
     __weak WorkAddressSelectVC *weakSelf = self;
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {
         if(code == 1){
-            _dataList = [UserAttentionModel GetMyAttentionArray];
+//            _dataList = [UserAttentionModel GetMyAttentionArray];
+            _dataList = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];
             [weakSelf._tableview reloadData];
         }
         
-        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
     }];
     
 }

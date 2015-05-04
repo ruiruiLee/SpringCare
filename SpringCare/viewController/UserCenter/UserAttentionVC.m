@@ -57,18 +57,13 @@
         [refreshView startAnimatingWithScrollView:_tableview];
         [UserAttentionModel loadLoverList:@"true" block:^(int code) {
             if(code == 1){
-                _attentionData = [UserAttentionModel GetMyAttentionArray];
-                _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+                _attentionData = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];//[UserAttentionModel GetMyAttentionArray];
+                _applyData = [[NSMutableArray alloc] initWithArray:[UserRequestAcctionModel GetRequestAcctionArray]];//[UserRequestAcctionModel
                 [weakSelf._tableview reloadData];
             }
-            [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+            [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
         }];
     }
-}
-
-- (void) LoadLoverList
-{
-    
 }
 
 - (void) NavRightButtonClickEvent:(UIButton *)sender
@@ -505,11 +500,11 @@
     __weak UserAttentionVC *weakSelf = self;
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {
         if(code == 1){
-            _attentionData = [UserAttentionModel GetMyAttentionArray];
-            _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+            _attentionData = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];//[UserAttentionModel GetMyAttentionArray];
+            _applyData = [[NSMutableArray alloc] initWithArray:[UserRequestAcctionModel GetRequestAcctionArray]];//[UserRequestAcctionModel GetRequestAcctionArray];
             [weakSelf._tableview reloadData];
         }
-        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
     }];
 
 }
