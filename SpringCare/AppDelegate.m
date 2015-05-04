@@ -8,15 +8,13 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
-//#import "LCRefreshTableVC.h"
-//#import "ProjectDefine.h"
 #import "LCMenuViewController.h"
 #import "SliderViewController.h"
 #import "Pingpp.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 
-//#import "IQKeyboardManager.h"
+
 
 
 #define AVOSCloudAppID  @"26x0xztg3ypms8o4ou42lxgk3gg6hl2rm6z9illft1pkoigh"
@@ -43,25 +41,6 @@
                       clientKey:AVOSCloudAppKey];
     //统计应用启动情况
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
-#if !TARGET_IPHONE_SIMULATOR
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert
-                                                | UIUserNotificationTypeBadge
-                                                | UIUserNotificationTypeSound
-                                                                                 categories:nil];
-        [application registerUserNotificationSettings:settings];
-        [application registerForRemoteNotifications];
-    }
-    else{
-    [application registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge |
-                                                     UIRemoteNotificationTypeAlert |
-                                                     UIRemoteNotificationTypeSound];
-    }
-#endif
-    
-   // [ProjectDefine shareProjectDefine];
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     [SliderViewController sharedSliderController].LeftVC=[[LCMenuViewController alloc] init];
@@ -70,6 +49,39 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     self.window.rootViewController = nav;
     
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+        //第一次安装时运行打开推送
+#if !TARGET_IPHONE_SIMULATOR
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert
+                                                    | UIUserNotificationTypeBadge
+                                                    | UIUserNotificationTypeSound
+                                                       categories:nil];
+            [application registerUserNotificationSettings:settings];
+            [application registerForRemoteNotifications];
+        }
+        else{
+            [application registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge |
+             UIRemoteNotificationTypeAlert |
+             UIRemoteNotificationTypeSound];
+        }
+#endif        // 引导界面展示
+        // [_rootTabController showIntroWithCrossDissolve];
+        
+    }
+    
+    //判断程序是不是由推送服务完成的
+    if (launchOptions)
+    {
+        NSDictionary* pushNotificationKey = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (pushNotificationKey)
+        {
+           // [self performSelector:@selector(pushDetailPage:) withObject:pushNotificationKey afterDelay:2.0];
+        }
+    }
+
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -95,7 +107,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
-     [self performSelector:@selector(openlocation) withObject:nil afterDelay:0.5];
+     [self performSelector:@selector(openlocation) withObject:nil afterDelay:1.0f];
 }
 - (void)openlocation{
     [LcationInstance startUpdateLocation];
@@ -108,7 +120,9 @@
     
     AVInstallation *currentInstallation = [AVInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation addUniqueObject:@"springCare" forKey:@"channels"];
     [currentInstallation saveInBackground];
+  
 }
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
@@ -120,10 +134,38 @@
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     //可选 通过统计功能追踪通过提醒打开应用的行为
     [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-    
     //这儿你可以加入自己的代码 根据推送的数据进行相应处理
+    // 程序在运行中接收到推送
+    if (application.applicationState == UIApplicationStateActive)
+    {
+        // [self pushDetailPage:userInfo backGroud:YES];
+    }
+    else  //程序在后台中接收到推送
+    {
+       // [self pushDetailPage:userInfo PushType:PushFromBcakground];
+    }
+
 }
 
+-(void) pushtoController: (id)dic PushType:(NSInteger)curentPushtype{
+    switch ([[dic objectForKey:@"mt"] intValue]) {
+        case 1:   // 订单
+        {
+            
+        }
+        case 2:   // 陪护时光
+        {
+            
+        }
+        case 3:  // 关注
+        {
+            
+        }
+        default:
+            break;
+
+    }
+}
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     [Pingpp handleOpenURL:url withCompletion:^(NSString *result, PingppError *error) {
