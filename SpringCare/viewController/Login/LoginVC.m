@@ -265,6 +265,10 @@
     [AVUser signUpOrLoginWithMobilePhoneNumberInBackground:phone smsCode:verifyCode block:^(AVUser *user, NSError *error) {
         if(error == nil){
             [[UserModel sharedUserInfo] modifyInfo];
+            AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+            [currentInstallation addUniqueObject:[UserModel sharedUserInfo].userId forKey:@"channels"];
+            [currentInstallation saveInBackground];
+
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }
         else{

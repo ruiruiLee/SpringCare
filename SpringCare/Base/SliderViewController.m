@@ -124,10 +124,12 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
     [self addChildViewController:leftVC];
     leftVC.view.frame=CGRectMake(0, 0, leftVC.view.frame.size.width, leftVC.view.frame.size.height);
     [_leftSideView addSubview:leftVC.view];
-    
-    [self addChildViewController:rightVC];
-    rightVC.view.frame=CGRectMake(0, 0, rightVC.view.frame.size.width, rightVC.view.frame.size.height);
-    [_rightSideView addSubview:rightVC.view];
+    if (rightVC!=nil) {
+        [self addChildViewController:rightVC];
+        rightVC.view.frame=CGRectMake(0, 0, rightVC.view.frame.size.width, rightVC.view.frame.size.height);
+        [_rightSideView addSubview:rightVC.view];
+    }
+  
 }
 
 #pragma mark - Actions

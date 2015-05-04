@@ -108,4 +108,44 @@
     }
 }
 
+-(void) pushtoController:(NSInteger)curentPushtype{
+    [UIApplication sharedApplication].applicationIconBadgeNumber=0;
+    switch (curentPushtype) {
+        case 1:   // 订单
+        {
+               MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+            if ([[SliderViewController sharedSliderController].MainVC isKindOfClass: [MyOrderListVC class]]) {
+                [vc pullTableViewDidTriggerRefresh:nil];
+            }
+            else{
+            [self.navigationController pushViewController:vc animated:YES];
+            }
+           // [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+            break;
+        }
+        case 2:   // 陪护时光
+        {
+            self.selectedIndex=2;
+            break;
+
+        }
+        case 3:  // 关注
+        {
+            UserAttentionVC *vc = [[UserAttentionVC alloc] initWithNibName:nil bundle:nil];
+
+            if ([[SliderViewController sharedSliderController].MainVC isKindOfClass: [UserAttentionVC class]]) {
+                [vc refreshTable];
+            }
+            else{
+                [self.navigationController pushViewController:vc animated:YES];
+            //[[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+            }
+            break;
+
+        }
+        default:
+            break;
+            
+    }
+}
 @end
