@@ -11,16 +11,21 @@
 #import "WorkAddressCell.h"
 #import "EditCellTypeData.h"
 #import "EditUserInfoVC.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface WorkAddressSelectVC ()
+@interface WorkAddressSelectVC ()<EGORefreshTableHeaderDelegate>
 {
-    
+    BOOL _reloading;
 }
+
+@property (nonatomic, strong) EGORefreshTableHeaderView *refreshView;
 
 @end
 
 @implementation WorkAddressSelectVC
 @synthesize delegate;
+@synthesize refreshView;
+@synthesize _tableview = _tableview;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,16 +33,22 @@
     self.NavigationBar.Title = @"陪护地址";
     self.NavigationBar.btnRight.hidden = NO;
     [self.NavigationBar.btnRight setImage:[UIImage imageNamed:@"adduser"] forState:UIControlStateNormal];
+    _reloading = NO;
     
     [self initSubviews];
     
     _dataList = [UserAttentionModel GetMyAttentionArray];
     if([_dataList count] == 0){
+        
+        [refreshView startAnimatingWithScrollView:_tableview];
+        
+        __weak WorkAddressSelectVC *weakSelf = self;
         [UserAttentionModel loadLoverList:@"true" block:^(int code) {
             if(code == 1){
                 _dataList = [UserAttentionModel GetMyAttentionArray];
-                [_tableview reloadData];
+                [weakSelf._tableview reloadData];
             }
+            [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
         }];
     }
 }
@@ -87,6 +98,8 @@
 
 - (void) NotifyReloadData:(NSString*)loveID
 {
+    __weak WorkAddressSelectVC *weakSelf = self;
+    [refreshView startAnimatingWithScrollView:_tableview];
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {
         if(code){
             _dataList = [UserAttentionModel GetMyAttentionArray];
@@ -97,10 +110,12 @@
                 }
             }
             else{
-                [self setSelectItemWithLoverId:selectLoverId];
+                [weakSelf setSelectItemWithLoverId:selectLoverId];
             }
-            [_tableview reloadData];
+            [weakSelf._tableview reloadData];
         }
+        
+        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
     }];
 }
 
@@ -134,6 +149,12 @@
     _tableview.tableFooterView = [[UIView alloc] init];
     [_tableview registerClass:[WorkAddressCell class] forCellReuseIdentifier:@"cell"];
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -100, ScreenWidth, 100)];
+    //    refreshView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    refreshView.delegate = self;
+    [_tableview addSubview:refreshView];
+    [refreshView refreshLastUpdatedDate];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview);
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:0 views:views]];
@@ -231,6 +252,69 @@
     [self performSelector:@selector(pushtoEditUserinfo:) withObject:SelectModel afterDelay:1];
 }
 
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
 
+- (void)reloadTableViewDataSource{
+    
+    //  should be calling your tableviews data source model to reload
+    //  put here just for demo
+    _reloading = YES;
+    
+}
+
+- (void)doneLoadingTableViewData{
+    
+    //  model should call this when its done loading
+    _reloading = NO;
+    [refreshView egoRefreshScrollViewDataSourceDidFinishedLoading:_tableview];
+    
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [refreshView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [refreshView egoRefreshScrollViewDidEndDragging:scrollView];
+    
+}
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    
+    [self reloadTableViewDataSource];
+    //    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+    __weak WorkAddressSelectVC *weakSelf = self;
+    [UserAttentionModel loadLoverList:@"true" block:^(int code) {
+        if(code == 1){
+            _dataList = [UserAttentionModel GetMyAttentionArray];
+            [weakSelf._tableview reloadData];
+        }
+        
+        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+    }];
+    
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+    
+    return _reloading; // should return if data source model is reloading
+    
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    
+    return [NSDate date]; // should return date data source was last changed
+    
+}
 
 @end

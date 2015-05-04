@@ -50,18 +50,20 @@
     _attentionData = [UserAttentionModel GetMyAttentionArray];
     _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
     
+    [self initSubViews];
+    
     __weak UserAttentionVC *weakSelf = self;
     if([_attentionData count] == 0){
+        [refreshView startAnimatingWithScrollView:_tableview];
         [UserAttentionModel loadLoverList:@"true" block:^(int code) {
             if(code == 1){
                 _attentionData = [UserAttentionModel GetMyAttentionArray];
                 _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
                 [weakSelf._tableview reloadData];
             }
+            [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
         }];
     }
-    
-    [self initSubViews];
 }
 
 - (void) LoadLoverList
@@ -451,13 +453,16 @@
 }
 - (void) NotifyReloadData:(NSString*)loveID
 {
+    [refreshView startAnimatingWithScrollView:_tableview];
+    __weak UserAttentionVC *weakSelf = self;
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {
         if(code){
             _attentionData = [UserAttentionModel GetMyAttentionArray];
             _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
-             [_tableview reloadData];
+             [weakSelf._tableview reloadData];
           
         }
+        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
     }];
 }
 

@@ -29,6 +29,7 @@
 }
 @property (nonatomic, copy) NSString * currentAdress;
 @property (nonatomic, assign) id<WorkAddressSelectVCDelegate> delegate;
+@property (nonatomic, strong) UITableView *_tableview;
 
 
 - (void) setSelectItemWithLoverId:(NSString*) loverId;
