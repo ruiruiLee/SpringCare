@@ -43,7 +43,7 @@
             self.mobilePhoneNumber= muser.mobilePhoneNumber;
             //self.sessionToken = muser.sessionToken;
             self.username = muser.username;
-            //self.isNew = muser.isNew;
+            self.isNew = muser.isNew;
             //self.email = muser.email;
             self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
             self.addr = [muser objectForKey:@"addr"];
@@ -78,7 +78,7 @@
     self.mobilePhoneNumber= muser.mobilePhoneNumber;
     //self.sessionToken = muser.sessionToken;
     self.username = muser.username;
-    //self.isNew = muser.isNew;
+    self.isNew = muser.isNew;
     //self.email = muser.email;
     self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
     self.addr = [muser objectForKey:@"addr"];

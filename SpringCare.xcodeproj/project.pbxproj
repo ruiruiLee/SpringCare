@@ -145,7 +145,6 @@
 		CFB42D171AE66FA500FDF891 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB42D161AE66FA500FDF891 /* SystemConfiguration.framework */; };
 		CFB42D191AE66FB900FDF891 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB42D181AE66FB900FDF891 /* Security.framework */; };
 		CFB42D1B1AE66FD100FDF891 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB42D1A1AE66FD100FDF891 /* libc++.dylib */; };
-		CFB42D1D1AE66FDC00FDF891 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB42D1C1AE66FDC00FDF891 /* PassKit.framework */; };
 		CFB42D1F1AE66FE500FDF891 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB42D1E1AE66FE500FDF891 /* CFNetwork.framework */; };
 		CFBC50281ADBA9EF004FB8F3 /* feedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBC50261ADBA9EE004FB8F3 /* feedbackView.m */; };
 		CFBC50291ADBA9EF004FB8F3 /* feedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFBC50271ADBA9EE004FB8F3 /* feedbackView.xib */; };
@@ -610,7 +609,7 @@
 		CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageInterceptor.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/MessageInterceptor.m; sourceTree = SOURCE_ROOT; };
 		CFA5B5071AC01D3900D49415 /* PullTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullTableView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/PullTableView.h; sourceTree = SOURCE_ROOT; };
 		CFA5B5081AC01D3900D49415 /* PullTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullTableView.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/PullTableView.m; sourceTree = SOURCE_ROOT; };
-		CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpringCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFAFA3A91ABFEC8C0020E774 /* 春风陪护.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "春风陪护.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFAFA3AD1ABFEC8C0020E774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFAFA3AE1ABFEC8C0020E774 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CFAFA3B01ABFEC8C0020E774 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -624,7 +623,6 @@
 		CFB42D161AE66FA500FDF891 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CFB42D181AE66FB900FDF891 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CFB42D1A1AE66FD100FDF891 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		CFB42D1C1AE66FDC00FDF891 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		CFB42D1E1AE66FE500FDF891 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CFBC50251ADBA9EE004FB8F3 /* feedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = feedbackView.h; sourceTree = "<group>"; };
 		CFBC50261ADBA9EE004FB8F3 /* feedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = feedbackView.m; sourceTree = "<group>"; };
@@ -838,7 +836,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFB42D1F1AE66FE500FDF891 /* CFNetwork.framework in Frameworks */,
-				CFB42D1D1AE66FDC00FDF891 /* PassKit.framework in Frameworks */,
 				CFB42D1B1AE66FD100FDF891 /* libc++.dylib in Frameworks */,
 				CFB42D191AE66FB900FDF891 /* Security.framework in Frameworks */,
 				CFB42D171AE66FA500FDF891 /* SystemConfiguration.framework in Frameworks */,
@@ -1415,7 +1412,7 @@
 		CFAFA3AA1ABFEC8C0020E774 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */,
+				CFAFA3A91ABFEC8C0020E774 /* 春风陪护.app */,
 				CFAFA3C21ABFEC8C0020E774 /* SpringCareTests.xctest */,
 			);
 			name = Products;
@@ -1718,7 +1715,6 @@
 			isa = PBXGroup;
 			children = (
 				CFB42D1E1AE66FE500FDF891 /* CFNetwork.framework */,
-				CFB42D1C1AE66FDC00FDF891 /* PassKit.framework */,
 				CFB42D1A1AE66FD100FDF891 /* libc++.dylib */,
 				CFB42D181AE66FB900FDF891 /* Security.framework */,
 				CFB42D161AE66FA500FDF891 /* SystemConfiguration.framework */,
@@ -1753,7 +1749,7 @@
 			);
 			name = SpringCare;
 			productName = SpringCare;
-			productReference = CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */;
+			productReference = CFAFA3A91ABFEC8C0020E774 /* 春风陪护.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CFAFA3C11ABFEC8C0020E774 /* SpringCareTests */ = {
@@ -1785,7 +1781,12 @@
 				TargetAttributes = {
 					CFAFA3A81ABFEC8C0020E774 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = CF788FR5AR;
+						DevelopmentTeam = 83V6JW3TGV;
+						SystemCapabilities = {
+							com.apple.Passbook = {
+								enabled = 0;
+							};
+						};
 					};
 					CFAFA3C11ABFEC8C0020E774 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -2303,6 +2304,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2310,7 +2312,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "春风陪护";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2321,6 +2324,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2328,7 +2332,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "春风陪护";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
