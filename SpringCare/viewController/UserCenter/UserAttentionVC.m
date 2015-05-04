@@ -15,22 +15,28 @@
 #import "EditUserInfoVC.h"
 #import "EditCellTypeData.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "EGORefreshTableHeaderView.h"
 
-@interface UserAttentionVC ()<EditUserInfoVCDelegate>
+@interface UserAttentionVC ()<EditUserInfoVCDelegate, EGORefreshTableHeaderDelegate>
 {
-    
+    BOOL _reloading;
 }
 
+@property (nonatomic, strong) EGORefreshTableHeaderView *refreshView;
 @property (nonatomic, strong) UserAttentionTableCell *attentionTableCell;
 @property (nonatomic, strong) UserApplyAttentionTableCell *requestTableCell;
 
 @end
 
 @implementation UserAttentionVC
+@synthesize refreshView;
+@synthesize _tableview = _tableview;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    _reloading = NO;
     
     self.NavigationBar.Title = @"我的关注";
     self.NavigationBar.btnRight.hidden = NO;
@@ -44,17 +50,23 @@
     _attentionData = [UserAttentionModel GetMyAttentionArray];
     _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
     
+    __weak UserAttentionVC *weakSelf = self;
     if([_attentionData count] == 0){
         [UserAttentionModel loadLoverList:@"true" block:^(int code) {
             if(code == 1){
                 _attentionData = [UserAttentionModel GetMyAttentionArray];
                 _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
-                [_tableview reloadData];
+                [weakSelf._tableview reloadData];
             }
         }];
     }
     
     [self initSubViews];
+}
+
+- (void) LoadLoverList
+{
+    
 }
 
 - (void) NavRightButtonClickEvent:(UIButton *)sender
@@ -84,6 +96,12 @@
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
     _tableview.backgroundColor = TableBackGroundColor;
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -100, ScreenWidth, 100)];
+    //    refreshView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    refreshView.delegate = self;
+    [_tableview addSubview:refreshView];
+    [refreshView refreshLastUpdatedDate];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview);
     
@@ -443,6 +461,72 @@
           
         }
     }];
+}
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource{
+    
+    //  should be calling your tableviews data source model to reload
+    //  put here just for demo
+    _reloading = YES;
+    
+}
+
+- (void)doneLoadingTableViewData{
+    
+    //  model should call this when its done loading
+    _reloading = NO;
+    [refreshView egoRefreshScrollViewDataSourceDidFinishedLoading:_tableview];
+    
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [refreshView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [refreshView egoRefreshScrollViewDidEndDragging:scrollView];
+    
+}
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    
+    [self reloadTableViewDataSource];
+    //    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+//    UserModel *userinfo = [UserModel sharedUserInfo];
+    __weak UserAttentionVC *weakSelf = self;
+    [UserAttentionModel loadLoverList:@"true" block:^(int code) {
+        if(code == 1){
+            _attentionData = [UserAttentionModel GetMyAttentionArray];
+            _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+            [weakSelf._tableview reloadData];
+        }
+        [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+    }];
+    
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+    
+    return _reloading; // should return if data source model is reloading
+    
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    
+    return [NSDate date]; // should return date data source was last changed
+    
 }
 
 @end
