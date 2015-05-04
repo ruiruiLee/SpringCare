@@ -16,7 +16,6 @@
 
 
 
-
 #define AVOSCloudAppID  @"26x0xztg3ypms8o4ou42lxgk3gg6hl2rm6z9illft1pkoigh"
 #define AVOSCloudAppKey @"0xjxw6o8kk5jtkoqfi8mbl17fxoymrk29fo7b1u6ankirw31"
 
@@ -44,7 +43,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     [SliderViewController sharedSliderController].LeftVC=[[LCMenuViewController alloc] init];
-    [SliderViewController sharedSliderController].RightVC=[[LCMenuViewController alloc] init];
+    //[SliderViewController sharedSliderController].RightVC=nil;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     self.window.rootViewController = nav;
@@ -67,7 +66,8 @@
              UIRemoteNotificationTypeAlert |
              UIRemoteNotificationTypeSound];
         }
-#endif        // 引导界面展示
+#endif       
+        // 引导界面展示
         // [_rootTabController showIntroWithCrossDissolve];
         
     }
@@ -75,10 +75,11 @@
     //判断程序是不是由推送服务完成的
     if (launchOptions)
     {
-        NSDictionary* pushNotificationKey = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        if (pushNotificationKey)
+        NSDictionary* notificationPayload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (notificationPayload)
         {
-           // [self performSelector:@selector(pushDetailPage:) withObject:pushNotificationKey afterDelay:2.0];
+            [self performSelector:@selector(pushDetailPage:) withObject:notificationPayload afterDelay:1.0];
+            [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
 
@@ -120,7 +121,8 @@
     
     AVInstallation *currentInstallation = [AVInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation addUniqueObject:@"springCare" forKey:@"channels"];
+    //[currentInstallation addUniqueObject:@"springCare" forKey:@"channels"];
+    [currentInstallation addUniqueObject:@"registerUser" forKey:@"channels"];
     [currentInstallation saveInBackground];
   
 }
@@ -131,41 +133,31 @@
     [AVAnalytics event:@"开启推送失败" label:[error description]];
 }
 
+//推送跳转到指定页面
+-(void) pushDetailPage: (id)dic
+{
+  [(RootViewController*)[SliderViewController sharedSliderController].MainVC pushtoController:[[dic objectForKey:@"mt"] intValue]];
+}
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    //可选 通过统计功能追踪通过提醒打开应用的行为
-    [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-    //这儿你可以加入自己的代码 根据推送的数据进行相应处理
     // 程序在运行中接收到推送
     if (application.applicationState == UIApplicationStateActive)
     {
         // [self pushDetailPage:userInfo backGroud:YES];
+       // [(RootViewController*)[SliderViewController sharedSliderController].MainVC pushtoController:1];
+     
     }
     else  //程序在后台中接收到推送
     {
        // [self pushDetailPage:userInfo PushType:PushFromBcakground];
+        // The application was just brought from the background to the foreground,
+        // so we consider the app as having been "opened by a push notification."
+        [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+        [self pushDetailPage:userInfo];
     }
 
 }
 
--(void) pushtoController: (id)dic PushType:(NSInteger)curentPushtype{
-    switch ([[dic objectForKey:@"mt"] intValue]) {
-        case 1:   // 订单
-        {
-            
-        }
-        case 2:   // 陪护时光
-        {
-            
-        }
-        case 3:  // 关注
-        {
-            
-        }
-        default:
-            break;
 
-    }
-}
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     [Pingpp handleOpenURL:url withCompletion:^(NSString *result, PingppError *error) {

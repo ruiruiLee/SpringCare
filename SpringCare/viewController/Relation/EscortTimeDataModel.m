@@ -148,7 +148,7 @@ static NSInteger totalCount = 0;
 }
 
 
-+ (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(CompletionBlock) block
++ (void) LoadCareTimeListWithLoverId:(NSString *)loverId previousDate:(NSString*)previousDate pages:(NSInteger) num block:(CompletionBlock) block
 {
 
     NSMutableDictionary *mdic = [[NSMutableDictionary alloc] init];
@@ -160,18 +160,19 @@ static NSInteger totalCount = 0;
     [mdic setObject:[NSNumber numberWithInteger:LIMIT_COUNT] forKey:@"limit"];
     [mdic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     
+    NSString __block * pdate = previousDate;
     [LCNetWorkBase postWithMethod:@"api/careTime/list" Params:mdic Completion:^(int code, id content) {
         if(code){
             NSMutableArray *result = [[NSMutableArray alloc] init];
                 totalCount = [[content objectForKey:@"total"] integerValue];
             if (totalCount>0) {
                 NSArray *array = [content objectForKey:@"rows"];
-                NSString* previousDate=nil;
+               // NSString* previousDate=nil;
                 for (int i = 0; i < [array count]; i++) {
                     NSDictionary *dic = [array objectAtIndex:i];
                     EscortTimeDataModel *model = [EscortTimeDataModel ObjectFromDictionary:dic];
-                    model.showTime = ![previousDate isEqualToString:model.createDate];
-                    previousDate = model.createDate;
+                    model.showTime = ![pdate isEqualToString:model.createDate];
+                    pdate = model.createDate;
                     [escortTimeData addObject:model];
                     [result addObject:model];
                 }

@@ -21,5 +21,5 @@
 }
 @property (nonatomic, retain) UserAttentionTableCell * currentCell;
 @property (nonatomic, retain) UITableView *_tableview;
-
+-(void)refreshTable;
 @end

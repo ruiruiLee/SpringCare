@@ -495,11 +495,7 @@
     
 }
 
-#pragma mark -
-#pragma mark EGORefreshTableHeaderDelegate Methods
-
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
-    
+-(void)refreshTable{
     [self reloadTableViewDataSource];
     __weak UserAttentionVC *weakSelf = self;
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {
@@ -510,7 +506,14 @@
         }
         [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
     }];
+
+}
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
     
+    [self refreshTable];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{

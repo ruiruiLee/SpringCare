@@ -267,8 +267,10 @@
     pages = 0;
     __weak NurseListMainVC *_weakSelf = self;
     [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code, id content) {
+        [searchBar resignFirstResponder];
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
+        
         [_weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
     

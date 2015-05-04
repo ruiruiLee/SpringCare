@@ -49,7 +49,7 @@
     [footView addSubview:btnCancel];
     [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-28-[btnCancel]-28-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
     [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[btnCancel]-3-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
-    [btnCancel addTarget:self action:@selector(btnCancel:) forControlEvents:UIControlEventTouchUpInside];
+    [btnCancel addTarget:self action:@selector(btnCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
     if(type == EnumValueTypeiPhone4S){
@@ -80,11 +80,16 @@
     
 }
 
-- (void) btnCancel:(id)sender
+- (void) btnCancelPressed:(id)sender
 {
+    AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+    [currentInstallation removeObject:[UserModel sharedUserInfo].userId forKey:@"channels"];
+    [currentInstallation saveInBackground];
     [AVUser logOut];  //清除缓存用户对象
-    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
     [UserModel sharedUserInfo].userId = nil;
+    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+  
+   
 }
 
 - (void)didReceiveMemoryWarning {

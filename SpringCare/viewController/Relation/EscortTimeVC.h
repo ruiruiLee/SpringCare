@@ -40,6 +40,7 @@
     NSMutableArray *_dataList;
     NSArray *AttentionArray;
     UIView *headerView;
+    NSString* previousDate;
 }
 
 @property (nonatomic, strong) PullTableView *tableView;

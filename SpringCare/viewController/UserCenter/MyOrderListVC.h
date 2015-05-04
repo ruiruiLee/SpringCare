@@ -28,5 +28,5 @@
 @property (nonatomic, strong) PullTableView *pullTableView;
 @property (nonatomic, strong) NSArray *dataOnDoingList;
 @property (nonatomic, strong) NSMutableArray *dataOtherList;
-
+- (void)pullTableViewDidTriggerRefresh:(PullTableView *)_pullTableView;
 @end

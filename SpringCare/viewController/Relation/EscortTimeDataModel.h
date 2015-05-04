@@ -61,6 +61,6 @@
 
 + (NSArray*) GetEscortTimeData;
 + (EscortTimeDataModel *) ObjectFromDictionary:(NSDictionary *)dic;
-+ (void) LoadCareTimeListWithLoverId:(NSString *)loverId pages:(NSInteger) num block:(CompletionBlock) block;
++ (void) LoadCareTimeListWithLoverId:(NSString *)loverId previousDate:(NSString*)previousDate pages:(NSInteger) num block:(CompletionBlock) block;
 
 @end

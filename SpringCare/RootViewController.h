@@ -18,6 +18,6 @@
 @property (strong, nonatomic) HomePageVC *homeVC;
 @property (strong, nonatomic) NurseListMainVC *nurseVC;
 @property (strong, nonatomic) EscortTimeVC *messageListVC;
-
+-(void) pushtoController:(NSInteger)curentPushtype;
 @end
 
