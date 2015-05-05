@@ -259,7 +259,7 @@
                     model = [dataOtherList objectAtIndex:indexPath.row];
             }
             else{
-                if([dataOtherList count] > indexPath.row)
+                if([dataOnDoingList count] > indexPath.row)
                     model = [dataOnDoingList objectAtIndex:indexPath.row];
             }
         }else{
