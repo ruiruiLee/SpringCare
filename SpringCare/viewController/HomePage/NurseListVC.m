@@ -265,6 +265,17 @@
 {
     [searchBar resignFirstResponder];
     searchBar.text = @"";
+    
+    self.pullTableView.pullTableIsRefreshing = YES;
+    pages = 0;
+    __weak NurseListVC *_weakSelf = self;
+    [_model loadNurseDataWithPage:(int)pages prama:@{@"key": @""} block:^(int code, id content) {
+        //
+        [DataList removeAllObjects];
+        [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
+        [_weakSelf.pullTableView reloadData];
+        [_weakSelf refreshTable];
+    }];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)Bar
@@ -280,10 +291,11 @@
     
     pages = 0;
     __weak NurseListVC *_weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code, id content) {
+    [_model loadNurseDataWithPage:(int)pages prama:@{@"key": searchStr} block:^(int code, id content) {
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
-        [_weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
+        [_weakSelf.pullTableView reloadData];
+        [_weakSelf refreshTable];
     }];
 }
 

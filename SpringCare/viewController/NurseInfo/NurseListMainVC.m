@@ -223,14 +223,12 @@
     NSLog(@"refreshTable");
     self.pullTableView.pullLastRefreshDate = [NSDate date];
     self.pullTableView.pullTableIsRefreshing = NO;
-    [pullTableView reloadData];
 }
 
 - (void) loadMoreDataToTable
 {
     NSLog(@"loadMoreDataToTable");
     self.pullTableView.pullTableIsLoadingMore = NO;
-    [pullTableView reloadData];
 }
 
 #pragma KVO/KVC
@@ -250,6 +248,18 @@
 {
     [searchBar resignFirstResponder];
     searchBar.text = @"";
+    
+    self.pullTableView.pullTableIsRefreshing = YES;
+    pages = 0;
+    __weak NurseListMainVC *_weakSelf = self;
+    [_model loadNurseDataWithPage:(int)pages prama:@{@"key": @""} block:^(int code, id content) {
+        //
+        [DataList removeAllObjects];
+        [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
+        
+        [_weakSelf.pullTableView reloadData];
+        [_weakSelf refreshTable];
+    }];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)_searchBar
@@ -261,17 +271,19 @@
         return;
     
     _SearchConditionStr = searchStr;
+    [searchBar resignFirstResponder];
     
 
     self.pullTableView.pullTableIsRefreshing = YES;
     pages = 0;
     __weak NurseListMainVC *_weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:@{@"searchStr": searchStr} block:^(int code, id content) {
-        [searchBar resignFirstResponder];
+    [_model loadNurseDataWithPage:(int)pages prama:@{@"key": searchStr} block:^(int code, id content) {
+//
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         
-        [_weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
+        [_weakSelf.pullTableView reloadData];
+        [_weakSelf refreshTable];
     }];
     
 }
