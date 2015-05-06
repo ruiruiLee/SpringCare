@@ -121,4 +121,17 @@
     }];
 }
 
+-(void) setUserRecommendId:(NSString *)userRecommendId
+{
+    if(userRecommendId == nil)
+        return;
+    _userRecommendId = userRecommendId;
+    
+    AVUser *muser = [AVUser currentUser];
+    AVQuery *query = [AVQuery queryWithClassName:[(AVObject*)[muser objectForKey:@"user_recommend_re"] className]];
+    AVObject *Recommend = [query getObjectWithId:userRecommendId];
+    
+    self.userRecommendPhone = [Recommend objectForKey:@"phone"];
+}
+
 @end

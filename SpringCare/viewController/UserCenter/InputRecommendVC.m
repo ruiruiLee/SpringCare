@@ -14,6 +14,17 @@
 @end
 
 @implementation InputRecommendVC
+@synthesize scrollview;
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    
+    if([keyPath isEqualToString:@"userRecommendPhone"])
+    {
+        UserModel *userInfo = [UserModel sharedUserInfo];
+        _tfContent.text = userInfo.userRecommendPhone;
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,6 +33,13 @@
     self.ContentView.backgroundColor = TableBackGroundColor;
     
     [self initSubViews];
+    
+    UserModel *userInfo = [UserModel sharedUserInfo];
+    [userInfo addObserver:self forKeyPath:@"userRecommendPhone" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    if(userInfo.userRecommendId != nil){
+        [self ResetInviteInfo];
+        _tfContent.text = userInfo.userRecommendPhone;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,6 +114,7 @@
 {
     _lbExplation.text = @"你的邀请人手机号是:";
     [_tfContent setEnabled:NO];
+    _tfContent.textColor = Disabled_Color;
     _btnSubmit.enabled = NO;
     UIImage *image = [Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)];
     UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
@@ -115,6 +134,9 @@
     [[UserModel sharedUserInfo] saveRecommendPhone:content block:^(int code) {
         if(code == 1){
             [_weakSelf ResetInviteInfo];
+            [[AVUser currentUser] fetchInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+                [[UserModel sharedUserInfo] modifyInfo];
+            }];
         }
     }];
 }
