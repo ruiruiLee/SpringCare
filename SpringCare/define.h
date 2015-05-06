@@ -25,7 +25,7 @@
 
 
 #define LCNetWorkBase [LCNetWorkBase sharedLCNetWorkBase]
-#define KEY_APPLE_ID @"702715314"
+#define KEY_APPLE_ID @"992339154"
 
 #define cfAppDelegate (AppDelegate*)[UIApplication sharedApplication].delegate
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
