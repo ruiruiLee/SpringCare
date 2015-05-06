@@ -13,29 +13,29 @@
 @interface UserModel : NSObject
 
 
-@property (nonatomic, strong) NSString *mobilePhoneNumber;
+@property (nonatomic, copy) NSString *mobilePhoneNumber;
 //@property (nonatomic, strong) NSString *email;
 //@property (nonatomic, strong) NSString *sessionToken;
-@property (nonatomic, strong) NSString *username;
+@property (nonatomic, copy) NSString *username;
 @property (nonatomic, assign) BOOL isNew;
-@property (nonatomic, strong) NSString *headerFile;
-@property (nonatomic, strong) NSString *userId;//用户id
+@property (nonatomic, copy) NSString *headerFile;
+@property (nonatomic, copy) NSString *userId;//用户id
 
 //详情
 //@property (nonatomic, strong) NSString *registerId;//注册用户扩展表id
-@property (nonatomic, strong) NSString *addr;
-@property (nonatomic, strong) NSString *sex;
-@property (nonatomic, strong) NSDate *birthDay;
-@property (nonatomic, strong) NSString *career;
+@property (nonatomic, copy) NSString *addr;
+@property (nonatomic, copy) NSString *sex;
+@property (nonatomic, copy) NSDate *birthDay;
+@property (nonatomic, copy) NSString *career;
 //@property (nonatomic, strong) NSString *intro;
-@property (nonatomic, strong) NSString *chineseName;
-@property (nonatomic, strong) NSString *displayName;
-@property (nonatomic, strong) AVGeoPoint *locationPoint;
+@property (nonatomic, copy) NSString *chineseName;
+@property (nonatomic, copy) NSString *displayName;
+@property (nonatomic, copy) AVGeoPoint *locationPoint;
 //@property (nonatomic, strong) NSString *currentCity;
-@property (nonatomic, strong) NSString *currentDetailAdrress;
+@property (nonatomic, copy) NSString *currentDetailAdrress;
 
-@property (nonatomic, strong) NSString *userRecommendId;//邀请码关联对象
-@property (nonatomic, strong) NSString *userRecommendPhone;//邀请码关联对象
+@property (nonatomic, copy) NSString *userRecommendId;//邀请码关联对象
+@property (nonatomic, copy) NSString *userRecommendPhone;//邀请码关联对象
 
 +(UserModel *)sharedUserInfo;
 

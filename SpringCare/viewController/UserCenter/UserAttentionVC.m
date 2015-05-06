@@ -74,7 +74,7 @@
 
 -(void)displayEmpityImageView:(UIImage *)img{
     if (backgroundImageView==nil) {
-        backgroundImageView= [[UIImageView alloc]initWithFrame:CGRectMake(_tableview.frame.size.width/2-img.size.width/2, _tableview.frame.size.height/2-img.size.height, img.size.width, img.size.height)];
+        backgroundImageView= [[UIImageView alloc]initWithFrame:CGRectMake(_tableview.frame.size.width/2-img.size.width/2, _tableview.frame.size.height/2-img.size.height + 30, img.size.width, img.size.height)];
         // [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orderend"]];
         backgroundImageView.image=img;
         [_tableview addSubview:backgroundImageView];

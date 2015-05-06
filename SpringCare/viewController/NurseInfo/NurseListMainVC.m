@@ -97,6 +97,11 @@
     }
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidUnload
 {
     [self setPullTableView:nil];
@@ -401,7 +406,8 @@
         [weakSelf.DataList removeAllObjects];
         [weakSelf.DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [weakSelf.pullTableView reloadData];
-        [weakSelf refreshTable];
+//        [weakSelf refreshTable];
+        [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
 
 }

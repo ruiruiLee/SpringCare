@@ -79,7 +79,7 @@
             else{
                 weakSelf.careId = [[content objectForKey:@"care"] objectForKey:@"careId"];
                 weakSelf.commentsNumber = [[[content objectForKey:@"care"] objectForKey:@"commentsNumber"] integerValue];
-                weakSelf.commentsRate = [[content objectForKey:@"care"] objectForKey:@"commentsNumber"];
+                weakSelf.commentsRate = [[content objectForKey:@"care"] objectForKey:@"commentsRate"];
                 
                 NSMutableArray *result = [[NSMutableArray alloc] init];
                 for (int i = 0; i < [[content objectForKey:@"rows"] count]; i++) {

@@ -125,11 +125,14 @@
 {
     if(userRecommendId == nil)
         return;
+    if([userRecommendId isEqualToString:_userRecommendId])
+        return;
+    
     _userRecommendId = userRecommendId;
     
     AVUser *muser = [AVUser currentUser];
     AVQuery *query = [AVQuery queryWithClassName:[(AVObject*)[muser objectForKey:@"user_recommend_re"] className]];
-    AVObject *Recommend = [query getObjectWithId:userRecommendId];
+    AVObject *Recommend = [query getObjectWithId:_userRecommendId];
     
     self.userRecommendPhone = [Recommend objectForKey:@"phone"];
 }

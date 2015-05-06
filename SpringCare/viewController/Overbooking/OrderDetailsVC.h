@@ -62,6 +62,7 @@
     UIButton *_btnAddress;
     UILabel *_LbRelation;
     UIImageView *_imgSex;
+    UIImageView *_imgvAddr;
 }
 
 - (void) setContentData:(MyOrderdataModel *) model;

@@ -351,28 +351,35 @@
         _btnAddress = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnAddress];
         _btnAddress.translatesAutoresizingMaskIntoConstraints = NO;
-        [_btnAddress setImage:[UIImage imageNamed:@"orderdetailaddr"] forState:UIControlStateNormal];
+//        [_btnAddress setImage:[UIImage imageNamed:@"orderdetailaddr"] forState:UIControlStateNormal];
         [_btnAddress setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         _btnAddress.titleLabel.font = _FONT(15);
+        
+        _imgvAddr = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_imgvAddr];
+        _imgvAddr.translatesAutoresizingMaskIntoConstraints = NO;
+        _imgvAddr.image = ThemeImage(@"orderdetailaddr");
         
         _imgSex = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgSex];
         _imgSex.translatesAutoresizingMaskIntoConstraints = NO;
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _LbRelation, _lbAge, _btnMobile, _btnAddress, _imgSex, _lbHeight);
+        NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _LbRelation, _lbAge, _btnMobile, _btnAddress, _imgSex, _lbHeight, _imgvAddr);
 //        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_LbRelation]-10-[_imgSex]-10-[_lbAge]->=20-|" options:0 metrics:nil views:views]];
         
          [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_LbRelation]-10-[_imgSex]->=20-|" options:0 metrics:nil views:views]];
         
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnMobile]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_imgvAddr]-5-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_lbName]-20-[_lbAge]-20-[_lbHeight]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_imgPhoto(62)]->=10-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_LbRelation(20)]-2-[_lbName(18)]-2-[_btnAddress(22)]->=10-|" options:0 metrics:nil views:views]];
 //        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_LbRelation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbHeight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgvAddr attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_btnAddress attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbAge attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         

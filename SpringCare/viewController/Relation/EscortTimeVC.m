@@ -50,15 +50,13 @@
     }
 }
 
-
-
 - (void) SetHeaderInfoWithModel:(NurseListInfoModel *) nurse
 {
     if(nurse){
         _lbName.text = nurse.name;
         _lbName.hidden = NO;
         _btnInfo.hidden = NO;
-        NSString *info = [NSString stringWithFormat:@"%@  %d岁 护龄%@年", nurse.birthPlace, nurse.age, nurse.careAge];
+        NSString *info = [NSString stringWithFormat:@"%@  %ld岁 护龄%@年", nurse.birthPlace, nurse.age, nurse.careAge];
         [_btnInfo setTitle:info forState:UIControlStateNormal];
         NSString *imgPath = [Util headerImagePathWith:[Util GetSexByName:nurse.sex]];
         [_photoImgView sd_setImageWithURL:[NSURL URLWithString:nurse.headerImage] placeholderImage:ThemeImage(imgPath)];
@@ -115,42 +113,44 @@
     
     UserModel *usermodel = [UserModel sharedUserInfo];
     [usermodel addObserver:self forKeyPath:@"userId" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-
-    if(usermodel.isLogin){
-        self.btnRight.hidden = NO;
-        [self loadDataList:nil];
-         }else{
-        self.btnRight.hidden = YES;
-    }
-    
-    if([UserModel sharedUserInfo].userId != nil)
-        [self LoadDefaultDoctorInfo:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UserModel *usermodel = [UserModel sharedUserInfo];
+    if(usermodel.isLogin){
+        self.btnRight.hidden = NO;
+        AttentionArray =[UserAttentionModel GetMyAttentionArray];
+        if([AttentionArray count] == 0)
+            [self loadDataList:nil];
+        else
+            [self SetDefaultLoverWhenNoDefault];
+        
+        if([UserModel sharedUserInfo].userId != nil && _currentLoverId == nil)
+            [self LoadDefaultDoctorInfo:nil];
+        
+    }else{
+        self.btnRight.hidden = YES;
+    }
+}
+
+-(void)SetDefaultLoverWhenNoDefault
+{
+    if(AttentionArray.count > 0 && _currentLoverId == nil){
+        _currentLoverId= [AttentionArray[0] userid];
+        NSURL *imgurl =[NSURL URLWithString:[AttentionArray[0] photoUrl]];
+        [self.btnRight sd_setImageWithURL:imgurl forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
+    }
+}
 
 -(void)loadDataList:(NSString*)loverID{
     [_dataList removeAllObjects];
+    __weak EscortTimeVC *weakSelf = self;
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {    //获取 用户的陪护对象
      AttentionArray =[UserAttentionModel GetMyAttentionArray];
-//     if (AttentionArray.count>0) {
-//        [self LoadDefaultDoctorInfo:loverID]; // 加载陪护师信息 ，headview显示
-//        if (loverID==nil) {
-//            _currentLoverId= [AttentionArray[0] userid];
-//            NSURL *imgurl =[NSURL URLWithString:[AttentionArray[0] photoUrl]];
-//            [self.btnRight sd_setImageWithURL:imgurl forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
-//          }
-//       
-//           [EscortTimeDataModel LoadCareTimeListWithLoverId:_currentLoverId pages:pages block:^(int code, id content) {
-//              if(code)
-//              {
-//                [_dataList addObjectsFromArray:content];
-//                [tableView reloadData];
-//              }
-//           }];
-//        }
-//     else{
-//         _currentLoverId= nil;
-//     }
+        [weakSelf SetDefaultLoverWhenNoDefault];
     }] ;
 
 }
@@ -168,13 +168,12 @@
     [LCNetWorkBase postWithMethod:@"api/care/default" Params:parmas Completion:^(int code, id content) {
         if(code){
                // if([content objectForKey:@"defaultLoverId"] != nil){
-                    if([content objectForKey:@"id"] != nil){
-                        NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
-                        [weakSelf SetHeaderInfoWithModel:model];
-//                        [weakSelf.btnRight sd_setImageWithURL:[NSURL URLWithString:[weakSelf headerImagePath]] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
-                    }else {
-                        [weakSelf SetHeaderInfoWithModel:nil];
-                    }
+            if([content objectForKey:@"id"] != nil){
+                NurseListInfoModel *model = [NurseListInfoModel objectFromDictionary:content];
+                [weakSelf SetHeaderInfoWithModel:model];
+            }else {
+                [weakSelf SetHeaderInfoWithModel:nil];
+            }
             if([content objectForKey:@"defaultLoverId"] != nil)
             {
                 _currentLoverId = [content objectForKey:@"defaultLoverId"];
@@ -194,10 +193,7 @@
                 NSString *headerImage = [content objectForKey:@"loverHeaderImageUrl"];
                 [weakSelf.btnRight sd_setImageWithURL:[NSURL URLWithString:headerImage] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
             }
-            
-                }
-
-           //  }
+        }
     }];
 }
 
