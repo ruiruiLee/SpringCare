@@ -87,8 +87,8 @@
 
 - (void) SetContentWithDic:(FamilyProductModel*)model
 {
-   // [_photoImgV sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:nil];
-    [_photoImgV sd_setImageWithURL:[NSURL URLWithString:PostersImage(model.image_url)] placeholderImage:nil];
+    //[_photoImgV sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:nil];
+    [_photoImgV sd_setImageWithURL:[NSURL URLWithString:ProductImage(model.image_url)] placeholderImage:nil];
 //    _photoImgV.image = [UIImage imageNamed:@"nurselistfemale"];
     _lbTitle.text = [NSString stringWithFormat:@"  %@",model.productName];
     _lbExplain.text = model.productDesc;

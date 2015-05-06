@@ -81,7 +81,8 @@
 
 //首页海报以及产品图片压缩比例大小
 #define PostersImage(imageUrl) FormatImage(imageUrl,414,277)
-#define PostersImage4s(imageUrl) FormatImage(imageUrl,320,175)
+#define PostersImage4s(imageUrl) FormatImage(imageUrl,320,160)
+#define ProductImage(imageUrl) FormatImage(imageUrl,400,200)
 
 //应用里头像处理尺寸
 #define HeadImage(imageUrl) FormatImage(imageUrl,150,150)
