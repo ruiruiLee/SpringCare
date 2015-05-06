@@ -53,6 +53,8 @@
             self.chineseName = [muser objectForKey:@"chineseName"];
             self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
             self.locationPoint =[muser objectForKey:@"locationPoint"];
+            
+            self.userRecommendId = [(AVObject*)[muser objectForKey:@"user_recommend_re"] objectId];
         }
     }
     return self;
@@ -87,7 +89,8 @@
     //self.intro = [muser objectForKey:@"intro"];
     self.chineseName = [muser objectForKey:@"chineseName"];
     self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
-
+    
+    self.userRecommendId = [(AVObject*)[muser objectForKey:@"user_recommend_re"] objectId];
 }
 -(BOOL)isLogin{
     if ( [AVUser currentUser]==nil) {

@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.NavigationBar.Title = @"推荐码";
+    self.NavigationBar.Title = @"邀请码";
     self.ContentView.backgroundColor = TableBackGroundColor;
     
     [self initSubViews];
@@ -92,6 +92,16 @@
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[_lbExplation(20)]-15-[_tfContent(44)]-20-[_btnSubmit(42)]->=0-|" options:0 metrics:nil views:views]];
 }
 
+- (void) ResetInviteInfo
+{
+    _lbExplation.text = @"你的邀请人手机号是:";
+    [_tfContent setEnabled:NO];
+    _btnSubmit.enabled = NO;
+    UIImage *image = [Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)];
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
+    [_btnSubmit setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
+}
+
 - (void) doBtnFeedBack:(UIButton *)sender
 {
     [_tfContent resignFirstResponder];
@@ -104,7 +114,7 @@
     __weak InputRecommendVC *_weakSelf = self;
     [[UserModel sharedUserInfo] saveRecommendPhone:content block:^(int code) {
         if(code == 1){
-            
+            [_weakSelf ResetInviteInfo];
         }
     }];
 }

@@ -34,6 +34,9 @@
 //@property (nonatomic, strong) NSString *currentCity;
 @property (nonatomic, strong) NSString *currentDetailAdrress;
 
+@property (nonatomic, strong) NSString *userRecommendId;//邀请码关联对象
+@property (nonatomic, strong) NSString *userRecommendPhone;//邀请码关联对象
+
 +(UserModel *)sharedUserInfo;
 
 -(BOOL)isLogin;
