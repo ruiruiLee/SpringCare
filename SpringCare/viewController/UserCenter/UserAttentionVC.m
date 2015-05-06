@@ -59,7 +59,11 @@
             if(code == 1){
                 _attentionData = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];//[UserAttentionModel GetMyAttentionArray];
                 _applyData = [[NSMutableArray alloc] initWithArray:[UserRequestAcctionModel GetRequestAcctionArray]];//[UserRequestAcctionModel
-                [weakSelf._tableview reloadData];
+                if(_attentionData.count==0 || _applyData.count==0){
+                   // [weakSelf displayEmpityImageView:noCareBackbroundImg];
+                }else{
+                   [weakSelf._tableview reloadData];
+                }
             }
             [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
         }];
