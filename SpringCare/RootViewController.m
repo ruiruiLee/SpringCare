@@ -106,8 +106,8 @@
             }];
         }
     }else if(item.tag == 1001){
-//        [nurseVC LoadDataList];
-        [nurseVC performSelector:@selector(LoadDataList) withObject:nil afterDelay:0.2];
+        [nurseVC LoadDataList];
+//        [nurseVC performSelector:@selector(LoadDataList) withObject:nil afterDelay:0.2];
     }
 }
 
