@@ -244,7 +244,7 @@
             MyOrderListVC * __weak weakSelf = vc;
             NSDictionary* dict = @{
                                    @"channel" : self.payValue,
-                                   @"amount"  : [NSString stringWithFormat:@"%@", [Params objectForKey:@"totalPrice"]],
+                                   @"amount"  : [NSString stringWithFormat:@"%@00", [Params objectForKey:@"totalPrice"]],
                                    @"orderId":orderID
                                    };
             [Util PayForOrders:dict Controller:weakSelf];
