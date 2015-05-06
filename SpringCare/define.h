@@ -21,7 +21,12 @@
 
 
 
+#define Service_Methord @"buspromotion/detailInfo/"
 
+#define Care_Introduce @"55288db3e4b0da2c5df90b29"//护理介绍
+#define Care_Promiss @"55288e01e4b0da2c5df90e9f"//护理承若
+#define About_Us @"5544ad2ee4b03fd8342e9c19"//关于我们
+#define Care_Agreement @"5544af16e4b03fd8342eb2d3"//用户协议
 
 
 #define LCNetWorkBase [LCNetWorkBase sharedLCNetWorkBase]
