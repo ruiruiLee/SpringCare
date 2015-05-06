@@ -50,27 +50,27 @@
     btnCancel.clipsToBounds = YES;
     [footView addSubview:btnCancel];
     [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-28-[btnCancel]-28-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
-    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[btnCancel]-3-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
+    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[btnCancel]-13-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
     [btnCancel addTarget:self action:@selector(btnCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
     if(type == EnumValueTypeiPhone4S){
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 70);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 80);
         btnCancel.titleLabel.font = _FONT(17);
     }
     else if (type == EnumValueTypeiPhone5){
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 70);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 80);
         btnCancel.titleLabel.font = _FONT(17);
     }
     else if (type == EnumValueTypeiPhone6){
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 80);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 90);
         btnCancel.titleLabel.font = _FONT(18);
     }
     else if (type == EnumValueTypeiPhone6P){
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 90);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 100);
         btnCancel.titleLabel.font = _FONT(20);
     }else{
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 70);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 80);
         btnCancel.titleLabel.font = _FONT(17);
     }
     
