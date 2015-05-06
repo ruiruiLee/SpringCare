@@ -43,7 +43,8 @@
 
 
 // 订单列表页面没有数据的时候 加载的图片
-#define orderBackbroundImg ThemeImage(@"orderend")
+#define noOrderBackbroundImg ThemeImage(@"noOrderBackground")
+#define noCareBackbroundImg ThemeImage(@"noCare")
 // 陪护时光无数据时加载的页面。
 #define TimeBackbroundImg ThemeImage(@"default_bg")
 

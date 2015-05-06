@@ -330,9 +330,13 @@
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
                 dataListForCom = [NSArray arrayWithArray:[MyOrderdataModel GetNoAssessmentOrderList]]; //评论中的订单
-                
+                if(dataListForCom.count>0){
+                 [weakSelf.pullTableView removeBackgroudImgView];
                 [weakSelf.pullTableView reloadData];
                 [weakSelf refreshTable];
+                }else{
+                    [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+                }
             }else{
                 [weakSelf refreshTable];
             }
