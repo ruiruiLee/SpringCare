@@ -30,7 +30,7 @@
 
 @implementation UserAttentionVC
 @synthesize refreshView;
-@synthesize _tableview = _tableview;
+//@synthesize _tableview = _tableview;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,14 +59,33 @@
             if(code == 1){
                 _attentionData = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];//[UserAttentionModel GetMyAttentionArray];
                 _applyData = [[NSMutableArray alloc] initWithArray:[UserRequestAcctionModel GetRequestAcctionArray]];//[UserRequestAcctionModel
-                if(_attentionData.count==0 || _applyData.count==0){
-                   // [weakSelf displayEmpityImageView:noCareBackbroundImg];
+                
+                if(_attentionData.count==0 && _applyData.count==0){
+                   [weakSelf displayEmpityImageView:noCareBackbroundImg];
                 }else{
-                   [weakSelf._tableview reloadData];
+                    [weakSelf removeBackgroudImgView];
                 }
+              [_tableview reloadData];
             }
             [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
         }];
+    }
+}
+
+-(void)displayEmpityImageView:(UIImage *)img{
+    if (backgroundImageView==nil) {
+        backgroundImageView= [[UIImageView alloc]initWithFrame:CGRectMake(_tableview.frame.size.width/2-img.size.width/2, _tableview.frame.size.height/2-img.size.height-64, img.size.width, img.size.height)];
+        // [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orderend"]];
+        backgroundImageView.image=img;
+        [_tableview addSubview:backgroundImageView];
+        
+    }
+    
+}
+-(void)removeBackgroudImgView{
+    if (backgroundImageView !=nil) {
+        [backgroundImageView removeFromSuperview];
+        backgroundImageView=nil;
     }
 }
 
@@ -458,7 +477,13 @@
         if(code){
             _attentionData = [UserAttentionModel GetMyAttentionArray];
             _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
-             [weakSelf._tableview reloadData];
+            if(_attentionData.count==0 && _applyData.count==0){
+                [weakSelf displayEmpityImageView:noCareBackbroundImg];
+            }else{
+                [weakSelf removeBackgroudImgView];
+            }
+
+             [_tableview reloadData];
           
         }
         [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
@@ -506,7 +531,13 @@
         if(code == 1){
             _attentionData = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];//[UserAttentionModel GetMyAttentionArray];
             _applyData = [[NSMutableArray alloc] initWithArray:[UserRequestAcctionModel GetRequestAcctionArray]];//[UserRequestAcctionModel GetRequestAcctionArray];
-            [weakSelf._tableview reloadData];
+            if(_attentionData.count==0 && _applyData.count==0){
+                [weakSelf displayEmpityImageView:noCareBackbroundImg];
+            }else{
+                [weakSelf removeBackgroudImgView];
+            }
+
+            [_tableview reloadData];
         }
         [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
     }];
