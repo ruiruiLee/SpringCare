@@ -62,7 +62,7 @@
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
     //数据先初始化
     
-    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
+    menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
     menu.dataSource = self;
     menu.delegate = self;
     [self.view addSubview:menu];
@@ -88,6 +88,8 @@
 
 - (void) LoadDataList
 {
+    searchBar.text = @"";
+    [menu ResetDropDownMenu];
     __weak NurseListMainVC *weakSelf = self;
     pages = 0;
     self.pullTableView.pullTableIsRefreshing = YES;

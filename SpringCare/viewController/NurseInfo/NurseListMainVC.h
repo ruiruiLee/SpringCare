@@ -22,6 +22,8 @@
     NSString *_SearchConditionStr;
     
     NSInteger pages;
+    
+    DOPDropDownMenu *menu;
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;

@@ -419,7 +419,13 @@
 
 
 
-
+- (void) ResetDropDownMenu
+{
+    for (int i = 0; i < [self numOfMenu]; i++) {
+        CATextLayer *title = (CATextLayer *)_titles[i];
+        title.string = [self.dataSource menu:self titleForRowAtIndexPath:[DOPIndexPath indexPathWithCol:i row:0]];
+    }
+}
 
 
 @end
