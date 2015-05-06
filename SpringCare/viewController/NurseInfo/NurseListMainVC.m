@@ -84,17 +84,20 @@
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     pullTableView.tableFooterView = footer;
-    
+}
+
+- (void) LoadDataList
+{
     __weak NurseListMainVC *weakSelf = self;
+    pages = 0;
+    self.pullTableView.pullTableIsRefreshing = YES;
     [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:nil block:^(int code) {
+        [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [weakSelf.pullTableView reloadData];
-        [weakSelf refreshTable];
+        [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
     
-    if(!self.pullTableView.pullTableIsRefreshing) {
-        self.pullTableView.pullTableIsRefreshing = YES;
-    }
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -205,7 +208,7 @@
         [weakSelf.DataList removeAllObjects];
         [weakSelf.DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [weakSelf.pullTableView reloadData];
-        [weakSelf refreshTable];
+        [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
 }
 
@@ -217,7 +220,7 @@
     [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
         [weakSelf.DataList addObjectsFromArray:content];
         [weakSelf.pullTableView reloadData];
-        [weakSelf loadMoreDataToTable];
+        [weakSelf performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.2];
     }];
 }
 
@@ -263,7 +266,7 @@
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         
         [_weakSelf.pullTableView reloadData];
-        [_weakSelf refreshTable];
+        [_weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
 }
 
@@ -288,7 +291,7 @@
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         
         [_weakSelf.pullTableView reloadData];
-        [_weakSelf refreshTable];
+        [_weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
     
 }
@@ -406,7 +409,6 @@
         [weakSelf.DataList removeAllObjects];
         [weakSelf.DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [weakSelf.pullTableView reloadData];
-//        [weakSelf refreshTable];
         [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
 

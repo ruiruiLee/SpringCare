@@ -34,5 +34,6 @@
 
 
 - (void) appendDataWithArray:(NSArray*)array;
+- (void) LoadDataList;
 
 @end
