@@ -43,7 +43,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     [SliderViewController sharedSliderController].LeftVC=[[LCMenuViewController alloc] init];
-    //[SliderViewController sharedSliderController].RightVC=nil;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     self.window.rootViewController = nav;
