@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVOSCloud/AVOSCloud.h>
 #import "define.h"
- #import <AVOSCloud/AVOSCloud.h>
+
 @interface UserModel : NSObject
-{
-}
 
 
 @property (nonatomic, strong) NSString *mobilePhoneNumber;
@@ -34,9 +33,12 @@
 @property (nonatomic, strong) AVGeoPoint *locationPoint;
 //@property (nonatomic, strong) NSString *currentCity;
 @property (nonatomic, strong) NSString *currentDetailAdrress;
+
 +(UserModel *)sharedUserInfo;
 
 -(BOOL)isLogin;
 -(void)modifyInfo;
 -(void)modifyLocation:(NSString*)detailAddress;
+-(void)saveRecommendPhone:(NSString *)phone block:(void(^)(int code))block;
+
 @end
