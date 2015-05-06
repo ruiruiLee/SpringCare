@@ -183,6 +183,7 @@
                     {
                         [_dataList removeAllObjects];
                         [_dataList addObjectsFromArray:content];
+                        if(_dataList.count>0)
                          previousDate = [(EscortTimeDataModel*)_dataList[_dataList.count-1] createDate];
                         [weakSelf.tableView reloadData];
                     }
@@ -438,7 +439,8 @@
         {
             [_dataList removeAllObjects];
             [_dataList addObjectsFromArray:content];
-             previousDate = [(EscortTimeDataModel*)_dataList[_dataList.count-1] createDate];
+            if(_dataList.count>0)
+                previousDate = [(EscortTimeDataModel*)_dataList[_dataList.count-1] createDate];
             [tableView reloadData];
         }
 
@@ -474,6 +476,7 @@
             {
                 [_dataList removeAllObjects];
                 [_dataList addObjectsFromArray:content];
+                if(_dataList.count>0)
                  previousDate = [(EscortTimeDataModel*)_dataList[_dataList.count-1] createDate];
                 [tableView reloadData];
             }
