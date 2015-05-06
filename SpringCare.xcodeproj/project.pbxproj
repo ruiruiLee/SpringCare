@@ -87,6 +87,7 @@
 		868B23AC1AE1287E003AAD2A /* MyOrderdataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23AB1AE1287E003AAD2A /* MyOrderdataModel.m */; };
 		869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 869C9EE61AD404F10090182E /* EditUserInfoVC.m */; };
 		86B0994D1ACC07430005BC98 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0994C1ACC07430005BC98 /* LoginVC.m */; };
+		86B3EE7F1AF9C860005E29B1 /* InputRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */; };
 		86B461AA1AF5CB4E00B1B66D /* UIView+MGBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461A91AF5CB4E00B1B66D /* UIView+MGBadgeView.m */; };
 		86B461B91AF7A4E300B1B66D /* ProjectDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461B81AF7A4E300B1B66D /* ProjectDefine.m */; };
 		86B7497A1AE89A68000BA6DB /* CertBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B749791AE89A68000BA6DB /* CertBrowserVC.m */; };
@@ -508,6 +509,8 @@
 		869C9EE61AD404F10090182E /* EditUserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoVC.m; sourceTree = "<group>"; };
 		86B0994B1ACC07430005BC98 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		86B0994C1ACC07430005BC98 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		86B3EE7D1AF9C860005E29B1 /* InputRecommendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputRecommendVC.h; sourceTree = "<group>"; };
+		86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputRecommendVC.m; sourceTree = "<group>"; };
 		86B461A81AF5CB4E00B1B66D /* UIView+MGBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MGBadgeView.h"; sourceTree = "<group>"; };
 		86B461A91AF5CB4E00B1B66D /* UIView+MGBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MGBadgeView.m"; sourceTree = "<group>"; };
 		86B461B71AF7A4E300B1B66D /* ProjectDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDefine.h; sourceTree = "<group>"; };
@@ -1205,6 +1208,8 @@
 				86B8E55C1AD4E3C100A5139E /* FeedBackVC.m */,
 				86B8E59A1AD65D1500A5139E /* UserSettingVC.h */,
 				86B8E59B1AD65D1500A5139E /* UserSettingVC.m */,
+				86B3EE7D1AF9C860005E29B1 /* InputRecommendVC.h */,
+				86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -2160,6 +2165,7 @@
 				865C85971ACCEDFF006ABCA4 /* HBImageViewList.m in Sources */,
 				86B8E5671AD4F14700A5139E /* AttentionSelectTableViewCell.m in Sources */,
 				8642C93C1ABFF53C00251921 /* SBJsonStreamWriterState.m in Sources */,
+				86B3EE7F1AF9C860005E29B1 /* InputRecommendVC.m in Sources */,
 				8642C94B1ABFF53C00251921 /* UIImage+MultiFormat.m in Sources */,
 				8642C9651ABFF56500251921 /* LCBaseVC.m in Sources */,
 				86B7497D1AE8CB9C000BA6DB /* EvaluateDataModel.m in Sources */,

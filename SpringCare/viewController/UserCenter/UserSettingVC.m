@@ -13,6 +13,8 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "SliderViewController.h"
 #import "HomePageVC.h"
+#import "InputRecommendVC.h"
+
 @interface UserSettingVC ()
 
 @end
@@ -107,7 +109,7 @@
     if(section == 0)
         return 1;
     else if (section == 1)
-        return 2;
+        return 3;
     else
         return 2;
 }
@@ -128,19 +130,24 @@
         if(indexPath.row == 0)
         {
            // 告诉朋友
-        }else{
+        }else if(indexPath.row == 1){
            // 给app好评
             NSString *url = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",KEY_APPLE_ID];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        }else{
+            InputRecommendVC *vc = [[InputRecommendVC alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
     if(indexPath.section == 2){
         if(indexPath.row == 0)
         {
-            WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"关于我们" url:@""];
+            NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, About_Us];
+            WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"关于我们" url:url];
             [self.navigationController pushViewController:vc animated:YES];
         }else{
-            WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"用户陪护协议" url:@""];
+            NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, Care_Agreement];
+            WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"用户陪护协议" url:url];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -168,8 +175,12 @@
             cell._lbContent.hidden = YES;
             cell._imgFold.hidden = NO;
         }
-        else{
+        else if(indexPath.row == 1){
             cell._lbTitle.text = @"给我们好评";
+            cell._lbContent.hidden = YES;
+            cell._imgFold.hidden = NO;
+        }else{
+            cell._lbTitle.text = @"邀请码";
             cell._lbContent.hidden = YES;
             cell._imgFold.hidden = NO;
         }

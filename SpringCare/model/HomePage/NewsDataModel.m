@@ -60,7 +60,7 @@ static NSMutableArray *newsArray = nil;
             model.news_title = [dic objectForKey:@"newsTitle"];
             if(model.news_title == nil)
                 model.news_title = @"";
-            model.news_url = [dic objectForKey:@"url"];
+            model.news_url = [dic objectForKey:@"id"];
             if(model.news_url == nil)
                 model.news_url = @"";
             [newsArray addObject:model];

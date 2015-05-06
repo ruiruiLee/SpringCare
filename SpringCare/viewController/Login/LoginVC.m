@@ -10,6 +10,7 @@
 #import "define.h"
 #import "NSStrUtil.h"
 #import "UserModel.h"
+#import "WebContentVC.h"
 
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
@@ -147,6 +148,7 @@
     [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0x99, 0x99, 0x99) range:range];
     [btnAgreement setAttributedTitle:string forState:UIControlStateNormal];
 //    [btnAgreement setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
+    [btnAgreement addTarget:self action:@selector(doBtnAgreementClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(line, title, _tfPhoneNum, _btnVerifyCode, _btnLogin, scrollview, _tfVerifyCode, btnAgreement);
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[scrollview]-0-|" options:0 metrics:nil views:views]];
@@ -331,6 +333,13 @@
             scrollview.contentOffset = CGPointMake(0, 0);
         }];
     }
+}
+
+-(void) doBtnAgreementClicked:(UIButton *)sender
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, Care_Agreement];
+    WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"用户陪护协议" url:url];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

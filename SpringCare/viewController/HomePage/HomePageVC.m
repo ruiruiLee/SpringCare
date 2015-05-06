@@ -452,7 +452,7 @@
 {
     WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"护理介绍" url:@""];
     vc.hidesBottomBarWhenPushed = YES;
-    [vc loadInfoFromUrl:introduceUrl];
+    [vc loadInfoFromUrl:[NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, Care_Introduce]];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -460,7 +460,7 @@
 {
     WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"服务承诺" url:@""];
     vc.hidesBottomBarWhenPushed = YES;
-    [vc loadInfoFromUrl:promiseUrl];
+    [vc loadInfoFromUrl:[NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, Care_Promiss]];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
