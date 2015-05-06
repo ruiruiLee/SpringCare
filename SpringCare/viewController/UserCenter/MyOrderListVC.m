@@ -49,7 +49,6 @@
    }
 
 -(void)loadDataList{
-      [dataOtherList removeAllObjects];
     __weak MyOrderListVC *weakSelf = self;
     
     loadCount = 2;
@@ -73,6 +72,7 @@
     
     [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
+            [dataOtherList removeAllObjects];
             [dataOtherList addObjectsFromArray:content]; // 全部订单
             [weakSelf.pullTableView removeBackgroudImgView];
             loadCount -- ;
