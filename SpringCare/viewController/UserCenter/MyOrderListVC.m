@@ -58,12 +58,13 @@
         if(code){
             dataOnDoingList = content; // 正在进行中的订单
             [weakSelf.pullTableView removeBackgroudImgView];
-            if (dataOnDoingList.count==0) {
-                [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
-            }
             loadCount -- ;
-            if(loadCount == 0)
+            if(loadCount == 0){
                 [weakSelf.pullTableView reloadData];
+                if (dataOnDoingList.count==0 && dataOtherList.count==0) {
+                    [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+                }
+            }
             [weakSelf refreshTable];
         }else{
             [weakSelf refreshTable];
@@ -74,12 +75,14 @@
         if(code){
             [dataOtherList addObjectsFromArray:content]; // 全部订单
             [weakSelf.pullTableView removeBackgroudImgView];
-            if (dataOtherList.count==0) {
-                 [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
-            }
             loadCount -- ;
-            if(loadCount == 0)
+            if(loadCount == 0){
                 [weakSelf.pullTableView reloadData];
+                
+                if (dataOnDoingList.count==0 && dataOtherList.count==0) {
+                    [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+                }
+            }
             [weakSelf refreshTable];
         }else{
             [weakSelf refreshTable];
@@ -369,6 +372,10 @@
                 [dataOtherList addObjectsFromArray:content];
                 [weakSelf.pullTableView reloadData];
                 [weakSelf loadMoreDataToTable];
+                
+                if (dataOnDoingList.count==0 && dataOtherList.count==0) {
+                    [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+                }
             }else{
                 [weakSelf loadMoreDataToTable];
             }
