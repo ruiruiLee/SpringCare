@@ -148,7 +148,6 @@
     }
     else  //程序在后台中接收到推送
     {
-       // [self pushDetailPage:userInfo PushType:PushFromBcakground];
         // The application was just brought from the background to the foreground,
         // so we consider the app as having been "opened by a push notification."
         [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
