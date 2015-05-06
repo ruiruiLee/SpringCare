@@ -98,5 +98,24 @@
     }
 }
 
+-(void)saveRecommendPhone:(NSString *)phone block:(void(^)(int code))block
+{
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    if(self.userId != nil)
+        [parmas setObject:self.userId forKey:@"registerId"];
+    [parmas setObject:phone forKey:@"phone"];
+    
+    [LCNetWorkBase postWithMethod:@"api/recommend/save" Params:parmas Completion:^(int code, id content) {
+        if(code == 1){
+            if([content objectForKey:@"code"] != nil){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[content objectForKey:@"message"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }else{
+                if(block)
+                    block(1);
+            }
+        }
+    }];
+}
 
 @end
