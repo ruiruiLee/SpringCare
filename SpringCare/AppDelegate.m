@@ -75,6 +75,7 @@
     //判断程序是不是由推送服务完成的
     if (launchOptions)
     {
+        [UIApplication sharedApplication].applicationIconBadgeNumber=0;
         NSDictionary* notificationPayload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (notificationPayload)
         {
@@ -139,11 +140,11 @@
   [(RootViewController*)[SliderViewController sharedSliderController].MainVC pushtoController:[[dic objectForKey:@"mt"] intValue]];
 }
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     // 程序在运行中接收到推送
     if (application.applicationState == UIApplicationStateActive)
     {
-        // [self pushDetailPage:userInfo backGroud:YES];
-       // [(RootViewController*)[SliderViewController sharedSliderController].MainVC pushtoController:1];
+
      
     }
     else  //程序在后台中接收到推送
