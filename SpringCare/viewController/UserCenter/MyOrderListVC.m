@@ -57,6 +57,10 @@
     [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderService isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
             dataOnDoingList = content; // 正在进行中的订单
+            [weakSelf.pullTableView removeBackgroudImgView];
+            if (dataOnDoingList.count==0) {
+                [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+            }
             loadCount -- ;
             if(loadCount == 0)
                 [weakSelf.pullTableView reloadData];
@@ -69,6 +73,10 @@
     [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
         if(code){
             [dataOtherList addObjectsFromArray:content]; // 全部订单
+            [weakSelf.pullTableView removeBackgroudImgView];
+            if (dataOtherList.count==0) {
+                 [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+            }
             loadCount -- ;
             if(loadCount == 0)
                 [weakSelf.pullTableView reloadData];
@@ -330,12 +338,14 @@
         [MyOrderdataModel loadOrderlistWithPages:pages type:EnumOrderPrepareForAssessment isOnlyIndexSplit:NO block:^(int code, id content) {
             if(code){
                 dataListForCom = [NSArray arrayWithArray:[MyOrderdataModel GetNoAssessmentOrderList]]; //评论中的订单
+                
                 if(dataListForCom.count>0){
-                 [weakSelf.pullTableView removeBackgroudImgView];
-                [weakSelf.pullTableView reloadData];
-                [weakSelf refreshTable];
+                    [weakSelf.pullTableView removeBackgroudImgView];
+                    [weakSelf.pullTableView reloadData];
+                    [weakSelf refreshTable];
                 }else{
-                    [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+                     [weakSelf refreshTable];
+                     [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
                 }
             }else{
                 [weakSelf refreshTable];
@@ -388,6 +398,13 @@
     if(idx == 0){
         //全部订单
         isComment = NO;
+        [self.pullTableView removeBackgroudImgView];
+        if (dataOtherList.count==0&& dataOnDoingList.count==0) {
+            [self.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+        }else{
+            [self.pullTableView removeBackgroudImgView];
+        }
+
     }
     else{
         //待评价
@@ -395,6 +412,14 @@
         if(dataListForCom == nil){
             //self.pullTableView.pullTableIsRefreshing = YES;
             [self pullTableViewDidTriggerRefresh:nil];
+        }
+        else{
+            if (dataListForCom.count==0) {
+                [self.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+            }else{
+                 [self.pullTableView removeBackgroudImgView];
+            }
+
         }
     }
     

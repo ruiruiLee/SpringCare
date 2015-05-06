@@ -14,12 +14,12 @@
     UITableView *_tableview;
     
     UISearchBar *_searchBar;
-    
+     UIImageView *backgroundImageView;
     NSMutableArray *_attentionData;
     NSMutableArray *_applyData;
     UIImage *photoimg;
 }
 @property (nonatomic, retain) UserAttentionTableCell * currentCell;
-@property (nonatomic, retain) UITableView *_tableview;
+//@property (nonatomic, retain) UITableView *_tableview;
 -(void)refreshTable;
 @end
