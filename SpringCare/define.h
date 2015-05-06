@@ -53,7 +53,7 @@
 #define CityName @"成都市"
 
 // 支付
-#define kUrlScheme      @"springcarepayschemes"
+#define kUrlScheme      @"wx039f05e7e07b0fca"
 #define kUrl            @"http://springcare.avosapps.com/api/order/pay/getToken"
 
 
