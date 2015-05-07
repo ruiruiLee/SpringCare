@@ -252,6 +252,7 @@
 {
     if (_dataList.count==0) {
         UIImageView *imageView=[[UIImageView alloc]initWithImage:TimeBackbroundImg];
+        imageView.contentMode =UIViewContentModeScaleAspectFill;
        [_tableView setBackgroundView:imageView];
         tableView.tableHeaderView.hidden=YES;
     
