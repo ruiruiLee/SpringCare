@@ -50,7 +50,7 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
-        //第一次安装时运行打开推送
+       // 第一次安装时运行打开推送
 #if !TARGET_IPHONE_SIMULATOR
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
             UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert
@@ -70,7 +70,7 @@
         // [_rootTabController showIntroWithCrossDissolve];
         
     }
-    
+
     //判断程序是不是由推送服务完成的
     if (launchOptions)
     {
@@ -118,7 +118,8 @@
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
+    [AVUser logOut];  //清除缓存用户对象
+    [UserModel sharedUserInfo].userId = nil;
     AVInstallation *currentInstallation = [AVInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     //[currentInstallation addUniqueObject:@"springCare" forKey:@"channels"];

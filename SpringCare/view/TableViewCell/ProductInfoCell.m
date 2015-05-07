@@ -40,7 +40,9 @@
     _bgView.contentMode = UIViewContentModeScaleToFill;
     
     _photoImgV = [[UIImageView alloc] initWithFrame:CGRectZero];
+     //[_photoImgV setContentMode:UIViewContentModeScaleAspectFill];
     [_bgView addSubview:_photoImgV];
+    
     _photoImgV.translatesAutoresizingMaskIntoConstraints = NO;
     
     _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
