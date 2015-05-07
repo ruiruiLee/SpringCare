@@ -419,6 +419,7 @@
 //    NSLog(@"%f",tableView.contentOffset.y);
 //   [tableView setContentOffset:CGPointMake(0.0,tableView.contentOffset.y+ newHeight) animated:YES];
 //     NSLog(@"%f",tableView.contentOffset.y);
+    
 }
 #pragma AttentionSelectViewDelegat
 - (void) ViewSelectWithModel:(NSString*) loverID imagurl:(NSString*)imgUrl
