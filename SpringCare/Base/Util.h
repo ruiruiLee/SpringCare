@@ -55,6 +55,12 @@ typedef enum : NSUInteger {
     EnumServiceTimeOneDay,
 } ServiceTimeType;
 
+typedef enum
+{
+    PushFromBcakground=0,   //在后台内存未回收时进入
+    PushFromTerminate  //从中止了的应用程序进入
+}PushType;
+
 @interface Util : NSObject
 
 /**

@@ -37,8 +37,8 @@
             pages = 0;
             [_dataList removeAllObjects];
             self.btnRight.hidden=YES;
-//            LoginVC *vc = [[LoginVC alloc] init];
-//            [self.navigationController presentViewController:vc animated:YES completion:nil];
+            LoginVC *vc = [[LoginVC alloc] init];
+            [self.navigationController presentViewController:vc animated:YES completion:nil];
         }
         else{
             self.btnRight.hidden = NO;
@@ -128,7 +128,7 @@
         else
             [self SetDefaultLoverWhenNoDefault];
         
-        if([UserModel sharedUserInfo].userId != nil && _currentLoverId == nil)
+        if( _currentLoverId == nil)
             [self LoadDefaultDoctorInfo:nil];
         
     }else{
