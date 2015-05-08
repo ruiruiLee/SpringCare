@@ -301,7 +301,7 @@
     _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
     [headerView addSubview:_photoImage];
     _photoImage.clipsToBounds = YES;
-    _photoImage.layer.cornerRadius = 41;
+    _photoImage.layer.cornerRadius = 38;
 
     [_photoImage sd_setImageWithURL:[NSURL URLWithString:_nurseModel.headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:_nurseModel.sex]])];
     
@@ -356,12 +356,12 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _btnUnfold, _btnInfo, _btnCert,
                                                          _detailInfo, _imgvLogo);
     
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage(82)]-5-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_photoImage]-5-[_imgvLogo(21)]-5-[_btnInfo]->=4-[_btnCert(43)]-16-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[_photoImage(76)]-3-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[_photoImage]-3-[_imgvLogo(21)]-0-[_btnInfo]->=2-[_btnCert(43)]-12-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_detailInfo]-29-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_btnUnfold]->=20-|" options:0 metrics:nil views:views]];
     
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_photoImage(82)]->=20-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_photoImage(76)]->=20-|" options:0 metrics:nil views:views]];
     if(frame1.size.height != frame.size.height){
         headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-32-[_lbName(20)]-4-[_btnInfo(21)]-18-[_detailInfo]-8-[_btnUnfold(20)]->=0-|" options:0 metrics:nil views:views];
         _btnUnfold.hidden = NO;
