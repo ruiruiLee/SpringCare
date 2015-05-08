@@ -48,12 +48,11 @@
             self.sex = [[muser objectForKey:@"sex"] boolValue]?@"男":@"女";
             self.addr = [muser objectForKey:@"addr"];
             self.birthDay = [muser objectForKey:@"birthDay"];  //日期
+            self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
             self.career = [muser objectForKey:@"career"];
             //self.intro = [muser objectForKey:@"intro"];
             self.chineseName = [muser objectForKey:@"chineseName"];
-            self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
             self.locationPoint =[muser objectForKey:@"locationPoint"];
-            
             self.userRecommendId = [(AVObject*)[muser objectForKey:@"user_recommend_re"] objectId];
         }
     }
@@ -77,6 +76,7 @@
 -(void)modifyInfo{
     AVUser *muser = [AVUser currentUser];
     self.userId= muser.objectId;
+    self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
     self.mobilePhoneNumber= muser.mobilePhoneNumber;
     //self.sessionToken = muser.sessionToken;
     self.username = muser.username;
@@ -88,7 +88,7 @@
     self.career = [muser objectForKey:@"career"];
     //self.intro = [muser objectForKey:@"intro"];
     self.chineseName = [muser objectForKey:@"chineseName"];
-    self.headerFile = [(AVFile*)[muser objectForKey:@"headerImage"] url];
+    
     
     self.userRecommendId = [(AVObject*)[muser objectForKey:@"user_recommend_re"] objectId];
 }
