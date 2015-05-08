@@ -49,7 +49,7 @@ typedef enum : NSUInteger {
 
 + (NSMutableArray*) nurseListModel;
 
-+ (NSDictionary*) PramaNurseDic;
+//+ (NSDictionary*) PramaNurseDic;
 
 + (NurseListInfoModel*)objectFromDictionary:(NSDictionary*) dic;
 

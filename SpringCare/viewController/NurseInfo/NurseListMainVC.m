@@ -194,7 +194,7 @@
          }
     else{
         NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-        PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model andproductId:[[NurseListInfoModel PramaNurseDic] objectForKey:@"productId"]];
+        PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model andproductId:[cfAppDelegate defaultProductId] ];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

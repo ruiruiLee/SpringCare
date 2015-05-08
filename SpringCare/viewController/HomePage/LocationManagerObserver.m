@@ -31,8 +31,8 @@
     
     if (self = [super init]) {
         geocoder = [[CLGeocoder alloc] init];
-//        _lat = 30.643063;
-//        _lon = 104.058155;
+        _lat = -1;
+        _lon = -1;
         locationManager = [[CLLocationManager alloc] init];//创建位置管理器
         locationManager.delegate=(id)self;
         locationManager.desiredAccuracy=kCLLocationAccuracyBest;
