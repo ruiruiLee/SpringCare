@@ -44,5 +44,5 @@
 }
 
 @property (nonatomic, strong) PullTableView *tableView;
-
+- (void)pullTableViewDidTriggerRefresh:(PullTableView *)_pullTableView;
 @end

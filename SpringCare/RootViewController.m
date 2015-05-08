@@ -10,7 +10,7 @@
 #import "SliderViewController.h"
 #import "define.h"
 #import "LoginVC.h"
-
+#import "MPNotificationView.h"
 @interface RootViewController ()
 
 //@property (readonly, strong, nonatomic) ModelController *modelController;
@@ -22,6 +22,18 @@
 @synthesize messageListVC;
 
 //@synthesize modelController = _modelController;
+
+-(id)init{
+    self = [super init];
+    if (self) {
+        // 设置弹出消息观察者
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(tapReceivedNotificationHandler:)
+                                                     name:kMPNotificationViewTapReceivedNotification
+                                                   object:nil];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -111,37 +123,69 @@
     }
 }
 
--(void) pushtoController:(NSInteger)curentPushtype{
-    [UIApplication sharedApplication].applicationIconBadgeNumber=0;
-    switch (curentPushtype) {
+//弹出消息回调
+- (void)tapReceivedNotificationHandler:(NSNotification *)notice
+{
+    MPNotificationView *notificationView = (MPNotificationView *)notice.object;
+    [self pushtoController:[[notificationView.msgInfo objectForKey:@"mt"] intValue] PushType:PushFromBcakground];
+}
+
+-(void) pushtoController:(id)dic{
+
+    [MPNotificationView notifyWithText:@"信息提示"
+                                detail:[[dic objectForKey:@"aps"] objectForKey:@"alert"]
+                                 image:ThemeImage(@"icontitle")
+                           andDuration:4.0
+                             msgparams:dic];
+    
+
+}
+-(void) pushtoController:(NSInteger)mt PushType:(PushType)curentPushtype{
+      switch (mt) {
         case 1:   // 订单
         {
-               MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
-            if ([[SliderViewController sharedSliderController].MainVC isKindOfClass: [MyOrderListVC class]]) {
-                [vc pullTableViewDidTriggerRefresh:nil];
-            }
+           MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+            if (curentPushtype==PushFromBcakground) {
+                if ([[SliderViewController sharedSliderController].MainVC isKindOfClass: [MyOrderListVC class]]) {
+                    [vc pullTableViewDidTriggerRefresh:nil];
+                }
+                else{
+                   [self.navigationController pushViewController:vc animated:YES];
+                }
+             }
             else{
-            [self.navigationController pushViewController:vc animated:YES];
-            }
-           // [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+                  // [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+                 [self.navigationController pushViewController:vc animated:YES];
+              }
+         
             break;
         }
         case 2:   // 陪护时光
         {
-            self.selectedIndex=2;
+           if (curentPushtype==PushFromBcakground) {
+                self.selectedIndex=2;
+             //  EscortTimeVC *vc = [[EscortTimeVC alloc] initWithNibName:nil bundle:nil];
+             //  [vc pullTableViewDidTriggerRefresh:nil];
+             }
+            else{
+                self.selectedIndex=2;
+            }
             break;
 
         }
         case 3:  // 关注
         {
-            UserAttentionVC *vc = [[UserAttentionVC alloc] initWithNibName:nil bundle:nil];
-
-            if ([[SliderViewController sharedSliderController].MainVC isKindOfClass: [UserAttentionVC class]]) {
-                [vc refreshTable];
+             UserAttentionVC *vc = [[UserAttentionVC alloc] initWithNibName:nil bundle:nil];
+          if (curentPushtype==PushFromBcakground) {
+                if ([[SliderViewController sharedSliderController].MainVC isKindOfClass: [UserAttentionVC class]]) {
+                    [vc refreshTable];
+                }
+                else{
+                    [self.navigationController pushViewController:vc animated:YES];
+                  }
             }
             else{
-                [self.navigationController pushViewController:vc animated:YES];
-            //[[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+                 [self.navigationController pushViewController:vc animated:YES];
             }
             break;
 

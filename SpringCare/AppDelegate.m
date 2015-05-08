@@ -50,7 +50,7 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
-        //第一次安装时运行打开推送
+       // 第一次安装时运行打开推送
 #if !TARGET_IPHONE_SIMULATOR
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
             UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert
@@ -70,11 +70,11 @@
         // [_rootTabController showIntroWithCrossDissolve];
         
     }
-    
+
     //判断程序是不是由推送服务完成的
     if (launchOptions)
     {
-        [UIApplication sharedApplication].applicationIconBadgeNumber=0;
+        
         NSDictionary* notificationPayload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (notificationPayload)
         {
@@ -82,7 +82,7 @@
             [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
-
+     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -118,7 +118,8 @@
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
+    [AVUser logOut];  //清除缓存用户对象
+    [UserModel sharedUserInfo].userId = nil;
     AVInstallation *currentInstallation = [AVInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     //[currentInstallation addUniqueObject:@"springCare" forKey:@"channels"];
@@ -134,24 +135,30 @@
 }
 
 //推送跳转到指定页面
+
+//推送跳转到指定页面
 -(void) pushDetailPage: (id)dic
 {
-  [(RootViewController*)[SliderViewController sharedSliderController].MainVC pushtoController:[[dic objectForKey:@"mt"] intValue]];
+    [self pushDetailPage:dic PushType:PushFromTerminate];
+}
+
+-(void) pushDetailPage: (id)dic PushType:(PushType)myPushtype
+{
+    [(RootViewController*)[SliderViewController sharedSliderController].MainVC pushtoController:[[dic objectForKey:@"mt"] intValue] PushType:myPushtype];
 }
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     // 程序在运行中接收到推送
     if (application.applicationState == UIApplicationStateActive)
     {
-
-     
+        [(RootViewController*)[SliderViewController sharedSliderController].MainVC pushtoController:userInfo];
     }
     else  //程序在后台中接收到推送
     {
         // The application was just brought from the background to the foreground,
         // so we consider the app as having been "opened by a push notification."
         [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-        [self pushDetailPage:userInfo];
+        [self pushDetailPage:userInfo PushType:PushFromBcakground];
     }
 
 }

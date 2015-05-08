@@ -335,23 +335,23 @@
 }
 
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
-    NSString *sortFiled = nil;
-    switch (indexPath.column) {
-        case 0:{
-            sortFiled = @"price";
-        }
-            break;
-        case 1:{
-            sortFiled = @"age";
-        }
-            break;
-        case 2:{
-            sortFiled = @"rate";
-        }
-            
-        default:
-            break;
-    }
+//    NSString *sortFiled = nil;
+//    switch (indexPath.column) {
+//        case 0:{
+//            sortFiled = @"price";
+//        }
+//            break;
+//        case 1:{
+//            sortFiled = @"age";
+//        }
+//            break;
+//        case 2:{
+//            sortFiled = @"rate";
+//        }
+//            
+//        default:
+//            break;
+//    }
     
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
     

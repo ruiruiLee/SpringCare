@@ -12,7 +12,7 @@
 
 static NSMutableArray *nurseList = nil;
 //static EnumNursePriceType modelType = EnumTypeUnKonwn;
-static NSMutableDictionary *pramaNurseDic = nil;
+//static NSMutableDictionary *pramaNurseDic = nil;
 static NSInteger nurseTotal = 0;
 
 @implementation DefaultLoverModel
@@ -50,10 +50,10 @@ static NSInteger nurseTotal = 0;
 //详细部分
 @synthesize isLoadDetail;
 
-+ (NSDictionary*) PramaNurseDic
-{
-    return pramaNurseDic;
-}
+//+ (NSDictionary*) PramaNurseDic
+//{
+//    return pramaNurseDic;
+//}
 
 + (NSMutableArray*)nurseListModel
 {
@@ -142,8 +142,14 @@ static NSInteger nurseTotal = 0;
         offset = [nurseList count];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
-    [dic setObject:[NSNumber numberWithDouble: LcationInstance.lon] forKey:@"longitude"];
-    [dic setObject:[NSNumber numberWithDouble: LcationInstance.lat] forKey:@"latitude"];
+    if ([cfAppDelegate currentCityModel]!=nil) {
+        [dic setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
+    }
+    if(LcationInstance.lat>0&&LcationInstance.lon>0){
+        [dic setObject:[NSNumber numberWithDouble:LcationInstance.lon ] forKey:@"longitude"];
+        [dic setObject:[NSNumber numberWithDouble:LcationInstance.lat ]forKey:@"latitude"];
+    }
+
     if(sortFiled != nil)
         [dic setObject:sortFiled forKey:@"sortFiled"];
     if(productId != nil)
@@ -156,13 +162,9 @@ static NSInteger nurseTotal = 0;
     [dic setObject:order forKey:@"order"];
     if(!(key == nil || [key length] == 0))
         [dic setObject:key forKey:@"key"];
-    if ([cfAppDelegate currentCityModel]!=nil) {
-        [dic setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
-    }
     
     [dic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     
-    pramaNurseDic = dic;
    
     [LCNetWorkBase postWithMethod:@"api/care/list" Params:dic Completion:^(int code, id content) {
         if(code){
@@ -193,7 +195,7 @@ static NSInteger nurseTotal = 0;
     if(pages == 0){
         [nurseList removeAllObjects];
     }
-    
+     NSMutableDictionary *pramaNurseDic = [[NSMutableDictionary alloc] init];
     NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;
     if(offset >= [nurseList count])
@@ -202,7 +204,10 @@ static NSInteger nurseTotal = 0;
     if ([cfAppDelegate currentCityModel]!=nil) {
         [pramaNurseDic setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
     }
-
+    if(LcationInstance.lat>0&&LcationInstance.lon>0){
+         [pramaNurseDic setObject:[NSNumber numberWithDouble:LcationInstance.lon ] forKey:@"longitude"];
+         [pramaNurseDic setObject:[NSNumber numberWithDouble:LcationInstance.lat ]forKey:@"latitude"];
+    }
     [pramaNurseDic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     NSArray *array = [prama allKeys];
     for (int  i = 0; i < [array count]; i++) {

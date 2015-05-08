@@ -194,7 +194,7 @@
          }
     else{
         NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-        PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model andproductId:[[NurseListInfoModel PramaNurseDic] objectForKey:@"productId"]];
+        PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model andproductId:[cfAppDelegate defaultProductId] ];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -331,23 +331,23 @@
 
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
     
-    NSString *sortFiled = nil;
-    switch (indexPath.column) {
-        case 0:{
-            sortFiled = @"price";
-        }
-            break;
-        case 1:{
-            sortFiled = @"age";
-        }
-            break;
-        case 2:{
-            sortFiled = @"rate";
-        }
-            
-        default:
-            break;
-    }
+//    NSString *sortFiled = nil;
+//    switch (indexPath.column) {
+//        case 0:{
+//            sortFiled = @"price";
+//        }
+//            break;
+//        case 1:{
+//            sortFiled = @"age";
+//        }
+//            break;
+//        case 2:{
+//            sortFiled = @"rate";
+//        }
+//            
+//        default:
+//            break;
+//    }
     
     NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
     

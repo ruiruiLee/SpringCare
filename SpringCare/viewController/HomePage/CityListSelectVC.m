@@ -136,6 +136,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
      if(indexPath.section == 0){
+         if (LcationInstance.currentCity == nil) {
+             return;
+         }
         CityListCell *cell = (CityListCell *)[tableView cellForRowAtIndexPath:indexPath];
         CityDataModel *model =  [CityDataModel modelWithName:cell.lbTitle.text];
          if (model==nil) {

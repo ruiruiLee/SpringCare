@@ -144,6 +144,8 @@
 		CFAFA3BA1ABFEC8C0020E774 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */; };
 		CFAFA3C91ABFEC8C0020E774 /* SpringCareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */; };
 		CFB322691AF9E429005CAD6A /* ZWIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB322681AF9E429005CAD6A /* ZWIntroductionViewController.m */; };
+		CFB322751AFBA060005CAD6A /* MPNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB322721AFBA060005CAD6A /* MPNotificationView.m */; };
+		CFB322761AFBA060005CAD6A /* OBGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB322741AFBA060005CAD6A /* OBGradientView.m */; };
 		CFB42D131AE0AF6F00FDF891 /* TextAndEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB42D121AE0AF6F00FDF891 /* TextAndEmojiView.m */; };
 		CFB42D171AE66FA500FDF891 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB42D161AE66FA500FDF891 /* SystemConfiguration.framework */; };
 		CFB42D191AE66FB900FDF891 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB42D181AE66FB900FDF891 /* Security.framework */; };
@@ -627,6 +629,10 @@
 		CFAFA3C81ABFEC8C0020E774 /* SpringCareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpringCareTests.m; sourceTree = "<group>"; };
 		CFB322671AF9E429005CAD6A /* ZWIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWIntroductionViewController.h; sourceTree = "<group>"; };
 		CFB322681AF9E429005CAD6A /* ZWIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWIntroductionViewController.m; sourceTree = "<group>"; };
+		CFB322711AFBA060005CAD6A /* MPNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNotificationView.h; sourceTree = "<group>"; };
+		CFB322721AFBA060005CAD6A /* MPNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNotificationView.m; sourceTree = "<group>"; };
+		CFB322731AFBA060005CAD6A /* OBGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBGradientView.h; sourceTree = "<group>"; };
+		CFB322741AFBA060005CAD6A /* OBGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBGradientView.m; sourceTree = "<group>"; };
 		CFB42D111AE0AF6F00FDF891 /* TextAndEmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAndEmojiView.h; sourceTree = "<group>"; };
 		CFB42D121AE0AF6F00FDF891 /* TextAndEmojiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextAndEmojiView.m; sourceTree = "<group>"; };
 		CFB42D161AE66FA500FDF891 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -947,6 +953,7 @@
 		8642C8C21ABFF53C00251921 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				CFB322701AFBA060005CAD6A /* MPNotificationView */,
 				CFB322661AF9E429005CAD6A /* IntroductionView */,
 				CFBC52091ADCCC3C004FB8F3 /* UIViewAnimation */,
 				CFBC51EE1ADCC980004FB8F3 /* VoiceConvert */,
@@ -1487,6 +1494,17 @@
 				CFB322681AF9E429005CAD6A /* ZWIntroductionViewController.m */,
 			);
 			path = IntroductionView;
+			sourceTree = "<group>";
+		};
+		CFB322701AFBA060005CAD6A /* MPNotificationView */ = {
+			isa = PBXGroup;
+			children = (
+				CFB322711AFBA060005CAD6A /* MPNotificationView.h */,
+				CFB322721AFBA060005CAD6A /* MPNotificationView.m */,
+				CFB322731AFBA060005CAD6A /* OBGradientView.h */,
+				CFB322741AFBA060005CAD6A /* OBGradientView.m */,
+			);
+			path = MPNotificationView;
 			sourceTree = "<group>";
 		};
 		CFBC502A1ADBAA05004FB8F3 /* Face */ = {
@@ -2137,6 +2155,7 @@
 				CFBC51FF1ADCC980004FB8F3 /* amrFileCodec.mm in Sources */,
 				868B239E1ADF5B8A003AAD2A /* MyEvaluateListVC.m in Sources */,
 				868B23961ADBFC0A003AAD2A /* FamilyProductModel.m in Sources */,
+				CFB322751AFBA060005CAD6A /* MPNotificationView.m in Sources */,
 				8642C94D1ABFF53C00251921 /* UIImageView+HighlightedWebCache.m in Sources */,
 				8642C9391ABFF53C00251921 /* SBJsonStreamParserState.m in Sources */,
 				86B8E5DE1AD7EEF800A5139E /* PlaceOrderForProductVC.m in Sources */,
@@ -2166,6 +2185,7 @@
 				86B8E5671AD4F14700A5139E /* AttentionSelectTableViewCell.m in Sources */,
 				8642C93C1ABFF53C00251921 /* SBJsonStreamWriterState.m in Sources */,
 				86B3EE7F1AF9C860005E29B1 /* InputRecommendVC.m in Sources */,
+				CFB322761AFBA060005CAD6A /* OBGradientView.m in Sources */,
 				8642C94B1ABFF53C00251921 /* UIImage+MultiFormat.m in Sources */,
 				8642C9651ABFF56500251921 /* LCBaseVC.m in Sources */,
 				86B7497D1AE8CB9C000BA6DB /* EvaluateDataModel.m in Sources */,
@@ -2329,8 +2349,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2339,7 +2359,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0e00aadc-a931-4982-ab2d-733b368b648f";
 			};
 			name = Debug;
 		};
@@ -2349,8 +2369,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2359,7 +2379,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0e00aadc-a931-4982-ab2d-733b368b648f";
 			};
 			name = Release;
 		};

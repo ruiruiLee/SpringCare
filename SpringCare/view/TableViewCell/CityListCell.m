@@ -34,8 +34,8 @@
         NSDictionary *views = NSDictionaryOfVariableBindings(lbTitle, imgSelectFlag);
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[lbTitle]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[lbTitle]->=10-[imgSelectFlag(15)]-30-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgSelectFlag(18)]->=0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[lbTitle]->=10-[imgSelectFlag]-30-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[imgSelectFlag]->=0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:imgSelectFlag attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     return self;
