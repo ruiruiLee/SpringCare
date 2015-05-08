@@ -16,7 +16,7 @@
 {
     BOOL _reloading;
     NurseListInfoModel *_model;
-    
+    NSMutableDictionary *parmas;
     UISearchBar *searchBar;
     
     NSString *_SearchConditionStr;

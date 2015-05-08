@@ -229,6 +229,7 @@
         _lbOldPrice.hidden = YES;
     else
         _lbOldPrice.hidden = NO;
-}
+}   
+
 
 @end

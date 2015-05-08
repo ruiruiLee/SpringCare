@@ -24,6 +24,7 @@
     if(self){
         _SearchConditionStr = @"";
         _model = [[NurseListInfoModel alloc] init];
+         parmas = [[NSMutableDictionary alloc] init];
         DataList = [[NSMutableArray alloc] init];
         pages = 0;
     }
@@ -206,7 +207,7 @@
 {
     pages = 0;
     __weak NurseListMainVC *weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
         [weakSelf.DataList removeAllObjects];
         [weakSelf.DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [weakSelf.pullTableView reloadData];
@@ -219,7 +220,7 @@
     pages ++;
     
     __weak NurseListMainVC *weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
         [weakSelf.DataList addObjectsFromArray:content];
         [weakSelf.pullTableView reloadData];
         [weakSelf performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.2];
@@ -262,7 +263,9 @@
     self.pullTableView.pullTableIsRefreshing = YES;
     pages = 0;
     __weak NurseListMainVC *_weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:@{@"key": @""} block:^(int code, id content) {
+    
+     [ parmas setObject:@"" forKey:@"key"];
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
         //
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
@@ -287,7 +290,8 @@
     self.pullTableView.pullTableIsRefreshing = YES;
     pages = 0;
     __weak NurseListMainVC *_weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:@{@"key": searchStr} block:^(int code, id content) {
+    [ parmas setObject:searchStr forKey:@"key"];  //@{@"key": searchStr}
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
 //
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
@@ -349,7 +353,7 @@
 //            break;
 //    }
     
-    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+   
     
     if(indexPath.column == 0){
         NSInteger min = 0;

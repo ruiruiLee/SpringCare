@@ -30,6 +30,7 @@
     if(self){
         _productId = pid;
         _model = [[NurseListInfoModel alloc] init];
+         parmas = [[NSMutableDictionary alloc] init];
         _SearchConditionStr = @"";
         DataList = [[NSMutableArray alloc] init];
         [cfAppDelegate setDefaultProductId:pid] ;
@@ -217,7 +218,7 @@
 {
     pages = 0;
     __weak NurseListVC *weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
 //        self.DataList = [NurseListInfoModel nurseListModel];
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:content];
@@ -231,7 +232,7 @@
     pages ++;
     
     __weak NurseListVC *weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:nil block:^(int code, id content) {
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
 //        self.DataList = [NurseListInfoModel nurseListModel];
         [DataList addObjectsFromArray:content];
         [weakSelf.pullTableView reloadData];
@@ -271,7 +272,8 @@
     self.pullTableView.pullTableIsRefreshing = YES;
     pages = 0;
     __weak NurseListVC *_weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:@{@"key": @""} block:^(int code, id content) {
+    [ parmas setObject:@"" forKey:@"key"];
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
         //
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
@@ -294,7 +296,8 @@
     
     pages = 0;
     __weak NurseListVC *_weakSelf = self;
-    [_model loadNurseDataWithPage:(int)pages prama:@{@"key": searchStr} block:^(int code, id content) {
+    [ parmas setObject:searchStr forKey:@"key"];
+    [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
         [DataList removeAllObjects];
         [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [_weakSelf.pullTableView reloadData];
@@ -352,8 +355,7 @@
 //        default:
 //            break;
 //    }
-    
-    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+
     
     if(indexPath.column == 0){
         NSInteger min = 0;
