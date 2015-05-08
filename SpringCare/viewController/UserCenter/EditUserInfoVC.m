@@ -132,8 +132,8 @@
                         [mDic setObject:[_EditDic objectForKey:@"RelationName"] forKey:@"nickName"];
                 }
                 else if(typedata.cellType == EnumTypeHeight){
-                    if([_EditDic objectForKey:@"Height"] != nil)
-                        [mDic setObject:[NSString stringWithFormat:@"%d", [[_EditDic objectForKey:@"Height"] integerValue]] forKey:@"height"];
+                    if([_EditDic objectForKey:@"Height"] != nil && [[_EditDic objectForKey:@"Height"] integerValue] > 0)
+                        [mDic setObject:[NSString stringWithFormat:@"%ld", [[_EditDic objectForKey:@"Height"] integerValue]] forKey:@"height"];
                 }
         }
         
@@ -232,7 +232,9 @@
         }
         else if(typedata.cellType == EnumTypeHeight){
             cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
-            cell.tfEdit.text = [NSString stringWithFormat:@"%d", [[_EditDic objectForKey:@"Height"] integerValue]];
+            cell.tfEdit.text = [NSString stringWithFormat:@"%ld", [[_EditDic objectForKey:@"Height"] integerValue]];
+            if([[_EditDic objectForKey:@"Height"] integerValue] <= 0)
+                cell.tfEdit.text = @"";
             cell.lbUnit.hidden = NO;
             cell.lbUnit.text = @"cm";
         }
