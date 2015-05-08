@@ -300,10 +300,10 @@
     NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(17)]->=10-|", oh + 16];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:commentHformat options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(17)]-39-[btnHospital(108)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(17)]-39-[btnHome(108)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(108)]-30-[btnHome(108)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(108)]-42-[btnRing(46)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(17)]-39-[btnHospital(112)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(17)]-39-[btnHome(112)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(112)]-30-[btnHome(112)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(112)]-42-[btnRing(46)]->=0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnRing(220)]->=0-|" options:0 metrics:nil views:views]];
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnIntro(61)]-0-[line(1.2)]-0-[btnCommitment(61)]->=0-|" options:0 metrics:nil views:views]];

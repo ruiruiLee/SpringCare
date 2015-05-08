@@ -47,7 +47,7 @@
     if([keyPath isEqualToString:@"chineseName"])
     {
         [_btnUserName setTitle:[UserModel sharedUserInfo].displayName forState:UIControlStateNormal];
-          [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
+        [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
     }
 }
 
@@ -81,7 +81,7 @@
      [_photoBg addSubview:_btnphotoImg];
      _btnphotoImg.translatesAutoresizingMaskIntoConstraints = NO;
      [_btnphotoImg addTarget:self action:@selector(btnPhotoPressed:) forControlEvents:UIControlEventTouchUpInside];
-//      [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
+      [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:[UserModel sharedUserInfo].headerFile] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
     _btnUserName = [[UIButton alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_btnUserName];
     _btnUserName.translatesAutoresizingMaskIntoConstraints = NO;

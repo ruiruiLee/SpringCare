@@ -2359,7 +2359,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "b3111fe7-647c-4984-baa5-8338707b2b73";
+				PROVISIONING_PROFILE = "0e00aadc-a931-4982-ab2d-733b368b648f";
 			};
 			name = Debug;
 		};
@@ -2379,7 +2379,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "b3111fe7-647c-4984-baa5-8338707b2b73";
+				PROVISIONING_PROFILE = "0e00aadc-a931-4982-ab2d-733b368b648f";
 			};
 			name = Release;
 		};
