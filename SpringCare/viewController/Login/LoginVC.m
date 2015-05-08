@@ -167,8 +167,8 @@
     
     NSString *phoneNUmHFormat = [NSString stringWithFormat:@"H:|-30-[_tfPhoneNum(%f)]-10-[_btnVerifyCode(%f)]-30-|", screenWidth - 160, 90.f];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:phoneNUmHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-35-[_tfPhoneNum(51)]->=10-|" options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-35-[_btnVerifyCode(51)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-37-[_tfPhoneNum(51)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-37-[_btnVerifyCode(51)]->=10-|" options:0 metrics:nil views:views]];
     
     NSString *verifyCodeHFormat = [NSString stringWithFormat:@"H:|-30-[_tfVerifyCode(%f)]-30-|", screenWidth - 60];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:verifyCodeHFormat options:0 metrics:nil views:views]];
@@ -315,7 +315,7 @@
     }
     else if (type == EnumValueTypeiPhone5){
         [UIView animateWithDuration:0.25 animations:^{
-            scrollview.contentOffset = CGPointMake(0, 40);
+            scrollview.contentOffset = CGPointMake(0, 32);
         }];
     }
 }
