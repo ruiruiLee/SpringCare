@@ -314,7 +314,7 @@
     lbPaytype.textColor = _COLOR(0x66, 0x66, 0x66);
     
     NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype);
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[logo]-0-[lbPaytype]->=0-|" options:0 metrics:nil views:views]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[logo]-5-[lbPaytype]->=0-|" options:0 metrics:nil views:views]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[logo]->=0-|" options:0 metrics:nil views:views]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[lbPaytype]-0-|" options:0 metrics:nil views:views]];
     [view addConstraint:[NSLayoutConstraint constraintWithItem:logo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
