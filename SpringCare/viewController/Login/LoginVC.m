@@ -167,20 +167,20 @@
     
     NSString *phoneNUmHFormat = [NSString stringWithFormat:@"H:|-30-[_tfPhoneNum(%f)]-10-[_btnVerifyCode(%f)]-30-|", screenWidth - 160, 90.f];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:phoneNUmHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-37-[_tfPhoneNum(51)]->=10-|" options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-37-[_btnVerifyCode(51)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-37-[_tfPhoneNum(42)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[title(20)]-37-[_btnVerifyCode(42)]->=10-|" options:0 metrics:nil views:views]];
     
     NSString *verifyCodeHFormat = [NSString stringWithFormat:@"H:|-30-[_tfVerifyCode(%f)]-30-|", screenWidth - 60];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:verifyCodeHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_tfPhoneNum(51)]-20-[_tfVerifyCode(51)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_tfPhoneNum(42)]-20-[_tfVerifyCode(42)]->=10-|" options:0 metrics:nil views:views]];
     
     NSString *btnLoginHFormat = [NSString stringWithFormat:@"H:|-30-[_btnLogin(%f)]-30-|", screenWidth - 60];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:btnLoginHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_tfVerifyCode(51)]-20-[_btnLogin(51)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_tfVerifyCode(42)]-20-[_btnLogin(42)]->=10-|" options:0 metrics:nil views:views]];
     
     NSString *attributeHFormat = [NSString stringWithFormat:@"H:|-30-[btnAgreement(%f)]-30-|", screenWidth - 60];
     [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:attributeHFormat options:0 metrics:nil views:views]];
-    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_btnLogin(51)]-10-[btnAgreement(20)]->=10-|" options:0 metrics:nil views:views]];
+    [scrollview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_btnLogin(42)]-10-[btnAgreement(20)]->=10-|" options:0 metrics:nil views:views]];
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -310,7 +310,7 @@
     EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
     if(type == EnumValueTypeiPhone4S){
         [UIView animateWithDuration:0.25 animations:^{
-            scrollview.contentOffset = CGPointMake(0, 92);
+            scrollview.contentOffset = CGPointMake(0, 94);
         }];
     }
     else if (type == EnumValueTypeiPhone5){
