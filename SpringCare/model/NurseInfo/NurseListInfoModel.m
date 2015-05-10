@@ -136,12 +136,11 @@ static NSInteger nurseTotal = 0;
         [nurseList removeAllObjects];
     }
 
-    NSInteger limit = LIMIT_COUNT;
-    NSInteger offset = pages * limit;
+    NSInteger offset = pages * LIMIT_COUNT;
     if(offset >= [nurseList count])
         offset = [nurseList count];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [dic setObject:[NSNumber numberWithInteger:LIMIT_COUNT] forKey:@"limit"];
     if ([cfAppDelegate currentCityModel]!=nil) {
         [dic setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
     }
@@ -149,19 +148,18 @@ static NSInteger nurseTotal = 0;
         [dic setObject:[NSNumber numberWithDouble:LcationInstance.lon ] forKey:@"longitude"];
         [dic setObject:[NSNumber numberWithDouble:LcationInstance.lat ]forKey:@"latitude"];
     }
-
-    if(sortFiled != nil)
-        [dic setObject:sortFiled forKey:@"sortFiled"];
-    if(productId != nil)
-        [dic setObject:productId forKey:@"productId"];
-    else{
-        [dic setObject:[cfAppDelegate defaultProductId] forKey:@"productId"];
+    if(productId != nil){
+        productID =productId;
     }
-    if(order == nil)
-        order = @"asc";
-    [dic setObject:order forKey:@"order"];
-    if(!(key == nil || [key length] == 0))
-        [dic setObject:key forKey:@"key"];
+    else{
+         productID =[cfAppDelegate defaultProductId];
+    }
+     [dic setObject:productID forKey:@"productId"];
+//    if(order == nil)
+//        order = @"asc";
+   // [dic setObject:order forKey:@"order"];
+//    if(!(key == nil || [key length] == 0))
+//        [dic setObject:key forKey:@"key"];
     
     [dic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     
@@ -196,6 +194,8 @@ static NSInteger nurseTotal = 0;
         [nurseList removeAllObjects];
     }
      NSMutableDictionary *pramaNurseDic = [[NSMutableDictionary alloc] init];
+    [pramaNurseDic setObject:productID forKey:@"productId"];
+    [pramaNurseDic setObject:[NSNumber numberWithInteger:LIMIT_COUNT] forKey:@"limit"];
     NSInteger limit = LIMIT_COUNT;
     NSInteger offset = pages * limit;
     if(offset >= [nurseList count])

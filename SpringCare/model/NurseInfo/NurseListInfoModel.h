@@ -26,7 +26,9 @@ typedef enum : NSUInteger {
 @end
 
 @interface NurseListInfoModel : NSObject
-
+{
+    NSString*productID;
+}
 @property (nonatomic, assign) NSInteger distance;
 @property (nonatomic, assign) NSInteger age;
 @property (nonatomic, strong) NSString *birthPlace;

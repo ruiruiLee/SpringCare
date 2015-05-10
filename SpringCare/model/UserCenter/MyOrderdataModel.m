@@ -9,7 +9,6 @@
 #import "MyOrderdataModel.h"
 
 static NSMutableArray *myOrderList = nil;
-static NSMutableArray *myOrderNoList = nil;
 static NSMutableArray *noAssessmentOrderList = nil;
 
 @implementation ProductInfodataModel
@@ -55,13 +54,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
     }
     return myOrderList;
 }
-+ (NSArray *) GetMyOrderNoList
-{
-    if(!myOrderNoList){
-        myOrderNoList = [[NSMutableArray alloc] init];
-    }
-    return myOrderNoList;
-}
+
 
 + (NSArray *) GetNoAssessmentOrderList
 {
@@ -129,10 +122,8 @@ static NSMutableArray *noAssessmentOrderList = nil;
     if(pages == 0){
         if(orderType == EnumOrderOther){
             [MyOrderdataModel GetMyOrderList];
-            [MyOrderdataModel GetMyOrderNoList];
             
             [myOrderList removeAllObjects];
-            [myOrderNoList removeAllObjects];
         }
         else{
          [MyOrderdataModel GetNoAssessmentOrderList];
@@ -146,8 +137,8 @@ static NSMutableArray *noAssessmentOrderList = nil;
     NSInteger offset = pages * limit;
     if(orderType == EnumOrderOther){    // 所有订单
         [params setObject:@"other" forKey:@"searchType"];
-        if(offset > myOrderList.count+myOrderNoList.count)
-                offset = myOrderList.count+myOrderNoList.count;
+        if(offset > myOrderList.count)
+            offset = myOrderList.count;
         [params setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
         [params setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     }
@@ -180,19 +171,15 @@ static NSMutableArray *noAssessmentOrderList = nil;
                         for (int i = 0; i < [Orders count]; i++){
                         NSDictionary *dic = [Orders objectAtIndex:i];
                         MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
-                        if (model.commentStatus == EnumTypeCommented) {
-                                MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
+                       // if (model.commentStatus == EnumTypeCommented) {
                                 [myOrderList addObject:model];
                                 [result addObject:model];
-                         }
-                        else{
-                            [noAssessmentOrderList addObject:model];
-                             [myOrderNoList addObject:model];
-                        }
+                       //  }
                     }
                 }
 
-            else{// 等待评论的订单
+            else
+             {// 等待评论的订单
                     for (int i = 0; i < [Orders count]; i++) {
                         NSDictionary *dic = [Orders objectAtIndex:i];
                         MyOrderdataModel *model = [MyOrderdataModel modelWithDictionary:dic];
