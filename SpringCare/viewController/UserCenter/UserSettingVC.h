@@ -11,6 +11,7 @@
 @interface UserSettingVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *_tableview;
+     NSString   *_appDownUrl;
 }
 
 @end

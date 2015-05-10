@@ -124,4 +124,6 @@ typedef enum
 + (BOOL) isDateShowFirstDate:(NSString *)date1 secondDate:(NSString *)date2;
 + (void)showAlertMessage:(NSString*)msg;
 + (void)PayForOrders:(NSDictionary*) dict Controller:(UIViewController*)weakSelf;
++ (NSString *)getCurrentVersion;
++ (void)updateVersion :(void(^)(NSArray *info))handleResponse;
 @end

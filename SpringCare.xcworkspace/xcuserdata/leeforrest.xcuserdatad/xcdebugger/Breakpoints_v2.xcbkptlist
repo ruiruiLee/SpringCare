@@ -201,13 +201,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SpringCare/Base/LCMenuViewController.m"
-            timestampString = "452769666.30126"
+            filePath = "SpringCare/NetWork/LCNetWorkBase.m"
+            timestampString = "452933217.565499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "-GetWithParams:Url:Completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
