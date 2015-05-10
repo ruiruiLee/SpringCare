@@ -14,6 +14,7 @@
 #import "SliderViewController.h"
 #import "HomePageVC.h"
 #import "InputRecommendVC.h"
+#import "QuickmarkVC.h"
 
 @interface UserSettingVC ()
 
@@ -130,6 +131,9 @@
         if(indexPath.row == 0)
         {
            // 告诉朋友
+            QuickmarkVC *vc = [[QuickmarkVC alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+            
         }else if(indexPath.row == 1){
            // 给app好评
             NSString *url = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",KEY_APPLE_ID];

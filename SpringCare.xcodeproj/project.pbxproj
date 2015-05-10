@@ -63,6 +63,7 @@
 		8642C9B61AC2956000251921 /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9B51AC2956000251921 /* MenuTableViewCell.m */; };
 		8642C9CA1AC3CFB800251921 /* NurseListInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */; };
 		8642C9D71AC428DF00251921 /* MessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9D61AC428DF00251921 /* MessageListModel.m */; };
+		8652F0CE1AFF1A81002C6215 /* QuickmarkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8652F0CD1AFF1A81002C6215 /* QuickmarkVC.m */; };
 		865C85901ACCEDFF006ABCA4 /* PageLoadFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C856B1ACCEDFF006ABCA4 /* PageLoadFootView.m */; };
 		865C85911ACCEDFF006ABCA4 /* EscortTimeDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C856F1ACCEDFF006ABCA4 /* EscortTimeDataModel.m */; };
 		865C85921ACCEDFF006ABCA4 /* EscortTimeReplyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C85711ACCEDFF006ABCA4 /* EscortTimeReplyCell.m */; };
@@ -464,6 +465,8 @@
 		8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseListInfoModel.m; sourceTree = "<group>"; };
 		8642C9D51AC428DF00251921 /* MessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListModel.h; sourceTree = "<group>"; };
 		8642C9D61AC428DF00251921 /* MessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListModel.m; sourceTree = "<group>"; };
+		8652F0CC1AFF1A81002C6215 /* QuickmarkVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickmarkVC.h; sourceTree = "<group>"; };
+		8652F0CD1AFF1A81002C6215 /* QuickmarkVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickmarkVC.m; sourceTree = "<group>"; };
 		865C856A1ACCEDFF006ABCA4 /* PageLoadFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageLoadFootView.h; path = SpringCare/viewController/Relation/control/PageLoadFootView.h; sourceTree = SOURCE_ROOT; };
 		865C856B1ACCEDFF006ABCA4 /* PageLoadFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageLoadFootView.m; path = SpringCare/viewController/Relation/control/PageLoadFootView.m; sourceTree = SOURCE_ROOT; };
 		865C856E1ACCEDFF006ABCA4 /* EscortTimeDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EscortTimeDataModel.h; path = ../../viewController/Relation/EscortTimeDataModel.h; sourceTree = "<group>"; };
@@ -1217,6 +1220,8 @@
 				86B8E59B1AD65D1500A5139E /* UserSettingVC.m */,
 				86B3EE7D1AF9C860005E29B1 /* InputRecommendVC.h */,
 				86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */,
+				8652F0CC1AFF1A81002C6215 /* QuickmarkVC.h */,
+				8652F0CD1AFF1A81002C6215 /* QuickmarkVC.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -2151,6 +2156,7 @@
 				865C85961ACCEDFF006ABCA4 /* HBImageScroller.m in Sources */,
 				8642C9B61AC2956000251921 /* MenuTableViewCell.m in Sources */,
 				86B0994D1ACC07430005BC98 /* LoginVC.m in Sources */,
+				8652F0CE1AFF1A81002C6215 /* QuickmarkVC.m in Sources */,
 				8642C93D1ABFF53C00251921 /* SBJsonTokeniser.m in Sources */,
 				CFBC51FF1ADCC980004FB8F3 /* amrFileCodec.mm in Sources */,
 				868B239E1ADF5B8A003AAD2A /* MyEvaluateListVC.m in Sources */,
