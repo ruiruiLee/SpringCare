@@ -61,11 +61,16 @@ static NSMutableArray *myAttentionArray = nil;
         model.address = @"";
     model.isCare = [[dic objectForKey:@"isCare"] boolValue];
     model.sex = [dic objectForKey:@"sex"];
-    model.height = [[dic objectForKey:@"height"] integerValue];
+    if(![[dic objectForKey:@"height"] isKindOfClass:[NSNull class]])
+        model.height = [[dic objectForKey:@"height"] integerValue];
+    else
+        model.height = 0;
 
-    model.age = [NSString stringWithFormat:@"%ld", [Util GetAgeByBirthday:[dic objectForKey:@"birthDay"]]];
     if([dic objectForKey:@"birthDay"] == nil)
         model.age = @"";
+    else{
+        model.age = [NSString stringWithFormat:@"%d", [Util GetAgeByBirthday:[dic objectForKey:@"birthDay"]]];
+    }
     
     model.relationId = [dic objectForKey:@"relationId"];
     

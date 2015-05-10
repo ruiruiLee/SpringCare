@@ -339,7 +339,7 @@
     _detailInfo.textColor = _COLOR(0x99, 0x99, 0x99);
     _detailInfo.font = _FONT(13);
     _detailInfo.numberOfLines = LIMIT_LINES;
-    _detailInfo.preferredMaxLayoutWidth = ScreenWidth - 44;
+    _detailInfo.preferredMaxLayoutWidth = ScreenWidth - 34;
     
     CGRect frame = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:4];
     CGRect frame1 = [_detailInfo textRectForBounds:CGRectMake(0, 0, ScreenWidth, 1000) limitedToNumberOfLines:5];
@@ -358,7 +358,7 @@
     
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[_photoImage(76)]-3-[_lbName]->=10-[_btnCert(43)]-36-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[_photoImage]-3-[_imgvLogo(21)]-0-[_btnInfo]->=2-[_btnCert(43)]-12-|" options:0 metrics:nil views:views]];
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_detailInfo]-29-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_detailInfo]-12-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22-[_btnUnfold]->=20-|" options:0 metrics:nil views:views]];
     
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_photoImage(76)]->=20-|" options:0 metrics:nil views:views]];
