@@ -68,7 +68,6 @@
         [paragraphStyle setLineSpacing:3];//调整行间距
         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
         _lbExplaction.attributedText = attributedString;
-        _lbExplaction.preferredMaxLayoutWidth = ScreenWidth - 202.5;
         
         _line = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_line];
@@ -97,6 +96,7 @@
 
 - (void) InitConstraintsForiPhone5:(NSDictionary*) views
 {
+    _lbExplaction.preferredMaxLayoutWidth = ScreenWidth - 184.5;
     _lbExplaction.font = _FONT(11);
     _lbActionName.font = _FONT(12);
     _btnAccept.titleLabel.font = _FONT(14);
@@ -116,7 +116,7 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbActionName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbUserName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbExplaction attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_imgExplaction attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_lbUserName(20)]-6-[_imgExplaction]->=20-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbUserName(20)]-6-[_imgExplaction]->=20-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
@@ -128,6 +128,7 @@
     _lbUserName.font = _FONT(14);
     _lbActionName.font = _FONT(13);
     _btnphotoImg.layer.cornerRadius = 36;
+    _lbExplaction.preferredMaxLayoutWidth = ScreenWidth - 194.5;
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(72)]-10-[_lbUserName]-10-[_lbActionName]->=10-[_btnAccept(59)]-22.5-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnphotoImg(72)]-10-[_imgExplaction(12)]-1-[_lbExplaction]->=10-[_btnAccept(59)]->=0-|" options:0 metrics:nil views:views]];
     
@@ -142,7 +143,7 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbActionName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbUserName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbExplaction attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_imgExplaction attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_lbUserName(20)]-6-[_imgExplaction]->=20-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-22-[_lbUserName(20)]-6-[_imgExplaction]->=25-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
@@ -154,6 +155,7 @@
     _lbActionName.font = _FONT(14);
     _lbUserName.font = _FONT(15);
     _btnphotoImg.layer.cornerRadius = 41;
+    _lbExplaction.preferredMaxLayoutWidth = ScreenWidth - 204.5;
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_btnphotoImg(82)]-10-[_lbUserName]-10-[_lbActionName]->=10-[_btnAccept(66)]-22.5-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnphotoImg(82)]-10-[_imgExplaction(12)]-1-[_lbExplaction]->=10-[_btnAccept(66)]->=0-|" options:0 metrics:nil views:views]];
     
@@ -168,7 +170,7 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbActionName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbUserName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbExplaction attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_imgExplaction attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_lbUserName(20)]-6-[_imgExplaction]->=20-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[_lbUserName(20)]-6-[_imgExplaction]->=30-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
@@ -191,10 +193,14 @@
     if(!data.isAccept){
         [_btnAccept setTitle:@"接受" forState:UIControlStateNormal];
         _btnAccept.userInteractionEnabled = YES;
+        [_btnAccept setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
     }else{
         [_btnAccept setTitle:@"已接受" forState:UIControlStateNormal];
         _btnAccept.userInteractionEnabled = NO;
-         _btnAccept.backgroundColor = Disabled_Color;
+        UIImage *image = [Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)];
+        UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
+        
+        [_btnAccept setBackgroundImage:[image resizableImageWithCapInsets:inset ] forState:UIControlStateNormal];
     }
     _lbUserName.text = data.username;
 }

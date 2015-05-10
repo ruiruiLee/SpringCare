@@ -269,11 +269,11 @@
         NSDictionary *views = NSDictionaryOfVariableBindings(_photoImage, _lbName, _btnUnfold, _btnInfo, _btnCert,
                                                              _detailInfo);
         if(frame1.size.height != frame.size.height){
-            headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-32-[_lbName(20)]-4-[_btnInfo(21)]-18-[_detailInfo]-8-[_btnUnfold(20)]->=0-|" options:0 metrics:nil views:views];
+            headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_lbName(20)]-6-[_btnInfo(21)]-10-[_detailInfo]-8-[_btnUnfold(20)]->=0-|" options:0 metrics:nil views:views];
             _btnUnfold.hidden = NO;
         }
         else{
-            headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-32-[_lbName(20)]-4-[_btnInfo(21)]-18-[_detailInfo]-8-|" options:0 metrics:nil views:views];
+            headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_lbName(20)]-6-[_btnInfo(21)]-10-[_detailInfo]-8-|" options:0 metrics:nil views:views];
             _btnUnfold.hidden = YES;
         }
         
@@ -337,7 +337,7 @@
     _detailInfo.translatesAutoresizingMaskIntoConstraints = NO;
     [headerView addSubview:_detailInfo];
     _detailInfo.textColor = _COLOR(0x99, 0x99, 0x99);
-    _detailInfo.font = _FONT(13);
+    _detailInfo.font = _FONT(14);
     _detailInfo.numberOfLines = LIMIT_LINES;
     _detailInfo.preferredMaxLayoutWidth = ScreenWidth - 34;
     
@@ -363,11 +363,11 @@
     
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_photoImage(76)]->=20-|" options:0 metrics:nil views:views]];
     if(frame1.size.height != frame.size.height){
-        headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-32-[_lbName(20)]-4-[_btnInfo(21)]-18-[_detailInfo]-8-[_btnUnfold(20)]->=0-|" options:0 metrics:nil views:views];
+        headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_lbName(20)]-6-[_btnInfo(21)]-10-[_detailInfo]-8-[_btnUnfold(20)]->=0-|" options:0 metrics:nil views:views];
         _btnUnfold.hidden = NO;
     }
     else{
-        headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-32-[_lbName(20)]-4-[_btnInfo(21)]-18-[_detailInfo]-8-|" options:0 metrics:nil views:views];
+        headerViewHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_lbName(20)]-6-[_btnInfo(21)]-10-[_detailInfo]-8-|" options:0 metrics:nil views:views];
         _btnUnfold.hidden = YES;
     }
     [headerView addConstraints:headerViewHeightConstraint];
