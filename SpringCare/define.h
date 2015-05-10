@@ -30,6 +30,8 @@
 
 
 #define LCNetWorkBase [LCNetWorkBase sharedLCNetWorkBase]
+#define apkUrl @"http://itunes.apple.com/lookup"
+//#define KEY_APPLE_ID @"702715314"
 #define KEY_APPLE_ID @"992339154"
 
 #define cfAppDelegate (AppDelegate*)[UIApplication sharedApplication].delegate

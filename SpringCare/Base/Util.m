@@ -408,4 +408,38 @@
     }];
 
 }
+
++ (NSString *)getCurrentVersion
+{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    //CFShow((__bridge CFTypeRef)(infoDictionary));
+    NSString *currentVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    return currentVersion;
+}
+
++ (void)updateVersion :(void(^)(NSArray *info))handleResponse{
+    NSDictionary *jsonInfo = [[NSDictionary alloc] initWithObjectsAndKeys:KEY_APPLE_ID, @"id", @"cn", @"country", nil];
+    [LCNetWorkBase GetWithParams:jsonInfo  Url:apkUrl Completion:^(int code, id content) {
+     if(code){
+         if ([[content objectForKey:@"resultCount"] integerValue]==0) {
+              [Util showAlertMessage:@"请等待上架appstore！"];
+          }
+         else{
+                NSArray *infoArray = [content objectForKey:@"results"];
+                if (infoArray) {
+                    if (handleResponse) {
+                        handleResponse(infoArray);
+                    }
+                }
+                else{
+                     [Util showAlertMessage:@"更新失败！"];
+                }
+         }
+      }
+     else{
+         [Util showAlertMessage:content];
+       }
+    }];
+
+}
 @end

@@ -118,8 +118,6 @@
     
     manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    //https
-    //    manager.securityPolicy.allowInvalidCertificates = YES;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -156,6 +154,24 @@
     }];
 }
 
+
+
+
+- (void)GetWithParams:(NSDictionary *)params Url:(NSString*)url Completion:(Completion)completion{
+    manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+         NSLog(@"%@", responseObject);
+        if (completion!=nil) {
+            completion(1, responseObject);
+        }
+
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion!=nil) {
+            completion(0, error.localizedDescription);
+        }
+     }
+    ];
+}
 - (void)postWithParams:(NSString*)params Url:(NSString*)url Completion:(Completion)completion
 {
     NSLog(@"%@", url);
@@ -163,7 +179,6 @@
     /**
      * 处理短时间内重复请求
      **/
-
     manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
     manager.securityPolicy.allowInvalidCertificates = YES;
