@@ -24,6 +24,9 @@
     UILabel *_line;
     NSString *phoneNum;
     UIImageView *_attentionLogo;
+    
+    UIView *_sview1;
+    UIView *_sview2;
 }
 
 //@property (assign, nonatomic) id<ChangHeaderPhotoDelegate> delegate;
