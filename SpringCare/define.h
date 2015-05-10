@@ -30,9 +30,7 @@
 
 
 #define LCNetWorkBase [LCNetWorkBase sharedLCNetWorkBase]
-#define apkUrl @"http://itunes.apple.com/lookup"
-//#define KEY_APPLE_ID @"702715314"
-#define KEY_APPLE_ID @"992339154"
+
 
 #define cfAppDelegate (AppDelegate*)[UIApplication sharedApplication].delegate
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
@@ -57,8 +55,13 @@
 
 #define LcationInstance [LocationManagerObserver sharedInstance]
 
-#define CityID @"552cf514e4b02ec896e6cdbf"
+//#define CityID @"552cf514e4b02ec896e6cdbf"
 #define CityName @"成都市"
+
+//下载更新
+#define apkUrl @"http://itunes.apple.com/lookup"
+//#define KEY_APPLE_ID @"702715314"
+#define KEY_APPLE_ID @"992339154"
 
 // 支付
 #define kUrlScheme      @"wx039f05e7e07b0fca"
