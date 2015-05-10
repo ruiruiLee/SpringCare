@@ -90,6 +90,7 @@
     [currentInstallation saveInBackground];
     [AVUser logOut];  //清除缓存用户对象
     [UserModel sharedUserInfo].userId = nil;
+    [[UserModel sharedUserInfo] modifyInfo];
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
   
    

@@ -35,10 +35,12 @@
         if([new isKindOfClass:[NSNull class]]){
             [self SetHeaderInfoWithModel:nil];
             pages = 0;
+            AttentionArray = nil;
             [_dataList removeAllObjects];
+            _currentLoverId = nil;
             self.btnRight.hidden=YES;
-            LoginVC *vc = [[LoginVC alloc] init];
-            [self.navigationController presentViewController:vc animated:YES completion:nil];
+            [self.tableView reloadData];
+            [self performSelector:@selector(Login) withObject:nil afterDelay:0.2];
         }
         else{
             self.btnRight.hidden = NO;
@@ -48,6 +50,13 @@
                 [self LoadDefaultDoctorInfo:nil];
         }
     }
+}
+
+- (void) Login
+{
+    LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void) SetHeaderInfoWithModel:(NurseListInfoModel *) nurse
