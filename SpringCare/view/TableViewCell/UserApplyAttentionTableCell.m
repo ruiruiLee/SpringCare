@@ -65,7 +65,7 @@
         NSString *labelText = @"如果您接受后，他将共享您的陪护信息";
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle setLineSpacing:3];//调整行间距
+        [paragraphStyle setLineSpacing:2];//调整行间距
         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
         _lbExplaction.attributedText = attributedString;
         
@@ -116,7 +116,7 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbActionName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbUserName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbExplaction attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_imgExplaction attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbUserName(20)]-6-[_imgExplaction]->=20-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-21-[_lbUserName(20)]-6-[_imgExplaction]->=20-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
@@ -143,7 +143,7 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbActionName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbUserName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbExplaction attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_imgExplaction attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-22-[_lbUserName(20)]-6-[_imgExplaction]->=25-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-23-[_lbUserName(20)]-6-[_imgExplaction]->=25-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
@@ -170,7 +170,7 @@
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbActionName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbUserName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbExplaction attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_imgExplaction attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[_lbUserName(20)]-6-[_imgExplaction]->=30-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-27-[_lbUserName(20)]-6-[_imgExplaction]->=30-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnphotoImg attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
@@ -189,18 +189,35 @@
 {
     requestModel = data;
     [_btnphotoImg sd_setImageWithURL:[NSURL URLWithString:data.photoUrl] forState:UIControlStateNormal placeholderImage:ThemeImage(@"placeholderimage")];
-    
+    [_btnAccept setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if(!data.isAccept){
         [_btnAccept setTitle:@"接受" forState:UIControlStateNormal];
         _btnAccept.userInteractionEnabled = YES;
         [_btnAccept setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
+        _lbActionName.hidden = NO;
+        
+        NSString *labelText = @"如果您接受后，他将共享您的陪护信息";
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:2];//调整行间距
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
+        _lbExplaction.attributedText = attributedString;
+        
     }else{
         [_btnAccept setTitle:@"已接受" forState:UIControlStateNormal];
         _btnAccept.userInteractionEnabled = NO;
-        UIImage *image = [Util imageWithColor:Disabled_Color size:CGSizeMake(5, 5)];
+        UIImage *image = [Util imageWithColor:[UIColor clearColor] size:CGSizeMake(5, 5)];
         UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
-        
+        [_btnAccept setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
         [_btnAccept setBackgroundImage:[image resizableImageWithCapInsets:inset ] forState:UIControlStateNormal];
+        _lbActionName.hidden = YES;
+        
+        NSString *labelText = @"如果您接受后，他将共享您的陪护信息";
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:2];//调整行间距
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
+        _lbExplaction.attributedText = attributedString;
     }
     _lbUserName.text = data.username;
 }
