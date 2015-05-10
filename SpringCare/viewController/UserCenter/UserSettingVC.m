@@ -185,7 +185,7 @@
     
     if(indexPath.section == 0)
     {
-        cell._lbTitle.text = @"版本更新";
+        cell._lbTitle.text = @"版本检测";
         cell._lbContent.text = [Util getCurrentVersion];
         cell._lbContent.hidden = NO;
         cell._imgFold.hidden = YES;
