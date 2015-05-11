@@ -81,20 +81,20 @@ static CGFloat const chageImageTime = 3.0;
         [imageView addTarget:self action:@selector(clickPageImage:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:imageView];
         //添加标题栏
-        if (item.news_title.length>0) {
-           UILabel * lbltitle = [[UILabel alloc] initWithFrame:CGRectMake(i * self.frame.size.width+5, self.frame.size.height-20.0, self.frame.size.width, 20.0)];
-            [lbltitle setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
-            [lbltitle setTextColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]];
-
-             lbltitle.text =item.news_title;
-             lbltitle.backgroundColor = [UIColor clearColor];
-            [self addSubview:lbltitle];
-        }
+//        if (item.news_title.length>0) {
+//           UILabel * lbltitle = [[UILabel alloc] initWithFrame:CGRectMake(i * self.frame.size.width+5, self.frame.size.height-20.0, self.frame.size.width, 20.0)];
+//            [lbltitle setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+//            [lbltitle setTextColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]];
+//
+//             lbltitle.text =item.news_title;
+//             lbltitle.backgroundColor = [UIColor clearColor];
+//            [self addSubview:lbltitle];
+//        }
         if (models.count>1) {
-            [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(switchFocusImageItems) userInfo:nil repeats:YES];
-
+//            [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(switchFocusImageItems) userInfo:nil repeats:YES];
+        [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
         }
-        //[self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
+       
 
     }
 
@@ -119,7 +119,7 @@ static CGFloat const chageImageTime = 3.0;
     CGFloat targetX = self.contentOffset.x + self.frame.size.width;
     [self moveToTargetPosition:targetX];
     
-    //[self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
+    [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
 }
 
 - (void)moveToTargetPosition:(CGFloat)targetX

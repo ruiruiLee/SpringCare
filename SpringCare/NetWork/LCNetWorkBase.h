@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking.h>
 
-//#define SERVER_ADDRESS @"http://spring.avosapps.com/"
-#define SERVER_ADDRESS @"http://springcare.avosapps.com/"
+#define SERVER_ADDRESS @"http://spring.avosapps.com/"
+//#define SERVER_ADDRESS @"http://springcare.avosapps.com/"
 
 typedef void(^Completion) (int code, id content);
 
