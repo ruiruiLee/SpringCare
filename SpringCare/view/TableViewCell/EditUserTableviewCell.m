@@ -109,19 +109,23 @@
         _tfEdit.textColor =  _COLOR(0x99, 0x99, 0x99);
         [_tfEdit setEnabled:NO];
         _imgUnflod.hidden = YES;
+        _tfEdit.placeholder = @"";
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(96)]-10-[_tfEdit]-20-|" options:0 metrics:nil views:views];
     }
     else if (celldata.cellType == EnumTypeUserName){
         _imgUnflod.hidden = YES;
+        _tfEdit.placeholder = @"";
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(46)]-10-[_tfEdit]-20-|" options:0 metrics:nil views:views];
     }
     else if (celldata.cellType == EnumTypeSex){
         [_tfEdit setEnabled:NO];
         _imgUnflod.hidden = NO;
+        _tfEdit.placeholder = @"";
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(46)]-10-[_tfEdit]-10-[_imgUnflod(12)]-20-|" options:0 metrics:nil views:views];
     }
     else if (celldata.cellType == EnumTypeAge){
         [_tfEdit setEnabled:NO];
+        _tfEdit.placeholder = @"";
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(46)]-10-[_tfEdit]-10-[_imgUnflod(12)]-20-|" options:0 metrics:nil views:views];
     }
     else if (celldata.cellType == EnumTypeAddress){
@@ -133,6 +137,7 @@
         _imgUnflod.hidden = YES;
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(46)]-10-[_tfEdit]-20-|" options:0 metrics:nil views:views];
         _tfEdit.keyboardType = UIKeyboardTypeNumberPad;
+        _tfEdit.placeholder = @"";
     }
     else if (celldata.cellType == EnumTypeRelationName){
         _imgUnflod.hidden = YES;
@@ -146,6 +151,7 @@
         lbUnit.text = @"cm";
         layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(46)]-10-[_tfEdit]-5-[lbUnit(30)]-20-|" options:0 metrics:nil views:views];
         lbUnit.hidden = NO;
+        _tfEdit.placeholder = @"";
     }
     [self.contentView addConstraints:layoutArray];
 }
