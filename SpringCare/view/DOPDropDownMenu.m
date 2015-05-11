@@ -7,6 +7,7 @@
 //
 
 #import "DOPDropDownMenu.h"
+#import "define.h"
 
 @implementation DOPIndexPath
 - (instancetype)initWithColumn:(NSInteger)column row:(NSInteger)row {
@@ -232,8 +233,12 @@
 - (CGSize)calculateTitleSizeWithString:(NSString *)string
 {
     CGFloat fontSize = 14.0;
-    NSDictionary *dic = @{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]};
-    CGSize size = [string boundingRectWithSize:CGSizeMake(280, 0) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil].size;
+//    NSDictionary *dic = @{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]};
+//    CGSize size = [string boundingRectWithSize:CGSizeMake(280, 0) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil].size;
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:string];
+    NSRange range = NSMakeRange(0, [string length]);
+    [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:fontSize] range:range];
+    CGSize size = [attStr boundingRectWithSize:CGSizeMake(280, 1000) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size;
     return size;
 }
 
@@ -385,7 +390,8 @@
     }
     cell.backgroundColor = [UIColor whiteColor];
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
-    cell.separatorInset = UIEdgeInsetsZero;
+    if(!_IPHONE_OS_VERSION_UNDER_7_0)
+        cell.separatorInset = UIEdgeInsetsZero;
     
     if (cell.textLabel.text == [(CATextLayer *)[_titles objectAtIndex:_currentSelectedMenudIndex] string]) {
         cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];

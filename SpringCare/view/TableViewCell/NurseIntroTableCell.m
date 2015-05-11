@@ -36,6 +36,7 @@
     [self.contentView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
     _lbName.textColor = _COLOR(0x22, 0x22, 0x22);
+    _lbName.backgroundColor = [UIColor clearColor];
     
     _gradeView = [[GradeInfoView alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_gradeView];
@@ -45,6 +46,7 @@
     [self.contentView addSubview:_lbCommitCount];
     _lbCommitCount.translatesAutoresizingMaskIntoConstraints = NO;
     _lbCommitCount.textColor = _COLOR(0x99, 0x99, 0x99);
+    _lbCommitCount.backgroundColor = [UIColor clearColor];
     
     _imgCert = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_imgCert];
@@ -55,17 +57,20 @@
     [self.contentView addSubview:_lbNurseIntro];
     _lbNurseIntro.translatesAutoresizingMaskIntoConstraints = NO;
     _lbNurseIntro.textColor = _COLOR(0x6b, 0x4e, 0x3e);
+    _lbNurseIntro.backgroundColor = [UIColor clearColor];
     
     _lbWorkIntro = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbWorkIntro];
     _lbWorkIntro.translatesAutoresizingMaskIntoConstraints = NO;
     _lbWorkIntro.textColor = _COLOR(0x99, 0x99, 0x99);
     _lbWorkIntro.numberOfLines = 0;
+    _lbWorkIntro.backgroundColor = [UIColor clearColor];
     
     _lbOldPrice = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbOldPrice];
     _lbOldPrice.translatesAutoresizingMaskIntoConstraints = NO;
     _lbOldPrice.textColor = _COLOR(0x99, 0x99, 0x99);
+    _lbOldPrice.backgroundColor = [UIColor clearColor];
     
     _lineation = [[UILabel alloc] initWithFrame:CGRectZero];
     [_lbOldPrice addSubview:_lineation];
@@ -76,6 +81,7 @@
     [self.contentView addSubview:_lbPrice];
     _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
     _lbPrice.textColor = _COLOR(0xe4, 0x39, 0x3c);
+    _lbPrice.backgroundColor = [UIColor clearColor];
     
     _btnLocation = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_btnLocation];

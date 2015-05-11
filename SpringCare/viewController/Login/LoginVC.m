@@ -114,7 +114,7 @@
     _tfVerifyCode.font = _FONT(18);
     _tfVerifyCode.placeholder = @"验证码";
     _tfVerifyCode.translatesAutoresizingMaskIntoConstraints = NO;
-    _tfVerifyCode.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    _tfVerifyCode.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _tfVerifyCode.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 0)];
     _tfVerifyCode.leftViewMode = UITextFieldViewModeAlways;
     _tfVerifyCode.layer.cornerRadius = 5;

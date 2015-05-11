@@ -36,6 +36,7 @@
         [self.contentView addSubview:_lbRelation];
         _lbRelation.translatesAutoresizingMaskIntoConstraints = NO;
         _lbRelation.textColor = _COLOR(0x22, 0x22, 0x22);
+        _lbRelation.backgroundColor = [UIColor clearColor];
         
         ImgSex = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:ImgSex];
@@ -46,12 +47,14 @@
         [self.contentView addSubview:_lbName];
         _lbName.translatesAutoresizingMaskIntoConstraints = NO;
         _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
+        _lbName.backgroundColor = [UIColor clearColor];
         
         _Address = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_Address];
         _Address.translatesAutoresizingMaskIntoConstraints = NO;
         _Address.textColor = _COLOR(0x99, 0x99, 0x99);
         _Address.numberOfLines = 0;
+        _Address.backgroundColor = [UIColor clearColor];
         
         _btnRing = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnRing];

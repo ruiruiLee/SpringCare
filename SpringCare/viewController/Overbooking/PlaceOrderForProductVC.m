@@ -84,6 +84,7 @@
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
     [_tableview registerClass:[PayTypeForProductCell class] forCellReuseIdentifier:@"cell2"];
+    _tableview.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     
     UIView *header = [self CreateTableHeader];
     _tableview.tableHeaderView = header;
@@ -101,7 +102,10 @@
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, btnSubmit);
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+    if(_IPHONE_OS_VERSION_UNDER_7_0)
+        [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(-10)-[_tableview]-(-10)-|" options:0 metrics:nil views:views]];
+    else
+        [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-20-[btnSubmit(44)]-20-|" options:0 metrics:nil views:views]];
 }
@@ -116,6 +120,7 @@
     _lbTitle.font = _FONT(15);
     _lbTitle.textColor = _COLOR(0x66, 0x66, 0x66);
     _lbTitle.text = [NSString stringWithFormat:@"产品名称：%@", _productModel.productName];
+    _lbTitle.backgroundColor = [UIColor clearColor];
     
     _lbExplain = [[UILabel alloc] initWithFrame:CGRectZero];
     _lbExplain.translatesAutoresizingMaskIntoConstraints = NO;
@@ -124,6 +129,7 @@
     _lbExplain.textColor = _COLOR(0x66, 0x66, 0x66);
     _lbExplain.text = [NSString stringWithFormat:@"产品介绍：%@", _productModel.productDesc];
     _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 35;
+    _lbExplain.backgroundColor = [UIColor clearColor];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbExplain, _lbTitle);
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTitle]-10-|" options:0 metrics:nil views:views]];
@@ -279,6 +285,9 @@
         PayTypeForProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.parentController=self;
+        cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+        cell.backgroundColor = [UIColor clearColor];
         return cell;
     }
     else{
@@ -287,6 +296,9 @@
             cell = [[PlaceOrderEditForProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
+            cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+            cell.backgroundColor = [UIColor clearColor];
         }
         [cell setNurseListInfo:_productModel];
         return cell;
@@ -312,6 +324,7 @@
     lbPaytype.translatesAutoresizingMaskIntoConstraints = NO;
     lbPaytype.font = _FONT(18);
     lbPaytype.textColor = _COLOR(0x66, 0x66, 0x66);
+    lbPaytype.backgroundColor = [UIColor clearColor];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype);
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-24-[logo]-5-[lbPaytype]->=0-|" options:0 metrics:nil views:views]];

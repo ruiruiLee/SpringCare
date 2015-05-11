@@ -99,7 +99,10 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.pullDelegate = self;
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-49-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
+    if(_IPHONE_OS_VERSION_UNDER_7_0)
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
+    else
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-49-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableView)]];
     
     [self creatHeadView];
@@ -225,6 +228,7 @@
     _lbName.font = _FONT_B(17);
     _lbName.textAlignment = NSTextAlignmentRight;
     _lbName.textColor = _COLOR(0xff, 0xff, 0xff);
+    _lbName.backgroundColor = [UIColor clearColor];
     
     _btnInfo = [[UIButton alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_btnInfo];

@@ -57,6 +57,7 @@
         NSRange range = [UnitPrice rangeOfString:@"¥300.00"];
         [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
         lbUnitPrice.attributedText = string;
+        lbUnitPrice.backgroundColor = [UIColor clearColor];
         
         lbAmountPrice = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:lbAmountPrice];
@@ -69,6 +70,7 @@
         [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
         [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
         lbAmountPrice.attributedText = string;
+        lbAmountPrice.backgroundColor = [UIColor clearColor];
         
         line = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:line];

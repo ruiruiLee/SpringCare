@@ -30,6 +30,7 @@
         _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
         _lbTitle.font = _FONT(14);
         _lbTitle.textColor = _COLOR(0x99, 0x99, 0x99);
+        _lbTitle.backgroundColor = [UIColor clearColor];
         
         _unfoldStaus = [self createImageViewWithimageName:@"usercentershutgray"];
         

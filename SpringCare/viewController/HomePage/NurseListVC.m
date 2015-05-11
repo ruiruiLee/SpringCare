@@ -69,8 +69,6 @@
     
     pullTableView = [[PullTableView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:pullTableView];
-    pullTableView.rowHeight = UITableViewAutomaticDimension;//启用预估行高度
-    pullTableView.estimatedRowHeight = 100.0f;
     pullTableView.dataSource = self;
     pullTableView.delegate = self;
     self.pullTableView.pullDelegate = self;

@@ -208,9 +208,11 @@
         else if(typedata.cellType == EnumTypeSex){
             cell.tfEdit.text = [_EditDic objectForKey:@"Sex"];//model.sex;
             cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
+            cell.tfEdit.placeholder = @"";
         }
         else if(typedata.cellType == EnumTypeAge){
             cell.tfEdit.text = [_EditDic objectForKey:@"Age"];//[NSString stringWithFormat:@"%d", [Util getAgeWithBirthday:model.birthDay]];
+            cell.tfEdit.placeholder = @"";
         }
         else if(typedata.cellType == EnumTypeAddress){
             if([_EditDic objectForKey:@"Address"] != nil && [[_EditDic objectForKey:@"Address"] length] > 0){
@@ -218,20 +220,24 @@
                 cell.tfEdit.text = [_EditDic objectForKey:@"Address"];//model.addr;
                 cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
             }
+            cell.tfEdit.placeholder = @"";
             if([userData isKindOfClass:[UserModel class]]){
                 cell.tfEdit.placeholder = nil;
             }
         }
         else if(typedata.cellType == EnumTypeMobile){
             cell.tfEdit.text = [_EditDic objectForKey:@"Mobile"];//model.mobilePhoneNumber;
+            cell.tfEdit.placeholder = @"";
             cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
         }
         else if(typedata.cellType == EnumTypeRelationName){
             cell.tfEdit.keyboardType = UIKeyboardTypeDefault;
+            cell.tfEdit.placeholder = @"";
             cell.tfEdit.text = [_EditDic objectForKey:@"RelationName"];
         }
         else if(typedata.cellType == EnumTypeHeight){
             cell.tfEdit.keyboardType = UIKeyboardTypeNumberPad;
+            cell.tfEdit.placeholder = @"";
             cell.tfEdit.text = [NSString stringWithFormat:@"%ld", [[_EditDic objectForKey:@"Height"] integerValue]];
             if([[_EditDic objectForKey:@"Height"] integerValue] <= 0)
                 cell.tfEdit.text = @"";
