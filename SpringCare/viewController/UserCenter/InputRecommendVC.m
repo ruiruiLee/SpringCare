@@ -18,7 +18,8 @@
 
 - (void) dealloc
 {
-    [self removeObserver:self forKeyPath:@"userRecommendPhone"];
+    UserModel *userInfo = [UserModel sharedUserInfo];
+    [userInfo removeObserver:self forKeyPath:@"userRecommendPhone"];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
