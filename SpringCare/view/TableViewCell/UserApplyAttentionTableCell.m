@@ -34,12 +34,14 @@
         [self.contentView addSubview:_lbUserName];
         _lbUserName.translatesAutoresizingMaskIntoConstraints = NO;
         _lbUserName.textColor = _COLOR(0x22, 0x22, 0x22);
+        _lbUserName.backgroundColor = [UIColor clearColor];
         
         _lbActionName = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbActionName];
         _lbActionName.translatesAutoresizingMaskIntoConstraints = NO;
         _lbActionName.textColor = _COLOR(0x66, 0x66, 0x66);
         _lbActionName.text = @"申请关注";
+        _lbActionName.backgroundColor = [UIColor clearColor];
         
         _btnAccept = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnAccept];
@@ -50,6 +52,7 @@
         _btnAccept.clipsToBounds = YES;
         [_btnAccept setTitle:@"接受" forState:UIControlStateNormal];
         [_btnAccept setTitle:@"接受" forState:UIControlStateSelected];
+        _btnAccept.backgroundColor = [UIColor clearColor];
         
         _imgExplaction = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgExplaction];
@@ -68,6 +71,7 @@
         [paragraphStyle setLineSpacing:2];//调整行间距
         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
         _lbExplaction.attributedText = attributedString;
+        _lbExplaction.backgroundColor = [UIColor clearColor];
         
         _line = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_line];

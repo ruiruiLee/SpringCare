@@ -65,6 +65,11 @@
     if([keyPath isEqualToString:@"currentCityModel"])
     {
         [activityBtn setTitle:[cfAppDelegate currentCityModel].city_name forState:UIControlStateNormal];
+    }else{
+        if(self.view.frame.size.height == 391){
+            self.view.frame = CGRectMake(0, -20, ScreenWidth, 411);
+        }else if (self.view.frame.size.height == 479)
+            self.view.frame = CGRectMake(0, -20, ScreenWidth, 499);
     }
 }
 
@@ -72,6 +77,7 @@
 {
     [super viewDidLoad];
     [cfAppDelegate addObserver:self forKeyPath:@"currentCityModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     [self loadData];
     
@@ -96,10 +102,6 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:activityBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.btnRight attribute:NSLayoutAttributeCenterY multiplier:1 constant:2]];
 
     [self initWithSubviews];
-    
-//    PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithNibName:nil bundle:nil];
-//    [self.navigationController presentViewController:vc animated:YES completion:^{
-//    }];
 }
 
 - (void) doBtnProductList:(UIButton*)sender
@@ -141,6 +143,9 @@
     CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale);
     if(type == EnumValueTypeiPhone4S)
         rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale - 40);
+    
+    if(_IPHONE_OS_VERSION_UNDER_7_0)
+        rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, rect.size.height - 20);
     _banner = [[AdScrollView alloc]initWithFrame:rect];
     _banner.parentController=self;
     _banner.PageControlShowStyle = UIPageControlShowStyleCenter;
@@ -279,6 +284,8 @@
     [btnRing addConstraint:[NSLayoutConstraint constraintWithItem:imgIden attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnRing attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
     [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:line attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    
+    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:btnHome attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btnHospital attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
 
 

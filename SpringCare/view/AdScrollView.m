@@ -185,6 +185,11 @@ static CGFloat const chageImageTime = 3.0;
     
 }
 
+- (void) layoutSubviews
+{
+    [super layoutSubviews];
+}
+
 @end
 
 

@@ -34,6 +34,7 @@
         _lbTitle.textColor = _COLOR(0x66, 0x66, 0x66);
         _lbTitle.textAlignment = NSTextAlignmentCenter;
         _lbTitle.text = @"我的关注";
+        _lbTitle.backgroundColor = [UIColor clearColor];
         
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero];
         [self addSubview:_tableview];

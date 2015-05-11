@@ -139,6 +139,7 @@
     lb.textAlignment = NSTextAlignmentCenter;
 //    lb.textColor = _COLOR(0x27, 0xa6, 0x69);
     lb.textColor = _COLOR(0x99, 0x99, 0x99);
+    lb.backgroundColor = [UIColor clearColor];
     lb.translatesAutoresizingMaskIntoConstraints = NO;
     lb.text = str;
     return lb;

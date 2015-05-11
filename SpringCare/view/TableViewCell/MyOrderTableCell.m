@@ -37,16 +37,19 @@
     [self.contentView addSubview:_lbName];
     _lbName.textColor = _COLOR(0x22, 0x22, 0x22);
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbName.backgroundColor = [UIColor clearColor];
     
     _lbPrice = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbPrice];
     _lbPrice.textColor = _COLOR(0x66, 0x66, 0x66);
     _lbPrice.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbPrice.backgroundColor = [UIColor clearColor];
     
     _lbCountPrice = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbCountPrice];
     _lbCountPrice.textColor = _COLOR(0xe4, 0x39, 0x3c);
     _lbCountPrice.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbCountPrice.backgroundColor = [UIColor clearColor];
     
     _line = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_line];
@@ -89,6 +92,7 @@
     [self.contentView addSubview:_lbDetailTime];
     _lbDetailTime.textColor = _COLOR(0x99, 0x99, 0x99);
     _lbDetailTime.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbDetailTime.backgroundColor = [UIColor clearColor];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _lbPrice, _lbCountPrice, _line, _btnPay, _btnStatus, _imgLogo, _imgDayTime, _imgNight, _lbDetailTime);
     

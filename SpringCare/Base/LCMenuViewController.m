@@ -97,7 +97,7 @@
     NSString *format = [NSString stringWithFormat:@"H:|-20-[_photoBg(93)]-5-[_btnUserName(%f)]-%f-|", ScreenWidth - (ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)) - 20 - 93 - 5, ScreenWidth + 24 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
     unflodConstraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:headerViews];
     [_headerView addConstraints:unflodConstraints];
-    [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+//    [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnUserName(30)]->=0-|" options:0 metrics:nil views:headerViews]];
     [_headerView addConstraint:[NSLayoutConstraint constraintWithItem:_btnUserName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_photoBg attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [_photoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_btnphotoImg]-11-|" options:0 metrics:nil views:headerViews]];
@@ -143,10 +143,16 @@
     
     if(type == EnumValueTypeiPhone4S)
     {
-        [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+        if(_IPHONE_OS_VERSION_UNDER_7_0){
+            [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-48.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 150);
+        }
+        else{
+            [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 170);
+        }
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(34)]-26.5-|" options:0 metrics:nil views:footViews]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(34)]-26.5-|" options:0 metrics:nil views:footViews]];
-        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 170);
         NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(96)]-4-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
         _btnHotLine.titleLabel.font = _FONT(13);
@@ -154,10 +160,16 @@
     }
     else if (type == EnumValueTypeiPhone5)
     {
-        [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+        if(_IPHONE_OS_VERSION_UNDER_7_0){
+            [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-68.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 200);
+        }
+        else{
+            [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
+            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 220);
+        }
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(34)]-41.5-|" options:0 metrics:nil views:footViews]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(34)]-41.5-|" options:0 metrics:nil views:footViews]];
-        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 220);
         NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(96)]-4-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
         _btnHotLine.titleLabel.font = _FONT(13);

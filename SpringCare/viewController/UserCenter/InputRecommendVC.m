@@ -16,6 +16,11 @@
 @implementation InputRecommendVC
 @synthesize scrollview;
 
+- (void) dealloc
+{
+    [self removeObserver:self forKeyPath:@"userRecommendPhone"];
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     
@@ -79,7 +84,7 @@
     _tfContent.font = _FONT(14);
     _tfContent.returnKeyType = UIReturnKeySend;
     _tfContent.keyboardType = UIKeyboardTypeNumberPad;
-    _tfContent.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    _tfContent.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _tfContent.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
     _tfContent.leftViewMode = UITextFieldViewModeAlways;
     _tfContent.layer.cornerRadius = 8;

@@ -33,6 +33,7 @@
         _payName.translatesAutoresizingMaskIntoConstraints = NO;
         _payName.font = _FONT(14);
         _payName.textColor = _COLOR(0x22, 0x22, 0x22);
+        _payName.backgroundColor = [UIColor clearColor];
         
         _btnSelect = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnSelect];

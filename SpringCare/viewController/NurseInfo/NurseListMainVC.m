@@ -52,8 +52,6 @@
     
     pullTableView = [[PullTableView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:pullTableView];
-    pullTableView.rowHeight = UITableViewAutomaticDimension;//启用预估行高度
-    pullTableView.estimatedRowHeight = 100.0f;
     pullTableView.dataSource = self;
     pullTableView.delegate = self;
     pullTableView.pullDelegate = self;
@@ -78,7 +76,10 @@
     
     UIView *view = self.NavigationBar;
     NSDictionary *views = NSDictionaryOfVariableBindings(pullTableView, self.ContentView, view, searchBar, menu);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(64)]-0-[searchBar(44)]-0-[menu(40)]-0-[pullTableView]-49-|" options:0 metrics:nil views:views]];
+    if(_IPHONE_OS_VERSION_UNDER_7_0)
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(64)]-0-[searchBar(44)]-0-[menu(40)]-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
+    else
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(64)]-0-[searchBar(44)]-0-[menu(40)]-0-[pullTableView]-49-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[searchBar]-0-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[menu]-0-|" options:0 metrics:nil views:views]];

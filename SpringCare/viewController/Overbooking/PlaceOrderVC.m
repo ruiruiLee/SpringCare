@@ -99,6 +99,8 @@
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
     [_tableview registerClass:[PlaceOrderEditCell class] forCellReuseIdentifier:@"cell1"];
     [_tableview registerClass:[PayTypeCell class] forCellReuseIdentifier:@"cell2"];
+    _tableview.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    _tableview.backgroundColor = [UIColor clearColor];
     
     UIView *headerView = [self createTableViewHeader];
     _tableview.tableHeaderView = headerView;
@@ -114,7 +116,10 @@
     [btnSubmit addTarget:self action:@selector(btnSubmitOrder:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, btnSubmit);
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+    if(_IPHONE_OS_VERSION_UNDER_7_0)
+        [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(-10)-[_tableview]-(-10)-|" options:0 metrics:nil views:views]];
+    else
+        [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-20-[btnSubmit(44)]-20-|" options:0 metrics:nil views:views]];
     
@@ -422,6 +427,9 @@
         if(!cell){
             cell = [[UserAppraisalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell0"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+            cell.backgroundColor = [UIColor clearColor];
         }
         
         cell._lbAppraisalNum.text = [NSString stringWithFormat:@"用户评价（%ld）", _nurseModel.commentsNumber];
@@ -431,12 +439,18 @@
         PayTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2" forIndexPath:indexPath];
         cell.parentController = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+        cell.backgroundColor = [UIColor clearColor];
         
         return cell;
     }
     else{
         PlaceOrderEditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1" forIndexPath:indexPath];
         cell.delegate = self;
+        cell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+        cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setNurseListInfo:_nurseModel];
         return cell;

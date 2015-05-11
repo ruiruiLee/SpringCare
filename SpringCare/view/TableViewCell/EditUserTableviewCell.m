@@ -47,12 +47,14 @@
     _lbTite.font = _FONT(16);
     _lbTite.textColor = _COLOR(0x22, 0x22, 0x22);
     _lbTite.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbTite.backgroundColor = [UIColor clearColor];
     
     _tfEdit = [[UITextField alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_tfEdit];
     _tfEdit.font = _FONT(16);
     _tfEdit.translatesAutoresizingMaskIntoConstraints = NO;
     _tfEdit.delegate = self;
+    _tfEdit.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     
     _imgUnflod = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_imgUnflod];
@@ -69,6 +71,7 @@
     lbUnit.font = _FONT(16);
     lbUnit.textColor = _COLOR(0x66, 0x66, 0x66);
     lbUnit.translatesAutoresizingMaskIntoConstraints = NO;
+    lbUnit.backgroundColor = [UIColor clearColor];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbTite, _tfEdit, _imgUnflod, _lbLine, lbUnit);
     layoutArray = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTite(96)]-10-[_tfEdit]-5-[lbUnit(30)]-10-[_imgUnflod(12)]-20-|" options:0 metrics:nil views:views];
