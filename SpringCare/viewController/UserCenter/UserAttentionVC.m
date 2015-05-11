@@ -404,7 +404,7 @@
         [_btnApply addTarget:self action:@selector(doApplyAttention:) forControlEvents:UIControlEventTouchUpInside];
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_searchBar, _btnApply);
-        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_searchBar]-10-[_btnApply(94)]-22.5-|" options:0 metrics:nil views:views]];
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_searchBar]-4-[_btnApply(94)]-12.5-|" options:0 metrics:nil views:views]];
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnApply(32)]->=0-|" options:0 metrics:nil views:views]];
         
         [view addConstraint:[NSLayoutConstraint constraintWithItem:_searchBar attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
