@@ -91,10 +91,10 @@ static CGFloat const chageImageTime = 3.0;
 //            [self addSubview:lbltitle];
 //        }
         if (models.count>1) {
-            [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(switchFocusImageItems) userInfo:nil repeats:YES];
-
+//            [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(switchFocusImageItems) userInfo:nil repeats:YES];
+        [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
         }
-        //[self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
+       
 
     }
 
@@ -119,7 +119,7 @@ static CGFloat const chageImageTime = 3.0;
     CGFloat targetX = self.contentOffset.x + self.frame.size.width;
     [self moveToTargetPosition:targetX];
     
-    //[self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
+    [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
 }
 
 - (void)moveToTargetPosition:(CGFloat)targetX
