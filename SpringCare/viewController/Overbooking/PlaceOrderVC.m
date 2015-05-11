@@ -307,6 +307,7 @@
     [headerView addSubview:_photoImage];
     _photoImage.clipsToBounds = YES;
     _photoImage.layer.cornerRadius = 38;
+    _photoImage.contentMode = UIViewContentModeScaleAspectFill;
 
     [_photoImage sd_setImageWithURL:[NSURL URLWithString:_nurseModel.headerImage] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:_nurseModel.sex]])];
     

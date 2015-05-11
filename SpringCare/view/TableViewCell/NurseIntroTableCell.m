@@ -31,6 +31,7 @@
     [self.contentView addSubview:_imgPhoto];
     _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
     _imgPhoto.clipsToBounds = YES;
+    _imgPhoto.contentMode = UIViewContentModeScaleAspectFill;
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbName];

@@ -32,6 +32,7 @@
      _photoImage.layer.masksToBounds = YES;
     [bgView addSubview:_photoImage];
     _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
+    _photoImage.contentMode = UIViewContentModeScaleAspectFill;
 //    
     _lbRelation =[[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbRelation];

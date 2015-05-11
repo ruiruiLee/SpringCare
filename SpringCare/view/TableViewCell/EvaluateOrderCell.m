@@ -42,6 +42,7 @@
     _photoImage = [[UIImageView alloc] initWithFrame:CGRectZero];
     _photoImage.translatesAutoresizingMaskIntoConstraints = NO;
     [_headerView addSubview:_photoImage];
+    _photoImage.contentMode = UIViewContentModeScaleAspectFill;
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [_headerView addSubview:_lbName];

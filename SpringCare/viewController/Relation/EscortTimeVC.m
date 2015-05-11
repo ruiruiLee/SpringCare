@@ -221,6 +221,7 @@
     _photoImgView.translatesAutoresizingMaskIntoConstraints = NO;
     _photoImgView.clipsToBounds = YES;
     _photoImgView.layer.cornerRadius = 41;
+    _photoImgView.contentMode = UIViewContentModeScaleAspectFill;
     
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [headerView addSubview:_lbName];
