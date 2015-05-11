@@ -184,7 +184,7 @@
             [self newAttentionWithAddress:[LcationInstance currentDetailAdrress] block:^(int code, id content) {
                 if(code){
                     if([content objectForKey:@"code"] == nil)
-                        [weakSelf submitWithloverId:@"message"];
+                        [weakSelf submitWithloverId:[content objectForKey:@"message"]];
                 }
             }];
             
