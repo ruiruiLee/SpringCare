@@ -154,24 +154,30 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         [self.navigationController presentViewController:nav animated:YES completion:nil];
     }
-    
-    PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    PlaceOrderEditItemCell *editcell = (PlaceOrderEditItemCell*)[cell._tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-       NSString *address = editcell.lbTitle.text;
-    if (!address) {
-        [Util showAlertMessage:@"请选择陪护地址！"];
+    else if(!_loverModel.address||[_loverModel.address isEqual:@""])
+    {
+        if (![LcationInstance currentDetailAdrress]) {
+              [Util showAlertMessage:@"请选择陪护地址！"];
+        }
+        else{
+            __weak PlaceOrderVC *weakSelf = self;
+            [self newAttentionWithAddress:[LcationInstance currentDetailAdrress] block:^(int code, id content) {
+                if(code){
+                    if([content objectForKey:@"code"] == nil)
+                        [weakSelf submitWithloverId:@"message"];
+                }
+            }];
+
+        }
+        
     }
-//    if(!_loverModel.address||[_loverModel.address isEqual:@""])
-//    {
-//         [Util showAlertMessage:@"请选择陪护地址！"];
-//    }
     else{
         if(_loverModel.userid==nil){
             __weak PlaceOrderVC *weakSelf = self;
             [self newAttentionWithAddress:_loverModel.address block:^(int code, id content) {
                 if(code){
-                    if([content objectForKey:@"message"] == nil)
-                        [weakSelf submitWithloverId:[content objectForKey:@"message"]];
+                    if([content objectForKey:@"code"] == nil)
+                        [weakSelf submitWithloverId:@"message"];
                 }
             }];
         }
