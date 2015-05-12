@@ -198,7 +198,10 @@
          [Util showAlertMessage:@"请选择订单开始时间！"];
         return;
     }
-    
+    if([cfAppDelegate currentCityModel].city_id ==nil){
+        [Util showAlertMessage:@"定位失败，请选择所在服务城市！" ];
+        return;
+    }
     NSMutableDictionary *Params = [[NSMutableDictionary alloc] init];
     [Params setObject:_nurseModel.nid forKey:@"careId"];
     [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
