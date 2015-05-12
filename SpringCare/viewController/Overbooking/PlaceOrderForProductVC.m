@@ -130,6 +130,7 @@
     _lbExplain.text = [NSString stringWithFormat:@"产品介绍：%@", _productModel.productDesc];
     _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 35;
     _lbExplain.backgroundColor = [UIColor clearColor];
+    _lbExplain.numberOfLines = 0;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbExplain, _lbTitle);
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTitle]-10-|" options:0 metrics:nil views:views]];

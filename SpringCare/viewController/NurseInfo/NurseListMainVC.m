@@ -210,7 +210,7 @@
     __weak NurseListMainVC *weakSelf = self;
     [_model loadNurseDataWithPage:(int)pages prama:parmas block:^(int code, id content) {
         [weakSelf.DataList removeAllObjects];
-        [weakSelf.DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
+        [weakSelf.DataList addObjectsFromArray:content];
         [weakSelf.pullTableView reloadData];
         [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];

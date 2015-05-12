@@ -114,7 +114,11 @@
     
          // 要减去tabbar的高度
          int pheight =_winSize.height-navHeight-_faceBoardView.frame.size.height+20-55;
-         self.view.frame = CGRectMake(0,pheight,self.view.frame.size.width,_faceBoardView.frame.size.height+contentHeight);
+         if(_IPHONE_OS_VERSION_UNDER_7_0){
+             self.view.frame = CGRectMake(0,pheight - 20,self.view.frame.size.width,_faceBoardView.frame.size.height+contentHeight);
+         }
+         else
+             self.view.frame = CGRectMake(0,pheight,self.view.frame.size.width,_faceBoardView.frame.size.height+contentHeight);
              } completion:^(BOOL finished) {
                // self.myTableView.userInteractionEnabled = NO;
             }];
@@ -147,7 +151,10 @@
         if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]&&!_hasShow) {
             [_delegate changeParentViewFram:offheight];
         }
-       self.view.frame=CGRectMake(0,offheight,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
+        if(_IPHONE_OS_VERSION_UNDER_7_0)
+           self.view.frame=CGRectMake(0,offheight - 24,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
+        else
+            self.view.frame=CGRectMake(0,offheight - 4,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
        _hasShow=YES;
         } completion:nil];
 

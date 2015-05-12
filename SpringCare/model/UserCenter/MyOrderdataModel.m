@@ -38,11 +38,24 @@ static NSMutableArray *noAssessmentOrderList = nil;
 
 @implementation MyOrderdataModel
 
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)RemoveObjectFromArray:(NSNotification *) notify
+{
+    [myOrderList removeAllObjects];
+    [noAssessmentOrderList removeAllObjects];
+}
+
 - (id) init
 {
     self = [super init];
     if(self){
         self.isLoadDetail = NO;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RemoveObjectFromArray:) name:Notify_Register_Logout object:nil];
     }
     return self;
 }

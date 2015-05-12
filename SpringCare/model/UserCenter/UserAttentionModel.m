@@ -36,10 +36,23 @@ static NSMutableArray *myAttentionArray = nil;
     return myAttentionArray;
 }
 
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)RemoveObjectFromArray:(NSNotification *) notify
+{
+    [myAttentionArray removeAllObjects];
+}
+
 - (id) init
 {
     self = [super init];
     if(self){
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RemoveObjectFromArray:) name:Notify_Register_Logout object:nil];
+        
     }
     return self;
 }

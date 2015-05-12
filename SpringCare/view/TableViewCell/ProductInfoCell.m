@@ -56,7 +56,7 @@
     _lbExplain = [[UILabel alloc] initWithFrame:CGRectZero];
     [_bgView addSubview:_lbExplain];
     _lbExplain.translatesAutoresizingMaskIntoConstraints = NO;
-    _lbExplain.numberOfLines = 0;
+    _lbExplain.numberOfLines = 2;
     _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 52;
     _lbExplain.font = _FONT(14);
     _lbExplain.textColor = _COLOR(0x99, 0x99, 0x99);

@@ -65,23 +65,44 @@
     self.viewControllers=@[nav1, nav2, nav3];
     
     UIColor *normalColor = Disabled_Color;
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       normalColor, UITextAttributeTextColor,
-                                                    nil] forState:UIControlStateNormal];
-    UIColor *titleHighlightedColor = Abled_Color;
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       titleHighlightedColor, UITextAttributeTextColor,
-                                                    nil] forState:UIControlStateSelected];
-    [[UITabBar appearance] setTintColor:Abled_Color];//UITextAttributeFont
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       _FONT(12), UITextAttributeFont,
-                                                       nil] forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       _FONT(12), UITextAttributeFont,
-                                                       nil] forState:UIControlStateSelected];
-    UIImageView *tabBarBgView = [[UIImageView alloc] initWithFrame:self.tabBar.bounds];
-    tabBarBgView.backgroundColor = _COLOR(0xe5, 0xe4, 0xe5);
-    [self.tabBar insertSubview:tabBarBgView atIndex:0];
+    if(!_IPHONE_OS_VERSION_UNDER_7_0){
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           normalColor, UITextAttributeTextColor,
+                                                        nil] forState:UIControlStateNormal];
+        UIColor *titleHighlightedColor = Abled_Color;
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           titleHighlightedColor, UITextAttributeTextColor,
+                                                        nil] forState:UIControlStateSelected];
+        [[UITabBar appearance] setTintColor:Abled_Color];//UITextAttributeFont
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           _FONT(12), UITextAttributeFont,
+                                                           nil] forState:UIControlStateNormal];
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           _FONT(12), UITextAttributeFont,
+                                                           nil] forState:UIControlStateSelected];
+        UIImageView *tabBarBgView = [[UIImageView alloc] initWithFrame:self.tabBar.bounds];
+        tabBarBgView.backgroundColor = _COLOR(0xe5, 0xe4, 0xe5);
+        [self.tabBar insertSubview:tabBarBgView atIndex:0];
+    }
+    else{
+        self.tabBar.backgroundImage = [Util imageWithColor:_COLOR(0xe5, 0xe4, 0xe5) size:CGSizeMake(ScreenWidth, 49)];
+        
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           normalColor, UITextAttributeTextColor,
+                                                           nil] forState:UIControlStateNormal];
+        UIColor *titleHighlightedColor = Abled_Color;
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           titleHighlightedColor, UITextAttributeTextColor,
+                                                           nil] forState:UIControlStateHighlighted];
+        [[UITabBar appearance] setTintColor:Disabled_Color];
+        [[UITabBar appearance] setSelectedImageTintColor:Abled_Color];
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           _FONT(12), UITextAttributeFont,
+                                                           nil] forState:UIControlStateNormal];
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           _FONT(12), UITextAttributeFont,
+                                                           nil] forState:UIControlStateSelected];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

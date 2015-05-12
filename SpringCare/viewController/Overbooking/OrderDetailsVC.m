@@ -157,6 +157,7 @@
          _imgPhoto.layer.masksToBounds = YES;
          _imgPhoto.layer.cornerRadius = 41;
         [self.contentView addSubview:_imgPhoto];
+        _imgPhoto.contentMode = UIViewContentModeScaleAspectFill;
         
         _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbName];
@@ -321,6 +322,7 @@
         _imgPhoto.layer.masksToBounds = YES;
         _imgPhoto.layer.cornerRadius = 31;
         _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
+        _imgPhoto.contentMode = UIViewContentModeScaleAspectFill;
         
         _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_lbName];
@@ -382,7 +384,7 @@
         
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnMobile]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_imgvAddr]-5-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_imgvAddr(15)]-5-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_lbName]-20-[_lbAge]-20-[_lbHeight]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_imgPhoto(62)]->=10-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_LbRelation(20)]-5-[_lbName(18)]-2-[_btnAddress(22)]->=10-|" options:0 metrics:nil views:views]];
@@ -662,8 +664,10 @@
 
 - (void) initDataForView
 {
-    lbOrderNum.text = [NSString stringWithFormat:@"订 单 号 ：%@", _orderModel.serialNumber];
-    lbOrderTime.text = [NSString stringWithFormat:@"下单时间：%@", [Util StringFromDate:_orderModel.createdDate]];//@"下单时间：2015-03-19 12:46";
+    if(_orderModel.serialNumber != nil)
+        lbOrderNum.text = [NSString stringWithFormat:@"订 单 号 ：%@", _orderModel.serialNumber];
+    if(_orderModel.createdDate != nil)
+        lbOrderTime.text = [NSString stringWithFormat:@"下单时间：%@", [Util StringFromDate:_orderModel.createdDate]];//@"下单时间：2015-03-19 12:46";
     if(_orderModel.orderStatus == EnumOrderStatusTypeCancel){
         [_stepView SetStepViewType:StepViewType2Step];
         [_stepView SetCurrentStepWithIdx:3];//此处为3

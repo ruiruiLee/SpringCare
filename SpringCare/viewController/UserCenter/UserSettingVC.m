@@ -92,6 +92,7 @@
     [UserModel sharedUserInfo].userId = nil;
     [[UserModel sharedUserInfo] modifyInfo];
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Register_Logout object:nil];
   
    
 }
