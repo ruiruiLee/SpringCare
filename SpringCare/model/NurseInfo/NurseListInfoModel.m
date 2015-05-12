@@ -155,12 +155,6 @@ static NSInteger nurseTotal = 0;
          productID =[cfAppDelegate defaultProductId];
     }
      [dic setObject:productID forKey:@"productId"];
-//    if(order == nil)
-//        order = @"asc";
-   // [dic setObject:order forKey:@"order"];
-//    if(!(key == nil || [key length] == 0))
-//        [dic setObject:key forKey:@"key"];
-    
     [dic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
     
    

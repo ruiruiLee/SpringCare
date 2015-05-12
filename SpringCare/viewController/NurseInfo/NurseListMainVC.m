@@ -94,6 +94,7 @@
     [menu ResetDropDownMenu];
     __weak NurseListMainVC *weakSelf = self;
     pages = 0;
+    [parmas removeAllObjects];
     self.pullTableView.pullTableIsRefreshing = YES;
     [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:nil block:^(int code) {
         [DataList removeAllObjects];

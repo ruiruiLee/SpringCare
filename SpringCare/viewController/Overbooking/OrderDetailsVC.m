@@ -416,7 +416,10 @@
     _LbRelation.text = model.lover.relation;
     if(model.lover.relation == nil || [model.lover.relation length] == 0)
         _LbRelation.text = @"昵称";
-    _lbAge.text = [NSString stringWithFormat:@"%@岁", model.lover.age];
+    if(model.lover.age.length)
+        _lbAge.text = @"年龄";
+    else
+         _lbAge.text = [NSString stringWithFormat:@"%@岁", model.lover.age];
     if(model.lover.age == nil || [model.lover.age isEqual:@"0"])
         _lbAge.text = @"年龄";
     if(model.lover.height > 0)
