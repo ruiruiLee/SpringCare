@@ -189,7 +189,7 @@
 }
 
 - (void)btnRingClicked{
-    if (![phoneNum isEqual:@""]) {
+    if (![phoneNum isEqual:@""] && phoneNum != nil) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您确定要拨打电话吗?" message:phoneNum delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
         [alertView setTag:11];
         [alertView show];
