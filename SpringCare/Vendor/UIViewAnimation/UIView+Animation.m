@@ -58,7 +58,7 @@ static NSMutableArray   *displayViewAry;//已显示的页面数组
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 + (UIView *)getTopView{
-    return [[[UIView getAppDelegate] viewController] view];
+    return nil;//[[[UIView getAppDelegate] viewController] view];
 }
 
 #pragma mark - 顶层maskView触摸

@@ -91,7 +91,6 @@
 		86B3EE7F1AF9C860005E29B1 /* InputRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */; };
 		86B461AA1AF5CB4E00B1B66D /* UIView+MGBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461A91AF5CB4E00B1B66D /* UIView+MGBadgeView.m */; };
 		86B461B91AF7A4E300B1B66D /* ProjectDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461B81AF7A4E300B1B66D /* ProjectDefine.m */; };
-		86B7497A1AE89A68000BA6DB /* CertBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B749791AE89A68000BA6DB /* CertBrowserVC.m */; };
 		86B7497D1AE8CB9C000BA6DB /* EvaluateDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B7497C1AE8CB9C000BA6DB /* EvaluateDataModel.m */; };
 		86B8E5541AD4CC0F00A5139E /* EditCellTypeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5531AD4CC0F00A5139E /* EditCellTypeData.m */; };
 		86B8E5571AD4CE0900A5139E /* EditUserTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5561AD4CE0900A5139E /* EditUserTableviewCell.m */; };
@@ -520,8 +519,6 @@
 		86B461A91AF5CB4E00B1B66D /* UIView+MGBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MGBadgeView.m"; sourceTree = "<group>"; };
 		86B461B71AF7A4E300B1B66D /* ProjectDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDefine.h; sourceTree = "<group>"; };
 		86B461B81AF7A4E300B1B66D /* ProjectDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDefine.m; sourceTree = "<group>"; };
-		86B749781AE89A68000BA6DB /* CertBrowserVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertBrowserVC.h; sourceTree = "<group>"; };
-		86B749791AE89A68000BA6DB /* CertBrowserVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertBrowserVC.m; sourceTree = "<group>"; };
 		86B7497B1AE8CB9C000BA6DB /* EvaluateDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluateDataModel.h; path = ../EvaluateDataModel.h; sourceTree = "<group>"; };
 		86B7497C1AE8CB9C000BA6DB /* EvaluateDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluateDataModel.m; path = ../EvaluateDataModel.m; sourceTree = "<group>"; };
 		86B8E5521AD4CC0F00A5139E /* EditCellTypeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCellTypeData.h; sourceTree = "<group>"; };
@@ -1396,8 +1393,6 @@
 				86B8E5591AD4E35B00A5139E /* MyOrderListVC.m */,
 				868B23A21ADF9537003AAD2A /* WorkAddressSelectVC.h */,
 				868B23A31ADF9537003AAD2A /* WorkAddressSelectVC.m */,
-				86B749781AE89A68000BA6DB /* CertBrowserVC.h */,
-				86B749791AE89A68000BA6DB /* CertBrowserVC.m */,
 			);
 			name = Orders;
 			path = Overbooking;
@@ -2132,7 +2127,6 @@
 				86B8E5BB1AD6B17600A5139E /* EvaluateOrderCell.m in Sources */,
 				86B8E5C71AD7AD4100A5139E /* OrderStepView.m in Sources */,
 				863C8E351AD29E81009D7496 /* UserAttentionTableCell.m in Sources */,
-				86B7497A1AE89A68000BA6DB /* CertBrowserVC.m in Sources */,
 				8642C9491ABFF53C00251921 /* UIButton+WebCache.m in Sources */,
 				8642C95D1ABFF55800251921 /* HomePageVC.m in Sources */,
 				86B8E5B51AD6A5ED00A5139E /* MyOrderOnDoingTableCell.m in Sources */,
