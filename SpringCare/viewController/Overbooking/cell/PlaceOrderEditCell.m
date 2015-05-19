@@ -255,9 +255,9 @@
     _nurseData = model;
     NSInteger days = [dateSelectView getDays];
     NSInteger hour = (businessTypeView.businesstype == EnumType12Hours) ?12 : 24;
-    NSInteger uPrice = model.priceDiscount;
+    NSInteger uPrice = model.pricemodel.fullDay;
     if(businessTypeView.businesstype == EnumType12Hours)
-        uPrice = uPrice/2;
+        uPrice = model.pricemodel.halfDay;
     NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", uPrice];
     NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@（%ldh） x %ld天", rangeStr, hour, days];//@"单价：¥300.00（24h） x 1天";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];

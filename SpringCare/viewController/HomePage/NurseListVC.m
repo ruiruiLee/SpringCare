@@ -73,7 +73,7 @@
     pullTableView.delegate = self;
     self.pullTableView.pullDelegate = self;
     
-    self.prices = @[@"价格区间",@"200元-299元",@"300元-499元",@"500元以上"];
+    self.prices = @[@"价格区间",@"0元-100元",@"100元-200元",@"200元以上"];
     self.ages = @[@"年龄区间",@"20岁-29岁",@"30岁-39岁",@"40岁以上"];
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
     //数据先初始化
@@ -361,15 +361,15 @@
         if(indexPath.row == 0){
         }
         else if (indexPath.row == 1){
-            min = 200;
-            max = 299;
+            min = 100;
+            max = 0;
         }
         else if (indexPath.row == 2){
-            min = 300;
-            max = 499;
+            min = 101;
+            max = 299;
         }
         else if (indexPath.row == 3){
-            max = 500;
+            max = 200;
         }
         
         [parmas setObject:[NSNumber numberWithInteger:min] forKey:@"minPrice"];

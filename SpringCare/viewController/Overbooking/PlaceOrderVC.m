@@ -218,14 +218,12 @@
     [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@:00", [Util reductionTimeFromOrderTime:editcell.lbTitle.text]]] forKey:@"beginDate"];//
     [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
     
-    NSInteger unitPrice = _nurseModel.priceDiscount;
-    //NSInteger orgUnitPrice = _nurseModel.price;
+    NSInteger unitPrice = _nurseModel.pricemodel.fullDay;
     if(type == EnumType12Hours){
-        unitPrice = unitPrice/2;
-       // orgUnitPrice = orgUnitPrice/2;
+        unitPrice = _nurseModel.pricemodel.halfDay;
     }
     
-    [Params setObject:[NSNumber numberWithInteger:_nurseModel.price] forKey:@"orgUnitPrice"];//
+//    [Params setObject:[NSNumber numberWithInteger:_nurseModel.price] forKey:@"orgUnitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
     

@@ -43,12 +43,12 @@
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_btn24h, _btn12h);
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_btn24h]-0-[_btn12h]-0-|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_btn12h]-0-[_btn24h]-0-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btn24h]-0-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btn12h]-0-|" options:0 metrics:nil views:views]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_btn24h attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.5 constant:0]];
         
-        [self doBtnSelectType24h:_btn24h];
+        [self doBtnSelectType12h:_btn12h];
     }
     return self;
 }

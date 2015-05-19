@@ -92,9 +92,10 @@
         return;
     }
     
+    
     AVUserFeedbackAgent *agent = [AVUserFeedbackAgent sharedInstance];
     __weak FeedBackVC *_weakSelf = self;
-    [agent syncFeedbackThreadsWithBlock:@"" contact:content block:^(NSArray *objects, NSError *error) {
+    [agent postFeedbackThread:content block:^(id object, NSError *error) {
         if(error == nil){
             [Util showAlertMessage:@"感谢你对我们产品的支持！" ];
             [_weakSelf.navigationController popViewControllerAnimated:YES];

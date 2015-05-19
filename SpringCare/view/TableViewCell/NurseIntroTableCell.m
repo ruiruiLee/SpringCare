@@ -215,6 +215,8 @@
 - (void) SetContentData:(NurseListInfoModel*) model
 {
 
+    _lbOldPrice.hidden = YES;
+    
     [_imgPhoto sd_setImageWithURL:[NSURL URLWithString:HeadImage(model.headerImage)] placeholderImage:ThemeImage([Util headerImagePathWith:[Util GetSexByName:model.sex]])];
     
     _lbName.text = model.name;
@@ -228,15 +230,16 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [model.intro length])];
     _lbWorkIntro.attributedText = attributedString;
     
-    _lbPrice.text = [NSString stringWithFormat:@"¥%ld/天", (long)model.priceDiscount];//model.price;打折价格
+    
+    NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%ld（12小时）", (long)model.pricemodel.halfDay]];
+    [price addAttribute:NSFontAttributeName value:_FONT(12) range:NSMakeRange([price length] - [@"（12小时）" length], [@"（12小时）" length])];
+    [price addAttribute:NSForegroundColorAttributeName value:_COLOR(0x99, 0x99, 0x99) range:NSMakeRange([price length] - [@"（12小时）" length], [@"（12小时）" length])];
+    
+    _lbPrice.attributedText = price;//model.price;打折价格
     [_btnLocation setTitle:[Util convertDinstance: model.distance] forState:UIControlStateNormal];
     
-    _lbOldPrice.text = [NSString stringWithFormat:@"原价:%ld", model.price];
-    if(model.price == model.priceDiscount)
-        _lbOldPrice.hidden = YES;
-    else
-        _lbOldPrice.hidden = NO;
-}   
+//    _lbOldPrice.text = [NSString stringWithFormat:@"原价:%ld", model.price];
+}
 
 
 @end

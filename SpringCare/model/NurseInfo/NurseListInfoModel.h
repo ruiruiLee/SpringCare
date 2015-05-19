@@ -25,6 +25,15 @@ typedef enum : NSUInteger {
 
 @end
 
+@interface PriceModel : NSObject
+
+@property (nonatomic, assign) NSInteger fullDay;
+@property (nonatomic, assign) NSInteger halfDay;
+
++ (PriceModel*) modelFromDictionary:(NSDictionary*) dic;
+
+@end
+
 @interface NurseListInfoModel : NSObject
 {
     NSString*productID;
@@ -38,11 +47,10 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString *nid;
 @property (nonatomic, strong) NSString *intro;
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, assign) NSInteger price;
-@property (nonatomic, assign) NSInteger priceDiscount;
 @property (nonatomic, strong) NSString *sex;
 @property (nonatomic, assign) NSInteger commentsRate;
 @property (nonatomic, assign) NSInteger commentsNumber;
+@property (nonatomic, strong) PriceModel *pricemodel;
 
 @property (nonatomic, strong) NSArray *certList;
 

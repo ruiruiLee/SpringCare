@@ -82,7 +82,6 @@ static NSMutableArray *noAssessmentOrderList = nil;
     MyOrderdataModel *model = [[MyOrderdataModel alloc] init];
     model.oId = [dic objectForKey:@"id"];
     model.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
-    model.orgUnitPrice = [[dic objectForKey:@"orgUnitPrice"] integerValue];
     model.unitPrice = [[dic objectForKey:@"unitPrice"] integerValue];
     model.totalPrice = [[dic objectForKey:@"totalPrice"] integerValue];
     model.product = [ProductInfodataModel modelWithDictionary:[dic objectForKey:@"product"]];
@@ -97,7 +96,6 @@ static NSMutableArray *noAssessmentOrderList = nil;
         model.nurseInfo = marray;
     model.payStatus = ([[dic objectForKey:@"payStatus"] intValue] == 0) ? EnumTypeNopay : EnumTypePayed;
     model.commentStatus = ([[dic objectForKey:@"commentStatus"] intValue] == 0) ? EnumTypeNoComment : EnumTypeCommented;
-//    model.commentCount = [[dic objectForKey:@"commentStatus"] integerValue];
     int dateType = [[dic objectForKey:@"dateType"] intValue];
     if(dateType == 1)
         model.dateType = EnumTypeHalfDay;

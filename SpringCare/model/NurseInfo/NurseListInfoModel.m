@@ -30,6 +30,31 @@ static NSInteger nurseTotal = 0;
 
 @end
 
+/***********
+ ** PriceModel
+ ***********/
+
+@implementation PriceModel
+
+
++ (PriceModel*) modelFromDictionary:(NSDictionary*) dic
+{
+    PriceModel *model = [[PriceModel alloc] init];
+    
+    model.halfDay = [[dic objectForKey:@"halfDay"] integerValue];
+    
+    model.fullDay = [[dic objectForKey:@"fullDay"] integerValue];
+    
+    return model;
+}
+
+@end
+
+
+/***********
+** NurseListInfoModel
+***********/
+
 @implementation NurseListInfoModel
 @synthesize name;
 @synthesize detailIntro;
@@ -38,8 +63,6 @@ static NSInteger nurseTotal = 0;
 @synthesize distance;
 @synthesize birthPlace;
 @synthesize sex;
-@synthesize priceDiscount;
-@synthesize price;
 @synthesize intro;
 @synthesize headerImage;
 @synthesize careAge;
@@ -98,14 +121,6 @@ static NSInteger nurseTotal = 0;
     model.intro = [dic objectForKey:@"intro"];
     if(model.intro == nil)
         model.intro = @"";
-    if([dic objectForKey:@"price"] == nil || [[dic objectForKey:@"price"] isKindOfClass:[NSNull class]])
-        model.price = 0;
-    else
-        model.price = [[dic objectForKey:@"price"] integerValue];
-    if([dic objectForKey:@"priceDiscount"] == nil || [[dic objectForKey:@"priceDiscount"] isKindOfClass:[NSNull class]])
-        model.priceDiscount = 0;
-    else
-        model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
     model.sex = [dic objectForKey:@"sex"];
     if([dic objectForKey:@"commentsNumber"] == nil || [[dic objectForKey:@"sex"] isKindOfClass:[NSNull class]])
         model.commentsNumber = 0;
@@ -115,6 +130,8 @@ static NSInteger nurseTotal = 0;
         model.commentsRate = 0;
     else
         model.commentsRate = [[dic objectForKey:@"commentsRate"] integerValue];
+    
+    model.pricemodel = [PriceModel modelFromDictionary:[dic objectForKey:@"prices"]];
     
     return model;
 }
