@@ -41,6 +41,7 @@
     _hospital_product_id=@"";
     _defaultProductId=@"";
     //设置AVOSCloud
+    //[AVOSCloudCrashReporting enable];
     [AVOSCloud setApplicationId:AVOSCloudAppID
                       clientKey:AVOSCloudAppKey];
     //统计应用启动情况
