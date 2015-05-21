@@ -1831,6 +1831,7 @@
 					};
 					CFAFA3C11ABFEC8C0020E774 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 83V6JW3TGV;
 						TestTargetID = CFAFA3A81ABFEC8C0020E774;
 					};
 				};
@@ -2349,8 +2350,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2359,7 +2360,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9bd8ca50-3825-4e39-b546-6573021a7d55";
 			};
 			name = Debug;
 		};
@@ -2369,8 +2370,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2379,7 +2380,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9bd8ca50-3825-4e39-b546-6573021a7d55";
 			};
 			name = Release;
 		};
@@ -2387,6 +2388,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2398,6 +2401,7 @@
 				INFOPLIST_FILE = SpringCareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpringCare.app/SpringCare";
 			};
 			name = Debug;
@@ -2406,6 +2410,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2413,6 +2419,7 @@
 				INFOPLIST_FILE = SpringCareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpringCare.app/SpringCare";
 			};
 			name = Release;
