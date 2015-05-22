@@ -275,7 +275,12 @@
         }
         else{
 
-             [Util showAlertMessage:@"请输入正确的验证码！" ];
+            long code = [[error.userInfo objectForKey:@"code"] longValue];
+            if(code == 1){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"无效的验证码！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }else
+                 [Util showAlertMessage:@"网络连接异常，请检查网络设置！" ];
         }
     }];
 }
