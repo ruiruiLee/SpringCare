@@ -59,6 +59,8 @@
     _btnInfo.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 21);
     
     _tvContent = [[PlaceholderTextView alloc] initWithFrame:CGRectZero];
+    _tvContent.returnKeyType =UIReturnKeyDone;
+    _tvContent.delegate=self;
     [self.contentView addSubview:_tvContent];
     _tvContent.translatesAutoresizingMaskIntoConstraints = NO;
     _tvContent.font = _FONT(14);
@@ -129,6 +131,16 @@
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_lbName(20)]-10-[_btnInfo(20)]-14-|" options:0 metrics:nil views:views]];
     
     [self btnEvaluate:_btnBest];
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"])
+    {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 - (void) btnEvaluate:(UIButton*)sender
