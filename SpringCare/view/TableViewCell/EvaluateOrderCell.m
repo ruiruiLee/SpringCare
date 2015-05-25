@@ -119,7 +119,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_tvContent]-20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_btnBest(60)]-10-[_btnBetter(60)]-10-[_btnGood(60)]->=0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_btnSubmit(60)]-16-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_headerView(79)]-4-[_tvContent(100)]-12-[_btnGood(29)]-12-[_btnSubmit(25)]-4-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_headerView(79)]-4-[_tvContent(60)]-12-[_btnGood(29)]-12-[_btnSubmit(25)]-4-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_line]-16-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnBetter attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_btnGood attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnBest attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_btnGood attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
