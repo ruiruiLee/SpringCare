@@ -2374,6 +2374,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2383,6 +2385,7 @@
 				);
 				PRODUCT_NAME = "春风陪护";
 				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
+				PROVISIONING_PROFILE = "f17d712b-be4a-414f-ab4b-93d813970b77";
 			};
 			name = Debug;
 		};
@@ -2394,6 +2397,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2403,6 +2408,7 @@
 				);
 				PRODUCT_NAME = "春风陪护";
 				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
+				PROVISIONING_PROFILE = "f17d712b-be4a-414f-ab4b-93d813970b77";
 			};
 			name = Release;
 		};
