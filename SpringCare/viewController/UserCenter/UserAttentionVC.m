@@ -106,6 +106,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+//-(void)SingleTap:(UITapGestureRecognizer*)recognizer
+//{
+//    //处理单击操作
+//    [_searchBar resignFirstResponder];
+//}
+
 - (void) initSubViews
 {
     _tableview = [[UITableView alloc] initWithFrame:CGRectZero];
@@ -116,6 +122,12 @@
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
     _tableview.backgroundColor = TableBackGroundColor;
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+//    UITapGestureRecognizer* singleRecognizer;
+//    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
+//    //点击的次数
+//    singleRecognizer.numberOfTapsRequired = 1; // 单击
+//    [_tableview addGestureRecognizer:singleRecognizer];
     
     refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -100, ScreenWidth, 100)];
     //    refreshView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
@@ -232,7 +244,6 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (_applyData.count>0 && indexPath.section==0) {
         if(self.requestTableCell == nil){
             self.requestTableCell = [[UserApplyAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
@@ -296,7 +307,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"commitEditingStyle");
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         if (_applyData.count>0 ){
@@ -304,6 +315,7 @@
                 UserRequestAcctionModel *model = [_applyData objectAtIndex:indexPath.row];
                 [model deleteAcctionRequest:^(int code) {
                     if(code){
+                        _applyData = [[UserRequestAcctionModel GetRequestAcctionArray] copy];
                         [tableView beginUpdates];
                         
                         if ([[UserRequestAcctionModel GetRequestAcctionArray] count] <= 0) {
@@ -319,11 +331,11 @@
                         [tableView reloadData];
                     }
                 }];
-                _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
             }else{
                 UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
                 [model deleteAttention:^(int code) {
                     if(code){
+                        _attentionData = [[UserAttentionModel GetMyAttentionArray] copy];
                         [tableView beginUpdates];
                         
                         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -333,13 +345,13 @@
                         [tableView reloadData];
                     }
                 }];
-                _attentionData = [UserAttentionModel GetMyAttentionArray];
             }
         }
         else{
             UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
             [model deleteAttention:^(int code) {
                 if(code){
+                    _attentionData = [[UserAttentionModel GetMyAttentionArray] copy];
                     [tableView beginUpdates];
                     
                     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -349,7 +361,6 @@
                     [tableView reloadData];
                 }
             }];
-            _attentionData = [UserAttentionModel GetMyAttentionArray];
         }
         // Delete the row from the data source.
         
@@ -506,7 +517,7 @@
     //  model should call this when its done loading
     _reloading = NO;
     [refreshView egoRefreshScrollViewDataSourceDidFinishedLoading:_tableview];
-    
+    NSLog(@"doneLoadingTableViewData    1");
 }
 
 #pragma mark -
@@ -541,7 +552,6 @@
         }
         [weakSelf performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.2];
     }];
-
 }
 #pragma mark -
 #pragma mark EGORefreshTableHeaderDelegate Methods
@@ -561,6 +571,12 @@
     
     return [NSDate date]; // should return date data source was last changed
     
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [_searchBar resignFirstResponder];
 }
 
 @end

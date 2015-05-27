@@ -442,4 +442,24 @@
     }];
 
 }
+
++ (EnumCouponType) GetCouponsUseStatus:(NSInteger) status
+{
+    if(status == 0){
+        return EnumCouponTypeNotUse;
+    }
+    else if (status == 1){
+        return EnumCouponTypeUsed;
+    }
+    else if (status == 2){
+        return EnumCouponTypeDisable;
+    }
+    else if (status == 3){
+        return EnumCouponTypeExpire;
+    }
+    else{
+        return EnumCouponTypeUnknown;
+    }
+}
+
 @end

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5EC3CB895631411D3825C780 /* libPods-SpringCare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBBF94160FD6994D54C5FC7A /* libPods-SpringCare.a */; };
+		863AC15C1B14676900C06D96 /* CouponsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 863AC15B1B14676900C06D96 /* CouponsVC.m */; };
+		863AC16A1B15611600C06D96 /* CouponsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 863AC1691B15611600C06D96 /* CouponsDataModel.m */; };
+		863AC16D1B158FD200C06D96 /* CouponsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 863AC16C1B158FD200C06D96 /* CouponsListCell.m */; };
 		863C8E301AD296E8009D7496 /* UserAttentionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C8E2F1AD296E8009D7496 /* UserAttentionVC.m */; };
 		863C8E351AD29E81009D7496 /* UserAttentionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C8E341AD29E81009D7496 /* UserAttentionTableCell.m */; };
 		863C8E381AD29E9F009D7496 /* UserApplyAttentionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C8E371AD29E9F009D7496 /* UserApplyAttentionTableCell.m */; };
@@ -359,6 +362,12 @@
 /* Begin PBXFileReference section */
 		8367BA91FD77FFAC9DB3F4F7 /* Pods-SpringCare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.release.xcconfig"; sourceTree = "<group>"; };
 		862B97421AD25B1000A726D3 /* fzzy_GBK.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = fzzy_GBK.TTF; sourceTree = "<group>"; };
+		863AC15A1B14676900C06D96 /* CouponsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponsVC.h; sourceTree = "<group>"; };
+		863AC15B1B14676900C06D96 /* CouponsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponsVC.m; sourceTree = "<group>"; };
+		863AC1681B15611600C06D96 /* CouponsDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponsDataModel.h; sourceTree = "<group>"; };
+		863AC1691B15611600C06D96 /* CouponsDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponsDataModel.m; sourceTree = "<group>"; };
+		863AC16B1B158FD200C06D96 /* CouponsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponsListCell.h; sourceTree = "<group>"; };
+		863AC16C1B158FD200C06D96 /* CouponsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponsListCell.m; sourceTree = "<group>"; };
 		863C8E2E1AD296E7009D7496 /* UserAttentionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAttentionVC.h; sourceTree = "<group>"; };
 		863C8E2F1AD296E8009D7496 /* UserAttentionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAttentionVC.m; sourceTree = "<group>"; };
 		863C8E331AD29E81009D7496 /* UserAttentionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserAttentionTableCell.h; path = ../../view/TableViewCell/UserAttentionTableCell.h; sourceTree = "<group>"; };
@@ -901,6 +910,8 @@
 				868B23AB1AE1287E003AAD2A /* MyOrderdataModel.m */,
 				86B8E5A61AD690AB00A5139E /* OrderListModel.h */,
 				86B8E5A71AD690AB00A5139E /* OrderListModel.m */,
+				863AC1681B15611600C06D96 /* CouponsDataModel.h */,
+				863AC1691B15611600C06D96 /* CouponsDataModel.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -1207,6 +1218,8 @@
 				8642C9AA1AC25F9200251921 /* LCMenuViewController.m */,
 				863C8E2E1AD296E7009D7496 /* UserAttentionVC.h */,
 				863C8E2F1AD296E8009D7496 /* UserAttentionVC.m */,
+				863AC15A1B14676900C06D96 /* CouponsVC.h */,
+				863AC15B1B14676900C06D96 /* CouponsVC.m */,
 				863C8E331AD29E81009D7496 /* UserAttentionTableCell.h */,
 				863C8E341AD29E81009D7496 /* UserAttentionTableCell.m */,
 				869C9EE51AD404F10090182E /* EditUserInfoVC.h */,
@@ -1244,6 +1257,8 @@
 				86B8E5BA1AD6B17600A5139E /* EvaluateOrderCell.m */,
 				86B8E6101AD95B2A00A5139E /* ProductInfoCell.h */,
 				86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */,
+				863AC16B1B158FD200C06D96 /* CouponsListCell.h */,
+				863AC16C1B158FD200C06D96 /* CouponsListCell.m */,
 			);
 			name = TableViewCell;
 			path = ../view/TableViewCell;
@@ -1831,6 +1846,7 @@
 					};
 					CFAFA3C11ABFEC8C0020E774 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 83V6JW3TGV;
 						TestTargetID = CFAFA3A81ABFEC8C0020E774;
 					};
 				};
@@ -2106,6 +2122,7 @@
 				CFBC52001ADCC980004FB8F3 /* wav.mm in Sources */,
 				8642C94E1ABFF53C00251921 /* UIImageView+WebCache.m in Sources */,
 				865C85981ACCEDFF006ABCA4 /* ImageLayoutView.m in Sources */,
+				863AC15C1B14676900C06D96 /* CouponsVC.m in Sources */,
 				863C8E3C1AD2A33B009D7496 /* UserAttentionModel.m in Sources */,
 				8642C9371ABFF53C00251921 /* SBJsonStreamParserAccumulator.m in Sources */,
 				86B8E5541AD4CC0F00A5139E /* EditCellTypeData.m in Sources */,
@@ -2162,6 +2179,7 @@
 				86B96AA51ADBA01B00441168 /* Util.m in Sources */,
 				869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */,
 				CFB42D131AE0AF6F00FDF891 /* TextAndEmojiView.m in Sources */,
+				863AC16D1B158FD200C06D96 /* CouponsListCell.m in Sources */,
 				86B8E6121AD95B2A00A5139E /* ProductInfoCell.m in Sources */,
 				868B23A71ADF9769003AAD2A /* WorkAddressCell.m in Sources */,
 				8642C9471ABFF53C00251921 /* SDWebImageManager.m in Sources */,
@@ -2216,6 +2234,7 @@
 				86B8E59C1AD65D1500A5139E /* UserSettingVC.m in Sources */,
 				86C0953A1ACD5AB500371BF3 /* AdScrollView.m in Sources */,
 				865C85901ACCEDFF006ABCA4 /* PageLoadFootView.m in Sources */,
+				863AC16A1B15611600C06D96 /* CouponsDataModel.m in Sources */,
 				8642C8BD1ABFF4D300251921 /* LCRefreshTableVC.m in Sources */,
 				86B461AA1AF5CB4E00B1B66D /* UIView+MGBadgeView.m in Sources */,
 				86B461B91AF7A4E300B1B66D /* ProjectDefine.m in Sources */,
@@ -2284,8 +2303,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2305,6 +2324,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2326,8 +2346,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2340,6 +2360,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2351,8 +2372,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2361,7 +2382,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "4319e057-92c0-4d0a-9b4e-8f648c9dcbf4";
+				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
 			};
 			name = Debug;
 		};
@@ -2371,8 +2392,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2381,7 +2402,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "4319e057-92c0-4d0a-9b4e-8f648c9dcbf4";
+				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
 			};
 			name = Release;
 		};
@@ -2389,6 +2410,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2400,6 +2423,7 @@
 				INFOPLIST_FILE = SpringCareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpringCare.app/SpringCare";
 			};
 			name = Debug;
@@ -2408,6 +2432,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2415,6 +2441,7 @@
 				INFOPLIST_FILE = SpringCareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpringCare.app/SpringCare";
 			};
 			name = Release;

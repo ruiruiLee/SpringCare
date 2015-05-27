@@ -61,6 +61,14 @@ typedef enum
     PushFromTerminate  //从中止了的应用程序进入
 }PushType;
 
+typedef enum : NSUInteger {
+    EnumCouponTypeNotUse = 0,
+    EnumCouponTypeUsed,
+    EnumCouponTypeDisable,
+    EnumCouponTypeExpire,
+    EnumCouponTypeUnknown,
+} EnumCouponType;
+
 @interface Util : NSObject
 
 /**
@@ -126,4 +134,7 @@ typedef enum
 + (void)PayForOrders:(NSDictionary*) dict Controller:(UIViewController*)weakSelf;
 + (NSString *)getCurrentVersion;
 + (void)updateVersion :(void(^)(NSArray *info))handleResponse;
+
++ (EnumCouponType) GetCouponsUseStatus:(NSInteger) status;
+
 @end
