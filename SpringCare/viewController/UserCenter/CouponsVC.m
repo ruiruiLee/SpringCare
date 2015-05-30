@@ -9,6 +9,7 @@
 #import "CouponsVC.h"
 #import "PullTableView.h"
 #import "CouponsListCell.h"
+#import "WebContentVC.h"
 
 @interface CouponsVC ()<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
 
@@ -42,8 +43,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.NavigationBar.btnRight setTitle:@"使用说明" forState:UIControlStateNormal];
+    self.NavigationBar.btnRight.hidden = NO;
+    self.NavigationBar.btnRight.layer.cornerRadius = 8;
+    self.NavigationBar.btnRight.backgroundColor = [UIColor whiteColor];
     [self.NavigationBar.btnRight setTitleColor:Abled_Color forState:UIControlStateNormal];
-    self.NavigationBar.btnRight.titleLabel.font = _FONT(15);
+    self.NavigationBar.btnRight.titleLabel.font = _FONT(11);
     
     [self initSubviews];
     dataList = [[NSMutableArray alloc] init];
@@ -89,6 +93,13 @@
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[pullTableView]-0-|" options:0 metrics:nil views:views]];
+}
+- (void) NavRightButtonClickEvent:(UIButton *)sender
+{
+    WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"使用说明" url:@""];
+    vc.hidesBottomBarWhenPushed = YES;
+    [vc loadInfoFromUrl:[NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, CouponExplain]];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma Networks

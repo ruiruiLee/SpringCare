@@ -273,7 +273,7 @@
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
     if(_selectCoupons != nil){
-        [Params setObject:_selectCoupons.couponsId forKey:@"conponId"];
+        [Params setObject:_selectCoupons.couponsId forKey:@"couponId"];
     }
     
     __weak PlaceOrderForProductVC *weakSelf = self;
@@ -475,12 +475,12 @@
         unitPrice = unitPrice * 30;
     }
 
-    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount] subString:[NSString stringWithFormat:@"%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount]];
+    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount] subString:[NSString stringWithFormat:@"¥%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount]];
 }
 
 - (void) NotifyValueChanged:(NSInteger)value
 {
-    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：%d", value - _selectCoupons.amount] subString:[NSString stringWithFormat:@"%d", value - _selectCoupons.amount]];
+    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", value - _selectCoupons.amount] subString:[NSString stringWithFormat:@"¥%d", value - _selectCoupons.amount]];
 }
 
 - (NSMutableAttributedString *)AttributedStringFromString:(NSString*)string subString:(NSString *)subString

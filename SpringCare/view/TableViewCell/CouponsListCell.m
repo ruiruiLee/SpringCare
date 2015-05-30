@@ -165,6 +165,7 @@
         _lbValue.text = [NSString stringWithFormat:@"%d", model.amount];
         _lbEndTimeTitle.text = @"有效期至";
         _lbEndTime.text = model.endDate;
+        _lbEndTime.hidden = NO;
     }
     else{
         couponBg.image = ThemeImage(@"selectcouponsbg");
@@ -190,6 +191,7 @@
         }
         _lbEndTimeTitle.text = title;
         _lbEndTime.text = model.endDate;
+        _lbEndTime.hidden = YES;
     }
     
     [_rightBg addConstraints:constraints];

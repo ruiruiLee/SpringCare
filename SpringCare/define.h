@@ -28,6 +28,7 @@
 #define Care_Promiss @"55288e01e4b0da2c5df90e9f"//护理承若
 #define About_Us @"5544ad2ee4b03fd8342e9c19"//关于我们
 #define Care_Agreement @"5544af16e4b03fd8342eb2d3"//用户协议
+#define CouponExplain @"55696adce4b0349d3326183a"//使用说明
 
 
 #define LCNetWorkBase [LCNetWorkBase sharedLCNetWorkBase]
@@ -66,7 +67,8 @@
 
 // 支付
 #define kUrlScheme      @"wx039f05e7e07b0fca"
-#define kUrl            @"http://spring.avosapps.com/api/order/pay/getToken"
+//#define kUrl            @"http://spring.avosapps.com/api/order/pay/getToken"
+#define kUrl            @"api/order/pay/getToken"
 
 
 //语音存放地址

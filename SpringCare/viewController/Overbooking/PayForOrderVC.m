@@ -173,7 +173,7 @@
     lbActualPay.textColor = _COLOR(0x66, 0x66, 0x66);
 //    lbActualPay.text = @"实付款：";realyTotalPrice
     lbActualPay.translatesAutoresizingMaskIntoConstraints = NO;
-    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：%d", _OrderModel.realyTotalPrice] subString:[NSString stringWithFormat:@"%d", _OrderModel.realyTotalPrice]];
+    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", _OrderModel.realyTotalPrice] subString:[NSString stringWithFormat:@"¥%d", _OrderModel.realyTotalPrice]];
     
     UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnSubmit];

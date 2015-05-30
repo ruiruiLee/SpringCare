@@ -49,6 +49,11 @@
     NurseListInfoModel *_nurseData;
     
     CouponsSelectView *_couponsView;
+    
+    NSArray *Constraints;
+    UIImageView *logo;
+    UILabel *lbPaytype;
+    UILabel *line1;
 }
 
 @property (nonatomic, assign) id<PlaceOrderEditCellDelegate> delegate;

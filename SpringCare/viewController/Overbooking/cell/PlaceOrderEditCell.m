@@ -87,15 +87,15 @@
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
         
-        UIImageView *logo = [[UIImageView alloc] initWithFrame:CGRectZero];
+        logo = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:logo];
         logo.translatesAutoresizingMaskIntoConstraints = NO;
         logo.image = [UIImage imageNamed:@"placeordered"];
         
-        UILabel *lbPaytype = [self createLabelWithFont:_FONT(18) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor]];
+        lbPaytype = [self createLabelWithFont:_FONT(18) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor]];
         lbPaytype.text = @"我要下单";
         
-        UILabel *line1 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
+        line1 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
         businessTypeView = [[BusinessTypeView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:businessTypeView];
@@ -136,7 +136,8 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessTypeView(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbAmountPrice]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        [self.contentView addConstraints:Constraints];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line1]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line1)]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_tableview]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
@@ -281,6 +282,18 @@
     lbAmountPrice.attributedText = string;
     
     _couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessTypeView, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
+    [self.contentView removeConstraints:Constraints];
+    if([UserModel sharedUserInfo].couponsCount <= 0){
+        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        [self.contentView addConstraints:Constraints];
+        _couponsView.hidden = YES;
+    }else{
+        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        [self.contentView addConstraints:Constraints];
+        _couponsView.hidden = NO;
+    }
     
     if(delegate && [delegate respondsToSelector:@selector(NotifyValueChanged:)]){
         [delegate NotifyValueChanged:uPrice * days];

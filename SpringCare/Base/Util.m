@@ -382,7 +382,8 @@
 + (void)PayForOrders:(NSDictionary*) dict Controller:(UIViewController*)weakSelf{
     NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *bodyData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    [LCNetWorkBase postWithParams:bodyData  Url:kUrl Completion:^(int code, id content) {
+    NSString *uri = [NSString stringWithFormat:@"%@%@", SERVER_ADDRESS,kUrl];
+    [LCNetWorkBase postWithParams:bodyData  Url:uri Completion:^(int code, id content) {
         if(code){
             NSLog(@"charge = %@", content);
             dispatch_async(dispatch_get_main_queue(), ^{
