@@ -37,6 +37,9 @@
 - (id)init
 {
     if (self = [super init]) {
+        
+        self.couponsCount = 0;
+        
         AVUser *muser = [AVUser currentUser];
         if ( muser!=nil) {
             self.userId= muser.objectId;

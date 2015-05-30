@@ -49,6 +49,9 @@
 @property (nonatomic, strong) RegistrUserInfoModel *registerUser;
 @property (nonatomic, strong) NSDate *createdDate;
 
+@property (nonatomic, assign) NSInteger realyTotalPrice;//实际支付金额
+@property (nonatomic, assign) NSInteger couponsAmount;//优惠券金额
+
 + (NSArray *) GetNoAssessmentOrderList;
 + (NSArray *) GetMyOrderList;
 

@@ -95,6 +95,8 @@
 		86B461AA1AF5CB4E00B1B66D /* UIView+MGBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461A91AF5CB4E00B1B66D /* UIView+MGBadgeView.m */; };
 		86B461B91AF7A4E300B1B66D /* ProjectDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461B81AF7A4E300B1B66D /* ProjectDefine.m */; };
 		86B7497D1AE8CB9C000BA6DB /* EvaluateDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B7497C1AE8CB9C000BA6DB /* EvaluateDataModel.m */; };
+		86B7CE641B18155A00708AD5 /* CouponsSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B7CE631B18155A00708AD5 /* CouponsSelectView.m */; };
+		86B7CE671B19A91C00708AD5 /* CouponLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B7CE661B19A91C00708AD5 /* CouponLogoView.m */; };
 		86B8E5541AD4CC0F00A5139E /* EditCellTypeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5531AD4CC0F00A5139E /* EditCellTypeData.m */; };
 		86B8E5571AD4CE0900A5139E /* EditUserTableviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5561AD4CE0900A5139E /* EditUserTableviewCell.m */; };
 		86B8E55A1AD4E35B00A5139E /* MyOrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5591AD4E35B00A5139E /* MyOrderListVC.m */; };
@@ -530,6 +532,10 @@
 		86B461B81AF7A4E300B1B66D /* ProjectDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDefine.m; sourceTree = "<group>"; };
 		86B7497B1AE8CB9C000BA6DB /* EvaluateDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluateDataModel.h; path = ../EvaluateDataModel.h; sourceTree = "<group>"; };
 		86B7497C1AE8CB9C000BA6DB /* EvaluateDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluateDataModel.m; path = ../EvaluateDataModel.m; sourceTree = "<group>"; };
+		86B7CE621B18155A00708AD5 /* CouponsSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponsSelectView.h; sourceTree = "<group>"; };
+		86B7CE631B18155A00708AD5 /* CouponsSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponsSelectView.m; sourceTree = "<group>"; };
+		86B7CE651B19A91C00708AD5 /* CouponLogoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponLogoView.h; sourceTree = "<group>"; };
+		86B7CE661B19A91C00708AD5 /* CouponLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponLogoView.m; sourceTree = "<group>"; };
 		86B8E5521AD4CC0F00A5139E /* EditCellTypeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCellTypeData.h; sourceTree = "<group>"; };
 		86B8E5531AD4CC0F00A5139E /* EditCellTypeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCellTypeData.m; sourceTree = "<group>"; };
 		86B8E5551AD4CE0900A5139E /* EditUserTableviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserTableviewCell.h; sourceTree = "<group>"; };
@@ -1097,6 +1103,8 @@
 		8642C9501ABFF54C00251921 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				86B7CE651B19A91C00708AD5 /* CouponLogoView.h */,
+				86B7CE661B19A91C00708AD5 /* CouponLogoView.m */,
 				86B461A81AF5CB4E00B1B66D /* UIView+MGBadgeView.h */,
 				86B461A91AF5CB4E00B1B66D /* UIView+MGBadgeView.m */,
 				865C856A1ACCEDFF006ABCA4 /* PageLoadFootView.h */,
@@ -1430,6 +1438,8 @@
 				868B23A01ADF5BC7003AAD2A /* EvaluateListCell.m */,
 				868B23A51ADF9769003AAD2A /* WorkAddressCell.h */,
 				868B23A61ADF9769003AAD2A /* WorkAddressCell.m */,
+				86B7CE621B18155A00708AD5 /* CouponsSelectView.h */,
+				86B7CE631B18155A00708AD5 /* CouponsSelectView.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2200,6 +2210,7 @@
 				8642C94A1ABFF53C00251921 /* UIImage+GIF.m in Sources */,
 				CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */,
 				865C85971ACCEDFF006ABCA4 /* HBImageViewList.m in Sources */,
+				86B7CE641B18155A00708AD5 /* CouponsSelectView.m in Sources */,
 				86B8E5671AD4F14700A5139E /* AttentionSelectTableViewCell.m in Sources */,
 				8642C93C1ABFF53C00251921 /* SBJsonStreamWriterState.m in Sources */,
 				86B3EE7F1AF9C860005E29B1 /* InputRecommendVC.m in Sources */,
@@ -2245,6 +2256,7 @@
 				865C85921ACCEDFF006ABCA4 /* EscortTimeReplyCell.m in Sources */,
 				86B8E57A1AD5298E00A5139E /* PlaceOrderEditCell.m in Sources */,
 				86B8E57D1AD529EC00A5139E /* PayTypeCell.m in Sources */,
+				86B7CE671B19A91C00708AD5 /* CouponLogoView.m in Sources */,
 				8642C9381ABFF53C00251921 /* SBJsonStreamParserAdapter.m in Sources */,
 				8642C93E1ABFF53C00251921 /* SBJsonUTF8Stream.m in Sources */,
 				86C0954D1ACE627200371BF3 /* FSDropDownMenu.m in Sources */,
@@ -2372,10 +2384,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2385,7 +2395,6 @@
 				);
 				PRODUCT_NAME = "春风陪护";
 				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
-				PROVISIONING_PROFILE = "f17d712b-be4a-414f-ab4b-93d813970b77";
 			};
 			name = Debug;
 		};
@@ -2395,10 +2404,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SpringCare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2408,7 +2415,6 @@
 				);
 				PRODUCT_NAME = "春风陪护";
 				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
-				PROVISIONING_PROFILE = "f17d712b-be4a-414f-ab4b-93d813970b77";
 			};
 			name = Release;
 		};

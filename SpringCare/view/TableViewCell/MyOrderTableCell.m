@@ -257,7 +257,11 @@
     }
     
     _lbPrice.text = priceStr;
-    _lbCountPrice.text = [NSString stringWithFormat:@"¥%ld", data.totalPrice];
+    
+    //显示成实际支付金额;
+//    _lbCountPrice.text = [NSString stringWithFormat:@"¥%ld", data.totalPrice];
+    _lbCountPrice.text = [NSString stringWithFormat:@"¥%ld", data.realyTotalPrice];
+    
     _lbDetailTime.text = [Util GetOrderServiceTime:data.beginDate enddate:data.endDate datetype:data.dateType];//data.fromto;
 
     NSMutableString *name = [[NSMutableString alloc] init];

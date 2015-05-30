@@ -11,6 +11,7 @@
 #import "BusinessTypeView.h"
 #import "ZHPickView.h"
 #import "NurseListInfoModel.h"
+#import "CouponsSelectView.h"
 
 @interface PlaceOrderEditItemCell : UITableViewCell
 {
@@ -28,6 +29,8 @@
 @protocol PlaceOrderEditCellDelegate <NSObject>
 
 - (void) NotifyToSelectAddr;
+- (void) NotifyTOSelectCoupons;
+- (void) NotifyValueChanged:(NSInteger )value;
 
 @end
 
@@ -44,12 +47,15 @@
     ZHPickView *_pickview;
     
     NurseListInfoModel *_nurseData;
+    
+    CouponsSelectView *_couponsView;
 }
 
 @property (nonatomic, assign) id<PlaceOrderEditCellDelegate> delegate;
 @property (nonatomic, strong) UITableView *_tableview;
 @property (nonatomic, strong) BusinessTypeView *businessTypeView;
 @property (nonatomic, strong) DateCountSelectView *dateSelectView;
+@property (nonatomic, strong) CouponsSelectView *couponsView;
 
 - (void) setNurseListInfo:(NurseListInfoModel*) model;
 

@@ -11,10 +11,13 @@
 #import "UnitsTypeView.h"
 #import "ZHPickView.h"
 #import "FamilyProductModel.h"
+#import "CouponsSelectView.h"
 
 @protocol PlaceOrderEditForProductCellDelegate <NSObject>
 
 - (void) NotifyToSelectAddr;
+- (void) NotifyTOSelectCoupons;
+- (void) NotifyValueChanged:(NSInteger )value;
 
 @end
 
@@ -31,12 +34,14 @@
     ZHPickView *_pickview;
     
     FamilyProductModel *_nurseData;
+    CouponsSelectView *_couponsView;
 }
 
 @property (nonatomic, assign) id<PlaceOrderEditForProductCellDelegate> delegate;
 @property (nonatomic, strong) UITableView *_tableview;
 @property (nonatomic, strong) UnitsTypeView *businessTypeView;
 @property (nonatomic, strong) DateCountSelectView *dateSelectView;
+@property (nonatomic, strong) CouponsSelectView *couponsView;
 
 - (void) setNurseListInfo:(FamilyProductModel*) model;
 

@@ -10,10 +10,30 @@
 #import "CouponsDataModel.h"
 
 @interface CouponsListCell : UITableViewCell
+{
+    UIImageView *couponBg;
+    UILabel *_lbRMB;
+    UILabel *_lbValue;
+    UILabel *_lbEndTime;
+    UILabel *_lbEndTimeTitle;
+    UIView *_rightBg;
+    UIView *_view1;
+    UIView *_view2;
+    
+    UIView *_leftBg;
+    UIView *_view3;
+    UIView *_view4;
+    
+    NSArray *constraints;
+    
+    UIImageView *selectImageView;
+}
 
-@property (nonatomic, strong) NSString *lbName;
+@property (nonatomic, strong) UILabel *lbName;
 
 - (void) SetContentWithModel:(CouponsDataModel *)model;
+
+- (void) SetCellSelected:(BOOL) flag;
 
 @end
 

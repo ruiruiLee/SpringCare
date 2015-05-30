@@ -17,12 +17,15 @@
 #import "MyOrderListVC.h"
 #import "SliderViewController.h"
 #import "LoginVC.h"
-@interface PlaceOrderForProductVC () <WorkAddressSelectVCDelegate>
+#import "CouponsVC.h"
+
+@interface PlaceOrderForProductVC () <WorkAddressSelectVCDelegate, CouponsVCDelegate>
 {
     FamilyProductModel *_productModel;
     
     UserAttentionModel *_loverModel;
 
+    CouponsDataModel *_selectCoupons;
 }
 
 @property (nonatomic, strong)UserAttentionModel *_loverModel;
@@ -31,6 +34,7 @@
 
 @implementation PlaceOrderForProductVC
 @synthesize _loverModel = _loverModel;
+@synthesize _tableview = _tableview;
 
 - (void) NavLeftButtonClickEvent:(UIButton *)sender
 {
@@ -46,14 +50,16 @@
         [cfAppDelegate setDefaultProductId: model.pId];
         __weak PlaceOrderForProductVC *weakSelf = self;
         [_productModel loadetailDataWithproductId:model.pId block:^(id content) {
-           // NSDictionary *dic = [content objectForKey:@"care"];
+            [UserModel sharedUserInfo].couponsCount = [[content objectForKey:@"couponsCount"] integerValue];
+            
              NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
             if (dicLover.count>0) {
                 weakSelf._loverModel =  [[UserAttentionModel alloc] init];
                 weakSelf._loverModel.userid = [dicLover objectForKey:@"id"];
                 weakSelf._loverModel.address =[dicLover objectForKey:@"addr"];
             }
-         [weakSelf NotifyAddressSelected:nil model:weakSelf._loverModel];
+            [weakSelf NotifyAddressSelected:nil model:weakSelf._loverModel];
+            [weakSelf._tableview reloadData];
         
         }];
     }
@@ -89,9 +95,22 @@
     UIView *header = [self CreateTableHeader];
     _tableview.tableHeaderView = header;
     
+    UILabel *sLine = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.ContentView addSubview:sLine];
+    sLine.backgroundColor = SeparatorLineColor;
+    sLine.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    lbActualPay = [[UILabel alloc] initWithFrame:CGRectZero];
+    lbActualPay.backgroundColor = [UIColor clearColor];
+    [self.ContentView addSubview:lbActualPay];
+    lbActualPay.font = _FONT(15);
+    lbActualPay.textColor = _COLOR(0x66, 0x66, 0x66);
+    lbActualPay.text = @"实付款：";
+    lbActualPay.translatesAutoresizingMaskIntoConstraints = NO;
+    
     UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnSubmit];
-    btnSubmit.layer.cornerRadius = 22;
+//    btnSubmit.layer.cornerRadius = 22;
 //    btnSubmit.backgroundColor = Abled_Color;
     [btnSubmit setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
     btnSubmit.clipsToBounds = YES;
@@ -100,14 +119,16 @@
     btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;
     [btnSubmit addTarget:self action:@selector(btnSubmitOrder:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, btnSubmit);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, btnSubmit, lbActualPay , sLine);
     
     if(_IPHONE_OS_VERSION_UNDER_7_0)
         [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(-10)-[_tableview]-(-10)-|" options:0 metrics:nil views:views]];
     else
         [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-20-[btnSubmit(44)]-20-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[lbActualPay]-0-[btnSubmit(160)]-0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[sLine]-0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-[sLine(0.7)]-0-[btnSubmit(54)]-0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbActualPay(54)]-0-|" options:0 metrics:nil views:views]];
 }
 
 - (UIView *) CreateTableHeader
@@ -251,6 +272,9 @@
     [Params setObject:[NSNumber numberWithInteger:orgUnitPrice] forKey:@"orgUnitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
+    if(_selectCoupons != nil){
+        [Params setObject:_selectCoupons.couponsId forKey:@"conponId"];
+    }
     
     __weak PlaceOrderForProductVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
@@ -262,9 +286,16 @@
         {
             // 付款
             MyOrderListVC * __weak weakSelf = vc;
+            
+            NSInteger totalPrice = unitPrice * cell.dateSelectView.countNum;
+            
+            if(_selectCoupons != nil){
+                totalPrice -= _selectCoupons.amount;
+            }
+            
             NSDictionary* dict = @{
                                    @"channel" : self.payValue,
-                                   @"amount"  : [NSString stringWithFormat:@"%@00", [Params objectForKey:@"totalPrice"]],
+                                   @"amount"  : [NSString stringWithFormat:@"%@00", [NSNumber numberWithInteger:totalPrice]],
                                    @"orderId":orderID
                                    };
             [Util PayForOrders:dict Controller:weakSelf];
@@ -286,7 +317,10 @@
 {
     if (indexPath.section == 0)
     {
-        return 200.f;
+        if([UserModel sharedUserInfo].couponsCount > 0)
+            return 245.f;
+        else
+            return 200.f;
     }
     else{
         return 135.f;
@@ -414,6 +448,49 @@
    
     
 
+}
+
+- (void) NotifyTOSelectCoupons
+{
+    CouponsVC *vc = [[CouponsVC alloc] initWithNibName:nil bundle:nil];
+    vc.NavTitle = @"选择使用优惠券";
+    vc.selectModel = _selectCoupons;
+    vc.type = EnumCouponsVCTypeSelect;
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) NotifySelectCouponsWithModel:(CouponsDataModel *)model
+{
+    _selectCoupons = model;
+    PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell.couponsView.lbCouponsSelected.text = [NSString stringWithFormat:@"抵%d元", model.amount];//model.name;
+    
+    UnitsType type = cell.businessTypeView.uniteType;
+    NSInteger unitPrice = _productModel.priceDiscount;
+    if(type == EnumTypeWeek){
+        unitPrice = unitPrice * 7;
+    }
+    else if (type == EnumTypeMounth){
+        unitPrice = unitPrice * 30;
+    }
+
+    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount] subString:[NSString stringWithFormat:@"%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount]];
+}
+
+- (void) NotifyValueChanged:(NSInteger)value
+{
+    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：%d", value - _selectCoupons.amount] subString:[NSString stringWithFormat:@"%d", value - _selectCoupons.amount]];
+}
+
+- (NSMutableAttributedString *)AttributedStringFromString:(NSString*)string subString:(NSString *)subString
+{
+    NSString *UnitPrice = string;//@"单价：¥300.00（24h） x 1天";
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
+    NSRange range = [UnitPrice rangeOfString:subString];
+    [attString addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    [attString addAttribute:NSFontAttributeName value:_FONT(22) range:range];
+    return attString;
 }
 
 @end

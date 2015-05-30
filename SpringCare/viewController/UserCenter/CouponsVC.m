@@ -8,7 +8,6 @@
 
 #import "CouponsVC.h"
 #import "PullTableView.h"
-#import "CouponsDataModel.h"
 #import "CouponsListCell.h"
 
 @interface CouponsVC ()<UITableViewDataSource, UITableViewDelegate, PullTableViewDelegate>
@@ -25,10 +24,26 @@
 @synthesize dataList;
 @synthesize pages;
 @synthesize totals;
+@synthesize delegate;
+@synthesize selectModel = selectModel;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if(self){
+        self.isActive = YES;
+        self.type = EnumCouponsVCTypeMine;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.NavigationBar.btnRight setTitle:@"使用说明" forState:UIControlStateNormal];
+    [self.NavigationBar.btnRight setTitleColor:Abled_Color forState:UIControlStateNormal];
+    self.NavigationBar.btnRight.titleLabel.font = _FONT(15);
     
     [self initSubviews];
     dataList = [[NSMutableArray alloc] init];
@@ -88,6 +103,11 @@
         [parmas setObject:[NSNumber numberWithInteger:[self.dataList count]] forKey:@"offset"];
     }
     
+    if(self.isActive){
+        [parmas setObject:@"true" forKey:@"isActive"];
+    }else
+        [parmas setObject:@"false" forKey:@"isActive"];
+    
     __weak CouponsVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/coupon/mine" Params:parmas Completion:^(int code, id content) {
         if(code){
@@ -127,13 +147,21 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return [dataList count];
-    return 4;
+    return [dataList count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120.f;
+    EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+    if(type == EnumValueTypeiPhone4S || type == EnumValueTypeiPhone5){
+        return 112;
+    }
+    else if (type == EnumValueTypeiPhone6){
+        return 131.f;
+    }else if(type == EnumValueTypeiPhone6P){
+        return 146.5;
+    }
+    return 0.f;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -142,12 +170,32 @@
     if(!cell){
         cell = [[CouponsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
+    CouponsDataModel *model = [dataList objectAtIndex:indexPath.row];
+    [cell SetContentWithModel:model];
+    if(self.type == EnumCouponsVCTypeSelect){
+        if(selectModel != nil
+            && [selectModel.couponsId isEqualToString:model.couponsId])
+            [cell SetCellSelected:YES];
+        else
+            [cell SetCellSelected:NO];
+    }
+    
     return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if(self.type == EnumCouponsVCTypeSelect){
+        selectModel = [dataList objectAtIndex:indexPath.row];
+        [tableView reloadData];
+        if(delegate && [delegate respondsToSelector:@selector(NotifySelectCouponsWithModel:)]){
+            [delegate NotifySelectCouponsWithModel:[dataList objectAtIndex:indexPath.row]];
+        }
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - PullTableViewDelegate

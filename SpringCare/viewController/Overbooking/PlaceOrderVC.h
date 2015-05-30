@@ -24,6 +24,8 @@
     UILabel *_detailInfo;
     UIButton *_btnUnfold;
     
+    UILabel *lbActualPay;
+    
     NSArray *headerViewHeightConstraint;
     
     HBImageViewList *_imageList;

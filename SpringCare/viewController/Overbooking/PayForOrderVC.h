@@ -30,6 +30,8 @@
     
     MyOrderdataModel *_OrderModel;
     NSString *_payValue;
+    
+    UILabel *lbActualPay;
 }
 
 - (id) initWithModel:(MyOrderdataModel *) model;

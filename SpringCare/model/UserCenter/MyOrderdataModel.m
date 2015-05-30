@@ -125,6 +125,9 @@ static NSMutableArray *noAssessmentOrderList = nil;
     model.beginDate = [Util convertDateFromDateString:[dic objectForKey:@"beginDate"]];
     model.endDate = [Util convertDateFromDateString:[dic objectForKey:@"endDate"]];
     
+    model.realyTotalPrice = [[dic objectForKey:@"realyTotalPrice"] integerValue];
+    model.couponsAmount = [[dic objectForKey:@"couponsAmount"] integerValue];
+    
     return model;
 }
 

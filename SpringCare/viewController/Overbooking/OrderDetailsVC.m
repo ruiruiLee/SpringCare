@@ -33,6 +33,17 @@
         [self.contentView addSubview:_lbTotalPrice];
         _lbTotalPrice.backgroundColor = [UIColor clearColor];
         
+        _lbRealPrice = [[UILabel alloc] initWithFrame:CGRectZero];
+        _lbRealPrice.font = _FONT(15);
+        _lbRealPrice.textColor = _COLOR(0x99, 0x99, 0x99);
+        _lbRealPrice.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addSubview:_lbRealPrice];
+        _lbRealPrice.backgroundColor = [UIColor clearColor];
+        
+        _couponLogo = [[CouponLogoView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_couponLogo];
+        _couponLogo.translatesAutoresizingMaskIntoConstraints = NO;
+        
         _btnStatus = [[UIButton alloc] initWithFrame:CGRectZero];
         _btnStatus.titleLabel.font = _FONT(16);
         [_btnStatus setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
@@ -47,11 +58,16 @@
         _imgLogo.translatesAutoresizingMaskIntoConstraints = NO;
         _imgLogo.image = [UIImage imageNamed:@"orderend"];
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbTotalPrice, _btnStatus, _imgLogo);
+        NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbTotalPrice, _btnStatus, _imgLogo, _couponLogo, _lbRealPrice);
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbPrice]->=20-[_btnStatus(80)]-23-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbTotalPrice]->=20-[_btnStatus]-23-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbPrice(20)]-5-[_lbTotalPrice(20)]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbRealPrice]-5-[_couponLogo(55)]->=20-[_btnStatus]-23-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_couponLogo(25)]->=0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_couponLogo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRealPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        
+        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_lbPrice(20)]-5-[_lbTotalPrice(20)]-5-[_lbRealPrice(20)]-20-|" options:0 metrics:nil views:views];
+        [self.contentView addConstraints:constraints];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnStatus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgLogo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -78,13 +94,25 @@
         [priceStr appendString:[NSString stringWithFormat:@"/月 X %ld月", model.orderCount]];
     }
     
+    [_couponLogo SetCouponValue:model.couponsAmount];
+    
+    NSString *realyTotalPrice = [NSString stringWithFormat:@"实际金额：¥%ld", model.realyTotalPrice];
+    NSMutableAttributedString *realystring = [[NSMutableAttributedString alloc]initWithString:realyTotalPrice];
+    NSRange realrange = [realyTotalPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", model.realyTotalPrice]];
+    [realystring addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:realrange];
+    [realystring addAttribute:NSFontAttributeName value:_FONT(20) range:realrange];
+    _lbRealPrice.attributedText = realystring;
+    
+    if(model.couponsAmount > 0){
+        _couponLogo.hidden = NO;
+    }
+    else{
+        _couponLogo.hidden = YES;
+    }
+    
     _lbPrice.text = priceStr;
     NSString *total = [NSString stringWithFormat:@"总价：¥%ld", model.totalPrice];
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:total];
-    NSRange range = [total rangeOfString:[NSString stringWithFormat:@"¥%ld", model.totalPrice]];
-    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
-    [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
-    _lbTotalPrice.attributedText = string;
+    _lbTotalPrice.text = total;
     
     _btnStatus.userInteractionEnabled = YES;
     UIImage *image = [Util imageWithColor:[UIColor clearColor] size:CGSizeMake(5, 5)];
@@ -110,14 +138,12 @@
             _btnStatus.tag = 2;
             [_btnStatus setTitle:@"去评价" forState:UIControlStateNormal];
             [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//            _btnStatus.backgroundColor = Abled_Color;
             [_btnStatus setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
         }else if (model.orderStatus == EnumOrderStatusTypeNew && model.payStatus == EnumTypeNopay){
             _imgLogo.hidden = YES;
             _btnStatus.tag = 3;
             [_btnStatus setTitle:@"取消订单" forState:UIControlStateNormal];
             [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//            _btnStatus.backgroundColor = Abled_Color;
             [_btnStatus setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
         }
         else if(model.payStatus == EnumTypeNopay){
@@ -125,7 +151,6 @@
             _btnStatus.tag = 1;
             [_btnStatus setTitle:@"去付款" forState:UIControlStateNormal];
             [_btnStatus setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//            _btnStatus.backgroundColor = Abled_Color;
             [_btnStatus setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
         }
         else{
@@ -452,6 +477,8 @@
 
 @interface OrderDetailsVC ()
 
+@property (nonatomic, strong) OrderPriceCell *priceCell;
+
 @end
 
 @implementation OrderDetailsVC
@@ -540,7 +567,17 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0)
-        return 93.f;
+//        return 93.f;
+    {
+        if(!self.priceCell)
+            self.priceCell = [[OrderPriceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+        [self.priceCell setContentData:_orderModel];
+        [self.priceCell setNeedsLayout];
+        [self.priceCell layoutIfNeeded];
+        
+        CGSize size = [self.priceCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return 1  + size.height;
+    }
     else if (indexPath.section == 1){
 //        return 223.f;
         if(!ordercell)

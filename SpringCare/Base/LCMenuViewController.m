@@ -240,7 +240,7 @@
         cell.lbContent.text = @"我的订单";
     }
     else if (indexPath.row == 2){
-        cell.imgIcon.image = [UIImage imageNamed:@"usercenterfeedback"];
+        cell.imgIcon.image = [UIImage imageNamed:@"usercentercouponlogo"];
         cell.lbContent.text = @"我的优惠券";
     }
     else if (indexPath.row == 3){
@@ -277,6 +277,7 @@
     case 2:
     {
         CouponsVC *vc = [[CouponsVC alloc] initWithNibName:nil bundle:nil];
+        vc.isActive = NO;
         vc.NavTitle = @"我的优惠券";
         [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
     }

@@ -146,7 +146,7 @@
     _lbTotalPrice = [self createLabelWithFont:_FONT(18) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor] rootView:_totalPriceBg];
     _lbTotalPrice.text = @"确认总价：";
     _lbTotalPriceValue = [self createLabelWithFont:_FONT(28) textcolor:_COLOR(0xf1, 0x13, 0x59) backgroundcolor:[UIColor clearColor] rootView:_totalPriceBg];
-    _lbTotalPriceValue.text = [NSString stringWithFormat:@"¥%ld", _OrderModel.totalPrice];
+    _lbTotalPriceValue.text = [NSString stringWithFormat:@"¥%ld", _OrderModel.realyTotalPrice];
     
     _payLogo = [self creatImageViewWithimage:nil placeholder:@"paytype" rootView:headerView];
     _lbPaytype = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:headerView];
@@ -161,9 +161,23 @@
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
     _tableview.tableFooterView = [[UIView alloc] init];
     
+    UILabel *sLine = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.ContentView addSubview:sLine];
+    sLine.backgroundColor = SeparatorLineColor;
+    sLine.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    lbActualPay = [[UILabel alloc] initWithFrame:CGRectZero];
+    lbActualPay.backgroundColor = [UIColor clearColor];
+    [self.ContentView addSubview:lbActualPay];
+    lbActualPay.font = _FONT(15);
+    lbActualPay.textColor = _COLOR(0x66, 0x66, 0x66);
+//    lbActualPay.text = @"实付款：";realyTotalPrice
+    lbActualPay.translatesAutoresizingMaskIntoConstraints = NO;
+    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：%d", _OrderModel.realyTotalPrice] subString:[NSString stringWithFormat:@"%d", _OrderModel.realyTotalPrice]];
+    
     UIButton *btnSubmit = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:btnSubmit];
-    btnSubmit.layer.cornerRadius = 22;
+//    btnSubmit.layer.cornerRadius = 22;
 //    btnSubmit.backgroundColor = Abled_Color;
     [btnSubmit setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
     btnSubmit.clipsToBounds = YES;
@@ -172,7 +186,7 @@
     btnSubmit.translatesAutoresizingMaskIntoConstraints = NO;
     [btnSubmit addTarget:self action:@selector(btnSubmitClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, _lbPaytype, _payLogo, _lbTotalPriceValue, _lbTotalPrice, _totalPriceBg, _lbDetailTime, _imgNight, _imgDayTime, _lbPrice, _lbName, _imgPhoto, _nurseInfoBg, btnSubmit);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_tableview, _lbPaytype, _payLogo, _lbTotalPriceValue, _lbTotalPrice, _totalPriceBg, _lbDetailTime, _imgNight, _imgDayTime, _lbPrice, _lbName, _imgPhoto, _nurseInfoBg, btnSubmit, lbActualPay, sLine);
     
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_totalPriceBg]-0-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_nurseInfoBg]-0-|" options:0 metrics:nil views:views]];
@@ -202,9 +216,11 @@
     CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     headerView.frame = CGRectMake(0, 0, ScreenWidth, size.height + 1);
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-20-[btnSubmit(44)]-20-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-[sLine(0.7)]-0-[btnSubmit(54)]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[btnSubmit]-60-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[sLine]-0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[lbActualPay]-0-[btnSubmit(160)]-0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbActualPay(54)]-0-|" options:0 metrics:nil views:views]];
     
     _tableview.tableHeaderView = headerView;
     
@@ -297,7 +313,7 @@
     PayForOrderVC * __weak weakSelf = self;
     NSDictionary* dict = @{
                            @"channel" : _payValue,
-                           @"amount"  : [NSString stringWithFormat:@"%ld", (long)_OrderModel.totalPrice],
+                           @"amount"  : [NSString stringWithFormat:@"%ld", (long)_OrderModel.realyTotalPrice * 100],
                            @"orderId":_OrderModel.oId
                            };
     [Util PayForOrders:dict Controller:weakSelf];
@@ -328,4 +344,15 @@
 //        }
 //    }];
 }
+
+- (NSMutableAttributedString *)AttributedStringFromString:(NSString*)string subString:(NSString *)subString
+{
+    NSString *UnitPrice = string;//@"单价：¥300.00（24h） x 1天";
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
+    NSRange range = [UnitPrice rangeOfString:subString];
+    [attString addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    [attString addAttribute:NSFontAttributeName value:_FONT(22) range:range];
+    return attString;
+}
+
 @end

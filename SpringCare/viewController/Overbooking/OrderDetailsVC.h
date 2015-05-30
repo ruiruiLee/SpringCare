@@ -10,6 +10,7 @@
 #import "OrderStepView.h"
 #import "MyOrderdataModel.h"
 #import "EvaluateOrderVC.h"
+#import "CouponLogoView.h"
 
 @protocol OrderPriceCellDelegate <NSObject>
 
@@ -21,8 +22,13 @@
 {
     UILabel *_lbPrice;
     UILabel *_lbTotalPrice;
+    UILabel *_lbRealPrice;
+//    UILabel *_lbCouponsPrice;
+    CouponLogoView *_couponLogo;
     UIButton *_btnStatus;
     UIImageView *_imgLogo;
+    
+    NSArray *constraints;
 }
 
 @property (nonatomic , assign) id<OrderPriceCellDelegate> delegate;

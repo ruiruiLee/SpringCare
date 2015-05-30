@@ -37,6 +37,8 @@
 @property (nonatomic, copy) NSString *userRecommendId;//邀请码关联对象
 @property (nonatomic, copy) NSString *userRecommendPhone;//邀请码关联对象
 
+@property (nonatomic, assign) NSInteger couponsCount;//优惠券数目;
+
 +(UserModel *)sharedUserInfo;
 
 -(BOOL)isLogin;

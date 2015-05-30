@@ -77,6 +77,11 @@
         line.translatesAutoresizingMaskIntoConstraints = NO;
         line.backgroundColor = SeparatorLineColor;
         
+        _couponsView = [[CouponsSelectView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_couponsView];
+        _couponsView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_couponsView.control addTarget:self action:@selector(doBtnSelectCoupons:) forControlEvents:UIControlEventTouchUpInside];
+        
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero];
         _tableview.translatesAutoresizingMaskIntoConstraints = NO;
         _tableview.delegate = self;
@@ -88,14 +93,15 @@
         _tableview.scrollEnabled = NO;
         
         
-        NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, businessTypeView, dateSelectView, lbUnitPrice, lbAmountPrice, line);
+        NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, businessTypeView, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessTypeView(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbAmountPrice]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_tableview]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_couponsView]-20-|" options:0 metrics:nil views:views]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:dateSelectView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessTypeView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
@@ -242,7 +248,18 @@
     [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
     [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
     lbAmountPrice.attributedText = string;
+    
+    _couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
+    
+    if(delegate && [delegate respondsToSelector:@selector(NotifyValueChanged:)]){
+        [delegate NotifyValueChanged:uPrice * count];
+    }
 }
 
+- (void) doBtnSelectCoupons:(id)sender
+{
+    if(delegate && [delegate respondsToSelector:@selector(NotifyTOSelectCoupons)])
+        [delegate NotifyTOSelectCoupons];
+}
 
 @end
