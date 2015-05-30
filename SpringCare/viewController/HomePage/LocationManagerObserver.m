@@ -67,6 +67,7 @@
 }
 
 -(void)saveLocation{
+    return;
     CityDataModel *model ;
     if (!_currentCity) {
         model= [CityDataModel modelWithName:CityName];
@@ -84,6 +85,8 @@
   }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    NSDictionary *userinfo = [NSDictionary dictionaryWithObject:newLocation forKey:@"location"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOCATION_GAINED object:nil userInfo:userinfo];
     _lat = newLocation.coordinate.latitude;
     _lon = newLocation.coordinate.longitude;
         [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {

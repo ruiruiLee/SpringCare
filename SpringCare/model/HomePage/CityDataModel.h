@@ -15,6 +15,7 @@
 //@property (nonatomic, assign) double latitude;
 //@property (nonatomic, assign) double longitude;
 @property (nonatomic, strong) NSString *short_name;
+@property (nonatomic, assign) BOOL isNear;
 
 + (NSArray*) getCityData;
 

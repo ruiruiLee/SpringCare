@@ -462,4 +462,24 @@
     }
 }
 
++ (void) StoreCityId:(NSString *)cityId
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:cityId forKey:@"defaultCityId"];
+    [ud synchronize];
+}
+
++ (void) DeleteCityId
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud removeObjectForKey:@"defaultCityId"];
+    [ud synchronize];
+}
+
++ (NSString *) GetStoreCityId
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    return [ud objectForKey:@"defaultCityId"];
+}
+
 @end

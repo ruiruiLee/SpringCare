@@ -32,13 +32,32 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
+        
+        isLoaded = NO;
     }
     return self;
 }
 
-- (void) loadData
+- (void) NotifyCurrentCityGained:(NSNotification *)notify
 {
-    [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
+    if(isLoaded)
+        return;
+    isLoaded = YES;
+    CLLocation *newLocation = [notify.userInfo objectForKey:@"location"];
+    double _lat = newLocation.coordinate.latitude;
+    double _lon = newLocation.coordinate.longitude;
+    
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    [parmas setObject:[NSNumber numberWithDouble:_lon] forKey:@"longitude"];
+    [parmas setObject:[NSNumber numberWithDouble:_lat] forKey:@"latitude"];
+    
+    [self loadData:parmas];
+}
+
+- (void) loadData:(NSDictionary *)dic
+{
+    __weak HomePageVC *weakSelf = self;
+    [LCNetWorkBase requestWithMethod:@"api/index" Params:dic Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
                 [cfAppDelegate setHospital_product_id:[content objectForKey:@"hospitalProductId"]] ;
@@ -46,6 +65,7 @@
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
                 _banner.NewsmodelArray =  [NewsDataModel getNews];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
+                [weakSelf selectDefaultCity];
                 NSArray *wordList = [content objectForKey:@"wordList"];
                 for (int i = 0; i < [wordList count]; i++) {
                     NSDictionary *dic = [wordList objectAtIndex:i];
@@ -58,6 +78,31 @@
             }
         }
     }];
+}
+
+- (void) selectDefaultCity
+{
+    NSArray *array = [CityDataModel getCityData];
+    if([Util GetStoreCityId] == nil){
+        for (int i = 0; i < [array count]; i++) {
+            CityDataModel *model = [array objectAtIndex:i];
+            if(model.isNear)
+            {
+                [cfAppDelegate setCurrentCityModel:model];
+                [Util StoreCityId:model.city_id];
+            }
+        }
+    }
+    else{
+        for (int i = 0; i < [array count]; i++) {
+            CityDataModel *model = [array objectAtIndex:i];
+            if([model.city_id isEqualToString:[Util GetStoreCityId]])
+            {
+                [cfAppDelegate setCurrentCityModel:model];
+                [Util StoreCityId:model.city_id];
+            }
+        }
+    }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -78,8 +123,12 @@
     [super viewDidLoad];
     [cfAppDelegate addObserver:self forKeyPath:@"currentCityModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCurrentCityGained:) name:NOTIFY_LOCATION_GAINED object:nil];
     
-    [self loadData];
+    if([Util GetStoreCityId] != nil){
+        [self loadData:nil];
+        isLoaded = YES;
+    }
     
     self.lbTitle.text = @"春风陪护";
     self.NavigationBar.alpha = 0.7f;

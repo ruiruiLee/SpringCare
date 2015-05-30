@@ -146,6 +146,7 @@
          }
          else{
               [cfAppDelegate setCurrentCityModel:model];
+             [Util StoreCityId:model.city_id];
                [delegate NotifyCitySelectedWithData:model.city_name];
              [self.navigationController dismissViewControllerAnimated:YES completion:nil];
          }
@@ -153,6 +154,7 @@
      else{
            CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
            [cfAppDelegate setCurrentCityModel:model];
+           [Util StoreCityId:model.city_id];
            [delegate NotifyCitySelectedWithData:model.city_name];
            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
      }

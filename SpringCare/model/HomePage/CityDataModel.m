@@ -16,6 +16,16 @@ static NSMutableArray *cityDataArray = nil;
 @synthesize city_name;
 @synthesize short_name;
 
+- (id) init
+{
+    self = [super init];
+    if(self){
+        self.isNear = 0;
+    }
+    
+    return self;
+}
+
 + (NSArray*) getCityData
 {
     if(!cityDataArray){
@@ -42,6 +52,7 @@ static NSMutableArray *cityDataArray = nil;
 //            model.latitude = [[dic objectForKey:@"latitude"] doubleValue];
 //            model.longitude = [[dic objectForKey:@"longitude"] doubleValue];
             model.short_name = [dic objectForKey:@"shortName"];
+            model.isNear = [[dic objectForKey:@"isNear"] boolValue];
             
             [cityDataArray addObject:model];
         }

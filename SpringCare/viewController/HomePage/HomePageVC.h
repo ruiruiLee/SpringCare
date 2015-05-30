@@ -35,6 +35,8 @@
     NSString *promiseUrl;
     
     float oldY;
+    
+    BOOL isLoaded;
 }
 
 @property(nonatomic,strong) NSArray *cityArr;
