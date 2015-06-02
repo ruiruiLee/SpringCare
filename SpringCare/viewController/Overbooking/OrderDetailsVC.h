@@ -65,10 +65,13 @@
     UILabel *_lbAge;
     UILabel * _lbHeight;
     UIButton *_btnMobile;
-    UIButton *_btnAddress;
+    UILabel *_btnAddress;
     UILabel *_LbRelation;
     UIImageView *_imgSex;
     UIImageView *_imgvAddr;
+    
+    UIView *seview1;
+    UIView *seview2;
 }
 
 - (void) setContentData:(MyOrderdataModel *) model;
