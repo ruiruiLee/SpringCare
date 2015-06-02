@@ -63,6 +63,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"didChangeAuthorizationStatus----%@",error);
+    NSDictionary *userinfo = @{};
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOCATION_GAINED object:nil userInfo:userinfo];
     [self saveLocation];
 }
 

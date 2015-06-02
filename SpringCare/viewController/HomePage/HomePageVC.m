@@ -44,6 +44,11 @@
         return;
     isLoaded = YES;
     CLLocation *newLocation = [notify.userInfo objectForKey:@"location"];
+    if(newLocation == nil)
+    {
+        [self loadData:nil];
+        return;
+    }
     double _lat = newLocation.coordinate.latitude;
     double _lon = newLocation.coordinate.longitude;
     

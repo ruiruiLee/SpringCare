@@ -198,8 +198,7 @@
         
         _btnInfo = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnInfo];
-        _btnInfo.titleLabel.font = _FONT(14);
-//        [_btnInfo setImage:[UIImage imageNamed:@"nurselistcert"] forState:UIControlStateNormal];
+        _btnInfo.titleLabel.font = _FONT(13);
         [_btnInfo setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         _btnInfo.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -209,7 +208,7 @@
         _lbIntro.numberOfLines = 0;
         _lbIntro.font = _FONT(13);
         _lbIntro.textColor = _COLOR(0x99, 0x99, 0x99);
-        _lbIntro.preferredMaxLayoutWidth = ScreenWidth - 132;
+        _lbIntro.preferredMaxLayoutWidth = ScreenWidth - 112;
         _lbIntro.backgroundColor = [UIColor clearColor];
         
         _line = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -244,10 +243,10 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbDetailTime]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbPrice]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbType]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_lbName]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_logo]-6-[_btnInfo]->=20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-10-[_lbName]-10-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-10-[_logo]-2-[_btnInfo]->=10-|" options:0 metrics:nil views:views]];
         constraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_imgPhoto(82)]-16-[_line(1)]-16-[_lbType(20)]-12-[_lbDetailTime(20)]-12-[_lbPrice(20)]-12-|" options:0 metrics:nil views:views];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-20-[_lbIntro]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-10-[_lbIntro]-10-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:constraintArray];
         nurseConstraintArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[_lbName(20)]-5-[_btnInfo(20)]-3-[_lbIntro]->=0-[_line(1)]->=0-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:nurseConstraintArray];
@@ -345,7 +344,7 @@
         _imgPhoto = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgPhoto];
         _imgPhoto.layer.masksToBounds = YES;
-        _imgPhoto.layer.cornerRadius = 31;
+        _imgPhoto.layer.cornerRadius = 41;
         _imgPhoto.translatesAutoresizingMaskIntoConstraints = NO;
         _imgPhoto.contentMode = UIViewContentModeScaleAspectFill;
         
@@ -382,16 +381,16 @@
         _btnMobile = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnMobile];
         _btnMobile.translatesAutoresizingMaskIntoConstraints = NO;
-//        [_btnMobile setImage:[UIImage imageNamed:@"orderdetailtel"] forState:UIControlStateNormal];
         [_btnMobile setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         _btnMobile.titleLabel.font = _FONT(15);
         
-        _btnAddress = [[UIButton alloc] initWithFrame:CGRectZero];
+        _btnAddress = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnAddress];
         _btnAddress.translatesAutoresizingMaskIntoConstraints = NO;
-//        [_btnAddress setImage:[UIImage imageNamed:@"orderdetailaddr"] forState:UIControlStateNormal];
-        [_btnAddress setTitleColor:_COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-        _btnAddress.titleLabel.font = _FONT(15);
+        _btnAddress.textColor = _COLOR(0x99, 0x99, 0x99);
+        _btnAddress.numberOfLines = 0;
+        _btnAddress.preferredMaxLayoutWidth = ScreenWidth - 132;
+        _btnAddress.font = _FONT(15);
         
         _imgvAddr = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imgvAddr];
@@ -402,30 +401,32 @@
         [self.contentView addSubview:_imgSex];
         _imgSex.translatesAutoresizingMaskIntoConstraints = NO;
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _LbRelation, _lbAge, _btnMobile, _btnAddress, _imgSex, _lbHeight, _imgvAddr);
-//        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_LbRelation]-10-[_imgSex]-10-[_lbAge]->=20-|" options:0 metrics:nil views:views]];
+        seview1 = [[UIView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:seview1];
+        seview1.translatesAutoresizingMaskIntoConstraints = NO;
         
-         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_LbRelation]-10-[_imgSex]->=20-|" options:0 metrics:nil views:views]];
+        seview2 = [[UIView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:seview2];
+        seview2.translatesAutoresizingMaskIntoConstraints = NO;
         
+        NSDictionary *views = NSDictionaryOfVariableBindings(_imgPhoto, _lbName, _LbRelation, _lbAge, _btnMobile, _btnAddress, _imgSex, _lbHeight, _imgvAddr, seview2, seview1);
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_btnMobile]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_imgvAddr(15)]-5-[_btnAddress]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_imgPhoto(62)]-20-[_lbName]-20-[_lbAge]-20-[_lbHeight]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=10-[_imgPhoto(62)]->=10-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_LbRelation(20)]-5-[_lbName(18)]-2-[_btnAddress(22)]->=10-|" options:0 metrics:nil views:views]];
-//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_LbRelation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-10-[_LbRelation]-10-[_imgSex]->=10-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-10-[_btnMobile]->=10-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-10-[_imgvAddr(15)]-5-[_btnAddress]->=10-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_imgPhoto(82)]-10-[_lbName]-20-[_lbAge]-20-[_lbHeight]->=10-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgPhoto(82)]->=0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_LbRelation(20)]-5-[_lbName(18)]-2-[_btnAddress]-14-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[seview2(>=10)]-0-[_LbRelation(20)]-5-[_lbName(18)]-5-[_btnAddress]-0-[seview1]-0-|" options:0 metrics:nil views:views]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbHeight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgvAddr attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_btnAddress attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:seview1 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:seview2 attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbAge attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_LbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        
-//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbAge attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_LbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnAddress attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbName attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbName attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imgPhoto attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
@@ -451,13 +452,10 @@
         _lbHeight.text = [NSString stringWithFormat:@"%dcm",model.lover.height];
     else
         _lbHeight.text=@"身高";
-//    [_btnMobile setTitle:model.lover.ringNum forState:UIControlStateNormal];
-//    if(model.lover.ringNum == nil || [model.lover.ringNum length] == 0)
-//        [_btnMobile setTitle:@"电话" forState:UIControlStateNormal];
     if(model.lover.address == nil || [model.lover.address length] == 0)
-        [_btnAddress setTitle:@"陪护地址" forState:UIControlStateNormal];
+        _btnAddress.text = @"陪护地址";
     else
-       [_btnAddress setTitle:model.lover.address forState:UIControlStateNormal];
+        _btnAddress.text = model.lover.address;
     
     UserSex sex = [Util GetSexByName:model.lover.sex];
     if(sex == EnumMale){
@@ -478,6 +476,7 @@
 @interface OrderDetailsVC ()
 
 @property (nonatomic, strong) OrderPriceCell *priceCell;
+@property (nonatomic, strong) BeCareInfoCell *careCell;
 
 @end
 
@@ -570,7 +569,7 @@
 //        return 93.f;
     {
         if(!self.priceCell)
-            self.priceCell = [[OrderPriceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+            self.priceCell = [[OrderPriceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell0"];
         [self.priceCell setContentData:_orderModel];
         [self.priceCell setNeedsLayout];
         [self.priceCell layoutIfNeeded];
@@ -590,7 +589,18 @@
         return 1  + size.height;
     }
     else
-        return 92.f;
+//        return 92.f;
+    {
+        if(!self.careCell){
+            self.careCell = [[BeCareInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell2"];
+        }
+        [self.careCell setContentData:_orderModel];
+        [self.careCell setNeedsLayout];
+        [self.careCell layoutIfNeeded];
+        
+        CGSize size = [self.careCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return 1  + size.height;
+    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
