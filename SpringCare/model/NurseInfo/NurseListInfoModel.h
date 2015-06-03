@@ -54,6 +54,12 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSArray *certList;
 
+//价格体系
+@property (nonatomic, assign) NSInteger price;
+@property (nonatomic, assign) NSInteger priceDiscount;
+@property (nonatomic, strong) NSString *priceName;
+@property (nonatomic, assign) NSInteger priceType;
+
 //详细资料
 @property (nonatomic, assign) BOOL isLoadDetail;
 

@@ -133,6 +133,11 @@ static NSInteger nurseTotal = 0;
     
     model.pricemodel = [PriceModel modelFromDictionary:[dic objectForKey:@"prices"]];
     
+    model.price = [[dic objectForKey:@"price"] integerValue];
+    model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
+    model.priceName = [dic objectForKey:@"priceName"];
+    model.priceType = [[dic objectForKey:@"priceType"] integerValue];
+    
     return model;
 }
 
