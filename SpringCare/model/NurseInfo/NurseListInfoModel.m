@@ -9,6 +9,7 @@
 #import "NurseListInfoModel.h"
 #import "AppDelegate.h"
 #import "UserModel.h"
+#import "PriceDataModel.h"
 
 static NSMutableArray *nurseList = nil;
 //static EnumNursePriceType modelType = EnumTypeUnKonwn;
@@ -133,6 +134,20 @@ static NSInteger nurseTotal = 0;
     
     model.pricemodel = [PriceModel modelFromDictionary:[dic objectForKey:@"prices"]];
     
+    model.price = [[dic objectForKey:@"price"] integerValue];
+    model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
+    model.priceName = [dic objectForKey:@"priceName"];
+    model.priceType = [[dic objectForKey:@"priceType"] integerValue];
+    
+    NSArray *priceList = [dic objectForKey:@"priceList"];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [priceList count]; i++) {
+        NSDictionary *dictionary = [priceList objectAtIndex:i];
+        PriceDataModel *pricemodel = [PriceDataModel modelFromDictionary:dictionary];
+        [array addObject:pricemodel];
+    }
+    model.priceList = array;
+    
     return model;
 }
 
@@ -251,11 +266,8 @@ static NSInteger nurseTotal = 0;
     }];
 }
 
-//- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block
 - (void) loadetailDataWithproductId:(NSString*)productId block:(void(^)(id content))block
 {
-//    [self LoadBaseInfoWithBlock:nil];
-    
     NSDictionary *prama = @{@"registerId":[UserModel sharedUserInfo].userId, @"careId":self.nid, @"productId":productId};
     [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
         if(code){

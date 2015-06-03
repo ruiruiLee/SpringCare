@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "define.h"
 #import "UserAttentionModel.h"
+#import "PriceDataModel.h"
 
 typedef enum : NSUInteger {
     EnumTypeUnKonwn,
@@ -54,8 +55,16 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSArray *certList;
 
+//价格体系
+@property (nonatomic, assign) NSInteger price;
+@property (nonatomic, assign) NSInteger priceDiscount;
+@property (nonatomic, strong) NSString *priceName;
+@property (nonatomic, assign) NSInteger priceType;
+
 //详细资料
 @property (nonatomic, assign) BOOL isLoadDetail;
+
+@property (nonatomic, strong) NSMutableArray *priceList;
 
 + (NSMutableArray*) nurseListModel;
 
@@ -78,7 +87,6 @@ typedef enum : NSUInteger {
 
 - (void) loadNurseDataWithPage:(int) pages prama:(NSDictionary*)prama block:(CompletionBlock) block;
 
-//- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block;
 - (void) loadetailDataWithproductId:(NSString*)productId block:(void(^)(id content))block;
 
 

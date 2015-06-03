@@ -26,7 +26,7 @@
     UITableView *_tableview;
     UILabel *line;
     
-    UnitsTypeView *businessTypeView;//24或12小时
+    UnitsTypeView *businessType;//24或12小时
     DateCountSelectView *dateSelectView;//多少天
     UILabel *lbUnitPrice;//单价
     UILabel *lbAmountPrice;//总价
@@ -39,7 +39,7 @@
 
 @property (nonatomic, assign) id<PlaceOrderEditForProductCellDelegate> delegate;
 @property (nonatomic, strong) UITableView *_tableview;
-@property (nonatomic, strong) UnitsTypeView *businessTypeView;
+@property (nonatomic, strong) UnitsTypeView *businessType;
 @property (nonatomic, strong) DateCountSelectView *dateSelectView;
 @property (nonatomic, strong) CouponsSelectView *couponsView;
 

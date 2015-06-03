@@ -230,10 +230,10 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [model.intro length])];
     _lbWorkIntro.attributedText = attributedString;
     
-    
-    NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%ld（12小时）", (long)model.pricemodel.halfDay]];
-    [price addAttribute:NSFontAttributeName value:_FONT(12) range:NSMakeRange([price length] - [@"（12小时）" length], [@"（12小时）" length])];
-    [price addAttribute:NSForegroundColorAttributeName value:_COLOR(0x99, 0x99, 0x99) range:NSMakeRange([price length] - [@"（12小时）" length], [@"（12小时）" length])];
+    NSString *perString = [NSString stringWithFormat:@"（%@）", model.priceName];
+    NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%ld（%@）", (long)model.priceDiscount, model.priceName]];
+    [price addAttribute:NSFontAttributeName value:_FONT(12) range:NSMakeRange([price length] - [perString length], [perString length])];
+    [price addAttribute:NSForegroundColorAttributeName value:_COLOR(0x99, 0x99, 0x99) range:NSMakeRange([price length] - [perString length], [perString length])];
     
     _lbPrice.attributedText = price;//model.price;打折价格
     [_btnLocation setTitle:[Util convertDinstance: model.distance] forState:UIControlStateNormal];

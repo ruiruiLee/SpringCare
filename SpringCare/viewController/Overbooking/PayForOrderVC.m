@@ -101,19 +101,8 @@
     
     _lbPrice = [self createLabelWithFont:_FONT(13) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
     NSMutableString *priceStr = [[NSMutableString alloc] init];
-    [priceStr appendString:[NSString stringWithFormat:@"¥%ld", _OrderModel.unitPrice]];
-    if(_OrderModel.dateType == EnumTypeHalfDay){
-        [priceStr appendString:[NSString stringWithFormat:@"/12h X %ld天", _OrderModel.orderCount]];
-    }
-    else if (_OrderModel.dateType == EnumTypeOneDay){
-        [priceStr appendString:[NSString stringWithFormat:@"/天 X %ld天", _OrderModel.orderCount]];
-    }
-    else if (_OrderModel.dateType == EnumTypeOneWeek){
-        [priceStr appendString:[NSString stringWithFormat:@"/周 X %ld周", _OrderModel.orderCount]];
-    }
-    else if (_OrderModel.dateType == EnumTypeOneMounth){
-        [priceStr appendString:[NSString stringWithFormat:@"/月 X %ld月", _OrderModel.orderCount]];
-    }
+    [priceStr appendString:[NSString stringWithFormat:@"¥%d", _OrderModel.unitPrice]];
+    [priceStr appendString:[NSString stringWithFormat:@"/%@ X %d", _OrderModel.priceName, _OrderModel.orderCount]];
     _lbPrice.text = priceStr;
     
     

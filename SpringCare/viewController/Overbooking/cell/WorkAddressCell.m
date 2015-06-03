@@ -56,6 +56,7 @@
     [bgView addSubview:_lbAddress];
     _lbAddress.translatesAutoresizingMaskIntoConstraints = NO;
     _lbAddress.backgroundColor = [UIColor clearColor];
+    _lbAddress.numberOfLines = 0;
     
     _btnSelect = [[UIButton alloc] initWithFrame:CGRectZero];
     [bgView addSubview:_btnSelect];
@@ -92,6 +93,7 @@
     _lbRelation.font = _FONT_B(18);
     _lbName.font = _FONT(14);
     _lbAddress.font = _FONT(13);
+    _lbAddress.preferredMaxLayoutWidth = ScreenWidth - 107;
     UIView *bgView = self.contentView;
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(62)]-20-[_lbRelation]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(62)]-20-[_lbName]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
@@ -101,7 +103,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(62)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
-    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[_lbRelation(20)]-3-[_lbName(20)]-0-[_lbAddress(20)]-7-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[_lbRelation(20)]-3-[_lbName(20)]-0-[_lbAddress]-7-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_btnSelect attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImage attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
@@ -112,6 +114,7 @@
     _lbRelation.font = _FONT_B(20);
     _lbName.font = _FONT(15);
     _lbAddress.font = _FONT(14);
+    _lbAddress.preferredMaxLayoutWidth = ScreenWidth - 117;
     UIView *bgView = self.contentView;
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(72)]-20-[_lbRelation]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(72)]-20-[_lbName]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
@@ -121,7 +124,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(72)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
-    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_lbRelation(20)]-6-[_lbName(20)]-0-[_lbAddress(20)]-10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_lbRelation(20)]-6-[_lbName(20)]-0-[_lbAddress]-10-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_btnSelect attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImage attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
@@ -132,6 +135,7 @@
     _lbRelation.font = _FONT_B(22);
     _lbName.font = _FONT(16);
     _lbAddress.font = _FONT(15);
+    _lbAddress.preferredMaxLayoutWidth = ScreenWidth - 127;
     UIView *bgView = self.contentView;
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(82)]-20-[_lbRelation]->=10-[_btnSelect(30)]-20-|" options:0 metrics:nil views:views]];
     [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(82)]-20-[_lbName]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
@@ -142,7 +146,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_photoImage(82)]-18-[_lbRelation]-25-[ImgSex]->=20-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:ImgSex attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRelation attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
-    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-22-[_lbRelation(20)]-10-[_lbName(20)]-5-[_lbAddress(20)]-14-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+    [bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-22-[_lbRelation(20)]-10-[_lbName(20)]-5-[_lbAddress]-14-[_line(1)]-0-|" options:0 metrics:nil views:views]];
     [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_btnSelect attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_photoImage attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }

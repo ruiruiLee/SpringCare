@@ -52,6 +52,15 @@ static NSMutableArray *familyProductArray = nil;
         else
             model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
         
+        NSArray *priceList = [dic objectForKey:@"priceList"];
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [priceList count]; i++) {
+            NSDictionary *dictionary = [priceList objectAtIndex:i];
+            PriceDataModel *pricemodel = [PriceDataModel modelFromDictionary:dictionary];
+            [array addObject:pricemodel];
+        }
+        model.priceList = array;
+        
         [familyProductArray addObject:model];
     }
 }

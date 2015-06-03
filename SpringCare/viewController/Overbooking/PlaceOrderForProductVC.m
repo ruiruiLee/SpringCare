@@ -53,6 +53,18 @@
             [UserModel sharedUserInfo].couponsCount = [[content objectForKey:@"couponsCount"] integerValue];
             
              NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
+            
+            NSArray *priceList = [[content objectForKey:@"product"] objectForKey:@"priceList"];
+            
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 0; i < [priceList count]; i++) {
+                NSDictionary *dictionary = [priceList objectAtIndex:i];
+                PriceDataModel *pricemodel = [PriceDataModel modelFromDictionary:dictionary];
+                [array addObject:pricemodel];
+            }
+            _productModel.priceList = array;
+            [weakSelf initProductType];
+            
             if (dicLover.count>0) {
                 weakSelf._loverModel =  [[UserAttentionModel alloc] init];
                 weakSelf._loverModel.userid = [dicLover objectForKey:@"id"];
@@ -64,6 +76,12 @@
         }];
     }
     return self;
+}
+
+- (void)initProductType
+{
+    PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [cell.businessType setPriseList:_productModel.priceList];
 }
 
 - (void)viewDidLoad {
@@ -246,25 +264,13 @@
     }
     NSMutableDictionary *Params = [[NSMutableDictionary alloc] init];
     [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
-//    [Params setObject:_loverModel.userid forKey:@"loverId"];
     [Params setObject:loverId forKey:@"loverId"];
     [Params setObject:[cfAppDelegate defaultProductId] forKey:@"productId"];
     [Params setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
     
-    UnitsType type = cell.businessTypeView.uniteType;
-    NSInteger orgUnitPrice = _productModel.price;
-    NSInteger unitPrice = _productModel.priceDiscount;
-    NSString *dateType = @"2";
-    if(type == EnumTypeWeek){
-        dateType = @"3";
-        orgUnitPrice = orgUnitPrice * 7;
-        unitPrice = unitPrice * 7;
-    }
-    else if (type == EnumTypeMounth){
-        dateType = @"4";
-        orgUnitPrice = orgUnitPrice * 30;
-        unitPrice = unitPrice * 30;
-    }
+    NSInteger orgUnitPrice = cell.businessType.selectPriceModel.amount;
+    NSInteger unitPrice = cell.businessType.selectPriceModel.amount;
+    NSString *dateType = [NSString stringWithFormat:@"%d", cell.businessType.selectPriceModel.type];
     [Params setObject:dateType forKey:@"dateType"];//
     
     [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@:00", [Util reductionTimeFromOrderTime:editcell.lbTitle.text]]] forKey:@"beginDate"];//
@@ -466,14 +472,7 @@
     PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     cell.couponsView.lbCouponsSelected.text = [NSString stringWithFormat:@"抵%d元", model.amount];//model.name;
     
-    UnitsType type = cell.businessTypeView.uniteType;
-    NSInteger unitPrice = _productModel.priceDiscount;
-    if(type == EnumTypeWeek){
-        unitPrice = unitPrice * 7;
-    }
-    else if (type == EnumTypeMounth){
-        unitPrice = unitPrice * 30;
-    }
+    NSInteger unitPrice = cell.businessType.selectPriceModel.amount;
 
     lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount] subString:[NSString stringWithFormat:@"¥%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount]];
 }

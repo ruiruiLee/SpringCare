@@ -41,7 +41,7 @@
         _line.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_logoImageView, _lbTitle, _unfoldStaus, _line);
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_logoImageView(34)]-20-[_lbTitle]->=10-[_unfoldStaus]-0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_logoImageView(34)]-20-[_lbTitle]->=10-[_unfoldStaus(9)]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbTitle]->=0-[_line(1)]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_logoImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbTitle attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -65,7 +65,7 @@
 @implementation PlaceOrderEditCell
 @synthesize delegate;
 @synthesize _tableview = _tableview;
-@synthesize businessTypeView;
+@synthesize businessType;
 @synthesize dateSelectView;
 
 - (void) dealloc
@@ -98,10 +98,10 @@
         
         line1 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
-        businessTypeView = [[BusinessTypeView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:businessTypeView];
-        businessTypeView.translatesAutoresizingMaskIntoConstraints = NO;
-        businessTypeView.delegate = self;
+        businessType = [[BusinessTypeView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:businessType];
+        businessType.translatesAutoresizingMaskIntoConstraints = NO;
+        businessType.delegate = self;
         
         dateSelectView = [[DateCountSelectView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:dateSelectView];
@@ -130,14 +130,14 @@
         _tableview.scrollEnabled = NO;
         
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessTypeView, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
+        NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:logo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:lbPaytype attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[logo(24)]-5-[lbPaytype]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessTypeView(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessType(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbAmountPrice]-20-|" options:0 metrics:nil views:views]];
-        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:Constraints];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line1]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line1)]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
@@ -145,7 +145,7 @@
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_couponsView]-20-|" options:0 metrics:nil views:views]];
         
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:dateSelectView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessTypeView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:dateSelectView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     return self;
 }
@@ -214,7 +214,7 @@
     
     if(indexPath.row == 0){
         cell.lbTitle.text = @"请选择服务开始时间";
-        cell.lbTitle.font = _FONT(18);
+        cell.lbTitle.font = _FONT(16);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderdatestart"] forState:UIControlStateNormal];
     }
     else{
@@ -228,7 +228,7 @@
 
 - (NSArray*) getTimeArray
 {
-    if(businessTypeView.businesstype == EnumType12Hours){
+    if(businessType.selectPriceModel.type == 1){
         NSArray *array = @[@"08", @"09", @"10", @"20", @"21", @"22"];
         return array;
     }else{
@@ -254,7 +254,7 @@
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultDate:(NSDate *)resultDate
 {
     PlaceOrderEditItemCell *cell = (PlaceOrderEditItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.lbTitle.font = _FONT_B(20);
+    cell.lbTitle.font = _FONT_B(16);
     cell.lbTitle.text =[Util orderTimeFromDate:resultDate];
     cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
 }
@@ -263,18 +263,16 @@
 {
     _nurseData = model;
     NSInteger days = [dateSelectView getDays];
-    NSInteger hour = (businessTypeView.businesstype == EnumType12Hours) ?12 : 24;
-    NSInteger uPrice = model.pricemodel.fullDay;
-    if(businessTypeView.businesstype == EnumType12Hours)
-        uPrice = model.pricemodel.halfDay;
-    NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", uPrice];
-    NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@（%ldh） x %ld天", rangeStr, hour, days];//@"单价：¥300.00（24h） x 1天";
+//    NSInteger hour = (businessType.businesstype == EnumType12Hours) ?12 : 24;
+    NSInteger uPrice = businessType.selectPriceModel.amount;
+    NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", (long)uPrice];
+    NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@（%@） x %d", rangeStr, businessType.selectPriceModel.name, days];//@"单价：¥300.00（24h） x 1天";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
-    NSRange range = [UnitPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", uPrice]];
+    NSRange range = [UnitPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", (long)uPrice]];
     [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
     lbUnitPrice.attributedText = string;
     
-    rangeStr = [NSString stringWithFormat:@"¥%ld", uPrice * days];
+    rangeStr = [NSString stringWithFormat:@"¥%d", uPrice * days];
     NSString *AmountPrice = [NSString stringWithFormat:@"总价：%@", rangeStr];
     string = [[NSMutableAttributedString alloc]initWithString:AmountPrice];
     range = [AmountPrice rangeOfString:rangeStr];
@@ -284,14 +282,14 @@
     
     _couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessTypeView, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
+    NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
     [self.contentView removeConstraints:Constraints];
     if([UserModel sharedUserInfo].couponsCount <= 0){
-        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:Constraints];
         _couponsView.hidden = YES;
     }else{
-        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessTypeView(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:Constraints];
         _couponsView.hidden = NO;
     }
@@ -306,7 +304,7 @@
     [self setNurseListInfo:_nurseData];
 }
 
-- (void) NotifyBusinessTypeChanged:(BusinessTypeView*) typeView
+- (void) NotifyBusinessTypeChanged:(BusinessTypeView*) typeView  model:(PriceDataModel *)priceModel
 {
     [self setNurseListInfo:_nurseData];
     

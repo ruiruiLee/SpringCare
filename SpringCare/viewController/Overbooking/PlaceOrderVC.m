@@ -62,15 +62,23 @@
     __weak PlaceOrderVC *weakSelf = self;
     __weak NurseListInfoModel *weaknurseModel = _nurseModel;
    //if([UserModel sharedUserInfo].isLogin){
-        [_nurseModel loadetailDataWithproductId:productId block:^(id content) {
+    [_nurseModel loadetailDataWithproductId:productId block:^(id content) {
 
-            [UserModel sharedUserInfo].couponsCount = [[content objectForKey:@"couponsCount"] integerValue];
+        [UserModel sharedUserInfo].couponsCount = [[content objectForKey:@"couponsCount"] integerValue];
             
         NSDictionary *dic = [content objectForKey:@"care"];
         weaknurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
         weaknurseModel.isLoadDetail=YES;
         weaknurseModel.certList = [dic objectForKey:@"certList"];
         NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
+        NSArray *priceList = [dic objectForKey:@"priceList"];
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [priceList count]; i++) {
+            NSDictionary *dictionary = [priceList objectAtIndex:i];
+            PriceDataModel *pricemodel = [PriceDataModel modelFromDictionary:dictionary];
+            [array addObject:pricemodel];
+        }
+        _nurseModel.priceList = array;
         if (dicLover.count>0) {
             weakSelf._loverModel =  [[UserAttentionModel alloc] init];
             weakSelf._loverModel.userid = [dicLover objectForKey:@"id"];
@@ -227,22 +235,15 @@
     [Params setObject:loverId forKey:@"loverId"];
     [Params setObject:[cfAppDelegate defaultProductId] forKey:@"productId"];
     [Params setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
-    BusinessType type = cell.businessTypeView.businesstype;
-    NSString *dateType = @"1";
-    
-    if(type == EnumType24Hours)
-        dateType = @"2";
+
+    NSString *dateType = [NSString stringWithFormat:@"%d", cell.businessType.selectPriceModel.type];
     [Params setObject:dateType forKey:@"dateType"];//
     
     [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@:00", [Util reductionTimeFromOrderTime:editcell.lbTitle.text]]] forKey:@"beginDate"];//
     [Params setObject:[NSNumber numberWithInteger:cell.dateSelectView.countNum] forKey:@"orderCount"];//
     
-    NSInteger unitPrice = _nurseModel.pricemodel.fullDay;
-    if(type == EnumType12Hours){
-        unitPrice = _nurseModel.pricemodel.halfDay;
-    }
+    NSInteger unitPrice = cell.businessType.selectPriceModel.amount;
     
-//    [Params setObject:[NSNumber numberWithInteger:_nurseModel.price] forKey:@"orgUnitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
     
@@ -303,6 +304,7 @@
 }
 
 -(void)modifyDetailView{
+    
     if(_nurseModel.detailIntro != nil){
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_nurseModel.detailIntro];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -342,6 +344,8 @@
         _tableview.tableHeaderView = headerView;
     }
     
+    PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    [cell.businessType setPriseList:_nurseModel.priceList];
     [_tableview reloadData];
 }
 
@@ -483,7 +487,7 @@
             cell.backgroundColor = [UIColor clearColor];
         }
         
-        cell._lbAppraisalNum.text = [NSString stringWithFormat:@"用户评价（%ld）", _nurseModel.commentsNumber];
+        cell._lbAppraisalNum.text = [NSString stringWithFormat:@"用户评价（%ld）", (long)_nurseModel.commentsNumber];
         return cell;
     }
     else if (indexPath.section == 2){
@@ -613,20 +617,14 @@
     _selectCoupons = model;
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     
-    BusinessType type = cell.businessTypeView.businesstype;
-    NSInteger unitPrice = _nurseModel.pricemodel.fullDay;
-    if(type == EnumType12Hours){
-        unitPrice = _nurseModel.pricemodel.halfDay;
-    }
+    NSInteger unitPrice = cell.businessType.selectPriceModel.amount;//_nurseModel.pricemodel.fullDay;
     
     cell.couponsView.lbCouponsSelected.text = [NSString stringWithFormat:@"抵%d元", model.amount];//model.name;
-//    lbActualPay.text = [NSString stringWithFormat:@"实付款：%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount];
     lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount] subString:[NSString stringWithFormat:@"¥%d", unitPrice * cell.dateSelectView.countNum - _selectCoupons.amount]];
 }
 
 - (void) NotifyValueChanged:(NSInteger) value
 {
-//    lbActualPay.text = [NSString stringWithFormat:@"实付款：%d", value - _selectCoupons.amount];
     lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", value - _selectCoupons.amount] subString:[NSString stringWithFormat:@"¥%d", value - _selectCoupons.amount]];
 }
 

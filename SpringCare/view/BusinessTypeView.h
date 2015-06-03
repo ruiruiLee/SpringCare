@@ -8,25 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSUInteger {
-    EnumType24Hours,
-    EnumType12Hours,
-} BusinessType;
-
 @class BusinessTypeView;
+@class PriceDataModel;
+
 @protocol BusinessTypeViewDelegate <NSObject>
 
-- (void) NotifyBusinessTypeChanged:(BusinessTypeView*) typeView;
+- (void) NotifyBusinessTypeChanged:(BusinessTypeView*) typeView model:(PriceDataModel *)priceModel;
 
 @end
 
 @interface BusinessTypeView : UIView
 {
-    UIButton *_btn24h;
-    UIButton *_btn12h;
+    NSMutableArray *btnArray;
+    NSArray *_priceList;
 }
 
-@property (nonatomic, assign) BusinessType businesstype;
 @property (nonatomic, assign) id<BusinessTypeViewDelegate> delegate;
+@property (nonatomic, strong) PriceDataModel *selectPriceModel;
+@property (nonatomic, strong) NSArray *priseList;
+
+- (id)initWithPriceList:(NSArray*) priceList;
 
 @end

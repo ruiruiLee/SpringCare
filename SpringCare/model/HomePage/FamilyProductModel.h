@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PriceDataModel.h"
 
 @interface FamilyProductModel : NSObject
 
@@ -19,11 +20,12 @@
 @property (nonatomic, assign) NSInteger priceDiscount;//价格打折
 //@property (nonatomic, assign) BOOL isLoadDetail;
 
+@property (nonatomic, strong) NSMutableArray *priceList;
+
 
 + (NSArray*) getProductArray;
 
 + (void) setFamilyProduct:(NSArray*)array;
 
-//- (void) loadetailDataWithproductId:(NSString*)productId block:(block) block;
 - (void) loadetailDataWithproductId:(NSString*)productId block:(void(^)(id content))block;
 @end
