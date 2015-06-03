@@ -25,6 +25,8 @@
     NSString *_productId;
     
     NSInteger pages;
+    
+    NSString *showAllCare;
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;
@@ -34,6 +36,7 @@
 @property (nonatomic, copy) NSArray *prices;
 @property (nonatomic, copy) NSArray *ages;
 @property (nonatomic, copy) NSArray *goodes;
+@property (nonatomic, copy) NSArray *filter;
 
 
 - (void) appendDataWithArray:(NSArray*)array;

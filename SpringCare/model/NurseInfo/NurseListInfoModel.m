@@ -138,6 +138,7 @@ static NSInteger nurseTotal = 0;
     model.priceDiscount = [[dic objectForKey:@"priceDiscount"] integerValue];
     model.priceName = [dic objectForKey:@"priceName"];
     model.priceType = [[dic objectForKey:@"priceType"] integerValue];
+    model.workStatus = [[dic objectForKey:@"workStatus"] boolValue];
     
     NSArray *priceList = [dic objectForKey:@"priceList"];
     NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -188,7 +189,7 @@ static NSInteger nurseTotal = 0;
     }
      [dic setObject:productID forKey:@"productId"];
     [dic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
-    
+    [dic setObject:@"true" forKey:@"showAllCare"];//默认获取所有的护工
    
     [LCNetWorkBase postWithMethod:@"api/care/list" Params:dic Completion:^(int code, id content) {
         if(code){

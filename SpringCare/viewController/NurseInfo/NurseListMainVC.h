@@ -24,6 +24,8 @@
     NSInteger pages;
     
     DOPDropDownMenu *menu;
+    
+    NSString *showAllCare;
 }
 
 @property (nonatomic, strong) PullTableView *pullTableView;

@@ -76,6 +76,7 @@
     self.prices = @[@"价格区间",@"0-100元",@"100-200元",@"200元以上"];
     self.ages = @[@"年龄区间",@"20岁-29岁",@"30岁-39岁",@"40岁以上"];
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
+    self.filter = @[@"全部护工",@"空闲护工"];
     //数据先初始化
     
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
@@ -305,7 +306,7 @@
 }
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
@@ -316,6 +317,8 @@
             return self.ages.count;
         case 2:
             return self.goodes.count;
+        case 3:
+            return self.filter.count;
         default:
             return 0;
     }
@@ -330,30 +333,14 @@
             return self.ages[indexPath.row];
         case 2:
             return self.goodes[indexPath.row];
+        case 3:
+            return self.filter[indexPath.row];
         default:
             return nil;
     }
 }
 
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
-//    NSString *sortFiled = nil;
-//    switch (indexPath.column) {
-//        case 0:{
-//            sortFiled = @"price";
-//        }
-//            break;
-//        case 1:{
-//            sortFiled = @"age";
-//        }
-//            break;
-//        case 2:{
-//            sortFiled = @"rate";
-//        }
-//            
-//        default:
-//            break;
-//    }
-
     
     if(indexPath.column == 0){
         NSInteger min = 0;
@@ -393,7 +380,7 @@
         [parmas setObject:[NSNumber numberWithInteger:min] forKey:@"minAge"];
         [parmas setObject:[NSNumber numberWithInteger:max] forKey:@"maxAge"];
     }
-    else{
+    else if (indexPath.column == 2){
         NSString *sortFiled = @"geoPoint";
         if(indexPath.row == 0){}
         else if (indexPath.row == 1){
@@ -406,6 +393,15 @@
             sortFiled = @"commentCount";
         }
         [parmas setObject:sortFiled forKey:@"sortFiled"];
+    }
+    else{
+        if(indexPath.row == 0){
+            showAllCare = @"true";
+        }
+        else if (indexPath.row == 1){
+            showAllCare = @"false";
+        }
+        [parmas setObject:showAllCare forKey:@"showAllCare"];
     }
     
     pages = 0;

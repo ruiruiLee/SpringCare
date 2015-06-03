@@ -24,6 +24,8 @@
     UIButton *_btnLocation;//位置
     GradeInfoView *_gradeView;
     
+    UIImageView *_photoLogo;
+    
     UILabel *_line;
 }
 

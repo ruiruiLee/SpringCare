@@ -33,6 +33,12 @@
     _imgPhoto.clipsToBounds = YES;
     _imgPhoto.contentMode = UIViewContentModeScaleAspectFill;
     
+    _photoLogo = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:_photoLogo];
+    _photoLogo.translatesAutoresizingMaskIntoConstraints = NO;
+    _photoLogo.clipsToBounds = YES;
+    _photoLogo.contentMode = UIViewContentModeScaleAspectFill;
+    
     _lbName = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:_lbName];
     _lbName.translatesAutoresizingMaskIntoConstraints = NO;
@@ -96,6 +102,11 @@
     [self.contentView addSubview:_line];
     _line.translatesAutoresizingMaskIntoConstraints = NO;
     _line.backgroundColor = SeparatorLineColor;
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_photoLogo(16)]->=0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_photoLogo)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_photoLogo(16)]->=0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_photoLogo)]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_photoLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeRight multiplier:1 constant:-4]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_photoLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeBottom multiplier:1 constant:-4]];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbWorkIntro, _lbNurseIntro, _lbName, _lbCommitCount, _imgCert, _imgPhoto, _btnLocation, _gradeView, _line, _lbOldPrice, _lineation);
     
@@ -221,8 +232,8 @@
     
     _lbName.text = model.name;
     [_gradeView setScore:model.commentsRate];
-    _lbCommitCount.text = [NSString stringWithFormat:@"（%ld）", model.commentsNumber];
-    _lbNurseIntro.text = [NSString stringWithFormat:@"%@  %ld岁  护龄%@年", model.birthPlace, model.age, model.careAge];
+    _lbCommitCount.text = [NSString stringWithFormat:@"（%d）", model.commentsNumber];
+    _lbNurseIntro.text = [NSString stringWithFormat:@"%@  %d岁  护龄%@年", model.birthPlace, model.age, model.careAge];
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:model.intro];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -237,6 +248,13 @@
     
     _lbPrice.attributedText = price;//model.price;打折价格
     [_btnLocation setTitle:[Util convertDinstance: model.distance] forState:UIControlStateNormal];
+    
+    if(!model.workStatus){
+        _photoLogo.image = ThemeImage(@"nursenotbusy");
+    }
+    else{
+        _photoLogo.image = ThemeImage(@"nursebusy");
+    }
     
 //    _lbOldPrice.text = [NSString stringWithFormat:@"原价:%ld", model.price];
 }

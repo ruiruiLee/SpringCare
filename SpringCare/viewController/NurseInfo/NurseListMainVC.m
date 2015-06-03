@@ -27,6 +27,9 @@
          parmas = [[NSMutableDictionary alloc] init];
         DataList = [[NSMutableArray alloc] init];
         pages = 0;
+        
+        showAllCare = @"true";
+        [parmas setObject:showAllCare forKey:@"showAllCare"];
     }
     return self;
 }
@@ -156,7 +159,6 @@
         cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     }
     
-//    cell.textLabel.text = ((NurseListInfoModel*)[DataList objectAtIndex:indexPath.row]).name;
     NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
     [cell SetContentData:model];
     
@@ -341,27 +343,6 @@
 }
 
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
-    
-//    NSString *sortFiled = nil;
-//    switch (indexPath.column) {
-//        case 0:{
-//            sortFiled = @"price";
-//        }
-//            break;
-//        case 1:{
-//            sortFiled = @"age";
-//        }
-//            break;
-//        case 2:{
-//            sortFiled = @"rate";
-//        }
-//            
-//        default:
-//            break;
-//    }
-    
-   
-    
     if(indexPath.column == 0){
         NSInteger min = 0;
         NSInteger max = 0;
@@ -400,7 +381,7 @@
         [parmas setObject:[NSNumber numberWithInteger:min] forKey:@"minAge"];
         [parmas setObject:[NSNumber numberWithInteger:max] forKey:@"maxAge"];
     }
-    else{
+    else if(indexPath.column == 2){
         NSString *sortFiled = @"geoPoint";
         if(indexPath.row == 0){}
         else if (indexPath.row == 1){
@@ -413,6 +394,14 @@
             sortFiled = @"commentCount";
         }
         [parmas setObject:sortFiled forKey:@"sortFiled"];
+    }else{
+        if(indexPath.row == 0){
+            showAllCare = @"true";
+        }
+        else if (indexPath.row == 1){
+            showAllCare = @"false";
+        }
+        [parmas setObject:showAllCare forKey:@"showAllCare"];
     }
     
     pages = 0;
