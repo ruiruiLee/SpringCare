@@ -73,7 +73,7 @@
     pullTableView.delegate = self;
     self.pullTableView.pullDelegate = self;
     
-    self.prices = @[@"价格区间",@"0元-100元",@"100元-200元",@"200元以上"];
+    self.prices = @[@"价格区间",@"0-100元",@"100-200元",@"200元以上"];
     self.ages = @[@"年龄区间",@"20岁-29岁",@"30岁-39岁",@"40岁以上"];
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
     //数据先初始化
