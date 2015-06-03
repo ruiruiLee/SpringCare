@@ -2321,8 +2321,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2342,7 +2342,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2364,8 +2364,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: // / (XY5GVE4YYR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (XY5GVE4YYR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang li (CH83K85T7A)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2378,7 +2378,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2400,7 +2400,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2420,7 +2420,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/VoiceConvert/lib",
 				);
 				PRODUCT_NAME = "春风陪护";
-				PROVISIONING_PROFILE = "feb9ac25-dab9-4cec-917b-4a067c146dee";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
