@@ -128,6 +128,8 @@ static NSMutableArray *noAssessmentOrderList = nil;
     model.realyTotalPrice = [[dic objectForKey:@"realyTotalPrice"] integerValue];
     model.couponsAmount = [[dic objectForKey:@"couponsAmount"] integerValue];
     
+    model.priceName = [dic objectForKey:@"priceName"];
+    
     return model;
 }
 

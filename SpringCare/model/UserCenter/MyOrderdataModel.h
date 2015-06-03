@@ -52,6 +52,8 @@
 @property (nonatomic, assign) NSInteger realyTotalPrice;//实际支付金额
 @property (nonatomic, assign) NSInteger couponsAmount;//优惠券金额
 
+@property (nonatomic, strong) NSString *priceName;
+
 + (NSArray *) GetNoAssessmentOrderList;
 + (NSArray *) GetMyOrderList;
 

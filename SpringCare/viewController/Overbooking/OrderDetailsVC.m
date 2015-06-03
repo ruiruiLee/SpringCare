@@ -62,7 +62,7 @@
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbPrice]->=20-[_btnStatus(80)]-23-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbTotalPrice]->=20-[_btnStatus]-23-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbRealPrice]-5-[_couponLogo(55)]->=20-[_btnStatus]-23-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-17.5-[_lbRealPrice]-5-[_couponLogo(55)]->=10-[_btnStatus]-13-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_couponLogo(25)]->=0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_couponLogo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbRealPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
@@ -80,27 +80,17 @@
 - (void) setContentData:(MyOrderdataModel *) model
 {
     NSMutableString *priceStr = [[NSMutableString alloc] init];
-    [priceStr appendString:[NSString stringWithFormat:@"单价：¥%ld", model.unitPrice]];
-    if(model.dateType == EnumTypeHalfDay){
-        [priceStr appendString:[NSString stringWithFormat:@"/12h X %ld天", model.orderCount]];
-    }
-    else if (model.dateType == EnumTypeOneDay){
-        [priceStr appendString:[NSString stringWithFormat:@"/天 X %ld天", model.orderCount]];
-    }
-    else if (model.dateType == EnumTypeOneWeek){
-        [priceStr appendString:[NSString stringWithFormat:@"/周 X %ld周", model.orderCount]];
-    }
-    else if (model.dateType == EnumTypeOneMounth){
-        [priceStr appendString:[NSString stringWithFormat:@"/月 X %ld月", model.orderCount]];
-    }
+    [priceStr appendString:[NSString stringWithFormat:@"单价：¥%d", model.unitPrice]];
+    
+    [priceStr appendString:[NSString stringWithFormat:@"/%@ X %d", model.priceName, model.orderCount]];
     
     [_couponLogo SetCouponValue:model.couponsAmount];
     
-    NSString *realyTotalPrice = [NSString stringWithFormat:@"实际金额：¥%ld", model.realyTotalPrice];
+    NSString *realyTotalPrice = [NSString stringWithFormat:@"实际金额：¥%d", model.realyTotalPrice];
     NSMutableAttributedString *realystring = [[NSMutableAttributedString alloc]initWithString:realyTotalPrice];
-    NSRange realrange = [realyTotalPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", model.realyTotalPrice]];
+    NSRange realrange = [realyTotalPrice rangeOfString:[NSString stringWithFormat:@"¥%d", model.realyTotalPrice]];
     [realystring addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:realrange];
-    [realystring addAttribute:NSFontAttributeName value:_FONT(20) range:realrange];
+    [realystring addAttribute:NSFontAttributeName value:_FONT(18) range:realrange];
     _lbRealPrice.attributedText = realystring;
     
     if(model.couponsAmount > 0){
@@ -111,7 +101,7 @@
     }
     
     _lbPrice.text = priceStr;
-    NSString *total = [NSString stringWithFormat:@"总价：¥%ld", model.totalPrice];
+    NSString *total = [NSString stringWithFormat:@"总价：¥%d", model.totalPrice];
     _lbTotalPrice.text = total;
     
     _btnStatus.userInteractionEnabled = YES;
@@ -262,37 +252,16 @@
     _lbType.text = [NSString stringWithFormat:@"类型：%@", model.product.name];
     NSMutableString *detailTime = [[NSMutableString alloc] init];
     [detailTime appendString:@"时间："];
-    [detailTime appendString:[NSString stringWithFormat:@"%ld", model.orderCount]];
-    if(model.dateType == EnumTypeHalfDay){
-        [detailTime appendString:[NSString stringWithFormat:@"天"]];
-    }
-    else if (model.dateType == EnumTypeOneDay){
-        [detailTime appendString:[NSString stringWithFormat:@"天"]];
-    }
-    else if (model.dateType == EnumTypeOneWeek){
-        [detailTime appendString:[NSString stringWithFormat:@"周"]];
-    }
-    else if (model.dateType == EnumTypeOneMounth){
-        [detailTime appendString:[NSString stringWithFormat:@"月"]];
-    }
+    [detailTime appendString:[NSString stringWithFormat:@"%d", model.orderCount]];
+    [detailTime appendString:[NSString stringWithFormat:@" X "]];
+    [detailTime appendString:[NSString stringWithFormat:@"%@", model.priceName]];
     
     [detailTime appendString:[NSString stringWithFormat:@"(%@点-%@点)", [Util convertShotStrFromDate:model.beginDate], [Util convertShotStrFromDate:model.endDate]]];
     _lbDetailTime.text = detailTime;
     
     NSMutableString *priceStr = [[NSMutableString alloc] init];
-    [priceStr appendString:[NSString stringWithFormat:@"单价：%ld元", model.unitPrice]];
-    if(model.dateType == EnumTypeHalfDay){
-        [priceStr appendString:[NSString stringWithFormat:@"/12小时"]];
-    }
-    else if (model.dateType == EnumTypeOneDay){
-        [priceStr appendString:[NSString stringWithFormat:@"/24小时"]];
-    }
-    else if (model.dateType == EnumTypeOneWeek){
-        [priceStr appendString:[NSString stringWithFormat:@"/周"]];
-    }
-    else if (model.dateType == EnumTypeOneMounth){
-        [priceStr appendString:[NSString stringWithFormat:@"/月"]];
-    }
+    [priceStr appendString:[NSString stringWithFormat:@"单价：%d元", model.unitPrice]];
+    [priceStr appendString:[NSString stringWithFormat:@"/%@", model.priceName]];
     
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:priceStr];
     NSRange range = NSMakeRange(3, [priceStr length] - 3);
@@ -314,7 +283,7 @@
         else
             [_imgPhoto sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"nurselistfemale"]];
         
-        NSString *info = [NSString stringWithFormat:@"%@  %ld岁  护龄%@年", nurseModel.birthPlace, nurseModel.age, nurseModel.careAge];
+        NSString *info = [NSString stringWithFormat:@"%@  %d岁  护龄%@年", nurseModel.birthPlace, nurseModel.age, nurseModel.careAge];
         
         [_btnInfo setTitle:info forState:UIControlStateNormal];
         

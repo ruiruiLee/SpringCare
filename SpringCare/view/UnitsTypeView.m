@@ -10,7 +10,6 @@
 #import "define.h"
 
 @implementation UnitsTypeView
-@synthesize uniteType;
 @synthesize delegate;
 
 - (id) initWithFrame:(CGRect)frame
@@ -23,97 +22,83 @@
         self.layer.borderWidth = 1;
         self.layer.borderColor = _COLOR(0x99, 0x99, 0x99).CGColor;
         
-        _btnDay = [[UIButton alloc] initWithFrame:CGRectZero];
-        [self addSubview:_btnDay];
-        _btnDay.translatesAutoresizingMaskIntoConstraints = NO;
-        _btnDay.titleLabel.font = _FONT(15);
-        [_btnDay setTitle:@"日" forState:UIControlStateNormal];
-        [_btnDay setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_btnDay setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-        [_btnDay addTarget:self action:@selector(doBtnSelectTypeDay:) forControlEvents:UIControlEventTouchUpInside];
-        
-        _btnWeek = [[UIButton alloc] initWithFrame:CGRectZero];
-        [self addSubview:_btnWeek];
-        _btnWeek.translatesAutoresizingMaskIntoConstraints = NO;
-        _btnWeek.titleLabel.font = _FONT(15);
-        [_btnWeek setTitle:@"周" forState:UIControlStateNormal];
-        [_btnWeek setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_btnWeek setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-        [_btnWeek addTarget:self action:@selector(doBtnSelectTypeWeek:) forControlEvents:UIControlEventTouchUpInside];
-        _btnWeek.layer.borderWidth = 1;
-        _btnWeek.layer.borderColor = _COLOR(0x99, 0x99, 0x99).CGColor;
-        
-        _btnMounth = [[UIButton alloc] initWithFrame:CGRectZero];
-        [self addSubview:_btnMounth];
-        _btnMounth.translatesAutoresizingMaskIntoConstraints = NO;
-        _btnMounth.titleLabel.font = _FONT(15);
-        [_btnMounth setTitle:@"月" forState:UIControlStateNormal];
-        [_btnMounth setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_btnMounth setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-        [_btnMounth addTarget:self action:@selector(doBtnSelectTypeMounth:) forControlEvents:UIControlEventTouchUpInside];
-        
-        NSDictionary *views = NSDictionaryOfVariableBindings(_btnDay, _btnWeek, _btnMounth);
-        
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_btnDay]-0-[_btnWeek]-0-[_btnMounth]-0-|" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btnDay]-0-|" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btnWeek]-0-|" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btnMounth]-0-|" options:0 metrics:nil views:views]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_btnDay attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.333 constant:0]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_btnWeek attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.333 constant:0]];
-        
-        [self doBtnSelectTypeDay:_btnDay];
+        btnArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (void) doBtnSelectTypeDay:(UIButton*)sender
+- (void) setPriseList:(NSArray *)list
 {
-    if(sender.selected == YES)
-        return;
-    _btnDay.selected = YES;
-    _btnWeek.selected = NO;
-    _btnMounth.selected = NO;
-    _btnDay.backgroundColor = Abled_Color;
-    _btnWeek.backgroundColor = [UIColor clearColor];
-    _btnMounth.backgroundColor = [UIColor clearColor];
-    uniteType = EnumTypeDay;
+    _priceList = list;
     
-    if(delegate && [delegate respondsToSelector:@selector(NotifyUnitsTypeChanged:)]){
-        [delegate NotifyUnitsTypeChanged:self];
+    for (int i = 0; i < [btnArray count]; i++) {
+        UIButton *btn = [btnArray objectAtIndex:i];
+        [btn removeFromSuperview];
+    }
+    [btnArray removeAllObjects];
+    
+    for (int i = 0; i < [_priceList count]; i++) {
+        PriceDataModel *model = [_priceList objectAtIndex:i];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [self addSubview:btn];
+        btn.translatesAutoresizingMaskIntoConstraints = NO;
+        btn.titleLabel.font = _FONT(15);
+        [btn setTitle:model.name forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [btn setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(doBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImage *image = [Util imageWithColor:[UIColor whiteColor] size:CGSizeMake(5, 5)];
+        UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
+        [btn setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateSelected];
+        btn.tag = 1000 + i;
+        btn.layer.borderWidth = 1;
+        btn.layer.borderColor = _COLOR(0x99, 0x99, 0x99).CGColor;
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[btn]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)]];
+        
+        if([_priceList count] > 1){
+            UIButton *preBtn = [btnArray lastObject];
+            
+            if(i == 0){
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+            }else{
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:preBtn attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:preBtn attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+                if( i == [_priceList count] - 1){
+                    [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+                }
+            }
+            
+        }else
+        {
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[btn]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)]];
+        }
+        [btnArray addObject:btn];
+        
+        if(i == 0){
+            [self doBtnClicked:btn];
+        }
     }
 }
 
-- (void) doBtnSelectTypeWeek:(UIButton*)sender
+- (void) doBtnClicked:(UIButton *)sender
 {
     if(sender.selected == YES)
         return;
-    _btnDay.selected = NO;
-    _btnWeek.selected = YES;
-    _btnMounth.selected = NO;
-    _btnDay.backgroundColor = [UIColor clearColor];
-    _btnWeek.backgroundColor = Abled_Color;
-    _btnMounth.backgroundColor = [UIColor clearColor];
-    uniteType = EnumTypeWeek;
     
-    if(delegate && [delegate respondsToSelector:@selector(NotifyUnitsTypeChanged:)]){
-        [delegate NotifyUnitsTypeChanged:self];
+    for (int i = 0; i < [btnArray count]; i++) {
+        UIButton *btn = [btnArray objectAtIndex:i];
+        btn.selected = NO;
     }
-}
-
-- (void) doBtnSelectTypeMounth:(UIButton*)sender
-{
-    if(sender.selected == YES)
-        return;
-    _btnDay.selected = NO;
-    _btnWeek.selected = NO;
-    _btnMounth.selected = YES;
-    _btnDay.backgroundColor = [UIColor clearColor];
-    _btnWeek.backgroundColor = [UIColor clearColor];
-    _btnMounth.backgroundColor = Abled_Color;
-    uniteType = EnumTypeMounth;
+    sender.selected = YES;
     
-    if(delegate && [delegate respondsToSelector:@selector(NotifyUnitsTypeChanged:)]){
-        [delegate NotifyUnitsTypeChanged:self];
+    int index = sender.tag - 1000;
+    PriceDataModel *model = [_priceList objectAtIndex:index];
+    self.selectPriceModel = model;
+    if(delegate && [delegate respondsToSelector:@selector(NotifyUnitsTypeChanged:model:)]){
+        [delegate NotifyUnitsTypeChanged:self model:model];
     }
 }
 

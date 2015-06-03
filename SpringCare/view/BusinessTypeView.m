@@ -8,78 +8,101 @@
 
 #import "BusinessTypeView.h"
 #import "define.h"
+#import "PriceDataModel.h"
 
 @implementation BusinessTypeView
-@synthesize businesstype;
 @synthesize delegate;
+@synthesize priseList = _priceList;
 
-- (id) initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if(self)
-    {
+    if(self){
+
         self.layer.cornerRadius = 5;
         self.clipsToBounds = YES;
         self.layer.borderWidth = 1;
         self.layer.borderColor = _COLOR(0x99, 0x99, 0x99).CGColor;
         
-        _btn24h = [[UIButton alloc] initWithFrame:CGRectZero];
-        [self addSubview:_btn24h];
-        _btn24h.translatesAutoresizingMaskIntoConstraints = NO;
-        _btn24h.titleLabel.font = _FONT(15);
-        [_btn24h setTitle:@"24小时" forState:UIControlStateNormal];
-        [_btn24h setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_btn24h setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-        [_btn24h addTarget:self action:@selector(doBtnSelectType24h:) forControlEvents:UIControlEventTouchUpInside];
+        btnArray = [[NSMutableArray alloc] init];
         
-        _btn12h = [[UIButton alloc] initWithFrame:CGRectZero];
-        [self addSubview:_btn12h];
-        _btn12h.translatesAutoresizingMaskIntoConstraints = NO;
-        _btn12h.titleLabel.font = _FONT(15);
-        [_btn12h setTitle:@"12小时" forState:UIControlStateNormal];
-        [_btn12h setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_btn12h setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
-        [_btn12h addTarget:self action:@selector(doBtnSelectType12h:) forControlEvents:UIControlEventTouchUpInside];
-        
-        NSDictionary *views = NSDictionaryOfVariableBindings(_btn24h, _btn12h);
-        
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_btn12h]-0-[_btn24h]-0-|" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btn24h]-0-|" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_btn12h]-0-|" options:0 metrics:nil views:views]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_btn24h attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.5 constant:0]];
-        
-        [self doBtnSelectType12h:_btn12h];
     }
+    
     return self;
 }
 
-- (void) doBtnSelectType24h:(UIButton*)sender
+- (void) setPriseList:(NSArray *)list
 {
-    if(_btn24h.selected)
-        return;
-    _btn24h.selected = YES;
-    _btn12h.selected = NO;
-    _btn24h.backgroundColor = Abled_Color;
-    _btn12h.backgroundColor = [UIColor clearColor];
-    businesstype = EnumType24Hours;
+    _priceList = list;
     
-    if(delegate && [delegate respondsToSelector:@selector(NotifyBusinessTypeChanged:)]){
-        [delegate NotifyBusinessTypeChanged:self];
+    for (int i = 0; i < [btnArray count]; i++) {
+        UIButton *btn = [btnArray objectAtIndex:i];
+        [btn removeFromSuperview];
+    }
+    [btnArray removeAllObjects];
+    
+    for (int i = 0; i < [_priceList count]; i++) {
+        PriceDataModel *model = [_priceList objectAtIndex:i];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [self addSubview:btn];
+        btn.translatesAutoresizingMaskIntoConstraints = NO;
+        btn.titleLabel.font = _FONT(15);
+        [btn setTitle:model.name forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [btn setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(doBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImage *image = [Util imageWithColor:[UIColor whiteColor] size:CGSizeMake(5, 5)];
+        UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
+        [btn setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateSelected];
+        btn.tag = 1000 + i;
+        btn.layer.borderWidth = 1;
+        btn.layer.borderColor = _COLOR(0x99, 0x99, 0x99).CGColor;
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[btn]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)]];
+        
+        if([_priceList count] > 1){
+            UIButton *preBtn = [btnArray lastObject];
+            
+            if(i == 0){
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+            }else{
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:preBtn attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:preBtn attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+                if( i == [_priceList count] - 1){
+                    [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+                }
+            }
+            
+        }else
+        {
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[btn]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)]];
+        }
+        [btnArray addObject:btn];
+        
+        if(i == 0){
+            [self doBtnClicked:btn];
+        }
     }
 }
 
-- (void) doBtnSelectType12h:(UIButton*)sender
+- (void) doBtnClicked:(UIButton *)sender
 {
-    if(_btn12h.selected)
+    if(sender.selected == YES)
         return;
-    _btn24h.selected = NO;
-    _btn12h.selected = YES;
-    _btn24h.backgroundColor = [UIColor clearColor];
-    _btn12h.backgroundColor = Abled_Color;
-    businesstype = EnumType12Hours;
     
-    if(delegate && [delegate respondsToSelector:@selector(NotifyBusinessTypeChanged:)]){
-        [delegate NotifyBusinessTypeChanged:self];
+    for (int i = 0; i < [btnArray count]; i++) {
+        UIButton *btn = [btnArray objectAtIndex:i];
+        btn.selected = NO;
+    }
+    sender.selected = YES;
+    
+    int index = sender.tag - 1000;
+    PriceDataModel *model = [_priceList objectAtIndex:index];
+    self.selectPriceModel = model;
+    if(delegate && [delegate respondsToSelector:@selector(NotifyBusinessTypeChanged:model:)]){
+        [delegate NotifyBusinessTypeChanged:self model:model];
     }
 }
 

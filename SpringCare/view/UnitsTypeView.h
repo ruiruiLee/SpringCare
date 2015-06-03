@@ -7,28 +7,34 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FamilyProductModel.h"
 
-typedef enum : NSUInteger {
-    EnumTypeDay,
-    EnumTypeWeek,
-    EnumTypeMounth,
-} UnitsType;
+//typedef enum : NSUInteger {
+//    EnumTypeDay,
+//    EnumTypeWeek,
+//    EnumTypeMounth,
+//} UnitsType;
 
 @class UnitsTypeView;
 @protocol UnitsTypeViewDelegate <NSObject>
 
-- (void) NotifyUnitsTypeChanged:(UnitsTypeView*) view;
+- (void) NotifyUnitsTypeChanged:(UnitsTypeView*) view  model:(PriceDataModel *)priceModel;
 
 @end
 
 @interface UnitsTypeView : UIView
 {
-    UIButton *_btnDay;
-    UIButton *_btnWeek;
-    UIButton *_btnMounth;
+//    UIButton *_btnDay;
+//    UIButton *_btnWeek;
+//    UIButton *_btnMounth;
+    
+    NSMutableArray *btnArray;
+    NSArray *_priceList;
 }
 
-@property (nonatomic, assign) UnitsType uniteType;
+//@property (nonatomic, assign) UnitsType uniteType;
 @property (nonatomic, assign) id<UnitsTypeViewDelegate>  delegate;
+@property (nonatomic, strong) PriceDataModel *selectPriceModel;
+@property (nonatomic, strong) NSArray *priseList;
 
 @end
