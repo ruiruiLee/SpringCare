@@ -41,7 +41,7 @@
         _line.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSDictionary *views = NSDictionaryOfVariableBindings(_logoImageView, _lbTitle, _unfoldStaus, _line);
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_logoImageView(34)]-20-[_lbTitle]->=10-[_unfoldStaus]-0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_logoImageView(34)]-20-[_lbTitle]->=10-[_unfoldStaus(9)]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbTitle]->=0-[_line(1)]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_logoImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbTitle attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
