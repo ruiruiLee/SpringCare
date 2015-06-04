@@ -24,6 +24,7 @@ typedef enum : NSUInteger {
 {
 //    NSIndexPath *selectIndexPath;
     CouponsDataModel *selectModel;
+    UIImageView *backgroundImageView;
 }
 
 @property (nonatomic, assign) BOOL isActive;
