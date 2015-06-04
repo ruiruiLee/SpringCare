@@ -192,6 +192,7 @@
         cell._lbContent.text =[NSString stringWithFormat:@"V %@",[Util getCurrentVersion]] ;
         cell._lbContent.hidden = NO;
         cell._imgFold.hidden = YES;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if (indexPath.section == 1)
     {
         if(indexPath.row == 0){
