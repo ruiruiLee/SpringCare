@@ -76,7 +76,7 @@
     self.prices = @[@"价格区间",@"0-100元",@"100-200元",@"200元以上"];
     self.ages = @[@"年龄区间",@"20岁-29岁",@"30岁-39岁",@"40岁以上"];
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
-    self.filter = @[@"全部护工",@"空闲护工"];
+    self.filter = @[@"全部",@"空闲"];
     //数据先初始化
     
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
