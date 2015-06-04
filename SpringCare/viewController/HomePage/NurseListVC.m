@@ -52,7 +52,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.NavigationBar.lbTitle.text = @"陪护师";
+//    self.NavigationBar.lbTitle.text = @"陪护师";
     
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     //[[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , 44)];
@@ -195,6 +195,13 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [searchBar resignFirstResponder];
+    
+    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
+    if(model.workStatus > 0)
+    {
+        [Util showAlertMessage:@"对不起，他已被预约， 请选择空闲的陪护师！"];
+        return;
+    }
     
     if(![UserModel sharedUserInfo].isLogin){
         LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];

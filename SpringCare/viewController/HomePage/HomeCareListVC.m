@@ -123,6 +123,7 @@
     }
     else{
         NurseListVC *vc = [[NurseListVC alloc] initWithProductId:model.pId];
+        vc.NavTitle = model.productName;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

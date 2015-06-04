@@ -169,6 +169,7 @@
 {
     NurseListVC *vc = [[NurseListVC alloc] initWithProductId:[cfAppDelegate hospital_product_id]];
     vc.hidesBottomBarWhenPushed = YES;
+    vc.NavTitle = @"医院陪护";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
