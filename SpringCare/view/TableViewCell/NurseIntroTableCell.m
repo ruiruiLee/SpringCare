@@ -232,8 +232,8 @@
     
     _lbName.text = model.name;
     [_gradeView setScore:model.commentsRate];
-    _lbCommitCount.text = [NSString stringWithFormat:@"（%d）", model.commentsNumber];
-    _lbNurseIntro.text = [NSString stringWithFormat:@"%@  %d岁  护龄%@年", model.birthPlace, model.age, model.careAge];
+    _lbCommitCount.text = [NSString stringWithFormat:@"（%ld）", (long)model.commentsNumber];
+    _lbNurseIntro.text = [NSString stringWithFormat:@"%@  %ld岁  护龄%@年", model.birthPlace, (long)model.age, model.careAge];
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:model.intro];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -249,7 +249,7 @@
     _lbPrice.attributedText = price;//model.price;打折价格
     [_btnLocation setTitle:[Util convertDinstance: model.distance] forState:UIControlStateNormal];
     
-    if(!model.workStatus){
+    if(model.workStatus == 0){
         _photoLogo.image = ThemeImage(@"nursenotbusy");
     }
     else{
