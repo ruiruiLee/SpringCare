@@ -103,10 +103,10 @@
     _line.translatesAutoresizingMaskIntoConstraints = NO;
     _line.backgroundColor = SeparatorLineColor;
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_photoLogo(16)]->=0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_photoLogo)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_photoLogo(16)]->=0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_photoLogo)]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_photoLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeRight multiplier:1 constant:-4]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_photoLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeBottom multiplier:1 constant:-4]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_photoLogo(24)]->=0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_photoLogo)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_photoLogo(24)]->=0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_photoLogo)]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_photoLogo attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_photoLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_imgPhoto attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbPrice, _lbWorkIntro, _lbNurseIntro, _lbName, _lbCommitCount, _imgCert, _imgPhoto, _btnLocation, _gradeView, _line, _lbOldPrice, _lineation);
     
@@ -255,8 +255,6 @@
     else{
         _photoLogo.image = ThemeImage(@"nursebusy");
     }
-    
-//    _lbOldPrice.text = [NSString stringWithFormat:@"原价:%ld", model.price];
 }
 
 
