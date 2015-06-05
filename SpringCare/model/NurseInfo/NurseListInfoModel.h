@@ -66,7 +66,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSMutableArray *priceList;
 
-@property (nonatomic, assign) BOOL workStatus;
+@property (nonatomic, assign) NSInteger workStatus;
 
 + (NSMutableArray*) nurseListModel;
 

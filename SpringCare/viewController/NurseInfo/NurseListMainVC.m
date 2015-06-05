@@ -37,7 +37,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    self.lbTitle.text = @"陪护师";
+    self.lbTitle.text = @"医院陪护";
     
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     //[[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -62,7 +62,7 @@
     self.prices = @[@"价格区间",@"0-100元",@"100-200元",@"200元以上"];
     self.ages = @[@"年龄区间",@"20岁-29岁",@"30岁-39岁",@"40岁以上"];
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
-    self.filter = @[@"全部护工",@"空闲护工"];
+    self.filter = @[@"全部",@"空闲"];
     //数据先初始化
     
     menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
@@ -97,8 +97,10 @@
     searchBar.text = @"";
     [menu ResetDropDownMenu];
     __weak NurseListMainVC *weakSelf = self;
+    [cfAppDelegate setDefaultProductId:[cfAppDelegate hospital_product_id]];
     pages = 0;
     [parmas removeAllObjects];
+    [parmas setObject:showAllCare forKey:@"showAllCare"];
     self.pullTableView.pullTableIsRefreshing = YES;
     [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:nil block:^(int code) {
         [DataList removeAllObjects];
@@ -193,6 +195,14 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [searchBar resignFirstResponder];
+    
+    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
+    if(model.workStatus > 0)
+    {
+        [Util showAlertMessage:@"对不起，他已被预约， 请选择空闲的陪护师！"];
+        return;
+    }
+    
     if(![[UserModel sharedUserInfo] isLogin]){
         LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];

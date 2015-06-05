@@ -7,12 +7,11 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "bus32.png"
+      "filename" : "bus48.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "bus48.png"
+      "scale" : "3x"
     }
   ],
   "info" : {
