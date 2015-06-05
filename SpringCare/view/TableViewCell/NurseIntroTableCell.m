@@ -242,7 +242,7 @@
     _lbWorkIntro.attributedText = attributedString;
     
     NSString *perString = [NSString stringWithFormat:@"（%@）", model.priceName];
-    NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%ld（%@）", (long)model.priceDiscount, model.priceName]];
+    NSMutableAttributedString *price = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%ld（%@）", (long)model.newPrice, model.priceName]];
     [price addAttribute:NSFontAttributeName value:_FONT(12) range:NSMakeRange([price length] - [perString length], [perString length])];
     [price addAttribute:NSForegroundColorAttributeName value:_COLOR(0x99, 0x99, 0x99) range:NSMakeRange([price length] - [perString length], [perString length])];
     

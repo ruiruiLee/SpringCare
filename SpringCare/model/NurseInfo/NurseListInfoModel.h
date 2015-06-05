@@ -61,6 +61,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString *priceName;
 @property (nonatomic, assign) NSInteger priceType;
 
+@property (nonatomic, assign) NSInteger newPrice;
+
 //详细资料
 @property (nonatomic, assign) BOOL isLoadDetail;
 
