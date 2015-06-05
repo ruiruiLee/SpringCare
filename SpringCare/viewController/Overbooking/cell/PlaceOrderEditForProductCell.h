@@ -42,6 +42,7 @@
 @property (nonatomic, strong) UnitsTypeView *businessType;
 @property (nonatomic, strong) DateCountSelectView *dateSelectView;
 @property (nonatomic, strong) CouponsSelectView *couponsView;
+@property (nonatomic, strong) UILabel *lbUnits;
 
 - (void) setNurseListInfo:(FamilyProductModel*) model;
 

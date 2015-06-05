@@ -59,6 +59,14 @@
         lbUnitPrice.attributedText = string;
         lbUnitPrice.backgroundColor = [UIColor clearColor];
         
+        _lbUnits = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_lbUnits];
+        _lbUnits.translatesAutoresizingMaskIntoConstraints = NO;
+        _lbUnits.textColor = _COLOR(0x99, 0x99, 0x99);
+        _lbUnits.font = _FONT(14);
+        _lbUnits.backgroundColor = [UIColor clearColor];
+        _lbUnits.hidden = YES;
+        
         lbAmountPrice = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:lbAmountPrice];
         lbAmountPrice.translatesAutoresizingMaskIntoConstraints = NO;
@@ -104,6 +112,10 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_couponsView]-20-|" options:0 metrics:nil views:views]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:dateSelectView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     }
     return self;
 }

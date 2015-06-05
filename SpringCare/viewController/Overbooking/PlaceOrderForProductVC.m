@@ -82,6 +82,15 @@
 {
     PlaceOrderEditForProductCell *cell = (PlaceOrderEditForProductCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [cell.businessType setPriseList:_productModel.priceList];
+    
+    if([_productModel.priceList count] == 1){
+        cell.businessType.hidden = YES;
+        cell.lbUnits.hidden = NO;
+        cell.lbUnits.text = [NSString stringWithFormat:@"单位：%@", ((PriceDataModel*)[_productModel.priceList objectAtIndex:0]).name];
+    }else{
+        cell.businessType.hidden = NO;
+        cell.lbUnits.hidden = YES;
+    }
 }
 
 - (void)viewDidLoad {

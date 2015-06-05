@@ -39,7 +39,7 @@
     UITableView *_tableview;
     UILabel *line;
     
-    BusinessTypeView *businessType;//24或12小时
+    BusinessTypeView *businessType;//24或12小时;
     DateCountSelectView *dateSelectView;//多少天
     UILabel *lbUnitPrice;//单价
     UILabel *lbAmountPrice;//总价
@@ -61,6 +61,7 @@
 @property (nonatomic, strong) BusinessTypeView *businessType;
 @property (nonatomic, strong) DateCountSelectView *dateSelectView;
 @property (nonatomic, strong) CouponsSelectView *couponsView;
+@property (nonatomic, strong) UILabel *lbUnits;
 
 - (void) setNurseListInfo:(NurseListInfoModel*) model;
 

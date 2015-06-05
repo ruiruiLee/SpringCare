@@ -346,6 +346,14 @@
     
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     [cell.businessType setPriseList:_nurseModel.priceList];
+    if([_nurseModel.priceList count] == 1){
+        cell.businessType.hidden = YES;
+        cell.lbUnits.hidden = NO;
+        cell.lbUnits.text = [NSString stringWithFormat:@"单位：%@", ((PriceDataModel*)[_nurseModel.priceList objectAtIndex:0]).name];
+    }else{
+        cell.businessType.hidden = NO;
+        cell.lbUnits.hidden = YES;
+    }
     [_tableview reloadData];
 }
 
