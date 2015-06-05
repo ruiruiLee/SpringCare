@@ -464,10 +464,10 @@
         return 50.f;
     else if (indexPath.section == 1)
     {
-        if([UserModel sharedUserInfo].couponsCount > 0)
+//        if([UserModel sharedUserInfo].couponsCount > 0)
             return 290.f;
-        else
-            return 248.f;
+//        else
+//            return 248.f;
     }
     else{
         return 170.f;

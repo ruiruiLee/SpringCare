@@ -323,10 +323,10 @@
 {
     if (indexPath.section == 0)
     {
-        if([UserModel sharedUserInfo].couponsCount > 0)
+//        if([UserModel sharedUserInfo].couponsCount > 0)
             return 245.f;
-        else
-            return 200.f;
+//        else
+//            return 200.f;
     }
     else{
         return 135.f;

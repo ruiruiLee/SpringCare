@@ -283,17 +283,17 @@
     
     _couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
-    [self.contentView removeConstraints:Constraints];
-    if([UserModel sharedUserInfo].couponsCount <= 0){
-        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
-        [self.contentView addConstraints:Constraints];
-        _couponsView.hidden = YES;
-    }else{
-        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
-        [self.contentView addConstraints:Constraints];
-        _couponsView.hidden = NO;
-    }
+//    NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
+//    [self.contentView removeConstraints:Constraints];
+//    if([UserModel sharedUserInfo].couponsCount <= 0){
+//        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+//        [self.contentView addConstraints:Constraints];
+//        _couponsView.hidden = YES;
+//    }else{
+//        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+//        [self.contentView addConstraints:Constraints];
+//        _couponsView.hidden = NO;
+//    }
     
     if(delegate && [delegate respondsToSelector:@selector(NotifyValueChanged:)]){
         [delegate NotifyValueChanged:uPrice * days];
