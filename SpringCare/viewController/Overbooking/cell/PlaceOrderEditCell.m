@@ -266,7 +266,8 @@
 //    NSInteger hour = (businessType.businesstype == EnumType12Hours) ?12 : 24;
     NSInteger uPrice = businessType.selectPriceModel.amount;
     NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", (long)uPrice];
-    NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@（%@） x %d", rangeStr, businessType.selectPriceModel.name, days];//@"单价：¥300.00（24h） x 1天";
+    NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@（%@） x %d", rangeStr,
+    businessType.selectPriceModel==nil?@"":businessType.selectPriceModel.name, days];//@"单价：¥300.00（24h） x 1天";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
     NSRange range = [UnitPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", (long)uPrice]];
     [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];

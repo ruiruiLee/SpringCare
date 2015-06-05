@@ -217,7 +217,7 @@
     _nurseData = model;
     NSInteger count = [dateSelectView getDays];
     NSInteger uPrice = businessType.selectPriceModel.amount;
-    NSString *text = businessType.selectPriceModel.name;
+    NSString *text =  businessType.selectPriceModel==nil?@"":businessType.selectPriceModel.name;
     
     
     NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", (long)uPrice];
