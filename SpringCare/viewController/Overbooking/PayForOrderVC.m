@@ -138,7 +138,7 @@
     _lbTotalPriceValue.text = [NSString stringWithFormat:@"¥%ld", _OrderModel.realyTotalPrice];
     
     _payLogo = [self creatImageViewWithimage:nil placeholder:@"paytype" rootView:headerView];
-    _lbPaytype = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:headerView];
+    _lbPaytype = [self createLabelWithFont:_FONT(15) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor] rootView:headerView];
     _lbPaytype.text = @"付款方式";
     
     _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];

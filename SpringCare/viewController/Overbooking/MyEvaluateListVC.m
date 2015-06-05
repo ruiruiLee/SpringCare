@@ -109,6 +109,7 @@
         cell = [[EvaluateListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     EvaluateDataModel *data = [DataList objectAtIndex:indexPath.row];
     [cell SetContentDataWith:data];
     return cell;
@@ -137,10 +138,10 @@
     return 1  + size.height;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//}
 
 #pragma mark - PullTableViewDelegate
 

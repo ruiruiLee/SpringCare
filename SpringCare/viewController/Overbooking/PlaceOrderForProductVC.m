@@ -376,8 +376,8 @@
     UILabel *lbPaytype = [[UILabel alloc] initWithFrame:CGRectZero];
     [view addSubview:lbPaytype];
     lbPaytype.translatesAutoresizingMaskIntoConstraints = NO;
-    lbPaytype.font = _FONT(18);
-    lbPaytype.textColor = _COLOR(0x66, 0x66, 0x66);
+    lbPaytype.font = _FONT(15);
+    lbPaytype.textColor =   _COLOR(0x99, 0x99, 0x99);//_COLOR(0x66, 0x66, 0x66);
     lbPaytype.backgroundColor = [UIColor clearColor];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype);

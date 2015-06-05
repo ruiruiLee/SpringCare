@@ -93,7 +93,7 @@
         logo.translatesAutoresizingMaskIntoConstraints = NO;
         logo.image = [UIImage imageNamed:@"placeordered"];
         
-        lbPaytype = [self createLabelWithFont:_FONT(18) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor]];
+        lbPaytype = [self createLabelWithFont:_FONT(15) textcolor: _COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
         lbPaytype.text = @"我要下单";
         
         line1 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
