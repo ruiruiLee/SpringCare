@@ -252,11 +252,11 @@
     _lbType.text = [NSString stringWithFormat:@"类型：%@", model.product.name];
     NSMutableString *detailTime = [[NSMutableString alloc] init];
     [detailTime appendString:@"时间："];
-    [detailTime appendString:[NSString stringWithFormat:@"%d", model.orderCount]];
-    [detailTime appendString:[NSString stringWithFormat:@" X "]];
-    [detailTime appendString:[NSString stringWithFormat:@"%@", model.priceName]];
+//    [detailTime appendString:[NSString stringWithFormat:@"%d", model.orderCount]];
+//    [detailTime appendString:[NSString stringWithFormat:@" X "]];
+//    [detailTime appendString:[NSString stringWithFormat:@"%@", model.priceName]];
     
-    [detailTime appendString:[NSString stringWithFormat:@"(%@点-%@点)", [Util convertShotStrFromDate:model.beginDate], [Util convertShotStrFromDate:model.endDate]]];
+    [detailTime appendString:[NSString stringWithFormat:@"%@点-%@点", [Util convertShotStrFromDate:model.beginDate], [Util convertShotStrFromDate:model.endDate]]];
     _lbDetailTime.text = detailTime;
     
     NSMutableString *priceStr = [[NSMutableString alloc] init];

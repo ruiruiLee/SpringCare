@@ -40,7 +40,15 @@
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableview.backgroundColor = TableBackGroundColor;
     
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 80)];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 110)];
+    
+    UILabel *_lbVersion = [[UILabel alloc] initWithFrame:CGRectZero];
+    [footView addSubview:_lbVersion];
+    _lbVersion.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbVersion.textColor = _COLOR(0x99, 0x99, 0x99);
+    _lbVersion.font = _FONT(12);
+    _lbVersion.textAlignment = NSTextAlignmentCenter;
+    _lbVersion.text = [NSString stringWithFormat:@"ios端当前版本: V %@",[Util getCurrentVersion]];
     
     UIButton *btnCancel = [[UIButton alloc] initWithFrame:CGRectZero];
     btnCancel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -50,28 +58,29 @@
     [btnCancel setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
     btnCancel.clipsToBounds = YES;
     [footView addSubview:btnCancel];
-    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-28-[btnCancel]-28-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
-    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[btnCancel]-13-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel)]];
+    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-28-[btnCancel]-28-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel, _lbVersion)]];
+    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_lbVersion]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel, _lbVersion)]];
+    [footView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-26-[btnCancel]-13-[_lbVersion(20)]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btnCancel, _lbVersion)]];
     [btnCancel addTarget:self action:@selector(btnCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
     if(type == EnumValueTypeiPhone4S){
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 80);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 110);
         btnCancel.titleLabel.font = _FONT(17);
     }
     else if (type == EnumValueTypeiPhone5){
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 80);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 110);
         btnCancel.titleLabel.font = _FONT(17);
     }
     else if (type == EnumValueTypeiPhone6){
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 90);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 120);
         btnCancel.titleLabel.font = _FONT(18);
     }
     else if (type == EnumValueTypeiPhone6P){
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 100);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 130);
         btnCancel.titleLabel.font = _FONT(20);
     }else{
-        footView.frame = CGRectMake(0, 0, ScreenWidth, 80);
+        footView.frame = CGRectMake(0, 0, ScreenWidth, 110);
         btnCancel.titleLabel.font = _FONT(17);
     }
     
@@ -91,11 +100,8 @@
     [AVUser logOut];  //清除缓存用户对象
     [UserModel sharedUserInfo].userId = nil;
     [Util DeleteCityId];
-   //[[UserModel sharedUserInfo] modifyInfo];
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Register_Logout object:nil];
-  
-   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,14 +111,12 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(section == 0)
-        return 1;
-    else if (section == 1)
+    if (section == 0)
         return 3;
     else
         return 2;
@@ -126,28 +130,28 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(indexPath.section == 0){
-        // 版本更新
-//        [Util  updateVersion:^(NSArray *info) {
-//            NSDictionary *releaseInfo = [info objectAtIndex:0];
-//            NSString  *appVersion  = [releaseInfo objectForKey:@"version"];
-//            _appDownUrl = [releaseInfo objectForKey:@"trackViewUrl"]; // 获取 更新用滴 URL
-//            if ([[Util getCurrentVersion] floatValue] < [appVersion floatValue])
-//            {
-//             UIAlertView * updateAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"升级到新版本%@", appVersion]
-//                                                                message:[releaseInfo objectForKey:@"releaseNotes"] delegate:self
-//                                                      cancelButtonTitle:@"取消"
-//                                                      otherButtonTitles:@"升级", nil];
-//                updateAlert.tag=512;
-//                updateAlert.delegate = self;
-//                [updateAlert show];
-//           
-//            }
-//
-//        }];
-    }
+//    if(indexPath.section == 0){
+//        // 版本更新
+////        [Util  updateVersion:^(NSArray *info) {
+////            NSDictionary *releaseInfo = [info objectAtIndex:0];
+////            NSString  *appVersion  = [releaseInfo objectForKey:@"version"];
+////            _appDownUrl = [releaseInfo objectForKey:@"trackViewUrl"]; // 获取 更新用滴 URL
+////            if ([[Util getCurrentVersion] floatValue] < [appVersion floatValue])
+////            {
+////             UIAlertView * updateAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"升级到新版本%@", appVersion]
+////                                                                message:[releaseInfo objectForKey:@"releaseNotes"] delegate:self
+////                                                      cancelButtonTitle:@"取消"
+////                                                      otherButtonTitles:@"升级", nil];
+////                updateAlert.tag=512;
+////                updateAlert.delegate = self;
+////                [updateAlert show];
+////           
+////            }
+////
+////        }];
+//    }
 
-    if(indexPath.section == 1){
+    if(indexPath.section == 0){
         if(indexPath.row == 0)
         {
            // 告诉朋友
@@ -163,7 +167,7 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
-    if(indexPath.section == 2){
+    if(indexPath.section == 1){
         if(indexPath.row == 0)
         {
             NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, About_Us];
@@ -186,14 +190,15 @@
         cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
     }
     
-    if(indexPath.section == 0)
-    {
-        cell._lbTitle.text = @"当前版本";
-        cell._lbContent.text =[NSString stringWithFormat:@"V %@",[Util getCurrentVersion]] ;
-        cell._lbContent.hidden = NO;
-        cell._imgFold.hidden = YES;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }else if (indexPath.section == 1)
+//    if(indexPath.section == 0)
+//    {
+//        cell._lbTitle.text = @"当前版本";
+//        cell._lbContent.text =[NSString stringWithFormat:@"V %@",[Util getCurrentVersion]] ;
+//        cell._lbContent.hidden = NO;
+//        cell._imgFold.hidden = YES;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    }else
+    if (indexPath.section == 0)
     {
         if(indexPath.row == 0){
             cell._lbTitle.text = @"告诉朋友";
@@ -210,7 +215,7 @@
             cell._imgFold.hidden = NO;
         }
     }
-    else if (indexPath.section == 2)
+    else if (indexPath.section == 1)
     {
         if(indexPath.row == 0){
             cell._lbTitle.text = @"关于我们";
