@@ -59,7 +59,6 @@
             [weakSelf.pullTableView removeBackgroudImgView];
             loadCount -- ;
             if(loadCount == 0){
-                [weakSelf.pullTableView reloadData];
                 if (dataOnDoingList.count==0 && dataOtherList.count==0) {
                     [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
                 }
@@ -68,6 +67,8 @@
         }else{
             [weakSelf refreshTable];
         }
+        
+        [weakSelf.pullTableView reloadData];
     }];
     
     [MyOrderdataModel loadOrderlistWithPages:0 type:EnumOrderOther isOnlyIndexSplit:NO block:^(int code, id content) {
@@ -77,7 +78,6 @@
             [weakSelf.pullTableView removeBackgroudImgView];
             loadCount -- ;
             if(loadCount == 0){
-                [weakSelf.pullTableView reloadData];
                 
                 if (dataOnDoingList.count==0 && dataOtherList.count==0) {
                     [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
@@ -87,6 +87,9 @@
         }else{
             [weakSelf refreshTable];
         }
+        
+        [weakSelf.pullTableView reloadData];
+        
     }];
 
 }
@@ -349,6 +352,7 @@
                 }else{
                      [weakSelf refreshTable];
                      [weakSelf.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+                    [weakSelf.pullTableView reloadData];
                 }
             }else{
                 [weakSelf refreshTable];
