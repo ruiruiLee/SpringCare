@@ -27,6 +27,4 @@
 @property (nonatomic, strong) PriceDataModel *selectPriceModel;
 @property (nonatomic, strong) NSArray *priseList;
 
-- (id)initWithPriceList:(NSArray*) priceList;
-
 @end

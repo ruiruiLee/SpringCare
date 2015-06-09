@@ -20,8 +20,6 @@
 
 @interface UserAttentionTableCell : UITableViewCell<UIActionSheetDelegate>
 {
-   // UIImageView *_photoImage;
-    //UIButton *_btnphotoImg;
     UIImageView * ImgSex;
     UILabel *_lbRelation;
     UILabel *_lbName;
@@ -37,7 +35,6 @@
     UIButton *_btnHealthRecord;
 }
 
-//@property (assign, nonatomic) id<ChangHeaderPhotoDelegate> delegate;
 @property (nonatomic, retain) UIButton *btnphotoImg;
 @property (nonatomic, assign) UserAttentionVC *parentController;
 @property (nonatomic, retain) UserAttentionModel *model;

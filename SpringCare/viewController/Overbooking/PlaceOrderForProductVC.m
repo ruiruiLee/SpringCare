@@ -334,7 +334,7 @@
     {
 //        if([UserModel sharedUserInfo].couponsCount > 0)
         if([_productModel.priceList count] > 1)
-            return 256.f + 32.f;
+            return 256.f + 42.f;
         else
             return 256.f;
 //        else

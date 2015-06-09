@@ -131,7 +131,6 @@
 		86B8E5DE1AD7EEF800A5139E /* PlaceOrderForProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5DD1AD7EEF800A5139E /* PlaceOrderForProductVC.m */; };
 		86B8E5E11AD8C13900A5139E /* PlaceOrderEditForProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5E01AD8C13900A5139E /* PlaceOrderEditForProductCell.m */; };
 		86B8E5E41AD8C15000A5139E /* PayTypeForProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5E31AD8C15000A5139E /* PayTypeForProductCell.m */; };
-		86B8E5E71AD8C48F00A5139E /* UnitsTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E5E61AD8C48F00A5139E /* UnitsTypeView.m */; };
 		86B8E6091AD9027D00A5139E /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E6081AD9027D00A5139E /* ZHPickView.m */; };
 		86B8E60C1AD952A500A5139E /* HomeCareListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E60B1AD952A500A5139E /* HomeCareListVC.m */; };
 		86B8E60F1AD952E500A5139E /* NurseListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E60E1AD952E500A5139E /* NurseListVC.m */; };
@@ -610,8 +609,6 @@
 		86B8E5E01AD8C13900A5139E /* PlaceOrderEditForProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceOrderEditForProductCell.m; sourceTree = "<group>"; };
 		86B8E5E21AD8C15000A5139E /* PayTypeForProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTypeForProductCell.h; sourceTree = "<group>"; };
 		86B8E5E31AD8C15000A5139E /* PayTypeForProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTypeForProductCell.m; sourceTree = "<group>"; };
-		86B8E5E51AD8C48F00A5139E /* UnitsTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitsTypeView.h; sourceTree = "<group>"; };
-		86B8E5E61AD8C48F00A5139E /* UnitsTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsTypeView.m; sourceTree = "<group>"; };
 		86B8E6071AD9027C00A5139E /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		86B8E6081AD9027D00A5139E /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
 		86B8E60A1AD952A500A5139E /* HomeCareListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCareListVC.h; sourceTree = "<group>"; };
@@ -1164,8 +1161,6 @@
 				86B8E5BD1AD7729900A5139E /* PlaceholderTextView.m */,
 				86B8E5C51AD7AD4100A5139E /* OrderStepView.h */,
 				86B8E5C61AD7AD4100A5139E /* OrderStepView.m */,
-				86B8E5E51AD8C48F00A5139E /* UnitsTypeView.h */,
-				86B8E5E61AD8C48F00A5139E /* UnitsTypeView.m */,
 				868B23991ADE5379003AAD2A /* LCPickView.h */,
 				868B239A1ADE5379003AAD2A /* LCPickView.m */,
 				86B0F7DC1B26BB8D004D7B29 /* UnitsButton.h */,
@@ -2263,7 +2258,6 @@
 				CFAFA3AF1ABFEC8C0020E774 /* main.m in Sources */,
 				86B8E5B81AD6ADFB00A5139E /* EvaluateOrderVC.m in Sources */,
 				86B8E55A1AD4E35B00A5139E /* MyOrderListVC.m in Sources */,
-				86B8E5E71AD8C48F00A5139E /* UnitsTypeView.m in Sources */,
 				CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */,
 				8642C93B1ABFF53C00251921 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				86B0F7D51B256822004D7B29 /* HealthRecordTableCell.m in Sources */,
