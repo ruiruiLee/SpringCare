@@ -37,7 +37,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyPickViewHidden:) name:NOTIFY_PICKVIEW_HIDDEN object:nil];
         
-        businessType = [[UnitsTypeView alloc] initWithFrame:CGRectZero];
+        businessType = [[BusinessTypeView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:businessType];
         businessType.translatesAutoresizingMaskIntoConstraints = NO;
         businessType.delegate = self;
@@ -125,7 +125,7 @@
         NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView, lbNumber, lbOrderUnit, sepline);
         
 //        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessType(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbOrderUnit(42)]-0-[businessType]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbOrderUnit(42)]-0-[businessType]->=20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbNumber(42)]-0-[dateSelectView(130)]->=20-|" options:0 metrics:nil views:views]];
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]-20-|" options:0 metrics:nil views:views]];
@@ -241,7 +241,8 @@
     return array;
 }
 
-- (void) NotifyUnitsTypeChanged:(UnitsTypeView*) view  model:(PriceDataModel *)priceModel
+//- (void) NotifyUnitsTypeChanged:(BusinessTypeView*) view  model:(PriceDataModel *)priceModel
+- (void) NotifyBusinessTypeChanged:(BusinessTypeView*) typeView  model:(PriceDataModel *)priceModel
 {
     [self setNurseListInfo:_nurseData];
 }

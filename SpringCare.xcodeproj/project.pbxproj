@@ -95,6 +95,7 @@
 		86B0F7D51B256822004D7B29 /* HealthRecordTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0F7D41B256822004D7B29 /* HealthRecordTableCell.m */; };
 		86B0F7D81B2583D9004D7B29 /* HealthRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0F7D71B2583D9004D7B29 /* HealthRecordModel.m */; };
 		86B0F7DB1B2583FA004D7B29 /* HealthRecordItemDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0F7DA1B2583F9004D7B29 /* HealthRecordItemDataModel.m */; };
+		86B0F7DE1B26BB8D004D7B29 /* UnitsButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0F7DD1B26BB8D004D7B29 /* UnitsButton.m */; };
 		86B3EE7F1AF9C860005E29B1 /* InputRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */; };
 		86B461AA1AF5CB4E00B1B66D /* UIView+MGBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461A91AF5CB4E00B1B66D /* UIView+MGBadgeView.m */; };
 		86B461B91AF7A4E300B1B66D /* ProjectDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461B81AF7A4E300B1B66D /* ProjectDefine.m */; };
@@ -537,6 +538,8 @@
 		86B0F7D71B2583D9004D7B29 /* HealthRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthRecordModel.m; sourceTree = "<group>"; };
 		86B0F7D91B2583F9004D7B29 /* HealthRecordItemDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthRecordItemDataModel.h; sourceTree = "<group>"; };
 		86B0F7DA1B2583F9004D7B29 /* HealthRecordItemDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthRecordItemDataModel.m; sourceTree = "<group>"; };
+		86B0F7DC1B26BB8D004D7B29 /* UnitsButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitsButton.h; sourceTree = "<group>"; };
+		86B0F7DD1B26BB8D004D7B29 /* UnitsButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsButton.m; sourceTree = "<group>"; };
 		86B3EE7D1AF9C860005E29B1 /* InputRecommendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputRecommendVC.h; sourceTree = "<group>"; };
 		86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputRecommendVC.m; sourceTree = "<group>"; };
 		86B461A81AF5CB4E00B1B66D /* UIView+MGBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MGBadgeView.h"; sourceTree = "<group>"; };
@@ -1165,6 +1168,8 @@
 				86B8E5E61AD8C48F00A5139E /* UnitsTypeView.m */,
 				868B23991ADE5379003AAD2A /* LCPickView.h */,
 				868B239A1ADE5379003AAD2A /* LCPickView.m */,
+				86B0F7DC1B26BB8D004D7B29 /* UnitsButton.h */,
+				86B0F7DD1B26BB8D004D7B29 /* UnitsButton.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2188,6 +2193,7 @@
 				868B239B1ADE5379003AAD2A /* LCPickView.m in Sources */,
 				86C095521ACE6D0E00371BF3 /* CityListSelectVC.m in Sources */,
 				86B8E5601AD4E8A200A5139E /* AttentionSelectView.m in Sources */,
+				86B0F7DE1B26BB8D004D7B29 /* UnitsButton.m in Sources */,
 				86B8E5A81AD690AB00A5139E /* OrderListModel.m in Sources */,
 				86C0954A1ACE59B300371BF3 /* DOPDropDownMenu.m in Sources */,
 				865C85911ACCEDFF006ABCA4 /* EscortTimeDataModel.m in Sources */,

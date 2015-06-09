@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "DateCountSelectView.h"
-#import "UnitsTypeView.h"
+//#import "UnitsTypeView.h"
 #import "ZHPickView.h"
 #import "FamilyProductModel.h"
 #import "CouponsSelectView.h"
+#import "BusinessTypeView.h"
 
 @protocol PlaceOrderEditForProductCellDelegate <NSObject>
 
@@ -21,13 +22,13 @@
 
 @end
 
-@interface PlaceOrderEditForProductCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, UnitsTypeViewDelegate, DateCountSelectViewDelegate>
+@interface PlaceOrderEditForProductCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, BusinessTypeViewDelegate, DateCountSelectViewDelegate>
 {
     UITableView *_tableview;
     UILabel *line;
     UILabel *sepline;
     
-    UnitsTypeView *businessType;//24或12小时
+    BusinessTypeView *businessType;//24或12小时
     DateCountSelectView *dateSelectView;//多少天
     UILabel *lbUnitPrice;//单价
     UILabel *lbAmountPrice;//总价
@@ -44,7 +45,7 @@
 
 @property (nonatomic, assign) id<PlaceOrderEditForProductCellDelegate> delegate;
 @property (nonatomic, strong) UITableView *_tableview;
-@property (nonatomic, strong) UnitsTypeView *businessType;
+@property (nonatomic, strong) BusinessTypeView *businessType;
 @property (nonatomic, strong) DateCountSelectView *dateSelectView;
 @property (nonatomic, strong) CouponsSelectView *couponsView;
 @property (nonatomic, strong) UILabel *lbUnits;

@@ -8,6 +8,7 @@
 
 #import "UnitsTypeView.h"
 #import "define.h"
+#import "UnitsButton.h"
 
 @implementation UnitsTypeView
 @synthesize delegate;
@@ -37,17 +38,26 @@
     }
     [btnArray removeAllObjects];
     
+    NSString *text = @"";
     for (int i = 0; i < [_priceList count]; i++) {
         PriceDataModel *model = [_priceList objectAtIndex:i];
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectZero];
+        text = [text stringByAppendingString:[Util getSubStrings:model.name]];
+    }
+    
+    CGFloat s = 0;
+    CGSize size = [text sizeWithFont:_FONT(14)];
+    if(size.width + [_priceList count] * 10 < 120){
+        s = (120 - (size.width + [_priceList count] * 10));
+    }
+    
+    for (int i = 0; i < [_priceList count]; i++) {
+        PriceDataModel *model = [_priceList objectAtIndex:i];
+        UnitsButton *btn = [[UnitsButton alloc] initWithFrame:CGRectZero];
         [self addSubview:btn];
         btn.translatesAutoresizingMaskIntoConstraints = NO;
         btn.titleLabel.font = _FONT(14);
         btn.titleLabel.adjustsFontSizeToFitWidth = NO;
-//        [btn setTitle:model.name forState:UIControlStateNormal];
-        [btn setTitle:[Util getSubStrings:model.name] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [btn setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
+        btn.lbTitle.text = [Util getSubStrings:model.name];
         [btn addTarget:self action:@selector(doBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         UIImage *image = [Util imageWithColor:[UIColor whiteColor] size:CGSizeMake(5, 5)];
@@ -59,6 +69,12 @@
         btn.layer.borderColor = _COLOR(0x99, 0x99, 0x99).CGColor;
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[btn]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)]];
+        NSString *format = [NSString stringWithFormat:@"H:|->=0-[btn(>=42)]->=0-|"];
+        if(s > 0){
+            CGSize size = [[Util getSubStrings:model.name] sizeWithFont:_FONT(14)];
+            format = [NSString stringWithFormat:@"H:|->=0-[btn(>=%f)]->=0-|", size.width + 10 + s];
+        }
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)]];
         
         if([_priceList count] > 1){
             UIButton *preBtn = [btnArray lastObject];
@@ -66,7 +82,6 @@
             if(i == 0){
                 [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
             }else{
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:preBtn attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
                 [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:preBtn attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
                 if( i == [_priceList count] - 1){
                     [self addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
