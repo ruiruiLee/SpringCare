@@ -131,7 +131,7 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbAmountPrice]-20-|" options:0 metrics:nil views:views]];
 //        hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessType(32)]-10-[dateSelectView(32)]-14-[sepline(1)]-10-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
-         hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[dateSelectView(32)]-10-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-6-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+         hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[dateSelectView(32)]-10-[lbUnitPrice(14)]-6-[lbAmountPrice(22)]-6-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
         
         [self.contentView addConstraints:hConstraints];
 //        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
@@ -282,13 +282,13 @@
     NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, _couponsView);
     [self.contentView removeConstraints:hConstraints];
     if([model.priceList count] > 1){
-        hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessType(32)]-10-[dateSelectView(32)]-10-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-6-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessType(32)]-10-[dateSelectView(32)]-10-[lbUnitPrice(14)]-6-[lbAmountPrice(22)]-6-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:hConstraints];
         businessType.hidden = NO;
         lbOrderUnit.hidden = NO;
     }
     else{
-        hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[dateSelectView(32)]-10-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-6-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[dateSelectView(32)]-10-[lbUnitPrice(14)]-6-[lbAmountPrice(22)]-6-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
         [self.contentView addConstraints:hConstraints];
         businessType.hidden = YES;
         lbOrderUnit.hidden = YES;
