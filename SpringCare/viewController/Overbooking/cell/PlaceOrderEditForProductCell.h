@@ -24,8 +24,8 @@
 @interface PlaceOrderEditForProductCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, BusinessTypeViewDelegate, DateCountSelectViewDelegate>
 {
     UITableView *_tableview;
-    UILabel *line;
-    UILabel *sepline;
+    //UILabel *line;
+   // UILabel *sepline;
     
     BusinessTypeView *businessType;//24或12小时
     DateCountSelectView *dateSelectView;//多少天
