@@ -85,7 +85,7 @@
     
     if([_productModel.priceList count] == 1){
         cell.businessType.hidden = YES;
-        cell.lbUnits.hidden = NO;
+        cell.lbUnits.hidden = YES;
         cell.lbUnits.text = [NSString stringWithFormat:@"单位：%@", ((PriceDataModel*)[_productModel.priceList objectAtIndex:0]).name];
     }else{
         cell.businessType.hidden = NO;
@@ -333,7 +333,10 @@
     if (indexPath.section == 0)
     {
 //        if([UserModel sharedUserInfo].couponsCount > 0)
-            return 245.f;
+        if([_productModel.priceList count] > 1)
+            return 256.f + 32.f;
+        else
+            return 256.f;
 //        else
 //            return 200.f;
     }

@@ -16,6 +16,7 @@
 #import "EditCellTypeData.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "EGORefreshTableHeaderView.h"
+#import "HealthRecordVC.h"
 
 @interface UserAttentionVC ()<EditUserInfoVCDelegate, EGORefreshTableHeaderDelegate>
 {
@@ -261,6 +262,7 @@
     {
         if(self.attentionTableCell == nil){
             self.attentionTableCell = [[UserAttentionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+            self.attentionTableCell.delegate = self;
         }
         UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
         [self.attentionTableCell SetContentData:model];
@@ -295,6 +297,7 @@
             cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
             cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
             cell.parentController= self;
+            cell.delegate = self;
         }
         UserAttentionModel *model = [_attentionData objectAtIndex:indexPath.row];
         [cell SetContentData:model];
@@ -577,6 +580,12 @@
 {
     [super touchesBegan:touches withEvent:event];
     [_searchBar resignFirstResponder];
+}
+
+- (void)NotifyHealthRecordButtonClickedWithModel:(UserAttentionModel *)model
+{
+    HealthRecordVC *vc = [[HealthRecordVC alloc] initWithLoverId:model.userid];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

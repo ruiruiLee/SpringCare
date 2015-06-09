@@ -67,6 +67,22 @@
         _lbUnits.backgroundColor = [UIColor clearColor];
         _lbUnits.hidden = YES;
         
+        lbOrderUnit = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:lbOrderUnit];
+        lbOrderUnit.translatesAutoresizingMaskIntoConstraints = NO;
+        lbOrderUnit.textColor = _COLOR(0x99, 0x99, 0x99);
+        lbOrderUnit.font = _FONT(14);
+        lbOrderUnit.backgroundColor = [UIColor clearColor];
+        lbOrderUnit.text = @"单位：";
+        
+        lbNumber = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:lbNumber];
+        lbNumber.translatesAutoresizingMaskIntoConstraints = NO;
+        lbNumber.textColor = _COLOR(0x99, 0x99, 0x99);
+        lbNumber.font = _FONT(14);
+        lbNumber.backgroundColor = [UIColor clearColor];
+        lbNumber.text = @"数量：";
+        
         lbAmountPrice = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:lbAmountPrice];
         lbAmountPrice.translatesAutoresizingMaskIntoConstraints = NO;
@@ -85,6 +101,11 @@
         line.translatesAutoresizingMaskIntoConstraints = NO;
         line.backgroundColor = SeparatorLineColor;
         
+        sepline = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:sepline];
+        sepline.translatesAutoresizingMaskIntoConstraints = NO;
+        sepline.backgroundColor = SeparatorLineColor;
+        
         _couponsView = [[CouponsSelectView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_couponsView];
         _couponsView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -101,18 +122,24 @@
         _tableview.scrollEnabled = NO;
         
         
-        NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView);
+        NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView, lbNumber, lbOrderUnit, sepline);
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessType(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
+//        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessType(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbOrderUnit(42)]-0-[businessType]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbNumber(42)]-0-[dateSelectView(130)]->=20-|" options:0 metrics:nil views:views]];
+        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]-20-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbAmountPrice]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+        hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessType(32)]-10-[dateSelectView(32)]-14-[sepline(1)]-10-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        [self.contentView addConstraints:hConstraints];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[sepline]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sepline)]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_tableview]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_couponsView]-20-|" options:0 metrics:nil views:views]];
         
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:dateSelectView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        
+//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:dateSelectView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:lbOrderUnit attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:lbNumber attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dateSelectView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
@@ -248,6 +275,22 @@
     lbAmountPrice.attributedText = string;
     
     _couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, line, _couponsView, sepline);
+    [self.contentView removeConstraints:hConstraints];
+    if([model.priceList count] > 1){
+        hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[businessType(32)]-10-[dateSelectView(32)]-14-[sepline(1)]-10-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        [self.contentView addConstraints:hConstraints];
+        businessType.hidden = NO;
+        lbOrderUnit.hidden = NO;
+    }
+    else{
+        hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[dateSelectView(32)]-14-[sepline(1)]-10-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        [self.contentView addConstraints:hConstraints];
+        businessType.hidden = YES;
+        lbOrderUnit.hidden = YES;
+    }
+
     
     if(delegate && [delegate respondsToSelector:@selector(NotifyValueChanged:)]){
         [delegate NotifyValueChanged:uPrice * count];

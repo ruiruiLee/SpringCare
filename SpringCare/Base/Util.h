@@ -82,7 +82,7 @@ typedef enum : NSUInteger {
 /**
  * 获取时间的显示字符,精确到小时
  */
-
++ (NSDate*) getDateFromString:(NSString*) string;
 + (NSString*) StringFromDate:(NSDate*) date;
 + (NSDate*) convertDateFromString:(NSString*)string;
 + (NSArray*) convertTimeFromStringDate:(NSString*) stringdate;
@@ -140,5 +140,7 @@ typedef enum : NSUInteger {
 + (void) StoreCity:(NSString *)city;
 + (void) DeleteCity;
 + (NSString *) GetStoreCity;
+
++ (NSString *) getSubStrings:(NSString *)string;
 
 @end

@@ -47,7 +47,9 @@
         [self addSubview:btn];
         btn.translatesAutoresizingMaskIntoConstraints = NO;
         btn.titleLabel.font = _FONT(15);
-        [btn setTitle:model.name forState:UIControlStateNormal];
+        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        [btn setTitle:model.name forState:UIControlStateNormal];
+        [btn setTitle:[Util getSubStrings:model.name] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [btn setTitleColor: _COLOR(0x99, 0x99, 0x99) forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(doBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -57,7 +59,7 @@
         [btn setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
         [btn setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateSelected];
         btn.tag = 1000 + i;
-        btn.layer.borderWidth = 1;
+        btn.layer.borderWidth = 0.6;
         btn.layer.borderColor = _COLOR(0x99, 0x99, 0x99).CGColor;
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[btn]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)]];
@@ -105,5 +107,6 @@
         [delegate NotifyBusinessTypeChanged:self model:model];
     }
 }
+
 
 @end

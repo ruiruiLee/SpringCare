@@ -348,7 +348,7 @@
     [cell.businessType setPriseList:_nurseModel.priceList];
     if([_nurseModel.priceList count] == 1){
         cell.businessType.hidden = YES;
-        cell.lbUnits.hidden = NO;
+        cell.lbUnits.hidden = YES;
         cell.lbUnits.text = [NSString stringWithFormat:@"单位：%@", ((PriceDataModel*)[_nurseModel.priceList objectAtIndex:0]).name];
     }else{
         cell.businessType.hidden = NO;
@@ -473,7 +473,11 @@
     else if (indexPath.section == 1)
     {
 //        if([UserModel sharedUserInfo].couponsCount > 0)
-            return 290.f;
+        
+        if([_nurseModel.priceList count] > 1)
+            return 301.f + 34.f;
+        else
+            return 301.f;
 //        else
 //            return 248.f;
     }

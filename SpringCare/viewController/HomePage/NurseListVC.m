@@ -34,6 +34,9 @@
         _SearchConditionStr = @"";
         DataList = [[NSMutableArray alloc] init];
         [cfAppDelegate setDefaultProductId:pid] ;
+        
+        showAllCare = @"true";
+        [parmas setObject:showAllCare forKey:@"showAllCare"];
     }
     return self;
 }

@@ -9,7 +9,7 @@
 #import "LCBaseVC.h"
 #import "UserAttentionTableCell.h"
 
-@interface UserAttentionVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate>
+@interface UserAttentionVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate, UserAttentionTableCellDelegate>
 {
     UITableView *_tableview;
     

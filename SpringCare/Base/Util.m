@@ -483,4 +483,15 @@
     return [ud objectForKey:@"defaultCity"];
 }
 
++ (NSString *) getSubStrings:(NSString *)string
+{
+    NSRange range = [string rangeOfString:@"/"];
+    if(range.length > 0){
+        return [string substringToIndex:range.location];
+    }
+    else
+        return string;
+}
+
+
 @end

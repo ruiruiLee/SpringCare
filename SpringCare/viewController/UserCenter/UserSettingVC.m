@@ -15,6 +15,7 @@
 #import "HomePageVC.h"
 #import "InputRecommendVC.h"
 #import "QuickmarkVC.h"
+#import "FeedBackVC.h"
 
 @interface UserSettingVC ()
 
@@ -117,7 +118,7 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
-        return 3;
+        return 4;
     else
         return 2;
 }
@@ -162,7 +163,11 @@
            // 给app好评
             NSString *url = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",KEY_APPLE_ID];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-        }else{
+        }else if (indexPath.row == 2){
+            FeedBackVC *vc = [[FeedBackVC alloc] initWithNibName:nil bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else{
             InputRecommendVC *vc = [[InputRecommendVC alloc] initWithNibName:nil bundle:nil];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -209,7 +214,13 @@
             cell._lbTitle.text = @"给我们好评";
             cell._lbContent.hidden = YES;
             cell._imgFold.hidden = NO;
-        }else{
+        }
+        else if (indexPath.row == 2){
+            cell._lbTitle.text = @"意见反馈";
+            cell._lbContent.hidden = YES;
+            cell._imgFold.hidden = NO;
+        }
+        else{
             cell._lbTitle.text = @"邀请码";
             cell._lbContent.hidden = YES;
             cell._imgFold.hidden = NO;
