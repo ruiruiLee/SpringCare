@@ -11,14 +11,13 @@
 
 @interface UserApplyAttentionTableCell : UITableViewCell
 {
-   // UIImageView *_photoImage;
-     UIButton *_btnphotoImg;
+    UIView *_backgroundView;
+    UIButton *_btnphotoImg;
     UILabel *_lbUserName;
     UILabel *_lbActionName;
     UIButton *_btnAccept;
     UIImageView *_imgExplaction;
     UILabel *_lbExplaction;
-    UILabel *_line;
     
     UserRequestAcctionModel *requestModel;
 }
