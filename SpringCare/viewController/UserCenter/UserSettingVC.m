@@ -49,7 +49,7 @@
     _lbVersion.textColor = _COLOR(0x99, 0x99, 0x99);
     _lbVersion.font = _FONT(12);
     _lbVersion.textAlignment = NSTextAlignmentCenter;
-    _lbVersion.text = [NSString stringWithFormat:@"ios端当前版本: V %@",[Util getCurrentVersion]];
+    _lbVersion.text = [NSString stringWithFormat:@"iphone版: V %@",[Util getCurrentVersion]];
     
     UIButton *btnCancel = [[UIButton alloc] initWithFrame:CGRectZero];
     btnCancel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -100,7 +100,7 @@
     [currentInstallation saveInBackground];
     [AVUser logOut];  //清除缓存用户对象
     [UserModel sharedUserInfo].userId = nil;
-    [Util DeleteCityId];
+    [Util DeleteCity];
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:Notify_Register_Logout object:nil];
 }

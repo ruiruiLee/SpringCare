@@ -12,7 +12,7 @@
 #import "CityListSelectVC.h"
 
 
-@interface HomePageVC : MainBaseVC<CityListSelectVCDelegate>
+@interface HomePageVC : MainBaseVC
 {
     AdScrollView *_banner;
     
@@ -35,8 +35,6 @@
     NSString *promiseUrl;
     
     float oldY;
-    
-    BOOL isLoaded;
 }
 
 @property(nonatomic,strong) NSArray *cityArr;

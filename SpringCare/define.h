@@ -15,7 +15,7 @@
 #import "AppDelegate.h"
 #import "LCNetWorkBase.h"
 
-#define NOTIFY_LOCATION_GAINED  @"NOTIFY_LOCATION_GAINED"
+
 #define NOTIFY_PICKVIEW_HIDDEN @"NOTIFY_PICKVIEW_HIDDEN"
 #define Notify_Resign_First_Responder @"Notify_Resign_First_Responder"
 #define Notify_Register_Logout @"Notify_Register_Logout"
@@ -89,7 +89,7 @@
 
 //首页海报以及产品图片压缩比例大小
 #define PostersImage(imageUrl) FormatImage(imageUrl,500,300)
-#define PostersImage4s(imageUrl) FormatImage(imageUrl,320,200)
+#define PostersImage4s(imageUrl) FormatImage(imageUrl,300,200)
 #define ProductImage(imageUrl) FormatImage(imageUrl,400,200)
 
 //应用里头像处理尺寸

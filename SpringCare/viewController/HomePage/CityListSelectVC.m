@@ -13,7 +13,6 @@
 #import "AppDelegate.h"
 
 @implementation CityListSelectVC
-@synthesize delegate;
 
 - (void) dealloc
 {
@@ -28,9 +27,6 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCurrentCityGained:) name:NOTIFY_LOCATION_GAINED object:nil];
-    
     self.NavigationBar.Title = @"城市列表";
     [self.NavigationBar.btnLeft setImage:[UIImage imageNamed:@"nav_shut"] forState:UIControlStateNormal];
     
@@ -101,9 +97,16 @@
         }
     }
     else{
+        cell.imgSelectFlag.hidden=YES;
         cell.CityModel= [[CityDataModel getCityData] objectAtIndex:indexPath.row];
         cell.lbTitle.text =  cell.CityModel.city_name;
-        cell.imgSelectFlag.hidden=YES;
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        if([self.SelectCity isEqual: cell.CityModel.city_name]){
+         [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+//           cell.imgSelectFlag.hidden=NO;
+//           cell.imgSelectFlag.image=ThemeImage(@"paytypeselected");
+        }
+        
     }
     return cell;
 }
@@ -125,7 +128,7 @@
         lbTitle.text = @"当前定位城市";
     }
     else{
-        lbTitle.text = @"选择热门城市";
+        lbTitle.text = @"选择服务城市";
     }
     return view;
 }
@@ -146,23 +149,19 @@
          }
          else{
               [cfAppDelegate setCurrentCityModel:model];
-             [Util StoreCityId:model.city_id];
-               [delegate NotifyCitySelectedWithData:model.city_name];
+              [Util StoreCity:model.city_name];
+              //[delegate NotifyCitySelectedWithData:model.city_name];
              [self.navigationController dismissViewControllerAnimated:YES completion:nil];
          }
      }
      else{
            CityDataModel *model = [[CityDataModel getCityData] objectAtIndex:indexPath.row];
            [cfAppDelegate setCurrentCityModel:model];
-           [Util StoreCityId:model.city_id];
-           [delegate NotifyCitySelectedWithData:model.city_name];
+           [Util StoreCity:model.city_name];
+           //[delegate NotifyCitySelectedWithData:model.city_name];
            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
      }
    }
 
-- (void) BeginLocation
-{
-    
-}
 
 @end
