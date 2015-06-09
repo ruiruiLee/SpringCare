@@ -30,7 +30,6 @@
     if(num == 0)
     {
         self.totals = INT_MAX;
-        [self.recordList removeAllObjects];
     }
 }
 
@@ -57,7 +56,8 @@
                     HealthRecordItemDataModel *model = [HealthRecordItemDataModel modelFromDictionary:[rows objectAtIndex:i]];
                     [result addObject:model];
                 }
-                
+                if(pages == 0)
+                    [weakSelf.recordList removeAllObjects];
                 [weakSelf.recordList addObjectsFromArray:result];
                 if(block){
                     block( 1, result);

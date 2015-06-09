@@ -43,18 +43,7 @@
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableview)]];
     
     if(_model){
-        __weak HealthRecordVC *weakSelf = self;
-        [_model LoadRecordListWithLoverId:_loverId block:^(int code, id content) {
-            
-            if([_model.recordList count] == 0)
-            {
-                [weakSelf.tableview displayEmpityImageView:ThemeImage(@"norecordbg")];
-            }else
-            {
-                [weakSelf.tableview removeBackgroudImgView];
-            }
-            
-            [weakSelf.tableview reloadData];
+        [self LoadRecordListWithLoverId:_loverId block:^(int code) {
             
         }];
     }
@@ -104,20 +93,9 @@
 {
     _model.pages = 0;
     __weak HealthRecordVC *weakSelf = self;
-    [_model LoadRecordListWithLoverId:_loverId block:^(int code, id content) {
-        
-        if([_model.recordList count] == 0)
-        {
-            [weakSelf.tableview displayEmpityImageView:ThemeImage(@"norecordbg")];
-        }else
-        {
-            [weakSelf.tableview removeBackgroudImgView];
-        }
-        
-        [weakSelf.tableview reloadData];
+    [self LoadRecordListWithLoverId:_loverId block:^(int code) {
         [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
-    
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
@@ -125,17 +103,7 @@
     _model.pages ++;
     
     __weak HealthRecordVC *weakSelf = self;
-    [_model LoadRecordListWithLoverId:_loverId block:^(int code, id content) {
-        
-        if([_model.recordList count] == 0)
-        {
-            [weakSelf.tableview displayEmpityImageView:ThemeImage(@"norecordbg")];
-        }else
-        {
-            [weakSelf.tableview removeBackgroudImgView];
-        }
-        
-        [weakSelf.tableview reloadData];
+    [self LoadRecordListWithLoverId:_loverId block:^(int code) {
         [weakSelf performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:0.2];
     }];
 }
@@ -220,6 +188,27 @@
     }
     
     return view;
+}
+
+- (void) LoadRecordListWithLoverId:(NSString *)loverId block:(block) block
+{
+    __weak HealthRecordVC *weakSelf = self;
+    [_model LoadRecordListWithLoverId:_loverId block:^(int code, id content) {
+        
+        [weakSelf.tableview reloadData];
+        
+        if([_model.recordList count] == 0)
+        {
+            [weakSelf.tableview displayEmpityImageView:ThemeImage(@"norecordbg")];
+        }else
+        {
+            [weakSelf.tableview removeBackgroudImgView];
+        }
+        
+        if(block){
+            block(1);
+        }
+    }];
 }
 
 @end
