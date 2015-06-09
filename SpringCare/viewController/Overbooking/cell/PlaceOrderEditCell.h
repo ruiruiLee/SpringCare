@@ -38,11 +38,14 @@
 {
     UITableView *_tableview;
     UILabel *line;
+    UILabel *sepline;
     
     BusinessTypeView *businessType;//24或12小时;
     DateCountSelectView *dateSelectView;//多少天
     UILabel *lbUnitPrice;//单价
     UILabel *lbAmountPrice;//总价
+    UILabel *lbNumber;
+    UILabel *lbOrderUnit;
     
     ZHPickView *_pickview;
     

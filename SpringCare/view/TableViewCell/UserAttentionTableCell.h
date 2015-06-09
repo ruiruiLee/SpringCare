@@ -12,6 +12,12 @@
 
 @class UserAttentionVC;
 
+@protocol UserAttentionTableCellDelegate <NSObject>
+
+- (void)NotifyHealthRecordButtonClickedWithModel:(UserAttentionModel *)model;
+
+@end
+
 @interface UserAttentionTableCell : UITableViewCell<UIActionSheetDelegate>
 {
    // UIImageView *_photoImage;
@@ -27,12 +33,16 @@
     
     UIView *_sview1;
     UIView *_sview2;
+    
+    UIButton *_btnHealthRecord;
 }
 
 //@property (assign, nonatomic) id<ChangHeaderPhotoDelegate> delegate;
 @property (nonatomic, retain) UIButton *btnphotoImg;
-@property (nonatomic, retain) UserAttentionVC *parentController;
+@property (nonatomic, assign) UserAttentionVC *parentController;
 @property (nonatomic, retain) UserAttentionModel *model;
+@property (nonatomic, assign) id<UserAttentionTableCellDelegate> delegate;
+
 - (void) SetContentData:(UserAttentionModel*) data;
 
 @end

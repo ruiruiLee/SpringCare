@@ -91,6 +91,10 @@
 		868B23AC1AE1287E003AAD2A /* MyOrderdataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B23AB1AE1287E003AAD2A /* MyOrderdataModel.m */; };
 		869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 869C9EE61AD404F10090182E /* EditUserInfoVC.m */; };
 		86B0994D1ACC07430005BC98 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0994C1ACC07430005BC98 /* LoginVC.m */; };
+		86B0F7D21B2562F8004D7B29 /* HealthRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0F7D11B2562F8004D7B29 /* HealthRecordVC.m */; };
+		86B0F7D51B256822004D7B29 /* HealthRecordTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0F7D41B256822004D7B29 /* HealthRecordTableCell.m */; };
+		86B0F7D81B2583D9004D7B29 /* HealthRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0F7D71B2583D9004D7B29 /* HealthRecordModel.m */; };
+		86B0F7DB1B2583FA004D7B29 /* HealthRecordItemDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B0F7DA1B2583F9004D7B29 /* HealthRecordItemDataModel.m */; };
 		86B3EE7F1AF9C860005E29B1 /* InputRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */; };
 		86B461AA1AF5CB4E00B1B66D /* UIView+MGBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461A91AF5CB4E00B1B66D /* UIView+MGBadgeView.m */; };
 		86B461B91AF7A4E300B1B66D /* ProjectDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B461B81AF7A4E300B1B66D /* ProjectDefine.m */; };
@@ -525,6 +529,14 @@
 		869C9EE61AD404F10090182E /* EditUserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoVC.m; sourceTree = "<group>"; };
 		86B0994B1ACC07430005BC98 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		86B0994C1ACC07430005BC98 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		86B0F7D01B2562F8004D7B29 /* HealthRecordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthRecordVC.h; sourceTree = "<group>"; };
+		86B0F7D11B2562F8004D7B29 /* HealthRecordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthRecordVC.m; sourceTree = "<group>"; };
+		86B0F7D31B256822004D7B29 /* HealthRecordTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthRecordTableCell.h; sourceTree = "<group>"; };
+		86B0F7D41B256822004D7B29 /* HealthRecordTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthRecordTableCell.m; sourceTree = "<group>"; };
+		86B0F7D61B2583D9004D7B29 /* HealthRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthRecordModel.h; sourceTree = "<group>"; };
+		86B0F7D71B2583D9004D7B29 /* HealthRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthRecordModel.m; sourceTree = "<group>"; };
+		86B0F7D91B2583F9004D7B29 /* HealthRecordItemDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthRecordItemDataModel.h; sourceTree = "<group>"; };
+		86B0F7DA1B2583F9004D7B29 /* HealthRecordItemDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthRecordItemDataModel.m; sourceTree = "<group>"; };
 		86B3EE7D1AF9C860005E29B1 /* InputRecommendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputRecommendVC.h; sourceTree = "<group>"; };
 		86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputRecommendVC.m; sourceTree = "<group>"; };
 		86B461A81AF5CB4E00B1B66D /* UIView+MGBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MGBadgeView.h"; sourceTree = "<group>"; };
@@ -921,6 +933,10 @@
 				86B8E5A71AD690AB00A5139E /* OrderListModel.m */,
 				863AC1681B15611600C06D96 /* CouponsDataModel.h */,
 				863AC1691B15611600C06D96 /* CouponsDataModel.m */,
+				86B0F7D61B2583D9004D7B29 /* HealthRecordModel.h */,
+				86B0F7D71B2583D9004D7B29 /* HealthRecordModel.m */,
+				86B0F7D91B2583F9004D7B29 /* HealthRecordItemDataModel.h */,
+				86B0F7DA1B2583F9004D7B29 /* HealthRecordItemDataModel.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -1243,6 +1259,8 @@
 				86B3EE7E1AF9C860005E29B1 /* InputRecommendVC.m */,
 				8652F0CC1AFF1A81002C6215 /* QuickmarkVC.h */,
 				8652F0CD1AFF1A81002C6215 /* QuickmarkVC.m */,
+				86B0F7D01B2562F8004D7B29 /* HealthRecordVC.h */,
+				86B0F7D11B2562F8004D7B29 /* HealthRecordVC.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -1270,6 +1288,8 @@
 				86B8E6111AD95B2A00A5139E /* ProductInfoCell.m */,
 				863AC16B1B158FD200C06D96 /* CouponsListCell.h */,
 				863AC16C1B158FD200C06D96 /* CouponsListCell.m */,
+				86B0F7D31B256822004D7B29 /* HealthRecordTableCell.h */,
+				86B0F7D41B256822004D7B29 /* HealthRecordTableCell.m */,
 			);
 			name = TableViewCell;
 			path = ../view/TableViewCell;
@@ -2132,7 +2152,9 @@
 				868B23A11ADF5BC7003AAD2A /* EvaluateListCell.m in Sources */,
 				8642C94F1ABFF53C00251921 /* UIView+WebCacheOperation.m in Sources */,
 				CFBC518F1ADBAAAC004FB8F3 /* FaceBoardView.m in Sources */,
+				86B0F7D21B2562F8004D7B29 /* HealthRecordVC.m in Sources */,
 				CFAFA3B21ABFEC8C0020E774 /* AppDelegate.m in Sources */,
+				86B0F7DB1B2583FA004D7B29 /* HealthRecordItemDataModel.m in Sources */,
 				8642C95E1ABFF55800251921 /* NurseListMainVC.m in Sources */,
 				CFBC52001ADCC980004FB8F3 /* wav.mm in Sources */,
 				8642C94E1ABFF53C00251921 /* UIImageView+WebCache.m in Sources */,
@@ -2147,6 +2169,7 @@
 				865C85941ACCEDFF006ABCA4 /* EscortTimeVC.m in Sources */,
 				868B23AC1AE1287E003AAD2A /* MyOrderdataModel.m in Sources */,
 				8642C93A1ABFF53C00251921 /* SBJsonStreamWriter.m in Sources */,
+				86B0F7D81B2583D9004D7B29 /* HealthRecordModel.m in Sources */,
 				86B8E58F1AD6188700A5139E /* BusinessTypeView.m in Sources */,
 				86B8E6091AD9027D00A5139E /* ZHPickView.m in Sources */,
 				865C859A1ACCEDFF006ABCA4 /* NSImageUtil.m in Sources */,
@@ -2237,6 +2260,7 @@
 				86B8E5E71AD8C48F00A5139E /* UnitsTypeView.m in Sources */,
 				CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */,
 				8642C93B1ABFF53C00251921 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				86B0F7D51B256822004D7B29 /* HealthRecordTableCell.m in Sources */,
 				86B8E5701AD5056F00A5139E /* PlaceOrderVC.m in Sources */,
 				868B238B1ADBAF97003AAD2A /* CityDataModel.m in Sources */,
 				86C0955B1AD0DAF400371BF3 /* GradeInfoView.m in Sources */,
