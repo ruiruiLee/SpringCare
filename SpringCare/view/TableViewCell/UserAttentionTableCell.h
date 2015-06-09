@@ -20,12 +20,13 @@
 
 @interface UserAttentionTableCell : UITableViewCell<UIActionSheetDelegate>
 {
+    UIView *_backgroundView;
+    
     UIImageView * ImgSex;
     UILabel *_lbRelation;
     UILabel *_lbName;
     UIButton *_btnRing;
     UILabel *_Address;
-    UILabel *_line;
     NSString *phoneNum;
     UIImageView *_attentionLogo;
     
