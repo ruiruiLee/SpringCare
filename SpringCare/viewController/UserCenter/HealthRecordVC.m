@@ -39,7 +39,11 @@
     tableview.dataSource = self;
     tableview.pullDelegate = self;
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableview)]];
+    if(_IPHONE_OS_VERSION_UNDER_7_0){
+        [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(-10)-[tableview]-(-10)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableview)]];
+    }
+    else
+        [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableview)]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(tableview)]];
     
     if(_model){

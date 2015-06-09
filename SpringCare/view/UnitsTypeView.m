@@ -42,7 +42,7 @@
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectZero];
         [self addSubview:btn];
         btn.translatesAutoresizingMaskIntoConstraints = NO;
-        btn.titleLabel.font = _FONT(15);
+        btn.titleLabel.font = _FONT(14);
         btn.titleLabel.adjustsFontSizeToFitWidth = NO;
 //        [btn setTitle:model.name forState:UIControlStateNormal];
         [btn setTitle:[Util getSubStrings:model.name] forState:UIControlStateNormal];
