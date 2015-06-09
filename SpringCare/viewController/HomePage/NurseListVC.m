@@ -108,7 +108,6 @@
     [_model loadNurseDataWithPage:0 type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:_productId block:^(int code) {
             [DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
             [weakSelf.pullTableView reloadData];
-//            [weakSelf refreshTable];
             [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
         }];
         

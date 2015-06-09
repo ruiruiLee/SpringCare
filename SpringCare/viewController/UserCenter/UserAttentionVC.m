@@ -48,8 +48,8 @@
     _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 44)];
     _searchBar.placeholder = @"请输入要关注人手机号";
     _searchBar.keyboardType = UIKeyboardTypeNumberPad;
-    _attentionData = [UserAttentionModel GetMyAttentionArray];
-    _applyData = [UserRequestAcctionModel GetRequestAcctionArray];
+    _attentionData = [[UserAttentionModel GetMyAttentionArray] copy];
+    _applyData = [[UserRequestAcctionModel GetRequestAcctionArray] copy];
     
     [self initSubViews];
     
@@ -230,7 +230,7 @@
         if(section == 0)
             return 54;
         else
-            return 20;
+            return 0.001;
       }
     else
         return 54;
