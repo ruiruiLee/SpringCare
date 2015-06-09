@@ -121,17 +121,10 @@
     _tableview.dataSource = self;
     _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _tableview.translatesAutoresizingMaskIntoConstraints = NO;
-    _tableview.backgroundColor = TableBackGroundColor;
+    _tableview.backgroundColor = _COLOR(242, 242, 242);//TableBackGroundColor;
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-//    UITapGestureRecognizer* singleRecognizer;
-//    singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
-//    //点击的次数
-//    singleRecognizer.numberOfTapsRequired = 1; // 单击
-//    [_tableview addGestureRecognizer:singleRecognizer];
-    
     refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -100, ScreenWidth, 100)];
-    //    refreshView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     refreshView.delegate = self;
     [_tableview addSubview:refreshView];
     [refreshView refreshLastUpdatedDate];
