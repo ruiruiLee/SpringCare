@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "CouponsDataModel.h"
 
+typedef enum : NSUInteger {
+    EnumCouponCellTypeNormal,
+    EnumCouponCellTypeSelect,
+} EnumCouponCellType;
+
 @interface CouponsListCell : UITableViewCell
 {
     UIImageView *couponBg;
@@ -30,6 +35,7 @@
 }
 
 @property (nonatomic, strong) UILabel *lbName;
+@property (nonatomic, assign) EnumCouponCellType cellType;
 
 - (void) SetContentWithModel:(CouponsDataModel *)model;
 

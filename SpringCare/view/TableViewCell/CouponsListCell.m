@@ -15,6 +15,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self){
+        self.cellType = EnumCouponCellTypeNormal;
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
         
@@ -127,7 +128,7 @@
         [_leftBg addConstraint:[NSLayoutConstraint constraintWithItem:_view3 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_view4 attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
         
         [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:selectImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_rightBg attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:selectImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_lbEndTimeTitle attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+//        [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:selectImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_lbEndTimeTitle attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     }
     
     return self;
@@ -144,7 +145,7 @@
 - (void) SetContentWithModel:(CouponsDataModel *)model
 {
     [_rightBg removeConstraints:constraints];
-    NSDictionary *views = NSDictionaryOfVariableBindings(couponBg, _lbName, _lbRMB, _lbValue, _lbEndTimeTitle, _lbEndTime, _rightBg, _view1, _view2, _view3, _view4, _leftBg);
+    NSDictionary *views = NSDictionaryOfVariableBindings(couponBg, _lbName, _lbRMB, _lbValue, _lbEndTimeTitle, _lbEndTime, _rightBg, _view1, _view2, _view3, _view4, _leftBg, selectImageView);
     
     if(model.type == EnumCouponTypeNotUse){
         couponBg.image = ThemeImage(@"normalcouponsbg");
@@ -154,7 +155,12 @@
         _lbEndTimeTitle.textColor = Abled_Color;
         _lbEndTime.textColor = Abled_Color;
         
-        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[_lbEndTimeTitle]-0-[_lbEndTime]-0-[_view2]-0-|" options:0 metrics:nil views:views];
+        if(self.cellType == EnumCouponCellTypeNormal)
+            constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[_lbEndTimeTitle]-0-[_lbEndTime]-0-[_view2]-0-|" options:0 metrics:nil views:views];
+        else
+        {
+            constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[selectImageView]-0-[_lbEndTimeTitle]-0-[_lbEndTime]-0-[_view2]-0-|" options:0 metrics:nil views:views];
+        }
         
         _lbName.text = model.name;
         _lbValue.text = [NSString stringWithFormat:@"%d", model.amount];

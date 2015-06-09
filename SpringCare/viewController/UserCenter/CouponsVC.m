@@ -210,14 +210,17 @@
         cell = [[CouponsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     CouponsDataModel *model = [dataList objectAtIndex:indexPath.row];
-    [cell SetContentWithModel:model];
     if(self.type == EnumCouponsVCTypeSelect){
+        cell.cellType = EnumCouponCellTypeSelect;
         if(selectModel != nil
             && [selectModel.couponsId isEqualToString:model.couponsId])
             [cell SetCellSelected:YES];
         else
             [cell SetCellSelected:NO];
-    }
+    }else
+        cell.cellType = EnumCouponCellTypeNormal;
+    
+    [cell SetContentWithModel:model];
     
     return cell;
 }
