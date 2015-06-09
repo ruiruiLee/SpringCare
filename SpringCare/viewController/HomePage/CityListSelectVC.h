@@ -8,17 +8,17 @@
 
 #import "LCBaseVC.h"
 
-@protocol CityListSelectVCDelegate <NSObject>
-
-- (void) NotifyCitySelectedWithData:(NSString*) data;
-
-@end
+//@protocol CityListSelectVCDelegate <NSObject>
+//
+//- (void) NotifyCitySelectedWithData:(NSString*) data;
+//
+//@end
 
 @interface CityListSelectVC : LCBaseVC<UITableViewDelegate, UITableViewDataSource>
 {
     UITableView *_tableview;
 }
 
-@property (nonatomic, assign) id<CityListSelectVCDelegate> delegate;
+@property (nonatomic, copy) NSString* SelectCity;
 
 @end

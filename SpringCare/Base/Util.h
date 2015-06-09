@@ -137,8 +137,8 @@ typedef enum : NSUInteger {
 
 + (EnumCouponType) GetCouponsUseStatus:(NSInteger) status;
 
-+ (void) StoreCityId:(NSString *)cityId;
-+ (void) DeleteCityId;
-+ (NSString *) GetStoreCityId;
++ (void) StoreCity:(NSString *)city;
++ (void) DeleteCity;
++ (NSString *) GetStoreCity;
 
 @end

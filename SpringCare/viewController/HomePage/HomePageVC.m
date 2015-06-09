@@ -25,6 +25,8 @@
 - (void) dealloc
 {
     [cfAppDelegate removeObserver:self forKeyPath:@"currentCityModel"];
+    [self.view removeObserver:self forKeyPath:@"frame"];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -32,37 +34,16 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
-        
-        isLoaded = NO;
+
     }
     return self;
 }
 
-- (void) NotifyCurrentCityGained:(NSNotification *)notify
-{
-    if(isLoaded)
-        return;
-    isLoaded = YES;
-    CLLocation *newLocation = [notify.userInfo objectForKey:@"location"];
-    if(newLocation == nil)
-    {
-        [self loadData:nil];
-        return;
-    }
-    double _lat = newLocation.coordinate.latitude;
-    double _lon = newLocation.coordinate.longitude;
-    
-    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-    [parmas setObject:[NSNumber numberWithDouble:_lon] forKey:@"longitude"];
-    [parmas setObject:[NSNumber numberWithDouble:_lat] forKey:@"latitude"];
-    
-    [self loadData:parmas];
-}
 
-- (void) loadData:(NSDictionary *)dic
+- (void) loadData
 {
-    __weak HomePageVC *weakSelf = self;
-    [LCNetWorkBase requestWithMethod:@"api/index" Params:dic Completion:^(int code, id content) {
+   // __weak HomePageVC *weakSelf = self;
+    [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
                 [cfAppDelegate setHospital_product_id:[content objectForKey:@"hospitalProductId"]] ;
@@ -70,7 +51,7 @@
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
                 _banner.NewsmodelArray =  [NewsDataModel getNews];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
-                [weakSelf selectDefaultCity];
+               // [weakSelf selectDefaultCity];
                 NSArray *wordList = [content objectForKey:@"wordList"];
                 for (int i = 0; i < [wordList count]; i++) {
                     NSDictionary *dic = [wordList objectAtIndex:i];
@@ -85,37 +66,39 @@
     }];
 }
 
-- (void) selectDefaultCity
-{
-    NSArray *array = [CityDataModel getCityData];
-    if([Util GetStoreCityId] == nil){
-        for (int i = 0; i < [array count]; i++) {
-            CityDataModel *model = [array objectAtIndex:i];
-            if(model.isNear)
-            {
-                [cfAppDelegate setCurrentCityModel:model];
-                [Util StoreCityId:model.city_id];
-            }
-        }
-    }
-    else{
-        for (int i = 0; i < [array count]; i++) {
-            CityDataModel *model = [array objectAtIndex:i];
-            if([model.city_id isEqualToString:[Util GetStoreCityId]])
-            {
-                [cfAppDelegate setCurrentCityModel:model];
-                [Util StoreCityId:model.city_id];
-            }
-        }
-    }
-}
+//- (void) selectDefaultCity
+//{
+//    NSArray *array = [CityDataModel getCityData];
+//    if([Util GetStoreCityId] == nil){
+//        for (int i = 0; i < [array count]; i++) {
+//            CityDataModel *model = [array objectAtIndex:i];
+//            if(model.isNear)
+//            {
+//                [cfAppDelegate setCurrentCityModel:model];
+//                [Util StoreCityId:model.city_id];
+//            }
+//        }
+//    }
+//    else{
+//        for (int i = 0; i < [array count]; i++) {
+//            CityDataModel *model = [array objectAtIndex:i];
+//            if([model.city_id isEqualToString:[Util GetStoreCityId]])
+//            {
+//                [cfAppDelegate setCurrentCityModel:model];
+//                [Util StoreCityId:model.city_id];
+//            }
+//        }
+//    }
+//}
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if([keyPath isEqualToString:@"currentCityModel"])
     {
         [activityBtn setTitle:[cfAppDelegate currentCityModel].city_name forState:UIControlStateNormal];
-    }else{
+    }
+    if([keyPath isEqualToString:@"frame"])
+    {
         if(self.view.frame.size.height == 391){
             self.view.frame = CGRectMake(0, -20, ScreenWidth, 411);
         }else if (self.view.frame.size.height == 479)
@@ -128,13 +111,8 @@
     [super viewDidLoad];
     [cfAppDelegate addObserver:self forKeyPath:@"currentCityModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyCurrentCityGained:) name:NOTIFY_LOCATION_GAINED object:nil];
-    
-    if([Util GetStoreCityId] != nil){
-        [self loadData:nil];
-        isLoaded = YES;
-    }
-    
+    [self loadData];
+
     self.lbTitle.text = @"春风陪护";
     self.NavigationBar.alpha = 0.7f;
     
@@ -142,7 +120,13 @@
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
     [activityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [activityBtn setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
-    [activityBtn setTitle:@"正在定位.." forState:UIControlStateNormal];
+    if([Util GetStoreCity] == nil){
+          [activityBtn setTitle:@"正在定位.." forState:UIControlStateNormal];
+    }
+    else{
+        
+        [activityBtn setTitle:[Util GetStoreCity] forState:UIControlStateNormal];
+    }
     activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 78, 5, 0);
     activityBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 16);
     activityBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
@@ -176,7 +160,8 @@
 - (void) btnPressed:(UIButton*) sender
 {
     CityListSelectVC *vc = [[CityListSelectVC alloc] initWithNibName:nil bundle:nil];
-    vc.delegate = self;
+    vc.SelectCity= activityBtn.titleLabel.text;
+    //vc.delegate = self;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.navigationController presentViewController:nav animated:YES completion:^{
         
@@ -502,13 +487,13 @@
     }
 }
 
-#pragma CityListSelectVCDelegate
-
-- (void) NotifyCitySelectedWithData:(NSString*) data
-{
-    NSString *city = data;
-    [activityBtn setTitle:city forState:UIControlStateNormal];
-}
+//#pragma CityListSelectVCDelegate
+//
+//- (void) NotifyCitySelectedWithData:(NSString*) data
+//{
+//    NSString *city = data;
+//    [activityBtn setTitle:city forState:UIControlStateNormal];
+//}
 
 - (void) doBtnIntro:(UIButton*)sender
 {

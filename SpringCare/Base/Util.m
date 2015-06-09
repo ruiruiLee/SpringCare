@@ -463,24 +463,24 @@
     }
 }
 
-+ (void) StoreCityId:(NSString *)cityId
++ (void) StoreCity:(NSString *)city
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setObject:cityId forKey:@"defaultCityId"];
+    [ud setObject:city forKey:@"defaultCity"];
     [ud synchronize];
 }
 
-+ (void) DeleteCityId
++ (void) DeleteCity
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud removeObjectForKey:@"defaultCityId"];
+    [ud removeObjectForKey:@"defaultCity"];
     [ud synchronize];
 }
 
-+ (NSString *) GetStoreCityId
++ (NSString *) GetStoreCity
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    return [ud objectForKey:@"defaultCityId"];
+    return [ud objectForKey:@"defaultCity"];
 }
 
 @end

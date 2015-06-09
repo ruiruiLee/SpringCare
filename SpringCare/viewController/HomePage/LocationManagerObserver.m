@@ -48,10 +48,6 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
       [self.locationManager startUpdatingLocation];
-       // NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//        [self performSelector:@selector(hackLocationFix) withObject:nil afterDelay:0.1];
-//        });
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -59,36 +55,27 @@
     if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
         [Util showAlertMessage:@"定位服务已经关闭,请在设置［隐私］里打开!" ];
      }
+    [self displayCity];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"didChangeAuthorizationStatus----%@",error);
-    NSDictionary *userinfo = @{};
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOCATION_GAINED object:nil userInfo:userinfo];
-    [self saveLocation];
 }
 
--(void)saveLocation{
-    return;
-    CityDataModel *model ;
-    if (!_currentCity) {
-        model= [CityDataModel modelWithName:CityName];
-        [cfAppDelegate setCurrentCityModel:model] ;
-     }
-    else{
-        model = [CityDataModel modelWithName:_currentCity];
+-(void)displayCity{
+    if ([Util GetStoreCity]==nil) { // 没有存储
+        CityDataModel *model  = [CityDataModel modelWithName:_currentCity];
         if (model==nil) {
             [cfAppDelegate setCurrentCityModel:[CityDataModel modelWithName:CityName]] ;
         }
-        [cfAppDelegate setCurrentCityModel:model] ;
-
-     }
+        else{
+           [cfAppDelegate setCurrentCityModel:model] ;
+        }
     
+    }
   }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    NSDictionary *userinfo = [NSDictionary dictionaryWithObject:newLocation forKey:@"location"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_LOCATION_GAINED object:nil userInfo:userinfo];
     _lat = newLocation.coordinate.latitude;
     _lon = newLocation.coordinate.longitude;
         [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -109,15 +96,14 @@
 //                                                   placemark.subThoroughfare);
                 
                  _currentCity= !placemark.locality?placemark.administrativeArea:placemark.locality;
+                [self  displayCity];
                  _currentDetailAdrress =[NSString stringWithFormat:@"%@%@%@%@%@%@", placemark.administrativeArea,
                   !placemark.subAdministrativeArea?@"":placemark.subAdministrativeArea,
                   !placemark.locality?@"":placemark.locality,
                   !placemark.subLocality?@"":placemark.subLocality,
                   !placemark.thoroughfare?@"":placemark.thoroughfare,
                   !placemark.subThoroughfare?@"":placemark.subThoroughfare];
-                
-                 [self saveLocation];
-                
+
             // 更新当前用户坐标到服务器
                 if ([AVUser currentUser]!=nil) {
                     AVUser *user = [AVUser currentUser];
