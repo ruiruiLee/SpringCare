@@ -51,8 +51,8 @@
     
     CGFloat s = 0;
     CGSize size = [text sizeWithFont:_FONT(14)];
-    if(size.width + [_priceList count] * 10 < 120){
-        s = (120 - (size.width + [_priceList count] * 10))/[_priceList count];
+    if(size.width + [_priceList count] * 10 < 130){
+        s = (130 - (size.width + [_priceList count] * 10))/[_priceList count];
     }
     
     for (int i = 0; i < [_priceList count]; i++) {
@@ -78,7 +78,7 @@
         NSString *format = [NSString stringWithFormat:@"H:|->=0-[btn(>=42)]->=0-|"];
         if(s > 0 && size.width + 10 + s > 42){
             CGSize size = [[Util getSubStrings:model.name] sizeWithFont:_FONT(14)];
-            format = [NSString stringWithFormat:@"H:|->=0-[btn(>=%f)]->=0-|", size.width + 10 + s];
+            format = [NSString stringWithFormat:@"H:|->=0-[btn(%f)]->=0-|", size.width + 10 + s];
         }
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)]];
         
