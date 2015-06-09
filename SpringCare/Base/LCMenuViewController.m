@@ -147,11 +147,11 @@
     {
         if(_IPHONE_OS_VERSION_UNDER_7_0){
             [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-38.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
-            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 140);
+            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 150);
         }
         else{
             [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-58.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
-            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 160);
+            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 170);
         }
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(34)]-26.5-|" options:0 metrics:nil views:footViews]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(34)]-26.5-|" options:0 metrics:nil views:footViews]];
@@ -164,11 +164,11 @@
     {
         if(_IPHONE_OS_VERSION_UNDER_7_0){
             [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-63.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
-            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 185);
+            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 200);
         }
         else{
             [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-83.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
-            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 205);
+            _headerView.frame = CGRectMake(0, 0, ScreenWidth, 220);
         }
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(34)]-41.5-|" options:0 metrics:nil views:footViews]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(34)]-41.5-|" options:0 metrics:nil views:footViews]];
@@ -181,7 +181,7 @@
         [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(39)]-61.5-|" options:0 metrics:nil views:footViews]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
-        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 210);
+        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 240);
         NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(110)]-24-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
     }
@@ -189,7 +189,7 @@
         [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-88.5-[_photoBg(93)]->=0-|" options:0 metrics:nil views:headerViews]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_imgLogo(39)]-61.5-|" options:0 metrics:nil views:footViews]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_btnHotLine(39)]-61.5-|" options:0 metrics:nil views:footViews]];
-        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 220);
+        _headerView.frame = CGRectMake(0, 0, ScreenWidth, 240);
         NSString *footFormat = [NSString stringWithFormat:@"H:|-21-[_imgLogo(110)]-24-[_btnHotLine]-%f-|", ScreenWidth + 20 -((ScreenWidth - 60)*0.8 + (ScreenWidth - ScreenWidth * 0.8) /2)];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:footFormat options:0 metrics:nil views:footViews]];
     }
@@ -208,16 +208,16 @@
     EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
     
     if(type == EnumValueTypeiPhone4S)
-        return 50;
+        return 60;
     else if (type == EnumValueTypeiPhone5)
-        return 55;
+        return 60;
     else
-        return 68;
+        return 70;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -243,11 +243,11 @@
         cell.imgIcon.image = [UIImage imageNamed:@"usercentercouponlogo"];
         cell.lbContent.text = @"我的优惠券";
     }
+//    else if (indexPath.row == 3){
+//        cell.imgIcon.image = [UIImage imageNamed:@"usercenterfeedback"];
+//        cell.lbContent.text = @"意见反馈";
+//    }
     else if (indexPath.row == 3){
-        cell.imgIcon.image = [UIImage imageNamed:@"usercenterfeedback"];
-        cell.lbContent.text = @"意见反馈";
-    }
-    else if (indexPath.row == 4){
         cell.imgIcon.image = [UIImage imageNamed:@"usercentersetting"];
         cell.lbContent.text = @"设置";
         cell.separatorLine.hidden = YES;
@@ -282,13 +282,13 @@
         [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
     }
         break;
+//    case 3:
+//    {
+//      FeedBackVC *vc = [[FeedBackVC alloc] initWithNibName:nil bundle:nil];
+//       [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+//    }
+//        break;
     case 3:
-    {
-      FeedBackVC *vc = [[FeedBackVC alloc] initWithNibName:nil bundle:nil];
-       [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
-    }
-        break;
-    case 4:
     {
        UserSettingVC *vc = [[UserSettingVC alloc] initWithNibName:nil bundle:nil];
     [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
