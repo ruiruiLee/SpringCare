@@ -42,7 +42,7 @@
 
 - (void) loadData
 {
-   // __weak HomePageVC *weakSelf = self;
+    __weak HomePageVC *weakSelf = self;
     [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
@@ -51,7 +51,7 @@
                 [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
                 _banner.NewsmodelArray =  [NewsDataModel getNews];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
-               // [weakSelf selectDefaultCity];
+                 [weakSelf selectDefaultCity];
                 NSArray *wordList = [content objectForKey:@"wordList"];
                 for (int i = 0; i < [wordList count]; i++) {
                     NSDictionary *dic = [wordList objectAtIndex:i];
@@ -66,8 +66,12 @@
     }];
 }
 
-//- (void) selectDefaultCity
-//{
+- (void) selectDefaultCity
+{
+    if([Util GetStoreCity] != nil){
+         [cfAppDelegate setCurrentCityModel:[CityDataModel modelWithName:[Util GetStoreCity]]] ;
+    }
+}
 //    NSArray *array = [CityDataModel getCityData];
 //    if([Util GetStoreCityId] == nil){
 //        for (int i = 0; i < [array count]; i++) {
@@ -124,7 +128,6 @@
           [activityBtn setTitle:@"正在定位.." forState:UIControlStateNormal];
     }
     else{
-        
         [activityBtn setTitle:[Util GetStoreCity] forState:UIControlStateNormal];
     }
     activityBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 78, 5, 0);

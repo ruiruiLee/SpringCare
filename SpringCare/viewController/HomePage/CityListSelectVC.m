@@ -145,7 +145,7 @@
         CityListCell *cell = (CityListCell *)[tableView cellForRowAtIndexPath:indexPath];
         CityDataModel *model =  [CityDataModel modelWithName:cell.lbTitle.text];
          if (model==nil) {
-             [Util showAlertMessage:@"对不起,您所在的城市目前暂时还不在我们的服务范围内" ];
+             [Util showAlertMessage:@"对不起,您所在的城市目前暂时还不在我们的服务范围！" ];
          }
          else{
               [cfAppDelegate setCurrentCityModel:model];
