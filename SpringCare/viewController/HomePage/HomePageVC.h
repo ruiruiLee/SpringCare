@@ -31,8 +31,8 @@
     
     UIButton *activityBtn;
     
-    NSString *introduceUrl;
-    NSString *promiseUrl;
+//    NSString *introduceUrl;
+//    NSString *promiseUrl;
     
     float oldY;
 }

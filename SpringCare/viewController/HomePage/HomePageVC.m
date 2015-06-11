@@ -52,14 +52,6 @@
                 _banner.NewsmodelArray =  [NewsDataModel getNews];
                 [CityDataModel SetCityDataWithArray:[content objectForKey:@"cityList"]];
                  [weakSelf selectDefaultCity];
-                NSArray *wordList = [content objectForKey:@"wordList"];
-                for (int i = 0; i < [wordList count]; i++) {
-                    NSDictionary *dic = [wordList objectAtIndex:i];
-                    if([[dic objectForKey:@"newsTitle"] isEqualToString:@"护理介绍"])
-                        introduceUrl = [dic objectForKey:@"url"];
-                    else if ([[dic objectForKey:@"newsTitle"] isEqualToString:@"护理承诺"])
-                        promiseUrl = [dic objectForKey:@"url"];
-                }
                 [LcationInstance startUpdateLocation];
             }
         }
@@ -202,7 +194,7 @@
     [self.ContentView addSubview:btnIntro];
     btnIntro.translatesAutoresizingMaskIntoConstraints = NO;
     [btnIntro setTitleColor: [UIColor blackColor] forState:UIControlStateNormal];
-    [btnIntro setTitle:@"护理介绍" forState:UIControlStateNormal];
+    [btnIntro setTitle:@"常见问题" forState:UIControlStateNormal];
     btnIntro.titleLabel.font = _FONT_B(12);
     [btnIntro addTarget:self action:@selector(doBtnIntro:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -500,7 +492,7 @@
 
 - (void) doBtnIntro:(UIButton*)sender
 {
-    WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"护理介绍" url:@""];
+    WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"常见问题" url:@""];
     vc.hidesBottomBarWhenPushed = YES;
     [vc loadInfoFromUrl:[NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, Care_Introduce]];
     [self.navigationController pushViewController:vc animated:YES];
