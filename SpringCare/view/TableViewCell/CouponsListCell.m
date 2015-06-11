@@ -128,7 +128,7 @@
         [_leftBg addConstraint:[NSLayoutConstraint constraintWithItem:_view3 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_view4 attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
         
         [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:selectImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_rightBg attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-//        [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:selectImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_lbEndTimeTitle attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+
     }
     
     return self;

@@ -23,12 +23,20 @@
 @synthesize producttypeCell;
 @synthesize _tableview = _tableview;
 @synthesize _dataArray = _dataArray;
+//@synthesize metroView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.NavigationBar.lbTitle.text = @"家庭陪护";
+    
+//    metroView = [[MetroView alloc] initWithFrame:CGRectZero];
+//    [self.ContentView addSubview:metroView];
+//    metroView.translatesAutoresizingMaskIntoConstraints = NO;
+//    
+//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[metroView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(metroView)]];
+//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[metroView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(metroView)]];
     
     _tableview = [[UITableView alloc] initWithFrame:CGRectZero];
     _tableview.delegate = self;
@@ -53,6 +61,7 @@
                 [FamilyProductModel setFamilyProduct:content];
                 weakSelf._dataArray = [FamilyProductModel getProductArray];
                 [weakSelf._tableview reloadData];
+//                [weakSelf.metroView AddDataList:weakSelf._dataArray];
             }
         }
     }];
@@ -87,7 +96,7 @@
     [cell layoutIfNeeded];
     
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return 1  + size.height;
+    return size.height;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

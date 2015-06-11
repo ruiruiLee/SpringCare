@@ -155,7 +155,12 @@
 
 + (NSInteger) GetAgeByBirthday:(NSString *) day
 {
-    NSDate *date = [Util convertDateFromDateString:day];
+//    NSDate *date = [Util convertDateFromDateString:day];
+    NSString *sub = [day stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    NSString *sub1 = [sub stringByReplacingOccurrencesOfString:@"Z" withString:@""];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date=[formatter dateFromString:sub1];
     return [self getAgeWithBirthday:date];
 //    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 //    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
