@@ -206,6 +206,9 @@
                 NSString *headerImage = [content objectForKey:@"loverHeaderImageUrl"];
                 [weakSelf.btnRight sd_setImageWithURL:[NSURL URLWithString:headerImage] forState:UIControlStateNormal  placeholderImage:ThemeImage(@"placeholderimage")];
             }
+            else{
+                [weakSelf SetDefaultLoverWhenNoDefault];
+            }
         }
     }];
 }
