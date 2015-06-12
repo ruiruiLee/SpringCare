@@ -82,6 +82,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _currentLoverId = nil;
     
     pages = 0;
     _dataList = [[NSMutableArray alloc] init];
@@ -137,8 +138,8 @@
         AttentionArray =[UserAttentionModel GetMyAttentionArray];
         if([AttentionArray count] == 0)
             [self loadDataList:nil];
-        else
-            [self SetDefaultLoverWhenNoDefault];
+//        else
+//            [self SetDefaultLoverWhenNoDefault];
         
         if( _currentLoverId == nil)
             [self LoadDefaultDoctorInfo:nil];
@@ -159,10 +160,10 @@
 
 -(void)loadDataList:(NSString*)loverID{
     [_dataList removeAllObjects];
-    __weak EscortTimeVC *weakSelf = self;
+//    __weak EscortTimeVC *weakSelf = self;
     [UserAttentionModel loadLoverList:@"true" block:^(int code) {    //获取 用户的陪护对象
      AttentionArray =[UserAttentionModel GetMyAttentionArray];
-        [weakSelf SetDefaultLoverWhenNoDefault];
+//        [weakSelf SetDefaultLoverWhenNoDefault];
     }] ;
 
 }
