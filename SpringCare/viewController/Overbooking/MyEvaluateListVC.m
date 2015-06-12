@@ -107,7 +107,6 @@
     EvaluateListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(!cell){
         cell = [[EvaluateListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-       cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     EvaluateDataModel *data = [DataList objectAtIndex:indexPath.row];

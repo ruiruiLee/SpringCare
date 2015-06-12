@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.NavigationBar.Title = @"历史纪录";
+    self.NavigationBar.Title = @"健康档案";
     
     tableview = [[PullTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableview.translatesAutoresizingMaskIntoConstraints = NO;
@@ -80,7 +80,7 @@
     if(!cell){
         cell = [[HealthRecordTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    
+     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     HealthRecordItemDataModel *model = [_model.recordList objectAtIndex:indexPath.section];
     [cell SetContentWithModel:model];
     
