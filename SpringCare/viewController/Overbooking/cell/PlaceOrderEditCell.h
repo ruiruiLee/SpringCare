@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong) UILabel *lbTitle;
 @property (nonatomic, strong) UIButton *logoImageView;
+@property (nonatomic, strong) UILabel *line;
 
 @end
 

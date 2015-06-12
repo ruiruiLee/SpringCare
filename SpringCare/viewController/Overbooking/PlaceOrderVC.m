@@ -475,9 +475,9 @@
 //        if([UserModel sharedUserInfo].couponsCount > 0)
         
         if([_nurseModel.priceList count] > 1)
-            return 301.f + 34.f;
+            return 301.f + 34.f - 20;
         else
-            return 301.f;
+            return 301.f - 28;
 //        else
 //            return 248.f;
     }

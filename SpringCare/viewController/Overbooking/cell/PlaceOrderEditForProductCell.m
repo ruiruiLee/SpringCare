@@ -205,11 +205,13 @@
         cell.lbTitle.text = @"请选择服务开始时间";
         cell.lbTitle.font = _FONT(16);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderdatestart"] forState:UIControlStateNormal];
+        cell.line.hidden = NO;
     }
     else{
         cell.lbTitle.text = @"陪护地址";
         cell.lbTitle.font = _FONT(16);
         [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderaddress"] forState:UIControlStateNormal];
+        cell.line.hidden = YES;
     }
     
     return cell;
