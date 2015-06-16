@@ -55,11 +55,24 @@
     if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
         [Util showAlertMessage:@"定位服务已经关闭,请在设置［隐私］里打开!" ];
      }
-    [self displayCity];
+ //
+    
+//    switch (status) {
+//        case kCLAuthorizationStatusAuthorizedAlways:
+//        case kCLAuthorizationStatusAuthorizedWhenInUse:
+//            NSLog(@"Got authorization, start tracking location");
+//            [self startUpdateLocation];
+//            break;
+//        case kCLAuthorizationStatusNotDetermined:
+//            [self.locationManager requestWhenInUseAuthorization];
+//        default:
+//            break;
+ //   }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"didChangeAuthorizationStatus----%@",error);
+    [self displayCity];
 }
 
 -(void)displayCity{
@@ -96,7 +109,6 @@
 //                                                   placemark.subThoroughfare);
                 
                  _currentCity= !placemark.locality?placemark.administrativeArea:placemark.locality;
-                [self  displayCity];
                  _currentDetailAdrress =[NSString stringWithFormat:@"%@%@%@%@%@%@", placemark.administrativeArea,
                   !placemark.subAdministrativeArea?@"":placemark.subAdministrativeArea,
                   !placemark.locality?@"":placemark.locality,
@@ -119,6 +131,7 @@
             }
         }];
     [manager stopUpdatingLocation];
+    [self  displayCity];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
