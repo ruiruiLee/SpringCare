@@ -47,6 +47,23 @@
     _lbToday.backgroundColor = Abled_Color;
     _lbToday.layer.cornerRadius = 30;
     _lbToday.clipsToBounds = YES;
+    
+    imageview = [[UIImageView alloc] initWithFrame:CGRectMake(6, 0, 60, 60)];
+    [_lbToday addSubview:imageview];
+    imageview.image = ThemeImage(@"timeintervalline");
+    
+    lbday = [[UILabel alloc] initWithFrame:CGRectMake(6, 10, 30, 22)];
+    lbday.font = _FONT_B(22);
+    lbday.textColor = [UIColor whiteColor];
+    lbday.backgroundColor = [UIColor clearColor];
+    [_lbToday addSubview:lbday];
+    lbday.textAlignment = NSTextAlignmentRight;
+
+    lbmounth = [[UILabel alloc] initWithFrame:CGRectMake(32, 30, 26, 20)];
+    lbmounth.font = _FONT(16);
+    lbmounth.textColor = [UIColor whiteColor];
+    lbmounth.backgroundColor = [UIColor clearColor];
+    [_lbToday addSubview:lbmounth];
 
     
     _lbTimeLine = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -269,7 +286,22 @@
    _lbPublishTime.text = data.createTime;//发布时间;
     
     if (data.showTime) {
-        
+        NSString *dateStr = [Util convertTimetoBroadFormat:data.createDate]; //发布日期
+        if(dateStr ==nil){
+            _lbToday.text =  @"";
+            lbday.hidden = NO;
+            lbday.text = [NSString stringWithFormat:@"%02d", [Util GetDayFromdate:data.createDate]];
+            lbmounth.hidden = NO;
+            lbmounth.text = [NSString stringWithFormat:@"%02d", [Util GetMonthFromdate:data.createDate]];
+            imageview.hidden = NO;
+
+        }
+        else{
+            _lbToday.text =  dateStr;
+            lbday.hidden = YES;
+            lbmounth.hidden = YES;
+            imageview.hidden = YES;
+        }
         _lbToday.text =  [Util convertTimetoBroadFormat:data.createDate]; //发布日期
         _lbToday.hidden = NO;
       }else{

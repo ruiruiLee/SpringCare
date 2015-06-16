@@ -92,6 +92,8 @@ typedef enum : NSUInteger {
 + (NSString *) reductionTimeFromOrderTime:(NSString *)orderTime;//逆转回来，和上面是一对
 + (NSInteger) GetAgeByBirthday:(NSString *) day;
 +(NSString *) convertTimetoBroadFormat:(NSString*)inputDate;
++ (NSInteger)GetDayFromdate:(NSString *)inputDate;
++ (NSInteger)GetMonthFromdate:(NSString *)inputDate;
 /**
  *@Method openCamera:
  *@Brief 打开照相机

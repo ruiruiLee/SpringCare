@@ -32,6 +32,10 @@ typedef void(^ReplayAction)(int index);
     UIButton *_btnVideo;
     UIButton *_btnFoldOrUnfold;
     
+    UILabel *lbmounth;
+    UILabel *lbday;
+    UIImageView *imageview;
+    
     //回复视图的内容
     UILabel *_lbPublishTime;
     UIButton *_btnReply;

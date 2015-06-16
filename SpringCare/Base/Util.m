@@ -87,6 +87,36 @@
     }
 }
 
++ (NSInteger)GetMonthFromdate:(NSString *)inputDate
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date=[formatter dateFromString:inputDate];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *components = [calendar components:unitFlags fromDate:date];
+    
+    NSInteger month = [components month]; // 9
+    
+    return month;
+}
+
++ (NSInteger)GetDayFromdate:(NSString *)inputDate
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date=[formatter dateFromString:inputDate];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *components = [calendar components:unitFlags fromDate:date];
+    
+    NSInteger day = [components day]; // 15
+    
+    return day;
+}
+
 +(NSString *)convertTimetoBroadFormat:(NSString*) inputDate{
     
     if (!inputDate||inputDate.length==0) {
@@ -110,8 +140,8 @@
     else{
         //[dateFormatter setDateFormat:NSLocalizedString(@"MD",nil)];
          //[dateFormatter setDateFormat:@"MM-dd"];
-         [dateFormatter setDateFormat:@"dd/MM"];
-        result = [dateFormatter stringFromDate:compareDate];
+//         [dateFormatter setDateFormat:@"dd/MM"];
+        result = nil;//[dateFormatter stringFromDate:compareDate];
     }
     return  result;
 }
