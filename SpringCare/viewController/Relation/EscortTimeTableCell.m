@@ -48,12 +48,12 @@
     _lbToday.layer.cornerRadius = 30;
     _lbToday.clipsToBounds = YES;
     
-    imageview = [[UIImageView alloc] initWithFrame:CGRectMake(6, 0, 60, 60)];
+    imageview = [[UIImageView alloc] initWithFrame:CGRectMake(7, 0, 60, 60)];
     [_lbToday addSubview:imageview];
     imageview.image = ThemeImage(@"timeintervalline");
     
     lbday = [[UILabel alloc] initWithFrame:CGRectMake(6, 10, 30, 22)];
-    lbday.font = _FONT_B(22);
+    lbday.font = _FONT(26);
     lbday.textColor = [UIColor whiteColor];
     lbday.backgroundColor = [UIColor clearColor];
     [_lbToday addSubview:lbday];
