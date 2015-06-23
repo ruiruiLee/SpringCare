@@ -287,6 +287,7 @@
     [Params setObject:[NSNumber numberWithInteger:orgUnitPrice] forKey:@"orgUnitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice * cell.dateSelectView.countNum] forKey:@"totalPrice"];//
+    [Params setObject:cell.businessType.selectPriceModel.name forKey:@"priceDesc"];
     if(_selectCoupons != nil){
         [Params setObject:_selectCoupons.couponsId forKey:@"couponId"];
     }
