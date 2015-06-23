@@ -18,7 +18,7 @@
 
 #define HIGHT self.bounds.origin.y //由于_pageControl是添加进父视图的,所以实际位置要参考,滚动视图的y坐标
 
-static CGFloat const chageImageTime = 3.0;
+static CGFloat const chageImageTime = 5.0;
 
 @interface AdScrollView (){
     NSMutableArray * titleUrlarray;
