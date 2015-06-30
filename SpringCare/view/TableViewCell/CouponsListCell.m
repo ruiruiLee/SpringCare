@@ -44,14 +44,14 @@
         [_leftBg addSubview:_lbName];
         _lbName.translatesAutoresizingMaskIntoConstraints = NO;
         _lbName.backgroundColor = [UIColor clearColor];
-        _lbName.font = _FONT(15);
+        _lbName.font = _FONT(13);
         _lbName.textColor = _COLOR(0x99, 0x99, 0x99);
         
         _lbRMB = [[UILabel alloc] initWithFrame:CGRectZero];
         [_leftBg addSubview:_lbRMB];
         _lbRMB.translatesAutoresizingMaskIntoConstraints = NO;
         _lbRMB.backgroundColor = [UIColor clearColor];
-        _lbRMB.font = _FONT_B(17);
+        _lbRMB.font = _FONT(20);
         _lbRMB.textColor = _COLOR(0x99, 0x99, 0x99);
         _lbRMB.text = @"¥";
         
@@ -59,7 +59,7 @@
         [_leftBg addSubview:_lbValue];
         _lbValue.translatesAutoresizingMaskIntoConstraints = NO;
         _lbValue.backgroundColor = [UIColor clearColor];
-        _lbValue.font = _FONT_B(32);
+        _lbValue.font = _FONT(40);
         _lbValue.textColor = _COLOR(0x99, 0x99, 0x99);
         
         _rightBg = [[UIView alloc] initWithFrame:CGRectZero];
@@ -71,14 +71,21 @@
         [_rightBg addSubview:_lbEndTimeTitle];
         _lbEndTimeTitle.translatesAutoresizingMaskIntoConstraints = NO;
         _lbEndTimeTitle.backgroundColor = [UIColor clearColor];
-        _lbEndTimeTitle.font = _FONT(15);
+        _lbEndTimeTitle.font = _FONT(13);
         _lbEndTimeTitle.textColor = _COLOR(0x99, 0x99, 0x99);
+        
+        _lbStatus = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_rightBg addSubview:_lbStatus];
+        _lbStatus.translatesAutoresizingMaskIntoConstraints = NO;
+        _lbStatus.backgroundColor = [UIColor clearColor];
+        _lbStatus.font = _FONT(13);
+        _lbStatus.textColor = _COLOR(0x99, 0x99, 0x99);
         
         _lbEndTime = [[UILabel alloc] initWithFrame:CGRectZero];
         [_rightBg addSubview:_lbEndTime];
         _lbEndTime.translatesAutoresizingMaskIntoConstraints = NO;
         _lbEndTime.backgroundColor = [UIColor clearColor];
-        _lbEndTime.font = _FONT(15);
+        _lbEndTime.font = _FONT(13);
         _lbEndTime.textColor = _COLOR(0x99, 0x99, 0x99);
         
         _view1 = [[UIView alloc] initWithFrame:CGRectZero];
@@ -98,9 +105,9 @@
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[couponBg]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[couponBg]-0-|" options:0 metrics:nil views:views]];
         
-        [_leftBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_lbName]-20-|" options:0 metrics:nil views:views]];
-        [_leftBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view3]-0-[_lbName]-10-[_lbValue]-0-[_view4]-0-|" options:0 metrics:nil views:views]];
-        [_leftBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_lbRMB]-6-[_lbValue]->=20-|" options:0 metrics:nil views:views]];
+        [_leftBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-50-[_lbName]-20-|" options:0 metrics:nil views:views]];
+        [_leftBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_lbName]-0-[_view3]-0-[_lbValue]-0-[_view4]-0-|" options:0 metrics:nil views:views]];
+        [_leftBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[_lbRMB]-6-[_lbValue]->=20-|" options:0 metrics:nil views:views]];
         [_leftBg addConstraint:[NSLayoutConstraint constraintWithItem:_lbRMB attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_lbValue attribute:NSLayoutAttributeBottom multiplier:1 constant:-6]];
         
         constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[_lbEndTimeTitle]-0-[_lbEndTime]-0-[_view2]-0-|" options:0 metrics:nil views:views];
@@ -109,19 +116,36 @@
         EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
         if(type == EnumValueTypeiPhone4S || type == EnumValueTypeiPhone5){
             [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[_leftBg(211)]-0-[_rightBg]-8-|" options:0 metrics:nil views:views]];
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_rightBg]-3-|" options:0 metrics:nil views:views]];
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_leftBg]-3-|" options:0 metrics:nil views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_rightBg]-7-|" options:0 metrics:nil views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-14-[_leftBg]-7-|" options:0 metrics:nil views:views]];
+            
+            [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:_lbStatus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbEndTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:17]];
         }
         else if (type == EnumValueTypeiPhone6){
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[_leftBg(246)]-0-[_rightBg]-8-|" options:0 metrics:nil views:views]];
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_rightBg]-5-|" options:0 metrics:nil views:views]];
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[_leftBg]-5-|" options:0 metrics:nil views:views]];
+            _lbName.font = _FONT(15);
+            _lbRMB.font = _FONT(22);
+            _lbValue.font = _FONT(44);
+            _lbEndTimeTitle.font = _FONT(15);
+            _lbStatus.font = _FONT(15);
+            _lbEndTime.font = _FONT(15);
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_leftBg(235)]-0-[_rightBg]-8-|" options:0 metrics:nil views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[_rightBg]-7-|" options:0 metrics:nil views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-18-[_leftBg]-7-|" options:0 metrics:nil views:views]];
+            [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:_lbStatus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbEndTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:16]];
         }else if(type == EnumValueTypeiPhone6P){
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[_leftBg(274)]-0-[_rightBg]-8-|" options:0 metrics:nil views:views]];
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_rightBg]-6-|" options:0 metrics:nil views:views]];
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-19-[_leftBg]-6-|" options:0 metrics:nil views:views]];
+            _lbName.font = _FONT(16);
+            _lbRMB.font = _FONT(26);
+            _lbValue.font = _FONT(52);
+            _lbEndTimeTitle.font = _FONT(16);
+            _lbStatus.font = _FONT(16);
+            _lbEndTime.font = _FONT(16);
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-26-[_leftBg(258)]-0-[_rightBg]-8-|" options:0 metrics:nil views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_rightBg]-7-|" options:0 metrics:nil views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_leftBg]-7-|" options:0 metrics:nil views:views]];
+            [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:_lbStatus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbEndTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:18]];
         }
         
+        [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:_lbStatus attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_rightBg attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
         [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:_lbEndTimeTitle attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_rightBg attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
         [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:_lbEndTime attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_rightBg attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
         [_rightBg addConstraint:[NSLayoutConstraint constraintWithItem:_view1 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_view2 attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
@@ -155,8 +179,9 @@
         _lbEndTimeTitle.textColor = Abled_Color;
         _lbEndTime.textColor = Abled_Color;
         
-        if(self.cellType == EnumCouponCellTypeNormal)
+        if(self.cellType == EnumCouponCellTypeNormal){
             constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[_lbEndTimeTitle]-0-[_lbEndTime]-0-[_view2]-0-|" options:0 metrics:nil views:views];
+        }
         else
         {
             constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[selectImageView]-0-[_lbEndTimeTitle]-0-[_lbEndTime]-0-[_view2]-0-|" options:0 metrics:nil views:views];
@@ -166,7 +191,8 @@
         _lbValue.text = [NSString stringWithFormat:@"%d", model.amount];
         _lbEndTimeTitle.text = @"有效期至";
         _lbEndTime.text = model.endDate;
-        _lbEndTime.hidden = NO;
+        _lbStatus.text = @"";
+//        _lbEndTime.hidden = NO;
     }
     else{
         couponBg.image = ThemeImage(@"selectcouponsbg");
@@ -176,7 +202,8 @@
         _lbEndTimeTitle.textColor = _COLOR(0x99, 0x99, 0x99);
         _lbEndTime.textColor = _COLOR(0x99, 0x99, 0x99);
         
-        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[_lbEndTimeTitle]-0-[_view2]-0-|" options:0 metrics:nil views:views];
+//        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[_lbEndTimeTitle]-0-[_view2]-0-|" options:0 metrics:nil views:views];
+        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_view1]-0-[_lbEndTimeTitle]-0-[_lbEndTime]-0-[_view2]-0-|" options:0 metrics:nil views:views];
         
         _lbName.text = model.name;
         _lbValue.text = [NSString stringWithFormat:@"%d", model.amount];
@@ -190,9 +217,11 @@
         else if (model.type == EnumCouponTypeExpire){
             title = @"已过期";
         }
-        _lbEndTimeTitle.text = title;
+//        _lbEndTimeTitle.text = title;
+        _lbEndTimeTitle.text = @"有效期至";
+        _lbStatus.text = title;
         _lbEndTime.text = model.endDate;
-        _lbEndTime.hidden = YES;
+//        _lbEndTime.hidden = YES;
     }
     
     [_rightBg addConstraints:constraints];

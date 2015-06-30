@@ -21,6 +21,7 @@ typedef enum : NSUInteger {
     UILabel *_lbValue;
     UILabel *_lbEndTime;
     UILabel *_lbEndTimeTitle;
+    UILabel *_lbStatus;
     UIView *_rightBg;
     UIView *_view1;
     UIView *_view2;
