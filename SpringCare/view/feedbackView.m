@@ -19,6 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         faceshow =NO;
+        faceHidden = YES;
         _hasReply =hasReply;
         ControlHidden =hidden; // yes，父控件点击可以隐藏
         _winSize=[UIScreen mainScreen].bounds.size;
@@ -46,6 +47,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         faceshow =NO;
+        faceHidden = YES;
         ControlHidden =hidden; //点击父控件隐藏输入表情框
         _winSize=[UIScreen mainScreen].applicationFrame.size;
         navHeight=44 ;
@@ -131,6 +133,8 @@
       //  [_faceBoardView removeFromSuperview];
          //NSLog(@"%f",self.view.frame.origin.y);238
     }
+    
+    faceHidden = !faceHidden;
     if (!addGesture &&!ControlHidden) {
         //添加父亲view手势 ，如果父亲是tableview添加后将会掩盖didselectrow事件 ,这种千万不能加
         [self addSuperViewClickGesture];
@@ -178,8 +182,7 @@
         CGFloat newheight = (height + 16 > targetheight) ? 0 : targetheight - height - 16;//+14;
         offheight = newheight - offset;
         offset = offheight;
-        
-        if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]/*&&!_hasShow*/) {
+        if ([_delegate respondsToSelector:@selector(changeParentViewFram:)] && faceHidden/*&&!_hasShow*/) {
             [_delegate changeParentViewFram: offheight];
         }
         

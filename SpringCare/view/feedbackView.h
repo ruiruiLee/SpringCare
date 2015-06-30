@@ -26,6 +26,7 @@
     UITapGestureRecognizer *tapGesture;
     UIView * parentView;
     int offheight;
+    BOOL faceHidden;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *controlView;
