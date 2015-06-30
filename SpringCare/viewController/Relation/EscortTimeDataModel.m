@@ -93,7 +93,7 @@ static NSInteger totalCount = 0;
 
 + (NSMutableAttributedString *)getFullStringWithModel:(EscortTimeReplyDataModel *)model
 {
-    UIColor *nameColor = _COLOR(125, 212, 249);
+    UIColor *nameColor = _COLOR(106, 164, 225);
     
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] init];
     if(model.replyUserName!= nil){
