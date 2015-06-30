@@ -425,11 +425,12 @@
     replyModel.replyUserId = [UserModel sharedUserInfo].userId;
     replyModel.replyUserName = [UserModel sharedUserInfo].chineseName;
     if(_reReplyPId==nil){
-         replyModel.content =[NSString stringWithFormat:@"%@:%@",@"我", content] ;
+        replyModel.content =content;//[NSString stringWithFormat:@"%@:%@",@"我", content] ;
     }
     else{
-          replyModel.content =[NSString stringWithFormat:@"我@%@:%@",_reReplyName,content]  ;
+        replyModel.content =content;//[NSString stringWithFormat:@"我@%@:%@",_reReplyName,content]  ;
           replyModel.orgUserId = _reReplyPId;
+        replyModel.orgUserName = _reReplyName;
         }
     [replyinfos addObject:replyModel];
     [tableView reloadData];
