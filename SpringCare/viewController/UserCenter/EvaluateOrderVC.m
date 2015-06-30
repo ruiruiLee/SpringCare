@@ -94,8 +94,9 @@
 
 - (void) NotifyEvaluateSuccessAndDelete:(NurseListInfoModel *)model
 {
+    [Util showAlertMessage:@" 评论成功！"];
     [dataList removeObject:model];
-    if (dataList.count==0) {
+      if (dataList.count==0) {
         if(_delegate && [_delegate respondsToSelector:@selector(NotifyReloadOrderInfo)]){
             [_delegate NotifyReloadOrderInfo];
         }
