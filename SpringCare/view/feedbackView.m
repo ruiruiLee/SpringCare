@@ -61,7 +61,6 @@
                                                  selector:@selector(keyBoardWillHide:)
                                                      name:UIKeyboardWillHideNotification
                                                    object:nil];
-
     }
         return self;
 }
@@ -160,44 +159,45 @@
 //       _hasShow=YES;
 //        } completion:nil];
     
-    if (!addGesture &&!ControlHidden) {
-        //添加父亲view手势 ，如果父亲是tableview添加后将会掩盖didselectrow事件 ,这种千万不能加
-        [self addSuperViewClickGesture];
-    }
-    NSDictionary *info = [notification userInfo];
-    _keyBoardSize =[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    // NSLog(@"%f",_keyBoardSize.height);
-    [UIView animateWithDuration:0.25 animations:^{
-        //父view变化
-        offheight =_winSize.height-navHeight-_keyBoardSize.height+20 - 6;
-        
-        self.view.frame=CGRectMake(0,offheight,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
-        CGFloat height = _winSize.height-navHeight-_keyBoardSize.height;
-        CGFloat targetheight = targetFrame.size.height + targetFrame.origin.y;
-        
-        CGFloat newheight = (height + 16 > targetheight) ? 0 : targetheight - height - 16;//+14;
-        offheight = newheight - offset;
-        offset = offheight;
-        
-        if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]/*&&!_hasShow*/) {
-            [_delegate changeParentViewFram: offheight];
+
+        if (!addGesture &&!ControlHidden) {
+            //添加父亲view手势 ，如果父亲是tableview添加后将会掩盖didselectrow事件 ,这种千万不能加
+            [self addSuperViewClickGesture];
         }
-        
-        _hasShow=YES;
-    } completion:nil];
+        NSDictionary *info = [notification userInfo];
+        _keyBoardSize =[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+        // NSLog(@"%f",_keyBoardSize.height);
+        [UIView animateWithDuration:0.25 animations:^{
+            //父view变化
+            offheight =_winSize.height-navHeight-_keyBoardSize.height+20 - 6;
+            if(_IPHONE_OS_VERSION_UNDER_7_0)
+                offheight -= 20;
+            self.view.frame=CGRectMake(0,offheight,self.view.frame.size.width,_keyBoardSize.height+contentHeight);
+            CGFloat height = _winSize.height-navHeight-_keyBoardSize.height;
+            CGFloat targetheight = targetFrame.size.height + targetFrame.origin.y;
+            
+            CGFloat newheight = (height + 16 > targetheight) ? 0 : targetheight - height - 16;//+14;
+            offheight = newheight - offset;
+            offset = offheight;
+//            if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]/*&&!_hasShow*/) {
+//                [_delegate changeParentViewFram: offheight];
+//            }
+            
+            _hasShow=YES;
+        } completion:nil];
 
 }
 //键盘隐藏
 - (void)keyBoardWillHide:(NSNotification*)notification {
     if (!faceshow) {
-    [self.commitButton setImage:ThemeImage(@"chat_smailbtn") forState:UIControlStateNormal];
-    [UIView animateWithDuration:0.25 animations:^{
+        [self.commitButton setImage:ThemeImage(@"chat_smailbtn") forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.25 animations:^{
         [self.feedbackTextField resignFirstResponder];
-        if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]&&!_hasShow) {
-            [_delegate changeParentViewFram:-offheight];
-        }
+//        if ([_delegate respondsToSelector:@selector(changeParentViewFram:)]&&!_hasShow) {
+//            [_delegate changeParentViewFram:-offheight];
+//        }
         self.view.frame=CGRectMake(0,_winSize.height,self.view.frame.size.width,self.view.frame.size.height);    } completion:nil];
- }
+    }
 }
 
 -(void)addSuperViewClickGesture{

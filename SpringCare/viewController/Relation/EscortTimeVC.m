@@ -50,6 +50,22 @@
                 [self LoadDefaultDoctorInfo:nil];
         }
     }
+    else if ([keyPath isEqualToString:@"frame"])
+    {
+        CGRect new = [[change objectForKey:@"new"] CGRectValue];
+        CGRect rect = _feedbackView.targetFrame;
+        CGFloat viewoffset = rect.origin.y + rect.size.height;
+        
+        if(new.origin.y < [UIScreen mainScreen].bounds.size.height - 20){
+            if(viewoffset - new.origin.y >= 0 ){
+                [tableView setContentOffset:CGPointMake(0.0,tableView.contentOffset.y + viewoffset - new.origin.y - _offset) animated:YES];
+                _offset = viewoffset - new.origin.y;
+            }
+        }else{
+            [tableView setContentOffset:CGPointMake(0.0,tableView.contentOffset.y - _offset) animated:YES];
+            _offset = 0;
+        }
+    }
 }
 
 - (void) Login
@@ -83,7 +99,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _currentLoverId = nil;
-    
+    _offset = 0;
     pages = 0;
     _dataList = [[NSMutableArray alloc] init];
     self.lbTitle.text = @"陪护时光";
@@ -370,7 +386,7 @@
         _feedbackView =[[feedbackView alloc ] initWithNibName:@"feedbackView" bundle:nil controlHidden:NO];
         _feedbackView.delegate=(id)self;
         [self.view addSubview:_feedbackView.view];
-
+        [_feedbackView.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     }
     
     _feedbackView.targetFrame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, frame.size.height + frame.origin.y);
@@ -379,7 +395,7 @@
         _feedbackView.feedbackTextField.placeholder = [NSString stringWithFormat:@"@%@:", ReplyName];
     }else
         _feedbackView.feedbackTextField.placeholder = @"我要回复";
- [_feedbackView.feedbackTextField becomeFirstResponder];
+    [_feedbackView.feedbackTextField becomeFirstResponder];
 }
 
 #pragma mark - feedbackViewDelegate
