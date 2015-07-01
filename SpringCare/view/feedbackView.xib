@@ -43,7 +43,7 @@
                                 <action selector="commitButtonPressed:" destination="-1" eventType="touchUpInside" id="YDq-b5-bYR"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JFP-xI-4zb">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JFP-xI-4zb">
                             <rect key="frame" x="298" y="5" width="70" height="40"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ugg-cV-3kr">

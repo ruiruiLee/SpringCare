@@ -41,6 +41,8 @@
     NSArray *AttentionArray;
     UIView *headerView;
     NSString* previousDate;
+    
+    CGFloat _offset;
 }
 
 @property (nonatomic, strong) PullTableView *tableView;
