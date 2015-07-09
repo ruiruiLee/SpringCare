@@ -73,7 +73,7 @@
         lbOrderUnit.textColor = _COLOR(0x99, 0x99, 0x99);
         lbOrderUnit.font = _FONT(14);
         lbOrderUnit.backgroundColor = [UIColor clearColor];
-        lbOrderUnit.text = @"单位：";
+        lbOrderUnit.text = @"模式：";
         
         lbNumber = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:lbNumber];

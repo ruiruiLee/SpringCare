@@ -86,7 +86,7 @@
     if([_productModel.priceList count] == 1){
         cell.businessType.hidden = YES;
         cell.lbUnits.hidden = YES;
-        cell.lbUnits.text = [NSString stringWithFormat:@"单位：%@", ((PriceDataModel*)[_productModel.priceList objectAtIndex:0]).name];
+        cell.lbUnits.text = [NSString stringWithFormat:@"模式：%@", ((PriceDataModel*)[_productModel.priceList objectAtIndex:0]).name];
     }else{
         cell.businessType.hidden = NO;
         cell.lbUnits.hidden = YES;
@@ -401,7 +401,7 @@
     
     if(section == 0){
         logo.image = [UIImage imageNamed:@"placeordered"];
-        lbPaytype.text = @"我要下单";
+        lbPaytype.text = @"快速下单";
     }else{
         lbPaytype.text = @"付款方式";
         logo.image = [UIImage imageNamed:@"paytype"];

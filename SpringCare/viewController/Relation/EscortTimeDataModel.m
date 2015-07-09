@@ -97,8 +97,8 @@ static NSInteger totalCount = 0;
     
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] init];
     if(model.replyUserName!= nil){
-        if ([model.replyUserName isEqualToString:[UserModel sharedUserInfo].displayName]) {
-            //            [str appendString:@"我"];
+        if ([model.replyUserName isEqualToString:[UserModel sharedUserInfo].mobilePhoneNumber]||
+            [model.replyUserName isEqualToString:[UserModel sharedUserInfo].chineseName]) {
             NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:@"我"];
             [att addAttribute:NSForegroundColorAttributeName value:nameColor range:NSMakeRange(0, 1)];
             [str appendAttributedString:att];

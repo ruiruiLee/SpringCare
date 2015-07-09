@@ -350,7 +350,7 @@
     if([_nurseModel.priceList count] == 1){
         cell.businessType.hidden = YES;
         cell.lbUnits.hidden = YES;
-        cell.lbUnits.text = [NSString stringWithFormat:@"单位：%@", ((PriceDataModel*)[_nurseModel.priceList objectAtIndex:0]).name];
+        cell.lbUnits.text = [NSString stringWithFormat:@"模式：%@", ((PriceDataModel*)[_nurseModel.priceList objectAtIndex:0]).name];
     }else{
         cell.businessType.hidden = NO;
         cell.lbUnits.hidden = YES;

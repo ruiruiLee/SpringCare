@@ -94,7 +94,7 @@
         logo.image = [UIImage imageNamed:@"placeordered"];
         
         lbPaytype = [self createLabelWithFont:_FONT(15) textcolor: _COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
-        lbPaytype.text = @"我要下单";
+        lbPaytype.text = @"快速下单";
         
         line1 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
@@ -119,7 +119,7 @@
         lbOrderUnit.textColor = _COLOR(0x99, 0x99, 0x99);
         lbOrderUnit.font = _FONT(14);
         lbOrderUnit.backgroundColor = [UIColor clearColor];
-        lbOrderUnit.text = @"单位：";
+        lbOrderUnit.text = @"模式：";
         
         lbNumber = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:lbNumber];
