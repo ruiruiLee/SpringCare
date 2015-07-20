@@ -110,7 +110,7 @@
     [self loadData];
 
     self.lbTitle.text = @"春风陪护";
-    self.NavigationBar.alpha = 0.7f;
+    self.NavigationBar.alpha = 0.6f;
     
     activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 94, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
