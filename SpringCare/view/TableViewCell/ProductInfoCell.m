@@ -107,7 +107,7 @@
     _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
     [_photoImgV addSubview:_lbTitle];
     _lbTitle.font = _FONT_B(18);
-    _lbTitle.textColor = [UIColor whiteColor];
+    _lbTitle.textColor = [UIColor blackColor];
     _lbTitle.backgroundColor = [UIColor clearColor];
     _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -117,7 +117,7 @@
     _lbExplain.numberOfLines = 0;
     _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 110 * ScreenWidth / 320 + 10;
     _lbExplain.font = _FONT(13);
-    _lbExplain.textColor = [UIColor whiteColor];
+    _lbExplain.textColor = [UIColor blackColor];
     _lbExplain.backgroundColor = [UIColor clearColor];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_bgView, _photoImgV, _lbTitle, _lbExplain);
