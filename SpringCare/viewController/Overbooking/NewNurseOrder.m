@@ -244,8 +244,18 @@
     if(nurseModel.workStatus > 0)
     {
         self.btnSubmit.enabled = NO;
+        [self.btnSubmit setTitle:@"服务中" forState:UIControlStateNormal];
+//        [self.btnSubmit setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
+//        self.btnSubmit.backgroundColor = _COLOR(0x66, 0x66, 0x66);
+        UIImage *image = [Util imageWithColor:_COLOR(0x66, 0x66, 0x66) size:CGSizeMake(5, 5)];
+        UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
+        
+        [self.btnSubmit setBackgroundImage:[image resizableImageWithCapInsets:inset] forState:UIControlStateNormal];
     }else{
         self.btnSubmit.enabled = YES;
+        [self.btnSubmit setTitle:@"提交订单" forState:UIControlStateNormal];
+//        [self.btnSubmit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.btnSubmit setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
     }
         
 }
