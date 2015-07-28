@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "pay_ico@1x.png"
+      "filename" : "shuliang_ico@1x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "pay_ico@2x.png"
+      "filename" : "shuliang_ico@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "pay_ico@3x.png"
+      "filename" : "shuliang_ico@3x.png"
     }
   ],
   "info" : {

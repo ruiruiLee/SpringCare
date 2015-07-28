@@ -2,17 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "start_time_ico@1x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "placeorderdatestart@2x.png"
+      "filename" : "start_time_ico@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "placeorderdatestart@3x.png"
+      "filename" : "start_time_ico@3x.png"
     }
   ],
   "info" : {
