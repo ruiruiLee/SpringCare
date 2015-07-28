@@ -63,7 +63,7 @@
         control.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSDictionary *views = NSDictionaryOfVariableBindings(logoImageView, lbTitle, _unfoldStaus, _line, lbCounponsCount, lbCouponsSelected, control);
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[logoImageView(35)]-20-[lbTitle]-4-[lbCounponsCount]->=10-[lbCouponsSelected]-4-[_unfoldStaus(9)]-0-|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[logoImageView(26)]-20-[lbTitle]-4-[lbCounponsCount]->=10-[lbCouponsSelected]-4-[_unfoldStaus(9)]-0-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbCounponsCount(18)]->=0-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbTitle(20)]->=0-[_line(1)]-0-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[control]-0-|" options:0 metrics:nil views:views]];

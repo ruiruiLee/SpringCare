@@ -94,6 +94,13 @@ typedef enum : NSUInteger {
 +(NSString *) convertTimetoBroadFormat:(NSString*)inputDate;
 + (NSInteger)GetDayFromdate:(NSString *)inputDate;
 + (NSInteger)GetMonthFromdate:(NSString *)inputDate;
+
+/*
+ format yyyy-MM-dd HH:mm
+ */
++ (NSInteger)GetHourFromdate:(NSDate *)inputDate;
+
+
 /**
  *@Method openCamera:
  *@Brief 打开照相机
@@ -144,5 +151,7 @@ typedef enum : NSUInteger {
 + (NSString *) GetStoreCity;
 
 + (NSString *) getSubStrings:(NSString *)string;
+
++ (CGFloat) calcDaysFromBegin:(NSDate *)inBegin end:(NSDate *)inEnd;
 
 @end

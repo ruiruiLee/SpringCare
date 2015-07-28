@@ -10,67 +10,19 @@
 #import "define.h"
 #import "Util.h"
 
-@implementation PlaceOrderEditItemCell
-
-- (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if(self)
-    {
-        self.backgroundColor = [UIColor clearColor];
-        self.contentView.backgroundColor = [UIColor clearColor];
-        
-        _logoImageView = [[UIButton alloc] initWithFrame:CGRectZero];
-        _logoImageView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.contentView addSubview:_logoImageView];
-        _logoImageView.userInteractionEnabled = NO;
-        
-        _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_lbTitle];
-        _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
-        _lbTitle.font = _FONT(14);
-        _lbTitle.textColor = _COLOR(0x99, 0x99, 0x99);
-        _lbTitle.backgroundColor = [UIColor clearColor];
-        _lbTitle.numberOfLines = 2;
-        
-        _unfoldStaus = [self createImageViewWithimageName:@"usercentershutgray"];
-        
-        _line = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_line];
-        _line.backgroundColor = SeparatorLineColor;
-        _line.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        NSDictionary *views = NSDictionaryOfVariableBindings(_logoImageView, _lbTitle, _unfoldStaus, _line);
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_logoImageView(34)]-20-[_lbTitle]->=10-[_unfoldStaus(9)]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbTitle]->=0-[_line(1)]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_logoImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbTitle attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_unfoldStaus attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_line]-0-|" options:0 metrics:nil views:views]];
-    }
-    return self;
-}
-
-- (UIImageView*) createImageViewWithimageName:(NSString*) name
-{
-    UIImageView *imagev = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [self.contentView addSubview:imagev];
-    imagev.translatesAutoresizingMaskIntoConstraints = NO;
-    imagev.image = [UIImage imageNamed:name];
-    return imagev;
-}
-
-@end
 
 @implementation PlaceOrderEditCell
 @synthesize delegate;
-@synthesize _tableview = _tableview;
 @synthesize businessType;
-@synthesize dateSelectView;
+
+@synthesize beginDate;
+@synthesize endDate;
+@synthesize address;
 
 - (void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeObserver:self forKeyPath:@"totalDays"];
 }
 
 - (void) NotifyPickViewHidden:(NSNotification*)notify
@@ -78,12 +30,22 @@
     [_pickview remove];
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if(delegate && [delegate respondsToSelector:@selector(NotifyValueChanged:)]){
+        [delegate NotifyValueChanged:0];
+    }
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self)
     {
+        self.totalDays = 0;
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyPickViewHidden:) name:NOTIFY_PICKVIEW_HIDDEN object:nil];
+            [self addObserver:self forKeyPath:@"totalDays" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
         
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
@@ -97,8 +59,7 @@
         lbPaytype.text = @"快速下单";
         
         line1 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
-        
-       // sepline = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
+        line2 = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
         
         businessType = [[BusinessTypeView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:businessType];
@@ -108,78 +69,96 @@
         _lbUnits = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
         _lbUnits.hidden = YES;
         
-        dateSelectView = [[DateCountSelectView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:dateSelectView];
-        dateSelectView.translatesAutoresizingMaskIntoConstraints = NO;
-        dateSelectView.delegate = self;
-        
-        lbOrderUnit = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:lbOrderUnit];
-        lbOrderUnit.translatesAutoresizingMaskIntoConstraints = NO;
-        lbOrderUnit.textColor = _COLOR(0x99, 0x99, 0x99);
-        lbOrderUnit.font = _FONT(14);
-        lbOrderUnit.backgroundColor = [UIColor clearColor];
-        lbOrderUnit.text = @"模式：";
-        
-        lbNumber = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:lbNumber];
-        lbNumber.translatesAutoresizingMaskIntoConstraints = NO;
-        lbNumber.textColor = _COLOR(0x99, 0x99, 0x99);
-        lbNumber.font = _FONT(14);
-        lbNumber.backgroundColor = [UIColor clearColor];
-        lbNumber.text = @"数量：";
-        
         lbUnitPrice = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
-        
-        lbAmountPrice = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
-        
-        //line = [self createLabelWithFont:nil textcolor:nil backgroundcolor:SeparatorLineColor];
+        lbCount = [self createLabelWithFont:_FONT(14) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor]];
+        lbCount.text = @"共  天";
         
         _couponsView = [[CouponsSelectView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_couponsView];
         _couponsView.translatesAutoresizingMaskIntoConstraints = NO;
         [_couponsView.control addTarget:self action:@selector(doBtnSelectCoupons:) forControlEvents:UIControlEventTouchUpInside];
         
-        _tableview = [[UITableView alloc] initWithFrame:CGRectZero];
-        _tableview.translatesAutoresizingMaskIntoConstraints = NO;
-        _tableview.delegate = self;
-        _tableview.dataSource = self;
-        [self.contentView addSubview:_tableview];
-        [_tableview registerClass:[PlaceOrderEditItemCell class] forCellReuseIdentifier:@"cell"];
-        _tableview.backgroundColor = [UIColor clearColor];
-        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableview.scrollEnabled = NO;
+        pricebg = [[UIView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:pricebg];
+        pricebg.translatesAutoresizingMaskIntoConstraints = NO;
+        pricebg.backgroundColor = _COLOR(242, 248, 250);
+        pricebg.layer.cornerRadius = 3;
         
+        warnImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [pricebg addSubview:warnImageView];
+        warnImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        warnImageView.image = ThemeImage(@"warningimage");
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, _couponsView, _lbUnits, lbNumber, lbOrderUnit);
+        lbshdx = [[UILabel alloc] initWithFrame:CGRectZero];
+        [pricebg addSubview:lbshdx];
+        lbshdx.translatesAutoresizingMaskIntoConstraints = NO;
+        lbshdx.textColor = _COLOR(0x99, 0x99, 0x99);
+        lbshdx.font = _FONT(13);
+        lbshdx.numberOfLines = 0;
+        lbshdx.backgroundColor = [UIColor clearColor];
+        
+        lbfwsc = [[UILabel alloc] initWithFrame:CGRectZero];
+        [pricebg addSubview:lbfwsc];
+        lbfwsc.translatesAutoresizingMaskIntoConstraints = NO;
+        lbfwsc.textColor = _COLOR(0x99, 0x99, 0x99);
+        lbfwsc.font = _FONT(13);
+        lbfwsc.numberOfLines = 0;
+        lbfwsc.backgroundColor = [UIColor clearColor];
+        
+        beginDate = [[OrderInfoSelectView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:beginDate];
+        beginDate.translatesAutoresizingMaskIntoConstraints = NO;
+        beginDate.lbTitle.text = @"请选择服务开始时间";
+        beginDate.lbTitle.font = _FONT(16);
+        [beginDate.logoImageView setImage:[UIImage imageNamed:@"placeorderdatestart"] forState:UIControlStateNormal];
+        [beginDate.control addTarget:self action:@selector(btnSelectBeginDate:) forControlEvents:UIControlEventTouchUpInside];
+        
+        endDate = [[OrderInfoSelectView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:endDate];
+        endDate.translatesAutoresizingMaskIntoConstraints = NO;
+        endDate.lbTitle.text = @"请选择服务结束时间";
+        endDate.lbTitle.font = _FONT(16);
+        [endDate.logoImageView setImage:[UIImage imageNamed:@"placeorderdateend"] forState:UIControlStateNormal];
+        [endDate.control addTarget:self action:@selector(btnSelectEndDate:) forControlEvents:UIControlEventTouchUpInside];
+        
+        address = [[OrderInfoSelectView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:address];
+        address.translatesAutoresizingMaskIntoConstraints = NO;
+        address.lbTitle.text = @"陪护地址";
+        address.lbTitle.font = _FONT(16);
+        [address.logoImageView setImage:[UIImage imageNamed:@"placeorderaddress"] forState:UIControlStateNormal];
+        [address.control addTarget:self action:@selector(btnSelectAddress:) forControlEvents:UIControlEventTouchUpInside];
+        
+        NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, line1, businessType, lbUnitPrice, _couponsView, _lbUnits, pricebg, warnImageView, lbshdx, lbfwsc, lbCount, line2, beginDate, endDate, address);
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:logo attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:lbPaytype attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[logo(24)]-5-[lbPaytype]-20-|" options:0 metrics:nil views:views]];
-//        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessType(134)]->=5-[dateSelectView(130)]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbOrderUnit(42)]-0-[businessType]->=20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbNumber(42)]-0-[dateSelectView(130)]->=20-|" options:0 metrics:nil views:views]];
+
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[businessType]->=20-|" options:0 metrics:nil views:views]];
+
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[pricebg]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]->=10-[lbCount]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:lbCount attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:lbUnitPrice attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbUnitPrice]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[lbAmountPrice]-20-|" options:0 metrics:nil views:views]];
-//        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-10-[dateSelectView(34)]-14-[sepline(1)]-10-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
-        
-        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[dateSelectView(34)]-10-[lbUnitPrice(14)]-6-[lbAmountPrice(22)]-8-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
+        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-10-[pricebg]-10-[lbUnitPrice(14)]-18-[line2(1)]-0-[beginDate(45)]-0-[endDate(45)]-0-[address(45)]-0-[_couponsView(45)]-0-|" options:0 metrics:nil views:views];
 
         [self.contentView addConstraints:Constraints];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line1]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line1)]];
-//        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[sepline]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sepline)]];
-//        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line)]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_tableview]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-22.5-[line2]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(line2)]];
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[_couponsView]-20-|" options:0 metrics:nil views:views]];
-        
-//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:dateSelectView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:lbOrderUnit attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:lbNumber attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dateSelectView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[beginDate]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[endDate]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2.5-[address]-20-|" options:0 metrics:nil views:views]];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbUnits attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:businessType attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+        
+        [pricebg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[warnImageView(31)]-20-[lbshdx]-10-|" options:0 metrics:nil views:views]];
+        [pricebg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[warnImageView(31)]-20-[lbfwsc]-10-|" options:0 metrics:nil views:views]];
+        [pricebg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[warnImageView(34)]->=10-|" options:0 metrics:nil views:views]];
+        [pricebg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[lbshdx]-10-[lbfwsc]->=10-|" options:0 metrics:nil views:views]];
     }
     return self;
 }
@@ -205,70 +184,74 @@
     // Configure the view for the selected state
 }
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+- (void) btnSelectBeginDate:(id)sender
 {
-    return 1;
-}
-
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 2;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 45.f;
-}
-
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(indexPath.row == 0){
-        if(!_pickview){
-            NSMutableArray *mArray = [[NSMutableArray alloc] init];
-            [mArray addObject:[self getDateArray]];
-            [mArray addObject:[self getTimeArray]];
-            _pickview = [[ZHPickView alloc] initPickviewWithArray:mArray isHaveNavControler:NO];
-            [_pickview show];
-            _pickview.delegate = self;
-        }else{
-            [_pickview show];
-        }
+    if(!_pickview){
+        NSMutableArray *mArray = [[NSMutableArray alloc] init];
+        [mArray addObject:[self getDateArray]];
+        [mArray addObject:[self getTimeArray]];
+        _pickview = [[ZHPickView alloc] initPickviewWithArray:mArray isHaveNavControler:NO];
+        [_pickview show];
+        _pickview.delegate = self;
     }else{
-        if(delegate && [delegate respondsToSelector:@selector(NotifyToSelectAddr)]){
-            [delegate NotifyToSelectAddr];
-        }
+        [_pickview show];
     }
 }
 
-- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) btnSelectEndDate:(id)sender
 {
-    PlaceOrderEditItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if(beginDate.value == nil)
+    {
+        [Util showAlertMessage:@"请先选择服务开始时间"];
+        return;
+    }
+    if(currentPriceModel.type == 5 || currentPriceModel.type == 6){
+        if(_endPickView)
+        {
+            [_endPickView remove];
+        }
+        NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+        int count = 6;
+        if(currentPriceModel.type == 6)
+        {
+            count = 3;
+            NSInteger beginhour = [Util GetHourFromdate:beginDate.value];
+            count = (20 - beginhour > count) ? count : (20 - beginhour);
+        }
+        for(int i = 0; i < count; i++){
+            [dataArray addObject:[NSString stringWithFormat:@"%d %@", i + 1, currentPriceModel.typeName]];
+        }
+        _endPickView = [[LCPickView alloc] initPickviewWithArray:dataArray isHaveNavControler:NO];
+        [_endPickView show];
+        _endPickView.tag = 1001;
+        _endPickView.delegate = self;
+    }else{
+        if(_endPickView){
+            [_endPickView remove];
+        }
+        _endPickView = [[LCPickView alloc] initDatePickWithDate:beginDate.value datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
+        _endPickView.tag = 1002;
+        [_endPickView SetDatePickerMin:beginDate.value];
+        [_endPickView show];
+        _endPickView.delegate = self;
+    }
     
-    if(indexPath.row == 0){
-        cell.lbTitle.text = @"请选择服务开始时间";
-        cell.lbTitle.font = _FONT(16);
-        [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderdatestart"] forState:UIControlStateNormal];
-        cell.line.hidden = NO;
-    }
-    else{
-        cell.lbTitle.text = @"陪护地址";
-        cell.lbTitle.font = _FONT(16);
-        [cell.logoImageView setImage:[UIImage imageNamed:@"placeorderaddress"] forState:UIControlStateNormal];
-        cell.line.hidden = YES;
-    }
+}
 
-    return cell;
+- (void) btnSelectAddress:(id)sender
+{
+    if(delegate && [delegate respondsToSelector:@selector(NotifyToSelectAddr)]){
+        [delegate NotifyToSelectAddr];
+    }
 }
 
 - (NSArray*) getTimeArray
 {
     if(businessType.selectPriceModel.type == 1){
-        NSArray *array = @[@"08", @"09", @"10", @"20", @"21", @"22"];
+        NSArray *array = @[@"08", @"09", @"10",@"11", @"12", @"13",@"14", @"15", @"16",@"17", @"18", @"19", @"20"];
         return array;
     }else{
-        NSArray *array = @[@"08", @"09", @"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19", @"20", @"21", @"22"];
+        NSArray *array = @[@"08", @"09", @"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19", @"20"];
         return array;
     }
 }
@@ -289,85 +272,94 @@
 
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultDate:(NSDate *)resultDate
 {
-    PlaceOrderEditItemCell *cell = (PlaceOrderEditItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    cell.lbTitle.font = _FONT_B(16);
-    cell.lbTitle.text =[Util orderTimeFromDate:resultDate];
-    cell.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+    beginDate.lbTitle.font = _FONT_B(16);
+    beginDate.lbTitle.text =[Util orderTimeFromDate:resultDate];
+    beginDate.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+    beginDate.value= resultDate;
 }
 
-- (void) setNurseListInfo:(NurseListInfoModel*) model
+-(void)toobarDonBtnHaveClick:(LCPickView *)pickView resultString:(NSString *)resultString
 {
-    _nurseData = model;
-    NSInteger days = [dateSelectView getDays];
-//    NSInteger hour = (businessType.businesstype == EnumType12Hours) ?12 : 24;
-    NSInteger uPrice = businessType.selectPriceModel.amount;
-    NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", (long)uPrice];
-    NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@（%@） x %d", rangeStr,
-    businessType.selectPriceModel==nil?@"":businessType.selectPriceModel.name, days];//@"单价：¥300.00（24h） x 1天";
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
-    NSRange range = [UnitPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", (long)uPrice]];
-    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
-    lbUnitPrice.attributedText = string;
-    
-    rangeStr = [NSString stringWithFormat:@"¥%d", uPrice * days];
-    NSString *AmountPrice = [NSString stringWithFormat:@"总价：%@", rangeStr];
-    string = [[NSMutableAttributedString alloc]initWithString:AmountPrice];
-    range = [AmountPrice rangeOfString:rangeStr];
-    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
-    [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
-    lbAmountPrice.attributedText = string;
-    
-    _couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(logo, lbPaytype, _tableview, line1, businessType, dateSelectView, lbUnitPrice, lbAmountPrice, _couponsView, _lbUnits);
-    [self.contentView removeConstraints:Constraints];
-    if([model.priceList count] > 1){
-        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-10-[dateSelectView(34)]-10-[lbUnitPrice(14)]-6-[lbAmountPrice(22)]-8-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
-        [self.contentView addConstraints:Constraints];
-        businessType.hidden = NO;
-        lbOrderUnit.hidden = NO;
+    endDate.lbTitle.font = _FONT_B(16);
+    endDate.lbTitle.text = resultString;
+    endDate.lbTitle.textColor = _COLOR(0x22, 0x22, 0x22);
+    if(_endPickView.tag == 1001){
+        lbCount.text = [NSString stringWithFormat:@"共 %@", resultString];
+        self.totalDays = [resultString integerValue];
+        endDate.value = resultString;
     }
     else{
-        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[dateSelectView(34)]-10-[lbUnitPrice(14)]-6-[lbAmountPrice(22)]-8-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
-        [self.contentView addConstraints:Constraints];
-        businessType.hidden = YES;
-        lbOrderUnit.hidden = YES;
-    }
-//    if([UserModel sharedUserInfo].couponsCount <= 0){
-//        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
-//        [self.contentView addConstraints:Constraints];
-//        _couponsView.hidden = YES;
-//    }else{
-//        Constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[lbPaytype(20)]-7-[line1(1)]-9-[businessType(32)]-14-[lbUnitPrice(14)]-4-[lbAmountPrice(22)]-14-[line(1)]-0-[_couponsView(45)]-0-[_tableview]-0-|" options:0 metrics:nil views:views];
-//        [self.contentView addConstraints:Constraints];
-//        _couponsView.hidden = NO;
-//    }
-    
-    if(delegate && [delegate respondsToSelector:@selector(NotifyValueChanged:)]){
-        [delegate NotifyValueChanged:uPrice * days];
+        CGFloat count = [Util calcDaysFromBegin:beginDate.value end:pickView.datePicker.date];
+        self.totalDays = count;
+        lbCount.text = [NSString stringWithFormat:@"共 %.1f 天", count];
+        endDate.value = pickView.datePicker.date;
     }
 }
 
-- (void) NotifyDateCountChanged:(DateCountSelectView*) view
+- (void) SetPriceList:(NSArray *)priceList
 {
-    [self setNurseListInfo:_nurseData];
+    OrderPriceList = priceList;
+    [self.businessType setPriseList:priceList];
 }
 
 - (void) NotifyBusinessTypeChanged:(BusinessTypeView*) typeView  model:(PriceDataModel *)priceModel
 {
-    [self setNurseListInfo:_nurseData];
+    currentPriceModel = priceModel;
+    
+    lbfwsc.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"%@%@", @"服务时长：", priceModel.fwsj] subString:@"服务时长："];
+    lbshdx.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"%@%@", @"适合对象：", priceModel.shrq] subString:@"适合对象："];
+    
+    NSInteger uPrice = businessType.selectPriceModel.amount;
+    NSString *rangeStr = [NSString stringWithFormat:@"¥%ld", (long)uPrice];
+    NSString *UnitPrice = [NSString stringWithFormat:@"单价：%@/%@", rangeStr,
+                           businessType.selectPriceModel==nil?@"":businessType.selectPriceModel.typeName];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
+    NSRange range = [UnitPrice rangeOfString:[NSString stringWithFormat:@"¥%ld", (long)uPrice]];
+    [string addAttribute:NSForegroundColorAttributeName value:_COLOR(0xf1, 0x15, 0x39) range:range];
+    [string addAttribute:NSFontAttributeName value:_FONT(20) range:range];
+    lbUnitPrice.attributedText = string;
+    
+    self.totalDays = 0;
+    lbCount.text = [NSString stringWithFormat:@"共 0 %@", currentPriceModel.typeName];
+    
+    if(delegate && [delegate respondsToSelector:@selector(NotifyCurrentSelectPriceModel:)]){
+        [delegate NotifyCurrentSelectPriceModel:currentPriceModel];
+    }
     
     NSMutableArray *mArray = [[NSMutableArray alloc] init];
     [mArray addObject:[self getDateArray]];
     [mArray addObject:[self getTimeArray]];
     
     [_pickview setPickviewWithArray:mArray];
+    
+    
+    if(currentPriceModel){
+        if(currentPriceModel.type == 5 || currentPriceModel.type == 6){
+            endDate.lbTitle.text = @"请选择服务数量";
+            endDate.lbTitle.font = _FONT(16);
+            [endDate.logoImageView setImage:[UIImage imageNamed:@"placeorderdatecount"] forState:UIControlStateNormal];
+        }else{
+            endDate.lbTitle.text = @"请选择服务结束时间";
+            endDate.lbTitle.font = _FONT(16);
+            [endDate.logoImageView setImage:[UIImage imageNamed:@"placeorderdateend"] forState:UIControlStateNormal];
+        }
+    }
+    
 }
 
 - (void) doBtnSelectCoupons:(id)sender
 {
     if(delegate && [delegate respondsToSelector:@selector(NotifyTOSelectCoupons)])
         [delegate NotifyTOSelectCoupons];
+}
+
+- (NSMutableAttributedString *)AttributedStringFromString:(NSString*)string subString:(NSString *)subString
+{
+    NSString *UnitPrice = string;
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:UnitPrice];
+    NSRange range = [UnitPrice rangeOfString:subString];
+    [attString addAttribute:NSForegroundColorAttributeName value:_COLOR(0x33, 0x33, 0x33) range:range];
+    return attString;
 }
 
 @end

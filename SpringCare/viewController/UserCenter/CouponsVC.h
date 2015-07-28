@@ -28,6 +28,7 @@ typedef enum : NSUInteger {
 }
 
 @property (nonatomic, assign) BOOL isActive;
+@property (nonatomic, strong) NSString *productId;
 @property (nonatomic, assign) EnumCouponsVCType type;
 @property (nonatomic, assign) id<CouponsVCDelegate> delegate;
 @property (nonatomic, strong) CouponsDataModel *selectModel;

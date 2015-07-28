@@ -9,5 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @interface OrderInfoSelectView : UIView
+{
+    UIButton *_logoImageView;
+    UILabel *_lbTitle;
+    UIImageView *_unfoldStaus;
+    UILabel *_line;
+}
+
+@property (nonatomic, strong) UILabel *lbTitle;
+@property (nonatomic, strong) UIButton *logoImageView;
+@property (nonatomic, strong) UILabel *line;
+@property (nonatomic, strong) UIControl *control;
+@property (nonatomic, strong) id value;
 
 @end

@@ -27,6 +27,7 @@
 @synthesize totals;
 @synthesize delegate;
 @synthesize selectModel = selectModel;
+@synthesize productId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,6 +53,11 @@
     [self initSubviews];
     dataList = [[NSMutableArray alloc] init];
     
+    [self loadDataWithNoproductInfo];
+}
+
+- (void) loadDataWithNoproductInfo
+{
     self.pages = 0;
     self.totals = INT_MAX;
     
@@ -112,6 +118,10 @@
         [parmas setObject:[NSNumber numberWithInteger:0] forKey:@"offset"];
     }else{
         [parmas setObject:[NSNumber numberWithInteger:[self.dataList count]] forKey:@"offset"];
+    }
+    
+    if(self.productId){
+        [parmas setObject:self.productId forKey:@"productId"];
     }
     
     if(self.isActive){

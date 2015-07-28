@@ -9,7 +9,7 @@
 #import "HomeCareListVC.h"
 #import "define.h"
 #import "FamilyProductModel.h"
-#import "PlaceOrderForProductVC.h"
+#import "NewProductOrder.h"
 #import "NurseListVC.h"
 
 #import "UserModel.h"
@@ -55,7 +55,10 @@
 - (void) loadData
 {
     __weak HomeCareListVC *weakSelf = self;
-    [LCNetWorkBase requestWithMethod:@"api/product/family" Params:nil Completion:^(int code, id content) {
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    [parmas setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
+    
+    [LCNetWorkBase requestWithMethod:@"api/product/family" Params:parmas Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSArray class]]){
                 [FamilyProductModel setFamilyProduct:content];
@@ -126,7 +129,7 @@
                 
             }];
         }else{
-            PlaceOrderForProductVC *vc = [[PlaceOrderForProductVC alloc] initWithModel:model];
+            NewProductOrder *vc = [[NewProductOrder alloc] initWIthFamilyProductModel:model];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

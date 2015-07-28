@@ -21,6 +21,7 @@
 //@property (nonatomic, assign) BOOL isLoadDetail;
 
 @property (nonatomic, strong) NSMutableArray *priceList;
+@property (nonatomic, strong) NSString *productUrl;
 
 
 + (NSArray*) getProductArray;

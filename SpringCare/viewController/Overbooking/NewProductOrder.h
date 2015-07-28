@@ -6,8 +6,14 @@
 //  Copyright (c) 2015年 cmkj. All rights reserved.
 //
 
-#import "LCBaseVC.h"
+#import "NewOrderVC.h"
 
-@interface NewProductOrder : LCBaseVC
+@interface NewProductOrder : NewOrderVC
+{
+    UILabel *_lbTitle;
+    UILabel *_lbExplain;
+}
+
+- (id) initWIthFamilyProductModel:(FamilyProductModel *)model;
 
 @end
