@@ -69,7 +69,7 @@ static CGFloat const chageImageTime = 5.0;
         UIButton * imageView = [UIButton buttonWithType:UIButtonTypeCustom];
           [imageView setContentMode:UIViewContentModeScaleAspectFill];
         [imageView setFrame:CGRectMake(i * self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
-         EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
+       //  EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
 //        if (type==EnumValueTypeiPhone4S) {
 //             [imageView sd_setImageWithURL:[NSURL URLWithString:PostersImage4s(item.image_url)] forState:UIControlStateNormal placeholderImage:nil];
             [imageView sd_setImageWithURL:[NSURL URLWithString:FormatImage_1(item.image_url, (int)self.frame.size.width * 2, (int)self.frame.size.height * 2)] forState:UIControlStateNormal placeholderImage:nil];

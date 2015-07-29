@@ -89,8 +89,8 @@
 #define FormatImage_1(imageUrl,imageWidth,imageHeight) [NSString stringWithFormat:@"%@?imageView/1/w/%d/h/%d", imageUrl,imageWidth,imageHeight]
 
 //首页海报以及产品图片压缩比例大小
-#define PostersImage(imageUrl) FormatImage(imageUrl,500,300)
-#define PostersImage4s(imageUrl) FormatImage(imageUrl,500,300)
+//#define PostersImage(imageUrl) FormatImage(imageUrl,500,300)
+//#define PostersImage4s(imageUrl) FormatImage(imageUrl,500,300)
 #define ProductImage(imageUrl) FormatImage(imageUrl,400,200)
 
 //应用里头像处理尺寸
