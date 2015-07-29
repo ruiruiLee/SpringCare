@@ -406,7 +406,7 @@
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
     CGFloat totalvalue = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:_selectCoupons.amount];
 
-    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%.2f", totalvalue] subString:[NSString stringWithFormat:@"¥%.2f", totalvalue]];
+    lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", (int)totalvalue] subString:[NSString stringWithFormat:@"¥%d", (int)totalvalue]];
 }
 
 - (void) NotifySelectCouponsWithModel:(CouponsDataModel *)model

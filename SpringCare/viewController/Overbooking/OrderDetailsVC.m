@@ -82,7 +82,7 @@
     NSMutableString *priceStr = [[NSMutableString alloc] init];
     [priceStr appendString:[NSString stringWithFormat:@"单价：¥%d", model.unitPrice]];
     
-    [priceStr appendString:[NSString stringWithFormat:@"/%@ X %.1f", model.priceName, model.orderCount]];
+    [priceStr appendString:[NSString stringWithFormat:@"/%@ X %@", model.priceName, model.orderCountStr]];
     
     [_couponLogo SetCouponValue:model.couponsAmount];
     
