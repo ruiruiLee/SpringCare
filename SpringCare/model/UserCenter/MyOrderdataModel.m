@@ -105,6 +105,8 @@ static NSMutableArray *noAssessmentOrderList = nil;
         model.dateType = EnumTypeOneWeek;
     else if (dateType == 4)
         model.dateType = EnumTypeOneMounth;
+    else if (dateType == 7)
+        model.dateType = EnumTypeTimes;
     else
         model.dateType = EnumDateTypeUnknown;
     

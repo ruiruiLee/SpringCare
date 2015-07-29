@@ -205,7 +205,7 @@
         [Util showAlertMessage:@"请先选择服务开始时间"];
         return;
     }
-    if(currentPriceModel.type == 5 || currentPriceModel.type == 6){
+    if(currentPriceModel.type == 5 || currentPriceModel.type == 6 || currentPriceModel.type == 7){
         if(_endPickView)
         {
             [_endPickView remove];
@@ -217,6 +217,9 @@
             count = 3;
             NSInteger beginhour = [Util GetHourFromdate:beginDate.value];
             count = (20 - beginhour > count) ? count : (20 - beginhour);
+        }else if (currentPriceModel.type == 7)
+        {
+            count = 30;
         }
         for(int i = 0; i < count; i++){
             [dataArray addObject:[NSString stringWithFormat:@"%d %@", i + 1, currentPriceModel.typeName]];
@@ -334,7 +337,7 @@
     
     
     if(currentPriceModel){
-        if(currentPriceModel.type == 5 || currentPriceModel.type == 6){
+        if(currentPriceModel.type == 5 || currentPriceModel.type == 6 || currentPriceModel.type == 7){
             endDate.lbTitle.text = @"请选择服务数量";
             endDate.lbTitle.font = _FONT(16);
             [endDate.logoImageView setImage:[UIImage imageNamed:@"placeorderdatecount"] forState:UIControlStateNormal];

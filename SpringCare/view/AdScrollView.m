@@ -16,7 +16,7 @@
 #define UISCREENWIDTH  self.bounds.size.width//广告的宽度
 #define UISCREENHEIGHT  self.bounds.size.height//广告的高度
 
-#define HIGHT self.bounds.origin.y //由于_pageControl是添加进父视图的,所以实际位置要参考,滚动视图的y坐标
+#define HIGHT self.frame.origin.y //由于_pageControl是添加进父视图的,所以实际位置要参考,滚动视图的y坐标
 
 static CGFloat const chageImageTime = 5.0;
 

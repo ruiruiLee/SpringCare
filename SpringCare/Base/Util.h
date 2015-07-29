@@ -22,6 +22,7 @@ typedef enum : NSUInteger {
     EnumTypeOneDay,
     EnumTypeOneWeek,
     EnumTypeOneMounth,
+    EnumTypeTimes,
 } DateType;
 
 typedef enum : NSUInteger {

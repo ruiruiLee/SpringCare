@@ -110,7 +110,7 @@
     [self loadData];
 
     self.lbTitle.text = @"春风陪护";
-    self.NavigationBar.alpha = 0.6f;
+//    self.NavigationBar.alpha = 0.6f;
     
     activityBtn = [[UIButton alloc] initWithFrame:CGRectMake(320, 20, 94, 30)];
     activityBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
@@ -175,12 +175,12 @@
     
     EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
     
-    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale);
+    CGRect rect = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, 251 * scale - 64);
     if(type == EnumValueTypeiPhone4S)
-        rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 251 * scale - 40);
+        rect = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, 251 * scale - 104);
     
     if(_IPHONE_OS_VERSION_UNDER_7_0)
-        rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, rect.size.height - 20);
+        rect = CGRectMake(0, 44, [UIScreen mainScreen].bounds.size.width, rect.size.height - 20);
     _banner = [[AdScrollView alloc]initWithFrame:rect];
     _banner.parentController=self;
     _banner.PageControlShowStyle = UIPageControlShowStyleCenter;
@@ -283,7 +283,7 @@
 
 - (void) InitConstraintsForiPhone4S:(NSDictionary*) views
 {
-    CGFloat oh = _banner.frame.size.height;
+    CGFloat oh = _banner.frame.size.height + _banner.frame.origin.y;
     NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(20)]->=10-|", oh + 16 ];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
     NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(9)]->=10-|", oh + 22 ];
@@ -331,7 +331,7 @@
     lbPhone.font = _FONT(21);
     btnRing.layer.cornerRadius = 8;
     
-    CGFloat oh = _banner.frame.size.height;
+    CGFloat oh = _banner.frame.size.height + _banner.frame.origin.y;
     
     NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(17)]->=10-|", oh + 16];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
@@ -372,7 +372,7 @@
 
 - (void) InitConstraintsForiPhone6:(NSDictionary*) views
 {
-    CGFloat oh = _banner.frame.size.height;
+    CGFloat oh = _banner.frame.size.height + _banner.frame.origin.y;
     
     btnIntro.titleLabel.font = _FONT(13);
     btnCommitment.titleLabel.font = _FONT(13);
@@ -420,7 +420,7 @@
 
 - (void) InitConstraintsForiPhone6P:(NSDictionary*) views
 {
-    CGFloat oh = _banner.frame.size.height;
+    CGFloat oh = _banner.frame.size.height + _banner.frame.origin.y;
     
     btnIntro.titleLabel.font = _FONT(15);
     btnCommitment.titleLabel.font = _FONT(15);

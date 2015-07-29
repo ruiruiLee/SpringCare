@@ -256,7 +256,12 @@
 //    [detailTime appendString:[NSString stringWithFormat:@" X "]];
 //    [detailTime appendString:[NSString stringWithFormat:@"%@", model.priceName]];
     
-    [detailTime appendString:[NSString stringWithFormat:@"%@点-%@点", [Util convertShotStrFromDate:model.beginDate], [Util convertShotStrFromDate:model.endDate]]];
+    if(model.dateType == EnumTypeTimes){
+        [detailTime appendString:[NSString stringWithFormat:@"%@点", [Util convertShotStrFromDate:model.beginDate]]];
+    }
+    else{
+        [detailTime appendString:[NSString stringWithFormat:@"%@点-%@点", [Util convertShotStrFromDate:model.beginDate], [Util convertShotStrFromDate:model.endDate]]];
+    }
     _lbDetailTime.text = detailTime;
     
     NSMutableString *priceStr = [[NSMutableString alloc] init];
