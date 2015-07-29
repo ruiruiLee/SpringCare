@@ -65,6 +65,7 @@ typedef enum : NSUInteger {
 
 //详细资料
 @property (nonatomic, assign) BOOL isLoadDetail;
+@property (nonatomic, strong) NSString *productUrl;
 
 @property (nonatomic, strong) NSMutableArray *priceList;
 

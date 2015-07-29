@@ -102,7 +102,7 @@
     _lbPrice = [self createLabelWithFont:_FONT(13) textcolor:_COLOR(0x66, 0x66, 0x66) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
     NSMutableString *priceStr = [[NSMutableString alloc] init];
     [priceStr appendString:[NSString stringWithFormat:@"¥%d", _OrderModel.unitPrice]];
-    [priceStr appendString:[NSString stringWithFormat:@"/%@ X %d", _OrderModel.priceName, _OrderModel.orderCount]];
+    [priceStr appendString:[NSString stringWithFormat:@"/%@ X %.1f", _OrderModel.priceName, _OrderModel.orderCount]];
     _lbPrice.text = priceStr;
     
     

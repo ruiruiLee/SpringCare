@@ -21,7 +21,6 @@
 @property(nonatomic,strong)NSDictionary *levelTwoDic;
 @property(nonatomic,strong)UIToolbar *toolbar;
 @property(nonatomic,strong)UIPickerView *pickerView;
-@property(nonatomic,strong)UIDatePicker *datePicker;
 @property(nonatomic,assign)NSDate *defaulDate;
 @property(nonatomic,assign)BOOL isHaveNavControler;
 @property(nonatomic,assign)NSInteger pickeviewHeight;
@@ -354,8 +353,7 @@
             }
         }
     }else if (_datePicker) {
-        
-        _resultString=[NSString stringWithFormat:@"%@",_datePicker.date];
+        _resultString = [Util orderTimeFromDate:_datePicker.date];
     }
     if ([self.delegate respondsToSelector:@selector(toobarDonBtnHaveClick:resultString:)]) {
         [self.delegate toobarDonBtnHaveClick:self resultString:_resultString];
@@ -387,5 +385,10 @@
     //NSLog(@"销毁了");
 }
 
+- (void) SetDatePickerMin:(NSDate *)date
+{
+    if(self.datePicker)
+        self.datePicker.minimumDate = date;
+}
 
 @end

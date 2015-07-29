@@ -14,9 +14,12 @@
 {
     PriceDataModel *model = [[PriceDataModel alloc] init];
     model.amount = [[dic objectForKey:@"amount"] integerValue];
-    model.typeName = [dic objectForKey:@"typeName"];
+    model.typeName = [dic objectForKey:@"unitPriceName"];
     model.name = [dic objectForKey:@"name"];
     model.type = [[dic objectForKey:@"type"] integerValue];
+    model.fwsj = [dic objectForKey:@"fwsj"];
+    model.shrq = [dic objectForKey:@"shrq"];
+    model.isDefault = [[dic objectForKey:@"default"] boolValue];
     
     return model;
 }

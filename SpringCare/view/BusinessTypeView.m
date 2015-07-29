@@ -100,7 +100,7 @@
         }
         [btnArray addObject:btn];
         
-        if(i == 0){
+        if(model.isDefault){
             [self doBtnClicked:btn];
         }
     }

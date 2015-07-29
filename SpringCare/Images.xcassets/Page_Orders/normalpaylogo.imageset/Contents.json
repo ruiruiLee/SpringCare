@@ -2,17 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "payment_ico@1x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "normalpaylogo@2x.png"
+      "filename" : "payment_ico@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "normalpaylogo.png"
+      "filename" : "payment_ico@3x.png"
     }
   ],
   "info" : {

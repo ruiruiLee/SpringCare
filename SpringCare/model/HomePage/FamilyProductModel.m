@@ -61,6 +61,8 @@ static NSMutableArray *familyProductArray = nil;
         }
         model.priceList = array;
         
+        model.productUrl = [dic objectForKey:@"productUrl"];
+        
         [familyProductArray addObject:model];
     }
 }

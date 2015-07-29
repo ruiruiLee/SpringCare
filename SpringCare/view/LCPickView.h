@@ -20,6 +20,7 @@
 
 
 @property(nonatomic,weak) id<LCPickViewDelegate> delegate;
+@property(nonatomic,strong)UIDatePicker *datePicker;
 
 /**
  *  通过plistName添加一个pickView
@@ -71,5 +72,7 @@
  *  设置toobar的背景颜色
  */
 -(void)setToolbarTintColor:(UIColor *)color;
+
+- (void) SetDatePickerMin:(NSDate *)date;
 
 @end

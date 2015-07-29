@@ -7,7 +7,7 @@
 //
 
 #import "NurseListVC.h"
-#import "PlaceOrderVC.h"
+#import "NewNurseOrder.h"
 #import "SliderViewController.h"
 #import "NurseIntroTableCell.h"
 #import "ProductInfoCell.h"
@@ -199,11 +199,11 @@
     [searchBar resignFirstResponder];
     
     NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-    if(model.workStatus > 0)
-    {
-        [Util showAlertMessage:@"对不起，他已被预约， 请选择空闲的陪护师！"];
-        return;
-    }
+//    if(model.workStatus > 0)
+//    {
+//        [Util showAlertMessage:@"对不起，他已被预约， 请选择空闲的陪护师！"];
+//        return;
+//    }
     
     if(![UserModel sharedUserInfo].isLogin){
         LoginVC *vc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
@@ -214,7 +214,7 @@
     }else{
     
         NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
-        PlaceOrderVC *vc = [[PlaceOrderVC alloc] initWithModel:model andproductId:_productId];
+        NewNurseOrder *vc = [[NewNurseOrder alloc] initWithNurseListInfoModel:model productId:_productId];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

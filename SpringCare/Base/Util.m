@@ -117,6 +117,21 @@
     return day;
 }
 
+/*
+ format yyyy-MM-dd HH:mm
+ */
++ (NSInteger)GetHourFromdate:(NSDate *)inputDate
+{
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *components = [calendar components:unitFlags fromDate:inputDate];
+    
+    NSInteger hour = [components hour]; // 15
+    
+    return hour;
+}
+
 +(NSString *)convertTimetoBroadFormat:(NSString*) inputDate{
     
     if (!inputDate||inputDate.length==0) {
@@ -367,8 +382,6 @@
     return headerImage;
 }
 
-
-
 + (BOOL) isOneDay:(NSDate *) begin end:(NSDate *) end
 {
     NSLog(@"isOneDay");
@@ -533,5 +546,38 @@
         return string;
 }
 
++ (CGFloat) calcDaysFromBegin:(NSDate *)inBegin end:(NSDate *)inEnd
+{
+    NSInteger unitFlags = NSDayCalendarUnit| NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
+    NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [cal components:unitFlags fromDate:inBegin];
+    NSInteger bhour = comps.hour;
+    comps.hour = 8;
+    NSDate *newBegin  = [cal dateFromComponents:comps];
+    
+    NSCalendar *cal2 = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps2 = [cal2 components:unitFlags fromDate:inEnd];
+    NSDate *newEnd  = [cal2 dateFromComponents:comps2];
+    
+    NSTimeInterval interval = [newEnd timeIntervalSinceDate:newBegin];
+    CGFloat beginDays=((NSInteger)interval)/(3600*24);
+    NSInteger other = ((NSInteger)interval)%(3600*24);
+    if(other > 0 && other <= 3600 *4){
+        beginDays += 0.5;
+    }
+    else if(other > 3600 *4){
+        beginDays += 1;
+    }
+    
+    if(bhour >= comps.hour){
+        if(beginDays < 1)
+            beginDays = 1;
+    }else
+    {
+        beginDays += 1;
+    }
+    
+    return beginDays;
+}
 
 @end

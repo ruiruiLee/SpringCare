@@ -7,50 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DateCountSelectView.h"
 #import "BusinessTypeView.h"
 #import "ZHPickView.h"
 #import "NurseListInfoModel.h"
 #import "CouponsSelectView.h"
-
-@interface PlaceOrderEditItemCell : UITableViewCell
-{
-    UIButton *_logoImageView;
-    UILabel *_lbTitle;
-    UIImageView *_unfoldStaus;
-    UILabel *_line;
-}
-
-@property (nonatomic, strong) UILabel *lbTitle;
-@property (nonatomic, strong) UIButton *logoImageView;
-@property (nonatomic, strong) UILabel *line;
-
-@end
+#import "OrderInfoSelectView.h"
+#import "LCPickView.h"
 
 @protocol PlaceOrderEditCellDelegate <NSObject>
 
 - (void) NotifyToSelectAddr;
 - (void) NotifyTOSelectCoupons;
 - (void) NotifyValueChanged:(NSInteger )value;
+- (void) NotifyCurrentSelectPriceModel:(PriceDataModel *)model;
 
 @end
 
-@interface PlaceOrderEditCell : UITableViewCell<UITableViewDataSource, UITableViewDelegate, ZHPickViewDelegate, BusinessTypeViewDelegate, DateCountSelectViewDelegate>
+@interface PlaceOrderEditCell : UITableViewCell<ZHPickViewDelegate, BusinessTypeViewDelegate, LCPickViewDelegate>
 {
-    UITableView *_tableview;
-   // UILabel *line;
-   // UILabel *sepline;
-    
     BusinessTypeView *businessType;//24或12小时;
-    DateCountSelectView *dateSelectView;//多少天
     UILabel *lbUnitPrice;//单价
-    UILabel *lbAmountPrice;//总价
-    UILabel *lbNumber;
-    UILabel *lbOrderUnit;
+    UILabel *lbCount;
     
     ZHPickView *_pickview;
-    
-    NurseListInfoModel *_nurseData;
+    LCPickView *_endPickView;
     
     CouponsSelectView *_couponsView;
     
@@ -58,15 +38,29 @@
     UIImageView *logo;
     UILabel *lbPaytype;
     UILabel *line1;
+    UILabel *line2;
+    
+    //产品价格介绍
+    UIView *pricebg;
+    UIImageView *warnImageView;
+    UILabel *lbshdx;//适合对象
+    UILabel *lbfwsc;//服务时长
+    
+    PriceDataModel *currentPriceModel;
+    NSArray *OrderPriceList;
 }
 
 @property (nonatomic, assign) id<PlaceOrderEditCellDelegate> delegate;
-@property (nonatomic, strong) UITableView *_tableview;
 @property (nonatomic, strong) BusinessTypeView *businessType;
-@property (nonatomic, strong) DateCountSelectView *dateSelectView;
 @property (nonatomic, strong) CouponsSelectView *couponsView;
 @property (nonatomic, strong) UILabel *lbUnits;
 
-- (void) setNurseListInfo:(NurseListInfoModel*) model;
+@property (nonatomic, strong) OrderInfoSelectView *beginDate;
+@property (nonatomic, strong) OrderInfoSelectView *endDate;
+@property (nonatomic, strong) OrderInfoSelectView *address;
+@property (nonatomic, assign) CGFloat totalDays;
+
+- (void) SetPriceList:(NSArray *)priceList;
+
 
 @end

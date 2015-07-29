@@ -81,7 +81,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
 {
     MyOrderdataModel *model = [[MyOrderdataModel alloc] init];
     model.oId = [dic objectForKey:@"id"];
-    model.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
+    model.orderCount = [[dic objectForKey:@"orderCount"] floatValue];
     model.unitPrice = [[dic objectForKey:@"unitPrice"] integerValue];
     model.totalPrice = [[dic objectForKey:@"totalPrice"] integerValue];
     model.product = [ProductInfodataModel modelWithDictionary:[dic objectForKey:@"product"]];

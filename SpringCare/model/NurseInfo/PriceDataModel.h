@@ -10,10 +10,13 @@
 
 @interface PriceDataModel : NSObject
 
-@property (nonatomic, strong) NSString *typeName;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, assign) NSInteger type;
-@property (nonatomic, assign) NSInteger amount;
+@property (nonatomic, strong) NSString *typeName;//单位名称
+@property (nonatomic, strong) NSString *name;//名称
+@property (nonatomic, assign) NSInteger type;//5是月，6是小时，这两个都是选择数量；其他选择结束时间
+@property (nonatomic, assign) NSInteger amount;//单价
+@property (nonatomic, strong) NSString *fwsj;//服务时长
+@property (nonatomic, strong) NSString *shrq;//适合对象
+@property (nonatomic, assign) BOOL isDefault;
 
 + (PriceDataModel *)modelFromDictionary:(NSDictionary *)dic;
 

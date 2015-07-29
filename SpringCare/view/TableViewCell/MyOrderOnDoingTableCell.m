@@ -153,16 +153,16 @@
     NSMutableString *priceStr = [[NSMutableString alloc] init];
     [priceStr appendString:[NSString stringWithFormat:@"¥%ld", data.unitPrice]];
     if(data.dateType == EnumTypeHalfDay){
-        [priceStr appendString:[NSString stringWithFormat:@"/12h X %ld天", data.orderCount]];
+        [priceStr appendString:[NSString stringWithFormat:@"/12h X %.1f天", data.orderCount]];
     }
     else if (data.dateType == EnumTypeOneDay){
-        [priceStr appendString:[NSString stringWithFormat:@"/天 X %ld天", data.orderCount]];
+        [priceStr appendString:[NSString stringWithFormat:@"/天 X %.1f天", data.orderCount]];
     }
     else if (data.dateType == EnumTypeOneWeek){
-        [priceStr appendString:[NSString stringWithFormat:@"/周 X %ld周", data.orderCount]];
+        [priceStr appendString:[NSString stringWithFormat:@"/周 X %.1f周", data.orderCount]];
     }
     else if (data.dateType == EnumTypeOneMounth){
-        [priceStr appendString:[NSString stringWithFormat:@"/月 X %ld月", data.orderCount]];
+        [priceStr appendString:[NSString stringWithFormat:@"/月 X %.1f月", data.orderCount]];
     }
     
     _lbPrice.text = priceStr;

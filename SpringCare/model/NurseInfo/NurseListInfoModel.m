@@ -141,6 +141,8 @@ static NSInteger nurseTotal = 0;
     model.workStatus = [[dic objectForKey:@"workStatus"] integerValue];
     model.newPrice = [[dic objectForKey:@"newPrice"] integerValue];
     
+    model.productUrl = [dic objectForKey:@"productUrl"];
+    
     NSArray *priceList = [dic objectForKey:@"priceList"];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i < [priceList count]; i++) {
