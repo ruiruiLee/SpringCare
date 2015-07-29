@@ -177,10 +177,10 @@
     
     CGRect rect = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, 251 * scale - 64);
     if(type == EnumValueTypeiPhone4S)
-        rect = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, 251 * scale - 104);
+        rect = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, 251 * scale - 64);
     
     if(_IPHONE_OS_VERSION_UNDER_7_0)
-        rect = CGRectMake(0, 44, [UIScreen mainScreen].bounds.size.width, rect.size.height - 20);
+        rect = CGRectMake(0, 44, [UIScreen mainScreen].bounds.size.width, rect.size.height);
     _banner = [[AdScrollView alloc]initWithFrame:rect];
     _banner.parentController=self;
     _banner.PageControlShowStyle = UIPageControlShowStyleCenter;
@@ -284,17 +284,17 @@
 - (void) InitConstraintsForiPhone4S:(NSDictionary*) views
 {
     CGFloat oh = _banner.frame.size.height + _banner.frame.origin.y;
-    NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(20)]->=10-|", oh + 16 ];
+    NSString *format = [NSString stringWithFormat:@"V:|-%f-[btnIntro(20)]->=10-|", oh + 12 ];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views]];
-    NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(9)]->=10-|", oh + 22 ];
+    NSString *lineHformat = [NSString stringWithFormat:@"V:|-%f-[line(9)]->=10-|", oh + 18 ];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:lineHformat options:0 metrics:nil views:views]];
-    NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(20)]->=10-|", oh + 16];
+    NSString *commentHformat = [NSString stringWithFormat:@"V:|-%f-[btnCommitment(20)]->=10-|", oh + 12];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:commentHformat options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(20)]-34-[btnHospital(100)]->=0-|" options:0 metrics:nil views:views]];
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(20)]-34-[btnHome(100)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(20)]-12-[btnHospital(100)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnIntro(20)]-12-[btnHome(100)]->=0-|" options:0 metrics:nil views:views]];
     
-    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(100)]-24-[btnRing(50)]->=0-|" options:0 metrics:nil views:views]];
+    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[btnHospital(100)]-10-[btnRing(50)]->=0-|" options:0 metrics:nil views:views]];
     
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnRing(220)]->=0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[btnHospital(100)]-30-[btnHome(100)]->=0-|" options:0 metrics:nil views:views]];
