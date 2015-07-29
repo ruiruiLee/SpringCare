@@ -243,7 +243,7 @@
     
     NSMutableString *priceStr = [[NSMutableString alloc] init];
     [priceStr appendString:[NSString stringWithFormat:@"¥%d", data.unitPrice]];
-    [priceStr appendString:[NSString stringWithFormat:@"/%@ X %d", data.priceName,data.orderCount]];
+    [priceStr appendString:[NSString stringWithFormat:@"/%@ X %.1f", data.priceName,data.orderCount]];
     
     _lbPrice.text = priceStr;
     

@@ -269,10 +269,10 @@
     [Params setObject:dateType forKey:@"dateType"];//
 
     [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@:00", [Util reductionTimeFromOrderTime:cell.beginDate.lbTitle.text]]] forKey:@"beginDate"];//
-    [Params setObject:[NSNumber numberWithInteger:cell.totalDays] forKey:@"orderCount"];//
+    [Params setObject:[NSNumber numberWithFloat:cell.totalDays] forKey:@"orderCount"];//
     [Params setObject:[NSNumber numberWithInteger:orgUnitPrice] forKey:@"orgUnitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
-    CGFloat totalPrice = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:_selectCoupons.amount];
+    CGFloat totalPrice = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:0];
     [Params setObject:[NSNumber numberWithFloat:totalPrice] forKey:@"totalPrice"];//
     if(_selectCoupons != nil){
         [Params setObject:_selectCoupons.couponsId forKey:@"couponId"];

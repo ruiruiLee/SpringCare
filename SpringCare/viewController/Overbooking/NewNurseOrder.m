@@ -443,12 +443,12 @@
     [Params setObject:dateType forKey:@"dateType"];//
     
     [Params setObject:[Util ChangeToUTCTime:[NSString stringWithFormat:@"%@:00", [Util reductionTimeFromOrderTime:cell.beginDate.lbTitle.text]]] forKey:@"beginDate"];//
-    [Params setObject:[NSNumber numberWithInteger:cell.totalDays] forKey:@"orderCount"];//
+    [Params setObject:[NSNumber numberWithFloat:cell.totalDays] forKey:@"orderCount"];//
     if([cell.endDate.value isKindOfClass:[NSDate class]])
         [Params setObject:[Util StringFromDate:cell.endDate.value] forKey:@"endDate"];
     
     NSInteger unitPrice = cell.businessType.selectPriceModel.amount;
-    CGFloat totalPrice = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:_selectCoupons.amount];
+    CGFloat totalPrice = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:0];
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     [Params setObject:[NSNumber numberWithInteger:totalPrice] forKey:@"totalPrice"];//
     

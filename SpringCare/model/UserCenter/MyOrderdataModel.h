@@ -34,7 +34,7 @@
 @property (nonatomic, assign) DateType dateType;
 @property (nonatomic, strong) NSDate *beginDate;
 @property (nonatomic, strong) NSDate *endDate;
-@property (nonatomic, assign) NSInteger orderCount;
+@property (nonatomic, assign) CGFloat orderCount;
 @property (nonatomic, assign) NSInteger unitPrice;
 @property (nonatomic, assign) NSInteger totalPrice;
 @property (nonatomic, assign) OrderStatus orderStatus;
