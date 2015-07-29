@@ -8,7 +8,7 @@
 
 #import "PayTypeCell.h"
 #import "define.h"
-#import "PlaceOrderVC.h"
+#import "NewOrderVC.h"
 
 @implementation PayTypeItemCell
 @synthesize _btnSelect = _btnSelect;
@@ -148,7 +148,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
-    PlaceOrderVC *vc= (PlaceOrderVC*)self.parentController;
+    NewOrderVC *vc= (NewOrderVC*)self.parentController;
 
     if(indexPath.row == 0){
         [self setPaytype:EnumTypeAfter];
