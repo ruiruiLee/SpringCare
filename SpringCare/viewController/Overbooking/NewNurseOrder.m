@@ -231,14 +231,14 @@
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
     cell.couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
     [cell.businessType setPriseList:nurseModel.priceList];
-    if([nurseModel.priceList count] == 1){
-        cell.businessType.hidden = YES;
-        cell.lbUnits.hidden = YES;
-        cell.lbUnits.text = [NSString stringWithFormat:@"模式：%@", ((PriceDataModel*)[nurseModel.priceList objectAtIndex:0]).name];
-    }else{
+//    if([nurseModel.priceList count] == 1){
+//        cell.businessType.hidden = YES;
+//        cell.lbUnits.hidden = YES;
+//        cell.lbUnits.text = [NSString stringWithFormat:@"模式：%@", ((PriceDataModel*)[nurseModel.priceList objectAtIndex:0]).name];
+//    }else{
         cell.businessType.hidden = NO;
         cell.lbUnits.hidden = YES;
-    }
+//    }
     [_tableview reloadData];
     
     if(nurseModel.workStatus > 0)

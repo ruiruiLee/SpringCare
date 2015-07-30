@@ -9,13 +9,12 @@
 #import "MyOrderListVC.h"
 #import "define.h"
 #import "MyOrderTableCell.h"
-#import "MyOrderOnDoingTableCell.h"
 #import "MyOrderdataModel.h"
 #import "OrderDetailsVC.h"
 #import "PayForOrderVC.h"
 #import "EvaluateOrderVC.h"
 
-@interface MyOrderListVC ()<MyOrderOnDoingTableCellDelegate, MyOrderTableCellDelegate, OrderDetailsVCDelegate>
+@interface MyOrderListVC ()<MyOrderTableCellDelegate, OrderDetailsVCDelegate>
 {
     int loadCount;
 }
@@ -449,19 +448,6 @@
 {
     EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:order];
     vc.delegate=(id)self;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void) NotifyToPayWithModel:(MyOrderdataModel *) oreder onDoingcell:(MyOrderOnDoingTableCell *) cell
-{
-    PayForOrderVC *vc = [[PayForOrderVC alloc] initWithModel:oreder];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void) NotifyToCommentWithModel:(MyOrderdataModel *) order onDoingcell:(MyOrderOnDoingTableCell *) cell
-{
-    EvaluateOrderVC *vc = [[EvaluateOrderVC alloc] initWithModel:order];
-     vc.delegate=(id)self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

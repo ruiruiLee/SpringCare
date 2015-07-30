@@ -54,20 +54,22 @@
 
 - (void) loadData
 {
-    __weak HomeCareListVC *weakSelf = self;
-    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-    [parmas setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
-    
-    [LCNetWorkBase requestWithMethod:@"api/product/family" Params:parmas Completion:^(int code, id content) {
-        if(code){
-            if([content isKindOfClass:[NSArray class]]){
-                [FamilyProductModel setFamilyProduct:content];
-                weakSelf._dataArray = [FamilyProductModel getProductArray];
-                [weakSelf._tableview reloadData];
-//                [weakSelf.metroView AddDataList:weakSelf._dataArray];
+    if([cfAppDelegate currentCityModel].city_id != nil){
+        __weak HomeCareListVC *weakSelf = self;
+        NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+        [parmas setObject:[cfAppDelegate currentCityModel].city_id forKey:@"cityId"];
+        
+        [LCNetWorkBase requestWithMethod:@"api/product/family" Params:parmas Completion:^(int code, id content) {
+            if(code){
+                if([content isKindOfClass:[NSArray class]]){
+                    [FamilyProductModel setFamilyProduct:content];
+                    weakSelf._dataArray = [FamilyProductModel getProductArray];
+                    [weakSelf._tableview reloadData];
+    //                [weakSelf.metroView AddDataList:weakSelf._dataArray];
+                }
             }
-        }
-    }];
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

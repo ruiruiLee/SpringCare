@@ -216,7 +216,7 @@
         {
             count = 3;
             NSInteger beginhour = [Util GetHourFromdate:beginDate.value];
-            count = (20 - beginhour > count) ? count : (20 - beginhour);
+            count = 20 - beginhour;
         }else if (currentPriceModel.type == 7 || currentPriceModel.type == 1)
         {
             count = 30;

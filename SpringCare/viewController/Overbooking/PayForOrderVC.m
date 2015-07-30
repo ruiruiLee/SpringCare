@@ -107,19 +107,20 @@
     
     
     _imgDayTime = [self creatImageViewWithimage:nil placeholder:@"daytime" rootView:_nurseInfoBg];
-    _imgNight = [self creatImageViewWithimage:nil placeholder:@"night" rootView:_nurseInfoBg];
+    _imgNight = [self creatImageViewWithimage:nil placeholder:@"stime" rootView:_nurseInfoBg];
     
     _imgDayTime.image = [UIImage imageNamed:@"daytime"];
-    _imgNight.image = [UIImage imageNamed:@"night"];
-    if(_OrderModel.dateType == EnumTypeHalfDay){
-        ServiceTimeType timeType = [Util GetServiceTimeType:_OrderModel.beginDate];
-        if(timeType == EnumServiceTimeNight){
-            _imgDayTime.image = nil;
-        }
-        else if (timeType == EnumServiceTimeDay){
-            _imgNight.image = nil;
-        }
-    }
+    _imgNight.image = [UIImage imageNamed:@"stime"];
+    _imgDayTime.hidden = YES;
+//    if(_OrderModel.dateType == EnumTypeHalfDay){
+//        ServiceTimeType timeType = [Util GetServiceTimeType:_OrderModel.beginDate];
+//        if(timeType == EnumServiceTimeNight){
+//            _imgDayTime.image = nil;
+//        }
+//        else if (timeType == EnumServiceTimeDay){
+//            _imgNight.image = nil;
+//        }
+//    }
     
     _lbDetailTime = [self createLabelWithFont:_FONT(12) textcolor:_COLOR(0x99, 0x99, 0x99) backgroundcolor:[UIColor clearColor] rootView:_nurseInfoBg];
     _lbDetailTime.text = [Util GetOrderServiceTime:_OrderModel.beginDate enddate:_OrderModel.endDate datetype:_OrderModel.dateType];//data.fromto;
@@ -193,7 +194,7 @@
     
     [_nurseInfoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-12-[_imgPhoto(82)]-20-[_lbName]-15-|" options:0 metrics:nil views:views]];
     [_nurseInfoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-12-[_imgPhoto(82)]-20-[_lbPrice]-15-|" options:0 metrics:nil views:views]];
-    [_nurseInfoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-12-[_imgPhoto(82)]-20-[_imgDayTime]-0-[_imgNight]-0-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views]];
+    [_nurseInfoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-12-[_imgPhoto(82)]-20-[_imgNight]-6-[_lbDetailTime]->=15-|" options:0 metrics:nil views:views]];
     [_nurseInfoBg addConstraint:[NSLayoutConstraint constraintWithItem:_imgPhoto attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_nurseInfoBg attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [_nurseInfoBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_lbName(20)]-5-[_lbPrice(20)]-5-[_lbDetailTime(20)]->=5-|" options:0 metrics:nil views:views]];
     [_nurseInfoBg addConstraint:[NSLayoutConstraint constraintWithItem:_imgNight attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDetailTime attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
