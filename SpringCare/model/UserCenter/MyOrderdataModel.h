@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) NSString *pId;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *typeName;
 
 @end
 

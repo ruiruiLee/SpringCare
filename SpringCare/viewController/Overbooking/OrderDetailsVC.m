@@ -248,8 +248,12 @@
 
 - (void) setContentData:(MyOrderdataModel *) model
 {
-    
-    _lbType.text = [NSString stringWithFormat:@"类型：%@", model.product.name];
+    NSMutableString *typeStr = [[NSMutableString alloc] init];
+    [typeStr appendString:[NSString stringWithFormat:@"类型：%@", model.product.name]];
+    if(model.product.typeName != nil && ![model.product.typeName isKindOfClass:[NSNull class]]){
+        [typeStr appendString:[NSString stringWithFormat:@"-%@", model.product.typeName]];
+    }
+    _lbType.text = typeStr;
     NSMutableString *detailTime = [[NSMutableString alloc] init];
     [detailTime appendString:@"时间："];
 //    [detailTime appendString:[NSString stringWithFormat:@"%d", model.orderCount]];

@@ -18,6 +18,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
     ProductInfodataModel *model = [[ProductInfodataModel alloc] init];
     model.pId = [dic objectForKey:@"id"];
     model.name = [dic objectForKey:@"name"];
+    model.typeName = [dic objectForKey:@"typeName"];
     return model;
 }
 
