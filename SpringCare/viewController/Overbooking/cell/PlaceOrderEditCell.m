@@ -232,13 +232,33 @@
         if(_endPickView){
             [_endPickView remove];
         }
-        _endPickView = [[LCPickView alloc] initDatePickWithDate:beginDate.value datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
+        NSDate *end = [self GetMinEndDate:beginDate.value];
+        _endPickView = [[LCPickView alloc] initDatePickWithDate:end datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
         _endPickView.tag = 1002;
-        [_endPickView SetDatePickerMin:beginDate.value];
+        [_endPickView SetDatePickerMin:end];
         [_endPickView show];
         _endPickView.delegate = self;
     }
     
+}
+
+- (NSDate *)GetMinEndDate:(NSDate *)date
+{
+    NSInteger unitFlags = NSDayCalendarUnit| NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
+    NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [cal components:unitFlags fromDate:date];
+    NSInteger hour = comps.hour;
+    
+    if(hour < 8){
+        comps.hour = 8;
+        date  = [cal dateFromComponents:comps];
+    }else{
+        comps.hour = 8;
+        NSDate *newDate  = [cal dateFromComponents:comps];
+        date = [newDate dateByAddingTimeInterval:24 * 3600];
+    }
+    
+    return date;
 }
 
 - (void) btnSelectAddress:(id)sender

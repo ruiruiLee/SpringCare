@@ -432,6 +432,16 @@
         [Util showAlertMessage:@"定位失败，请选择所在服务城市！" ];
         return;
     }
+    
+    if(cell.endDate.value == nil){
+        if(currentPriceModel.type == 1 || currentPriceModel.type == 5 || currentPriceModel.type == 6 || currentPriceModel.type == 7){
+            [Util showAlertMessage:@"请选择服务数量！"];
+        }else{
+            [Util showAlertMessage:@"请选择服务结束时间！"];
+        }
+        return;
+    }
+    
     NSMutableDictionary *Params = [[NSMutableDictionary alloc] init];
     [Params setObject:nurseModel.nid forKey:@"careId"];
     [Params setObject:[UserModel sharedUserInfo].userId forKey:@"registerId"];
