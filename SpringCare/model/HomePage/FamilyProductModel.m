@@ -80,6 +80,7 @@ static NSMutableArray *familyProductArray = nil;
     NSDictionary *prama = @{@"registerId":[UserModel sharedUserInfo].userId, @"productId":productId};
     [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
         if(code){
+            self.productUrl = [content objectForKey:@"productUrl"];
                 block(content);
         }
     }];

@@ -12,6 +12,9 @@
 #import "define.h"
 #import "NewsDataModel.h"
 #import "WebContentVC.h"
+#import "NewProductOrder.h"
+#import "NurseListVC.h"
+#import "LoginVC.h"
 
 #define UISCREENWIDTH  self.bounds.size.width//广告的宽度
 #define UISCREENHEIGHT  self.bounds.size.height//广告的高度
@@ -104,12 +107,40 @@ static CGFloat const chageImageTime = 5.0;
 - (void) clickPageImage:(UIButton*)sender
 {
         NSLog(@"%ld",(long)sender.tag);
-    if (titleUrlarray!=nil && [titleUrlarray[sender.tag] length] > 0) {
-        WebContentVC *vc = [[WebContentVC alloc] initWithTitle:titleArray[sender.tag]==nil?@"详情":titleArray[sender.tag] url:titleUrlarray[sender.tag]];
+
+    
+    NewsDataModel *model = [self.NewsmodelArray objectAtIndex:sender.tag];
+    if(model.productType == 1){
+        NurseListVC *vc = [[NurseListVC alloc] initWithProductId:model.productId];
+        vc.NavTitle = model.news_title;
         vc.hidesBottomBarWhenPushed = YES;
-        NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, titleUrlarray[sender.tag]];
-        [vc loadInfoFromUrl: url];
         [_parentController.navigationController pushViewController:vc animated:YES];
+    }
+    else if (model.productType == 2){
+        if(![UserModel sharedUserInfo].isLogin){
+            LoginVC *loginvc = [[LoginVC alloc] initWithNibName:nil bundle:nil];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginvc];
+            [_parentController.navigationController presentViewController:nav animated:YES completion:^{
+                
+            }];
+        }else{
+            FamilyProductModel *proModel = [[FamilyProductModel alloc] init];
+            proModel.pId = model.productId;
+            proModel.productName = model.news_title;
+            NewProductOrder *vc = [[NewProductOrder alloc] initWIthFamilyProductModel:proModel];
+            vc.hidesBottomBarWhenPushed = YES;
+            [_parentController.navigationController pushViewController:vc animated:YES];
+        }
+    }
+    else{
+        
+        if (titleUrlarray!=nil && [titleUrlarray[sender.tag] length] > 0) {
+            WebContentVC *vc = [[WebContentVC alloc] initWithTitle:titleArray[sender.tag]==nil?@"详情":titleArray[sender.tag] url:titleUrlarray[sender.tag]];
+            vc.hidesBottomBarWhenPushed = YES;
+            NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, titleUrlarray[sender.tag]];
+            [vc loadInfoFromUrl: url];
+            [_parentController.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

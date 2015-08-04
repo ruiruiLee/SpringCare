@@ -35,7 +35,7 @@
         DataList = [[NSMutableArray alloc] init];
         [cfAppDelegate setDefaultProductId:pid] ;
         
-        showAllCare = @"true";
+        showAllCare = @"false";
         [parmas setObject:showAllCare forKey:@"showAllCare"];
     }
     return self;
@@ -79,7 +79,7 @@
     self.prices = @[@"价格区间",@"0-100元",@"100-200元",@"200元以上"];
     self.ages = @[@"年龄区间",@"20-29岁",@"30-39岁",@"40岁以上"];
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
-    self.filter = @[@"全部",@"空闲"];
+    self.filter = @[@"空闲", @"全部"];
     //数据先初始化
     
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
@@ -404,10 +404,10 @@
         [parmas setObject:sortFiled forKey:@"sortFiled"];
     }
     else{
-        if(indexPath.row == 0){
+        if(indexPath.row == 1){
             showAllCare = @"true";
         }
-        else if (indexPath.row == 1){
+        else if (indexPath.row == 0){
             showAllCare = @"false";
         }
         [parmas setObject:showAllCare forKey:@"showAllCare"];

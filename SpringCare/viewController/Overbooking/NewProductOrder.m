@@ -51,24 +51,42 @@
     [self.familyModel loadetailDataWithproductId:familyModel.pId block:^(id content) {
         [UserModel sharedUserInfo].couponsCount = [[content objectForKey:@"couponsCount"] integerValue];
         
-        NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
+        FamilyProductModel *model = [[FamilyProductModel alloc] init];
+        model.pId = [[content objectForKey:@"product"] objectForKey:@"id"];
+        model.image_url = [content objectForKey:@"imageUrl"];
+        model.isDirectOrder = [[content objectForKey:@"isDirectOrder"] boolValue];
+        model.productName = [[content objectForKey:@"product"] objectForKey:@"productName"];
+        model.productDesc = [[content objectForKey:@"product"] objectForKey:@"productDesc"];
+        if([[[content objectForKey:@"product"] objectForKey:@"price"] isKindOfClass:[NSNull class]])
+            model.price = 0;
+        else
+            model.price = [[[content objectForKey:@"product"] objectForKey:@"price"] integerValue];
+        if([[content objectForKey:@"priceDiscount"] isKindOfClass:[NSNull class]])
+            model.priceDiscount = 0;
+        else
+            model.priceDiscount = [[[content objectForKey:@"product"] objectForKey:@"priceDiscount"] integerValue];
         
         NSArray *priceList = [[content objectForKey:@"product"] objectForKey:@"priceList"];
-        
         NSMutableArray *array = [[NSMutableArray alloc] init];
         for (int i = 0; i < [priceList count]; i++) {
             NSDictionary *dictionary = [priceList objectAtIndex:i];
             PriceDataModel *pricemodel = [PriceDataModel modelFromDictionary:dictionary];
             [array addObject:pricemodel];
         }
-        self.familyModel.priceList = array;
-        [weakSelf initProductType];
+        model.priceList = array;
         
+        model.productUrl = [content objectForKey:@"productUrl"];
+
+        NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
+      
         if (dicLover.count>0) {
             weakSelf.loverModel =  [[UserAttentionModel alloc] init];
             weakSelf.loverModel.userid = [dicLover objectForKey:@"id"];
             weakSelf.loverModel.address =[dicLover objectForKey:@"addr"];
         }
+        weakSelf.familyModel = model;
+        [weakSelf initProductType];
+        
         [weakSelf NotifyAddressSelected:nil model:weakSelf.loverModel];
         [weakSelf.tableview reloadData];
         
@@ -80,6 +98,16 @@
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     [cell.businessType setPriseList:familyModel.priceList];
     cell.couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
+    _lbTitle.text = [NSString stringWithFormat:@"产品名称：%@", familyModel.productName];
+    _lbExplain.text = [NSString stringWithFormat:@"产品介绍：%@", familyModel.productDesc];
+    
+    UIView *headerView = _tableview.tableHeaderView;
+    [headerView setNeedsLayout];
+    [headerView layoutIfNeeded];
+    
+    CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    headerView.frame = CGRectMake(0, 0, ScreenWidth, size.height + 1);
+    _tableview.tableHeaderView = headerView;
 }
 
 - (UIView *) createTableHeaderView

@@ -323,12 +323,15 @@
     [result appendString:[NSString stringWithFormat:@"%ld", beginyear]];
     [result appendString:[NSString stringWithFormat:@".%02ld", beginmonth]];
     [result appendString:[NSString stringWithFormat:@".%02ld", beginday]];
-    [result appendString:[NSString stringWithFormat:@"－"]];
-    if(endyear != beginyear){
-        [result appendString:[NSString stringWithFormat:@"%ld.", endyear]];
+    if(EnumTypeTimes == datetype){}
+    else{
+        [result appendString:[NSString stringWithFormat:@"－"]];
+        if(endyear != beginyear){
+            [result appendString:[NSString stringWithFormat:@"%ld.", endyear]];
+        }
+        [result appendString:[NSString stringWithFormat:@"%02ld", endmonth]];
+        [result appendString:[NSString stringWithFormat:@".%02ld", endday]];
     }
-    [result appendString:[NSString stringWithFormat:@"%02ld", endmonth]];
-    [result appendString:[NSString stringWithFormat:@".%02ld", endday]];
     
     if(datetype == EnumTypeHalfDay){
         [result appendString:[NSString stringWithFormat:@"("]];

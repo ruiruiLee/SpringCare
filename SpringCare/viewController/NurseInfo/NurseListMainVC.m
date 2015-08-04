@@ -28,7 +28,7 @@
         DataList = [[NSMutableArray alloc] init];
         pages = 0;
         
-        showAllCare = @"true";
+        showAllCare = @"false";
         [parmas setObject:showAllCare forKey:@"showAllCare"];
     }
     return self;
@@ -62,7 +62,7 @@
     self.prices = @[@"价格区间",@"0-100元",@"100-200元",@"200元以上"];
     self.ages = @[@"年龄区间",@"20-29岁",@"30-39岁",@"40岁以上"];
     self.goodes = @[@"距离最近",@"护龄最长",@"好评优先",@"评论最多"];
-    self.filter = @[@"全部",@"空闲"];
+    self.filter = @[@"空闲", @"全部"];
     //数据先初始化
     
     menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
@@ -100,6 +100,7 @@
     [cfAppDelegate setDefaultProductId:[cfAppDelegate hospital_product_id]];
     pages = 0;
     [parmas removeAllObjects];
+    showAllCare = @"false";
     [parmas setObject:showAllCare forKey:@"showAllCare"];
     self.pullTableView.pullTableIsRefreshing = YES;
     [_model loadNurseDataWithPage:(int)pages type:EnumTypeHospital key:nil ordr:nil sortFiled:nil productId:nil block:^(int code) {
@@ -405,10 +406,10 @@
         }
         [parmas setObject:sortFiled forKey:@"sortFiled"];
     }else{
-        if(indexPath.row == 0){
+        if(indexPath.row == 1){
             showAllCare = @"true";
         }
-        else if (indexPath.row == 1){
+        else if (indexPath.row == 0){
             showAllCare = @"false";
         }
         [parmas setObject:showAllCare forKey:@"showAllCare"];

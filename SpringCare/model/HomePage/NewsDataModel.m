@@ -63,6 +63,18 @@ static NSMutableArray *newsArray = nil;
             model.news_url = [dic objectForKey:@"id"];
             if(model.news_url == nil)
                 model.news_url = @"";
+            
+            if([dic objectForKey:@"productType"] != nil){
+                model.productType = [[dic objectForKey:@"productType"] integerValue];
+            }else{
+                model.productType = 0;
+            }
+            
+            
+            if([dic objectForKey:@"productId"]){
+                model.productId = [dic objectForKey:@"productId"];
+            }
+            
             [newsArray addObject:model];
         }
     }

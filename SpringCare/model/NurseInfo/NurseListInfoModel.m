@@ -192,7 +192,7 @@ static NSInteger nurseTotal = 0;
     }
      [dic setObject:productID forKey:@"productId"];
     [dic setObject:[NSNumber numberWithInteger:offset] forKey:@"offset"];
-    [dic setObject:@"true" forKey:@"showAllCare"];//默认获取所有的护工
+    [dic setObject:@"false" forKey:@"showAllCare"];//默认获取所有的护工
    
     [LCNetWorkBase postWithMethod:@"api/care/list" Params:dic Completion:^(int code, id content) {
         if(code){
@@ -275,6 +275,7 @@ static NSInteger nurseTotal = 0;
     NSDictionary *prama = @{@"registerId":[UserModel sharedUserInfo].userId, @"careId":self.nid, @"productId":productId};
     [LCNetWorkBase postWithMethod:@"api/order/open" Params:prama Completion:^(int code, id content) {
         if(code){
+            self.productUrl = [content objectForKey:@"productUrl"];
             block(content);
         }
     }];
