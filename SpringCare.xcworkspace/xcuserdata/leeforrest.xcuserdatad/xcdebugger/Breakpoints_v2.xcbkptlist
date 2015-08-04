@@ -121,13 +121,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SpringCare/model/UserModel.m"
-            timestampString = "458905178.4421"
+            filePath = "SpringCare/viewController/Overbooking/NewNurseOrder.m"
+            timestampString = "460282134.670515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "-modifyInfo"
+            startingLineNumber = "486"
+            endingLineNumber = "486"
+            landmarkName = "-submitWithloverId:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpringCare/viewController/Overbooking/NewNurseOrder.m"
+            timestampString = "460282140.272429"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "476"
+            endingLineNumber = "476"
+            landmarkName = "-submitWithloverId:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

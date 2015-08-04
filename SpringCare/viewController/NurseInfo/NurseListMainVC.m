@@ -197,7 +197,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [searchBar resignFirstResponder];
     
-    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
+    //NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
 //    if(model.workStatus > 0)
 //    {
 //        [Util showAlertMessage:@"对不起，他已被预约， 请选择空闲的陪护师！"];
