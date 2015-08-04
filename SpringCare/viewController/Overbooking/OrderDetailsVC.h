@@ -11,6 +11,7 @@
 #import "MyOrderdataModel.h"
 #import "EvaluateOrderVC.h"
 #import "CouponLogoView.h"
+#import "LCPickView.h"
 
 @protocol OrderPriceCellDelegate <NSObject>
 
@@ -89,7 +90,7 @@
 
 @end
 
-@interface OrderDetailsVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, OrderPriceCellDelegate,EvaluateOrderDelegate>
+@interface OrderDetailsVC : LCBaseVC<UITableViewDataSource, UITableViewDelegate, OrderPriceCellDelegate,EvaluateOrderDelegate, LCPickViewDelegate>
 {
     UITableView *_tableview;
     OrderStepView *_stepView;
@@ -97,8 +98,13 @@
     UILabel *lbOrderTime;//下单时间
     
     MyOrderdataModel *_orderModel;
+    MyOrderdataModel *storeModel;
     
     OrderInfoCell *ordercell;
+    
+    BOOL isLogin;
+    
+    LCPickView *_endPickView;
 }
 
 @property (nonatomic, strong)MyOrderdataModel *_orderModel;

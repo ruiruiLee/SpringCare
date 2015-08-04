@@ -33,6 +33,7 @@
 @end
 
 @implementation LCPickView
+@synthesize lbTitle;
 
 -(NSArray *)plistArray{
     if (_plistArray==nil) {
@@ -184,7 +185,7 @@
     
     UIBarButtonItem *centerlSpace=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 20)];
+    lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 20)];
     lbTitle.textColor = _COLOR(0x66, 0x66, 0x66);
     lbTitle.font = _FONT(14);
     lbTitle.backgroundColor = [UIColor clearColor];

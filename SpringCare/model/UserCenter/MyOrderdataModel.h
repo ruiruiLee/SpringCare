@@ -56,6 +56,8 @@
 
 @property (nonatomic, strong) NSString *priceName;
 
+@property (nonatomic, assign) BOOL isCanContinue;
+
 + (NSArray *) GetNoAssessmentOrderList;
 + (NSArray *) GetMyOrderList;
 

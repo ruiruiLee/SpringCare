@@ -468,10 +468,58 @@
 {
     self = [super initWithNibName:nil bundle:nil];
     if(self){
-        _orderModel = model;
+        storeModel = model;
+        _orderModel = [[MyOrderdataModel alloc] init];
+        _orderModel.isLoadDetail = storeModel.isLoadDetail;
+        _orderModel.oId = storeModel.oId;
+        _orderModel.dateType = storeModel.dateType;
+        _orderModel.beginDate = storeModel.beginDate;
+        _orderModel.endDate = storeModel.endDate;
+        _orderModel.orderCount = storeModel.orderCount;
+        _orderModel.orderCountStr = storeModel.orderCountStr;
+        _orderModel.unitPrice = storeModel.unitPrice;
+        _orderModel.totalPrice = storeModel.totalPrice;
+        _orderModel.orderStatus = storeModel.orderStatus;
+        _orderModel.commentStatus = storeModel.commentStatus;
+        _orderModel.payStatus = storeModel.payStatus;
+        _orderModel.product = storeModel.product;
+        _orderModel.nurseInfo = storeModel.nurseInfo;
+        _orderModel.lover = storeModel.lover;
+        _orderModel.serialNumber = storeModel.serialNumber;
+        _orderModel.registerUser = storeModel.registerUser;
+        _orderModel.createdDate = storeModel.createdDate;
+        _orderModel.realyTotalPrice = storeModel.realyTotalPrice;
+        _orderModel.couponsAmount = storeModel.couponsAmount;
+        _orderModel.priceName = storeModel.priceName;
+        _orderModel.isCanContinue = storeModel.isCanContinue;
     }
     
     return self;
+}
+
+- (void) NavRightButtonClickEvent:(UIButton *)sender
+{
+    if(!isLogin){
+        isLogin = YES;
+        [self.NavigationBar.btnRight setTitle:@"提交" forState:UIControlStateNormal];
+        [self btnSelectEndDate:nil];
+    }else{
+        NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+        [parmas setObject:_orderModel.oId forKey:@"orderId"];
+        [parmas setObject:[Util StringFromDate:_orderModel.endDate] forKey:@"endDate"];
+        [parmas setObject:_orderModel.orderCountStr forKey:@"orderCount"];
+        [parmas setObject:[NSNumber numberWithFloat:_orderModel.totalPrice] forKey:@"totalPrice"];
+        
+        [LCNetWorkBase postWithMethod:@"api/order/continue" Params:parmas Completion:^(int code, id content) {
+            if(code){
+                if([content objectForKey:@"code"] != nil){
+                    [Util showAlertMessage:[content objectForKey:@"message"]];
+                }else{
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
+        }];
+    }
 }
 
 - (void)viewDidLoad {
@@ -481,6 +529,14 @@
     
     // Do any additional setup after loading the view.
     self.NavigationBar.Title = @"订单详情";
+    
+    [self.NavigationBar.btnRight setBackgroundImage:ThemeImage(@"whitebtnbg") forState:UIControlStateNormal];
+    [self.NavigationBar.btnRight setTitle:@"续单" forState:UIControlStateNormal];
+    [self.NavigationBar.btnRight setTitleColor:Abled_Color forState:UIControlStateNormal];
+    self.NavigationBar.btnRight.titleLabel.font = _FONT(16);
+    self.NavigationBar.btnRight.hidden = YES;
+    
+    isLogin = NO;
     
     [self initSubviews];
     
@@ -529,6 +585,21 @@
     else
         [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
+}
+
+- (void) btnSelectEndDate:(id)sender
+{
+    if(!_endPickView){
+        
+        NSDate *beginDate = _orderModel.endDate;
+        
+    //    NSDate *end = [self GetMinEndDate:beginDate];
+        _endPickView = [[LCPickView alloc] initDatePickWithDate:beginDate datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
+        _endPickView.lbTitle.text = @"选择服务结束时间";
+        [_endPickView SetDatePickerMin:beginDate];
+        _endPickView.delegate = self;
+    }
+    [_endPickView show];
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -692,6 +763,13 @@
 
 - (void) initDataForView
 {
+    if(_orderModel.isCanContinue == YES){
+        self.NavigationBar.btnRight.hidden = NO;
+    }
+    else{
+        self.NavigationBar.btnRight.hidden = YES;
+    }
+    
     if(_orderModel.serialNumber != nil)
         lbOrderNum.text = [NSString stringWithFormat:@"订 单 号 ：%@", _orderModel.serialNumber];
     if(_orderModel.createdDate != nil)
@@ -768,6 +846,20 @@
 #pragma EvaluateOrderDelegate
 - (void) NotifyReloadOrderInfo{
    [_tableview reloadData];
+}
+
+-(void)toobarDonBtnHaveClick:(LCPickView *)pickView resultString:(NSString *)resultString
+{
+    _orderModel.endDate = pickView.datePicker.date;
+    _orderModel.totalPrice = [Util calcDaysFromBegin:_orderModel.beginDate end:_orderModel.endDate] * _orderModel.unitPrice;
+    _orderModel.orderCount = [Util calcDaysFromBegin:_orderModel.beginDate end:_orderModel.endDate];
+    _orderModel.realyTotalPrice = _orderModel.totalPrice - _orderModel.couponsAmount;
+    
+    if(((int)(_orderModel.orderCount * 10) % 10) > 0){
+        _orderModel.orderCountStr = [NSString stringWithFormat:@"%.1f", _orderModel.orderCount];
+    }else
+        _orderModel.orderCountStr = [NSString stringWithFormat:@"%d", (int)_orderModel.orderCount];
+    [_tableview reloadData];
 }
 
 

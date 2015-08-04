@@ -227,6 +227,7 @@ static NSMutableArray *noAssessmentOrderList = nil;
             self.lover = [UserAttentionModel modelFromDIctionary:[content objectForKey:@"lover"]];
             self.registerUser = [RegistrUserInfoModel modelWithDictionary:[content objectForKey:@"register"]];
             self.createdDate = [Util convertDateFromDateString:[content objectForKey:@"createdDate"]];
+            self.isCanContinue = [[content objectForKey:@"isCanContinue"] boolValue];
             
             if(block){
                 block(1);

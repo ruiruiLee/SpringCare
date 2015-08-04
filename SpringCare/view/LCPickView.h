@@ -21,6 +21,7 @@
 
 @property(nonatomic,weak) id<LCPickViewDelegate> delegate;
 @property(nonatomic,strong)UIDatePicker *datePicker;
+@property (nonatomic, strong) UILabel *lbTitle;
 
 /**
  *  通过plistName添加一个pickView
