@@ -102,7 +102,7 @@
     
     OrderInfoCell *ordercell;
     
-    BOOL isLogin;
+    BOOL isReSetEndday;
     
     LCPickView *_endPickView;
 }

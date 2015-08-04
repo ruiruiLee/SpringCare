@@ -13,6 +13,7 @@
 
 @optional
 -(void)toobarDonBtnHaveClick:(LCPickView *)pickView resultString:(NSString *)resultString;
+-(void)toobarDonBtnCancel:(LCPickView *)pickView;
 
 @end
 

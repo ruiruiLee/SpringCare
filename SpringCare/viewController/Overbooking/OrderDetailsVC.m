@@ -469,57 +469,59 @@
     self = [super initWithNibName:nil bundle:nil];
     if(self){
         storeModel = model;
-        _orderModel = [[MyOrderdataModel alloc] init];
-        _orderModel.isLoadDetail = storeModel.isLoadDetail;
-        _orderModel.oId = storeModel.oId;
-        _orderModel.dateType = storeModel.dateType;
-        _orderModel.beginDate = storeModel.beginDate;
-        _orderModel.endDate = storeModel.endDate;
-        _orderModel.orderCount = storeModel.orderCount;
-        _orderModel.orderCountStr = storeModel.orderCountStr;
-        _orderModel.unitPrice = storeModel.unitPrice;
-        _orderModel.totalPrice = storeModel.totalPrice;
-        _orderModel.orderStatus = storeModel.orderStatus;
-        _orderModel.commentStatus = storeModel.commentStatus;
-        _orderModel.payStatus = storeModel.payStatus;
-        _orderModel.product = storeModel.product;
-        _orderModel.nurseInfo = storeModel.nurseInfo;
-        _orderModel.lover = storeModel.lover;
-        _orderModel.serialNumber = storeModel.serialNumber;
-        _orderModel.registerUser = storeModel.registerUser;
-        _orderModel.createdDate = storeModel.createdDate;
-        _orderModel.realyTotalPrice = storeModel.realyTotalPrice;
-        _orderModel.couponsAmount = storeModel.couponsAmount;
-        _orderModel.priceName = storeModel.priceName;
-        _orderModel.isCanContinue = storeModel.isCanContinue;
+        [self resetOrderModel];
     }
     
     return self;
 }
 
+- (void)resetOrderModel
+{
+    _orderModel = [[MyOrderdataModel alloc] init];
+    _orderModel.isLoadDetail = storeModel.isLoadDetail;
+    _orderModel.oId = storeModel.oId;
+    _orderModel.dateType = storeModel.dateType;
+    _orderModel.beginDate = storeModel.beginDate;
+    _orderModel.endDate = storeModel.endDate;
+    _orderModel.orderCount = storeModel.orderCount;
+    _orderModel.orderCountStr = storeModel.orderCountStr;
+    _orderModel.unitPrice = storeModel.unitPrice;
+    _orderModel.totalPrice = storeModel.totalPrice;
+    _orderModel.orderStatus = storeModel.orderStatus;
+    _orderModel.commentStatus = storeModel.commentStatus;
+    _orderModel.payStatus = storeModel.payStatus;
+    _orderModel.product = storeModel.product;
+    _orderModel.nurseInfo = storeModel.nurseInfo;
+    _orderModel.lover = storeModel.lover;
+    _orderModel.serialNumber = storeModel.serialNumber;
+    _orderModel.registerUser = storeModel.registerUser;
+    _orderModel.createdDate = storeModel.createdDate;
+    _orderModel.realyTotalPrice = storeModel.realyTotalPrice;
+    _orderModel.couponsAmount = storeModel.couponsAmount;
+    _orderModel.priceName = storeModel.priceName;
+    _orderModel.isCanContinue = storeModel.isCanContinue;
+}
+
 - (void) NavRightButtonClickEvent:(UIButton *)sender
 {
-    if(!isLogin){
-        isLogin = YES;
+    if(!isReSetEndday){
+        isReSetEndday = YES;
         [self.NavigationBar.btnRight setTitle:@"提交" forState:UIControlStateNormal];
         [self btnSelectEndDate:nil];
     }else{
-        NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
-        [parmas setObject:_orderModel.oId forKey:@"orderId"];
-        [parmas setObject:[Util StringFromDate:_orderModel.endDate] forKey:@"endDate"];
-        [parmas setObject:_orderModel.orderCountStr forKey:@"orderCount"];
-        [parmas setObject:[NSNumber numberWithFloat:_orderModel.totalPrice] forKey:@"totalPrice"];
         
-        [LCNetWorkBase postWithMethod:@"api/order/continue" Params:parmas Completion:^(int code, id content) {
-            if(code){
-                if([content objectForKey:@"code"] != nil){
-                    [Util showAlertMessage:[content objectForKey:@"message"]];
-                }else{
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-            }
-        }];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"续单成功后不能再取消，确认续单吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alert.tag = 1001;
+        [alert show];
     }
+}
+
+- (void) NavLeftButtonClickEvent:(UIButton *)sender
+{
+    if(_endPickView){
+        [_endPickView removeFromSuperview];
+    }
+    [super NavLeftButtonClickEvent:sender];
 }
 
 - (void)viewDidLoad {
@@ -536,7 +538,7 @@
     self.NavigationBar.btnRight.titleLabel.font = _FONT(16);
     self.NavigationBar.btnRight.hidden = YES;
     
-    isLogin = NO;
+    isReSetEndday = NO;
     
     [self initSubviews];
     
@@ -836,9 +838,29 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self.navigationController popViewControllerAnimated:YES];
-    if(delegate && [delegate respondsToSelector:@selector(NotifyOrderCancelAndRefreshTableView:)]){
-        [delegate NotifyOrderCancelAndRefreshTableView:self];
+    if(alertView.tag == 1001){
+        if(buttonIndex == 0){
+            NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+            [parmas setObject:_orderModel.oId forKey:@"orderId"];
+            [parmas setObject:[Util StringFromDate:_orderModel.endDate] forKey:@"endDate"];
+            [parmas setObject:_orderModel.orderCountStr forKey:@"orderCount"];
+            [parmas setObject:[NSNumber numberWithFloat:_orderModel.totalPrice] forKey:@"totalPrice"];
+            
+            [LCNetWorkBase postWithMethod:@"api/order/continue" Params:parmas Completion:^(int code, id content) {
+                if(code){
+                    if([content objectForKey:@"code"] != nil){
+                        [Util showAlertMessage:[content objectForKey:@"message"]];
+                    }else{
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                }
+            }];
+        }
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+        if(delegate && [delegate respondsToSelector:@selector(NotifyOrderCancelAndRefreshTableView:)]){
+            [delegate NotifyOrderCancelAndRefreshTableView:self];
+        }
     }
 }
 
@@ -862,5 +884,10 @@
     [_tableview reloadData];
 }
 
+- (void)toobarDonBtnCancel:(LCPickView *)pickView
+{
+    isReSetEndday = NO;
+    [self.NavigationBar.btnRight setTitle:@"续单" forState:UIControlStateNormal];
+}
 
 @end

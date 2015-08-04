@@ -317,6 +317,10 @@
 -(void)remove{
     
     [self removeFromSuperview];
+    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(toobarDonBtnCancel:)]){
+        [self.delegate toobarDonBtnCancel:self];
+    }
 }
 -(void)show{
     
