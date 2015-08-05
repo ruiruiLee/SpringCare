@@ -76,6 +76,7 @@
         model.priceList = array;
         
         model.productUrl = [content objectForKey:@"productUrl"];
+        model.productImg = [content objectForKey:@"productImg"];
 
         NSDictionary *dicLover = [content objectForKey:@"defaultLover"];
       
@@ -98,8 +99,10 @@
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     [cell.businessType setPriseList:familyModel.priceList];
     cell.couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
-    _lbTitle.text = [NSString stringWithFormat:@"产品名称：%@", familyModel.productName];
-    _lbExplain.text = [NSString stringWithFormat:@"产品介绍：%@", familyModel.productDesc];
+    _lbTitle.text = [NSString stringWithFormat:@"%@", familyModel.productName];
+    _lbExplain.text = [NSString stringWithFormat:@"%@", familyModel.productDesc];
+    
+    [_bglogo sd_setImageWithURL:[NSURL URLWithString:ProductImage(familyModel.productImg)] placeholderImage:nil];
     
     UIView *headerView = _tableview.tableHeaderView;
     [headerView setNeedsLayout];
@@ -114,12 +117,16 @@
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 100)];
     
+    _bglogo = [[UIImageView alloc]initWithFrame:CGRectZero];
+    [headerView addSubview:_bglogo];
+    _bglogo.translatesAutoresizingMaskIntoConstraints = NO;
+    
     _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
     _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
     [headerView addSubview:_lbTitle];
     _lbTitle.font = _FONT(15);
     _lbTitle.textColor = _COLOR(0x66, 0x66, 0x66);
-    _lbTitle.text = [NSString stringWithFormat:@"产品名称：%@", familyModel.productName];
+    _lbTitle.text = [NSString stringWithFormat:@"%@", familyModel.productName];
     _lbTitle.backgroundColor = [UIColor clearColor];
     
     _lbExplain = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -127,15 +134,25 @@
     [headerView addSubview:_lbExplain];
     _lbExplain.font = _FONT(15);
     _lbExplain.textColor = _COLOR(0x66, 0x66, 0x66);
-    _lbExplain.text = [NSString stringWithFormat:@"产品介绍：%@", familyModel.productDesc];
-    _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 35;
+    _lbExplain.text = [NSString stringWithFormat:@"%@", familyModel.productDesc];
+    _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 110 * ScreenWidth / 320 - 10;
     _lbExplain.backgroundColor = [UIColor clearColor];
     _lbExplain.numberOfLines = 0;
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_lbExplain, _lbTitle);
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbTitle]-10-|" options:0 metrics:nil views:views]];
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_lbExplain]-10-|" options:0 metrics:nil views:views]];
+    CGFloat multiplier = 0.333333333;
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(_lbExplain, _lbTitle, _bglogo);
+    
+    NSString *vformat = [NSString stringWithFormat:@"V:|-0-[_bglogo(%f)]->=0-|", (ScreenWidth) * multiplier];
+    NSString *formatExplain = [NSString stringWithFormat:@"H:|-%f-[_lbExplain]-10-|", 110 * ScreenWidth / 320];
+    NSString *formatTitle = [NSString stringWithFormat:@"H:|-%f-[_lbTitle]-10-|", 110 * ScreenWidth / 320];
+    
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatTitle options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatExplain options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_lbTitle]-8-[_lbExplain]-10-|" options:0 metrics:nil views:views]];
+    
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_bglogo]-0-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vformat options:0 metrics:nil views:views]];
     
     [headerView setNeedsLayout];
     [headerView layoutIfNeeded];
