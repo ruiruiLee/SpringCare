@@ -26,6 +26,7 @@ static CGFloat const chageImageTime = 5.0;
 @interface AdScrollView (){
     NSMutableArray * titleUrlarray;
     NSMutableArray * titleArray;
+    NSTimer *_autoScrollTimer;
 }
 
 @end
@@ -70,16 +71,9 @@ static CGFloat const chageImageTime = 5.0;
         [titleUrlarray addObject:item.news_url];
          [titleArray addObject:item.news_title];
         UIButton * imageView = [UIButton buttonWithType:UIButtonTypeCustom];
-          [imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [imageView setContentMode:UIViewContentModeScaleAspectFill];
         [imageView setFrame:CGRectMake(i * self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)];
-       //  EnDeviceType type = [NSStrUtil GetCurrentDeviceType];
-//        if (type==EnumValueTypeiPhone4S) {
-//             [imageView sd_setImageWithURL:[NSURL URLWithString:PostersImage4s(item.image_url)] forState:UIControlStateNormal placeholderImage:nil];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:FormatImage_1(item.image_url, (int)self.frame.size.width * 2, (int)self.frame.size.height * 2)] forState:UIControlStateNormal placeholderImage:nil];
-//        }
-//        else{
-//             [imageView sd_setImageWithURL:[NSURL URLWithString:PostersImage(item.image_url)] forState:UIControlStateNormal placeholderImage:nil];
-//        }
+        [imageView sd_setImageWithURL:[NSURL URLWithString:FormatImage_1(item.image_url, (int)self.frame.size.width * 2, (int)self.frame.size.height * 2)] forState:UIControlStateNormal placeholderImage:nil];
           imageView.tag = i;
         //添加点击事件
         [imageView addTarget:self action:@selector(clickPageImage:) forControlEvents:UIControlEventTouchUpInside];
@@ -95,7 +89,9 @@ static CGFloat const chageImageTime = 5.0;
 //            [self addSubview:lbltitle];
 //        }
         if (models.count>1) {
-            [NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(switchFocusImageItems) userInfo:nil repeats:YES];
+             if (!_autoScrollTimer) {
+              _autoScrollTimer =[NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(switchFocusImageItems) userInfo:nil repeats:YES];
+             }
         //[self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:chageImageTime];
         }
        
@@ -146,7 +142,7 @@ static CGFloat const chageImageTime = 5.0;
 
 - (void)switchFocusImageItems
 {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(switchFocusImageItems) object:nil];
+   // [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(switchFocusImageItems) object:nil];
     
     CGFloat targetX = self.contentOffset.x + self.frame.size.width;
     [self moveToTargetPosition:targetX];
@@ -200,15 +196,16 @@ static CGFloat const chageImageTime = 5.0;
     [[self superview] addSubview:_pageControl];
 }
 
-#pragma mark - 计时器到时,系统滚动图片
-//- (void)animalMoveImage
-//{
-//    
-//    [self setContentOffset:CGPointMake(UISCREENWIDTH * 2, 0) animated:YES];
-//    _isTimeUp = YES;
-//    [NSTimer scheduledTimerWithTimeInterval:0.4f target:self selector:@selector(scrollViewDidEndDecelerating:) userInfo:nil repeats:NO];
-//}
 
+//减速停止了时执行，手触摸时执行执行
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
+{
+    NSLog(@"scrollViewDidEndDecelerating");
+    //手动滑动时候暂停自动替换
+    [_autoScrollTimer invalidate];
+    _autoScrollTimer = nil;
+      _autoScrollTimer =[NSTimer scheduledTimerWithTimeInterval:chageImageTime target:self selector:@selector(switchFocusImageItems) userInfo:nil repeats:YES];
+}
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
