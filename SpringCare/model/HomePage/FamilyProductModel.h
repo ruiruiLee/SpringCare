@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) NSMutableArray *priceList;
 @property (nonatomic, strong) NSString *productUrl;
+@property (nonatomic, strong) NSString *productImg;
 
 
 + (NSArray*) getProductArray;

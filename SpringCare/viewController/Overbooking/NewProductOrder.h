@@ -12,6 +12,7 @@
 {
     UILabel *_lbTitle;
     UILabel *_lbExplain;
+    UIImageView *_bglogo;
 }
 
 - (id) initWIthFamilyProductModel:(FamilyProductModel *)model;
