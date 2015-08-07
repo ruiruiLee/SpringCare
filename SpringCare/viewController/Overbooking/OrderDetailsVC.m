@@ -506,7 +506,7 @@
 {
     if(!isReSetEndday){
         isReSetEndday = YES;
-        [self.NavigationBar.btnRight setTitle:@"提交" forState:UIControlStateNormal];
+        [self.NavigationBar.btnRight setTitle:@"确定" forState:UIControlStateNormal];
         [self btnSelectEndDate:nil];
     }else{
         
