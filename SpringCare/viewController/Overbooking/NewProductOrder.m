@@ -124,7 +124,7 @@
     _lbTitle = [[UILabel alloc] initWithFrame:CGRectZero];
     _lbTitle.translatesAutoresizingMaskIntoConstraints = NO;
     [headerView addSubview:_lbTitle];
-    _lbTitle.font = _FONT(15);
+    _lbTitle.font = _FONT_B(20);
     _lbTitle.textColor = _COLOR(0x66, 0x66, 0x66);
     _lbTitle.text = [NSString stringWithFormat:@"%@", familyModel.productName];
     _lbTitle.backgroundColor = [UIColor clearColor];
@@ -135,7 +135,7 @@
     _lbExplain.font = _FONT(15);
     _lbExplain.textColor = _COLOR(0x66, 0x66, 0x66);
     _lbExplain.text = [NSString stringWithFormat:@"%@", familyModel.productDesc];
-    _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 110 * ScreenWidth / 320 - 10;
+    _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 95* ScreenWidth / 320 - 10;
     _lbExplain.backgroundColor = [UIColor clearColor];
     _lbExplain.numberOfLines = 0;
     
@@ -144,12 +144,12 @@
     NSDictionary *views = NSDictionaryOfVariableBindings(_lbExplain, _lbTitle, _bglogo);
     
     NSString *vformat = [NSString stringWithFormat:@"V:|-0-[_bglogo(%f)]->=0-|", (ScreenWidth) * multiplier];
-    NSString *formatExplain = [NSString stringWithFormat:@"H:|-%f-[_lbExplain]-10-|", 110 * ScreenWidth / 320];
-    NSString *formatTitle = [NSString stringWithFormat:@"H:|-%f-[_lbTitle]-10-|", 110 * ScreenWidth / 320];
+    NSString *formatExplain = [NSString stringWithFormat:@"H:|-%f-[_lbExplain]-10-|", 95 * ScreenWidth / 320];
+    NSString *formatTitle = [NSString stringWithFormat:@"H:|-%f-[_lbTitle]-10-|", 95 * ScreenWidth / 320];
     
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatTitle options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatExplain options:0 metrics:nil views:views]];
-    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_lbTitle]-8-[_lbExplain]-10-|" options:0 metrics:nil views:views]];
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-28-[_lbTitle]-8-[_lbExplain]->=10-|" options:0 metrics:nil views:views]];
     
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_bglogo]-0-|" options:0 metrics:nil views:views]];
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vformat options:0 metrics:nil views:views]];
