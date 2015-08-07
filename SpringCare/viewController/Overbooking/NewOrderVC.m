@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.NavTitle = @"下单";
+//    self.NavTitle = @"下单";
     
     _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.ContentView addSubview:_tableview];

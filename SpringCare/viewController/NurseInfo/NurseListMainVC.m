@@ -213,6 +213,7 @@
         NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
         NewNurseOrder *vc = [[NewNurseOrder alloc] initWithNurseListInfoModel:model productId:[cfAppDelegate defaultProductId]];//[[NewNurseOrder alloc] initWithModel:model andproductId:[cfAppDelegate defaultProductId] ];
         vc.hidesBottomBarWhenPushed = YES;
+        vc.NavTitle = self.lbTitle.text;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

@@ -132,6 +132,7 @@
             }];
         }else{
             NewProductOrder *vc = [[NewProductOrder alloc] initWIthFamilyProductModel:model];
+            vc.NavTitle = model.productName;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

@@ -216,6 +216,7 @@
         NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
         NewNurseOrder *vc = [[NewNurseOrder alloc] initWithNurseListInfoModel:model productId:_productId];
         vc.hidesBottomBarWhenPushed = YES;
+        vc.NavTitle = self.NavigationBar.lbTitle.text;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

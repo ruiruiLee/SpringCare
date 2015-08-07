@@ -125,6 +125,7 @@ static CGFloat const chageImageTime = 5.0;
             proModel.productName = model.news_title;
             NewProductOrder *vc = [[NewProductOrder alloc] initWIthFamilyProductModel:proModel];
             vc.hidesBottomBarWhenPushed = YES;
+            vc.NavTitle = model.news_title;
             [_parentController.navigationController pushViewController:vc animated:YES];
         }
     }
