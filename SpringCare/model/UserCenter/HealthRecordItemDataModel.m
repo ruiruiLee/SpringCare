@@ -13,10 +13,21 @@
 + (HealthRecordItemDataModel *)modelFromDictionary:(NSDictionary *)dic
 {
     HealthRecordItemDataModel *model = [[HealthRecordItemDataModel alloc] init];
-    model.hp = [dic objectForKey:@"hp"];
-    model.lp = [dic objectForKey:@"lp"];
-    model.pulse = [dic objectForKey:@"pulse"];
+    model.hp = [[dic objectForKey:@"hp"] stringValue];
+    model.lp = [[dic objectForKey:@"lp"] stringValue];
+    model.pulse = [[dic objectForKey:@"pulse"] stringValue];
     model.dateString = [dic objectForKey:@"t"];
+    
+    return model;
+}
+
++ (HealthRecordItemDataModel *)modelDateFromDictionary:(NSDictionary *)dic
+{
+    HealthRecordItemDataModel *model = [[HealthRecordItemDataModel alloc] init];
+    model.hp = [[dic objectForKey:@"Hp"] stringValue];
+    model.lp = [[dic objectForKey:@"Lp"] stringValue];
+    model.pulse = [[dic objectForKey:@"Pulse"] stringValue];
+    model.dt = [dic objectForKey:@"dt"];
     
     return model;
 }

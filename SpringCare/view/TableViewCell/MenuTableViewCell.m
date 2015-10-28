@@ -61,33 +61,6 @@
     return self;
 }
 
-//- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-//{
-//    [super setSelected:selected animated:animated];
-//    
-//    // Configure the view for the selected state
-//    NSLog(@"set cell %ld Selected: %d", indexPath.row, selected);
-//    if (selected) {
-//        lbContent.textColor = [UIColor whiteColor];
-//    }
-//    else {
-//        lbContent.textColor = [UIColor blackColor];
-//    }
-//}
-//
-//- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-//{
-//    [super setHighlighted:highlighted animated:animated];
-//    
-//    NSLog(@"set cell %ld highlighted: %d", indexPath.row, highlighted);
-//    if (highlighted) {
-//        lbContent.textColor = [UIColor whiteColor];
-//    }
-//    else {
-//        lbContent.textColor = [UIColor blackColor];
-//    }
-//}
-
 - (void)setContentTitle:(NSString*)content
 {
     lbContent.text = content;

@@ -8,7 +8,6 @@
 
 #import "UserApplyAttentionTableCell.h"
 #import "define.h"
-//#import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
 
 

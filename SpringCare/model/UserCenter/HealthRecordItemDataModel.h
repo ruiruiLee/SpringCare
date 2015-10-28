@@ -15,6 +15,9 @@
 @property (nonatomic, strong) NSString *lp;
 @property (nonatomic, strong) NSString *dateString;
 
+@property (nonatomic, strong) NSString *dt;
+
 + (HealthRecordItemDataModel *)modelFromDictionary:(NSDictionary *)dic;
++ (HealthRecordItemDataModel *)modelDateFromDictionary:(NSDictionary *)dic;
 
 @end

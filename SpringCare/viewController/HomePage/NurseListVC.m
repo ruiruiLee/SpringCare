@@ -66,7 +66,7 @@
     searchBar.translatesAutoresizingMaskIntoConstraints = NO;
     searchBar.showsCancelButton = YES;
     
-    searchBar.backgroundImage = [self imageWithColor:_COLOR(0xf3, 0xf5, 0xf7) size:CGSizeMake(ScreenWidth, 44)];
+    searchBar.backgroundImage = [Util imageWithColor:_COLOR(0xf3, 0xf5, 0xf7) size:CGSizeMake(ScreenWidth, 44)];
     
     [self.view addSubview:searchBar];
     
@@ -198,7 +198,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [searchBar resignFirstResponder];
     
-    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
+//    NurseListInfoModel *model = [DataList objectAtIndex:indexPath.row];
 //    if(model.workStatus > 0)
 //    {
 //        [Util showAlertMessage:@"对不起，他已被预约， 请选择空闲的陪护师！"];
@@ -421,21 +421,8 @@
         [weakSelf.DataList removeAllObjects];
         [weakSelf.DataList addObjectsFromArray:[NurseListInfoModel nurseListModel]];
         [weakSelf.pullTableView reloadData];
-//        [weakSelf refreshTable];
         [weakSelf performSelector:@selector(refreshTable) withObject:nil afterDelay:0.2];
     }];
-}
-
-- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
-{
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
 }
 
 @end

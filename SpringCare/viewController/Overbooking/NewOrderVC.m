@@ -261,4 +261,20 @@
 - (void) submitWithloverId:(NSString*)loverId
 {}
 
+//WorkAddressSelectVCDelegate
+- (void)NotifyAddressSelected:(WorkAddressSelectVC *)selectVC model:(UserAttentionModel *)model
+{}
+
+//PlaceOrderEditCellDelegate
+- (void)NotifyValueChanged:(NSInteger)value
+{}
+
+//PlaceOrderEditCellDelegate
+- (void)NotifyTOSelectCoupons
+{}
+
+//CouponsVCDelegate
+- (void)NotifySelectCouponsWithModel:(CouponsDataModel *)model
+{}
+
 @end

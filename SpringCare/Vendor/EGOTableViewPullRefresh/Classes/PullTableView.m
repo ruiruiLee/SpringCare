@@ -242,6 +242,10 @@
          respondsToSelector:@selector(scrollViewDidScroll:)]) {
         [delegateInterceptor.receiver scrollViewDidScroll:scrollView];
     }
+    
+    if(pullDelegate && [pullDelegate respondsToSelector:@selector(pullTableViewDidScrolled:)]){
+        [pullDelegate pullTableViewDidScrolled:self];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

@@ -94,6 +94,9 @@
     }];
 }
 
+//
+//更新header的内容
+//
 - (void)initProductType
 {
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];

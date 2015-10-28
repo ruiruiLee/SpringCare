@@ -231,22 +231,14 @@
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
     cell.couponsView.lbCounponsCount.text = [NSString stringWithFormat:@" %ld张可用 ", (long)[UserModel sharedUserInfo].couponsCount];
     [cell.businessType setPriseList:nurseModel.priceList];
-//    if([nurseModel.priceList count] == 1){
-//        cell.businessType.hidden = YES;
-//        cell.lbUnits.hidden = YES;
-//        cell.lbUnits.text = [NSString stringWithFormat:@"模式：%@", ((PriceDataModel*)[nurseModel.priceList objectAtIndex:0]).name];
-//    }else{
-        cell.businessType.hidden = NO;
-        cell.lbUnits.hidden = YES;
-//    }
+    cell.businessType.hidden = NO;
+    cell.lbUnits.hidden = YES;
     [_tableview reloadData];
     
     if(nurseModel.workStatus > 0)
     {
         self.btnSubmit.enabled = NO;
         [self.btnSubmit setTitle:@"服务中" forState:UIControlStateNormal];
-//        [self.btnSubmit setTitleColor:_COLOR(0x66, 0x66, 0x66) forState:UIControlStateNormal];
-//        self.btnSubmit.backgroundColor = _COLOR(0x66, 0x66, 0x66);
         UIImage *image = [Util imageWithColor:_COLOR(0x66, 0x66, 0x66) size:CGSizeMake(5, 5)];
         UIEdgeInsets inset = UIEdgeInsetsMake(0, image.size.width/2-10, 0, image.size.width/2-10);
         
@@ -254,7 +246,6 @@
     }else{
         self.btnSubmit.enabled = YES;
         [self.btnSubmit setTitle:@"提交订单" forState:UIControlStateNormal];
-//        [self.btnSubmit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.btnSubmit setBackgroundImage:[Util GetBtnBackgroundImage] forState:UIControlStateNormal];
     }
         

@@ -30,6 +30,22 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void) reLoadAdData
+{
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    AppDelegate *delegate = cfAppDelegate;
+    if(delegate.currentCityModel == nil || delegate.currentCityModel.city_id == nil)
+        return;
+    [parmas setObject:delegate.currentCityModel.city_id forKey:@"cityId"];
+    
+    [LCNetWorkBase postWithMethod:@"api/news/poster" Params:parmas Completion:^(int code, id content) {
+        if(code){
+            [NewsDataModel SetNewsWithArray:[content objectForKey:@"posterList"]];
+            _banner.NewsmodelArray =  [NewsDataModel getNews];
+        }
+    }];
+}
+
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -43,7 +59,18 @@
 - (void) loadData
 {
     __weak HomePageVC *weakSelf = self;
-    [LCNetWorkBase requestWithMethod:@"api/index" Params:nil Completion:^(int code, id content) {
+    NSString *city_id = [Util GetStoreCityId];
+    
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    
+    if(city_id == nil){
+        
+    }
+    else{
+        [parmas setObject:city_id forKey:@"cityId"];
+    }
+    
+    [LCNetWorkBase postWithMethod:@"api/index" Params:parmas Completion:^(int code, id content) {
         if(code){
             if([content isKindOfClass:[NSDictionary class]]){
                 [cfAppDelegate setHospital_product_id:[content objectForKey:@"hospitalProductId"]] ;
@@ -105,6 +132,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reLoadAdData) name:Notify_SelectCity_Change object:nil];
     [cfAppDelegate addObserver:self forKeyPath:@"currentCityModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [self loadData];

@@ -19,6 +19,7 @@
 #define NOTIFY_PICKVIEW_HIDDEN @"NOTIFY_PICKVIEW_HIDDEN"
 #define Notify_Resign_First_Responder @"Notify_Resign_First_Responder"
 #define Notify_Register_Logout @"Notify_Register_Logout"
+#define Notify_SelectCity_Change @"Notify_SelectCity_Change"
 
 
 

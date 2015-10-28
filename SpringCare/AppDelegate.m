@@ -18,14 +18,14 @@
 /*
   测试
  */
-//#define AVOSCloudAppID  @"26x0xztg3ypms8o4ou42lxgk3gg6hl2rm6z9illft1pkoigh"
-//#define AVOSCloudAppKey @"0xjxw6o8kk5jtkoqfi8mbl17fxoymrk29fo7b1u6ankirw31"
+#define AVOSCloudAppID  @"26x0xztg3ypms8o4ou42lxgk3gg6hl2rm6z9illft1pkoigh"
+#define AVOSCloudAppKey @"0xjxw6o8kk5jtkoqfi8mbl17fxoymrk29fo7b1u6ankirw31"
 
 /*
  正式
  */
-#define AVOSCloudAppID  @"mh5gyrc99m482n0bken77doebsr9u3sulj0arpqd172al9ki"
-#define AVOSCloudAppKey @"pdmukojziwgkcgus3rusw5wlao3orf7w0iw41470mrac73de"
+//#define AVOSCloudAppID  @"mh5gyrc99m482n0bken77doebsr9u3sulj0arpqd172al9ki"
+//#define AVOSCloudAppKey @"pdmukojziwgkcgus3rusw5wlao3orf7w0iw41470mrac73de"
 
 @interface AppDelegate ()
 
@@ -90,6 +90,9 @@
     }
      [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     [self.window makeKeyAndVisible];
+    
+    self.appModel = [[AppInfoObject alloc] init];
+    [self.appModel LoadAppInfo];
     
     return YES;
 }
@@ -204,4 +207,17 @@
     }];
     return  YES;
 }
+
+- (void) setCurrentCityModel:(CityDataModel *)Model
+{
+    if(Model.city_id != _currentCityModel.city_id){
+        
+        _currentCityModel = Model;
+        [[NSNotificationCenter defaultCenter] postNotificationName:Notify_SelectCity_Change object:nil];
+    }
+    else{
+        _currentCityModel = Model;
+    }
+}
+
 @end

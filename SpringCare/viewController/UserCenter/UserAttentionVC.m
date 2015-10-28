@@ -18,6 +18,8 @@
 #import "EGORefreshTableHeaderView.h"
 #import "HealthRecordVC.h"
 
+#import "HealthRecordInfo.h"
+
 @interface UserAttentionVC ()<EditUserInfoVCDelegate, EGORefreshTableHeaderDelegate>
 {
     BOOL _reloading;
@@ -45,7 +47,7 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     _searchBar.translatesAutoresizingMaskIntoConstraints = NO;
     _searchBar.backgroundColor = [UIColor clearColor];
-    _searchBar.backgroundImage = [self imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 44)];
+    _searchBar.backgroundImage = [Util imageWithColor:[UIColor clearColor] size:CGSizeMake(ScreenWidth, 44)];
     _searchBar.placeholder = @"请输入要关注人手机号";
     _searchBar.keyboardType = UIKeyboardTypeNumberPad;
     _attentionData = [[NSMutableArray alloc] initWithArray:[UserAttentionModel GetMyAttentionArray]];
@@ -383,19 +385,6 @@
     return UITableViewCellEditingStyleDelete; //每行左边会出现红的删除按钮
 }
 
-- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
-{
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-
 - (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
@@ -577,7 +566,12 @@
 
 - (void)NotifyHealthRecordButtonClickedWithModel:(UserAttentionModel *)model
 {
-    HealthRecordVC *vc = [[HealthRecordVC alloc] initWithLoverId:model.userid];
+//    HealthRecordVC *vc = [[HealthRecordVC alloc] initWithLoverId:model.userid];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    HealthRecordInfo *vc = [[HealthRecordInfo alloc] initWithLoverId:model.userid];
+    vc.lover = model;
+    vc.NavTitle = model.username;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
