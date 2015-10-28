@@ -144,6 +144,12 @@
         [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_headerView(224)]-15-[_dateImgv]-4-[_gauge(130)]-6-[_rateImgv]-6-[_detailInfo]->=0-|" options:0 metrics:nil views:views]];
         [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[_gauge]-30-|" options:0 metrics:nil views:views]];
         [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_photoImagv(100)]-6-[_lbLover]-8-[_lbSBP]-8-[_lbSBPText]->=6-|" options:0 metrics:nil views:views]];
+        _lbStatus.font = _FONT(24);
+        _lbdatas.font = _FONT(24);
+        NSString *labelText = [NSString stringWithFormat:@"%@/%@ mmHg", data.hp, data.lp];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText];
+        [attributedString addAttribute:NSFontAttributeName value:_FONT(12) range:NSMakeRange([labelText length] - 4, 4)];
+        _lbdatas.attributedText = attributedString;
     }else if(type == EnumValueTypeiPhone5)
     {
         [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_headerView(268)]-15-[_dateImgv]-20-[_gauge(140)]-6-[_rateImgv]-10-[_detailInfo]->=0-|" options:0 metrics:nil views:views]];
@@ -197,6 +203,26 @@
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbStatus]-4-[_lbdatas]->=0-|" options:0 metrics:nil views:views]];
     
     _gauge.value = [self getValueWIthSBP:[data.hp integerValue] DBP:[data.lp integerValue]];
+    
+    NSInteger level = [self getLevelWIthSBP:[data.hp integerValue] DBP:[data.lp integerValue]];
+    if(level == 1){
+        _headerView.backgroundColor = _COLOR(71, 173, 242);
+    }
+    else if (level == 2){
+        _headerView.backgroundColor = _COLOR(46, 203, 121);
+    }
+    else if (level == 3){
+        _headerView.backgroundColor = _COLOR(253, 198, 63);
+    }
+    else if (level == 4){
+        _headerView.backgroundColor = _COLOR(253, 126, 55);
+    }
+    else if (level == 5){
+        _headerView.backgroundColor = _COLOR(252, 78, 81);
+    }
+    else{
+        _headerView.backgroundColor = _COLOR(227, 42, 47);
+    }
 }
 
 - (UILabel *)createLabel:(UIView *)root
@@ -272,17 +298,21 @@
 {
     CGFloat scale = 0.0f;
     
-    HealthRecordData *data = [self getHealthRecordDataWIthSBP:sbp DBP:dbp];
+    HealthRecordData *item = [self getHealthRecordDataWIthSBP:sbp DBP:dbp];
     
-    CGFloat scale1 = (dbp - data.bmpmin) / (data.bmpmax - data.bmpmin);
-    CGFloat scale2 = (sbp- data.sbpmin) / (data.sbpmax - data.sbpmin);
+    CGFloat scale1 = (dbp - item.bmpmin) / (item.bmpmax - item.bmpmin);
+    CGFloat scale2 = (sbp- item.sbpmin) / (item.sbpmax - item.sbpmin);
     if(scale1 > scale2)
         scale = scale1;
     else
         scale = scale2;
     
-    
-    return scale * 100.0 / 8.0 + data.ChartStartValue;
+    NSInteger level = [self getLevelWIthSBP:[data.hp integerValue] DBP:[data.lp integerValue]];
+    if(level == 2){
+        return 3 * scale * 100.0 / 8.0 + item.ChartStartValue;
+    }
+    else
+        return scale * 100.0 / 8.0 + item.ChartStartValue;
 }
 /**
  sbp 收缩压
