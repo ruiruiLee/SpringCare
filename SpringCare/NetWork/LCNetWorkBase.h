@@ -12,13 +12,13 @@
 /*
  正式
  */
-//#define SERVER_ADDRESS @"http://spring.avosapps.com/"
+#define SERVER_ADDRESS @"http://spring.avosapps.com/"
 
 /*
  测试
  */
 //#define SERVER_ADDRESS @"http://dev.spring.avosapps.com/"
-#define SERVER_ADDRESS @"http://dev.springcare.avosapps.com/"
+//#define SERVER_ADDRESS @"http://dev.springcare.avosapps.com/"
 
 typedef void(^Completion) (int code, id content);
 
