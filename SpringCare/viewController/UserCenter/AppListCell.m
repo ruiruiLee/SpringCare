@@ -28,7 +28,7 @@
         _lbTitle.font = _FONT(18);
         _lbTitle.text = @"精品应用";
         
-        _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(35, 40, ScreenWidth - 70, 60)];
+        _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(35, 40, ScreenWidth - 70, 70)];
         [self.contentView addSubview:_scrollview];
         
         AppDelegate *appdel = [UIApplication sharedApplication].delegate;
@@ -37,7 +37,7 @@
         for (int i = 0; i < [apparray count]; i++) {
             AppInfo *info = [apparray objectAtIndex:i];
             
-            AppInfoView *view = [[AppInfoView alloc] initWithFrame:CGRectMake(60 * i, 0, 60, 60)];
+            AppInfoView *view = [[AppInfoView alloc] initWithFrame:CGRectMake(80 * i, 0, 80, 70)];
             [_scrollview addSubview:view];
             view.lbName.text = info.title;
             [view.logo sd_setImageWithURL:[NSURL URLWithString:info.imgUrl]];
@@ -46,7 +46,7 @@
             [view addTarget:self action:@selector(doBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         }
         
-        _scrollview.contentSize = CGSizeMake(60 * [apparray count], 60);
+        _scrollview.contentSize = CGSizeMake(80 * [apparray count], 70);
     }
     
     return self;

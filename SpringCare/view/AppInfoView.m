@@ -15,18 +15,18 @@
 {
     self = [super initWithFrame:frame];
     if(self){
-        _logo = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 40, 40)];
+        _logo = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 60, 60)];
         [self addSubview:_logo];
         _logo.clipsToBounds = YES;
         _logo.userInteractionEnabled = NO;
         
         
-        _lbName = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 60, 20)];
+        _lbName = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 80, 10)];
         _lbName.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_lbName];
         _lbName.backgroundColor = [UIColor clearColor];
         _lbName.textColor = _COLOR(0x66, 0x66, 0x66);
-        _lbName.font = _FONT(12);
+        _lbName.font = _FONT(10);
         
     }
     
