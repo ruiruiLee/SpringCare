@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LocationManagerObserver.h"
 #import "CityDataModel.h"
+#import "AppInfoObject.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
@@ -21,6 +22,8 @@
 
 @property (strong, nonatomic) NSString *hospital_product_id;
 @property (strong, nonatomic) NSString *defaultProductId;
+
+@property (strong, nonatomic) AppInfoObject *appModel;
 
 
 @end

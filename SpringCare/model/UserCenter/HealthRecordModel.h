@@ -10,6 +10,12 @@
 #import "HealthRecordItemDataModel.h"
 #import "define.h"
 
+typedef enum : NSUInteger {
+    EnumDataTypeWeek,
+    EnumDataTypeMonth,
+    EnumDataTypeOther,
+} EnumDataType;
+
 @interface HealthRecordModel : NSObject
 
 @property (nonatomic, assign) NSInteger pages;
@@ -17,5 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *recordList;
 
 - (void) LoadRecordListWithLoverId:(NSString *)loverId block:(CompletionBlock)block;
+
+- (void) LoadRecordListWithSata:(NSString *)loverId begin:(NSString *)begin type:(EnumDataType) type block:(CompletionBlock)block;
 
 @end

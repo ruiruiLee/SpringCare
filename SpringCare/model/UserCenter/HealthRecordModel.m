@@ -72,4 +72,37 @@
     }];
 }
 
+- (void) LoadRecordListWithSata:(NSString *)loverId begin:(NSString *)begin type:(EnumDataType) type block:(CompletionBlock)block
+{
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] init];
+    [parmas setObject:loverId forKey:@"loverId"];
+    [parmas setObject:begin forKey:@"dt"];
+    if(type == EnumDataTypeWeek)
+        [parmas setObject:@"1" forKey:@"type"];
+    else if (type == EnumDataTypeMonth)
+        [parmas setObject:@"2" forKey:@"type"];
+    
+    __weak HealthRecordModel *weakSelf = self;
+    [LCNetWorkBase postWithMethod:@"api/device/sata" Params:parmas Completion:^(int code, id content) {
+        if(code){
+//            NSArray *data = [content objectForKey:@"data"];
+//            NSMutableArray *result = [[NSMutableArray alloc] init];
+//            for (int i = 0; i < [data count]; i++) {
+//                HealthRecordItemDataModel *model = [HealthRecordItemDataModel modelDateFromDictionary:[data objectAtIndex:i]];
+//                [result addObject:model];
+//            }
+//            [weakSelf.recordList removeAllObjects];
+//            [weakSelf.recordList addObjectsFromArray:result];
+            if(block){
+                block( 1, content);
+            }
+            return ;
+        }
+        
+        if(block){
+            block(0, nil);
+        }
+    }];
+}
+
 @end

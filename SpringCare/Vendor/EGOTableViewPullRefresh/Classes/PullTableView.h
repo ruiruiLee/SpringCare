@@ -36,6 +36,7 @@
 /* After one of the delegate methods is invoked a loading animation is started, to end it use the respective status update property */
 - (void)pullTableViewDidTriggerRefresh:(PullTableView*)pullTableView;
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView*)pullTableView;
+- (void)pullTableViewDidScrolled:(PullTableView*)pullTableView;
 
 @end
 

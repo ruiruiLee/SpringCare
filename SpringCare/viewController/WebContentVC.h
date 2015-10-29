@@ -8,12 +8,19 @@
 
 #import "LCBaseVC.h"
 
-@interface WebContentVC : LCBaseVC
+
+#import "NJKWebViewProgress.h"
+#import "NJKWebViewProgressView.h"
+
+@interface WebContentVC : LCBaseVC<UIWebViewDelegate, NJKWebViewProgressDelegate>
 {
     UIWebView *_webview;
     
     NSString *urlPath;
     NSString *titleString;
+    
+    NJKWebViewProgressView *_progressView;
+    NJKWebViewProgress *_progressProxy;
 }
 
 - (id) initWithTitle:(NSString*)title url:(NSString*)url;

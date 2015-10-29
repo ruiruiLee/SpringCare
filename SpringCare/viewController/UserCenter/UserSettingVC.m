@@ -16,8 +16,9 @@
 #import "InputRecommendVC.h"
 #import "QuickmarkVC.h"
 #import "FeedBackVC.h"
+#import "AppListCell.h"
 
-@interface UserSettingVC ()
+@interface UserSettingVC ()<AppListCellDelegate>
 
 @end
 
@@ -112,19 +113,24 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
         return 4;
+    else if (section == 1)
+        return 1;
     else
         return 2;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(indexPath.section == 1)
+        return 110.f;
+    
     return 50.f;
 }
 
@@ -172,7 +178,7 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
-    if(indexPath.section == 1){
+    if(indexPath.section == 2){
         if(indexPath.row == 0)
         {
             NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, About_Us];
@@ -183,64 +189,82 @@
             WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"用户陪护协议" url:url];
             [self.navigationController pushViewController:vc animated:YES];
         }
+    }else{
+        
     }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserSettingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!cell) {
-        cell = [[UserSettingTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+    if(indexPath.section == 1){
+        AppListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+        if(!cell){
+            cell = [[AppListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+            cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+            cell.delegate = self;
+        }
+        
+        return cell;
     }
-    
-//    if(indexPath.section == 0)
-//    {
-//        cell._lbTitle.text = @"当前版本";
-//        cell._lbContent.text =[NSString stringWithFormat:@"V %@",[Util getCurrentVersion]] ;
-//        cell._lbContent.hidden = NO;
-//        cell._imgFold.hidden = YES;
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    }else
-    if (indexPath.section == 0)
-    {
-        if(indexPath.row == 0){
-            cell._lbTitle.text = @"告诉朋友";
-            cell._lbContent.hidden = YES;
-            cell._imgFold.hidden = NO;
+    else{
+        UserSettingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!cell) {
+            cell = [[UserSettingTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+            cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
         }
-        else if(indexPath.row == 1){
-            cell._lbTitle.text = @"给我们好评";
-            cell._lbContent.hidden = YES;
-            cell._imgFold.hidden = NO;
+        
+    //    if(indexPath.section == 0)
+    //    {
+    //        cell._lbTitle.text = @"当前版本";
+    //        cell._lbContent.text =[NSString stringWithFormat:@"V %@",[Util getCurrentVersion]] ;
+    //        cell._lbContent.hidden = NO;
+    //        cell._imgFold.hidden = YES;
+    //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //    }else
+        if (indexPath.section == 0)
+        {
+            if(indexPath.row == 0){
+                cell._lbTitle.text = @"告诉朋友";
+                cell._lbContent.hidden = YES;
+                cell._imgFold.hidden = NO;
+            }
+            else if(indexPath.row == 1){
+                cell._lbTitle.text = @"给我们好评";
+                cell._lbContent.hidden = YES;
+                cell._imgFold.hidden = NO;
+            }
+            else if (indexPath.row == 2){
+                cell._lbTitle.text = @"意见反馈";
+                cell._lbContent.hidden = YES;
+                cell._imgFold.hidden = NO;
+            }
+            else{
+                cell._lbTitle.text = @"邀请码";
+                cell._lbContent.hidden = YES;
+                cell._imgFold.hidden = NO;
+            }
         }
-        else if (indexPath.row == 2){
-            cell._lbTitle.text = @"意见反馈";
-            cell._lbContent.hidden = YES;
-            cell._imgFold.hidden = NO;
+        else if (indexPath.section == 2)
+        {
+            if(indexPath.row == 0){
+                cell._lbTitle.text = @"关于我们";
+                cell._lbContent.hidden = YES;
+                cell._imgFold.hidden = NO;
+            }
+            else{
+                cell._lbTitle.text = @"用户陪护协议";
+                cell._lbContent.hidden = YES;
+                cell._imgFold.hidden = NO;
+            }
         }
         else{
-            cell._lbTitle.text = @"邀请码";
-            cell._lbContent.hidden = YES;
-            cell._imgFold.hidden = NO;
+            
         }
+        
+        return cell;
     }
-    else if (indexPath.section == 1)
-    {
-        if(indexPath.row == 0){
-            cell._lbTitle.text = @"关于我们";
-            cell._lbContent.hidden = YES;
-            cell._imgFold.hidden = NO;
-        }
-        else{
-            cell._lbTitle.text = @"用户陪护协议";
-            cell._lbContent.hidden = YES;
-            cell._imgFold.hidden = NO;
-        }
-    }
-    
-    return cell;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -262,4 +286,11 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_appDownUrl]];
     }
 }
+
+- (void)NotifyAPpIconClicked:(AppInfoView *)sender
+{
+    AppInfo *data = sender.data;
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data.url]];
+}
+
 @end

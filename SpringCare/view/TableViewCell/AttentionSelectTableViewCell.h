@@ -9,12 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UserAttentionModel.h"
 
-@protocol AttentionSelectTableViewCellDelegate <NSObject>
-
-
-
-@end
-
 @interface AttentionSelectTableViewCell : UITableViewCell
 {
     UIImageView *_photoImage;
