@@ -335,6 +335,7 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = _COLOR(247, 247, 247);
+    view.clipsToBounds = YES;
     
     UILabel *lbDateString = [[UILabel alloc] initWithFrame:CGRectZero];
     [view addSubview:lbDateString];
