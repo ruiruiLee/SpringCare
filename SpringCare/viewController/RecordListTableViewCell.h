@@ -15,6 +15,7 @@
     UILabel *_lbSBP;
     UILabel *_lbDBP;
     UILabel *_lbHeartRate;
+    UILabel *_lbLine;
 }
 
 - (void)SetContentWithModel:(HealthRecordItemDataModel*) model;
