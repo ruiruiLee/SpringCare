@@ -113,23 +113,42 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
-}
-
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (section == 0)
-        return 4;
-    else if (section == 1)
-        return 1;
+    AppDelegate *appdel = [UIApplication sharedApplication].delegate;
+    NSArray *apparray = appdel.appModel.appArray;
+    if([apparray count] > 0)
+        return 3;
     else
         return 2;
 }
 
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    AppDelegate *appdel = [UIApplication sharedApplication].delegate;
+    NSArray *apparray = appdel.appModel.appArray;
+    if([apparray count] > 0){
+        if (section == 0)
+            return 4;
+        else if (section == 1)
+            return 1;
+        else
+            return 2;
+    }
+    else{
+        if (section == 0)
+            return 4;
+        else
+            return 2;
+    }
+}
+
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 1)
-        return 120.f;
+    AppDelegate *appdel = [UIApplication sharedApplication].delegate;
+    NSArray *apparray = appdel.appModel.appArray;
+    if([apparray count] > 0){
+        if(indexPath.section == 1)
+            return 120.f;
+    }
     
     return 50.f;
 }
@@ -192,20 +211,100 @@
     }else{
         
     }
+    
+    AppDelegate *appdel = [UIApplication sharedApplication].delegate;
+    NSArray *apparray = appdel.appModel.appArray;
+    if([apparray count] == 0){
+        if(indexPath.section == 1){
+            if(indexPath.row == 0)
+            {
+                NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, About_Us];
+                WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"关于我们" url:url];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else{
+                NSString *url = [NSString stringWithFormat:@"%@%@%@", SERVER_ADDRESS, Service_Methord, Care_Agreement];
+                WebContentVC *vc = [[WebContentVC alloc] initWithTitle:@"用户陪护协议" url:url];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }
+    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 1){
-        AppListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
-        if(!cell){
-            cell = [[AppListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
-            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-            cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
-            cell.delegate = self;
+    AppDelegate *appdel = [UIApplication sharedApplication].delegate;
+    NSArray *apparray = appdel.appModel.appArray;
+    if([apparray count] > 0){
+        if(indexPath.section == 1){
+            AppListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+            if(!cell){
+                cell = [[AppListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+                cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+                cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+                cell.delegate = self;
+            }
+            
+            return cell;
         }
-        
-        return cell;
+        else{
+            UserSettingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+            if (!cell) {
+                cell = [[UserSettingTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+                cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+                cell.selectedBackgroundView.backgroundColor = TableSectionBackgroundColor;
+            }
+            
+            //    if(indexPath.section == 0)
+            //    {
+            //        cell._lbTitle.text = @"当前版本";
+            //        cell._lbContent.text =[NSString stringWithFormat:@"V %@",[Util getCurrentVersion]] ;
+            //        cell._lbContent.hidden = NO;
+            //        cell._imgFold.hidden = YES;
+            //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            //    }else
+            if (indexPath.section == 0)
+            {
+                if(indexPath.row == 0){
+                    cell._lbTitle.text = @"告诉朋友";
+                    cell._lbContent.hidden = YES;
+                    cell._imgFold.hidden = NO;
+                }
+                else if(indexPath.row == 1){
+                    cell._lbTitle.text = @"给我们好评";
+                    cell._lbContent.hidden = YES;
+                    cell._imgFold.hidden = NO;
+                }
+                else if (indexPath.row == 2){
+                    cell._lbTitle.text = @"意见反馈";
+                    cell._lbContent.hidden = YES;
+                    cell._imgFold.hidden = NO;
+                }
+                else{
+                    cell._lbTitle.text = @"邀请码";
+                    cell._lbContent.hidden = YES;
+                    cell._imgFold.hidden = NO;
+                }
+            }
+            else if (indexPath.section == 2)
+            {
+                if(indexPath.row == 0){
+                    cell._lbTitle.text = @"关于我们";
+                    cell._lbContent.hidden = YES;
+                    cell._imgFold.hidden = NO;
+                }
+                else{
+                    cell._lbTitle.text = @"用户陪护协议";
+                    cell._lbContent.hidden = YES;
+                    cell._imgFold.hidden = NO;
+                }
+            }
+            else{
+                
+            }
+            
+            return cell;
+        }
+
     }
     else{
         UserSettingTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -246,7 +345,7 @@
                 cell._imgFold.hidden = NO;
             }
         }
-        else if (indexPath.section == 2)
+        else if (indexPath.section == 1)
         {
             if(indexPath.row == 0){
                 cell._lbTitle.text = @"关于我们";
