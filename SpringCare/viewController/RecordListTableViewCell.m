@@ -38,7 +38,7 @@
     [self.contentView addSubview:_lbSBP];
     _lbSBP.translatesAutoresizingMaskIntoConstraints = NO;
     _lbSBP.backgroundColor = [UIColor clearColor];
-    _lbSBP.font = _FONT(17);
+    _lbSBP.font = _FONT(20);
     _lbSBP.textAlignment = NSTextAlignmentCenter;
     _lbSBP.textColor = _COLOR(70, 178, 247);
     
@@ -47,7 +47,7 @@
     [self.contentView addSubview:_lbDBP];
     _lbDBP.translatesAutoresizingMaskIntoConstraints = NO;
     _lbDBP.backgroundColor = [UIColor clearColor];
-    _lbDBP.font = _FONT(17);
+    _lbDBP.font = _FONT(20);
     _lbDBP.textAlignment = NSTextAlignmentCenter;
     _lbDBP.textColor = _COLOR(70, 178, 247);
     
@@ -56,15 +56,22 @@
     [self.contentView addSubview:_lbHeartRate];
     _lbHeartRate.translatesAutoresizingMaskIntoConstraints = NO;
     _lbHeartRate.backgroundColor = [UIColor clearColor];
-    _lbHeartRate.font = _FONT(17);
+    _lbHeartRate.font = _FONT(20);
     _lbHeartRate.textAlignment = NSTextAlignmentCenter;
     _lbHeartRate.textColor = _COLOR(70, 178, 247);
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_lbDBP, _lbHeartRate, _lbSBP, _lbTime);
+    _lbLine = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:_lbLine];
+    _lbLine.translatesAutoresizingMaskIntoConstraints = NO;
+    _lbLine.backgroundColor = SeparatorLineColor;
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(_lbDBP, _lbHeartRate, _lbSBP, _lbTime, _lbLine);
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_lbDBP]-0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_lbHeartRate]-0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_lbSBP]-0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_lbTime]-0-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[_lbLine]-30-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbLine(0.7)]-0-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_lbTime]-10-[_lbSBP]-10-[_lbDBP]-10-[_lbHeartRate]-10-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbTime attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_lbDBP attribute:NSLayoutAttributeWidth multiplier:1 constant:40]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbHeartRate attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_lbDBP attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
