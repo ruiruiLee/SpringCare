@@ -249,7 +249,6 @@
     else if (indexPath.row == 1){
         cell._logoImage.image = [UIImage imageNamed:@"wechatlogo"];
         cell._payName.text = @"微信支付";
-//        cell._line.hidden = YES;
     }
     else if (indexPath.row == 2){
         cell._logoImage.image = [UIImage imageNamed:@"cmblogo"];
