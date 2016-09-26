@@ -1,8 +1,9 @@
-FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AVOSCloud/iOS/release-v3.0.0" "$(PODS_ROOT)/AVOSCloudSNS/iOS/release-v3.0.0" "$(PODS_ROOT)/Pingpp/lib/Channels"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/AVOSCloud/iOS/release-v3.0.0" "${PODS_ROOT}/AVOSCloudSNS/iOS/release-v3.0.0" "${PODS_ROOT}/Pingpp/lib/Channels/Alipay"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AVOSCloud" "${PODS_ROOT}/Headers/Public/AVOSCloudSNS" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/Pingpp"
-LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/Pingpp/lib/Channels" "$(PODS_ROOT)/Pingpp/lib/Channels" "$(PODS_ROOT)/Pingpp/lib"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AVOSCloud" "${PODS_ROOT}/Headers/Public/AVOSCloudSNS" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/Pingpp"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking" "$PODS_CONFIGURATION_BUILD_DIR/FMDB" $(inherited) "${PODS_ROOT}/Pingpp/lib/Channels/Alipay" $(inherited) "${PODS_ROOT}/Pingpp/lib" $(inherited) "${PODS_ROOT}/Pingpp/lib/Dependencies/Network" $(inherited) "${PODS_ROOT}/Pingpp/lib/Channels/UnionPay"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/AVOSCloud" -isystem "${PODS_ROOT}/Headers/Public/AVOSCloudSNS" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/Pingpp"
-OTHER_LDFLAGS = -ObjC -l"ObjC" -l"Pods-SpringCare-AFNetworking" -l"Pods-SpringCare-AVOSCloud" -l"Pods-SpringCare-AVOSCloudSNS" -l"Pods-SpringCare-FMDB" -l"Pods-SpringCare-Pingpp" -l"UPPayPlugin" -l"WeChatSDK" -l"c++" -l"icucore" -l"pingpp" -l"sqlite3" -framework "AVOSCloud" -framework "AVOSCloudSNS" -framework "AlipaySDK" -framework "CFNetwork" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreTelephony" -framework "MobileCoreServices" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -weak_framework "PassKit"
-OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+OTHER_LDFLAGS = $(inherited) -ObjC -l"AFNetworking" -l"FMDB" -l"PaymentControl" -l"c++" -l"icucore" -l"pingpp+alipay" -l"pingpp+network" -l"pingpp+up" -l"pingppcore" -l"sqlite3" -l"stdc++" -l"z" -framework "AVOSCloud" -framework "AVOSCloudSNS" -framework "AlipaySDK" -framework "CFNetwork" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreMotion" -framework "CoreTelephony" -framework "MobileCoreServices" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration"
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods

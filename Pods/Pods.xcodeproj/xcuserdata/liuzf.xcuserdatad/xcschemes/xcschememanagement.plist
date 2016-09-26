@@ -4,135 +4,35 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-SpringCare-AFNetworking.xcscheme</key>
+		<key>AFNetworking.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>Pods-SpringCare-AVOSCloud.xcscheme</key>
+		<key>FMDB.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>Pods-SpringCare-AVOSCloudSNS.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-		<key>Pods-SpringCare-FMDB.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
-		<key>Pods-SpringCare-Pingpp.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-SpringCare.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06AA19CD2047CC5514332785</key>
+		<key>2602F3D0DAC534568B6AD7EEA0DD1959</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>101268F6698C21971026DC2A</key>
+		<key>88139211EE0857328493B9560DA956D4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1366BBE03BDE6E90F07720E2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1D3DF8AAFCDFC3F89A240587</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>23F7BA822C67230644FB24E7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>275F86458712279A56CE6671</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2A05AC5B96C6912FC916754B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>30CF427C91B26CF5CDF1AB41</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4021AB9FA5DED8DA36317544</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8CD9BF934E8042E5F3AC50E1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>99BADE4FD37966C1764DDF2B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9CFFFFC0A85622695526DA48</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A7C0B5465DBEF5725CCC72F9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C3B889248967B60A6B615714</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D2A4D694DC06E72CE4C6E270</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DE780FA7A2890C3E7A654909</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E75CEB97C67B350B2B334033</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EC54B712A980B400F0F0A76B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F37130713E9DD9F740D9BA21</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F4CE9DC917F1FA695D377069</key>
+		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

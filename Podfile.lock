@@ -28,30 +28,32 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
-  - Pingpp (2.0.4)
+  - Pingpp (2.2.8):
+    - Pingpp/Alipay (= 2.2.8)
+    - Pingpp/Core (= 2.2.8)
+    - Pingpp/UnionPay (= 2.2.8)
+  - Pingpp/Alipay (2.2.8):
+    - Pingpp/Core
+  - Pingpp/Core (2.2.8):
+    - Pingpp/Network
+  - Pingpp/Network (2.2.8)
+  - Pingpp/UnionPay (2.2.8):
+    - Pingpp/Core
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.0)
+  - AFNetworking
   - AVOSCloud
   - AVOSCloudSNS
   - FMDB
-  - Pingpp (from `https://github.com/PingPlusPlus/pingpp-ios.git`, branch `alipay_wx_upmp`)
-
-EXTERNAL SOURCES:
-  Pingpp:
-    :branch: alipay_wx_upmp
-    :git: https://github.com/PingPlusPlus/pingpp-ios.git
-
-CHECKOUT OPTIONS:
-  Pingpp:
-    :commit: 03cb441ceed83380f59cabb80da8d0b7624f4f0f
-    :git: https://github.com/PingPlusPlus/pingpp-ios.git
+  - Pingpp
 
 SPEC CHECKSUMS:
-  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
+  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
   AVOSCloud: 5f13496669a24bc5e2cd8d6dec546b54214cbee3
   AVOSCloudSNS: cc7b1f897673cf3f4b03a1bf36527b40e3668bf0
-  FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
-  Pingpp: 69cb69a880de75b3aa95489a1d7c7669d4635dcb
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  Pingpp: b5ad287bd6969d69cff1f2438ea63147976711c9
 
-COCOAPODS: 0.35.0
+PODFILE CHECKSUM: 01f1f2d365b204ee01d63ee93f81cd150635ae7d
+
+COCOAPODS: 1.0.1

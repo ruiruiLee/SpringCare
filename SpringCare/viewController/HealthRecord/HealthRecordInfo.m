@@ -173,19 +173,7 @@
     NSDictionary *views = NSDictionaryOfVariableBindings( _tableview, _btnDay, _btnMonth, _btnWeek, _imageViewBg, _scrollview, lbExplainSBP, lbExplainSBPText, lbExplainDBP, lbExplainDBPText, chartView, _lbBeginTime);
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_imageViewBg(240)]-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_imageViewBg]-0-|" options:0 metrics:nil views:views]];
-//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbSBP(50)]->=0-|" options:0 metrics:nil views:views]];
-//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbHeartRate(50)]->=0-|" options:0 metrics:nil views:views]];
-//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_lbTime(50)]->=0-|" options:0 metrics:nil views:views]];
-//    [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_lbTime]-10-[_lbSBP]-10-[_lbDBP]-10-[_lbHeartRate]-10-|" options:0 metrics:nil views:views]];
     [self.ContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:views]];
-//    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbDBP attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_lbTime attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-//    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbHeartRate attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_lbTime attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-//    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbSBP attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_lbTime attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    
-//    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbHeartRate attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDBP attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-//    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbSBP attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDBP attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-//    [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:_lbTime attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_lbDBP attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    
     
     [_imageViewBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[_btnDay]-54-[_btnWeek]-54-[_btnMonth]-30-|" options:0 metrics:nil views:views]];
     [_imageViewBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_btnDay(26)]-30-[lbExplainSBP(8)]-20-[chartView]-10-|" options:0 metrics:nil views:views]];
@@ -198,7 +186,7 @@
     [_imageViewBg addConstraint:[NSLayoutConstraint constraintWithItem:lbExplainDBPText attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:lbExplainSBP attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [_imageViewBg addConstraint:[NSLayoutConstraint constraintWithItem:lbExplainDBP attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:lbExplainSBP attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [_imageViewBg addConstraint:[NSLayoutConstraint constraintWithItem:_lbBeginTime attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:lbExplainSBP attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [_imageViewBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_lbBeginTime]->=20-[lbExplainSBP(8)]-10-[lbExplainSBPText]-30-[lbExplainDBP(8)]-10-[lbExplainDBPText]-30-|" options:0 metrics:nil views:views]];
+    [_imageViewBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_lbBeginTime]->=15-[lbExplainSBP(8)]-5-[lbExplainSBPText]-15-[lbExplainDBP(8)]-5-[lbExplainDBPText]-15-|" options:0 metrics:nil views:views]];
     [_imageViewBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[lbExplainDBP(8)]->=0-|" options:0 metrics:nil views:views]];
     
     [_imageViewBg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[chartView]-0-|" options:0 metrics:nil views:views]];

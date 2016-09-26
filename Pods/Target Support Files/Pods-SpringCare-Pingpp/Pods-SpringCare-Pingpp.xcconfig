@@ -1,3 +1,0 @@
-PODS_SPRINGCARE_PINGPP_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/Pingpp/lib/Channels"
-PODS_SPRINGCARE_PINGPP_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/Pingpp/lib/Channels" "$(PODS_ROOT)/Pingpp/lib/Channels" "$(PODS_ROOT)/Pingpp/lib"
-PODS_SPRINGCARE_PINGPP_OTHER_LDFLAGS = -l"ObjC" -l"UPPayPlugin" -l"WeChatSDK" -l"c++" -l"pingpp" -framework "AlipaySDK" -framework "CFNetwork" -framework "Security" -framework "SystemConfiguration" -weak_framework "PassKit"

@@ -225,7 +225,7 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 2;
+    return 3;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -249,7 +249,12 @@
     else if (indexPath.row == 1){
         cell._logoImage.image = [UIImage imageNamed:@"wechatlogo"];
         cell._payName.text = @"微信支付";
-        cell._line.hidden = YES;
+//        cell._line.hidden = YES;
+    }
+    else if (indexPath.row == 2){
+        cell._logoImage.image = [UIImage imageNamed:@"cmblogo"];
+        cell._payName.text = @"招行一网通";
+//        cell._line.hidden = YES;
     }
     
 
@@ -265,6 +270,12 @@
         else
             cell._btnSelect.selected = NO;
     }
+    else if(paytype == EnumTypeCMB){
+        if(indexPath.row == 2)
+            cell._btnSelect.selected = YES;
+        else
+            cell._btnSelect.selected = NO;
+    }
     
     return cell;
 }
@@ -275,9 +286,14 @@
         [self setPaytype:EnumTypeAlipay];
         _payValue=@"alipay";
     }
-    else{
+    else if (indexPath.row == 1){
         [self setPaytype:EnumTypeWechat];
-         _payValue=@"wx";
+         _payValue=@"wx_pub";
+    }
+    
+    else if (indexPath.row == 2){
+        [self setPaytype:EnumTypeCMB];
+        _payValue=@"cmb_wallet";
     }
 }
 

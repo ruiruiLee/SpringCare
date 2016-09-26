@@ -12,19 +12,19 @@
 /*
  正式
  */
-//#define SERVER_ADDRESS @"http://spring.avosapps.com/"
+#define SERVER_ADDRESS @"http://spring.avosapps.com/"
 
 /*
  测试
  */
 //#define SERVER_ADDRESS @"http://dev.spring.avosapps.com/"
-#define SERVER_ADDRESS @"http://dev.springcare.avosapps.com/"
+//#define SERVER_ADDRESS @"http://dev.springcare.avosapps.com/"
 
 typedef void(^Completion) (int code, id content);
 
 @interface LCNetWorkBase : NSObject
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 
 + (id)sharedLCNetWorkBase;
 
@@ -32,7 +32,7 @@ typedef void(^Completion) (int code, id content);
 
 - (void)postWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion;
 
-- (void)postWithParams:(NSString*)params Url:(NSString*)url Completion:(Completion)completion;
+//- (void)postWithParams:(NSString*)params Url:(NSString*)url Completion:(Completion)completion;
 
 - (void)GetWithParams:(NSDictionary *)params Url:(NSString*)url Completion:(Completion)completion;
 

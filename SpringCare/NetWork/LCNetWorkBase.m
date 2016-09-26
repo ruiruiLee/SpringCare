@@ -60,21 +60,17 @@
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    //https
-//    manager.securityPolicy.allowInvalidCertificates = YES;
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager = [AFHTTPSessionManager manager];
     
-    [manager GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        SBJsonParser *_parser = [[SBJsonParser alloc] init];
-        NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];
-        
+    [manager GET:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+//        SBJsonParser *_parser = [[SBJsonParser alloc] init];
+        NSDictionary *result = responseObject;//[_parser objectWithData:(NSData *)responseObject];
+
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, result);
         completion(1, result);
         [ProjectDefine removeRequestTag:Tag];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, error);
         [ProjectDefine removeRequestTag:Tag];
         if (error.code != -1001) {
@@ -86,6 +82,12 @@
         }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    //https
+////    manager.securityPolicy.allowInvalidCertificates = YES;
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+//    
+
 }
 
 - (void)postWithMethod:(NSString *)method Params:(NSDictionary *)params Completion:(Completion)completion
@@ -116,15 +118,13 @@
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager = [AFHTTPSessionManager manager];
     
-    [manager POST:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         [ProjectDefine removeRequestTag:Tag];
-        SBJsonParser *_parser = [[SBJsonParser alloc] init];
-        NSDictionary *result = [_parser objectWithData:(NSData *)responseObject];
-        
+//        SBJsonParser *_parser = [[SBJsonParser alloc] init];
+        NSDictionary *result = responseObject;
+
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, result);
         if([result isKindOfClass:[NSDictionary class]] && [result objectForKey:@"code"] != nil){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[result objectForKey:@"message"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -140,7 +140,7 @@
         }
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [ProjectDefine removeRequestTag:Tag];
         NSLog(@"请求URL：%@ \n请求方法:%@ \n请求参数：%@\n 请求结果：%@\n==================================", SERVER_ADDRESS, method, params, error);
         if (error.code != -1001) {
@@ -152,25 +152,26 @@
          }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+    
 }
 
 
 
 
 - (void)GetWithParams:(NSDictionary *)params Url:(NSString*)url Completion:(Completion)completion{
-    manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    manager = [AFHTTPSessionManager manager];
+    
+    [manager GET:url parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
          NSLog(@"%@", responseObject);
         if (completion!=nil) {
             completion(1, responseObject);
         }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if (completion!=nil) {
+                completion(0, error.localizedDescription);
+            }
+    }];
 
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completion!=nil) {
-            completion(0, error.localizedDescription);
-        }
-     }
-    ];
 }
 - (void)postWithParams:(NSString*)params Url:(NSString*)url Completion:(Completion)completion
 {
@@ -179,28 +180,69 @@
     /**
      * 处理短时间内重复请求
      **/
-    manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
-    manager.securityPolicy.allowInvalidCertificates = YES;
-    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:soapLength forHTTPHeaderField:@"Content-Length"];
-    NSError *error = nil;
-    NSMutableURLRequest *request = [manager.requestSerializer requestWithMethod:@"POST" URLString:url parameters:nil error:&error];
-    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
-    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *response = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", response);
-        if (completion!=nil) {
-            completion(1, response);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *response = [[NSString alloc] initWithData:(NSData *)[operation responseObject] encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", response);
-        if (completion!=nil) {
-            completion(0, response);
-        }
-    }];
-    [manager.operationQueue addOperation:operation];
+//    manager = [AFHTTPSessionManager manager];
+//    manager.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
+//    manager.securityPolicy.allowInvalidCertificates = YES;
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [manager.requestSerializer setValue:soapLength forHTTPHeaderField:@"Content-Length"];
+//    NSError *error = nil;
+//    NSMutableURLRequest *request = [manager.requestSerializer requestWithMethod:@"POST" URLString:url parameters:nil error:&error];
+//    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    [manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        
+//        [formData appendPartWithFormData:[params dataUsingEncoding:NSUTF8StringEncoding] name:@"aaa"];
+//        
+//        int j = 0;
+//        
+//    } success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSString *response = responseObject;
+//        NSLog(@"%@", response);
+//        if (completion!=nil) {
+//            completion(1, response);
+//        }
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSLog(@"%@", error);
+//        if (completion!=nil) {
+//            completion(0, error.localizedDescription);
+//        }
+//    }];
+    
+//    NSURLSessionTask *operation = [manager POST:url parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSString *response = responseObject;
+//        NSLog(@"%@", response);
+//        if (completion!=nil) {
+//            completion(1, response);
+//        }
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSLog(@"%@", error);
+//        if (completion!=nil) {
+//            completion(0, error.localizedDescription);
+//        }
+//    }];
+    
+//    AFHTTPRequestOperationManager *manager1 = [AFHTTPRequestOperationManager manager];
+//    manager1.responseSerializer = [[AFHTTPResponseSerializer alloc] init];
+//    manager1.securityPolicy.allowInvalidCertificates = YES;
+//    [manager1.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [manager1.requestSerializer setValue:soapLength forHTTPHeaderField:@"Content-Length"];
+//    NSError *error = nil;
+//    NSMutableURLRequest *request = [manager1.requestSerializer requestWithMethod:@"POST" URLString:url parameters:nil error:&error];
+//    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+//    AFHTTPRequestOperation *operation = [manager1 HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSString *response = [[NSString alloc] initWithData:(NSData *)responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@", response);
+//        if (completion!=nil) {
+//            completion(1, response);
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSString *response = [[NSString alloc] initWithData:(NSData *)[operation responseObject] encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@", response);
+//        if (completion!=nil) {
+//            completion(0, response);
+//        }
+//    }];
+//    [manager1.operationQueue addOperation:operation];
 }
 
 @end

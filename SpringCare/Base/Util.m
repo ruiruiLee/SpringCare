@@ -437,10 +437,11 @@
 }
 
 + (void)PayForOrders:(NSDictionary*) dict Controller:(UIViewController*)weakSelf{
-    NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *bodyData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *uri = [NSString stringWithFormat:@"%@%@", SERVER_ADDRESS,kUrl];
-    [LCNetWorkBase postWithParams:bodyData  Url:uri Completion:^(int code, id content) {
+//    NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+//    NSString *bodyData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//    NSString *uri = [NSString stringWithFormat:@"%@%@", SERVER_ADDRESS,kUrl];
+    
+    [LCNetWorkBase postWithMethod:kUrl Params:dict Completion:^(int code, id content) {
         if(code){
             NSLog(@"charge = %@", content);
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -461,9 +462,34 @@
         else{
             //sender.userInteractionEnabled=true;
             [Util showAlertMessage:@"支付失败，服务器链接错误！"];
-            
         }
+
     }];
+    
+//    [LCNetWorkBase postWithParams:bodyData  Url:uri Completion:^(int code, id content) {
+//        if(code){
+//            NSLog(@"charge = %@", content);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [Pingpp createPayment:(NSString*)content viewController:weakSelf appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
+//                    NSLog(@"completion block: %@", result);
+//                    //sender.userInteractionEnabled=true;
+//                    if (error == nil) {
+//                        NSLog(@"PingppError is nil");
+//                        [Util showAlertMessage:@"支付成功！"];
+//                    } else {
+//                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+//                        [Util showAlertMessage: [NSString stringWithFormat:@"支付失败(%@)",[error getMsg]]];
+//                    }
+//                    
+//                }];
+//            });
+//        }
+//        else{
+//            //sender.userInteractionEnabled=true;
+//            [Util showAlertMessage:@"支付失败，服务器链接错误！"];
+//            
+//        }
+//    }];
 
 }
 

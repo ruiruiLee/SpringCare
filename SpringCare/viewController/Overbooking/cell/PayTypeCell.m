@@ -137,7 +137,7 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -158,9 +158,13 @@
         [self setPaytype:EnumTypeAlipay];
          vc.payValue=@"alipay";
     }
+    else if (indexPath.row == 2){
+        [self setPaytype:EnumTypeWechat];
+         vc.payValue=@"wx_pub";
+    }
     else{
         [self setPaytype:EnumTypeWechat];
-         vc.payValue=@"wx";
+        vc.payValue=@"cmb_wallet";
     }
     
     [_tableview reloadData];
@@ -183,7 +187,12 @@
     else if (indexPath.row == 2){
         cell._logoImage.image = [UIImage imageNamed:@"wechatlogo"];
         cell._payName.text = @"微信支付";
-        cell._line.hidden = YES;
+//        cell._line.hidden = YES;
+    }
+    else if (indexPath.row == 3){
+        cell._logoImage.image = [UIImage imageNamed:@"cmblogo"];
+        cell._payName.text = @"招行一网通";
+//        cell._line.hidden = YES;
     }
     
     if(paytype == EnumTypeAfter){
@@ -196,6 +205,10 @@
     }
     else if(paytype == EnumTypeWechat){
         if(indexPath.row == 2)
+            cell._btnSelect.selected = YES;
+    }
+    else if(paytype == EnumTypeCMB){
+        if(indexPath.row == 3)
             cell._btnSelect.selected = YES;
     }
     
@@ -220,6 +233,10 @@
         PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
         cell._btnSelect.selected = YES;
     }
+    else if(_paytype == EnumTypeCMB){
+        PayTypeItemCell *cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+        cell._btnSelect.selected = YES;
+    }
 }
 
 - (void) resetCell
@@ -229,6 +246,8 @@
     cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     cell._btnSelect.selected = NO;
     cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    cell._btnSelect.selected = NO;
+    cell = (PayTypeItemCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     cell._btnSelect.selected = NO;
 }
 

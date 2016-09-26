@@ -12,6 +12,7 @@ typedef enum : NSUInteger {
     EnumTypeAfter,
     EnumTypeAlipay,
     EnumTypeWechat,
+    EnumTypeCMB,
 } PayType;
 
 @interface PayTypeItemCell : UITableViewCell

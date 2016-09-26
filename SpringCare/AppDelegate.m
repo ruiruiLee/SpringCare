@@ -14,18 +14,25 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 
+#import <ShareSDK/ShareSDK.h>
+#import "WXApi.h"
+#import "WeiboSDK.h"
+#import <ShareSDKConnector/ShareSDKConnector.h>
+
+//appkey c736476da58c
+
 
 /*
   测试
  */
-#define AVOSCloudAppID  @"26x0xztg3ypms8o4ou42lxgk3gg6hl2rm6z9illft1pkoigh"
-#define AVOSCloudAppKey @"0xjxw6o8kk5jtkoqfi8mbl17fxoymrk29fo7b1u6ankirw31"
+//#define AVOSCloudAppID  @"26x0xztg3ypms8o4ou42lxgk3gg6hl2rm6z9illft1pkoigh"
+//#define AVOSCloudAppKey @"0xjxw6o8kk5jtkoqfi8mbl17fxoymrk29fo7b1u6ankirw31"
 
 /*
  正式
  */
-//#define AVOSCloudAppID  @"mh5gyrc99m482n0bken77doebsr9u3sulj0arpqd172al9ki"
-//#define AVOSCloudAppKey @"pdmukojziwgkcgus3rusw5wlao3orf7w0iw41470mrac73de"
+#define AVOSCloudAppID  @"mh5gyrc99m482n0bken77doebsr9u3sulj0arpqd172al9ki"
+#define AVOSCloudAppKey @"pdmukojziwgkcgus3rusw5wlao3orf7w0iw41470mrac73de"
 
 @interface AppDelegate ()
 
@@ -38,6 +45,34 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [ShareSDK registerApp:@"c736476da58c" activePlatforms:@[@(SSDKPlatformTypeSMS), @(SSDKPlatformTypeWechat)] onImport:^(SSDKPlatformType platformType) {
+        
+        switch (platformType) {
+            case SSDKPlatformTypeWechat:
+            {
+                [ShareSDKConnector connectWeChat:[WXApi class]];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    } onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+        
+        switch (platformType)
+        {
+            case SSDKPlatformTypeWechat:
+                [appInfo SSDKSetupWeChatByAppId:@"wxf2c8712c2c3b3bac" appSecret:@"360d97ce2434c73fc0c3defcfa82566a"];
+                break;
+            default:
+                break;
+        }
+
+        
+    }];
+    
     _hospital_product_id=@"";
     _defaultProductId=@"";
     //设置AVOSCloud
