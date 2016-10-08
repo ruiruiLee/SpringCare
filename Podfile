@@ -7,6 +7,7 @@ pod 'AVOSCloud'
 pod 'AVOSCloudSNS'
 
 pod 'Pingpp'
+pod 'Pingpp/CmbWallet', '~> 2.2.8'
 
 pod 'FMDB'
 # pod 'FMDB/FTS'   # FMDB with FTS

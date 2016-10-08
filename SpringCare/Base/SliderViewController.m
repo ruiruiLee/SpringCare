@@ -134,6 +134,19 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
 
 #pragma mark - Actions
 
+- (void)showContentControllerWithPresent:(UIViewController *)controller
+{
+    [self closeSideBar];
+//    controller.hidesBottomBarWhenPushed=YES;
+//    [self.navigationController pushViewController:controller animated:YES];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self.navigationController presentViewController:nav animated:YES completion:^{
+        
+    }];
+//    [self.navigationController presentViewController:controller animated:YES completion:nil];
+    
+    
+}
 
 - (void)showContentControllerWithPush:(UIViewController *)controller
 {

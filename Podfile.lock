@@ -1,43 +1,46 @@
 PODS:
-  - AFNetworking (2.5.1):
-    - AFNetworking/NSURLConnection (= 2.5.1)
-    - AFNetworking/NSURLSession (= 2.5.1)
-    - AFNetworking/Reachability (= 2.5.1)
-    - AFNetworking/Security (= 2.5.1)
-    - AFNetworking/Serialization (= 2.5.1)
-    - AFNetworking/UIKit (= 2.5.1)
-  - AFNetworking/NSURLConnection (2.5.1):
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.1):
+  - AFNetworking/NSURLSession (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.1)
-  - AFNetworking/Security (2.5.1)
-  - AFNetworking/Serialization (2.5.1)
-  - AFNetworking/UIKit (2.5.1):
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AVOSCloud (3.0.0)
-  - AVOSCloudSNS (3.0.0):
+  - AVOSCloud (3.3.4)
+  - AVOSCloudSNS (3.1.2.9):
     - AVOSCloud
-  - FMDB (2.5):
-    - FMDB/standard (= 2.5)
-  - FMDB/common (2.5)
-  - FMDB/standard (2.5):
-    - FMDB/common
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
   - Pingpp (2.2.8):
     - Pingpp/Alipay (= 2.2.8)
     - Pingpp/Core (= 2.2.8)
     - Pingpp/UnionPay (= 2.2.8)
   - Pingpp/Alipay (2.2.8):
     - Pingpp/Core
+  - Pingpp/CmbWallet (2.2.8):
+    - Pingpp/Core
+    - Pingpp/WebView
   - Pingpp/Core (2.2.8):
     - Pingpp/Network
   - Pingpp/Network (2.2.8)
   - Pingpp/UnionPay (2.2.8):
+    - Pingpp/Core
+  - Pingpp/WebView (2.2.8):
     - Pingpp/Core
 
 DEPENDENCIES:
@@ -46,14 +49,15 @@ DEPENDENCIES:
   - AVOSCloudSNS
   - FMDB
   - Pingpp
+  - Pingpp/CmbWallet (~> 2.2.8)
 
 SPEC CHECKSUMS:
-  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
-  AVOSCloud: 5f13496669a24bc5e2cd8d6dec546b54214cbee3
-  AVOSCloudSNS: cc7b1f897673cf3f4b03a1bf36527b40e3668bf0
-  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AVOSCloud: d501e7f43719884b748214d3cb5a3da18a20fb46
+  AVOSCloudSNS: 4f9f1df8663fc7bfa76b9b38578ac535d275ee8f
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   Pingpp: b5ad287bd6969d69cff1f2438ea63147976711c9
 
-PODFILE CHECKSUM: 01f1f2d365b204ee01d63ee93f81cd150635ae7d
+PODFILE CHECKSUM: 5ac9b9ddce8421ba35662d86574868a54527d89f
 
 COCOAPODS: 1.0.1

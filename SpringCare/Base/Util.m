@@ -9,6 +9,9 @@
 #import "Util.h"
 #import "Pingpp.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "CMBWebViewController.h"
+#import "SliderViewController.h"
+
 @implementation Util
 
 + (NSString*) getFullImageUrlPath:(NSString*) path
@@ -436,35 +439,80 @@
     [mAlert show];
 }
 
-+ (void)PayForOrders:(NSDictionary*) dict Controller:(UIViewController*)weakSelf{
-//    NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
-//    NSString *bodyData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//    NSString *uri = [NSString stringWithFormat:@"%@%@", SERVER_ADDRESS,kUrl];
-    
-    [LCNetWorkBase postWithMethod:kUrl Params:dict Completion:^(int code, id content) {
-        if(code){
-            NSLog(@"charge = %@", content);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [Pingpp createPayment:(NSString*)content viewController:weakSelf appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
-                    NSLog(@"completion block: %@", result);
-                    //sender.userInteractionEnabled=true;
-                    if (error == nil) {
-                        NSLog(@"PingppError is nil");
-                        [Util showAlertMessage:@"支付成功！"];
-                    } else {
-                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
-                        [Util showAlertMessage: [NSString stringWithFormat:@"支付失败(%@)",[error getMsg]]];
-                    }
-                    
-                }];
-            });
-        }
-        else{
-            //sender.userInteractionEnabled=true;
-            [Util showAlertMessage:@"支付失败，服务器链接错误！"];
-        }
++ (NSString *)encodeToPercentEscapeString: (NSString *) input
+{
+    NSString *outputStr = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                                 (CFStringRef)input,
+                                                                                                 NULL,
+                                                                                                 (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                 kCFStringEncodingUTF8));
+    return outputStr;
+}
 
-    }];
++ (void)PayForOrders:(NSDictionary*) dict Controller:(UIViewController*)weakSelf{
+    
+    NSString *channel = [dict objectForKey:@"channel"];
+        [LCNetWorkBase postWithMethod:kUrl Params:dict Completion:^(int code, id content) {
+            if(code){
+                NSLog(@"charge = %@", content);
+                if([channel isEqualToString:@"cmb_wallet"]){
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        CMBWebViewController *vc = [[CMBWebViewController alloc] initWithNibName:nil bundle:nil];
+                        [[SliderViewController sharedSliderController] showContentControllerWithPresent:vc];
+                        
+                        NSDictionary *dic = (NSDictionary *) content;
+                        
+                        NSString *BID = [dic objectForKey:@"BranchID"];
+                        NSString *cono = [dic objectForKey:@"CoNo"];
+                        NSString *BillNo = [dic objectForKey:@"BillNo"];
+                        NSString *Amount = [dic objectForKey:@"Amount"];
+                        NSString *Date = [dic objectForKey:@"Date"];
+                        NSString *MerchantUrl = [dic objectForKey:@"MerchantUrl"];
+                        NSString *MerchantPara = [dic objectForKey:@"MerchantPara"];
+                        MerchantPara = [Util encodeToPercentEscapeString:MerchantPara];
+                        NSString *MerchantCode = [dic objectForKey:@"MerchantCode"];
+                        MerchantCode = [Util encodeToPercentEscapeString:MerchantCode];
+                        NSString *MerchantRetUrl = [dic objectForKey:@"MerchantRetUrl"];
+                        
+                        vc.MerchantRetUrl = MerchantRetUrl;
+                        
+                        MerchantRetUrl = [Util encodeToPercentEscapeString:MerchantRetUrl];
+                        MerchantUrl = [Util encodeToPercentEscapeString:MerchantUrl];
+                        
+                        
+                        NSString *url = [NSString stringWithFormat:@"%@?BranchID=%@&CoNo=%@&BillNo=%@&Amount=%@&Date=%@&MerchantUrl=%@&MerchantPara=%@&MerchantCode=%@&MerchantRetUrl=%@", CMBPayUrl, BID, cono, BillNo, Amount, Date, MerchantUrl, MerchantPara, MerchantCode, MerchantRetUrl];
+                        
+                        [vc loadURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+                    });
+                    
+                    
+                }else{
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [Pingpp createPayment:(NSString*)content viewController:weakSelf appURLScheme:kUrlScheme withCompletion:^(NSString *result, PingppError *error) {
+                            NSLog(@"completion block: %@", result);
+                            //sender.userInteractionEnabled=true;
+                            if (error == nil) {
+                                NSLog(@"PingppError is nil");
+                                [Util showAlertMessage:@"支付成功！"];
+                            } else {
+                                NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                                [Util showAlertMessage: [NSString stringWithFormat:@"支付失败(%@)",[error getMsg]]];
+                            }
+                            
+                        }];
+                    });
+                    
+                }
+            }
+            else{
+                //sender.userInteractionEnabled=true;
+                [Util showAlertMessage:@"支付失败，服务器链接错误！"];
+            }
+            
+        }];
+    
     
 //    [LCNetWorkBase postWithParams:bodyData  Url:uri Completion:^(int code, id content) {
 //        if(code){

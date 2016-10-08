@@ -67,6 +67,7 @@
 		8642C9B61AC2956000251921 /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9B51AC2956000251921 /* MenuTableViewCell.m */; };
 		8642C9CA1AC3CFB800251921 /* NurseListInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */; };
 		8642C9D71AC428DF00251921 /* MessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642C9D61AC428DF00251921 /* MessageListModel.m */; };
+		86442A7E1D99248400E91BAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86442A7D1D99248400E91BAB /* Assets.xcassets */; };
 		864EC6391BCB8A3A00DA8D85 /* HealthRecordDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 864EC6361BCB8A3A00DA8D85 /* HealthRecordDetail.m */; };
 		864EC63A1BCB8A3A00DA8D85 /* HealthRecordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 864EC6381BCB8A3A00DA8D85 /* HealthRecordInfo.m */; };
 		864EC63D1BCBB7AA00DA8D85 /* RecordListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 864EC63C1BCBB7AA00DA8D85 /* RecordListTableViewCell.m */; };
@@ -188,6 +189,7 @@
 		86CE03A11BDF6868004CFDE9 /* AppListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CE03A01BDF6868004CFDE9 /* AppListCell.m */; };
 		86CE03A41BDF68AD004CFDE9 /* AppInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CE03A31BDF68AD004CFDE9 /* AppInfoView.m */; };
 		86CE03A71BDF6F48004CFDE9 /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CE03A61BDF6F48004CFDE9 /* AppInfo.m */; };
+		86FA7F041D9CC25D00E72967 /* CMBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FA7F031D9CC25D00E72967 /* CMBWebViewController.m */; };
 		CFA5B5091AC01D3900D49415 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5021AC01D3900D49415 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50A1AC01D3900D49415 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5041AC01D3900D49415 /* LoadMoreTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CFA5B50B1AC01D3900D49415 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -512,6 +514,7 @@
 		8642C9C91AC3CFB800251921 /* NurseListInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseListInfoModel.m; sourceTree = "<group>"; };
 		8642C9D51AC428DF00251921 /* MessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListModel.h; sourceTree = "<group>"; };
 		8642C9D61AC428DF00251921 /* MessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListModel.m; sourceTree = "<group>"; };
+		86442A7D1D99248400E91BAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		864EC6351BCB8A3A00DA8D85 /* HealthRecordDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthRecordDetail.h; path = HealthRecord/HealthRecordDetail.h; sourceTree = "<group>"; };
 		864EC6361BCB8A3A00DA8D85 /* HealthRecordDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthRecordDetail.m; path = HealthRecord/HealthRecordDetail.m; sourceTree = "<group>"; };
 		864EC6371BCB8A3A00DA8D85 /* HealthRecordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthRecordInfo.h; path = HealthRecord/HealthRecordInfo.h; sourceTree = "<group>"; };
@@ -760,6 +763,8 @@
 		86CE03A31BDF68AD004CFDE9 /* AppInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfoView.m; sourceTree = "<group>"; };
 		86CE03A51BDF6F48004CFDE9 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		86CE03A61BDF6F48004CFDE9 /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfo.m; sourceTree = "<group>"; };
+		86FA7F021D9CC25D00E72967 /* CMBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBWebViewController.h; sourceTree = "<group>"; };
+		86FA7F031D9CC25D00E72967 /* CMBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBWebViewController.m; sourceTree = "<group>"; };
 		8D6C219344F5F52091C12EA9 /* Pods-SpringCare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringCare.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpringCare/Pods-SpringCare.release.xcconfig"; sourceTree = "<group>"; };
 		C383B55EF34661A001BF06F7 /* libPods-SpringCare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpringCare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFA5B5011AC01D3900D49415 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableHeaderView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/EGORefreshTableHeaderView.h; sourceTree = SOURCE_ROOT; };
@@ -770,7 +775,7 @@
 		CFA5B5061AC01D3900D49415 /* MessageInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageInterceptor.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/MessageInterceptor.m; sourceTree = SOURCE_ROOT; };
 		CFA5B5071AC01D3900D49415 /* PullTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullTableView.h; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/PullTableView.h; sourceTree = SOURCE_ROOT; };
 		CFA5B5081AC01D3900D49415 /* PullTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullTableView.m; path = SpringCare/Vendor/EGOTableViewPullRefresh/Classes/PullTableView.m; sourceTree = SOURCE_ROOT; };
-		CFAFA3A91ABFEC8C0020E774 /* 春风陪护.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "春风陪护.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpringCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFAFA3AD1ABFEC8C0020E774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFAFA3AE1ABFEC8C0020E774 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CFAFA3B01ABFEC8C0020E774 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1395,6 +1400,8 @@
 				86B3668E1BFF0073001F06F8 /* PopView.m */,
 				86B0F7D01B2562F8004D7B29 /* HealthRecordVC.h */,
 				86B0F7D11B2562F8004D7B29 /* HealthRecordVC.m */,
+				86FA7F021D9CC25D00E72967 /* CMBWebViewController.h */,
+				86FA7F031D9CC25D00E72967 /* CMBWebViewController.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -1663,7 +1670,7 @@
 		CFAFA3AA1ABFEC8C0020E774 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CFAFA3A91ABFEC8C0020E774 /* 春风陪护.app */,
+				CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1683,6 +1690,7 @@
 				CFAFA3B11ABFEC8C0020E774 /* AppDelegate.m */,
 				8642C9631ABFF56500251921 /* define.h */,
 				86C0956C1AD1134200371BF3 /* Localizable.strings */,
+				86442A7D1D99248400E91BAB /* Assets.xcassets */,
 				CFAFA3B91ABFEC8C0020E774 /* Images.xcassets */,
 				CFAFA3AC1ABFEC8C0020E774 /* Supporting Files */,
 			);
@@ -2015,7 +2023,7 @@
 			);
 			name = SpringCare;
 			productName = SpringCare;
-			productReference = CFAFA3A91ABFEC8C0020E774 /* 春风陪护.app */;
+			productReference = CFAFA3A91ABFEC8C0020E774 /* SpringCare.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2238,6 +2246,7 @@
 				CFBC50ED1ADBAA05004FB8F3 /* fx_005@2x.png in Resources */,
 				CFBC512B1ADBAA05004FB8F3 /* fx_037@2x.png in Resources */,
 				CFBC518B1ADBAA05004FB8F3 /* fx_088@2x.png in Resources */,
+				86442A7E1D99248400E91BAB /* Assets.xcassets in Resources */,
 				CFBC51361ADBAA05004FB8F3 /* fx_044.png in Resources */,
 				CFBC51391ADBAA05004FB8F3 /* fx_045@2x.png in Resources */,
 				CFBC50291ADBA9EF004FB8F3 /* feedbackView.xib in Resources */,
@@ -2389,6 +2398,7 @@
 				8642C9391ABFF53C00251921 /* SBJsonStreamParserState.m in Sources */,
 				86B96AA51ADBA01B00441168 /* Util.m in Sources */,
 				8690B4A41BDF5EEC00B13C5C /* AppInfoObject.m in Sources */,
+				86FA7F041D9CC25D00E72967 /* CMBWebViewController.m in Sources */,
 				869C9EE71AD404F10090182E /* EditUserInfoVC.m in Sources */,
 				864EC6391BCB8A3A00DA8D85 /* HealthRecordDetail.m in Sources */,
 				CFB42D131AE0AF6F00FDF891 /* TextAndEmojiView.m in Sources */,
@@ -2603,7 +2613,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/ShareSDK/extends/SinaWeiboSDK",
 					"$(PROJECT_DIR)/SpringCare/Vendor/ShareSDK/extends/WeChatSDK",
 				);
-				PRODUCT_NAME = "春风陪护";
+				PRODUCT_NAME = SpringCare;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -2630,7 +2640,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/ShareSDK/extends/SinaWeiboSDK",
 					"$(PROJECT_DIR)/SpringCare/Vendor/ShareSDK/extends/WeChatSDK",
 				);
-				PRODUCT_NAME = "春风陪护";
+				PRODUCT_NAME = SpringCare;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;

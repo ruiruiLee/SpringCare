@@ -287,7 +287,7 @@
     }
     else if (indexPath.row == 1){
         [self setPaytype:EnumTypeWechat];
-         _payValue=@"wx_pub";
+         _payValue=@"wx";
     }
     
     else if (indexPath.row == 2){

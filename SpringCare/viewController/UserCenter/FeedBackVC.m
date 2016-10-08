@@ -93,14 +93,14 @@
     }
     
     
-    AVUserFeedbackAgent *agent = [AVUserFeedbackAgent sharedInstance];
-    __weak FeedBackVC *_weakSelf = self;
-    [agent postFeedbackThread:content block:^(id object, NSError *error) {
-        if(error == nil){
-            [Util showAlertMessage:@"感谢你对我们产品的支持！" ];
-            [_weakSelf.navigationController popViewControllerAnimated:YES];
-        }
-    }];
+//    AVUserFeedbackAgent *agent = [AVUserFeedbackAgent sharedInstance];
+//    __weak FeedBackVC *_weakSelf = self;
+//    [agent postFeedbackThread:content block:^(id object, NSError *error) {
+//        if(error == nil){
+//            [Util showAlertMessage:@"感谢你对我们产品的支持！" ];
+//            [_weakSelf.navigationController popViewControllerAnimated:YES];
+//        }
+//    }];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

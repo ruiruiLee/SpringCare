@@ -160,10 +160,10 @@
     }
     else if (indexPath.row == 2){
         [self setPaytype:EnumTypeWechat];
-         vc.payValue=@"wx_pub";
+         vc.payValue=@"wx";
     }
     else{
-        [self setPaytype:EnumTypeWechat];
+        [self setPaytype:EnumTypeCMB];
         vc.payValue=@"cmb_wallet";
     }
     

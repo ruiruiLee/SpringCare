@@ -72,7 +72,7 @@
 
         
     }];
-    
+    [Pingpp setDebugMode:YES];
     _hospital_product_id=@"";
     _defaultProductId=@"";
     //设置AVOSCloud
@@ -239,6 +239,42 @@
         [Util showAlertMessage:msg];
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
        
+    }];
+    return  YES;
+}
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary *)options {
+    [Pingpp handleOpenURL:url withCompletion:^(NSString *result, PingppError *error) {
+        // result : success, fail, cancel, invalid
+        NSString *msg;
+        // if (error == nil) {
+        if ([result isEqual:@"success"]) {
+            msg = @"支付成功！";
+        }
+        else if([result isEqual:@"cancel"]) {
+            msg = @"支付已经取消！";
+        }
+        else if([result isEqual:@"fail"]) {
+            msg = @"支付失败，请稍后再试！";
+        }
+        else if([result isEqual:@"invalid"]) {
+            msg = @"支付无效，请稍后再试！";
+        }
+        else{
+            msg = result;
+        }
+        
+        //        } else {
+        //            msg = [error getMsg];
+        if (error != nil)
+            NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, msg);
+        //            //msg = [NSString stringWithFormat:@"result=%@ PingppError: code=%lu msg=%@", result, (unsigned long)error.code, [error getMsg]];
+        //        }
+        [Util showAlertMessage:msg];
+        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+        
     }];
     return  YES;
 }

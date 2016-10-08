@@ -202,7 +202,7 @@
         }
     }
     else{
-        return 170.f;
+        return 215.f;
     }
 }
 

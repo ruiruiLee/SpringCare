@@ -165,16 +165,25 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(!isComment){
+        if([dataOtherList count] +  [dataOnDoingList count] == 0)
+            [self.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+        else
+            [self.pullTableView removeBackgroudImgView];
      if(section == 0){
             if([dataOnDoingList count] > 0)
                 return [dataOnDoingList count];
             else
                 return [dataOtherList count];
         }
-        else
+     else{
             return [dataOtherList count];
+     }
     }
     else{
+        if([dataListForCom count] == 0)
+            [self.pullTableView displayEmpityImageView:noOrderBackbroundImg];
+        else
+            [self.pullTableView removeBackgroudImgView];
         return [dataListForCom count];
     }
 }
