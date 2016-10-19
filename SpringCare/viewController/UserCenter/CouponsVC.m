@@ -166,10 +166,10 @@
         // [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orderend"]];
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
         backgroundImageView.image = img;
-        [pullTableView addSubview:backgroundImageView];
+        [self.ContentView addSubview:backgroundImageView];
         
-        [pullTableView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:pullTableView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        [pullTableView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:pullTableView attribute:NSLayoutAttributeCenterY multiplier:1 constant:-30]];
+        [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self.ContentView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.ContentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:-30]];
     }
     
 }

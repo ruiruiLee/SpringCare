@@ -242,15 +242,15 @@
     }
     
     cell._line.hidden = NO;
-    if (indexPath.row == 0){
+    if (indexPath.row == 1){
         cell._logoImage.image = [UIImage imageNamed:@"alipaylogo"];
         cell._payName.text = @"支付宝支付";
     }
-    else if (indexPath.row == 1){
+    else if (indexPath.row == 2){
         cell._logoImage.image = [UIImage imageNamed:@"wechatlogo"];
         cell._payName.text = @"微信支付";
     }
-    else if (indexPath.row == 2){
+    else if (indexPath.row == 0){
         cell._logoImage.image = [UIImage imageNamed:@"cmblogo"];
         cell._payName.text = @"招行一网通";
 //        cell._line.hidden = YES;
@@ -258,19 +258,19 @@
     
 
     if(paytype == EnumTypeAlipay){
-        if(indexPath.row == 0)
-            cell._btnSelect.selected = YES;
-        else
-            cell._btnSelect.selected = NO;
-    }
-    else if(paytype == EnumTypeWechat){
         if(indexPath.row == 1)
             cell._btnSelect.selected = YES;
         else
             cell._btnSelect.selected = NO;
     }
-    else if(paytype == EnumTypeCMB){
+    else if(paytype == EnumTypeWechat){
         if(indexPath.row == 2)
+            cell._btnSelect.selected = YES;
+        else
+            cell._btnSelect.selected = NO;
+    }
+    else if(paytype == EnumTypeCMB){
+        if(indexPath.row == 0)
             cell._btnSelect.selected = YES;
         else
             cell._btnSelect.selected = NO;
@@ -281,16 +281,16 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0){
+    if (indexPath.row == 1){
         [self setPaytype:EnumTypeAlipay];
         _payValue=@"alipay";
     }
-    else if (indexPath.row == 1){
+    else if (indexPath.row == 2){
         [self setPaytype:EnumTypeWechat];
          _payValue=@"wx";
     }
     
-    else if (indexPath.row == 2){
+    else if (indexPath.row == 0){
         [self setPaytype:EnumTypeCMB];
         _payValue=@"cmb_wallet";
     }

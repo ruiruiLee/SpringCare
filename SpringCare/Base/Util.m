@@ -452,7 +452,10 @@
 + (void)PayForOrders:(NSDictionary*) dict Controller:(UIViewController*)weakSelf{
     
     NSString *channel = [dict objectForKey:@"channel"];
-        [LCNetWorkBase postWithMethod:kUrl Params:dict Completion:^(int code, id content) {
+    
+    NSMutableDictionary *mdic = [[NSMutableDictionary alloc] initWithDictionary:dict];
+    
+        [LCNetWorkBase postWithMethod:kUrl Params:mdic Completion:^(int code, id content) {
             if(code){
                 NSLog(@"charge = %@", content);
                 if([channel isEqualToString:@"cmb_wallet"]){

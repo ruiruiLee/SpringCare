@@ -71,8 +71,8 @@
 //#define kUrl            @"http://spring.avosapps.com/api/order/pay/getToken"
 #define kUrl            @"api/order/pay/getToken"
 //一网通支付
-//#define CMBPayUrl @"https://netpay.cmbchina.com/netpayment/BaseHttp.dll?PrePayEUserP"//生产环境
-#define CMBPayUrl @"http://61.144.248.29:801/netpayment/BaseHttp.dll?PrePayEUserP"//测试环境
+#define CMBPayUrl @"https://netpay.cmbchina.com/netpayment/BaseHttp.dll?PrePayEUserP"//生产环境
+//#define CMBPayUrl @"http://61.144.248.29:801/netpayment/BaseHttp.dll?PrePayEUserP"//测试环境
 
 #define CMBYanQian @"http://spring.leanapp.cn/api/order/pay/cmbWallet/yanQian"
 #define CMBSuccess @"http://spring.leanapp.cn/api/order/pay/cmbWallet/success"
