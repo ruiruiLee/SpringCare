@@ -2598,7 +2598,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2614,7 +2614,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/ShareSDK/extends/WeChatSDK",
 				);
 				PRODUCT_NAME = SpringCare;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ed93ec12-8f44-44a3-8143-09e7ff472e29";
 			};
 			name = Debug;
 		};
@@ -2625,7 +2625,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Spring Breeze High Quality Nursing Network Technology Co., Ltd. (83V6JW3TGV)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2641,7 +2641,7 @@
 					"$(PROJECT_DIR)/SpringCare/Vendor/ShareSDK/extends/WeChatSDK",
 				);
 				PRODUCT_NAME = SpringCare;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ed93ec12-8f44-44a3-8143-09e7ff472e29";
 			};
 			name = Release;
 		};

@@ -252,7 +252,7 @@
     }
     else if (indexPath.row == 0){
         cell._logoImage.image = [UIImage imageNamed:@"cmblogo"];
-        cell._payName.text = @"招行一网通";
+        cell._payName.text = @"一网通银行卡支付";
 //        cell._line.hidden = YES;
     }
     
