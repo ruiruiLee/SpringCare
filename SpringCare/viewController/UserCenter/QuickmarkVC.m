@@ -8,7 +8,7 @@
 
 #import "QuickmarkVC.h"
 #import "PopView.h"
-#import <ShareSDK/ShareSDK.h>
+//#import <ShareSDK/ShareSDK.h>
 
 @interface QuickmarkVC () <PopViewDelegate>
 {
@@ -61,77 +61,77 @@
 
 - (void) HandleItemSelect:(PopView *)view withTag:(NSInteger)tag
 {
-    switch (tag) {
-        case 1:{
-            [self shareWithType:SSDKPlatformSubTypeWechatTimeline];
-        }
-            break;
-            
-        case 0:{
-            [self shareWithType:SSDKPlatformSubTypeWechatSession];
-        }
-            break;
-            
-        case 2:{
-            [self shareWithType:SSDKPlatformTypeSMS];
-        }
-            break;
-        default:
-            break;
-    }
+//    switch (tag) {
+//        case 1:{
+//            [self shareWithType:SSDKPlatformSubTypeWechatTimeline];
+//        }
+//            break;
+//            
+//        case 0:{
+//            [self shareWithType:SSDKPlatformSubTypeWechatSession];
+//        }
+//            break;
+//            
+//        case 2:{
+//            [self shareWithType:SSDKPlatformTypeSMS];
+//        }
+//            break;
+//        default:
+//            break;
+//    }
 }
 
-- (void) shareWithType:(SSDKPlatformType) type
-{
-    //创建分享参数
-    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:@"分享内容"
-                                     images:@[[UIImage imageNamed:@"icontitle"]]
-                                        url:[NSURL URLWithString:@"http://mob.com"]
-                                      title:@"分享标题"
-                                       type:SSDKContentTypeImage];
-    
-    //进行分享
-    [ShareSDK share:type
-         parameters:shareParams
-     onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
-         
-         switch (state) {
-             case SSDKResponseStateSuccess:
-             {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                     message:nil
-                                                                    delegate:nil
-                                                           cancelButtonTitle:@"确定"
-                                                           otherButtonTitles:nil];
-                 [alertView show];
-                 break;
-             }
-             case SSDKResponseStateFail:
-             {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享失败"
-                                                                     message:[NSString stringWithFormat:@"%@", error]
-                                                                    delegate:nil
-                                                           cancelButtonTitle:@"确定"
-                                                           otherButtonTitles:nil];
-                 [alertView show];
-                 break;
-             }
-             case SSDKResponseStateCancel:
-             {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享已取消"
-                                                                     message:nil
-                                                                    delegate:nil
-                                                           cancelButtonTitle:@"确定"
-                                                           otherButtonTitles:nil];
-                 [alertView show];
-                 break;
-             }
-             default:
-                 break;
-         }
-         
-     }];
-}
+//- (void) shareWithType:(SSDKPlatformType) type
+//{
+//    //创建分享参数
+//    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+//    [shareParams SSDKSetupShareParamsByText:@"分享内容"
+//                                     images:@[[UIImage imageNamed:@"icontitle"]]
+//                                        url:[NSURL URLWithString:@"http://mob.com"]
+//                                      title:@"分享标题"
+//                                       type:SSDKContentTypeImage];
+//    
+//    //进行分享
+//    [ShareSDK share:type
+//         parameters:shareParams
+//     onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+//         
+//         switch (state) {
+//             case SSDKResponseStateSuccess:
+//             {
+//                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+//                                                                     message:nil
+//                                                                    delegate:nil
+//                                                           cancelButtonTitle:@"确定"
+//                                                           otherButtonTitles:nil];
+//                 [alertView show];
+//                 break;
+//             }
+//             case SSDKResponseStateFail:
+//             {
+//                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享失败"
+//                                                                     message:[NSString stringWithFormat:@"%@", error]
+//                                                                    delegate:nil
+//                                                           cancelButtonTitle:@"确定"
+//                                                           otherButtonTitles:nil];
+//                 [alertView show];
+//                 break;
+//             }
+//             case SSDKResponseStateCancel:
+//             {
+//                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享已取消"
+//                                                                     message:nil
+//                                                                    delegate:nil
+//                                                           cancelButtonTitle:@"确定"
+//                                                           otherButtonTitles:nil];
+//                 [alertView show];
+//                 break;
+//             }
+//             default:
+//                 break;
+//         }
+//         
+//     }];
+//}
 
 @end

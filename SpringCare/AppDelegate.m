@@ -14,10 +14,10 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 
-#import <ShareSDK/ShareSDK.h>
-#import "WXApi.h"
-#import "WeiboSDK.h"
-#import <ShareSDKConnector/ShareSDKConnector.h>
+//#import <ShareSDK/ShareSDK.h>
+//#import "WXApi.h"
+//#import "WeiboSDK.h"
+//#import <ShareSDKConnector/ShareSDKConnector.h>
 
 //appkey c736476da58c
 
@@ -46,32 +46,32 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [ShareSDK registerApp:@"c736476da58c" activePlatforms:@[@(SSDKPlatformTypeSMS), @(SSDKPlatformTypeWechat)] onImport:^(SSDKPlatformType platformType) {
-        
-        switch (platformType) {
-            case SSDKPlatformTypeWechat:
-            {
-                [ShareSDKConnector connectWeChat:[WXApi class]];
-            }
-                break;
-                
-            default:
-                break;
-        }
-        
-    } onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
-        
-        switch (platformType)
-        {
-            case SSDKPlatformTypeWechat:
-                [appInfo SSDKSetupWeChatByAppId:@"wxf2c8712c2c3b3bac" appSecret:@"360d97ce2434c73fc0c3defcfa82566a"];
-                break;
-            default:
-                break;
-        }
-
-        
-    }];
+//    [ShareSDK registerApp:@"c736476da58c" activePlatforms:@[@(SSDKPlatformTypeSMS), @(SSDKPlatformTypeWechat)] onImport:^(SSDKPlatformType platformType) {
+//        
+//        switch (platformType) {
+//            case SSDKPlatformTypeWechat:
+//            {
+//                [ShareSDKConnector connectWeChat:[WXApi class]];
+//            }
+//                break;
+//                
+//            default:
+//                break;
+//        }
+//        
+//    } onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+//        
+//        switch (platformType)
+//        {
+//            case SSDKPlatformTypeWechat:
+//                [appInfo SSDKSetupWeChatByAppId:@"wxf2c8712c2c3b3bac" appSecret:@"360d97ce2434c73fc0c3defcfa82566a"];
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        
+//    }];
     [Pingpp setDebugMode:YES];
     _hospital_product_id=@"";
     _defaultProductId=@"";
