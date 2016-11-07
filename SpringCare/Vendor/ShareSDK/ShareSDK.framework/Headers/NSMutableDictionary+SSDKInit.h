@@ -15,12 +15,21 @@
 @interface NSMutableDictionary (SSDKInit)
 
 /**
+ *  设置平台的授权配置
+ *
+ *  @param authSettings 授权配置信息
+ *                      例如在配置新浪微博的初始化信息中设置授权配置信息:
+ *                      [appInfo SSDKSetAuthSettings:@[@"follow_app_official_microblog"]];
+ */
+- (void)SSDKSetAuthSettings:(NSArray *)authSettings;
+
+/**
  *  设置新浪微博应用信息
  *
  *  @param appKey       应用标识
  *  @param appSecret    应用密钥
  *  @param redirectUri  回调地址
- *  @param authType     授权方式
+ *  @param authType     授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupSinaWeiboByAppKey:(NSString *)appKey
                          appSecret:(NSString *)appSecret
@@ -50,9 +59,9 @@
 /**
  *  设置QQ分享平台（QQ空间，QQ好友分享）应用信息
  *
- *  @param appId                应用标识
- *  @param appKey               应用Key
- *  @param authType             授权方式
+ *  @param appId          应用标识
+ *  @param appKey         应用Key
+ *  @param authType       授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupQQByAppId:(NSString *)appId
                     appKey:(NSString *)appKey
@@ -63,7 +72,7 @@
  *
  *  @param apiKey       应用标识
  *  @param appSecret    应用密钥
- *  @param authType     授权方式
+ *  @param authType     授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupFacebookByApiKey:(NSString *)apiKey
                         appSecret:(NSString *)appSecret
@@ -76,7 +85,7 @@
  *  @param appKey        应用标识
  *  @param appSecret     应用密钥
  *  @param redirectUri   回调地址
- *  @param authType      授权方式
+ *  @param authType      授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupTencentWeiboByAppKey:(NSString *)appKey
                             appSecret:(NSString *)appSecret
@@ -99,7 +108,7 @@
  *  @param appId     应用标识
  *  @param appKey    应用Key
  *  @param secretKey 应用密钥
- *  @param authType  授权方式
+ *  @param authType  授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupRenRenByAppId:(NSString *)appId
                         appKey:(NSString *)appKey
@@ -122,7 +131,7 @@
  *
  *  @param consumerKey 应用标识
  *  @param redirectUri 回调地址
- *  @param authType    授权方式
+ *  @param authType    授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupPocketByConsumerKey:(NSString *)consumerKey
                          redirectUri:(NSString *)redirectUri
@@ -134,12 +143,10 @@
  *  @param clientId     应用标识
  *  @param clientSecret 应用密钥
  *  @param redirectUri  回调地址
- *  @param authType     授权方式
  */
 - (void)SSDKSetupGooglePlusByClientID:(NSString *)clientId
                          clientSecret:(NSString *)clientSecret
-                          redirectUri:(NSString *)redirectUri
-                             authType:(NSString *)authType;
+                          redirectUri:(NSString *)redirectUri;
 
 /**
  *  设置Instagram应用信息
@@ -225,11 +232,74 @@
  *  @param appKey   应用标识, 当使用客户端授权分享和授权时需要传入该标识
  *  @param restApiKey  RestApi标识
  *  @param reidrectUri 回调地址
- *  @param authType     授权方式
+ *  @param authType    授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupKaKaoByAppKey:(NSString *)appKey
                     restApiKey:(NSString *)restApiKey
                    redirectUri:(NSString *)redirectUri
                       authType:(NSString *)authType;
 
+/**
+ *  设置Dropbox应用信息
+ *
+ *  @param appKey        应用标识
+ *  @param appSecret     应用密钥
+ *  @param oauthCallback 回调地址
+ */
+- (void)SSDKSetupDropboxByAppKey:(NSString *)appKey
+                       appSecret:(NSString *)appSecret
+                   oauthCallback:(NSString *)oauthCallback;
+
+/**
+ *  设置VKontakte应用信息
+ *
+ *  @param applicationId 应用标识
+ *  @param secretKey     应用密钥
+ *  @param authType    授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
+ */
+- (void)SSDKSetupVKontakteByApplicationId:(NSString *)applicationId
+                                secretKey:(NSString *)secretKey;
+
+- (void)SSDKSetupVKontakteByApplicationId:(NSString *)applicationId
+                                secretKey:(NSString *)secretKey
+                                 authType:(NSString *)authType;
+
+/**
+ *  设置明道应用信息
+ *
+ *  @param appKey      应用标识
+ *  @param appSecret   应用密钥
+ *  @param redirectUri 回调地址
+ */
+- (void)SSDKSetupMingDaoByAppKey:(NSString *)appKey
+                       appSecret:(NSString *)appSecret
+                     redirectUri:(NSString *)redirectUri;
+
+/**
+ *  设置易信(易信好友，易信朋友圈、易信收藏)应用信息
+ *
+ *  @param appId        应用标识
+ *  @param appSecret    应用密钥
+ *  @param redirectUri  回调地址
+ *  @param authType     授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
+ */
+- (void)SSDKSetupYiXinByAppId:(NSString *)appId
+                    appSecret:(NSString *)appSecret
+                  redirectUri:(NSString *)redirectUri
+                     authType:(NSString *)authType;
+
+/**
+ *  设置Instapaper
+ *
+ *  @param consumerKey    应用标识
+ *  @param comsumerSecret 应用密钥
+ */
+- (void)SSDKSetupInstapaperByConsumerKey:(NSString *)consumerKey
+                          consumerSecret:(NSString *)consumerSecret;
+/**
+ *  设置钉钉应用信息
+ *
+ *  @param appId 应用标识
+ */
+- (void)SSDKSetupDingTalkByAppId:(NSString *)appId;
 @end

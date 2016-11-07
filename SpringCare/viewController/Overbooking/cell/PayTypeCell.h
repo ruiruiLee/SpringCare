@@ -27,6 +27,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UILabel *_payName;
 @property (nonatomic, strong) UIButton *_btnSelect;
 @property (nonatomic, strong) UILabel *_line;;
+@property (nonatomic, strong) UILabel *_payIntroText;
 
 @end
 

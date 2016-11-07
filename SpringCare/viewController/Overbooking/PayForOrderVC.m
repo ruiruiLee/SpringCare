@@ -245,14 +245,17 @@
     if (indexPath.row == 1){
         cell._logoImage.image = [UIImage imageNamed:@"alipaylogo"];
         cell._payName.text = @"支付宝支付";
+        cell._payIntroText.text = @"";
     }
     else if (indexPath.row == 2){
         cell._logoImage.image = [UIImage imageNamed:@"wechatlogo"];
         cell._payName.text = @"微信支付";
+        cell._payIntroText.text = @"";
     }
     else if (indexPath.row == 0){
         cell._logoImage.image = [UIImage imageNamed:@"cmblogo"];
         cell._payName.text = @"一网通银行卡支付";
+        cell._payIntroText.text = @"首次支付随机立减，最高可达99";
 //        cell._line.hidden = YES;
     }
     

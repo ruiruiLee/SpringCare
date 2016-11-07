@@ -15,6 +15,7 @@
 @synthesize _logoImage = _logoImage;
 @synthesize _payName = _payName;
 @synthesize _line = _line;
+@synthesize _payIntroText;
 
 - (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -35,6 +36,13 @@
         _payName.textColor = _COLOR(0x22, 0x22, 0x22);
         _payName.backgroundColor = [UIColor clearColor];
         
+        _payIntroText = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_payIntroText];
+        _payIntroText.translatesAutoresizingMaskIntoConstraints = NO;
+        _payIntroText.font = _FONT(11);
+        _payIntroText.textColor = [UIColor redColor];
+        _payIntroText.backgroundColor = [UIColor clearColor];
+        
         _btnSelect = [[UIButton alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_btnSelect];
         _btnSelect.translatesAutoresizingMaskIntoConstraints = NO;
@@ -47,9 +55,10 @@
         _line.backgroundColor = SeparatorLineColor;
         _line.translatesAutoresizingMaskIntoConstraints = NO;
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(_logoImage, _payName, _btnSelect, _line);
+        NSDictionary *views = NSDictionaryOfVariableBindings(_logoImage, _payName, _btnSelect, _line, _payIntroText);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_logoImage(32)]-10-[_payName]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_payName(20)]->=0-[_line(1)]-0-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[_logoImage(32)]-10-[_payIntroText]->=10-[_btnSelect]-20-|" options:0 metrics:nil views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[_payName(18)]-0-[_payIntroText]->=0-[_line(1)]-0-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_logoImage attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_payName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_btnSelect attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -179,19 +188,23 @@
     {
         cell._logoImage.image = [UIImage imageNamed:@"normalpaylogo"];
         cell._payName.text = @"服务后支付";
+        cell._payIntroText.text = @"";
     }
     else if (indexPath.row == 2){
         cell._logoImage.image = [UIImage imageNamed:@"alipaylogo"];
         cell._payName.text = @"支付宝支付";
+        cell._payIntroText.text = @"";
     }
     else if (indexPath.row == 3){
         cell._logoImage.image = [UIImage imageNamed:@"wechatlogo"];
         cell._payName.text = @"微信支付";
+        cell._payIntroText.text = @"";
 //        cell._line.hidden = YES;
     }
     else if (indexPath.row == 1){
         cell._logoImage.image = [UIImage imageNamed:@"cmblogo"];
         cell._payName.text = @"一网通银行卡支付";
+        cell._payIntroText.text = @"首次支付随机立减，最高可达99";
 //        cell._line.hidden = YES;
     }
     

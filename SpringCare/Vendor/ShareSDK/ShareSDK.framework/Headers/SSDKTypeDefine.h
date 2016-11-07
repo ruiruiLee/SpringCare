@@ -9,10 +9,12 @@
 #ifndef ShareSDK_SSDKTypeDefine_h
 #define ShareSDK_SSDKTypeDefine_h
 
+@protocol ISSDKAuthView;
+
 @class SSDKUser;
 @class SSDKFriendsPaging;
 @class SSDKContentEntity;
-@class SSDKAuthView;
+@class UIView;
 @class SSDKAddFriendView;
 
 /**
@@ -123,6 +125,10 @@ typedef NS_ENUM(NSUInteger, SSDKPlatformType){
      */
     SSDKPlatformTypeSMS                 = 19,
     /**
+     *  打印
+     */
+    SSDKPlatformTypePrint               = 20,
+    /**
      *  拷贝
      */
     SSDKPlatformTypeCopy                = 21,
@@ -138,6 +144,10 @@ typedef NS_ENUM(NSUInteger, SSDKPlatformType){
      *  QQ好友
      */
     SSDKPlatformSubTypeQQFriend         = 24,
+    /**
+     *  Instapaper
+     */
+    SSDKPlatformTypeInstapaper          = 25,
     /**
      *  Pocket
      */
@@ -155,9 +165,33 @@ typedef NS_ENUM(NSUInteger, SSDKPlatformType){
      */
     SSDKPlatformTypeFlickr              = 34,
     /**
+     *  Dropbox
+     */
+    SSDKPlatformTypeDropbox             = 35,
+    /**
+     *  VKontakte
+     */
+    SSDKPlatformTypeVKontakte           = 36,
+    /**
      *  微信收藏
      */
     SSDKPlatformSubTypeWechatFav        = 37,
+    /**
+     *  易信好友
+     */
+    SSDKPlatformSubTypeYiXinSession     = 38,
+    /**
+     *  易信朋友圈
+     */
+    SSDKPlatformSubTypeYiXinTimeline    = 39,
+    /**
+     *  易信收藏
+     */
+    SSDKPlatformSubTypeYiXinFav         = 40,
+    /**
+     *  明道
+     */
+    SSDKPlatformTypeMingDao             = 41,
     /**
      *  Line
      */
@@ -175,9 +209,25 @@ typedef NS_ENUM(NSUInteger, SSDKPlatformType){
      */
     SSDKPlatformSubTypeKakaoStory       = 45,
     /**
+     *  Facebook Messenger
+     */
+    SSDKPlatformTypeFacebookMessenger   = 46,
+    /**
      *  支付宝好友
      */
     SSDKPlatformTypeAliPaySocial        = 50,
+    /**
+     *  支付宝朋友圈
+     */
+    SSDKPlatformTypeAliPaySocialTimeline= 51,
+    /**
+     *  钉钉
+     */
+//    SSDKPlatformTypeDingTalk            = 52,
+    /**
+     *  易信
+     */
+    SSDKPlatformTypeYiXin               = 994,
     /**
      *  KaKao
      */
@@ -283,6 +333,11 @@ typedef NS_ENUM(NSUInteger, SSDKContentType){
      *  视频
      */
     SSDKContentTypeVideo        = 6,
+    
+    /**
+     *  文件类型(暂时仅微信可用)
+     */
+    SSDKContentTypeFile         = 7
 
 };
 
@@ -306,7 +361,7 @@ typedef void(^SSDKImportHandler) (SSDKPlatformType platformType);
  *
  *  @param view 授权视图
  */
-typedef void(^SSDKAuthorizeViewDisplayHandler) (SSDKAuthView *view);
+typedef void(^SSDKAuthorizeViewDisplayHandler) (UIView<ISSDKAuthView> *view);
 
 /**
  *  添加好友视图显示回调处理器，仅用于Facebook添加好友时触发
@@ -333,23 +388,6 @@ typedef void(^SSDKAuthorizeStateChangedHandler) (SSDKResponseState state, SSDKUs
  */
 typedef void(^SSDKGetUserStateChangedHandler) (SSDKResponseState state, SSDKUser *user, NSError *error);
 
-/**
- *  添加/关注好友状态变更回调处理器
- *
- *  @param state 状态
- *  @param user  好友信息，当且仅当state为SSDKResponseStateSuccess时返回
- *  @param error 错误信息，当且仅当state为SSDKResponseStateFail时返回
- */
-typedef void(^SSDKAddFriendStateChangedHandler) (SSDKResponseState state, SSDKUser *user, NSError *error);
-
-/**
- *  获取好友列表状态变更回调处理器
- *
- *  @param state  状态
- *  @param paging 好友列表分页信息，当且仅当state为SSDKResponseStateSuccess时返回
- *  @param error  错误信息，当且仅当state为SSDKResponseStateFail时返回
- */
-typedef void(^SSDKGetFriendsStateChangedHandler) (SSDKResponseState state, SSDKFriendsPaging *paging,  NSError *error);
 
 /**
  *  分享内容状态变更回调处理器

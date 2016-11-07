@@ -24,12 +24,12 @@
     // Do any additional setup after loading the view.
     
     self.NavigationBar.Title = @"扫描下载";
-    [self.NavigationBar.btnRight setTitle:@"分享" forState:UIControlStateNormal];
-    self.NavigationBar.btnRight.hidden = NO;
-    self.NavigationBar.btnRight.layer.cornerRadius = 8;
-    self.NavigationBar.btnRight.backgroundColor = [UIColor whiteColor];
-    [self.NavigationBar.btnRight setTitleColor:Abled_Color forState:UIControlStateNormal];
-    self.NavigationBar.btnRight.titleLabel.font = _FONT(16);
+//    [self.NavigationBar.btnRight setTitle:@"分享" forState:UIControlStateNormal];
+//    self.NavigationBar.btnRight.hidden = NO;
+//    self.NavigationBar.btnRight.layer.cornerRadius = 8;
+//    self.NavigationBar.btnRight.backgroundColor = [UIColor whiteColor];
+//    [self.NavigationBar.btnRight setTitleColor:Abled_Color forState:UIControlStateNormal];
+//    self.NavigationBar.btnRight.titleLabel.font = _FONT(16);
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.ContentView addSubview:imageView];
