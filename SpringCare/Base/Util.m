@@ -641,11 +641,12 @@
     NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [cal components:unitFlags fromDate:inBegin];
     NSInteger bhour = comps.hour;
-    comps.hour = 8;
+    comps.hour = 0;
     NSDate *newBegin  = [cal dateFromComponents:comps];
     
     NSCalendar *cal2 = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps2 = [cal2 components:unitFlags fromDate:inEnd];
+    comps2.hour = 24;
     NSDate *newEnd  = [cal2 dateFromComponents:comps2];
     
     NSTimeInterval interval = [newEnd timeIntervalSinceDate:newBegin];
