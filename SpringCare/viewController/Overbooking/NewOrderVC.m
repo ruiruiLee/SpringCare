@@ -27,6 +27,7 @@
 @synthesize tableview = _tableview;
 @synthesize loverModel = _loverModel;
 @synthesize btnSubmit;
+@synthesize selectCoupons;
 
 - (id) initWIthFamilyProductModel:(FamilyProductModel *)model
 {
@@ -177,7 +178,7 @@
 - (void) NotifyCurrentSelectPriceModel:(PriceDataModel *)model
 {
     currentPriceModel = model;
-    [self NotifySelectCouponsWithModel:nil];
+//    [self NotifySelectCouponsWithModel:nil];
     [_tableview reloadData];
 }
 

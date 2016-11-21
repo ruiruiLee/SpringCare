@@ -45,6 +45,9 @@
     [nurseModel loadetailDataWithproductId:self.productId block:^(id content) {
         
         [UserModel sharedUserInfo].couponsCount = [[content objectForKey:@"couponsCount"] integerValue];
+        NSDictionary *firstCoupon = [content objectForKey:@"firstCoupon"];
+        CouponsDataModel *coupon = [CouponsDataModel modelFromDictionary:firstCoupon];
+        weakSelf.selectCoupons = coupon;
         
         NSDictionary *dic = [content objectForKey:@"care"];
         weaknurseModel.detailIntro =[dic objectForKey:@"detailIntro"];
@@ -70,6 +73,8 @@
         }
         [weakSelf modifyDetailView];
         [weakSelf NotifyAddressSelected:nil model:weakSelf.loverModel];
+        
+        [weakSelf NotifySelectCouponsWithModel:weakSelf.selectCoupons];
     }];
 
 }
@@ -395,14 +400,14 @@
 - (void) NotifyValueChanged:(NSInteger) value
 {
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
-    CGFloat totalvalue = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:_selectCoupons.amount];
+    CGFloat totalvalue = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:self.selectCoupons.amount];
 
     lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", (int)totalvalue] subString:[NSString stringWithFormat:@"¥%d", (int)totalvalue]];
 }
 
 - (void) NotifySelectCouponsWithModel:(CouponsDataModel *)model
 {
-    _selectCoupons = model;
+    self.selectCoupons = model;
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
     cell.couponsView.lbCouponsSelected.text = [NSString stringWithFormat:@"抵%ld元", (long)model.amount];
     [self NotifyValueChanged:0];
@@ -457,8 +462,8 @@
     [Params setObject:currentPriceModel.typeName forKey:@"priceName"];
     [Params setObject:currentPriceModel.name forKey:@"typeName"];
     
-    if(_selectCoupons != nil){
-        [Params setObject:_selectCoupons.couponsId forKey:@"couponId"];
+    if(self.selectCoupons != nil){
+        [Params setObject:self.selectCoupons.couponsId forKey:@"couponId"];
     }
     
     __weak NewOrderVC *weakSelf = self;
@@ -472,7 +477,7 @@
             {
                 // 付款
                 
-                CGFloat totalPrice = [weakSelf GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:_selectCoupons.amount];
+                CGFloat totalPrice = [weakSelf GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:self.selectCoupons.amount];
                 
                 NSDictionary* dict = @{
                                        @"channel" : self.payValue,
@@ -490,7 +495,7 @@
     CouponsVC *vc = [[CouponsVC alloc] initWithNibName:nil bundle:nil];
     vc.NavTitle = @"选择使用优惠券";
     vc.productId = self.productId;
-    vc.selectModel = _selectCoupons;
+    vc.selectModel = self.selectCoupons;
     vc.type = EnumCouponsVCTypeSelect;
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];

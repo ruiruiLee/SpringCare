@@ -51,6 +51,10 @@
     [self.familyModel loadetailDataWithproductId:familyModel.pId block:^(id content) {
         [UserModel sharedUserInfo].couponsCount = [[content objectForKey:@"couponsCount"] integerValue];
         
+        NSDictionary *firstCoupon = [content objectForKey:@"firstCoupon"];
+        CouponsDataModel *coupon = [CouponsDataModel modelFromDictionary:firstCoupon];
+        weakSelf.selectCoupons = coupon;
+        
         FamilyProductModel *model = [[FamilyProductModel alloc] init];
         model.pId = [[content objectForKey:@"product"] objectForKey:@"id"];
         model.image_url = [content objectForKey:@"imageUrl"];
@@ -90,6 +94,8 @@
         
         [weakSelf NotifyAddressSelected:nil model:weakSelf.loverModel];
         [weakSelf.tableview reloadData];
+        
+        [weakSelf NotifySelectCouponsWithModel:weakSelf.selectCoupons];
         
     }];
 }
@@ -140,7 +146,7 @@
     _lbExplain.text = [NSString stringWithFormat:@"%@", familyModel.productDesc];
     _lbExplain.preferredMaxLayoutWidth = ScreenWidth - 95* ScreenWidth / 320 - 10;
     _lbExplain.backgroundColor = [UIColor clearColor];
-    _lbExplain.numberOfLines = 0;
+    _lbExplain.numberOfLines = 2;
     
     CGFloat multiplier = 0.333333333;
     
@@ -163,6 +169,17 @@
     CGSize size = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     headerView.frame = CGRectMake(0, 0, ScreenWidth, size.height + 1);
     return headerView;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.tableview reloadData];
+    
+    [self initProductType];
+    [self NotifyAddressSelected:nil model:self.loverModel];
+    [self NotifySelectCouponsWithModel:self.selectCoupons];
 }
 
 #pragma delegate
@@ -277,14 +294,14 @@
 - (void) NotifyValueChanged:(NSInteger) value
 {
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    CGFloat totalvalue = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:_selectCoupons.amount];
+    CGFloat totalvalue = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:self.selectCoupons.amount];
     
     lbActualPay.attributedText = [self AttributedStringFromString:[NSString stringWithFormat:@"实付款：¥%d", (int)totalvalue] subString:[NSString stringWithFormat:@"¥%d", (int)totalvalue]];
 }
 
 - (void) NotifySelectCouponsWithModel:(CouponsDataModel *)model
 {
-    _selectCoupons = model;
+    self.selectCoupons = model;
     PlaceOrderEditCell *cell = (PlaceOrderEditCell*)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     cell.couponsView.lbCouponsSelected.text = [NSString stringWithFormat:@"抵%ld元", (long)model.amount];
     [self NotifyValueChanged:0];
@@ -332,8 +349,8 @@
     [Params setObject:[NSNumber numberWithInteger:unitPrice] forKey:@"unitPrice"];//
     CGFloat totalPrice = [self GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:0];
     [Params setObject:[NSNumber numberWithFloat:totalPrice] forKey:@"totalPrice"];//
-    if(_selectCoupons != nil){
-        [Params setObject:_selectCoupons.couponsId forKey:@"couponId"];
+    if(self.selectCoupons != nil){
+        [Params setObject:self.selectCoupons.couponsId forKey:@"couponId"];
     }
     
     if([cell.endDate.value isKindOfClass:[NSDate class]])
@@ -345,26 +362,28 @@
 
     __weak NewOrderVC *weakSelf = self;
     [LCNetWorkBase postWithMethod:@"api/order/submit" Params:Params Completion:^(int code, id content) {
-        NSString *orderID = [content objectForKey:@"message"];
-        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-        MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
-        [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
-        if(orderID != nil &&self.payValue!=nil)
-        {
-            // 付款
-
-            CGFloat totalPrice = [weakSelf GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:_selectCoupons.amount];
-
-            if(_selectCoupons != nil){
-                totalPrice -= _selectCoupons.amount;
+        if(code){
+            NSString *orderID = [content objectForKey:@"message"];
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+            MyOrderListVC *vc = [[MyOrderListVC alloc] initWithNibName:nil bundle:nil];
+            [[SliderViewController sharedSliderController] showContentControllerWithPush:vc];
+            if(orderID != nil &&self.payValue!=nil)
+            {
+                // 付款
+                
+                CGFloat totalPrice = [weakSelf GetOrderTotalValue:currentPriceModel.amount count:cell.totalDays couponvalue:self.selectCoupons.amount];
+                
+                if(self.selectCoupons != nil){
+                    totalPrice -= self.selectCoupons.amount;
+                }
+                
+                NSDictionary* dict = @{
+                                       @"channel" : self.payValue,
+                                       @"amount"  : [NSString stringWithFormat:@"%@00", [NSNumber numberWithInteger:totalPrice]],
+                                       @"orderId":orderID
+                                       };
+                [Util PayForOrders:dict Controller:weakSelf];
             }
-
-            NSDictionary* dict = @{
-                                   @"channel" : self.payValue,
-                                   @"amount"  : [NSString stringWithFormat:@"%@00", [NSNumber numberWithInteger:totalPrice]],
-                                   @"orderId":orderID
-                                   };
-            [Util PayForOrders:dict Controller:weakSelf];
         }
     }];
 }
@@ -374,7 +393,7 @@
     CouponsVC *vc = [[CouponsVC alloc] initWithNibName:nil bundle:nil];
     vc.NavTitle = @"选择使用优惠券";
     vc.productId = familyModel.pId;
-    vc.selectModel = _selectCoupons;
+    vc.selectModel = self.selectCoupons;
     vc.type = EnumCouponsVCTypeSelect;
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];

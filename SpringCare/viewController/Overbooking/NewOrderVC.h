@@ -29,10 +29,10 @@ typedef enum : NSUInteger {
     HBImageViewList *_imageList;
     
     UserAttentionModel *_loverModel;
-    CouponsDataModel *_selectCoupons;
     PriceDataModel *currentPriceModel;
 }
 
+@property (nonatomic, strong) CouponsDataModel *selectCoupons;
 @property (strong, nonatomic) UITableView *tableview;
 @property (strong, nonatomic) NSString *payValue;
 @property (strong, nonatomic) UserAttentionModel *loverModel;

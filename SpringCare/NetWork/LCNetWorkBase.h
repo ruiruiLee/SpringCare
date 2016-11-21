@@ -12,7 +12,7 @@
 /*
  正式
  */
-#define SERVER_ADDRESS @"http://spring.avosapps.com/"
+#define SERVER_ADDRESS @"http://spring.leanapp.cn/"
 
 /*
  测试
